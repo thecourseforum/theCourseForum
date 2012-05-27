@@ -37,7 +37,3 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
-
-# Javascript runtime
-gem 'execjs'
-gem 'therubyracer'
