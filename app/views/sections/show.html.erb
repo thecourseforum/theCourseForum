@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Course:</b>
+  <%= @section.course_id %>
+</p>
+
+<p>
+  <b>Professor:</b>
+  <%= @section.professor_id %>
+</p>
+
+<p>
+  <b>Rate overall:</b>
+  <%= @section.rate_overall %>
+</p>
+
+<p>
+  <b>Rate professor:</b>
+  <%= @section.rate_professor %>
+</p>
+
+<p>
+  <b>Rate fun:</b>
+  <%= @section.rate_fun %>
+</p>
+
+<p>
+  <b>Rate difficulty:</b>
+  <%= @section.rate_difficulty %>
+</p>
+
+<p>
+  <b>Rate recommend:</b>
+  <%= @section.rate_recommend %>
+</p>
+
+
+<%= link_to 'Edit', edit_section_path(@section) %> |
+<%= link_to 'Back', sections_path %>

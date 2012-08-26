@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Section:</b>
+  <%= @review.section_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @review.user_id %>
+</p>
+
+<p>
+  <b>Post date:</b>
+  <%= @review.post_date %>
+</p>
+
+<p>
+  <b>Rate overall:</b>
+  <%= @review.rate_overall %>
+</p>
+
+<p>
+  <b>Rate professor:</b>
+  <%= @review.rate_professor %>
+</p>
+
+<p>
+  <b>Rate fun:</b>
+  <%= @review.rate_fun %>
+</p>
+
+<p>
+  <b>Rate difficulty:</b>
+  <%= @review.rate_difficulty %>
+</p>
+
+<p>
+  <b>Rate recommend:</b>
+  <%= @review.rate_recommend %>
+</p>
+
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>
