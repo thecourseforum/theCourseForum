@@ -41,3 +41,9 @@ gem 'jquery-rails'
 # Javascript runtime
 gem 'execjs'
 gem 'therubyracer'
+
+# rspec
+group :development, :test do
+  gem 'rspec-rails'
+end
+
