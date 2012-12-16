@@ -40,7 +40,7 @@ gem 'jquery-rails'
 
 # Javascript runtime
 gem 'execjs'
-gem 'therubyracer'
+gem 'therubyracer', '0.10.2', :platforms => :ruby #gem 'therubyracer'
 
 # rspec
 group :development, :test do
