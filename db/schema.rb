@@ -10,7 +10,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826073007) do
+ActiveRecord::Schema.define(:version => 20121216220637) do
+
+  create_table "courses", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "professors", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.datetime "post_date"
+    t.float    "rate_overall"
+    t.float    "rate_professor"
+    t.float    "rate_fun"
+    t.float    "rate_difficulty"
+    t.float    "rate_recommend"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "sections", :force => true do |t|
     t.integer  "course_id"
@@ -31,8 +56,11 @@ ActiveRecord::Schema.define(:version => 20120826073007) do
     t.string   "major1"
     t.string   "major2"
     t.string   "major3"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "password_digest"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end
