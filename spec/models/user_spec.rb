@@ -61,7 +61,7 @@ describe User do
 
   describe "when email format is valid" do
     it "should be valid" do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses = %w[user@virginia.edu user@cms.virginia.edu user.name@virginia.edu user.name@VIRGINIA.EDU user.name@sdf.VIRGINIA.EDU]
       addresses.each do |valid_address|
         @user.email = valid_address
         @user.should be_valid
