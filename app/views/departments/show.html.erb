@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Section:</b>
+  <%= @department.name %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @department.prefix %>
+</p>
+<div class="span8">
+    <% if @department.courses.any? %>
+      <h3>Courses (<%= @department.courses.count %>)</h3>
+      <ol class="courses">
+        <%= render @courses %>
+      </ol>
+      <%= will_paginate @courses %>
+    <% end %>
+  </div>
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>

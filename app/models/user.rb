@@ -5,28 +5,30 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)
 #  email      :string(255)
-#  graduation :integer
-#  major1     :string(255)
-#  major2     :string(255)
-#  major3     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 class User < ActiveRecord::Base
-#  attr_accessor :password
-  attr_accessible :email, :graduation, :major1, :major2, :major3, :name, :password_confirmation, :password
+  attr_accessible :name, :email, :password, :password_confirmation, :major1, :major2, :major3, :graduation
   has_secure_password
+  has_many :reviews
 
-  before_save { |user| user.email = email.downcase }
 
-  validates :name, :presence => true, :length => { :maximum => 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\.\-]+@([\w+\.]+\w\.)?virginia.edu\z/i
-  validates :email, :presence => true, :format => { :with => VALID_EMAIL_REGEX },
-  :uniqueness => { :case_sensitive => false }
-  validates :password, :presence => true,
-  :length => { :minimum => 6 }
-  validates :password_confirmation, :presence => true
-  
-  
+  before_save { self.email.downcase! }
+  before_save :create_remember_token
+
+  validates :name, presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence:   true,
+                    format:     { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
+
+  private
+
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end
