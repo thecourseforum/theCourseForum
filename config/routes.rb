@@ -3,7 +3,11 @@ TheCourseForum::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :departments
-
+  resources :courses
+  resources :professors
+  resources :reviews
+  resources :sections
+  
   get "users/new"
 
   root to: 'static_pages#home'
