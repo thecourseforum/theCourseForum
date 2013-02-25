@@ -1,0 +1,57 @@
+<h1>Listing grades</h1>
+
+<table>
+  <tr>
+    <th>Courseprofessor</th>
+    <th>Semester</th>
+    <th>Gpa</th>
+    <th>Count a</th>
+    <th>Count aminus</th>
+    <th>Count bplus</th>
+    <th>Count b</th>
+    <th>Count bminus</th>
+    <th>Count cplus</th>
+    <th>Count c</th>
+    <th>Count cminus</th>
+    <th>Count dplus</th>
+    <th>Count d</th>
+    <th>Count dminus</th>
+    <th>Count f</th>
+    <th>Count drop</th>
+    <th>Count withdraw</th>
+    <th>Count other</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @grades.each do |grade| %>
+  <tr>
+    <td><%= grade.CourseProfessor %></td>
+    <td><%= grade.semester %></td>
+    <td><%= grade.gpa %></td>
+    <td><%= grade.count_a %></td>
+    <td><%= grade.count_aminus %></td>
+    <td><%= grade.count_bplus %></td>
+    <td><%= grade.count_b %></td>
+    <td><%= grade.count_bminus %></td>
+    <td><%= grade.count_cplus %></td>
+    <td><%= grade.count_c %></td>
+    <td><%= grade.count_cminus %></td>
+    <td><%= grade.count_dplus %></td>
+    <td><%= grade.count_d %></td>
+    <td><%= grade.count_dminus %></td>
+    <td><%= grade.count_f %></td>
+    <td><%= grade.count_drop %></td>
+    <td><%= grade.count_withdraw %></td>
+    <td><%= grade.count_other %></td>
+    <td><%= link_to 'Show', grade %></td>
+    <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
+    <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Grade', new_grade_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>First name:</b>
+  <%= @professor.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @professor.last_name %>
+</p>
+
+<p>
+  <b>Preferred name:</b>
+  <%= @professor.preferred_name %>
+</p>
+
+<p>
+  <b>Email alias:</b>
+  <%= @professor.email_alias %>
+</p>
+
+<p>
+  <b>Department:</b>
+  <%= @professor.department %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @professor.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_professor_path(@professor) %> |
+<%= link_to 'Back', professors_path %>

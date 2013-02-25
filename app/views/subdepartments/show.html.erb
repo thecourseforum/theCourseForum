@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @subdepartment.name %>
+</p>
+
+<p>
+  <b>Mnemonic:</b>
+  <%= @subdepartment.mnemonic %>
+</p>
+
+<p>
+  <b>Department:</b>
+  <%= @subdepartment.department %>
+</p>
+
+
+<%= link_to 'Edit', edit_subdepartment_path(@subdepartment) %> |
+<%= link_to 'Back', subdepartments_path %>

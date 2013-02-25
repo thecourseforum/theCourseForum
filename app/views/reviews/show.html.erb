@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Comment:</b>
+  <%= @review.comment %>
+</p>
+
+<p>
+  <b>Courseprofessor:</b>
+  <%= @review.CourseProfessor %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @review.student %>
+</p>
+
+<p>
+  <b>Semester:</b>
+  <%= @review.semester %>
+</p>
+
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>

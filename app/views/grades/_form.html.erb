@@ -1,0 +1,89 @@
+<%= form_for(@grade) do |f| %>
+  <% if @grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+
+      <ul>
+      <% @grade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :CourseProfessor %><br />
+    <%= f.text_field :CourseProfessor %>
+  </div>
+  <div class="field">
+    <%= f.label :semester %><br />
+    <%= f.text_field :semester %>
+  </div>
+  <div class="field">
+    <%= f.label :gpa %><br />
+    <%= f.text_field :gpa %>
+  </div>
+  <div class="field">
+    <%= f.label :count_a %><br />
+    <%= f.number_field :count_a %>
+  </div>
+  <div class="field">
+    <%= f.label :count_aminus %><br />
+    <%= f.number_field :count_aminus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_bplus %><br />
+    <%= f.number_field :count_bplus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_b %><br />
+    <%= f.number_field :count_b %>
+  </div>
+  <div class="field">
+    <%= f.label :count_bminus %><br />
+    <%= f.number_field :count_bminus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_cplus %><br />
+    <%= f.number_field :count_cplus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_c %><br />
+    <%= f.number_field :count_c %>
+  </div>
+  <div class="field">
+    <%= f.label :count_cminus %><br />
+    <%= f.number_field :count_cminus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_dplus %><br />
+    <%= f.number_field :count_dplus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_d %><br />
+    <%= f.number_field :count_d %>
+  </div>
+  <div class="field">
+    <%= f.label :count_dminus %><br />
+    <%= f.number_field :count_dminus %>
+  </div>
+  <div class="field">
+    <%= f.label :count_f %><br />
+    <%= f.number_field :count_f %>
+  </div>
+  <div class="field">
+    <%= f.label :count_drop %><br />
+    <%= f.number_field :count_drop %>
+  </div>
+  <div class="field">
+    <%= f.label :count_withdraw %><br />
+    <%= f.number_field :count_withdraw %>
+  </div>
+  <div class="field">
+    <%= f.label :count_other %><br />
+    <%= f.number_field :count_other %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

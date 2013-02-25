@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Password crypt:</b>
+  <%= @user.password_crypt %>
+</p>
+
+<p>
+  <b>Old password:</b>
+  <%= @user.old_password %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @user.student %>
+</p>
+
+<p>
+  <b>Professor:</b>
+  <%= @user.professor %>
+</p>
+
+<p>
+  <b>Last login:</b>
+  <%= @user.last_login %>
+</p>
+
+<p>
+  <b>Subscribed to email:</b>
+  <%= @user.subscribed_to_email %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
