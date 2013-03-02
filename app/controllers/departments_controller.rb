@@ -14,6 +14,9 @@ class DepartmentsController < ApplicationController
   # GET /departments/1.json
   def show
     @department = Department.find(params[:id])
+    @subdepartments = Subdepartment.where(:department_id => @department.id)
+    @courses = Course.all
+    @count = @subdepartments.size
 
     respond_to do |format|
       format.html # show.html.erb

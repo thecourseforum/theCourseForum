@@ -1,19 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Title:</b>
-  <%= @course.title %>
+  <h1><%= @subdepartment.mnemonic %> <%= @course.course_number %> - <%= @course.title %> </h1>
 </p>
 
-<p>
-  <b>Course number:</b>
-  <%= @course.course_number %>
-</p>
+<ul>
+  <li><% @course.professors.each do |professor| %>
+  	<% @class = CourseProfessor.where({:professor_id => professor.id, :course_id => @course.id}) %>
+  	<%= link_to professor.first_name + " " + professor.last_name, @class.find(1) %>
+  <% end %>
+  </li>
+</ul>
 
-<p>
-  <b>Subdepartment:</b>
-  <%= @course.subdepartment %>
-</p>
 
 
 <%= link_to 'Edit', edit_course_path(@course) %> |

@@ -1,0 +1,8 @@
+<% @schools.each do |school| %>
+	<h1> <%= school.name %> </h1>
+	<% @departments.each do |department| %>
+		<% if(department.school_id == school.id) %>
+			<h2><%= link_to department.name, department %></h2>
+		<% end %>
+	<% end %>
+<% end %>

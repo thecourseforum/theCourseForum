@@ -14,6 +14,8 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
+    @subdepartment = Subdepartment.find_by_id(@course.subdepartment_id)
+    @courseprofessors = CourseProfessor.all
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,23 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>First name:</b>
-  <%= @professor.first_name %>
+   <h1>
+    <%= @professor.first_name %>
+    <% if(@professor.preferred_name != @professor.first_name) %>
+      <%= "\"" + @professor.preferred_name + "\"" %>
+    <% end %>
+    <%= @professor.last_name %>
+  </h1>
 </p>
 
 <p>
-  <b>Last name:</b>
-  <%= @professor.last_name %>
-</p>
-
-<p>
-  <b>Preferred name:</b>
-  <%= @professor.preferred_name %>
-</p>
-
-<p>
-  <b>Email alias:</b>
-  <%= @professor.email_alias %>
+  <%= @professor.email_alias %>@virgina.edu
 </p>
 
 <p>

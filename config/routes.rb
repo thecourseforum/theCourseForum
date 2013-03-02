@@ -1,44 +1,39 @@
 TheCourseForum::Application.routes.draw do
   resources :grades
 
-
   resources :semesters
-
 
   resources :reviews
 
-
   resources :student_majors
-
 
   resources :majors
 
-
   resources :students
-
 
   resources :users
 
-
   resources :course_professors
-
 
   resources :professors
 
-
   resources :courses
-
 
   resources :schools
 
-
   resources :subdepartments
 
+  match '/departments', to: 'home#browse'
 
   resources :departments
 
+  resources :home
 
   get "home/index"
+
+  match '/browse', to: 'home#browse'
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
