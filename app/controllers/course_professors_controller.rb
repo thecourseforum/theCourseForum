@@ -14,9 +14,9 @@ class CourseProfessorsController < ApplicationController
   # GET /course_professors/1.json
   def show
     @course_professor = CourseProfessor.find(params[:id])
-    @course = Course.where(:id => @course_professor.course_id).find(1)
-    @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).find(1)
-    @professor = Professor.where(:id => @course_professor.professor_id).find(1)
+    @course = Course.where(:id => @course_professor.course_id).first()
+    @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
+    @professor = Professor.where(:id => @course_professor.professor_id).first()
 
       respond_to do |format|
       format.html # show.html.erb
