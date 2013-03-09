@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225064423) do
+ActiveRecord::Schema.define(:version => 20130301004449) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20130225064423) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "website"
   end
 
   create_table "semesters", :force => true do |t|
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20130225064423) do
     t.decimal  "grad_year",  :precision => 10, :scale => 0
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.integer  "user_id"
   end
 
   create_table "subdepartments", :force => true do |t|
