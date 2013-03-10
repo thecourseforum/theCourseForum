@@ -1,0 +1,27 @@
+%h2 Arts &amp; Sciences Departments
+
+.container
+  %ul.left
+    - @artDeps[0].each do |d|
+      %li= link_to d.name, d
+  %ul.right
+    - @artDeps[1].each do |d|
+      %li= link_to d.name, d
+
+%h2 Engineering &amp; Applied Sciences
+.container
+  %ul.left
+    - @engrDeps[0].each do |d|
+      %li= link_to d.name, d
+  %ul.right
+    - @engrDeps[1].each do |d|
+      %li= link_to d.name, d
+
+%h2 Others Schools at the University of Virginia
+.container
+  %ul.left
+    - @otherSchools[0].each do |s|
+      %li= link_to s.name, s
+  %ul.right
+    - @otherSchools[1].each do |s|
+      %li= link_to s.name, s

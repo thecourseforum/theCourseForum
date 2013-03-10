@@ -1,0 +1,9 @@
+%header
+  %nav
+    .container
+      %a.brand{:href => "/"}
+        %img{:src => "/images/logo.png"}
+      = simple_form_for :user, :html => { :class => 'login' } do |f|
+        = f.input :email, :label => false, :placeholder => "Email"
+        = f.input :password, :label => false, :placeholder => "Password"
+        = f.button :submit, :value => "Login"
