@@ -11,19 +11,5 @@
 </p>
 
 <p>
-  <%= @professor.email_alias %>@virgina.edu
+  <a href=mailto:<%= @professor.email_alias %>@virgina.edu><%= @professor.email_alias %>@virgina.edu</a>
 </p>
-
-<p>
-  <b>Department:</b>
-  <%= @professor.department %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @professor.user %>
-</p>
-
-
-<%= link_to 'Edit', edit_professor_path(@professor) %> |
-<%= link_to 'Back', professors_path %>

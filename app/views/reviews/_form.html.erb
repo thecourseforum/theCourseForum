@@ -12,20 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </div>
-  <div class="field">
     <%= f.label :CourseProfessor %><br />
     <%= f.text_field :CourseProfessor %>
   </div>
   <div class="field">
-    <%= f.label :student %><br />
-    <%= f.text_field :student %>
-  </div>
-  <div class="field">
-    <%= f.label :semester %><br />
-    <%= f.text_field :semester %>
+    <%= f.label "Tell us about this class:" %><br />
+    <%= f.text_area :comment %>
   </div>
   <div class="actions">
     <%= f.submit %>

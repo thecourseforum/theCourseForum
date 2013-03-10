@@ -7,12 +7,9 @@
 <ul>
   <li><% @course.professors.each do |professor| %>
   	<% @class = CourseProfessor.where({:professor_id => professor.id, :course_id => @course.id}) %>
-  	<%= link_to professor.first_name + " " + professor.last_name, @class.find(1) %>
+  	<%= link_to professor.preferred_name + " " + professor.last_name, @class.find(1) %>
   <% end %>
   </li>
 </ul>
 
 
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>

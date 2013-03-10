@@ -8,7 +8,6 @@
 	<h2><%= link_to @professor.preferred_name + " " + @professor.last_name, @professor %> </h2>
 </p>
 
-
-
-<%= link_to 'Edit', edit_course_professor_path(@course_professor) %> |
-<%= link_to 'Back', course_professors_path %>
+<p>
+	<h3><%= link_to "Write a review for this class!", new_review_path %>
+<p>
