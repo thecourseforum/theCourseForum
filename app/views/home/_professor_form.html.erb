@@ -1,0 +1,24 @@
+<%= form_for @professor do |f| %>
+  <p>
+  Professor: 
+	<%= select "field", :professor_id, Professor.pluck(:first_name).zip(Array.new(Professor.count, " ")).map{|a| a.first + a.last}.zip(Professor.pluck(:last_name)).map { |e| e.first+e.last }.map{|v| [v,v]}  %>
+  </p>
+  <hr />
+  <%= fields_for @user do |u| %>
+	<p>
+      UVa Email Address:
+	  <%= u.text_field :email %>
+	</p>
+	<p>
+	  <%= u.label :password %>
+	  <%= u.password_field :old_password %>
+	</p>
+	<p>
+	  Password Confirm:
+	  <%= u.password_field :old_password_confirmation %>
+	</p>	
+  <% end %>
+  <p>
+    <%= f.submit 'Sign Up!' %>
+  </p>
+<% end %>

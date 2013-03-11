@@ -40,15 +40,27 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
+    @professor = Professor.new(params[:professor])
     @student = Student.new(params[:student])
+    @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
+    @user.old_password_confirmation = params[:user][:old_password_confirmation]
 
     respond_to do |format|
-      if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+      if (@student.save && @user.save)
+        @user.student_id = @student.id
+        @user.save
+        format.html { redirect_to '/browse', notice: 'Welcome to theCourseForum!' }
         format.json { render json: @student, status: :created, location: @student }
       else
-        format.html { render action: "new" }
+        if @student.save
+          @student.destroy
+        end
+        if @user.save
+          @user.destroy
+        end
+        format.html { redirect_to :root }
         format.json { render json: @student.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -7,7 +7,7 @@
 <ul>
   <li><% @course.professors.each do |professor| %>
   	<% @class = CourseProfessor.where({:professor_id => professor.id, :course_id => @course.id}) %>
-  	<%= link_to professor.preferred_name + " " + professor.last_name, @class.find(1) %>
+  	<%= link_to professor.preferred_name + " " + professor.last_name, @class.first() %>
   <% end %>
   </li>
 </ul>

@@ -1,35 +1,23 @@
 <div id="container">
-<img src="http://www.thecourseforum.com/images/logo.png" alt="theCourseForum" /><span class="tagline">Connecting you to the courses you love</span>
-<br /><br />
-<div id="login-form">
-	<form name="login">
-		<label for="email">email:</label><br />
-		<input type="text" id="email" /><br />
-		<label for="pass">password:</label><br />
-		<input class="inputtext" type="password" id="pass" /><br />
-		<input class="inputtext" type="submit" value="Login" />
-	</form>
-</div> <!--login-form-->
-<span>Write reviews for classes you've taken, compare classes you need to take, learn what other students think about professors and classes, and view grade books.</span>
-<div id = "Sign Up">
-	<h1> Sign Up </h1>
-	<h2> It's free and easy. </h2>
-	<%= form_for @student do |f| %>
-	<div class="field">
-		<%= f.label :first_name %>
-		<%= f.text_field :first_name %>
+	<img src="http://www.thecourseforum.com/images/logo.png" alt="theCourseForum" /><span class="tagline">Connecting you to the courses you love</span>
+	<br /><br />
+	<div id="login-form">
+		<form name="login">
+			<label for="email">email:</label><br />
+			<input type="text" id="email" /><br />
+			<label for="pass">password:</label><br />
+			<input class="inputtext" type="password" id="pass" /><br />
+			<input class="inputtext" type="submit" value="Login" />
+		</form>
+	</div> <!--login-form-->
+	<span>Write reviews for classes you've taken, compare classes you need to take, learn what other students think about professors and classes, and view grade books.</span>
+	<div id = "Sign Up">
+		<h1> Sign Up </h1>
+		<h2> It's free and easy. </h2>
+		I am a UVa Professor: 
+		<%= check_box_tag :prof_check, :true %>
+		
+		<%= render 'student_form' %>
+	
 	</div>
-	<div class="field">
-		<%= f.label :last_name %>
-		<%= f.text_field :last_name %>
-	</div>
-	<div class="field">
-		<%= f.label :grad_year %>
-		<%= f.select :grad_year, [[Time.now.year-4],[Time.now.year-3],[Time.now.year-1],[Time.now.year],[Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4]], :include_blank => true  %>
-	</div>
-	<div class="actions">
-		<%=f.submit "Sign Up!" %>
-	</div>
-	<% end %>
-</div>
 </div> <!--content-->
