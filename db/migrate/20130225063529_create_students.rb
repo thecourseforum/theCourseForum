@@ -4,6 +4,7 @@ class CreateStudents < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.decimal :grad_year
+      t.references :user
 
       t.timestamps
     end
