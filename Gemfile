@@ -14,7 +14,7 @@ group :assets do
   gem 'sass-rails'
   gem "compass-rails"
   gem 'bootstrap-sass'
-  #gem 'coffee-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
