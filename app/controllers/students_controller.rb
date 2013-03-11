@@ -47,7 +47,9 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if (@student.save && @user.save)
+        @student.user_id = @user.id
         @user.student_id = @student.id
+        @student.save
         @user.save
         format.html { redirect_to '/browse', notice: 'Welcome to theCourseForum!' }
         format.json { render json: @student, status: :created, location: @student }

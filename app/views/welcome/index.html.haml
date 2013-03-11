@@ -1,0 +1,15 @@
+%h1 So glad you could make it!
+
+.container
+  .marketing
+    You'll love this site
+  .sign-up
+    = simple_form_for :user, :html => { :class => 'register' } do |f|
+      = f.input :firstName
+      = f.input :lastName
+      = f.input :email, :label => "UVA Email"
+      = f.input :password
+      = f.input :password_confirmation
+      = f.label :gradYear
+      = f.select :gradYear, [[Time.now.year-4],[Time.now.year-3],[Time.now.year-2],[Time.now.year-1],[Time.now.year],[  Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4]], :include_blank => true
+      = f.button :submit, :value => "Sign up"
