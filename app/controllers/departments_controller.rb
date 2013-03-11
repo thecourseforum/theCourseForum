@@ -2,7 +2,14 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    departments = Department.find(:all, :order => "name")
+    schools = School.find(:all, :order => "name")
+    artSchoolId = 1
+    engrSchoolId = 2
+
+    @artDeps = columnize(departments.select{|d| d.school_id == artSchoolId })
+    @engrDeps = columnize(departments.select{|d| d.school_id == engrSchoolId })
+    @otherSchools = columnize(schools.select{|s| s.id != artSchoolId && s.id != engrSchoolId })
 
     respond_to do |format|
       format.html # index.html.erb

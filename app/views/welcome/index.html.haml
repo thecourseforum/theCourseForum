@@ -1,0 +1,14 @@
+%h1 So glad you could make it!
+
+.container
+  .marketing
+    You'll love this site
+  .sign-up
+    = simple_form_for :user, :html => { :class => 'register' } do |f|
+      = f.input :firstName
+      = f.input :lastName
+      = f.input :email, :label => "UVA Email"
+      = f.input :password
+      = f.input :password_confirmation
+      = f.input :gradYear
+      = f.button :submit, :value => "Sign up"

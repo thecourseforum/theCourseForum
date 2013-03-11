@@ -23,17 +23,11 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments
 
-  match '/departments', to: 'home#browse'
-
   resources :departments
 
   resources :home
 
-  get "home/index"
-
-  match '/browse', to: 'home#browse'
-
-
+  match '/browse', to: 'departments#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -85,6 +79,10 @@ TheCourseForum::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
+
+  #when using warden/devise
+  #root to: "home#index", constraints: lambda { |r| r.env["warden"].authenticate? }
+  #root to: "welcome#index"
 
   # See how all your routes lay out with "rake routes"
 
