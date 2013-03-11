@@ -1,0 +1,174 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+//variables to override bootstrap
+$orange: #f26522;
+$navbarHeight: 40px;
+$navbarBackground: #222;
+$navbarBackgroundHighlight: #111;
+$linkColor: #000;
+$linkColorHover: $orange;
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+//rest of variables
+$orange: #f26522;
+
+//base styles
+body {
+  @extend .container;
+  padding-top: 100px;
+}
+
+header {
+  @extend .navbar;
+  @extend .navbar-fixed-top;
+}
+
+nav {
+  @extend .navbar-inner;
+}
+
+section {
+  @include makeColumn(9);
+}
+
+section.wide {
+  @include makeColumn(12);
+}
+
+aside {
+  @include makeColumn(3);
+}
+
+h1 {
+  font-size: 24px;
+  color: $orange;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+}
+
+h2 {
+  font-size: 14px;
+  color: $orange;
+  margin:0px;
+}
+
+ul.left {
+  @include makeColumn(4);
+}
+
+ul.right {
+  @include makeColumn(4);
+  margin-left: 80px;
+}
+
+.content {
+  @include makeRow();
+}
+
+.content .main {
+  @include makeColumn(8);
+}
+
+.content .sidebar {
+  @include makeColumn(4, 2);
+}
+
+li {
+  list-style: none;
+}
+
+li.indented {
+  padding-left: 20px;
+}
+
+//header related
+form.login {
+  @extend .form-inline;
+  @extend .pull-right;
+  margin-top: 22px;
+
+  input {
+    @extend .input-small;
+  }
+
+  div.input, input.button {
+    @extend .pull-left;
+  }
+
+  div.input.password {
+    margin-left: 10px;
+  }
+
+  input.button {
+    @extend .btn;
+    margin-top: 0px !important;
+    margin-left: 10px;
+  }
+}
+
+form.site-search {
+  @extend .navbar-search;
+  @extend .pull-right;
+  margin-top: 22px;
+
+  input {
+    border-left: none;
+  }
+
+  span.add-on {
+    background-color: #FFF;
+  }
+
+  span.add-on.orange {
+    background-color: $orange;
+    color: #FFF;
+  }
+}
+
+//aside/nav related
+ul.site-nav-links {
+  @extend .nav;
+  @extend .nav-list;
+
+  li.active a, li.active a:hover {
+    color: $orange;
+    background-color: #FFF;
+
+    i {
+      background-image: url("/assets/glyphicons-halflings.png") !important;
+    }
+  }
+}
+
+//home page
+.marketing {
+  @include makeColumn(6);
+}
+
+.sign-up {
+  @include makeColumn(5);
+}
+
+form.register {
+  input {
+    @extend .input-large;
+  }
+
+  input.button {
+    @extend .btn;
+  }
+}
