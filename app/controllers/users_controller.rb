@@ -35,6 +35,12 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    if @user.student_id != nil
+      @student = Student.find(@user.student_id)
+    end
+    if @user.professor_id != nil
+      @professor = Professor.find(@user.professor_id)
+    end
   end
 
   # POST /users

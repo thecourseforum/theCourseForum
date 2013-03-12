@@ -1,15 +1,17 @@
-%h1 So glad you could make it!
+%h1 connecting you the the courses you love
 
 .container
   .marketing
-    You'll love this site
+    %p
+      <b>Write reviews</b> for classes you've taken, <b>compare classes</b> you need to take, <b>learn</b> what other students think of classes and professors, and <b>view<b> gradebooks.
   .sign-up
-    = simple_form_for :user, :html => { :class => 'register' } do |f|
-      = f.input :firstName
-      = f.input :lastName
-      = f.input :email, :label => "UVA Email"
-      = f.input :password
-      = f.input :password_confirmation
-      = f.label :gradYear
-      = f.select :gradYear, [[Time.now.year-4],[Time.now.year-3],[Time.now.year-2],[Time.now.year-1],[Time.now.year],[  Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4]], :include_blank => true
+    %h1 Sign up!
+    = simple_form_for @student do |f|
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :grad_year, :label => 'Graduation Year', :collection => [[Time.now.year-4],[Time.now.year-3],[Time.now.year-2],[Time.now.year-1],[Time.now.year],[Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4],["Other", nil]]
+      = simple_fields_for @user do |u|
+        = u.input :email, :label => "UVA Email"
+        = u.input :old_password, :label => 'Password'
+        = u.input :old_password_confirmation, :label => 'Confirm Password'
       = f.button :submit, :value => "Sign up"

@@ -20,10 +20,24 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :grad_year %><br />
-    <%= f.text_field :grad_year %>
+    <%= f.label "Graduation Year" %><br />
+    <%= f.select :grad_year, [[@student.grad_year-4],[@student.grad_year-3],[@student.grad_year-2],[@student.grad_year-1],[@student.grad_year],[@student.grad_year+1],[@student.grad_year+2],[@student.grad_year+3],[@student.grad_year+4]] %>
   </div>
+  <%= fields_for(@user) do |u| %>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label "Password" %>
+      <%= f.text_field :old_password %>
+    </div>
+    <div class="field">
+      <%= f.label "Confirm Password" %>
+      <%= f.text_field :old_password_confirm %>
+    </div>
+  <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save Changes" %>
   </div>
 <% end %>

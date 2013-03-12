@@ -35,6 +35,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @student = Student.find(params[:id])
+    @user = User.find_by_student_id(@student.id)
   end
 
   # POST /students
@@ -47,9 +48,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if (@student.save && @user.save)
-        @student.user_id = @user.id
         @user.student_id = @student.id
-        @student.save
         @user.save
         format.html { redirect_to '/browse', notice: 'Welcome to theCourseForum!' }
         format.json { render json: @student, status: :created, location: @student }

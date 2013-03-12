@@ -130,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
     t.string   "first_name"
     t.string   "last_name"
     t.decimal  "grad_year",  :precision => 10, :scale => 0
-    t.integer  "user_id"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

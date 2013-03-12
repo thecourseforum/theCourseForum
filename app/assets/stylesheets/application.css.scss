@@ -14,8 +14,8 @@
 //variables to override bootstrap
 $orange: #f26522;
 $navbarHeight: 40px;
-$navbarBackground: #222;
-$navbarBackgroundHighlight: #111;
+$navbarBackground: #0B3282;
+$navbarBackgroundHighlight: #020B25;
 $linkColor: #000;
 $linkColorHover: $orange;
 
@@ -102,7 +102,7 @@ form.login {
   margin-top: 22px;
 
   input {
-    @extend .input-small;
+    @extend .input-medium;
   }
 
   div.input, input.button {
@@ -114,6 +114,7 @@ form.login {
   }
 
   input.button {
+    @extend .input-small;
     @extend .btn;
     margin-top: 0px !important;
     margin-left: 10px;
