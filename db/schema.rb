@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301004449) do
+ActiveRecord::Schema.define(:version => 20130311052038) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
 
   create_table "courses", :force => true do |t|
     t.string   "title"
-    t.decimal  "course_number",    :precision => 10, :scale => 0
+    t.decimal  "course_number",    :precision => 4, :scale => 0, :default => 0
     t.integer  "subdepartment_id"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
   end
 
   add_index "courses", ["subdepartment_id"], :name => "index_courses_on_subdepartment_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
   create_table "grades", :force => true do |t|
     t.integer  "CourseProfessor_id"
     t.integer  "semester_id"
-    t.decimal  "gpa",                :precision => 10, :scale => 0
+    t.decimal  "gpa",                :precision => 4, :scale => 3, :default => 0.0
     t.integer  "count_a"
     t.integer  "count_aminus"
     t.integer  "count_bplus"
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
     t.integer  "count_drop"
     t.integer  "count_withdraw"
     t.integer  "count_other"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
   end
 
   add_index "grades", ["CourseProfessor_id"], :name => "index_grades_on_CourseProfessor_id"
@@ -93,8 +93,18 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
     t.integer  "CourseProfessor_id"
     t.integer  "student_id"
     t.integer  "semester_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                                                           :null => false
+    t.datetime "updated_at",                                                           :null => false
+    t.decimal  "professor_rating",   :precision => 11, :scale => 2, :default => 0.0
+    t.integer  "enjoyability",                                      :default => 0
+    t.integer  "difficulty",                                        :default => 0
+    t.decimal  "amount_reading",     :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_writing",     :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_group",       :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_homework",    :precision => 11, :scale => 2, :default => 0.0
+    t.boolean  "only_tests",                                        :default => false
+    t.integer  "recommend",                                         :default => 0
+    t.string   "ta_name"
   end
 
   add_index "reviews", ["CourseProfessor_id"], :name => "index_reviews_on_CourseProfessor_id"
@@ -111,9 +121,9 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
   create_table "semesters", :force => true do |t|
     t.integer  "number"
     t.string   "season"
-    t.decimal  "year",       :precision => 10, :scale => 0
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.decimal  "year",       :precision => 4, :scale => 0, :default => 0
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
   end
 
   create_table "student_majors", :force => true do |t|
@@ -129,9 +139,10 @@ ActiveRecord::Schema.define(:version => 20130301004449) do
   create_table "students", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.decimal  "grad_year",  :precision => 10, :scale => 0
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.decimal  "grad_year",  :precision => 4, :scale => 0, :default => 0
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.integer  "user_id"
   end
 
   create_table "subdepartments", :force => true do |t|
