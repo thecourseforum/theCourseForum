@@ -41,7 +41,6 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @professor = Professor.new(params[:professor])
     @student = Student.new(params[:student])
     @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
     @user.old_password_confirmation = params[:user][:old_password_confirmation]

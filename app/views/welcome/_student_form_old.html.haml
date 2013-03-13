@@ -1,0 +1,9 @@
+= simple_form_for @student do |f|
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :grad_year, :label => 'Graduation Year', :collection => [[Time.now.year-4],[Time.now.year-3],[Time.now.year-2],[Time.now.year-1],[Time.now.year],[Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4],["Other", nil]]
+  = simple_fields_for @user do |u|
+    = u.input :email, :label => "UVA Email"
+    = u.input :old_password, :label => 'Password'
+    = u.input :old_password_confirmation, :label => 'Confirm Password'
+  = f.button :submit, :value => "Sign up"

@@ -17,12 +17,18 @@
 
 <p>
   <b>Student:</b>
-  <%= @user.student %>
+  <% if (@user.student != nil) %>
+    <%= Student.find(@user.student_id).first_name %>
+    <%= Student.find(@user.student_id).last_name %>
+  <%end%>
 </p>
 
 <p>
   <b>Professor:</b>
-  <%= @user.professor %>
+  <% if (@user.professor_id != nil) %>
+    <%= Professor.find(@user.professor_id).first_name %>
+    <%= Professor.find(@user.professor_id).last_name %>
+  <%end%>
 </p>
 
 <p>

@@ -1,0 +1,45 @@
+<%= simple_form_for @student do |f| %>
+  <table>
+    <tr>
+      <td>
+        <p>
+          <%= f.input :first_name %>
+        </p>
+      </td>
+      <td>
+        <p>
+  	      <%= f.input :last_name %>
+        </p>
+      </td>
+    </tr>
+  <%= simple_fields_for @user do |u| %>
+    <tr>
+      <td>
+        <p>
+          <%= u.input :email, :label => 'UVa Email Address:' %>
+        </p>
+      </td>
+      <td>  
+        <p>
+	       <%= f.input :grad_year, :label => 'Graduation Year:', :collection => [[Time.now.year-4],[Time.now.year-3],[Time.now.year-2],[Time.now.year-1],[Time.now.year],[Time.now.year+1],[Time.now.year+2],[Time.now.year+3],[Time.now.year+4],["Other", nil]] %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	      <p>
+	        <%= u.input :old_password, :label => "Password:" %>
+	      </p>
+      </td>
+      <td>
+	      <p>
+	        <%= u.input :old_password_confirmation, :label => "Confirm Password:" %>
+	      </p>	
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <p>
+    <%= f.submit 'Sign Up!' %>
+  </p>
+<% end %>

@@ -1,0 +1,28 @@
+<%= simple_form_for @user do |u| %>
+  
+  <p>
+  	Professor: 
+	<select name="professor_id">
+      <%= Professor.all.sort_by{|e| e[:last_name]}.each do |professor| %>
+        <option value=<%=professor.id%>><%=professor.last_name + ", " + professor.first_name%></option>
+      <% end %>
+     </select>
+  </p>
+  
+  <hr />
+
+  <p>
+    <%= u.input :email, :label => "UVa Email Address:" %>
+  </p>
+  <p>
+    <%= u.input :old_password, :label => "Password:" %>
+  </p>
+  <p>
+    <%= u.input :old_password_confirmation, :label => "Confirm Password:" %>
+  </p>	
+  
+  <p>
+    <%= u.submit 'Sign Up!' %>
+  </p>
+
+<% end %>

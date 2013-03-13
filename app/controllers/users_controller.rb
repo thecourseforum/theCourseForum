@@ -46,7 +46,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
+    @user.old_password_confirmation = params[:user][:old_password_confirmation]
+    if(params[:professor_id] != nil)
+      @user.professor_id = params[:professor_id]
+    end
 
     respond_to do |format|
       if @user.save

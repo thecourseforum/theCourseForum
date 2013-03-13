@@ -1,0 +1,36 @@
+<h1> connecting you the the courses you love </h1>
+
+<div class="container">
+  <div class="marketing">
+    <p>
+      <b>Write reviews</b> for classes you've taken, <b>compare classes</b> you need to take, <b>learn</b> what other students think of classes and professors, and <b>view gradebooks</b>.
+    </p>
+  </div>
+  <div class=marketing>
+    <div class=sign-up>
+      <h1>Sign up!</h1>
+      <input type="checkbox" id="professor?" onchange=formChange() /> I am a UVa Professor
+      <hr />
+      <div id="student_form">
+        <%=render 'student_form'%>
+      </div>
+      <div id="professor_form" style="display: none">
+        <%=render 'professor_form'%>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  function formChange(){
+    var box = document.getElementById("professor?");
+    if(box.checked){
+      $('#professor_form').show();
+      $('#student_form').hide();
+    }
+    else{
+      $('#professor_form').hide();
+      $('#student_form').show();
+    }
+  }
+</script>
