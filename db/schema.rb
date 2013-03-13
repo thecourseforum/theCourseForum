@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311052038) do
+ActiveRecord::Schema.define(:version => 20130313074913) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -90,24 +90,24 @@ ActiveRecord::Schema.define(:version => 20130311052038) do
 
   create_table "reviews", :force => true do |t|
     t.text     "comment"
-    t.integer  "CourseProfessor_id"
+    t.integer  "course_professor_id"
     t.integer  "student_id"
     t.integer  "semester_id"
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
-    t.decimal  "professor_rating",   :precision => 11, :scale => 2, :default => 0.0
-    t.integer  "enjoyability",                                      :default => 0
-    t.integer  "difficulty",                                        :default => 0
-    t.decimal  "amount_reading",     :precision => 11, :scale => 2, :default => 0.0
-    t.decimal  "amount_writing",     :precision => 11, :scale => 2, :default => 0.0
-    t.decimal  "amount_group",       :precision => 11, :scale => 2, :default => 0.0
-    t.decimal  "amount_homework",    :precision => 11, :scale => 2, :default => 0.0
-    t.boolean  "only_tests",                                        :default => false
-    t.integer  "recommend",                                         :default => 0
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
+    t.decimal  "professor_rating",    :precision => 11, :scale => 2, :default => 0.0
+    t.integer  "enjoyability",                                       :default => 0
+    t.integer  "difficulty",                                         :default => 0
+    t.decimal  "amount_reading",      :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_writing",      :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_group",        :precision => 11, :scale => 2, :default => 0.0
+    t.decimal  "amount_homework",     :precision => 11, :scale => 2, :default => 0.0
+    t.boolean  "only_tests",                                         :default => false
+    t.integer  "recommend",                                          :default => 0
     t.string   "ta_name"
   end
 
-  add_index "reviews", ["CourseProfessor_id"], :name => "index_reviews_on_CourseProfessor_id"
+  add_index "reviews", ["course_professor_id"], :name => "index_reviews_on_CourseProfessor_id"
   add_index "reviews", ["semester_id"], :name => "index_reviews_on_semester_id"
   add_index "reviews", ["student_id"], :name => "index_reviews_on_student_id"
 

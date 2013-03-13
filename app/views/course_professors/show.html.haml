@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
+  %h2= @professor.last_name
+  %p #{@course_professor.reviews.count} reviews
+
+
+- @reviews.each do |r|
+  - if r.comment.length > 0
+    .review-container
+      .row-fluid
+        .span2
+          %ul
+            %li= r.created_at.strftime("%Y-%m-%d")
+        .span9= r.comment
+        .span1
+          %ul
+            %li= r.professor_rating
+            %li= r.enjoyability
+            %li= r.difficulty
+            %li= r.recommend
+
