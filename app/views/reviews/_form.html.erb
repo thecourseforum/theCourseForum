@@ -11,15 +11,238 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :CourseProfessor %><br />
-    <%= f.text_field :CourseProfessor %>
-  </div>
-  <div class="field">
-    <%= f.label "Tell us about this class:" %><br />
-    <%= f.text_area :comment %>
-  </div>
+  <p>
+    <b>What class are you reviewing?</b>
+  </p>
+
+  <table>
+    <tr>
+      <td align="center">
+
+        <%= f.label 'Department:' %>
+        <select id="Department_Select"> 
+          <%= Department.all.sort_by{|e| e[:name]}.each do |department| %>
+            <option value=<%=department.id%>><%=department.name%></option>
+          <% end %>
+        </select>
+
+      </td>
+      <td align="center">
+
+        <%= f.label 'Course:' %>
+        <select id="Course_Select"> 
+          <%= Course.all.sort_by{|e| e[:course_number]}.each do |course| %>
+            <option value=<%=course.id%>><%= Subdepartment.find(course.subdepartment_id).mnemonic + " "%><%=course.course_number %></option>
+          <% end %>
+        </select>
+
+      </td>
+      <td align="center">
+
+        <%= f.label 'Professor:' %>
+        <select id="Professor_Select"> 
+          <%= Professor.all.sort_by{|e| e[:last_name]}.each do |professor| %>
+            <option value=<%=professor.id%>><%=professor.last_name + ", " + professor.first_name%></option>
+          <% end %>
+        </select>
+
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <p>
+    <b>Grade the course:</b>
+  </p>
+
+  <table>
+    <tr>
+      <td class="section">
+        <p class="title">
+          Professor Rating:
+        </p>
+        <table>
+          <tr>
+            <td align="center">Lowest/Worst</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">3</td>
+            <td align="center">4</td>
+            <td align="center">5</td>
+            <td align="center">Highest/Best</td>
+          </tr>
+          <tr>
+            <td class="review"/>
+            <td class="review"><%= f.radio_button :professor_rating, 1 %></th>
+            <td class="review"><%= f.radio_button :professor_rating, 2 %></th>
+            <td class="review"><%= f.radio_button :professor_rating, 3 %></th>
+            <td class="review"><%= f.radio_button :professor_rating, 4 %></th>
+            <td class="review"><%= f.radio_button :professor_rating, 5 %></th>
+            <td class="review"/>
+          </tr>
+        </table>
+      </td>
+      <td class="section">
+        <p class="title">
+          Overall Enjoyability:
+        </p>
+        <table>
+          <tr>
+            <td align="center">Lowest/Worst</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">3</td>
+            <td align="center">4</td>
+            <td align="center">5</td>
+            <td align="center">Highest/Best</td>
+          </tr>
+          <tr>
+            <td class="review"/>
+            <td class="review"><%= f.radio_button :enjoyability, 1 %></th>
+            <td class="review"><%= f.radio_button :enjoyability, 2 %></th>
+            <td class="review"><%= f.radio_button :enjoyability, 3 %></th>
+            <td class="review"><%= f.radio_button :enjoyability, 4 %></th>
+            <td class="review"><%= f.radio_button :enjoyability, 5 %></th>
+            <td class="review"/>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td class="section">
+        <p class="title">
+           Difficulty:
+        </p>
+        <table>
+          <tr>
+            <td align="center">Lowest/Worst</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">3</td>
+            <td align="center">4</td>
+            <td align="center">5</td>
+            <td align="center">Highest/Best</td>
+          </tr>
+          <tr>
+            <td class="review"/>
+            <td class="review"><%= f.radio_button :difficulty, 1 %></th>
+            <td class="review"><%= f.radio_button :difficulty, 2 %></th>
+            <td class="review"><%= f.radio_button :difficulty, 3 %></th>
+            <td class="review"><%= f.radio_button :difficulty, 4 %></th>
+            <td class="review"><%= f.radio_button :difficulty, 5 %></th>
+            <td class="review"/>
+          </tr>
+        </table>
+      </td> 
+      <td class="section">
+        <p class="title">
+          Recommendability:
+        </p>
+        <table>
+          <tr>
+            <td align="center">Lowest/Worst</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">3</td>
+            <td align="center">4</td>
+            <td align="center">5</td>
+            <td align="center">Highest/Best</td>
+          </tr>
+          <tr>
+            <td class="review"/>
+            <td class="review"><%= f.radio_button :recommend, 1 %></th>
+            <td class="review"><%= f.radio_button :recommend, 2 %></th>
+            <td class="review"><%= f.radio_button :recommend, 3 %></th>
+            <td class="review"><%= f.radio_button :recommend, 4 %></th>
+            <td class="review"><%= f.radio_button :recommend, 5 %></th>
+            <td class="review"/>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <p>
+    <b>This course emphasizes:</b>
+  </p>
+
+  <table class="ratings">
+    <tr>
+      <td />
+      <td />
+      <td>
+        <p align="center">
+          Avg. # Hours/Week
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+        <input type="checkbox" id="readingbox" onchange=setBox("readingbox","readingtext") />
+      </td>
+      <td>
+        <p>Reading:</p>
+      </td>
+      <td>
+        <%= f.text_field :amount_reading, :id => "readingtext", :disabled => true, :value => "" %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+        <input type="checkbox" id="writingbox" onchange=setBox("writingbox","writingtext") />
+      </td>
+      <td>
+        <p>Writing:</p>
+      </td>
+      <td>
+        <%= f.text_field :amount_writing, :id => "writingtext", :disabled => true, :value => "" %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+        <input type="checkbox" id="groupbox" onchange=setBox("groupbox","grouptext") />
+      </td>
+      <td>
+        <p>Groupwork:</p>
+      </td>
+      <td>
+        <%= f.text_field :amount_group, :id => "grouptext", :disabled => true, :value => "" %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">
+        <input type="checkbox" id="homeworkbox" onchange=setBox("homeworkbox","homeworktext") />
+      </td>
+      <td>
+        <p>Homework:</p>
+      </td>
+      <td>
+        <%= f.text_field :amount_homework, :id => "homeworktext", :disabled => true, :value => "" %>
+      </td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <%= f.label "Tell us about this class:" %>
+  <%= f.text_area :comment, :size => "500x10" %>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit Review!'%>
   </div>
 <% end %>
+
+<script>
+document.getElementById("Department_Select").selectedIndex = -1
+document.getElementById("Course_Select").selectedIndex = -1
+document.getElementById("Professor_Select").selectedIndex = -1
+
+function setBox(check, text){
+    var box = document.getElementById(check);
+    if(box.checked)
+      document.getElementById(text).disabled = false;
+    else
+     document.getElementById(text).disabled = true;    
+  }  
+</script>

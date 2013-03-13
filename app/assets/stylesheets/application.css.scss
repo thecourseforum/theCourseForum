@@ -13,7 +13,7 @@
 
 //variables to override bootstrap
 $orange: #f26522;
-$navbarHeight: 40px;
+$navbarHeight: 35px;
 $navbarBackground: #0B3282;
 $navbarBackgroundHighlight: #020B25;
 $linkColor: #000;
@@ -93,6 +93,24 @@ li {
 
 li.indented {
   padding-left: 20px;
+}
+
+td.review{
+  padding:10px;
+}
+
+td.section{
+  padding:20px;
+}
+
+table.ratings td{
+  border-left:solid 15px transparent;
+  border-right:solid 15px transparent
+}
+
+p.title{
+  text-align:center;
+  font-weight:bold;
 }
 
 //header related

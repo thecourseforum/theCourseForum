@@ -3,9 +3,11 @@
 <p>
    <h1>
     <%= @professor.first_name %>
-    <% if(@professor.preferred_name != @professor.first_name) %>
-      <%= "\"" + @professor.preferred_name + "\"" %>
-    <% end %>
+    <% if (@professor.preferred_name != nil) %>
+        <% if(@professor.preferred_name != @professor.first_name) %>
+      	<%= "\"" + @professor.preferred_name + "\"" %>
+   		 <% end %>
+   	<% end %>
     <%= @professor.last_name %>
   </h1>
 </p>
