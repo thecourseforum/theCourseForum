@@ -1,3 +1,998 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+f.about #content h2 {
+	border-bottom: 1px solid #D8DFEA;
+	color: #333333;
+	font-size: 14px;
+	padding: 0px 0px 2px 0px;
+	margin: 0px 0px 5px;
+}
+
+
+#browse_lists {
+	      text-align: center;
+	      float: left;
+	      width: 100%;
+}
+
+#browse_lists ul {
+	      list-style-image: none;
+	      list-style-position: outside;
+	      list-style-type: none;
+	      margin: 0 auto;
+	      padding: 0px;
+	      display: inline;
+	      text-align: center;
+	      list-style: none;
+	      font-size: 13px;
+}
+
+#browse_lists li {
+	      /* display: table-cell; */
+	      display: inline;
+	      list-style: block;
+}
+
+* html #browse_lists {
+  float: left;
+}
+
+#browse_lists a {
+	      width: auto;
+	      text-align: center;
+	      padding: 0px 5px;
+}
+
+* html #browse_lists a {
+  float: left;
+}
+
+#browse_lists td {
+	      text-align: center;
+	      padding: 0px 5px;	
+}
+
+#global-message {
+  width: 100%;
+  height: 36px;
+  background-color: #D9EDF7;
+  border: 1px solid #BCE8F1;
+  margin-bottom: 20px;
+}
+
+#global-message p {
+  text-align: center;
+  color: #3A87AD;
+  font-size: 12px;
+}
+
+#global-message a {
+  color: #3A87AD;
+  text-decoration: underline;
+}
+
+#global-message span {
+  font-weight: bold;
+}
+
+#container {
+margin:0px auto;
+padding:0px;
+text-align:left;
+width:781px;
+}
+
+
+#contact {
+padding: 10px 10px 10px 10px;
+}
+
+#contact .form {
+	 padding: 15px 0px 0px 0px;
+	 float: left;
+	 width: 350px;	
+}
+
+#contact .text {
+	 padding: 30px 0px 0px 0px;
+	 float: left;
+	 width: 150px;	
+}
+
+#contact fieldset {
+width: 290px;
+border: 0px solid #777777;
+}
+
+#contact label {
+display: block;
+float: left;
+text-align: right;
+margin-right: 0.25em; 
+width: 75px;
+}
+
+#content {
+	 width: 781px;
+	 font-size:11px;
+	 margin: 10px 1px 10px 1px;
+}
+
+.expandlist {
+	    text-align: left;
+	    font-weight: bold;	
+	    padding: 0px 0px 0px 16px;
+}
+
+#fullbar {
+	 width: 781px;
+}
+
+.icon {
+      padding: 4px 5px 5px 22px;
+}
+
+.icon_link {
+	   font-weight:bold;
+	   line-height:18pt;
+	   padding:4px 5px 5px 22px;	
+}
+
+.icon_link_inline {
+		  font-weight:bold;
+		  line-height:18pt;
+		  padding: 4px 0px 5px 22px;	
+}
+
+#intro .history {
+       border-top: 1px solid #CCCCCC;
+}
+
+
+#homebar {
+	 float: left;
+	 width: 550px;
+	 padding: 0px 10px;	
+	 text-align: center;	
+}
+
+#homebar .greeting {
+	 background:#EFF1F0 none repeat scroll 0%;
+	 border: #1D3D6D 1px solid;
+	 padding: 5px;
+	 margin: 10px 0px 0px 0px;
+	 text-align: left;
+}
+
+#homebar .major_hotlists {
+	 padding: 10px 0px;	
+}
+
+#hotbar {
+	float: left;
+	width: 221px;
+	margin: 5px;	
+}
+
+.hotlistmajor {
+	      font-size: 11px;	
+}
+
+.hotlistmajortitle {
+		   font-size: 11px;
+		   font-weight: bold;	
+		   text-align: left;
+		   color: #333333;
+}
+
+.legal {
+       color:#808080;
+       font-family:serif;
+}
+
+#login_form {
+     padding: 8px 10px 10px 9px;
+}
+    
+    #login_form label {
+      color: #333;
+      }
+    
+    #login_form .inputtext {
+      width: 105px;
+      }
+
+    #login_form .inputsubmit {
+      width: 60px;
+      }
+
+    #login_form p {
+      padding: 0px;
+      line-height: 18px;
+      }
+
+    #login_form #loginbutton{
+    margin: 5px 0 8px 0;
+    }
+
+
+.main_content {
+	      width: 649px;
+	      float: left;
+}
+
+#mainbar {
+float:left;
+width:781px;
+}
+
+#navigator {
+  line-height: 3em;   
+  height: 36px;
+  background-image: url("images/navbar.png");
+}  
+ 
+  #navigator a {
+    text-decoration: none; 
+    color: white; }
+  
+  #navigator a.logo {
+  	     background-image: url("images/logo.png");
+  	     float: left;
+  	     height: 30px;
+  	     width: 253px;
+  }
+  
+  #navigator .bg_left {
+  	     background-image: url("images/bg-left.png");
+  	     height: 30px;
+  	     width: 11px;
+  	     float: left;
+  }
+  
+  #navigator .bg_right {
+  	     background-image: url("images/bg-right.png");
+  	     height: 30px;
+  	     width: 11px;
+  	     float: left;
+  }
+  
+  #navigator .bg_right_bottom {
+  	     background-image: url("images/bg-right-bottom.png");
+  	     height: 3px;
+  	     width: 11px;
+  	     float: left;
+  }
+  
+  #navigator .intro_links {
+  	     
+  }
+  
+  #navigator .orange_stripe {
+  	     background: #FF6600;
+  	     height: 3px;
+  	     width: 781px;
+  	     float: right;
+  }
+  
+  #navigator .top_links {
+  	     float: left;
+  	     width: 516px;
+  	     height: 30px;
+  	     color: #ffffff;
+  }
+  
+  #navigator .top_links form {
+  float: left;
+  margin: 6px 0px 0px 10px;
+  padding: 0px;
+  line-height: 0px;
+  }
+  
+  #navigator .search_text {
+  background-image: url('images/icons/magnifier.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  margin: 0px;
+  padding: 0px 20px 0px 0px;
+  font-size: 13px;
+  }
+  
+  
+  #navigator .tagline {
+  	     float: left;
+  	     color: #ffffff;
+  	     width: 385px;
+  	     font-size: 17px;
+  	     font-family: verdana;
+  	     font-weight: bold;
+  	     text-align: center;
+  }
+  
+  #navigator ul.main_set {
+    font-size: 11px;
+    float: left;
+    display: block;
+    list-style: none;
+    margin: 0px;
+    padding: 0px; }
+     
+    #navigator .main_set li {
+      float: left;
+      display: block;
+      padding: 0px 0px 0px 10px;
+      font-weight: bold; }
+      
+      #navigator .main_set li a {
+        padding: 3px; }
+      #navigator .main_set li a.active,
+      #navigator .main_set li a:hover { 
+        background: #ff6600; }
+      
+      #navigator .main_set li a.edit_link {
+        color: #d8dfea;
+        font-weight: normal; }
+      #navigator .main_set li a.edit_link:hover {
+        text-decoration: underline; 
+        background: transparent; }
+  
+	  #navigator .header_line {
+  	    background-image: url("images/orange-line.png");
+  	      background-repeat: repeat-y;
+  	        height: 3px; }
+  		  
+  		   
+  
+  #navigator ul.secondary_set {
+    float: right;
+    display: block;
+    line-height: 3em;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+ 
+    font-size: 11px; }
+
+    #navigator .secondary_set li {
+      float: left;
+      display: block;
+      padding: 0px 0px 0px 6px; }
+    #navigator .secondary_set li a {
+      text-transform: lowercase;  
+      color: #c3cddf; }
+    #navigator .secondary_set li a:hover {
+      color: white;
+      text-decoration: underline; }
+
+.newsflash {
+background:#FFF9D7 none repeat scroll 0%;
+border: solid 1px #E2C822;
+margin: 10px;
+padding:10px;
+}
+
+.left {
+      float: left;
+}
+
+.num_reviews {
+	     font-size: 9px;
+	     padding: 0px 0px 0px 5px;
+}
+
+#pagefooter {
+clear:both;
+height:50px;
+line-height:16px;
+margin:0px;
+padding:0px;
+}
+
+#pagefooter ul {
+display:block;
+float:right;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0px;
+padding:8px 2px 4px;
+text-transform:lowercase;
+}
+
+#pagefooter li {
+float:left;
+padding:0px;
+}
+
+#pagefooter .copyright {
+color:#777777;
+float:left;
+margin:0px;
+padding:8px 0px 0px;
+}
+
+#pagefooter .team {
+color:#777777;
+float:left;
+margin:0px;
+padding:8px 10px 0px;
+}
+
+#pagefooter .footer_links a {
+padding:2px 6px;
+}
+
+
+#register {
+padding: 10px 10px 10px 10px;
+}
+
+#register .form {
+	  float: left;
+	  width: 400px;	
+}
+
+.register_personal {
+		   width: 18em;
+		   border: 0px solid #cccccc;
+}
+
+.register_personal select {
+		   width: 117px;
+		   padding: 2px;
+}
+
+.register_majors {
+		 width: 38em;
+		 border: 0px solid #cccccc;
+}
+
+.register_submit {
+		 margin: 5px 150px;	
+}
+
+#register label {
+	  display: block;
+	  float: left;
+	  text-align: right;
+	  margin-right: 0.25em; 
+	  width: 6em;
+	  line-height: 1.5em;
+}
+
+#reset_password {
+		width: 130px;	
+}
+
+.review_summary {
+		background: #EFF1F0 none repeat scroll 0%;
+		border: #1D3D6D 1px solid;
+		padding: 5px;	
+		font-size: 13px;
+}
+
+#rightbar {
+	  width: 210px;
+	  float: right;
+	  padding: 10px 0px;
+	  text-align: center;
+}
+
+#rightbar .list {
+	  text-align:	left;
+	  width: 180px;
+	  padding: 0px 0px 20px 30px;
+}
+
+#schools_list {
+	      text-align: center;
+	      padding: 0px 115px;
+}
+
+#schools_list .schools_column {
+	      float: left;
+	      display: block;
+	      width: 90px;
+	      padding: 0px 5px 5px 5px;
+	      text-align: left;
+}
+
+#search_page {
+	     margin: 0px 120px
+}
+
+#search_box {	
+	    float: left;
+	    width: 100%;
+}
+
+#search_box .examples {
+	    font-size: 11px;
+}
+
+#search_box form {
+	    margin: 0px;	
+}
+
+#search_box .reqs {
+	    float: left;
+	    width: 100%;
+	    text-align: center;
+}
+
+#search_box .search_form {
+	    padding: 5px;
+	    text-align: center;	
+	    float: left;
+	    width: 520px;
+	    font-size: 18px;
+}
+
+#search_box .search_text {
+	    background-image: url('images/icons/magnifier.png');
+	    background-repeat: no-repeat;
+	    background-position: right center;
+	    margin: 0px;
+	    padding: 0px 20px 0px 0px;
+	    font-size: 18px;
+}
+
+#sidebar {
+float:left;
+font-size:13px;
+padding:0px;
+width:132px;
+}
+
+#sidebar_content {
+border-bottom: 1px solid #DDDDDD;
+border-right: 1px solid #DDDDDD;
+color: #000000;
+font-size: 11px;
+}
+
+
+#splash {
+	float: left;
+	padding: 20px;
+	width: 589px;
+}
+
+#splash .definition {
+	float: left;
+	font-size: 16px;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 0px 0px 9px 0px;
+}
+
+#splash .features {
+	padding: 10px 0px 30px;
+	float: left;
+	width: 600px;
+	text-align: normal;
+}
+
+#splash .features a {
+	font-weight: bold;
+	padding: 4px 5px 5px 22px;
+	line-height: 18pt;
+}
+
+#splash .features p {
+	float: left;
+	font-size: 13px;	
+	text-align: center;
+}
+
+#splash .top_content {
+	display: block;
+	float: left;
+	padding: 0px 0px 0px 50px;
+}
+
+#splash #splash_logo {
+	background:#FFFFFF none repeat scroll 0%;
+	border:1px solid #CCCCCC;
+	float:left;
+	line-height:0px;
+	padding:3px;
+}
+
+#splash .register {
+	float: left;
+	font-size: 13px;
+	padding: 2px 0px 0px 50px;
+}
+
+#splash .register a  {
+	font-weight: bold;
+}
+
+#splash .splash_text {
+	float: left;
+	width: 238px;
+}
+
+.table_header {
+	      text-align: center;	
+}
+
+.title_header {
+	      padding: 10px;	
+}
+
+.tour {
+      padding: 20px 10px;	
+}
+
+#widebar {
+	 float: left;
+	 width: 629px;
+	 margin: 0px 10px;	
+}
+
+#widebar .top_content {
+	 display: block;
+	 padding: 30px 0px 20px 50px;
+}
+
+
+a {
+color:#1D3D6D;
+text-decoration:none;
+}
+
+a:hover {
+text-decoration:underline; }
+
+.hiddenlink {
+    color: #000000;
+}
+
+body {
+background:#FFFFFF none repeat scroll 0%;
+font-family:"verdana",tahoma,verdana,arial,sans-serif;
+font-size:11px;
+margin:0px;
+padding:0px;
+text-align:center;
+}
+
+h1, h2, h3, h4, h5 {
+color:#333333;
+font-size:13px;
+margin:0px;
+padding:0px; }
+
+h1 {
+font-size:14px; }
+
+h2 {
+font-size:14px; }
+
+h3 {
+font-size: 14px;
+color: #1D3D6D; }
+
+h4, h5 {
+font-size:11px; }
+
+h4 {
+color: #1D3D6D;
+}
+
+.accent {
+color: #FF6600;
+}
+
+.center {
+text-align: center;
+}
+
+img {
+border:0px none;
+}
+
+p {
+font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+font-size:11px;
+text-align:left;
+}
+
+td.rating {
+	  width:50px; height:10px;
+	  background-color:#CCCCCC;
+	  border-top: #666666 1px solid;
+	  border-right: #999999 1px solid;
+	  border-left: #666666 1px solid;
+	  border-bottom: #999999 1px solid;
+}
+
+
+
+/* =AZ Index */
+#azindex {
+	 background: #1D3D6D;
+	 float: left;
+	 margin: 5px 0 20px 10px;
+	 padding: 0px 5px 15px 5px;
+}
+
+ * html #azindex {
+ padding: 5px 5px 10px 5px;
+ width: 490px;
+}
+	
+#index {
+       font: bold 16px Verdana, Helvetica, sans-serif;
+       margin: 0;
+       padding: 0;
+}      
+       
+#index li {
+       float: left;
+       height: 2em;
+       list-style-type: none;
+       margin: 0.65em 0.3em;
+       padding: 0;
+       width: 3em;
+}
+
+ * html #index li {
+ margin: 0.2em 0.2em;
+}
+
+#index a:link, #index a:visited {
+       background: #fff;
+       display: block;
+       height: 2em;
+       padding: 0.75em 0 0 0;
+       text-align: center;
+       width: 3em;
+}
+
+#index a:hover {
+       background: #FF6600;
+       color: #fff;
+       text-decoration: underline;
+}
+
+#list {
+      float: left;
+}
+
+.index_letter {
+	      font-size: 16px;
+}
+
+#gradebook {
+	   float: left;
+	   width: 300px;
+	   font-size: 13px;
+
+}
+
+#gradebook .avg {
+	   float: right;
+	   width: 50%;
+}
+
+#gradebook h2 {
+	   text-align: center;
+}
+
+#gradebook .more {
+	   float: left;
+	   width: 100%;
+	   text-align: center;
+}
+
+#gradebook .size {
+	   float: left;
+	   width: 50%;
+}
+
+
+/* =Reviews */
+
+
+
+.review ul {
+    list-style: none;
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+}
+
+.review li {
+    display: list-item;
+    padding: 8px 0 10px 0px;
+    border-top: 1px solid #e0e0e0;
+    /* position: relative; */
+    min-height: 100px;
+    clear: both;
+    text-overflow: ellipsis;
+}
+
+.r-main {
+    padding: 0px;
+}
+
+.r-legend {
+    padding: 0px;
+    text-align: center;
+}
+
+.r-legend li {
+    display: inline;
+    border: none;
+    min-height: 0px;
+    padding: 4px 5px 5px 22px;
+}
+
+.r-head {
+    float: left;
+    font-size: 85%;
+    width: 120px;
+    overflow: hidden;
+    padding: 0px 0px 5px 15px;
+    min-height: 30px;
+    text-overflow: ellipsis;
+} * html .r-head { overflow: visible; }
+
+.r-ratings {
+    float: right;
+    width: 40px;
+    font-size: 85%;
+    padding: 0 10px 4px 15px;
+  /*  min-width: 90px; */
+    text-align: right;
+}
+
+.r-ratings a em, .r-ratings em {
+    color: #333;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.r-ratings a {
+    color: #333;
+}
+
+.r-ratings div {
+    position: absolute;
+    right: -70px;
+    top: -3px;
+}
+
+.r-ratings li {
+    /* display: inline; */
+    border: none;
+    padding: 6px 10px 2px 20px;
+    min-height: 0px;
+}
+
+.r-ratings-list ul {
+    min-height: 0px;
+}
+
+.r-body {
+    float: left;
+    min-height: 95px;
+    width: 500px
+}
+
+
+
+div.r-box {
+    text-align: left;
+    font-size: 85%;
+    padding: 0 10px;
+    margin-bottom: -12px;
+    position: relative;
+    bottom: 2px;
+}
+
+.alignmid {
+vertical-align:middle;
+}
+
+.major_hotlists {
+    float: left;
+    text-align: left;
+}
+
+.major_hotlists ol {
+    margin-top: 0px;
+}
+
+.major_hotlists h2 {
+    min-height: 26px;
+}
+
+
+.majorlist1 {
+    float: left;
+    width: 183px;
+    padding: 0px 170px;
+}
+
+.majorlist2 {
+    float: left;
+    width: 200px;
+    padding: 0px 37px;
+}
+
+.majorlist3 {
+    float: left;
+    width: 183px;
+}
+
+.majorlistside {
+    float: left;
+    width: 210px;
+}
+
+/* =Review list on home page */
+
+.newreview {
+    text-align: left;
+}
+
+.newreview ul {
+    list-style: none;
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+}
+
+
+.newreview li {
+    float: left;
+    display: list-item;
+    padding: 3px 0px;
+    border-top: 1px solid #e0e0e0;
+    position: relative;
+    min-height: 50px;
+    text-overflow: ellipsis;
+}
+
+.newr-body {
+    width: 420px;
+    float: left;
+}
+
+.newr-comments {
+    padding: 15px 0px 5px 0px;
+    width: 300px;
+}
+
+.newr-head {
+    float: left;
+    font-size: 85%;
+    width: 100px;
+    overflow: hidden;
+    padding: 0px 0px 5px 15px;
+    min-height: 30px;
+    text-overflow: ellipsis;
+} * html .newr-head { overflow: visible; }
+
+  
+.newr-tright {
+    width: 120px;
+    float: right;
+    text-align: right;
+}
+
+.newr-tleft {
+    float: left;
+    width: 290px;
+}
+
+#major_reviews {
+    float: left;
+    width: 100%;
+}
+
+#major_reviews .title_header {
+    margin-top: 15px;
+}
