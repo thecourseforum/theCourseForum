@@ -20,7 +20,7 @@
       <td align="center">
 
         <%= f.label 'Department:' %>
-        <select id="Department_Select"> 
+        <select name="Department_Select"> 
           <%= Department.all.sort_by{|e| e[:name]}.each do |department| %>
             <option value=<%=department.id%>><%=department.name%></option>
           <% end %>
@@ -30,7 +30,7 @@
       <td align="center">
 
         <%= f.label 'Course:' %>
-        <select id="Course_Select"> 
+        <select name="Course_Select"> 
           <%= Course.all.sort_by{|e| e[:course_number]}.each do |course| %>
             <option value=<%=course.id%>><%= Subdepartment.find(course.subdepartment_id).mnemonic + " "%><%=course.course_number %></option>
           <% end %>
@@ -40,7 +40,7 @@
       <td align="center">
 
         <%= f.label 'Professor:' %>
-        <select id="Professor_Select"> 
+        <select name="Professor_Select"> 
           <%= Professor.all.sort_by{|e| e[:last_name]}.each do |professor| %>
             <option value=<%=professor.id%>><%=professor.last_name + ", " + professor.first_name%></option>
           <% end %>

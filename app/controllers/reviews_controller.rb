@@ -41,6 +41,8 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(params[:review])
+    @course_professor = CourseProfessor.where({:professor_id => params[:Professor_Select], 
+                                                  :course_id => params[:Course_Select]}).first()
 
     respond_to do |format|
       if @review.save
