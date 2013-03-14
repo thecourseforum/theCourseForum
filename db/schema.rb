@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313074913) do
+ActiveRecord::Schema.define(:version => 20130314064957) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(:version => 20130313074913) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "password_crypt"
+    t.string   "password_digest"
     t.string   "old_password"
     t.integer  "student_id"
     t.integer  "professor_id"
