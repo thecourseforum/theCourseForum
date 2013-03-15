@@ -28,7 +28,6 @@ TheCourseForum::Application.routes.draw do
   resources :home
 
   match '/browse', to: 'departments#index'
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
