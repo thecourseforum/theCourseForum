@@ -259,7 +259,14 @@
           $('#course_select').append($("<option></option>").attr("value",<%= course.id %>).text('<%=Subdepartment.find(course.subdepartment_id).mnemonic%> <%= course.course_number %>'));
         }
     <% end %>
-    document.getElementById("course_select").selectedIndex = -1;
+
+    var course_select = document.getElementById("course_select");
+    if(course_select.length > 1){
+      course_select.selectedIndex = -1;
+    }
+    else{
+      profSelect(document.getElementById("prof_select"));
+    }
   }
 
   function profSelect(s){
@@ -277,6 +284,11 @@
         }
       <%end%>
     <%end%>
+
+    var prof_select = document.getElementById("prof_select");
+    if(prof_select.length > 1){
+      prof_select.selectedIndex = -1;
+    }
   }
 
 </script>
