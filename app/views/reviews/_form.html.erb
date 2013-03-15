@@ -17,31 +17,31 @@
 
   <table>
     <tr>
-      <td align="center">
+      <td align="center" id="deptarments">
 
         <%= f.label 'Department:' %>
-        <select name="Department_Select"> 
-          <%= Department.all.sort_by{|e| e[:name]}.each do |department| %>
+        <select name="Department_Select" id = "dept_select" onchange=courseSelect(this)> 
+          <%= @departments.each do |department| %>
             <option value=<%=department.id%>><%=department.name%></option>
           <% end %>
         </select>
 
       </td>
-      <td align="center">
+      <td align="center" style="display: none" id="courses">
 
         <%= f.label 'Course:' %>
-        <select name="Course_Select"> 
-          <%= Course.all.sort_by{|e| e[:course_number]}.each do |course| %>
+        <select name="Course_Select" id = "course_select" onchange=profSelect(this)> 
+          <%= @courses.each do |course| %>
             <option value=<%=course.id%>><%= Subdepartment.find(course.subdepartment_id).mnemonic + " "%><%=course.course_number %></option>
           <% end %>
         </select>
 
       </td>
-      <td align="center">
+      <td align="center" style="display: none" id="professors">
 
         <%= f.label 'Professor:' %>
-        <select name="Professor_Select"> 
-          <%= Professor.all.sort_by{|e| e[:last_name]}.each do |professor| %>
+        <select name="Professor_Select" id = "prof_select"> 
+          <%= @professors.each do |professor| %>
             <option value=<%=professor.id%>><%=professor.last_name + ", " + professor.first_name%></option>
           <% end %>
         </select>
@@ -234,15 +234,49 @@
 <% end %>
 
 <script>
-document.getElementById("Department_Select").selectedIndex = -1;
-document.getElementById("Course_Select").selectedIndex = -1;
-document.getElementById("Professor_Select").selectedIndex = -1;
 
-function setBox(check, text){
+  function setBox(check, text){
     var box = document.getElementById(check);
     if(box.checked)
       document.getElementById(text).disabled = false;
     else
      document.getElementById(text).disabled = true;    
   }  
+
+  document.getElementById("dept_select").selectedIndex = -1;
+  
+  document.getElementById("prof_select").selectedIndex = -1;
+
+  function courseSelect(s){
+    $('#professors').hide();
+    $('#courses').show();
+    $('#course_select').empty();
+
+    var dept_id = s.options[s.selectedIndex].value;
+    
+    <% for course in @courses %>
+        if ('<%=course.subdepartment.department_id%>' == dept_id){
+          $('#course_select').append($("<option></option>").attr("value",<%= course.id %>).text('<%=Subdepartment.find(course.subdepartment_id).mnemonic%> <%= course.course_number %>'));
+        }
+    <% end %>
+    document.getElementById("course_select").selectedIndex = -1;
+  }
+
+  function profSelect(s){
+    $('#professors').show();
+
+    $('#prof_select').empty();
+
+    var course_id = s.options[s.selectedIndex].value;
+    
+    <% for professor in @professors %>
+      <% for course in professor.courses %>
+        if('<%=course.id%>' == course_id)
+        {
+          $('#prof_select').append($("<option></option>").attr("value",<%= professor.id %>).text('<%=professor.last_name%>, <%= professor.first_name %>'));
+        }
+      <%end%>
+    <%end%>
+  }
+
 </script>
