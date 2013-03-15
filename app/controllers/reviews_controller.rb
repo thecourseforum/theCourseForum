@@ -25,6 +25,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/new.json
   def new
     @review = Review.new
+    @departments = Department.all.sort_by{|e| e[:name]}
+    @courses = Course.all.sort_by{|e| e[:course_number]}
+    @professors = Professor.all.sort_by{|e| e[:last_name]}
 
     respond_to do |format|
       format.html # new.html.erb
