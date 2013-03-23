@@ -16,20 +16,20 @@
 				= f.label 'Department:'
 				%select{:name => "Department_Select", :id => "dept_select", :onchange=> 'courseSelect(this)'}
 					= @departments.each do |department|
-						%option{:value=>'{department.id}'}
+						%option{:value=>department.id}
 							= department.name
 			%td{:align=>"center", :style=>"display: none", :id=>"courses"}
 				= f.label 'Course:'
 				%select{:name=>"Course_Select", :id => "course_select", :onchange=>'profSelect(this)'} 
 					= @courses.each do |course|
-						%option{:value=>'{course.id}'}
+						%option{:value=>course.id}
 							= Subdepartment.find(course.subdepartment_id).mnemonic
 							= course.course_number
 			%td{:align=>"center", :style=>"display: none", :id=>"professors"}
 				= f.label 'Professor:'
 				%select{:name=>"Professor_Select", :id => "prof_select"} 
 					= @professors.each do |professor|
-						%option{:value=>'{professor.id}'}
+						%option{:value=>professor.id}
 							= professor.last_name
 							= professor.first_name
 	%hr
@@ -160,7 +160,9 @@
 	.actions
 		= f.submit 'Submit Review!'
 
-:javascript
+:erb
+	<script>
+
 	function setBox(check, text){
 		var box = document.getElementById(check);
 		if(box.checked)
@@ -208,11 +210,13 @@
 				{
 					$('#prof_select').append($("<option></option>").attr("value",<%= professor.id %>).text('<%=professor.last_name%>, <%= professor.first_name %>'));
 				}
-			<%end%>s
+			<%end%>
 		<%end%>
 
-		var prof_elect = document.getElementById("prof_select");
+		var prof_select = document.getElementById("prof_select");
 		if(prof_select.length > 1){
 			prof_select.selectedIndex = -1;
 		}
 	}
+
+	</script>
