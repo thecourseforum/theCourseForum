@@ -191,3 +191,10 @@ form.register {
     @extend .btn;
   }
 }
+
+.review-container {
+  @extend .container-fluid;
+  font-size: 85%;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000;
+}

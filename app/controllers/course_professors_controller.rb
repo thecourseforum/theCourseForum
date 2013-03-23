@@ -14,12 +14,14 @@ class CourseProfessorsController < ApplicationController
   # GET /course_professors/1.json
   def show
     @course_professor = CourseProfessor.find(params[:id])
+    @reviews = @course_professor.reviews.sort_by{|r| - r.created_at.to_i}
     @course = Course.where(:id => @course_professor.course_id).first()
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
     @professor = Professor.where(:id => @course_professor.professor_id).first()
+    
 
-      respond_to do |format|
-      format.html # show.html.erb
+    respond_to do |format|
+      format.html # show.html.haml
       format.json { render json: @course_professor }
     end
   end
