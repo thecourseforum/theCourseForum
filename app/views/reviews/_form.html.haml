@@ -1,0 +1,222 @@
+= form_for @review do |f|
+	- if(@review.errors.any?)
+		#error#explaination
+			%h2
+				= pluralize(@review.errors.count, "error")
+				= "prohibited this review from being saved:"
+			%ul
+				-	@review.errors.full_messages.each do |msg|
+					%li
+						= msg 
+	%p
+		%b What class are you reviewing?
+	%table
+		%tr
+			%td{:align=>"center", :id=>"deptarments"}
+				= f.label 'Department:'
+				%select{:name => "Department_Select", :id => "dept_select", :onchange=> 'courseSelect(this)'}
+					= @departments.each do |department|
+						%option{:value=>department.id}
+							= department.name
+			%td{:align=>"center", :style=>"display: none", :id=>"courses"}
+				= f.label 'Course:'
+				%select{:name=>"Course_Select", :id => "course_select", :onchange=>'profSelect(this)'} 
+					= @courses.each do |course|
+						%option{:value=>course.id}
+							= Subdepartment.find(course.subdepartment_id).mnemonic
+							= course.course_number
+			%td{:align=>"center", :style=>"display: none", :id=>"professors"}
+				= f.label 'Professor:'
+				%select{:name=>"Professor_Select", :id => "prof_select"} 
+					= @professors.each do |professor|
+						%option{:value=>professor.id}
+							= professor.last_name
+							= professor.first_name
+	%hr
+	%p
+		%b Grade the course:
+	%table
+		%tr
+			%td{:class=>"section"}
+				%p{:class=>"title"} Professor Rating:
+				%table
+					%tr
+						%td{:align=>"center"} Lowest/Worst
+						%td{:align=>"center"} 1
+						%td{:align=>"center"} 2
+						%td{:align=>"center"} 3
+						%td{:align=>"center"} 4
+						%td{:align=>"center"} 5
+						%td{:align=>"center"} Highest/Best
+					%tr
+						%td{:class=>"review"}
+						%td{:class=>"review"}= f.radio_button :professor_rating, 1 
+						%td{:class=>"review"}= f.radio_button :professor_rating, 2 
+						%td{:class=>"review"}= f.radio_button :professor_rating, 3 
+						%td{:class=>"review"}= f.radio_button :professor_rating, 4 
+						%td{:class=>"review"}= f.radio_button :professor_rating, 5
+						%td{:class=>"review"}
+			%td{:class=>"section"}
+				%p{:class=>"title"} Overall Enjoyability:
+				%table
+					%tr
+						%td{:align=>"center"} Lowest/Worst
+						%td{:align=>"center"} 1
+						%td{:align=>"center"} 2
+						%td{:align=>"center"} 3
+						%td{:align=>"center"} 4
+						%td{:align=>"center"} 5
+						%td{:align=>"center"} Highest/Best
+					%tr
+						%td{:class=>"review"}
+						%td{:class=>"review"}= f.radio_button :enjoyability, 1
+						%td{:class=>"review"}= f.radio_button :enjoyability, 2
+						%td{:class=>"review"}= f.radio_button :enjoyability, 3
+						%td{:class=>"review"}= f.radio_button :enjoyability, 4
+						%td{:class=>"review"}= f.radio_button :enjoyability, 5
+						%td{:class=>"review"}
+		%tr
+			%td{:class=>"section"}
+				%p{:class=>"title"} Difficulty:
+				%table
+					%tr
+						%td{:align=>"center"} Lowest/Worst
+						%td{:align=>"center"} 1
+						%td{:align=>"center"} 2
+						%td{:align=>"center"} 3
+						%td{:align=>"center"} 4
+						%td{:align=>"center"} 5
+						%td{:align=>"center"} Highest/Best
+					%tr
+						%td{:class=>"review"}
+						%td{:class=>"review"}= f.radio_button :difficulty, 1
+						%td{:class=>"review"}= f.radio_button :difficulty, 2
+						%td{:class=>"review"}= f.radio_button :difficulty, 3
+						%td{:class=>"review"}= f.radio_button :difficulty, 4
+						%td{:class=>"review"}= f.radio_button :difficulty, 5
+						%td{:class=>"review"}
+			%td{:class=>"section"}
+				%p{:class=>"title"}	Recommendability:
+				%table
+					%tr
+						%td{:align=>"center"} Lowest/Worst
+						%td{:align=>"center"} 1
+						%td{:align=>"center"} 2
+						%td{:align=>"center"} 3
+						%td{:align=>"center"} 4
+						%td{:align=>"center"} 5
+						%td{:align=>"center"} Highest/Best
+					%tr
+						%td{:class=>"review"}
+						%td{:class=>"review"}= f.radio_button :recommend, 1
+						%td{:class=>"review"}= f.radio_button :recommend, 2
+						%td{:class=>"review"}= f.radio_button :recommend, 3
+						%td{:class=>"review"}= f.radio_button :recommend, 4
+						%td{:class=>"review"}= f.radio_button :recommend, 5
+						%td{:class=>"review"}
+	%hr
+	%p
+		%b This course emphasizes:
+
+	%table{:class=>"ratings"}
+		%tr
+			%td
+			%td
+			%td
+				%p{:align=>"center"} Avg. # Hours/Week
+		%tr
+			%td{:valign=>"top"}
+				%input{:type=>"checkbox", :id=>"readingbox", :onchange=>'setBox("readingbox","readingtext")'}
+			%td
+				%p Reading:
+			%td
+				= f.text_field :amount_reading, :id => "readingtext", :disabled => true, :value => ""
+		%tr
+			%td{:valign=>"top"}
+				%input{:type=>"checkbox", :id=>"writingbox", :onchange=>'setBox("writingbox","writingtext")'}
+			%td
+				%p Writing:
+			%td
+				= f.text_field :amount_writing, :id => "writingtext", :disabled => true, :value => ""
+		%tr
+			%td{:valign=>"top"}
+				%input{:type=>"checkbox", :id=>"groupbox", :onchange=>'setBox("groupbox","grouptext")'}
+			%td
+				%p Groupwork:
+			%td
+				= f.text_field :amount_group, :id => "grouptext", :disabled => true, :value => ""
+		%tr
+			%td{:valign=>"top"}
+				%input{:type=>"checkbox", :id=>"homeworkbox", :onchange=>'setBox("homeworkbox","homeworktext")'}
+			%td
+				%p Homework:
+			%td
+				= f.text_field :amount_homework, :id => "homeworktext", :disabled => true, :value => ""
+	%hr
+
+	= f.label "Tell us about this class:"
+	= f.text_area :comment, :size => "500x10"
+
+	.actions
+		= f.submit 'Submit Review!'
+
+:erb
+	<script>
+
+	function setBox(check, text){
+		var box = document.getElementById(check);
+		if(box.checked)
+			document.getElementById(text).disabled = false;
+		else
+		 document.getElementById(text).disabled = true;    
+	}  
+
+	document.getElementById("dept_select").selectedIndex = -1;
+	
+	document.getElementById("prof_select").selectedIndex = -1;
+
+	function courseSelect(s){
+		$('#professors').hide();
+		$('#courses').show();
+		$('#course_select').empty();
+
+		var dept_id = s.options[s.selectedIndex].value;
+		
+		<% for course in @courses %>
+				if ('<%=course.subdepartment.department_id%>' == dept_id){
+					$('#course_select').append($("<option></option>").attr("value",<%= course.id %>).text('<%=Subdepartment.find(course.subdepartment_id).mnemonic%> <%= course.course_number %>'));
+				}
+		<% end %>
+
+		var course_select = document.getElementById("course_select");
+		if(course_select.length > 1){
+			course_select.selectedIndex = -1;
+		}
+		else{
+			profSelect(document.getElementById("prof_select"));
+		}
+	}
+
+	function profSelect(s){
+		$('#professors').show();
+
+		$('#prof_select').empty();
+
+		var course_id = s.options[s.selectedIndex].value;
+		
+		<% for professor in @professors %>
+			<% for course in professor.courses %>
+				if('<%=course.id%>' == course_id)
+				{
+					$('#prof_select').append($("<option></option>").attr("value",<%= professor.id %>).text('<%=professor.last_name%>, <%= professor.first_name %>'));
+				}
+			<%end%>
+		<%end%>
+
+		var prof_select = document.getElementById("prof_select");
+		if(prof_select.length > 1){
+			prof_select.selectedIndex = -1;
+		}
+	}
+
+	</script>
