@@ -2,6 +2,10 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
+    if current_user == nil
+      redirect_to root_url
+      return
+    end
     departments = Department.find(:all, :order => "name")
     schools = School.find(:all, :order => "name")
     artSchoolId = 1

@@ -15,4 +15,14 @@ class User < ActiveRecord::Base
   validates_presence_of :password
   validates_presence_of :password_confirmation
 
+  def old_authenticate(password)
+    password_salt = 'I am a uva student'
+    old_hash = Digest::MD5.hexdigest(password + password_salt)
+    if old_hash == self.old_password
+      return self
+    else
+      return false
+    end
+  end
+
 end

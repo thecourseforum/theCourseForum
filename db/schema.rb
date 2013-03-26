@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314064957) do
+ActiveRecord::Schema.define(:version => 20130326042645) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(:version => 20130314064957) do
   add_index "departments", ["school_id"], :name => "index_departments_on_school_id"
 
   create_table "grades", :force => true do |t|
-    t.integer  "CourseProfessor_id"
+    t.integer  "course_professor_id"
     t.integer  "semester_id"
-    t.decimal  "gpa",                :precision => 4, :scale => 3, :default => 0.0
+    t.decimal  "gpa",                 :precision => 4, :scale => 3, :default => 0.0
     t.integer  "count_a"
     t.integer  "count_aminus"
     t.integer  "count_bplus"
@@ -61,11 +61,13 @@ ActiveRecord::Schema.define(:version => 20130314064957) do
     t.integer  "count_drop"
     t.integer  "count_withdraw"
     t.integer  "count_other"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
+    t.integer  "count_aplus"
+    t.integer  "total"
   end
 
-  add_index "grades", ["CourseProfessor_id"], :name => "index_grades_on_CourseProfessor_id"
+  add_index "grades", ["course_professor_id"], :name => "index_grades_on_CourseProfessor_id"
   add_index "grades", ["semester_id"], :name => "index_grades_on_semester_id"
 
   create_table "majors", :force => true do |t|
