@@ -3,7 +3,7 @@
     .container
       %a.brand{:href => "/"}
         %img{:src => "/images/logo.png"}
-      = simple_form_for :user, :html => { :class => 'login' } do |f|
-        = f.input :email, :label => false, :placeholder => "Email"
-        = f.input :password, :label => false, :placeholder => "Password"
-        = f.button :submit, :value => "Login"
+      = form_tag sessions_path, :class => 'login' do
+        = text_field_tag(nil, nil, :id => "email", :placeholder => "Email")
+        = password_field_tag(:password, :placeholder => "Password")
+        = submit_tag "Login"

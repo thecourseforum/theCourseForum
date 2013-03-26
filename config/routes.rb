@@ -1,4 +1,11 @@
 TheCourseForum::Application.routes.draw do
+  root :to => 'welcome#index'
+
+  # Routes for user authentication
+  get "login" => "sessions#new", :as => "login"
+  post "login" => "sessions#create", :as => "login"
+  get "logout" => "sessions#destroy", :as => "logout"
+
   resources :grades
 
   resources :semesters
@@ -12,6 +19,8 @@ TheCourseForum::Application.routes.draw do
   resources :students
 
   resources :users
+
+  resources :sessions
 
   resources :course_professors
 
@@ -77,7 +86,6 @@ TheCourseForum::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
 
   #when using warden/devise
   #root to: "home#index", constraints: lambda { |r| r.env["warden"].authenticate? }
