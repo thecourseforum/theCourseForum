@@ -192,7 +192,7 @@
 		if(course_select.length > 1){
 			course_select.selectedIndex = -1;
 		}
-		else{
+		else if (course_select.length === 1) {
 			profSelect(document.getElementById("prof_select"));
 		}
 	}
