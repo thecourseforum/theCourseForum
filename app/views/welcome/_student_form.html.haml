@@ -1,0 +1,9 @@
+.container
+  - if @user.errors.any?
+    %h2 #{pluralize (@users.errors.count, "Error")} stopped you from signing up:
+    %ul
+      - @user.errors.full_messages.each do |msg|
+        %li= msg
+    
+  = form_for @user do |f|
+    = f.label :first_name

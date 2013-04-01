@@ -1,0 +1,5 @@
+%h2 Professors by name
+.container
+  %ul
+    - @professors.each do |p|
+      %li= link_to (p.first_name + " " + p.last_name), p

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326042645) do
+ActiveRecord::Schema.define(:version => 20130331235624) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20130326042645) do
     t.boolean  "only_tests",                                         :default => false
     t.integer  "recommend",                                          :default => 0
     t.string   "ta_name"
+    t.integer  "course_id"
+    t.integer  "professor_id"
   end
 
   add_index "reviews", ["course_professor_id"], :name => "index_reviews_on_CourseProfessor_id"
