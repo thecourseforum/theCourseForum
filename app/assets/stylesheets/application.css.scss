@@ -36,6 +36,11 @@ header {
   @extend .navbar-fixed-top;
 }
 
+footer {
+  @extend .navbar;
+  @extend .navbar-fixed-bottom;
+}
+
 nav {
   @extend .navbar-inner;
 }

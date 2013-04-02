@@ -6,33 +6,33 @@ TheCourseForum::Application.routes.draw do
   post "login" => "sessions#create", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"
 
-  resources :grades
+  #resources :grades
 
-  resources :semesters
+  #resources :semesters
 
-  resources :reviews
+  resources :reviews, :only => [:new, :index]
 
-  resources :student_majors
+  #resources :student_majors
 
-  resources :majors
+  #resources :majors
 
-  resources :students
+  resources :students, :only => [:create, :index]
 
-  resources :users
+  resources :users, :only => [:create, :index]
 
   resources :sessions
 
-  resources :course_professors
+  resources :course_professors, :only => [:show]
 
-  resources :professors
+  #resources :professors
 
-  resources :courses
+  resources :courses, :only => [:show]
 
-  resources :schools
+  #resources :schools
 
-  resources :subdepartments
+  #resources :subdepartments
 
-  resources :departments
+  resources :departments, :only => [:show, :index]
 
   resources :home
 

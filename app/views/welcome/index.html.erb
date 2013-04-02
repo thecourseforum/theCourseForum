@@ -9,28 +9,10 @@
   <div class=marketing>
     <div class=sign-up>
       <h1>Sign up!</h1>
-      <input type="checkbox" id="professor?" onchange=formChange() /> I am a UVa Professor
-      <hr />
       <div id="student_form">
         <%=render 'student_form'%>
       </div>
-      <div id="professor_form" style="display: none">
-        <%=render 'professor_form'%>
-      </div>
-
     </div>
   </div>
 </div>
-<script>
-  function formChange(){
-    var box = document.getElementById("professor?");
-    if(box.checked){
-      $('#professor_form').show();
-      $('#student_form').hide();
-    }
-    else{
-      $('#professor_form').hide();
-      $('#student_form').show();
-    }
-  }
-</script>
+

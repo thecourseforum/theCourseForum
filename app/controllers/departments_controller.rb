@@ -6,14 +6,16 @@ class DepartmentsController < ApplicationController
       redirect_to root_url
       return
     end
+    subdepartments = Subdepartment.find(:all)
     departments = Department.find(:all, :order => "name")
+    departments.uniq {|subdepartments| subdepartments.name}
     schools = School.find(:all, :order => "name")
     artSchoolId = 1
     engrSchoolId = 2
 
-    @artDeps = columnize(departments.select{|d| d.school_id == artSchoolId })
+    @artDeps = columnize(departments.select{|d| d.school_id == artSchoolId})
     @engrDeps = columnize(departments.select{|d| d.school_id == engrSchoolId })
-    @otherSchools = columnize(schools.select{|s| s.id != artSchoolId && s.id != engrSchoolId })
+    @otherSchools = columnize(departments.select{|d| d.school_id != artSchoolId && d.school_id != engrSchoolId })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +28,7 @@ class DepartmentsController < ApplicationController
   def show
     @department = Department.find(params[:id])
     @subdepartments = Subdepartment.where(:department_id => @department.id)
-    @courses = Course.all
+    @courses = Course.find(:all, :order => "course_number")
     @count = @subdepartments.size
 
     respond_to do |format|
