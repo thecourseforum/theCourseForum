@@ -2,7 +2,8 @@ class ProfessorsController < ApplicationController
   # GET /professors
   # GET /professors.json
   def index
-    @professors = Professor.all.sort { |p1, p2| (p1.last_name + p1.first_name) <=> (p2.last_name + p2.first_name) }
+    @professors = Professor.all.sort { |p1, p2| 
+      (p1.last_name + p1.first_name) <=> (p2.last_name + p2.first_name) }
 
     respond_to do |format|
       format.html # index.html.haml
@@ -18,7 +19,8 @@ class ProfessorsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.haml
-      format.json { render json: @professor }
+      format.json { render json: {professor: @professor, course_professors: @course_professors} }
+      format.js {render :partial => 'classlist', :locals => {:course_professors => @course_professors}}
     end
   end
 

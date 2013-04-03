@@ -2,4 +2,7 @@
 .container
   %ul
     - @professors.each do |p|
-      %li= link_to (p.first_name + " " + p.last_name), p
+      %li
+        = link_to (p.first_name + " " + p.last_name), p, :method => :get, :class => 'professor_link', :'data-update-target' => "p#{p.id.to_s}", :remote => true
+        %div{id: "p#{p.id.to_s}", style: "display: none"}
+

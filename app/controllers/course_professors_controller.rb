@@ -15,6 +15,7 @@ class CourseProfessorsController < ApplicationController
   def show
     @course_professor = CourseProfessor.find(params[:id])
     @reviews = @course_professor.reviews.sort_by{|r| - r.created_at.to_i}
+    @grades = @course_professor.grades
     @course = Course.where(:id => @course_professor.course_id).first()
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
     @professor = Professor.where(:id => @course_professor.professor_id).first()
@@ -40,6 +41,7 @@ class CourseProfessorsController < ApplicationController
   # GET /course_professors/1/edit
   def edit
     @course_professor = CourseProfessor.find(params[:id])
+    redirect_to @course_professor
   end
 
   # POST /course_professors
@@ -62,6 +64,8 @@ class CourseProfessorsController < ApplicationController
   # PUT /course_professors/1.json
   def update
     @course_professor = CourseProfessor.find(params[:id])
+    redirect_to @course_professor
+    return
 
     respond_to do |format|
       if @course_professor.update_attributes(params[:course_professor])

@@ -6,12 +6,14 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:email])
-    if @user && (@user.old_authenticate(params[:password]) || @user.authenticate(params[:password]))
+    if @user && @user.old_authenticate(params[:password])
+      @student = Student.find_by_user_id(@user.id)
+      @user.migrate(params[:password])
       session[:user_id] = @user.id
       redirect_to "/browse"
-    elsif @user && @user.old_authenticate(params[:password])
-      @student = Student.find_by_user_id(@user.id)
-      render "migrate"
+    elsif @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect_to "/browse"
     else
       flash.now.alert = "Invalid email or password"
       render "new"

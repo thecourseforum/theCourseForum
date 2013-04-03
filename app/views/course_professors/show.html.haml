@@ -1,8 +1,17 @@
 %p#notice= notice
-%p
-  %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
-  %h2= @professor.last_name
-  %p #{@course_professor.reviews.count} reviews
+
+%h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title} (#{@professor.first_name} #{@professor.last_name})
+
+.row-fluid
+  .span2
+    %p
+  .span7
+    - if @grades.size > 0
+      = render :partial => "grades", :locals => {:grades => @grades}
+    - else
+      %p There aren't any grade distributions available for this class. Sorry!
+      
+%p #{@course_professor.reviews.count} reviews
 
 
 - @reviews.each do |r|
