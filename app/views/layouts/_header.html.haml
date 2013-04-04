@@ -3,10 +3,12 @@
     .container
       %a.brand{:href => "/"}
         %img{:src => "/images/logo.png"}
-      %form.site-search
+      -#%form.site-search
+      = form_tag '/search/search', :method => "get", :class => "site-search" do
         .input-append.input-prepend
           %span.add-on
             %i.icon-search
-          %input{:type => "text"}
-          %span.add-on.orange SEARCH
-          %span.add-on.orange=link_to 'LOGOUT', '/logout'
+          -#%input{:type => "text"}
+          = text_field_tag(:query)
+          %span.add-on.orange= submit_tag("SEARCH")
+          %span.add-on.orange= link_to 'LOGOUT', '/logout'

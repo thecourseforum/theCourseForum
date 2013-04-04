@@ -3,4 +3,11 @@ class Course < ActiveRecord::Base
   attr_accessible :course_number, :title
   has_many :professors, :through => :course_professors
   has_many :course_professors
+
+  searchable do
+    text :title do
+      title.downcase
+    end
+  end
+
 end
