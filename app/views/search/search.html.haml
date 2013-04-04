@@ -1,0 +1,8 @@
+%h1 Search results
+
+%ul
+  - if @result.size < 1
+    %li No results, #{@query}
+  - else
+    - @result.each do |r|
+      %li= link_to "#{r.subdepartment.mnemonic} #{r.course_number.to_s}", r
