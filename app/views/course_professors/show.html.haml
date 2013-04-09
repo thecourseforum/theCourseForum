@@ -1,31 +1,82 @@
-%p#notice= notice
+.course-professor-h1
+  %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
+  %select.course-professor-switcher
+    - @professors.each do |c|
+      %option{value: c.id, selected: c.professor.id == @professor.id}="#{c.professor.last_name}, #{c.professor.first_name}"
 
-%h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title} (#{@professor.first_name} #{@professor.last_name})
-
-.row-fluid
-  .span2
-    %p
-  .span7
+.course-breakdown
+  .course-stats
+    %h2 Ratings
+    %table.table.table-striped
+      %tr
+        %td{:style => "width: 15px;"}=image_tag "icons/heart.png"
+        %td{:style => "width: 230px;"}Overall
+        %td=@rev_ratings[:overall]
+      %tr
+        %td=image_tag "icons/user_gray.png"
+        %td Professor
+        %td=@rev_ratings[:prof]
+      %tr
+        %td=image_tag "icons/emoticon_smile.png"
+        %td Fun-factor
+        %td=@rev_ratings[:enjoy]
+      %tr
+        %td=image_tag "icons/pencil.png"
+        %td Difficulty
+        %td=@rev_ratings[:difficulty]
+      %tr
+        %td=image_tag "icons/user_comment.png"
+        %td Recommend
+        %td=@rev_ratings[:recommend]
+    %h2 Emphasizes
+    %table.table.table-striped
+      %tr
+        %th
+        %th Avg Hrs/Week
+        %th # Reviews
+      - if @rev_emphasizes[:reading_count] > 0
+        %tr
+          %td Reading
+          %td=@rev_emphasizes[:reading]
+          %td=@rev_emphasizes[:reading_count]
+      - if @rev_emphasizes[:writing_count] > 0
+        %tr
+          %td Writing
+          %td=@rev_emphasizes[:writing]
+          %td=@rev_emphasizes[:writing_count]
+      - if @rev_emphasizes[:group_count] > 0
+        %tr
+          %td Group
+          %td=@rev_emphasizes[:group]
+          %td=@rev_emphasizes[:group_count]
+      - if @rev_emphasizes[:homework_count] > 0
+        %tr
+          %td Other HW
+          %td=@rev_emphasizes[:homework]
+          %td=@rev_emphasizes[:homework_count]
+      - if @rev_emphasizes[:test_count] > 0
+        %tr
+          %td Tests/Midterms
+          %td --
+          %td=@rev_emphasizes[:test_count]
+  .course-grades
+    %h2 Grades
     - if @grades.size > 0
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
       %p There aren't any grade distributions available for this class. Sorry!
-      
-%p #{@course_professor.reviews.count} reviews
 
+%h2 #{@course_professor.reviews.count} Reviews
 
 - @reviews.each do |r|
   - if r.comment.length > 0
-    .review-container
-      .row-fluid
-        .span2
-          %ul
-            %li= r.created_at.strftime("%Y-%m-%d")
-        .span9= r.comment
-        .span1
-          %ul
-            %li= r.professor_rating
-            %li= r.enjoyability
-            %li= r.difficulty
-            %li= r.recommend
-
+    .single-review
+      %ul.meta
+        %li= r.created_at.strftime("%Y-%m-%d")
+      .comment= r.comment
+      %ul.ratings
+        %li.overall= r.overall
+        %li.professor_rating= r.professor_rating
+        %li.enjoyability= r.enjoyability
+        %li.difficulty= r.difficulty
+        %li.recommend= r.recommend
