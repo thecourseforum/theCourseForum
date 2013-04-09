@@ -4,10 +4,4 @@ class Course < ActiveRecord::Base
   has_many :professors, :through => :course_professors
   has_many :course_professors
 
-  searchable do
-    text :title do
-      title.downcase
-    end
-  end
-
 end

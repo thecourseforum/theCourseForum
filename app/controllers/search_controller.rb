@@ -1,11 +1,10 @@
 class SearchController < ApplicationController
   
   def search
-    @query = params[:query]
-    @search = Course.search do
-      fulltext @query
-    end
-    @result = @search.results
+    @query_url = URI::escape(search_url + params[:query])
+    @search = JSON.parse RestClient.get @query_url
+
+    @result = @search["response"]["docs"]
     respond_to do |format|
       format.html
       format.json {render json: @result}

@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   def columnize(arr)
     [arr.shift((arr.length / 2).ceil), arr]
   end
+
+  def search_url
+    @search_url = "http://localhost:8983/solr/course_search?q="
+  end
   
   private
   def check_login

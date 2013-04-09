@@ -26,11 +26,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'simple_form'
 
-# Sunspot for searching models
-gem 'sunspot_rails'
-group :development do
-  gem 'sunspot_solr'
-end
+gem 'rest-client'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
