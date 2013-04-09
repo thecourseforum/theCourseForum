@@ -1,32 +1,6 @@
-%table.table
-  %tr
-    %th Semester
-    %th A+
-    %th A
-    %th A-
-    %th B+
-    %th B
-    %th B-
-    %th C+
-    %th C
-    %th C-
-    %th D+
-    %th D
-    %th D-
-    %th F
-  - grades.each do |g|
-    %tr
-      %td  #{g.semester.season} #{g.semester.year}
-      %td= g.count_aplus
-      %td= g.count_a
-      %td= g.count_aminus
-      %td= g.count_bplus
-      %td= g.count_b
-      %td= g.count_bminus
-      %td= g.count_cplus
-      %td= g.count_c
-      %td= g.count_cminus
-      %td= g.count_dplus
-      %td= g.count_d
-      %td= g.count_dminus
-      %td= g.count_f
+#grades.grade-donut
+
+:coffee
+  new App.GradeDonut('#grades', { width: 300, height: 300})
+    .setData(gon.grades)
+    .render()
