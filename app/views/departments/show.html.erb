@@ -11,7 +11,7 @@
 	<% end %>
   	<% @courses.each do |course| %>
   		<% if(course.subdepartment_id == subdepartment.id) %>
-  			<%= link_to subdepartment.mnemonic + " " + course.course_number.to_s, course %> <%= course.title %>
+  			<%= link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course %>
   			<br />
 		<% end %>
   	<% end %>

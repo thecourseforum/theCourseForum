@@ -25,6 +25,12 @@ $linkColorHover: $orange;
 //rest of variables
 $orange: #f26522;
 
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 //base styles
 body {
   @extend .container;
@@ -34,6 +40,11 @@ body {
 header {
   @extend .navbar;
   @extend .navbar-fixed-top;
+}
+
+footer {
+  @extend .navbar;
+  @extend .navbar-fixed-bottom;
 }
 
 nav {
@@ -53,7 +64,7 @@ aside {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 18px;
   color: $orange;
   margin-top: 0px;
   margin-bottom: 20px;
@@ -203,7 +214,102 @@ form.register {
   border-bottom: 1px solid #000;
 }
 
+<<<<<<< HEAD
 textarea {
   width: 325px;
   height: 150px;
 }
+=======
+//course professors
+
+.course-professor-h1 {
+  @include makeRow();
+  border-bottom: 1px solid #000;
+  margin-bottom: 16px;
+
+  h1 {
+    @include makeColumn(7);
+    @include ellipsis;
+    float: left;
+    border-bottom: none;
+    margin-bottom:8px;
+  }
+
+  select {
+    @include makeColumn(2);
+    float: right;
+    margin-top: 4px;
+  }
+}
+
+.course-breakdown {
+  @include makeRow();
+}
+
+.course-stats {
+  @include makeColumn(5);
+}
+
+.course-grades {
+  @include makeColumn(4);
+  float: right;
+
+  h2 {
+    margin-left: 25px;
+  }
+}
+
+//Grades
+.grade-donut .slice {
+  font-size: 11px;
+}
+
+.grade-donut .inner-label {
+  fill: gray;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.single-review {
+  @include makeRow();
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 10px;
+
+  ul.meta {
+    @include makeColumn(1.5)
+  }
+
+  .comment {
+    @include makeColumn(6.5)
+  }
+
+  ul.ratings {
+    @include makeColumn(1)
+  }
+}
+
+// Single Reviews
+.single-review ul.ratings {
+  li {
+    padding-left: 22px;
+    background-repeat: no-repeat;
+    background-position-y: 2px;
+  }
+
+  li.overall {
+    background-image: url("/assets/icons/heart.png");
+  }
+  li.professor_rating {
+    background-image: url("/assets/icons/user_gray.png");
+  }
+  li.enjoyability {
+    background-image: url("/assets/icons/emoticon_smile.png");
+  }
+  li.difficulty {
+    background-image: url("/assets/icons/pencil.png");
+  }
+  li.recommend {
+    background-image: url("/assets/icons/user_comment.png");
+  }
+}
+>>>>>>> upstream/development

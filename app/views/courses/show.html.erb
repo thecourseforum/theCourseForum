@@ -5,11 +5,12 @@
 </p>
 
 <ul>
-  <li><% @course.professors.each do |professor| %>
+   <% @course.professors.each do |professor| %>
   	<% @class = CourseProfessor.where({:professor_id => professor.id, :course_id => @course.id}) %>
   	<%= link_to professor.first_name + " " + professor.last_name, @class.first() %>
+  	<br>
   <% end %>
-  </li>
+  
 </ul>
 
 

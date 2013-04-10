@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:email])
     if @user && @user.old_authenticate(params[:password])
       @student = Student.find_by_user_id(@user.id)
-      render "migrate"
+      @user.migrate(params[:password])
+      session[:user_id] = @user.id
+      redirect_to "/browse"
     elsif @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect_to "/browse"

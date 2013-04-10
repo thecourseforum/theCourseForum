@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password
   validates_presence_of :password_confirmation
 
+  # Authenticate user based on old MD5-hashed password
   def old_authenticate(password)
     password_salt = 'I am a uva student'
     old_hash = Digest::MD5.hexdigest(password + password_salt)
@@ -22,6 +23,19 @@ class User < ActiveRecord::Base
       return self
     else
       return false
+    end
+  end
+
+  def migrate(password)
+    if self.password_digest == nil
+      self.password = password
+      self.password_confirmation = password
+      self.old_password = nil
+      self.save
+      return self
+      
+    else
+      return nil
     end
   end
 
