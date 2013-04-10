@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
+//= require grades
+//= require course_professors
 
 $(document).ready(function() {
     $('.professor_link').bind('ajax:success', function(xhr, data, status) {
