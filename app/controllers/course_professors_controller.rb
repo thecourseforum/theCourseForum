@@ -14,12 +14,15 @@ class CourseProfessorsController < ApplicationController
   # GET /course_professors/1.json
   def show
     @course_professor = CourseProfessor.find(params[:id])
-    @reviews = @course_professor.reviews.sort_by{|r| - r.created_at.to_i}
+
+    @reviews_temp = @course_professor.reviews.sort_by{|r| - r.created_at.to_i}
+    @reviews = @reviews_temp.paginate(:page => params[:page], :per_page=> 2)
+
     @grades = @course_professor.grades
     @course = Course.where(:id => @course_professor.course_id).first()
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
     @professor = Professor.where(:id => @course_professor.professor_id).first()
-
+    @paginate = @course_professor.reviews.paginate(page: 1, per_page: 2)
     @professors = CourseProfessor.where("course_id = ?", @course[:id])
       .joins(:professor)
 

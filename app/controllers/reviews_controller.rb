@@ -14,6 +14,10 @@ class ReviewsController < ApplicationController
   # GET /reviews/1.json
   def show
     @review = Review.find(params[:id])
+    @course_professor = CourseProfessor.find(@review.course_professor_id)
+    @course = Course.find(@course_professor.course_id)
+    @subdepartment = Subdepartment.find(@course.subdepartment_id)
+    @professor = Professor.find(@course_professor.professor_id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -46,10 +50,11 @@ class ReviewsController < ApplicationController
     @review = Review.new(params[:review])
     @course_professor = CourseProfessor.where({:professor_id => params[:Professor_Select], 
                                                   :course_id => params[:Course_Select]}).first()
+    @review.course_professor_id = @course_professor.id
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
+        format.html { redirect_to @course_professor, notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }
