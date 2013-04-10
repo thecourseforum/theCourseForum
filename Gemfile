@@ -15,6 +15,7 @@ group :assets do
   gem "compass-rails"
   gem 'bootstrap-sass'
   gem 'coffee-rails'
+  gem 'will_paginate', '>=3.0.3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
