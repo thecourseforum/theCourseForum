@@ -23,6 +23,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'd3_rails'
 gem 'haml'
 gem 'simple_form'
