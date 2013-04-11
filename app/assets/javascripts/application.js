@@ -47,6 +47,7 @@ $(document).ready(function() {
 	minLength: 2,
 	open: function() {
 	    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+	    $(this).autocomplete('widget').css('z-index', 5000);
 	},
 	close: function() {
 	    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
