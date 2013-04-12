@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331235624) do
+ActiveRecord::Schema.define(:version => 20130412011148) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -23,15 +23,37 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
   add_index "course_professors", ["course_id"], :name => "index_course_professors_on_course_id"
   add_index "course_professors", ["professor_id"], :name => "index_course_professors_on_professor_id"
 
+  create_table "course_semesters", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "semester_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "course_semesters", ["course_id"], :name => "index_course_semesters_on_course_id"
+  add_index "course_semesters", ["semester_id"], :name => "index_course_semesters_on_semester_id"
+
   create_table "courses", :force => true do |t|
     t.string   "title"
     t.decimal  "course_number",    :precision => 4, :scale => 0, :default => 0
     t.integer  "subdepartment_id"
     t.datetime "created_at",                                                    :null => false
     t.datetime "updated_at",                                                    :null => false
+    t.boolean  "title_changed"
   end
 
   add_index "courses", ["subdepartment_id"], :name => "index_courses_on_subdepartment_id"
+
+  create_table "day_times", :force => true do |t|
+    t.string   "day_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "day_times_sections", :id => false, :force => true do |t|
+    t.integer "day_time_id"
+    t.integer "section_id"
+  end
 
   create_table "departments", :force => true do |t|
     t.string   "name"
@@ -42,10 +64,15 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
 
   add_index "departments", ["school_id"], :name => "index_departments_on_school_id"
 
+  create_table "departments_subdepartments", :id => false, :force => true do |t|
+    t.integer "department_id"
+    t.integer "subdepartment_id"
+  end
+
   create_table "grades", :force => true do |t|
-    t.integer  "course_professor_id"
+    t.integer  "section_id"
     t.integer  "semester_id"
-    t.decimal  "gpa",                 :precision => 4, :scale => 3, :default => 0.0
+    t.decimal  "gpa",            :precision => 4, :scale => 3, :default => 0.0
     t.integer  "count_a"
     t.integer  "count_aminus"
     t.integer  "count_bplus"
@@ -61,14 +88,25 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
     t.integer  "count_drop"
     t.integer  "count_withdraw"
     t.integer  "count_other"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.integer  "count_aplus"
     t.integer  "total"
   end
 
-  add_index "grades", ["course_professor_id"], :name => "index_grades_on_CourseProfessor_id"
+  add_index "grades", ["section_id"], :name => "index_grades_on_CourseProfessor_id"
   add_index "grades", ["semester_id"], :name => "index_grades_on_semester_id"
+
+  create_table "locations", :force => true do |t|
+    t.string   "location"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "locations_sections", :id => false, :force => true do |t|
+    t.integer "location_id"
+    t.integer "section_id"
+  end
 
   create_table "majors", :force => true do |t|
     t.string   "name"
@@ -85,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
     t.integer  "user_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "middle_name"
   end
 
   add_index "professors", ["department_id"], :name => "index_professors_on_department_id"
@@ -122,6 +161,30 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
     t.string   "website"
   end
 
+  create_table "section_professors", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "professor_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "section_professors", ["professor_id"], :name => "index_section_professors_on_professor_id"
+  add_index "section_professors", ["section_id"], :name => "index_section_professors_on_section_id"
+
+  create_table "sections", :force => true do |t|
+    t.integer  "sis_class_number"
+    t.integer  "section_number"
+    t.string   "topic"
+    t.string   "units"
+    t.integer  "capacity"
+    t.integer  "course_semester_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "type"
+  end
+
+  add_index "sections", ["course_semester_id"], :name => "index_sections_on_course_semester_id"
+
   create_table "semesters", :force => true do |t|
     t.integer  "number"
     t.string   "season"
@@ -144,20 +207,17 @@ ActiveRecord::Schema.define(:version => 20130331235624) do
     t.string   "first_name"
     t.string   "last_name"
     t.decimal  "grad_year",  :precision => 4, :scale => 0, :default => 0
-    t.integer  "user_id"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
+    t.integer  "user_id"
   end
 
   create_table "subdepartments", :force => true do |t|
     t.string   "name"
     t.string   "mnemonic"
-    t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  add_index "subdepartments", ["department_id"], :name => "index_subdepartments_on_department_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
