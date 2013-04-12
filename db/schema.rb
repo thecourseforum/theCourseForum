@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412011148) do
+ActiveRecord::Schema.define(:version => 20130412051636) do
 
   create_table "course_professors", :force => true do |t|
     t.integer  "course_id"
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(:version => 20130412011148) do
     t.integer  "course_semester_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.string   "type"
+    t.string   "section_type"
   end
 
   add_index "sections", ["course_semester_id"], :name => "index_sections_on_course_semester_id"
