@@ -27,7 +27,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/1.json
   def show
     @department = Department.find(params[:id])
-    @subdepartments = Subdepartment.where(:department_id => @department.id)
+    @subdepartments = @department.subdepartments #Subdepartment.where(:department_id => @department.id)
     @courses = Course.find(:all, :order => "course_number")
     @count = @subdepartments.size
 
