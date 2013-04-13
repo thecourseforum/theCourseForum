@@ -18,13 +18,13 @@ $navbarBackground: #222;
 $navbarBackgroundHighlight: #111;
 $linkColor: #000;
 $linkColorHover: $orange;
+$btnPrimaryBackground: #e64500;
 
 @import "bootstrap";
 @import "bootstrap-responsive";
 @import "jquery.ui.autocomplete";
 
 //rest of variables
-$orange: #f26522;
 
 @mixin ellipsis {
   text-overflow: ellipsis;
@@ -160,17 +160,18 @@ form.site-search {
     border-left: none;
   }
 
-  span.add-on {
+  .add-on {
     background-color: #FFF;
   }
+}
 
-  span.add-on.orange {
-    background-color: $orange;
+.account-header {
+  @extend .pull-right;
+  margin-top: 27px;
+
+  a, a:hover {
     color: #FFF;
-    a {
-	text-decoration: none;
-	color: #FFF;
-    }
+    margin-left: 30px;
   }
 }
 
