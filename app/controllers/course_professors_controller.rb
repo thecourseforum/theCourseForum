@@ -2,12 +2,29 @@ class CourseProfessorsController < ApplicationController
   # GET /course_professors
   # GET /course_professors.json
   def index
-    @course_professors = CourseProfessor.all
+    @course = Course.find(params[:c])
+    @professor = Professor.find(params[:p])
+    @professors = @course.professors_list
+    @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
+    @reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id).all.sort_by{|r| - r.created_at.to_i}
+    @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN course_semesters b ON a.id=b.course_id JOIN sections c ON b.id=c.course_semester_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @course_professors }
+    #used to pass grades to the donut chart
+    gon.grades = @grades
+
+    if @reviews.length > 0
+      @rev_ratings = get_review_ratings
+      @rev_emphasizes = get_review_emphasizes
+      respond_to do |format|
+        format.html # index.html.haml
+        format.json { render json: @course_professors }
+      end
+    else
+      respond_to do |format|
+        format.html { render :template => "course_professors/noreview" }
+      end
     end
+
   end
 
   # GET /course_professors/1

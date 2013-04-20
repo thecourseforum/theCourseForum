@@ -22,7 +22,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :sessions
 
-  resources :course_professors, :only => [:show]
+  resources :course_professors, :only => [:index, :show]
 
   #resources :professors
 
