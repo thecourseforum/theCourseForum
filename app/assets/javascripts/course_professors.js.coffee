@@ -4,4 +4,4 @@
 
 $(document).ready () ->
   $('.course-professor-switcher').change () ->
-    window.location.href='/course_professors/' + $(this).val()
+    window.location.href='/course_professors?' + $(this).val()
