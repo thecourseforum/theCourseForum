@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.autocomplete
 //= require bootstrap
 //= require grades
 //= require course_professors
@@ -22,5 +23,38 @@ $(document).ready(function() {
 	alert(target);
 	$('#' + target).html(data);
 	$('#' + target).toggle();
+    });
+
+    $('#searchbox').autocomplete({
+	source: function( request, response ) {
+	    $.ajax({
+		url: '/search/search',
+		dataType: 'json',
+		type: 'GET',
+		data: {
+		    query: request.term
+		},
+		success: function( data ) {
+		    response( $.map(data, function( item ) {
+			return {
+			    label: item.subdepartment_code + " " + item.course_number + "-" + item.last_name,
+			    value: "c=" + item.course_id + "&p=" + item.professor_id
+			}
+		    }));
+		}
+	    });
+	},
+	minLength: 2,
+	select: function(event, ui) {
+	    $('#searchbox').val(ui.item.label);
+	    window.location = "/course_professors?" + ui.item.value;
+	},
+	open: function() {
+	    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+	    $(this).autocomplete('widget').css('z-index', 5000);
+	},
+	close: function() {
+	    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+	}
     });
 });

@@ -22,7 +22,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :sessions
 
-  resources :course_professors, :only => [:show]
+  resources :course_professors, :only => [:index, :show]
 
   #resources :professors
 
@@ -35,6 +35,12 @@ TheCourseForum::Application.routes.draw do
   resources :departments, :only => [:show, :index]
 
   resources :home
+ 
+  resources :search do
+    collection do
+      get :search
+    end
+  end
 
   match '/browse', to: 'departments#index'
   # The priority is based upon order of creation:

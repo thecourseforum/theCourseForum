@@ -1,0 +1,12 @@
+%h1 Search results
+
+.container
+  %ul
+    - if @result.size < 1
+      %li No results, #{@query_url}
+    - else
+      - @result.each do |r|
+        %li
+          = (link_to "#{r["subdepartment_code"]} #{r["course_number"]}", "/course_professors/" + r["id"])
+           
+          = (link_to "#{r["first_name"]} #{r["last_name"]}", "/professors/" + r["id"])

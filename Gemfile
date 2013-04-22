@@ -24,10 +24,13 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'd3_rails'
 gem 'haml'
 gem 'simple_form'
 gem 'gon'
+
+gem 'rest-client'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
