@@ -14,7 +14,7 @@
 <% @reviews.each do |review| %>
   <tr>
     <td><%= review.comment %></td>
-    <td><%= review.CourseProfessor %></td>
+    <td><%= review.course_professor_id %></td>
     <td><%= review.student %></td>
     <td><%= review.semester %></td>
     <td><%= link_to 'Show', review %></td>

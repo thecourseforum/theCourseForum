@@ -14,6 +14,10 @@ class ReviewsController < ApplicationController
   # GET /reviews/1.json
   def show
     @review = Review.find(params[:id])
+    @course_professor = CourseProfessor.find(@review.course_professor_id)
+    @course = Course.find(@course_professor.course_id)
+    @subdepartment = Subdepartment.find(@course.subdepartment_id)
+    @professor = Professor.find(@course_professor.professor_id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,9 +29,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/new.json
   def new
     @review = Review.new
-    @departments = Department.all.sort_by{|e| e[:name]}
-    @courses = Course.all.sort_by{|e| e[:course_number]}
-    @professors = Professor.all.sort_by{|e| e[:last_name]}
+    @subdepartments = Subdepartment.all.sort_by{|e| e[:name]}
+   # @courses = Course.all.sort_by{|e| e[:course_number]}
+   # @professors = Professor.all.sort_by{|e| e[:last_name]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,13 +47,14 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
+    
     @review = Review.new(params[:review])
-    @course_professor = CourseProfessor.where({:professor_id => params[:Professor_Select], 
-                                                  :course_id => params[:Course_Select]}).first()
+    @review.professor_id = params[:Professor_Select]
+    @review.course_id = params[:Course_Select]
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
+        format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }
