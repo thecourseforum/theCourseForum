@@ -10,7 +10,7 @@ TheCourseForum::Application.routes.draw do
 
   #resources :semesters
 
-  resources :reviews, :only => [:new, :index]
+  resources :reviews, :only => [:new, :create]
 
   #resources :student_majors
 
@@ -30,7 +30,7 @@ TheCourseForum::Application.routes.draw do
 
   #resources :schools
 
-  #resources :subdepartments
+  resources :subdepartments, :only => [:show]
 
   resources :departments, :only => [:show, :index]
 

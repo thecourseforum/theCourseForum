@@ -16,10 +16,11 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @subdepartment = Subdepartment.find_by_id(@course.subdepartment_id)
     @courseprofessors = CourseProfessor.all
+    @professors = @course.professors_list
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @course }
+      format.json { render json: @course, :methods => :professors_list}
     end
   end
 

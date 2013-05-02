@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
   has_many :professors, :through => :sections
 
   def professors_list
-    return self.professors.uniq_by{ |p| p.id }
+    return self.professors.uniq_by{ |p| p.id }.sort_by{|p| p.last_name}
   end
 
 end
