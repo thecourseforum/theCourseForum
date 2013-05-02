@@ -57,4 +57,55 @@ $(document).ready(function() {
 	    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 	}
     });
+
+	$("#subdept_select").bind("change", function(){
+		$("#courses").hide();
+		$("#course_select").empty();
+		$("#professors").hide();
+		var value = $(this).find(":selected").val();
+		$.ajax({
+			url: '/subdepartments/' + value,
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				$("#courses").show();
+				$.each(data, function(){
+					$('#course_select').append($("<option/>", {
+						value: this.id,
+						text: this.subdepartment.mnemonic + " " + this.course_number
+					}));
+				});			
+				
+				course_select.selectedIndex = -1;			
+				
+			}
+		});
+
+	});
+
+	$("#course_select").bind("change", function(){
+		$("#prof_select").empty();
+		var value = $(this).find(":selected").val();
+		$.ajax({
+			url: '/courses/' + value,
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				$("#professors").show();
+				$.each(data.professors_list, function(){
+					$('#prof_select').append($("<option/>", {
+						value: this.id,
+						text: this.last_name + ", " + this.first_name
+					}));
+				});			
+				var prof_select = document.getElementById("prof_select");
+				if(prof_select.length > 1){
+					prof_select.selectedIndex = -1;
+				}
+			}
+		});
+		
+	});
+
+
 });

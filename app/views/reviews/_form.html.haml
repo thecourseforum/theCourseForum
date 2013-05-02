@@ -15,24 +15,18 @@
 			.row-fluid
 				.span4{:align=>"center", :id=>"deptarments"}
 					= f.label 'Department:'
-					%select{:name => "Department_Select", :id => "dept_select", :onchange=> 'courseSelect(this)'}
-						= @departments.each do |department|
-							%option{:value=>department.id}
-								= department.name
+					%select{:name => "Subdepartment_Select", :id => "subdept_select"}
+						= @subdepartments.each do |subdepartment|
+							%option{:value=>subdepartment.id}
+								= subdepartment.name
 				.span4{:align=>"center", :style=>"display: none", :id=>"courses"}
 					= f.label 'Course:'
-					%select{:name=>"Course_Select", :id => "course_select", :onchange=>'profSelect(this)'} 
-						= @courses.each do |course|
-							%option{:value=>course.id}
-								= Subdepartment.find(course.subdepartment_id).mnemonic
-								= course.course_number
+					%select{:name=>"Course_Select", :id => "course_select"} 
+						
 				.span4{:align=>"center", :style=>"display: none", :id=>"professors"}
 					= f.label 'Professor:'
 					%select{:name=>"Professor_Select", :id => "prof_select"} 
-						= @professors.each do |professor|
-							%option{:value=>professor.id}
-								= professor.last_name
-								= professor.first_name
+						
 	%hr
 	%p
 		%b Grade the course:
@@ -184,6 +178,13 @@
 	.actions{:align=>"center"}
 		= f.submit 'Submit Review!'
 
+
+
+
+
+
+
+
 :erb
 	<script>
 
@@ -195,52 +196,6 @@
 		 document.getElementById(text).disabled = true;    
 	}  
 
-	document.getElementById("dept_select").selectedIndex = -1;
-	
-	document.getElementById("prof_select").selectedIndex = -1;
-
-	function courseSelect(s){
-		$('#professors').hide();
-		$('#courses').show();
-		$('#course_select').empty();
-
-		var dept_id = s.options[s.selectedIndex].value;
+	document.getElementById("subdept_select").selectedIndex = -1;
 		
-		<% for course in @courses %>
-				if ('<%=course.subdepartment.department_id%>' == dept_id){
-					$('#course_select').append($("<option></option>").attr("value",<%= course.id %>).text('<%=Subdepartment.find(course.subdepartment_id).mnemonic%> <%= course.course_number %>'));
-				}
-		<% end %>
-
-		var course_select = document.getElementById("course_select");
-		if(course_select.length > 1){
-			course_select.selectedIndex = -1;
-		}
-		else if (course_select.length === 1) {
-			profSelect(document.getElementById("prof_select"));
-		}
-	}
-
-	function profSelect(s){
-		$('#professors').show();
-
-		$('#prof_select').empty();
-
-		var course_id = s.options[s.selectedIndex].value;
-		
-		<% for professor in @professors %>
-			<% for course in professor.courses %>
-				if('<%=course.id%>' == course_id)
-				{
-					$('#prof_select').append($("<option></option>").attr("value",<%= professor.id %>).text('<%=professor.last_name%>, <%= professor.first_name %>'));
-				}
-			<%end%>
-		<%end%>
-
-		var prof_select = document.getElementById("prof_select");
-		if(prof_select.length > 1){
-			prof_select.selectedIndex = -1;
-		}
-	}
-
 	</script>
