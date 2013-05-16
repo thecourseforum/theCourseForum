@@ -52,6 +52,9 @@ class ReviewsController < ApplicationController
     @review.professor_id = params[:Professor_Select]
     @review.course_id = params[:Course_Select]
 
+    @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
+    @review.semester_id = @semester.id
+    
     respond_to do |format|
       if @review.save
         format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully created.' }

@@ -37,15 +37,14 @@
 				.span6{:align => "right"}
 					%select{:name => "semester_season", :id => "season_select"}
 						%option{:value => "Fall"} Fall
-						%option{:value => "Spring"} Spring 
+						%option{:value => "January"} January
+						%option{:value => "Spring"} Spring
+						%option{:value => "Summer"} Summer 
 				.span6{:align => "left"}
 					%select{:name => "semester_year", :id => "year_select"}
-						%option{:value => 2008} 2008
-						%option{:value => 2009} 2009 
-						%option{:value => 2010} 2010
-						%option{:value => 2011} 2011
-						%option{:value => 2012} 2012
-						%option{:value => 2013} 2013
+						- (2010..Time.now.year).each do |a|
+							%option{:value => (a)}
+								= a
 	%hr
 	%p
 		%b Grade the course:
