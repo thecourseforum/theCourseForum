@@ -15,7 +15,6 @@ class ProfessorsController < ApplicationController
   # GET /professors/1.json
   def show
     @professor = Professor.find(params[:id])
-    @course_professors = CourseProfessor.where(:professor_id => @professor.id).all
 
     respond_to do |format|
       format.html # show.html.haml

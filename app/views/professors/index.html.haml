@@ -1,8 +1,24 @@
-%h2 Professors by name
-.container
-  %ul
-    - @professors.each do |p|
-      %li
-        = link_to (p.first_name + " " + p.last_name), p, :method => :get, :class => 'professor_link', :'data-update-target' => "p#{p.id.to_s}", :remote => true
-        %div{id: "p#{p.id.to_s}", style: "display: none"}
+%h2 Professors
+.row-fluid
+	.span12
+		.row-fluid
+			.span6
+				%p First Letter of Professor's Last Name:
+				%select{:name => "prof_name", :id => "prof_name"}
+					- ('A'..'Z').each do |a|
+						%option{:value => (a)}
+							= a
+%hr
 
+%p{:id => "loading", :style=>"display: none"} Loading...
+
+.span12{:name => "prof_list", :id => "prof_list"}
+
+%p &nbsp
+
+:erb
+	<script>
+
+	document.getElementById("prof_name").selectedIndex = -1;
+			
+	</script>

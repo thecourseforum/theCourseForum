@@ -207,9 +207,9 @@ ActiveRecord::Schema.define(:version => 20130412051636) do
     t.string   "first_name"
     t.string   "last_name"
     t.decimal  "grad_year",  :precision => 4, :scale => 0, :default => 0
+    t.integer  "user_id"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.integer  "user_id"
   end
 
   create_table "subdepartments", :force => true do |t|
