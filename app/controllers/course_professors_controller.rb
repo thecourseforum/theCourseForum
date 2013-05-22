@@ -6,7 +6,9 @@ class CourseProfessorsController < ApplicationController
     @professor = Professor.find(params[:p])
     @professors = @course.professors_list
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
-    @reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id).all.sort_by{|r| - r.created_at.to_i}
+
+    @reviews_temp = Review.where(:course_id => @course.id, :professor_id => @professor.id).all.sort_by{|r| - r.created_at.to_i}
+    @reviews = @reviews_temp.paginate(:page => params[:page], :per_page=> 10)
     @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN course_semesters b ON a.id=b.course_id JOIN sections c ON b.id=c.course_semester_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
 
     #used to pass grades to the donut chart

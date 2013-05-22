@@ -24,7 +24,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :course_professors, :only => [:index, :show]
 
-  #resources :professors
+  resources :professors, :only => [:index, :show]
 
   resources :courses, :only => [:show]
 

@@ -28,6 +28,24 @@
 					%select{:name=>"Professor_Select", :id => "prof_select"} 
 						
 	%hr
+
+	%p
+		%b What semester did you take the course?
+	.row-fluid
+		.span12
+			.row-fluid
+				.span6{:align => "right"}
+					%select{:name => "semester_season", :id => "season_select"}
+						%option{:value => "Fall"} Fall
+						%option{:value => "January"} January
+						%option{:value => "Spring"} Spring
+						%option{:value => "Summer"} Summer 
+				.span6{:align => "left"}
+					%select{:name => "semester_year", :id => "year_select"}
+						- (2010..Time.now.year).each do |a|
+							%option{:value => (a)}
+								= a
+	%hr
 	%p
 		%b Grade the course:
 	.row-fluid
@@ -39,13 +57,13 @@
 						.span11{:align=>"center"}
 							%b Professor Rating:
 					.row-fluid
-						.span4{:align=>"right"} Lowest/Worst
+						.span4{:align=>"right"} Lowest
 						.span1{:align=>"center"} 1
 						.span1{:align=>"center"} 2
 						.span1{:align=>"center"} 3
 						.span1{:align=>"center"} 4
 						.span1{:align=>"center"} 5
-						.span3{:align=>"left"} Highest/Best
+						.span3{:align=>"left"} Highest
 					.row-fluid
 						.span4
 						.span1{:align=>"center"}= f.radio_button :professor_rating, 1 
@@ -58,15 +76,15 @@
 					.row-fluid
 						.span1
 						.span11{:align=>"center"}
-							%b Overall Enjoyability:
+							%b Fun Factor:
 					.row-fluid
-						.span4{:align=>"right"} Lowest/Worst
+						.span4{:align=>"right"} Least Fun
 						.span1{:align=>"center"} 1
 						.span1{:align=>"center"} 2
 						.span1{:align=>"center"} 3
 						.span1{:align=>"center"} 4
 						.span1{:align=>"center"} 5
-						.span3{:align=>"left"} Highest/Best
+						.span3{:align=>"left"} Most Fun
 					.row-fluid
 						.span4
 						.span1{:align=>"center"}= f.radio_button :enjoyability, 1
@@ -87,13 +105,13 @@
 						.span11{:align=>"center"}
 							%b Difficulty:
 					.row-fluid
-						.span4{:align=>"right"} Lowest/Worst
+						.span4{:align=>"right"} Easiest
 						.span1{:align=>"center"} 1
 						.span1{:align=>"center"} 2
 						.span1{:align=>"center"} 3
 						.span1{:align=>"center"} 4
 						.span1{:align=>"center"} 5
-						.span3{:align=>"left"} Highest/Best
+						.span3{:align=>"left"} Hardest
 					.row-fluid
 						.span4
 						.span1{:align=>"center"}= f.radio_button :difficulty, 1
@@ -108,13 +126,13 @@
 						.span11{:align=>"center"}
 							%b Recommendability:
 					.row-fluid
-						.span4{:align=>"right"} Lowest/Worst
+						.span4{:align=>"right"} Lowest
 						.span1{:align=>"center"} 1
 						.span1{:align=>"center"} 2
 						.span1{:align=>"center"} 3
 						.span1{:align=>"center"} 4
 						.span1{:align=>"center"} 5
-						.span3{:align=>"left"} Highest/Best
+						.span3{:align=>"left"} Highest
 					.row-fluid
 						.span4
 						.span1{:align=>"center"}= f.radio_button :recommend, 1
@@ -197,5 +215,7 @@
 	}  
 
 	document.getElementById("subdept_select").selectedIndex = -1;
+	document.getElementById("season_select").selectedIndex = -1;
+	document.getElementById("year_select").selectedIndex = -1;
 		
 	</script>

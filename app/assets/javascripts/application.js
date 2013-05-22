@@ -18,45 +18,45 @@
 //= require course_professors
 
 $(document).ready(function() {
-    $('.professor_link').bind('ajax:success', function(xhr, data, status) {
+	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
 	var target = $(this).data('update-target');
 	alert(target);
 	$('#' + target).html(data);
 	$('#' + target).toggle();
-    });
+	});
 
-    $('#searchbox').autocomplete({
+	$('#searchbox').autocomplete({
 	source: function( request, response ) {
-	    $.ajax({
+		$.ajax({
 		url: '/search/search',
 		dataType: 'json',
 		type: 'GET',
 		data: {
-		    query: request.term
+			query: request.term
 		},
 		success: function( data ) {
-		    response( $.map(data, function( item ) {
+			response( $.map(data, function( item ) {
 			return {
-			    label: item.subdepartment_code + " " + item.course_number + "-" + item.last_name,
-			    value: "c=" + item.course_id + "&p=" + item.professor_id
+				label: item.subdepartment_code + " " + item.course_number + "-" + item.last_name,
+				value: "c=" + item.course_id + "&p=" + item.professor_id
 			}
-		    }));
+			}));
 		}
-	    });
+		});
 	},
 	minLength: 2,
 	select: function(event, ui) {
-	    $('#searchbox').val(ui.item.label);
-	    window.location = "/course_professors?" + ui.item.value;
+		$('#searchbox').val(ui.item.label);
+		window.location = "/course_professors?" + ui.item.value;
 	},
 	open: function() {
-	    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-	    $(this).autocomplete('widget').css('z-index', 5000);
+		$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+		$(this).autocomplete('widget').css('z-index', 5000);
 	},
 	close: function() {
-	    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+		$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 	}
-    });
+	});
 
 	$("#subdept_select").bind("change", function(){
 		$("#courses").hide();
@@ -108,4 +108,38 @@ $(document).ready(function() {
 	});
 
 
+	$("#prof_name").bind("change", function(){
+		$("#prof_list").empty();
+		var value = $(this).find(":selected").val();
+		$.ajax({
+			url: '/professors/',
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				$.each(data, function(){
+					if(this.last_name[0] == value) {
+						$('#prof_list').append($("<a/>", {
+							href: "/professors/" + this.id,
+							text: this.last_name + ", " + this.first_name
+						}));
+						$('#prof_list').append($("<br/>", {						
+						}));
+					}
+				});			
+			}
+		});
+	});
+
+});
+
+jQuery.ajaxSetup({
+  beforeSend: function() {
+    $('#loading').fadeIn();
+    $("#second_letter").show();
+
+  },
+  complete: function(){
+    $('#loading').hide();
+  },
+  success: function() {}
 });
