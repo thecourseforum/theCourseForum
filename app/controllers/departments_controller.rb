@@ -96,4 +96,10 @@ class DepartmentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def department_params
+    params.require(:department).permit(:name)
+  end
+
 end

@@ -92,4 +92,10 @@ class StudentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def student_params
+    params.require(:student).permit(:first_name, :grad_year, :last_name)
+  end
+
 end

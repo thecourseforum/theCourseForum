@@ -83,4 +83,10 @@ class CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def course_params
+    params.require(:course).permit(:course_number, :title)
+  end
+
 end

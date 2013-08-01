@@ -90,4 +90,12 @@ class ReviewsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def review_params
+    params.require(:review).permit(:comment, :professor_rating, :enjoyability,
+      :difficulty, :amount_reading, :amount_writing, :amount_group, :amount_homework,
+      :only_tests, :recommend, :ta_name)
+  end
+
 end

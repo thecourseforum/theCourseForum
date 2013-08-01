@@ -80,4 +80,13 @@ class GradesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def grade_params
+    params.require(:grade).permit(:count_a, :count_aminus, :count_b, :count_bminus,
+      :count_bplus, :count_c, :count_cminus, :count_cplus, :count_d, :count_dminus,
+      :count_dplus, :count_drop, :count_f, :count_other, :count_withdraw, :gpa
+    )
+  end
+
 end

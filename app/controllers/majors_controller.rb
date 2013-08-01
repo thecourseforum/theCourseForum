@@ -80,4 +80,10 @@ class MajorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def major_params
+    params.require(:major).permit(:name)
+  end
+
 end

@@ -83,4 +83,10 @@ class ProfessorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def professor_params
+    params.require(:professor).permit(:email_alias, :first_name, :last_name, :preferred_name)
+  end
+
 end

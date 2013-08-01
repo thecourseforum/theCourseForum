@@ -80,4 +80,10 @@ class SchoolsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def school_params
+    params.require(:school).permit(:name)
+  end
+
 end

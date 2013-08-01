@@ -80,4 +80,10 @@ class SemestersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def semester_params
+    params.require(:semester).permit(:number, :season, :year)
+  end
+
 end

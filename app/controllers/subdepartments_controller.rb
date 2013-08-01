@@ -81,4 +81,10 @@ class SubdepartmentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def subdepartment_params
+    params.require(:subdepartment).permit(:mnemonic, :name)
+  end
+
 end
