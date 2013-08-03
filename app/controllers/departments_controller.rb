@@ -56,7 +56,7 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
-    @department = Department.new(params[:department])
+    @department = Department.new(department_params)
 
     respond_to do |format|
       if @department.save
@@ -75,7 +75,7 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
 
     respond_to do |format|
-      if @department.update_attributes(params[:department])
+      if @department.update_attributes(department_params)
         format.html { redirect_to @department, notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else

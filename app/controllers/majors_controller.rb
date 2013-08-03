@@ -40,7 +40,7 @@ class MajorsController < ApplicationController
   # POST /majors
   # POST /majors.json
   def create
-    @major = Major.new(params[:major])
+    @major = Major.new(major_params)
 
     respond_to do |format|
       if @major.save
@@ -59,7 +59,7 @@ class MajorsController < ApplicationController
     @major = Major.find(params[:id])
 
     respond_to do |format|
-      if @major.update_attributes(params[:major])
+      if @major.update_attributes(major_params)
         format.html { redirect_to @major, notice: 'Major was successfully updated.' }
         format.json { head :no_content }
       else

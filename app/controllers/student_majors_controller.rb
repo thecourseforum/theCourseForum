@@ -40,7 +40,7 @@ class StudentMajorsController < ApplicationController
   # POST /student_majors
   # POST /student_majors.json
   def create
-    @student_major = StudentMajor.new(params[:student_major])
+    @student_major = StudentMajor.new(student_major_params)
 
     respond_to do |format|
       if @student_major.save
@@ -59,7 +59,7 @@ class StudentMajorsController < ApplicationController
     @student_major = StudentMajor.find(params[:id])
 
     respond_to do |format|
-      if @student_major.update_attributes(params[:student_major])
+      if @student_major.update_attributes(student_major_params)
         format.html { redirect_to @student_major, notice: 'Student major was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,4 +80,10 @@ class StudentMajorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+  def student_major_params
+    params.require(:student_major).permit(:student_id, :major_id)
+  end
+
 end

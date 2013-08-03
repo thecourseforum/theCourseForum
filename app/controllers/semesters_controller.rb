@@ -40,7 +40,7 @@ class SemestersController < ApplicationController
   # POST /semesters
   # POST /semesters.json
   def create
-    @semester = Semester.new(params[:semester])
+    @semester = Semester.new(semester_params)
 
     respond_to do |format|
       if @semester.save
@@ -59,7 +59,7 @@ class SemestersController < ApplicationController
     @semester = Semester.find(params[:id])
 
     respond_to do |format|
-      if @semester.update_attributes(params[:semester])
+      if @semester.update_attributes(semester_params)
         format.html { redirect_to @semester, notice: 'Semester was successfully updated.' }
         format.json { head :no_content }
       else

@@ -41,7 +41,7 @@ class SubdepartmentsController < ApplicationController
   # POST /subdepartments
   # POST /subdepartments.json
   def create
-    @subdepartment = Subdepartment.new(params[:subdepartment])
+    @subdepartment = Subdepartment.new(subdepartment_params)
 
     respond_to do |format|
       if @subdepartment.save
@@ -60,7 +60,7 @@ class SubdepartmentsController < ApplicationController
     @subdepartment = Subdepartment.find(params[:id])
 
     respond_to do |format|
-      if @subdepartment.update_attributes(params[:subdepartment])
+      if @subdepartment.update_attributes(subdepartment_params)
         format.html { redirect_to @subdepartment, notice: 'Subdepartment was successfully updated.' }
         format.json { head :no_content }
       else

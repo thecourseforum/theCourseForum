@@ -43,7 +43,7 @@ class ProfessorsController < ApplicationController
   # POST /professors
   # POST /professors.json
   def create
-    @professor = Professor.new(params[:professor])
+    @professor = Professor.new(professor_params)
 
     respond_to do |format|
       if @professor.save
@@ -62,7 +62,7 @@ class ProfessorsController < ApplicationController
     @professor = Professor.find(params[:id])
 
     respond_to do |format|
-      if @professor.update_attributes(params[:professor])
+      if @professor.update_attributes(professor_params)
         format.html { redirect_to @professor, notice: 'Professor was successfully updated.' }
         format.json { head :no_content }
       else
@@ -86,7 +86,7 @@ class ProfessorsController < ApplicationController
 
 private
   def professor_params
-    params.require(:professor).permit(:email_alias, :first_name, :last_name, :preferred_name)
+    params.require(:professor).permit(:email_alias, :first_name, :last_name, :middle_name, :preferred_name)
   end
 
 end

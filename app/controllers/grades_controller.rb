@@ -40,7 +40,7 @@ class GradesController < ApplicationController
   # POST /grades
   # POST /grades.json
   def create
-    @grade = Grade.new(params[:grade])
+    @grade = Grade.new(grade_params)
 
     respond_to do |format|
       if @grade.save
@@ -59,7 +59,7 @@ class GradesController < ApplicationController
     @grade = Grade.find(params[:id])
 
     respond_to do |format|
-      if @grade.update_attributes(params[:grade])
+      if @grade.update_attributes(grade_params)
         format.html { redirect_to @grade, notice: 'Grade was successfully updated.' }
         format.json { head :no_content }
       else

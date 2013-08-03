@@ -43,7 +43,7 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(params[:course])
+    @course = Course.new(course_params)
 
     respond_to do |format|
       if @course.save
@@ -62,7 +62,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course])
+      if @course.update_attributes(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else

@@ -48,7 +48,7 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     
-    @review = Review.new(params[:review])
+    @review = Review.new(review_params)
     @review.professor_id = params[:Professor_Select]
     @review.course_id = params[:Course_Select]
 
@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
 
     respond_to do |format|
-      if @review.update_attributes(params[:review])
+      if @review.update_attributes(review_params)
         format.html { redirect_to @review, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else

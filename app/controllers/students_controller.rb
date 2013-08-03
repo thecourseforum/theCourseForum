@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(params[:student])
+    @student = Student.new(student_params)
     @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
     @user.old_password_confirmation = params[:user][:old_password_confirmation]
 
@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
     respond_to do |format|
-      if @student.update_attributes(params[:student])
+      if @student.update_attributes(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
