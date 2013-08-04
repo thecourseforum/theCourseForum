@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130412051636) do
+ActiveRecord::Schema.define(version: 20130803234612) do
 
   create_table "course_professors", force: true do |t|
     t.integer  "course_id"
@@ -115,8 +115,6 @@ ActiveRecord::Schema.define(version: 20130412051636) do
   end
 
   create_table "professors", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "preferred_name"
     t.string   "email_alias"
     t.integer  "department_id"
@@ -204,8 +202,6 @@ ActiveRecord::Schema.define(version: 20130412051636) do
   add_index "student_majors", ["student_id"], name: "index_student_majors_on_student_id", using: :btree
 
   create_table "students", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.decimal  "grad_year",  precision: 4, scale: 0, default: 0
     t.integer  "user_id"
     t.datetime "created_at"
@@ -229,6 +225,8 @@ ActiveRecord::Schema.define(version: 20130412051636) do
     t.boolean  "subscribed_to_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["professor_id"], name: "index_users_on_professor_id", using: :btree
