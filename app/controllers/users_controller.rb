@@ -40,11 +40,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
-    @user.old_password_confirmation = params[:user][:old_password_confirmation]
-    if(params[:professor_id] != nil)
-      @user.professor_id = params[:professor_id]
-    end
+    @user = User.new(user_params)
+    # TODO Check if submitted email is in our list of professor emails
+    # If so, create a professor_user, if not, create a student
+    # DON'T use the existence of grad_year for this purpose
+    # Check the user is valid? before creating the student or professor
 
     respond_to do |format|
       if @user.save
@@ -93,7 +93,7 @@ class UsersController < ApplicationController
 
 private
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_login, :last_name, :old_password, :password, :password_confirmation, :subscribed_to_email)
+    params.require(:user).permit(:email, :first_name, :last_name, :old_password, :password, :password_confirmation, :subscribed_to_email)
   end
 
 end

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   belongs_to :student
-  belongs_to :professor
+  belongs_to :professor_user
 
   before_save { self.email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w\-\.]+@(\w+\.)*virginia\.edu\z/i
