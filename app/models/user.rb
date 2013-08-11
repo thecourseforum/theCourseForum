@@ -27,16 +27,11 @@ class User < ActiveRecord::Base
   end
 
   def migrate(password)
-    if self.password_digest == nil
-      self.password = password
-      self.password_confirmation = password
-      self.old_password = nil
-      self.save
-      return self
-      
-    else
-      return nil
-    end
+    self.password = password
+    self.password_confirmation = password
+    self.old_password = nil
+    self.save
+    return self      
   end
 
 end

@@ -2,7 +2,7 @@ TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
   # Routes for user authentication
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
 
   #resources :grades
 
