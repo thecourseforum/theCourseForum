@@ -2,8 +2,7 @@ TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
   # Routes for user authentication
-  get "login" => "sessions#new", :as => "login"
-  get "logout" => "sessions#destroy", :as => "logout"
+  devise_for :users
 
   #resources :grades
 
@@ -17,9 +16,9 @@ TheCourseForum::Application.routes.draw do
 
   resources :students, :only => [:create, :index]
 
-  resources :users, :only => [:create, :index]
+  # resources :users, :only => [:create, :index]
 
-  resources :sessions
+  # resources :sessions
 
   resources :course_professors, :only => [:index, :show]
 
