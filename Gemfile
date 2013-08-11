@@ -42,6 +42,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
+  gem 'mailcatcher'
 end
 
 # Use unicorn as the app server
