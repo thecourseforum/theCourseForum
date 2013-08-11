@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require grades
 //= require course_professors
+//= require student_sign_up
 
 $(document).ready(function() {
     $('.professor_link').bind('ajax:success', function(xhr, data, status) {

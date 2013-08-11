@@ -32,6 +32,20 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def student_sign_up
+    @user = current_user
+    if @user == nil || @user.student != nil
+      redirect_to browse_path
+    end
+    @student = Student.new
+    @majors_list = Major.all.map{|m| m.name}
+  end
+
+  def professor_sign_up
+    @user = current_user
+    @student = ProfessorUser.new
+  end
+
   private 
 
   def user_params

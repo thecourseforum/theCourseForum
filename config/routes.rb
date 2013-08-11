@@ -2,7 +2,12 @@ TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
   # Routes for user authentication
-  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :confirmations => "confirmations"}
+
+  devise_scope :user do
+    get '/student_sign_up', :to => "registrations#student_sign_up", :as => "student_sign_up"
+    get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
+  end
 
   #resources :grades
 

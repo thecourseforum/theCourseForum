@@ -1,7 +1,0 @@
-%h1 Update your account
-%h2 You're almost ready to start using the new Course Forum.
-%h3 Just make sure all the below information is correct.
-
-%p= @user.email
-.container
-  = form_tag :controller => "users", :action => "update", :method => "post"

@@ -12,9 +12,7 @@
   = f.text_field :first_name, {:placeholder => "First Name"}
   = f.text_field :last_name, {:placeholder => "Last Name"}
   = f.text_field :email, {:placeholder => "UVa Email Address"}
-  = fields_for @student do |s|
-    = s.label "Grad Year"
-    = s.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", nil]], {:selected => Time.now.year+4}
   = f.password_field :password, {:placeholder => "New Password"}
   = f.password_field :password_confirmation, {:placeholder => "Confirm Password"}
+  %br
   = f.submit 'Sign Up!', {:class => 'btn btn-large btn-primary'}

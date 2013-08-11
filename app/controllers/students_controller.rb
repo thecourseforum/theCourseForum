@@ -41,26 +41,17 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
+    @user = current_user
     @student = Student.new(student_params)
-    @user = User.new(email: params[:user][:email], old_password: params[:user][:old_password])
-    @user.old_password_confirmation = params[:user][:old_password_confirmation]
+    @student.user_id = @user.id
 
     respond_to do |format|
-      if (@student.save && @user.save)
-        @user.student_id = @student.id
-        @user.save
-        format.html { redirect_to '/browse', notice: 'Welcome to theCourseForum!' }
+      if @student.save
+        format.html { redirect_to browse_path, notice: 'Welcome to theCourseForum!' }
         format.json { render json: @student, status: :created, location: @student }
       else
-        if @student.save
-          @student.destroy
-        end
-        if @user.save
-          @user.destroy
-        end
-        format.html { redirect_to :root }
+        format.html { redirect_to student_sign_up_path }
         format.json { render json: @student.errors, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

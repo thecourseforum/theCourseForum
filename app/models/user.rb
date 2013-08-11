@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  belongs_to :student
+  has_one :student
   belongs_to :professor_user
 
   before_save { self.email.downcase! }
