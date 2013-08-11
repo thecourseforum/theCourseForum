@@ -5,8 +5,10 @@
   %ul
     - @user.errors.full_messages.each do |msg|
       %li= msg
+
+-# This won't display the error messages - need to manually add the errors, since this form is outside of the devise controller
   
-= form_for @user do |f|
+= form_for @user, :url => registration_path(:user) do |f|
   = f.text_field :first_name, {:placeholder => "First Name"}
   = f.text_field :last_name, {:placeholder => "Last Name"}
   = f.text_field :email, {:placeholder => "UVa Email Address"}

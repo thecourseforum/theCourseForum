@@ -2,7 +2,7 @@ TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
   # Routes for user authentication
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   #resources :grades
 
@@ -40,7 +40,11 @@ TheCourseForum::Application.routes.draw do
     end
   end
 
-  get '/browse' => 'departments#index'
+  get '/browse' => 'departments#index', :as => "browse"
+
+  authenticated :user do
+    root :to => redirect("/browse"), :as => :authenticated_root
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

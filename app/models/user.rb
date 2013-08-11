@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_secure_password
 
   belongs_to :student
   belongs_to :professor_user
@@ -15,8 +14,6 @@ class User < ActiveRecord::Base
   validates :email, :presence   => true,
                     :format     => { :with => VALID_EMAIL_REGEX },
                     :uniqueness => { :case_sensitive => false }
-  validates_presence_of :password
-  validates_presence_of :password_confirmation
 
   # Authenticate user based on old MD5-hashed password
   def old_authenticate(password)

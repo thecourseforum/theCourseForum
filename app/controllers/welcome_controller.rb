@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
-  skip_before_filter :check_login
+  skip_before_action :authenticate_user!
+
   def index
     if current_user != nil
       redirect_to '/browse'
@@ -7,6 +8,5 @@ class WelcomeController < ApplicationController
     end
     @student = Student.new
     @user = User.new
-    @professor = Professor.new
   end
 end

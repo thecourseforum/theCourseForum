@@ -4,7 +4,7 @@
       %a.brand{:href => "/"}
         %img{:src => "/images/logo.png"}
       .account-header
-        = link_to 'logout', '/logout'
+        = link_to 'logout', destroy_user_session_path, :method => :delete
       = form_tag '/search/search', :method => "get", :class => "site-search" do
         .input-append.input-prepend
           %span.add-on
