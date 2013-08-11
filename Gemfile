@@ -38,6 +38,12 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+# Pry for debugging in development and test
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+end
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
