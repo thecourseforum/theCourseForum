@@ -7,6 +7,4 @@
     - else
       - @result.each do |r|
         %li
-          = (link_to "#{r["subdepartment_code"]} #{r["course_number"]}", "/course_professors/" + r["id"])
-           
-          = (link_to "#{r["first_name"]} #{r["last_name"]}", "/professors/" + r["id"])
+          = link_to "#{r["subdepartment_code"]} #{r["course_number"]} #{r["first_name"]} #{r["last_name"]}", course_professors_path(:p => r["professor_id"].to_i, :c => r["course_id"].to_i)
