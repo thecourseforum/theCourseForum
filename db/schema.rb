@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 20130826205627) do
   add_index "professor_users", ["user_id"], name: "index_professor_users_on_user_id", using: :btree
 
   create_table "professors", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "preferred_name"
     t.string   "email_alias"
     t.integer  "department_id"
@@ -130,8 +132,6 @@ ActiveRecord::Schema.define(version: 20130826205627) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "middle_name"
-    t.string   "first_name"
-    t.string   "last_name"
   end
 
   add_index "professors", ["department_id"], name: "index_professors_on_department_id", using: :btree
