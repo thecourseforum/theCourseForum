@@ -19,6 +19,8 @@
 //= require course_professors
 //= require student_sign_up
 
+$('.dropdown-toggle').dropdown();
+
 $(document).ready(function() {
     $('.professor_link').bind('ajax:success', function(xhr, data, status) {
 	var target = $(this).data('update-target');
