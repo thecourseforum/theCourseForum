@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 
   has_one :student
+  has_many :reviews, :through => :student
   belongs_to :professor_user
 
   before_save { self.email.downcase! }
