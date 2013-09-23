@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap_overrides
  */
 
 //variables to override bootstrap
@@ -313,4 +312,15 @@ textarea {
   li.recommend {
     background-image: url("/assets/icons/user_comment.png");
   }
+}
+
+.orange-caret
+{
+border-top-color: #f26522 !important;
+border-bottom-color: #f26522 !important;
+}
+
+.dropdown-menu.right {
+    left:auto;
+    right:0;
 }
