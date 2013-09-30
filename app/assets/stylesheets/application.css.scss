@@ -126,28 +126,29 @@ p.title{
 }
 
 //header related
-form.login {
+.login {
   @extend .form-inline;
   @extend .pull-right;
   margin-top: 22px;
 
-  input {
-    @extend .input-medium;
-  }
+  form{
+    input {
+      @extend .input-medium;
+    }
 
-  div.input, input.button {
-    @extend .pull-left;
-  }
+    div.input {
+      @extend .pull-left;
+    }
 
-  div.input.password {
-    margin-left: 10px;
-  }
+    div.input.password {
+      margin-left: 10px;
+    }
 
-  input.button {
-    @extend .input-small;
-    @extend .btn;
-    margin-top: 0px !important;
-    margin-left: 10px;
+    input.button {
+      @extend .input-small;
+      @extend .btn;
+      margin-top: 0px !important;
+    }
   }
 }
 
@@ -323,4 +324,8 @@ border-bottom-color: #f26522 !important;
 .dropdown-menu.right {
     left:auto;
     right:0;
+}
+
+.error-report{
+  float: right;
 }
