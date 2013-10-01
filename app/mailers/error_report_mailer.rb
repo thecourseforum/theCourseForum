@@ -9,6 +9,6 @@ class ErrorReportMailer < ActionMailer::Base
     @email = "tjd5at@virginia.edu"
     @url = url
     @description = description
-    mail(to: @email, subject: 'Error Report from #{@user.email}')
+    mail(to: @email, subject: 'Error Report from ' + @user.email)
   end
 end

@@ -6,7 +6,10 @@ class ErrorReportsController < ApplicationController
 
   def submit
     ErrorReportMailer.error_report(params[:user_id], params[:report][:url], params[:report][:description]).deliver
-    redirect_to params[:report][:url]
+    
+    respond_to do |format|
+      format.html { redirect_to params[:report][:url], notice: 'Error report successfully submitted! Thank you!' }
+    end
   end
 
 end
