@@ -3,4 +3,6 @@
     .container
       - if current_user
         .btn-primary.btn.error-report
-          Is something wrong with this page?
+          - path = request.fullpath
+          - url = (path.include?("/error_report") ? "/error_report" : path)
+          = link_to "Is something wrong with this page?", new_error_report_path(:url => url), :style => "color:white;"

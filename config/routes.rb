@@ -23,7 +23,7 @@ TheCourseForum::Application.routes.draw do
 
   # resources :users, :only => [:create, :index]
 
-  # resources :sessions
+  # resources :sessionsrequest.fullpath
 
   resources :course_professors, :only => [:index, :show]
 
@@ -45,7 +45,11 @@ TheCourseForum::Application.routes.draw do
     end
   end
 
-  get '/browse' => 'departments#index', :as => "browse"
+  get '/browse', :to => 'departments#index', :as => "browse"
+
+  get '/error_report', :to => 'error_reports#new', :as => "new_error_report"
+
+  post '/error_report/submit', :to => 'error_reports#submit', :as => "submit_error_report"
 
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root
