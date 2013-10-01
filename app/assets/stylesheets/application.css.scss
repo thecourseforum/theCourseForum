@@ -36,6 +36,8 @@ $btnPrimaryBackground: #e64500;
 body {
   @extend .container;
   padding-top: 100px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
 }
 
 header {
