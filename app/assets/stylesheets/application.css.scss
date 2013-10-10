@@ -35,6 +35,11 @@ $btnPrimaryBackgroundHighlight: $orange;
 }
 
 //base styles
+
+html {
+  overflow-y: scroll;
+}
+
 body {
   @extend .container;
   padding-top: 100px;
