@@ -18,7 +18,9 @@ $navbarBackground: #0E2034;
 $navbarBackgroundHighlight: #0D3268;
 $linkColor: #000;
 $linkColorHover: $orange;
-$btnPrimaryBackground: #e64500;
+$btnPrimaryBackground: $orange;
+$btnPrimaryBackgroundHighlight: $orange;
+
 
 @import "bootstrap";
 @import "bootstrap-responsive";
