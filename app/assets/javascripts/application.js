@@ -111,7 +111,9 @@ $(document).ready(function() {
 		
 	});
 
+});
 
+$(document).on('page:load', function() {
 	$("#prof_name").bind("change", function(){
 		$("#prof_list").empty();
 		var value = $(this).find(":selected").val();
@@ -133,7 +135,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 });
 
 jQuery.ajaxSetup({
