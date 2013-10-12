@@ -1,17 +1,20 @@
-%ul.site-nav-links
-  %li
-    %a{:href => "/"}
-      %i.icon-home
-      Home
-  %li
-    %a{:href => "/reviews/new"}
-      %i.icon-pencil
-      Write a review
-  %li
-    %a{:href => "/browse"}
-      %i.icon-list
-      Browse All
-  %li
-    %a{:href => "/professors"}
-      %i.icon-list
-      Browse by Professor
+- if current_user
+  %ul.site-nav-links
+    %li
+      %a{:href => "/"}
+        %i.icon-home
+        Home
+    %li
+      %a{:href => "/reviews/new"}
+        %i.icon-pencil
+        Write a review
+    %li
+      %a{:href => "/browse"}
+        %i.icon-list
+        Browse All
+    %li
+      %a{:href => "/professors"}
+        %i.icon-list
+        Browse by Professor
+- else
+  .sidefiller

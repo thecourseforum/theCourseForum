@@ -5,4 +5,6 @@
         .btn-primary.btn.error-report
           - path = request.fullpath
           - url = (path.include?("/error_report") ? "/error_report" : path)
-          = link_to "Is something wrong with this page?", new_error_report_path(:url => url), :style => "color:white;"
+          = link_to "Is something wrong with this page? Report it!", new_error_report_path(:url => url), :style => "color:white;"
+      .facebook
+        = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/thecourseforum", :target => '_blank'

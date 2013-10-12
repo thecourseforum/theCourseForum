@@ -200,6 +200,10 @@ ul.site-nav-links {
   }
 }
 
+.sidefiller {
+  height: 50px;
+}
+
 //home page
 .marketing {
   @include makeColumn(6);
@@ -270,6 +274,10 @@ textarea {
   }
 }
 
+.review-button {
+  @include makeColumn(5);
+}
+
 //Grades
 .grade-donut .slice {
   font-size: 11px;
@@ -337,4 +345,13 @@ border-bottom-color: #f26522 !important;
 
 .error-report{
   float: right;
+}
+
+.facebook, .twitter{
+  margin-top: 5px;
+  float: left;
+}
+
+.twitter {
+  margin-left: 10px;
 }

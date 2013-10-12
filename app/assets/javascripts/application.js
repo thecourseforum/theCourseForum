@@ -63,16 +63,16 @@ $(document).on('page:load', function() {
 	});
 
 	$("#subdept_select").bind("change", function(){
-		$("#courses").hide();
+		$("#professors").fadeOut("fast");
+		$("#courses").fadeOut("fast");
 		$("#course_select").empty();
-		$("#professors").hide();
 		var value = $(this).find(":selected").val();
 		$.ajax({
 			url: '/subdepartments/' + value,
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
-				$("#courses").show();
+				$("#courses").fadeIn("fast");
 				$.each(data, function(){
 					$('#course_select').append($("<option/>", {
 						value: this.id,
@@ -95,7 +95,7 @@ $(document).on('page:load', function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
-				$("#professors").show();
+				$("#professors").fadeIn("fast");
 				$.each(data.professors_list, function(){
 					$('#prof_select').append($("<option/>", {
 						value: this.id,
