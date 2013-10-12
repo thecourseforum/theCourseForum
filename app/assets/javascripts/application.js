@@ -21,7 +21,7 @@
 
 $('.dropdown-toggle').dropdown();
 
-$(document).ready(function() {
+$(document).on('page:load', function() {
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
 	var target = $(this).data('update-target');
 	alert(target);

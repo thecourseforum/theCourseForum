@@ -8,9 +8,10 @@ class SessionsController < Devise::SessionsController
         @user.migrate(params[:user][:password])
       end
       super
-    else
-      flash.now.alert = "Invalid email or password"
+    elsif @user && @user.valid_password?(params[:user][:password])
       super
+    else
+      redirect_to new_user_session_path, notice: 'Invalid email or password.' 
     end
   end
 

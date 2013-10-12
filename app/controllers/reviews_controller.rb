@@ -30,8 +30,20 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @subdepartments = Subdepartment.all.sort_by{|e| e[:name]}
+    @years = (2010..Time.now.year).to_a
    # @courses = Course.all.sort_by{|e| e[:course_number]}
    # @professors = Professor.all.sort_by{|e| e[:last_name]}
+
+    @course_id = params[:c]
+    @prof_id = params[:p]
+
+    if @course_id
+      @subdepartment = Subdepartment.find(Course.find(@course_id).subdepartment_id)
+      @subdept_id = @subdepartment.id
+      @courses = Course.where(:subdepartment_id => @subdept_id)
+      @professors = Course.find(@course_id).professors_list
+      @mnemonic = @subdepartment.mnemonic
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,8 +61,8 @@ class ReviewsController < ApplicationController
   def create
     
     @review = Review.new(review_params)
-    @review.professor_id = params[:Professor_Select]
-    @review.course_id = params[:Course_Select]
+    @review.professor_id = params[:prof_select]
+    @review.course_id = params[:course_select]
 
     @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
     @review.semester_id = @semester.id

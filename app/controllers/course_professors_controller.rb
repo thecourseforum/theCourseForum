@@ -14,6 +14,11 @@ class CourseProfessorsController < ApplicationController
     #used to pass grades to the donut chart
     gon.grades = @grades
 
+    @rev_ratings = {}
+    @rev_emphasizes = {:reading_count => 0, :writing_count => 0, 
+      :group_count => 0, :homework_count => 0, :test_count => 0,
+      :reading => 0, :writing => 0, :group => 0, :homework => 0}
+
     if @reviews.length > 0
       @rev_ratings = get_review_ratings
       @rev_emphasizes = get_review_emphasizes
@@ -23,7 +28,7 @@ class CourseProfessorsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :template => "course_professors/noreview" }
+        format.html
       end
     end
 
