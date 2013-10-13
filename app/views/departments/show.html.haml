@@ -1,0 +1,15 @@
+%p#notice= notice
+%p
+  %h1= @department.name
+%p
+  - @subdepartments.each do |subdepartment|
+    - if(@count > 1)
+      %h2= subdepartment.name
+    - @courses.each do |course|
+      - if(course.subdepartment_id == subdepartment.id)
+        - p_list = course.professors_list
+        - if p_list.size > 1
+          = link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course
+        - else
+          = link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
+        %br
