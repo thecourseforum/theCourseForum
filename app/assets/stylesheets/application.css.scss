@@ -195,7 +195,7 @@ ul.site-nav-links {
     background-color: #FFF;
 
     i {
-      background-image: image-url("glyphicons-halflings.png") !important;
+      background-image: asset-url("glyphicons-halflings.png") !important;
     }
   }
 }
@@ -316,19 +316,19 @@ textarea {
   }
 
   li.overall {
-    background-image: image-url("icons/heart.png");
+    background-image: asset-url("icons/heart.png");
   }
   li.professor_rating {
-    background-image: image-url("icons/user_gray.png");
+    background-image: asset-url("icons/user_gray.png");
   }
   li.enjoyability {
-    background-image: image-url("icons/emoticon_smile.png");
+    background-image: asset-url("icons/emoticon_smile.png");
   }
   li.difficulty {
-    background-image: image-url("icons/pencil.png");
+    background-image: asset-url("icons/pencil.png");
   }
   li.recommend {
-    background-image: image-url("icons/user_comment.png");
+    background-image: asset-url("icons/user_comment.png");
   }
 }
 
