@@ -10,6 +10,6 @@
         - p_list = course.professors_list
         - if p_list.size > 1
           = link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course
-        - else
+        - elsif !p_list.empty?
           = link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
         %br
