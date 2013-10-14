@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
   # GET /reviews/new.json
   def new
     @review = Review.new
-    @subdepartments = Subdepartment.all.sort_by{|e| e[:name]}
+    @subdepartments = Subdepartment.all.order(:name)
     @years = (2010..Time.now.year).to_a
    # @courses = Course.all.sort_by{|e| e[:course_number]}
    # @professors = Professor.all.sort_by{|e| e[:last_name]}

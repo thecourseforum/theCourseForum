@@ -15,8 +15,8 @@
 			.span12
 				.row-fluid
 					.span4{:align=>"center", :id=>"departments"}
-						= f.label 'Department:'
-						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name, s.id]}, @subdept_id), :include_blank => true
+						= f.label 'Department (prefix):'
+						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}, @subdept_id), :include_blank => true
 					.span4{:align=>"center", :id=>"courses"}
 						= f.label 'Course:'
 						= select_tag :course_select, options_for_select(@courses.map{|c| [@mnemonic + " #{c.course_number}", c.id]}, @course_id), :include_blank => true
@@ -28,8 +28,8 @@
 			.span12
 				.row-fluid
 					.span4{:align=>"center", :id=>"departments"}
-						= f.label 'Department:'
-						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name, s.id]}), :include_blank => true
+						= f.label 'Department (prefix):'
+						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), :include_blank => true
 					.span4{:align=>"center", :style=>"display: none", :id=>"courses"}
 						= f.label 'Course:'
 						%select{:name=>"course_select", :id => "course_select"} 
