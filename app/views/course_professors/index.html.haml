@@ -64,7 +64,7 @@
       %p There aren't any grade distributions available for this class. Sorry!
   - if @reviews.size > 0
     .review-button
-      = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn"
+      = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
 
 
 %h2 #{@reviews_temp.count} Reviews
@@ -85,4 +85,4 @@
           %li.recommend= r.recommend
   = will_paginate @reviews
 - else
-  = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn"
+  = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"

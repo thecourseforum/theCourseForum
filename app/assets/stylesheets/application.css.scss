@@ -12,7 +12,7 @@
  */
 
 //variables to override bootstrap
-$orange: #f26522;
+$orange: #d9551e;
 $navbarHeight: 35px;
 $navbarBackground: #0E2034;
 $navbarBackgroundHighlight: #0D3268;
@@ -334,8 +334,8 @@ textarea {
 
 .orange-caret
 {
-border-top-color: #f26522 !important;
-border-bottom-color: #f26522 !important;
+border-top-color: $orange !important;
+border-bottom-color: $orange !important;
 }
 
 .dropdown-menu.right {
