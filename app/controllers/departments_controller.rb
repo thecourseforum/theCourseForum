@@ -29,9 +29,6 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
     @subdepartments = @department.subdepartments #Subdepartment.where(:department_id => @department.id)
 
-    @subdepartment_ids = @subdepartments.map{|s| s.id}
-    @courses = Course.where(:subdepartment_id => @subdepartment_ids).order(:course_number)
-
     @count = @subdepartments.size
 
     respond_to do |format|
