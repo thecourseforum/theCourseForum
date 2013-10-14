@@ -251,7 +251,7 @@ textarea {
   }
 
   select {
-    @include makeColumn(2);
+    @include makeColumn(4);
     float: right;
     margin-top: 4px;
   }

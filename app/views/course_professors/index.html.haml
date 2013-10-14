@@ -1,8 +1,13 @@
 .course-professor-h1
-  %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
-  %select.course-professor-switcher
-    - @professors.each do |c|
-      %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id}="#{c.last_name}, #{c.first_name}"
+  .row-fluid
+    .span12
+      %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
+  .row-fluid
+    %select.course-professor-switcher
+      - @professors.each do |c|
+        %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id}="#{c.last_name}, #{c.first_name}"
+    .review-button
+      = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
 
 .course-breakdown
   .course-stats
@@ -62,14 +67,12 @@
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
       %p There aren't any grade distributions available for this class. Sorry!
-  - if @reviews.size > 0
-    .review-button
-      = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
 
 
-%h2 #{@reviews_temp.count} Reviews
+
 
 - if @reviews.count > 0
+  %h2 #{@reviews_temp.count} Reviews
   = will_paginate @reviews
   - @reviews.each do |r|
     - if r.comment.length > 0
@@ -85,4 +88,5 @@
           %li.recommend= r.recommend
   = will_paginate @reviews
 - else
+  %h2 No reviews :(
   = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
