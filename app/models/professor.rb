@@ -8,4 +8,8 @@ class Professor < ActiveRecord::Base
   def courses_list
     return self.courses.uniq{ |p| p.id }.sort_by{|p| p.subdepartment.mnemonic}
   end
+
+  def full_name
+    self.first_name + " " + self.last_name
+  end
 end
