@@ -3,6 +3,8 @@
   %h1= @department.name
 %p
   - @subdepartments.each do |subdepartment|
+    - if subdepartment.professors_list.empty?
+      - next
     - if (@count > 1)
       %h2= subdepartment.name
     - flag = true
