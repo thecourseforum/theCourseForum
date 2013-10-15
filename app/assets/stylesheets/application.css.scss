@@ -153,9 +153,8 @@ p.title{
       margin-left: 10px;
     }
 
-    input.button {
-      @extend .input-small;
-      @extend .btn;
+    input.login-button {
+      width: 100px;      
       margin-top: 0px !important;
     }
   }
