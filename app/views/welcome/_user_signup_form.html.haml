@@ -11,7 +11,7 @@
 = form_for @user, :url => registration_path(:user) do |f|
   = f.text_field :first_name, {:placeholder => "First Name"}
   = f.text_field :last_name, {:placeholder => "Last Name"}
-  = f.text_field :email, {:placeholder => "UVa Email Address"}
+  = f.email_field :email, {:placeholder => "UVa Email Address"}
   = f.password_field :password, {:placeholder => "New Password"}
   = f.password_field :password_confirmation, {:placeholder => "Confirm Password"}
   %br
