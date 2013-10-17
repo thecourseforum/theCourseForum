@@ -65,7 +65,7 @@ section {
 }
 
 section.wide {
-  @include makeColumn(12);
+  @include makeColumn(15);
 }
 
 aside {
@@ -205,12 +205,17 @@ ul.site-nav-links {
 }
 
 //home page
+.user-sign-up{
+  margin-left: 7%;
+}
+
 .marketing {
-  @include makeColumn(6);
+  @include makeColumn(5);
 }
 
 .sign-up {
-  @include makeColumn(5);
+  @include makeColumn(6);
+  margin-left: 80px;
 }
 
 form.register {
@@ -222,6 +227,8 @@ form.register {
     @extend .btn;
   }
 }
+
+
 
 .review-container {
   @extend .container-fluid;

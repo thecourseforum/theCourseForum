@@ -9,10 +9,20 @@
 -# This won't display the error messages - need to manually add the errors, since this form is outside of the devise controller
   
 = form_for @user, :url => registration_path(:user) do |f|
-  = f.text_field :first_name, {:placeholder => "First Name"}
-  = f.text_field :last_name, {:placeholder => "Last Name"}
-  = f.email_field :email, {:placeholder => "UVa Email Address"}
-  = f.password_field :password, {:placeholder => "New Password"}
-  = f.password_field :password_confirmation, {:placeholder => "Confirm Password"}
-  %br
-  = f.submit 'Sign Up!', {:class => 'btn btn-large btn-primary'}
+  .row-fluid
+    .span6
+      = f.text_field :first_name, {:placeholder => "First Name"}
+  .row-fluid
+    .span6
+      = f.text_field :last_name, {:placeholder => "Last Name"}
+  .row-fluid
+    .span6
+      = f.email_field :email, {:placeholder => "UVa Email Address"}
+  .row-fluid
+    .span6
+      = f.password_field :password, {:placeholder => "Password: at least 8 characters"}
+  .row-fluid
+    .span6
+      = f.password_field :password_confirmation, {:placeholder => "Confirm Password"}
+  .row-fluid
+    = f.submit 'Sign Up!', :class => 'btn btn-large btn-primary', :id => "sign-up-button"
