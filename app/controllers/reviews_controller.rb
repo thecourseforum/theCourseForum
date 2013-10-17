@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   # GET /reviews
   # GET /reviews.json
   def index
-    @reviews = Review.all
+    @reviews = current_user.reviews.order(:created_at)
 
     respond_to do |format|
       format.html # index.html.erb

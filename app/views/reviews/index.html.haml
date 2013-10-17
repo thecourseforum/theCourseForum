@@ -1,0 +1,21 @@
+%h1 My Reviews
+.row-fluid.my-review-titles
+  .span2
+    Course
+  .span2
+    Professor
+  .span2
+    Semester Taken
+  .span6
+    Go To Course
+- @reviews.each do |review|
+  .row-fluid
+    .span2
+      = "#{review.course.subdepartment.mnemonic} #{review.course.course_number}"
+    .span2
+      = review.professor.full_name
+    .span2
+      = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
+    .span6
+      = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
+%br

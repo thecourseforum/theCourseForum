@@ -51,6 +51,8 @@ TheCourseForum::Application.routes.draw do
 
   post '/error_report/submit', :to => 'error_reports#submit', :as => "submit_error_report"
 
+  get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
+
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root
   end
