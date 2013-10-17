@@ -14,7 +14,7 @@
 //variables to override bootstrap
 $orange: #d9551e;
 $navbarHeight: 35px;
-$navbarBackground: #0E2034;
+$navbarBackground: #0D3268;
 $navbarBackgroundHighlight: #0D3268;
 $linkColor: #000;
 $linkColorHover: $orange;
@@ -44,7 +44,6 @@ body {
   @extend .container;
   padding-top: 100px;
   padding-bottom: 50px;
-  overflow-x: hidden;
 }
 
 header {
@@ -71,6 +70,11 @@ section.wide {
 
 aside {
   @include makeColumn(3);
+  padding-left: 50px;
+}
+
+.container {
+  width: 100%;
 }
 
 h1 {
@@ -193,9 +197,6 @@ ul.site-nav-links {
     color: $orange;
     background-color: #FFF;
 
-    i {
-      background-image: url(image-path("glyphicons-halflings.png")) !important;
-    }
   }
 }
 
