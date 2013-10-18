@@ -6,6 +6,8 @@ class Review < ActiveRecord::Base
   belongs_to :professor
   validates :comment, presence: true
 
+  has_one :user, :through => :student
+
   # Get overall review rating from subcategories
   def overall
     ((professor_rating + enjoyability + recommend) / 3).round(2)

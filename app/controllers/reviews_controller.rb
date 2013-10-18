@@ -66,9 +66,11 @@ class ReviewsController < ApplicationController
 
     @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
     @review.semester_id = @semester.id
+
+    @review.student_id = current_user.student.id
     
     respond_to do |format|
-      if @review.save
+      if @review.save      
         format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
