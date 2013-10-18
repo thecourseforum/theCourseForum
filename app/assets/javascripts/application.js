@@ -48,6 +48,10 @@ $(document).on('page:load', function() {
 		});
 	},
 	minLength: 2,
+	focus: function(event, ui) {
+		$('#searchbox').val(ui.item.label);
+		return false;
+	},
 	select: function(event, ui) {
 		$('#searchbox').val(ui.item.label);
 		window.location = "/course_professors?" + ui.item.value;
