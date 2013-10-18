@@ -3,9 +3,10 @@ class User < ActiveRecord::Base
   # :token_authenticatable, 
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable #, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_one :student
+  has_one :professor
   has_many :reviews, :through => :student
   belongs_to :professor_user
 

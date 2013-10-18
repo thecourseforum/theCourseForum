@@ -1,28 +1,29 @@
-%h2 Tell us more about yourself
-= form_for @student do |f|
-  = f.label :grad_year, "Graduation Year: "
-  = f.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", nil]], {:selected => Time.now.year+4}
-  %h4 Major(s):
-  = fields_for :majors do |m|
-    .row-fluid
-      .span4.major1 
-        Major 1:
-        %br
-        (leave blank if you don't have one)
-      .span4.major2 
-        Major 2: 
-        %br
-        (leave blank if you don't have one)
-      .span4.major3 
-        Major 3:
-        %br
-        (leave blank if you don't have one)
-    .row-fluid
-      .span4.major1
-        = m.select :major1, @majors_list, :include_blank => true
-      .span4.major2
-        = m.select :major2, @majors_list, :include_blank => true
-      .span4.major3
-        = m.select :major3, @majors_list, :include_blank => true
-  %br
-  = f.submit "Start using theCourseForum!"
+.student-sign-up
+  %h2 Tell us more about yourself:
+  = form_for @student do |f|
+    = f.label :grad_year, "Graduation Year: "
+    = f.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", nil]], {:selected => Time.now.year+4}
+    %h4 Major(s):
+    = fields_for :majors do |m|
+      .row-fluid
+        .span4.major1 
+          Major 1:
+          %br
+          (leave blank if you don't have one)
+        .span4.major2 
+          Major 2: 
+          %br
+          (leave blank if you don't have one)
+        .span4.major3 
+          Major 3:
+          %br
+          (leave blank if you don't have one)
+      .row-fluid
+        .span4.major1
+          = m.select :major1, @majors_list, :include_blank => true
+        .span4.major2
+          = m.select :major2, @majors_list, :include_blank => true
+        .span4.major3
+          = m.select :major3, @majors_list, :include_blank => true
+    %br
+    = f.submit "Start using theCourseForum!", :class => "btn btn-primary"

@@ -5,6 +5,20 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  before_action :check_info
+
+  def check_info
+    if current_user
+      if !(current_user.student || current_user.professor)
+        if Professor.pluck(:email_alias).include?(current_user.email.split("@").first)
+          redirect_to professor_sign_up_path
+        else
+          redirect_to student_sign_up_path
+        end
+      end
+    end
+  end
+
   def columnize(arr)
     [arr.shift((arr.length / 2).ceil), arr]
   end

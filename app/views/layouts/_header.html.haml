@@ -12,7 +12,7 @@
             %ul.dropdown-menu.right{"aria-labelledby" => "dropdownMenu", :role => "menu"}
               %li
                 = link_to "My Reviews", my_reviews_path
-                = link_to "Account", edit_user_registration_path
+                = link_to "My Account", edit_user_registration_path
               %li.divider
               %li
                 = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"

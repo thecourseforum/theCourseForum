@@ -17,7 +17,6 @@
 //= require bootstrap
 //= require grades
 //= require course_professors
-//= require student_sign_up
 
 $('.dropdown-toggle').dropdown();
 
@@ -32,11 +31,11 @@ $(document).on('page:load', function() {
 	$('#searchbox').autocomplete({
 	source: function( request, response ) {
 		$.ajax({
-		url: '/search/search',
-		dataType: 'json',
-		type: 'GET',
-		data: {
-			query: request.term
+			url: '/search/search',
+			dataType: 'json',
+			type: 'GET',
+			data: {
+				query: request.term
 		},
 		success: function( data ) {
 			response( $.map(data, function( item ) {

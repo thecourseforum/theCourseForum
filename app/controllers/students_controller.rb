@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
+  skip_before_filter :check_info, :only => :create
+
   def index
     @students = Student.all
 
@@ -43,10 +45,22 @@ class StudentsController < ApplicationController
   def create
     @user = current_user
     @student = Student.new(student_params)
-    @student.user_id = @user.id
+    @majors_list = Major.all.order(:name).map{|m| [m.name, m.id]}
 
     respond_to do |format|
       if @student.save
+
+        params[:majors].each do |major_num|
+          if major_num[1] == ""
+            next
+          end
+          major_id = major_num[1]
+          @major = Major.find(major_id)
+          @student.majors.push(@major)
+        end
+
+        @user.student = @student
+
         format.html { redirect_to browse_path, notice: 'Welcome to theCourseForum!' }
         format.json { render json: @student, status: :created, location: @student }
       else
