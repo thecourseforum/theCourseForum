@@ -5,16 +5,9 @@
   .row-fluid
     .span6
       = f.label :email, "Email:"
-    .span6
-      = f.label :current_password, "Current Password:"
   .row-fluid
     .span6
       = f.email_field :email, :autofocus => true
-    .span6
-      = f.password_field :current_password
-  .row-fluid
-    .span4.offset6
-      %i (we need your current password to confirm your changes)
 
 
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -26,6 +19,7 @@
   .row-fluid
     .span6
       = f.label :password, "New Password:"
+      %i (leave blank if you don't want to change it)      
     .span6
       = f.label :password_confirmation, "Confirm New Password:"
   .row-fluid
@@ -33,9 +27,7 @@
       = f.password_field :password, :autocomplete => "off", :style => "float:left;"
     .span6
       = f.password_field :password_confirmation
-  .row-fluid
-    .span6
-      %i (leave blank if you don't want to change it)
+  
       
   
   %br
@@ -45,15 +37,15 @@
       .span4.major1 
         Major 1:
         %br
-        (leave blank if you don't have one)
+        %i (leave blank if you don't have one)
       .span4.major2 
         Major 2: 
         %br
-        (leave blank if you don't have one)
+        %i (leave blank if you don't have one)
       .span4.major3 
         Major 3:
         %br
-        (leave blank if you don't have one)
+        %i (leave blank if you don't have one)
     .row-fluid
       .span4.major1
         = select_tag :major1, options_for_select(@majors_list, @major_ids[0]), :include_blank => true
@@ -62,6 +54,18 @@
       .span4.major3
         = select_tag :major3, options_for_select(@majors_list, @major_ids[2]), :include_blank => true
   
+  %br
+
+  .row-fluid
+    .span6
+      = f.label :current_password, "Current Password:", :style => "font-weight: bold;"
+  .row-fluid
+    .span6
+      = f.password_field :current_password
+  .row-fluid
+    .span4
+      %i (we need your current password to confirm your changes)
+
   %br
 
   %div= f.submit "Update", :class => "btn btn-primary"
