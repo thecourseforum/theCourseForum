@@ -1,0 +1,11 @@
+# Configuration file for miscellaneous necessary values for theCourseForum.
+# Fill in the values and save as config/application.yml BEFORE starting running the app.
+
+# URL for the running instance of the SOLR server for search data.
+# Do not include the trailing slash.
+# For example:
+# SEARCH_URL: "http://localhost:8983/solr"
+SEARCH_URL: ""
+
+# Salt for the password hash from the old site.
+OLD_SALT: ""

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   # Authenticate user based on old MD5-hashed password
   def old_authenticate(password)
-    password_salt = 'I am a uva student'
+    password_salt = ENV["OLD_SALT"]
     old_hash = Digest::MD5.hexdigest(password + password_salt)
     if old_hash == self.old_password
       return self
