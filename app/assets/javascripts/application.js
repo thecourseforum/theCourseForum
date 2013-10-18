@@ -55,6 +55,7 @@ $(document).on('page:load', function() {
 	select: function(event, ui) {
 		$('#searchbox').val(ui.item.label);
 		window.location = "/course_professors?" + ui.item.value;
+		return false;
 	},
 	open: function() {
 		$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
