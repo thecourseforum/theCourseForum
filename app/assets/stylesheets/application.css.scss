@@ -323,16 +323,16 @@ textarea {
   }
 
   li.overall {
-    background-image: url("images/icons/heart.png");
+    background-image: image-url("icons/heart.png");
   }
   li.professor_rating {
-    background-image: asset-url("icons/user_gray.png");
+    background-image: image-url("icons/user_gray.png");
   }
   li.enjoyability {
-    background-image: asset-url("images/icons/emoticon_smile.png");
+    background-image: image-url("icons/emoticon_smile.png");
   }
   li.difficulty {
-    background-image: image-url("images/icons/pencil.png");
+    background-image: image-url("icons/pencil.png");
   }
   li.recommend {
     background-image: image-url("icons/user_comment.png");
