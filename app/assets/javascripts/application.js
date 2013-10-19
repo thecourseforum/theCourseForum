@@ -13,19 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
-//= require turbolinks
+// require turbolinks
 //= require bootstrap
 //= require grades
 //= require course_professors
 
 $('.dropdown-toggle').dropdown();
 
-$(document).on('page:load', function() {
+$(document).ready(function() {
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
-	var target = $(this).data('update-target');
-	alert(target);
-	$('#' + target).html(data);
-	$('#' + target).toggle();
+		var target = $(this).data('update-target');
+		alert(target);
+		$('#' + target).html(data);
+		$('#' + target).toggle();
 	});
 
 	$('#searchbox').autocomplete({
@@ -117,7 +117,7 @@ $(document).on('page:load', function() {
 
 });
 
-$(document).on('page:load', function() {
+$(document).ready(function() {
 	$("#prof_name").bind("change", function(){
 		$("#prof_list").empty();
 		var value = $(this).find(":selected").val();
