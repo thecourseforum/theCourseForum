@@ -3,7 +3,7 @@
 .container
   %ul
     - if @result.size < 1
-      %li No results, #{@query_url}
+      %li= "No results for #{@query} :("
     - else
       - @result.each do |r|
         %li
