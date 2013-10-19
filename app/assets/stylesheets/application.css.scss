@@ -177,7 +177,7 @@ form.site-search {
     background-color: #FFF;
 
     i {
-      background-image: asset-data-url(glyphicons-halflings.png)
+      background-image: asset-data-url("glyphicons-halflings.png");
     }
   }
 }
@@ -202,7 +202,7 @@ ul.site-nav-links {
     background-color: #FFF;
 
     i {
-      background-image: asset-data-url(glyphicons-halflings.png)
+      background-image: asset-data-url("glyphicons-halflings.png");
     }
 
   }
