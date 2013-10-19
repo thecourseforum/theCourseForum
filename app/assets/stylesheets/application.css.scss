@@ -201,10 +201,12 @@ ul.site-nav-links {
     color: $orange;
     background-color: #FFF;
 
+  }
+
+  a {
     i {
       background-image: asset-data-url("glyphicons-halflings.png");
     }
-
   }
 
 
