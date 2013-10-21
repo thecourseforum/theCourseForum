@@ -367,6 +367,11 @@ border-bottom-color: $orange !important;
 .facebook, .twitter{
   margin-top: 5px;
   float: left;
+
+  img{
+    height: 30px;
+    width: auto;
+  }
 }
 
 .twitter {
