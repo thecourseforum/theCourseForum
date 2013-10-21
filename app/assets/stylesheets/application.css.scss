@@ -176,9 +176,7 @@ form.site-search {
   .add-on {
     background-color: #FFF;
 
-    i {
-      background-image: asset-data-url("glyphicons-halflings.png");
-    }
+    
   }
 }
 
@@ -201,12 +199,6 @@ ul.site-nav-links {
     color: $orange;
     background-color: #FFF;
 
-  }
-
-  a {
-    i {
-      background-image: asset-data-url("glyphicons-halflings.png");
-    }
   }
 
 
@@ -335,19 +327,19 @@ textarea {
   }
 
   li.overall {
-    background-image: asset-data-url("icons/heart.png");
+    background-image: image-url("icons/heart.png");
   }
   li.professor_rating {
-    background-image: asset-data-url("icons/user_gray.png");
+    background-image: image-url("icons/user_gray.png");
   }
   li.enjoyability {
-    background-image: asset-data-url("icons/emoticon_smile.png");
+    background-image: image-url("icons/emoticon_smile.png");
   }
   li.difficulty {
-    background-image: asset-data-url("icons/pencil.png");
+    background-image: image-url("icons/pencil.png");
   }
   li.recommend {
-    background-image: asset-data-url("icons/user_comment.png");
+    background-image: image-url("icons/user_comment.png");
   }
 }
 
