@@ -70,11 +70,6 @@ section.wide {
 
 aside {
   @include makeColumn(3);
-  padding-left: 50px;
-}
-
-.container {
-  width: 100%;
 }
 
 h1 {

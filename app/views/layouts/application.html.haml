@@ -16,10 +16,11 @@
   %body
     = render 'layouts/header'
     .content
-      %aside
-        = render 'layouts/navigation'
-      %section#main
-        #notice= notice
-        #alert= alert
-        = yield
+      .container
+        %aside
+          = render 'layouts/navigation'
+        %section#main
+          #notice= notice
+          #alert= alert
+          = yield
     = render 'layouts/footer'
