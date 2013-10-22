@@ -50,9 +50,9 @@ TheCourseForum::Application.routes.draw do
 
   get '/browse', :to => 'departments#index', :as => "browse"
 
-  get '/error_report', :to => 'error_reports#new', :as => "new_error_report"
+  get '/contact_us', :to => 'contact_us#new', :as => "contact_us"
 
-  post '/error_report/submit', :to => 'error_reports#submit', :as => "submit_error_report"
+  post '/contact_us/submit', :to => 'contact_us#submit', :as => "submit_report"
 
   get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
 
