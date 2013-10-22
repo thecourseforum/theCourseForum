@@ -116,6 +116,10 @@ li {
   list-style: none;
 }
 
+li.bullet{
+  list-style-type: disc;
+}
+
 li.indented {
   padding-left: 20px;
 }
@@ -343,10 +347,33 @@ textarea {
   }
 }
 
+.static-pages{
+  margin-top: 6px;
+  margin-left: 20px;
+  float: left;
+
+}
+
+.about, .privacy, .terms {
+  float: left;
+  margin-right: 20px;
+
+  a{
+    color: #FFFFFF;
+    font-size: 10px;
+  }
+}
+
 .my-review-titles{
   font-weight: bold;
 }
 
+.terms-of-use, .privacy-policy{
+  font-size: 12px;
+  h2{
+    font-size: 13px;
+  }
+}
 
 
 .orange-caret

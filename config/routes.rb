@@ -56,6 +56,10 @@ TheCourseForum::Application.routes.draw do
 
   get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
 
+  get '/about', :to => 'home#about', :as => "about"
+  get '/privacy', :to => 'home#privacy', :as => "privacy"
+  get '/terms', :to => 'home#terms', :as => "terms"
+
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root
   end
