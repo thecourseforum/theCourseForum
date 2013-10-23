@@ -6,7 +6,6 @@ class WelcomeController < ApplicationController
       redirect_to '/browse'
       return
     end
-    @student = Student.new
     @user = User.new
   end
 end

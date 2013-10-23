@@ -21,6 +21,9 @@ class RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords @user
+      if @user.errors.full_messages.include? "Email has already been taken"
+        flash[:alert] = %Q[Email already in use. <a href="/users/password/new">Forgot Your Password?</a>].html_safe
+      end
       redirect_to root_path
     end
   end
