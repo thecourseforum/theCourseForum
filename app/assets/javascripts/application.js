@@ -15,6 +15,7 @@
 //= require jquery.ui.autocomplete
 // require turbolinks
 //= require bootstrap
+//= require d3
 //= require grades
 //= require course_professors
 //= require contact_us

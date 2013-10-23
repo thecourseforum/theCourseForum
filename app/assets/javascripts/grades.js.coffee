@@ -82,9 +82,11 @@ class App.GradeDonut
   renderContainer: () ->
     if d3.select(@el + ' svg').empty()
       d3.select(@el).append('svg')
+      d3.select('svg')
         .attr('width', @width)
         .attr('height', @height)
         .append('g')
+      d3.select('svg g')
           .attr("transform", "translate(" + (@margin + @width / 2) +
             "," + (@margin + @height / 2) + ")")
     else
@@ -101,7 +103,7 @@ class App.GradeDonut
       .each((d) -> this._current = d)
 
     newSlices.append('text')
-      .style('text-anchor', 'middle')
+    slices.select('text').attr('text-anchor', 'middle')
 
   # Update all slices
   updateSlices: (el) ->
@@ -152,13 +154,13 @@ class App.GradeDonut
       .classed('gpa', true)
       .attr('x', 0)
       .attr('y', -10)
-      .style('text-anchor', 'middle')
+      .attr('text-anchor', 'middle')
 
     newLabel.append('text')
       .classed('total', true)
       .attr('x', 0)
       .attr('y', 10)
-      .style('text-anchor', 'middle')
+      .attr('text-anchor', 'middle')
 
     label.select('text.gpa')
       .text(@currSeries.gpa + ' gpa')
