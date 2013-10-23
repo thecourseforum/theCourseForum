@@ -4,6 +4,19 @@
 
   .row-fluid
     .span6
+      = f.label :first_name, "First Name:"
+    .span6
+      = f.label :last_name, "Last Name:"
+  .row-fluid
+    .span6
+      = f.text_field :first_name
+    .span6
+      = f.text_field :last_name
+
+  %br
+  
+  .row-fluid
+    .span6
       = f.label :email, "Email:"
   .row-fluid
     .span6
@@ -33,6 +46,12 @@
   %br
 
   = fields_for @student do |s|
+    .row-fluid
+      .span4.grad-year
+        Graduation Year:
+        %br
+        = s.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", nil]]
+    %br
     .row-fluid
       .span4.major1 
         Major 1:

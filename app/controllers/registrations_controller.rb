@@ -43,9 +43,17 @@ class RegistrationsController < Devise::RegistrationsController
 
     if @user.valid_password?(params[:user][:current_password])
 
+      @student.grad_year = params[:student][:grad_year]
+
       if (m_id = params[:major1].to_i) != (@student.majors[0] ? @student.majors[0].id : nil)
 
-        s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[0].id)
+        curr_maj_1 = (@student.majors[0] == nil ? false : true)
+
+        if curr_maj_1
+          s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[0].id)
+        else
+          s = StudentMajor.new(:student_id => @student.id)
+        end
 
         if s != nil
           if m_id == 0
@@ -61,9 +69,15 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      if (m_id = params[:major2].to_i) != (@student.majors[1] ? @student.majors[1].id : nil)
+      if (m_id = params[:major2].to_i) != (@student.majors[1] ? @student.majors[1].id : 0)
 
-        s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[1].id)
+        curr_maj_2 = (@student.majors[1] == nil ? false : true)
+
+        if curr_maj_2
+          s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[1].id)
+        else
+          s = StudentMajor.new(:student_id => @student.id)
+        end
 
         if s != nil
           if m_id == 0
@@ -79,9 +93,15 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      if (m_id = params[:major3].to_i) != (@student.majors[2] ? @student.majors[2].id : nil)
+      if (m_id = params[:major3].to_i) != (@student.majors[2] ? @student.majors[2].id : 0)
 
-        s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[2].id)
+        curr_maj_3 = (@student.majors[2] == nil ? false : true)
+
+        if curr_maj_3
+          s = StudentMajor.find_by(:student_id => @student.id, :major_id => @student.majors[2].id)
+        else
+          s = StudentMajor.new(:student_id => @student.id)
+        end
 
         if s != nil
           if m_id == 0
@@ -96,7 +116,7 @@ class RegistrationsController < Devise::RegistrationsController
           end
         end
       end
-
+      @student.save
     end
 
     super
