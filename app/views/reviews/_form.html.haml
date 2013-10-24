@@ -41,13 +41,22 @@
 
 	%p
 		%b What semester did you take the course?
-	.row-fluid
-		.span12
-			.row-fluid
-				.span6{:align => "right"}
-					= select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"]), :include_blank => true					
-				.span6{:align => "left"}
-					= select_tag :semester_year, options_for_select(@years), :include_blank => true
+	- if @semester_season
+		.row-fluid
+			.span12
+				.row-fluid
+					.span6{:align => "right"}
+						= select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"], @semester_season), :include_blank => true					
+					.span6{:align => "left"}
+						= select_tag :semester_year, options_for_select(@years, @semester_year), :include_blank => true
+	- else
+		.row-fluid
+			.span12
+				.row-fluid
+					.span6{:align => "right"}
+						= select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"]), :include_blank => true					
+					.span6{:align => "left"}
+						= select_tag :semester_year, options_for_select(@years), :include_blank => true
 	%hr
 	%p
 		%b Grade the course:
@@ -197,7 +206,7 @@
 	
 
 	.actions{:align=>"center"}
-		= f.submit 'Submit Review!', :class => "btn btn-primary"
+		= f.submit 'Submit Review!', :class => "btn btn-primary", :id => "review-button"
 
 
 

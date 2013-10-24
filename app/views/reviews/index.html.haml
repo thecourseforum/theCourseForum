@@ -6,8 +6,10 @@
     Professor
   .span2
     Semester Taken
-  .span6
+  .span3
     Go To Course
+  .span3
+    Edit Review
 - @reviews.each do |review|
   .row-fluid
     .span2
@@ -16,6 +18,8 @@
       = review.professor.full_name
     .span2
       = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
-    .span6
+    .span3
       = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
+    .span3
+      = link_to "Edit", edit_review_path(review)
 %br

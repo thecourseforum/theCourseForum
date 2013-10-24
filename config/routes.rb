@@ -16,7 +16,7 @@ TheCourseForum::Application.routes.draw do
 
   #resources :semesters
 
-  resources :reviews, :only => [:new, :create]
+  resources :reviews, :only => [:new, :create, :edit, :update]
 
   #resources :student_majors
 

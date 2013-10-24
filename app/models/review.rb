@@ -4,7 +4,8 @@ class Review < ActiveRecord::Base
   belongs_to :course_professor
   belongs_to :course
   belongs_to :professor
-  validates :comment, presence: true
+  
+  # validates :comment, presence: true
 
   has_one :user, :through => :student
 

@@ -20,6 +20,7 @@
 //= require course_professors
 //= require contact_us
 //= require sign_up
+//= require reviews
 
 $('.dropdown-toggle').dropdown();
 
