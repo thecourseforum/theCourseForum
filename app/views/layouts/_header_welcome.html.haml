@@ -16,6 +16,6 @@
             .row-fluid
               .span4
                 = f.check_box :remember_me, :class => "login_remember_box"
-                = f.label :remember_me, :class => "login_remember"
+                = f.label :remember_me, "Keep me signed in", :class => "login_remember"
               .span4
                 = link_to "Forgot your password?", new_password_path(:user), :style => "color:#FFF;font-size:11px;"
