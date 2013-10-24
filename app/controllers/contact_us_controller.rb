@@ -6,14 +6,21 @@ class ContactUsController < ApplicationController
 
   def submit
     if params[:report][:type] == "problem"
-      ContactUsMailer.error_report(params[:user_id], params[:report][:url], params[:report][:description]).deliver
-
+      if params[:report][:anonymous]
+        ContactUsMailer.error_report(nil, params[:report][:url], params[:report][:description]).deliver
+      else
+        ContactUsMailer.error_report(params[:user_id], params[:report][:url], params[:report][:description]).deliver
+      end
       respond_to do |format|
         format.html { redirect_to params[:report][:url], notice: 'Error report successfully submitted! Thank you!' }
       end
     
     elsif params[:report][:type] == "feedback"
-      ContactUsMailer.feedback(params[:user_id], params[:report][:description]).deliver
+      if params[:report][:anonymous]
+        ContactUsMailer.feedback(nil, params[:report][:description]).deliver
+      else
+        ContactUsMailer.feedback(params[:user_id], params[:report][:description]).deliver
+      end
 
       respond_to do |format|
         format.html { redirect_to params[:report][:url], notice: 'Sucessfully submitted! Thank you for your feedback!' }

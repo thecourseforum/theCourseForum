@@ -32,4 +32,8 @@
   .description
     = f.text_area :description
     %br
-    = f.submit "Submit", :class => "btn"
+    .anonymous
+      = f.check_box :anonymous
+      = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", :class => "checkbox inline remember-box"
+    %br
+    = f.submit "Submit", :class => "btn btn-primary"

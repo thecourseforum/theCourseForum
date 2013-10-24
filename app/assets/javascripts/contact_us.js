@@ -6,6 +6,7 @@ $(document).ready(function() {
     $(".problem").hide();
     $(".other").hide();
     $(".description").hide();
+    $(".anonymous").fadeIn("fast");
     $(".feedback").fadeIn("fast");
     $(".description").fadeIn("fast");
   });
@@ -14,6 +15,7 @@ $(document).ready(function() {
     $(".feedback").hide();
     $(".other").hide();
     $(".description").hide();
+    $(".anonymous").fadeIn("fast");
     $(".problem").fadeIn("fast");
     $(".description").fadeIn("fast");
   });
@@ -24,5 +26,6 @@ $(document).ready(function() {
     $(".description").hide();
     $(".other").fadeIn("fast");
     $(".description").fadeIn("fast");
+    $(".anonymous").hide();
   });
 });
