@@ -142,6 +142,7 @@ p.title{
   @extend .form-inline;
   @extend .pull-right;
   margin-top: 22px;
+  margin-bottom: -20px;
 
   form{
     input {
