@@ -15,7 +15,7 @@
                 = f.submit "Login", :class => "login-button btn btn-primary"
             .row-fluid
               .span4
-                = f.check_box :remember_me, :style => "width:20px;"
-                = f.label :remember_me, :style => "color:#FFF;font-size:10px;"
+                = f.check_box :remember_me, :class => "login_remember_box"
+                = f.label :remember_me, :class => "login_remember"
               .span4
-                = link_to "Forgot your password?", new_password_path(:user), :style => "color:#FFF;font-size:10px;"
+                = link_to "Forgot your password?", new_password_path(:user), :style => "color:#FFF;font-size:11px;"

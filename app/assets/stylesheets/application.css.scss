@@ -72,6 +72,20 @@ aside {
   @include makeColumn(3);
 }
 
+.brand{
+  margin-top: 7px;
+}
+
+.login_remember{
+  color:#FFF !important;
+  font-size:11px !important;
+}
+
+.login_remember_box{
+  width:20px !important;
+  margin:0 0 0 !important;
+}
+
 h1 {
   font-size: 18px;
   color: $orange;
@@ -142,7 +156,7 @@ p.title{
   @extend .form-inline;
   @extend .pull-right;
   margin-top: 22px;
-  margin-bottom: -20px;
+  margin-bottom: -21px;
 
   form{
     input {
