@@ -1,6 +1,13 @@
 %h1 Thanks for helping us improve theCourseForum!
 = form_for :report, :url => submit_report_path(:user_id => current_user.id) do |f|
-  %h2 What do you want to tell us?
+  %h2 
+    What do you want to tell us? 
+  .row-fluid
+    .span12
+      %i
+        Use this form or contact us directly at 
+        %b
+          = mail_to "support@thecourseforum.com", "support@thecourseforum.com."
   .row-fluid
     .row-fluid
       .span3
@@ -17,6 +24,7 @@
         Other Question(s):
       .span1
         = f.radio_button :type, "other"
+        
   %hr
   .feedback
     %h2 We're listening! Let us know what's on your mind:
