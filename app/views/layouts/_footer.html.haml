@@ -5,7 +5,7 @@
         .btn-primary.btn.error-report
           - path = request.fullpath
           - url = (path.include?("/contact_us") ? "/contact_us" : path)
-          = link_to "Contact Us", contact_us_path(:url => url), :style => "color:white;"
+          = link_to "Contact Us | Feedback", contact_us_path(:url => url), :style => "color:white;"
       .facebook
         = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank'
         = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank'
