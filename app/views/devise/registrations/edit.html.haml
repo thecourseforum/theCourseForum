@@ -20,7 +20,7 @@
       = f.label :email, "Email:"
   .row-fluid
     .span6
-      = f.email_field :email, :autofocus => true
+      = f.email_field :email
 
 
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -48,22 +48,18 @@
   = fields_for @student do |s|
     .row-fluid
       .span4.grad-year
-        Graduation Year:
-        %br
+        = s.label :grad_year, "Graduation Year:"
         = s.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", nil]]
     %br
     .row-fluid
       .span4.major1 
-        Major 1:
-        %br
+        = label_tag :major1, "Major 1:"
         %i (leave blank if you don't have one)
       .span4.major2 
-        Major 2: 
-        %br
+        = label_tag :major2, "Major 2:"
         %i (leave blank if you don't have one)
       .span4.major3 
-        Major 3:
-        %br
+        = label_tag :major3, "Major 3:"
         %i (leave blank if you don't have one)
     .row-fluid
       .span4.major1
