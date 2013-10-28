@@ -12,7 +12,9 @@ class SessionsController < Devise::SessionsController
       
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       sign_in(:user, @user)
-      @user.student.destroy
+      if @user.student
+        @user.student.destroy
+      end
       redirect_to student_sign_up_path
     elsif @user && @user.valid_password?(params[:user][:password])
       super
