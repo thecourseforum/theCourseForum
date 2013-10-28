@@ -26,7 +26,7 @@ class App.GradeDonut
   # Minimum % for a slice to have to put its label
   # within the arc...otherwise, not enough space so should
   # go on outside
-  labelInSliceMin: 8
+  labelInSliceMin: 6
 
   # Set el and height and width
   constructor: (@el, opts) ->

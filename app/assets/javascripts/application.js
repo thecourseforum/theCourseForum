@@ -42,7 +42,7 @@ $(document).ready(function() {
 				query: request.term
 		},
 		success: function( data ) {
-			response( $.map(data, function( item ) {
+			response( $.map(data.slice(0,9), function( item ) {
 			return {
 				label: item.subdepartment_code + " " + item.course_number + "-" + item.last_name,
 				value: "c=" + item.course_id + "&p=" + item.professor_id
