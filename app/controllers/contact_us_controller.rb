@@ -5,7 +5,6 @@ class ContactUsController < ApplicationController
   end
 
   def submit
-    binding.pry
     if params[:report][:type] == "problem"
       if params[:report][:anonymous] == "1"
         ContactUsMailer.error_report(nil, params[:report][:url], params[:report][:description]).deliver
