@@ -9,7 +9,10 @@ class SessionsController < Devise::SessionsController
       if @user.old_authenticate(params[:user][:password])
         @user.migrate(params[:user][:password])
       end
-      super
+      
+      set_flash_message(:notice, :signed_in) if is_navigational_format?
+      sign_in(:user, @user)
+      respond_with @user, :location => after_sign_in_path_for(@user)
     elsif @user && @user.valid_password?(params[:user][:password])
       super
     else
