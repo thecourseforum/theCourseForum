@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_one :student
   has_one :professor
-  has_many :reviews, :through => :student
+  has_many :reviews, :foreign_key => "student_id"#, :through => :student
   belongs_to :professor_user
 
   before_save { self.email.downcase! }
