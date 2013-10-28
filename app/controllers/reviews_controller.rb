@@ -83,7 +83,7 @@ class ReviewsController < ApplicationController
     @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
     @review.semester_id = @semester.id
 
-    @review.student_id = current_user.student.id
+    @review.student_id = current_user.id
     
     respond_to do |format|
       if @review.save      
