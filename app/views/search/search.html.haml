@@ -1,0 +1,25 @@
+%h1 Search results
+
+= will_paginate @result
+.row-fluid
+  - if @result.size < 1
+    .span12
+      = "No results for #{@query} :("
+  - else
+    .span2
+      %b Course
+    .span3
+      %b Professor
+    .span7
+      %b Title
+    - @result.each do |r|
+      .row-fluid
+        %a{:href => course_professors_path(:p => r["professor_id"].to_i, :c => r["course_id"].to_i)}
+          .row-fluid
+            .span2
+              = "#{r["subdepartment_code"]} #{r["course_number"]}"
+            .span3 
+              = "#{r["first_name"]} #{r["last_name"]}"
+            .span7
+              = "#{r["course_title"]}"
+= will_paginate @result

@@ -1,0 +1,227 @@
+= form_for @review do |f|
+	- if(@review.errors.any?)
+		#error#explaination
+			%h2
+				= pluralize(@review.errors.count, "error")
+				= "prohibited this review from being saved:"
+			%ul
+				-	@review.errors.full_messages.each do |msg|
+					%li
+						= msg 
+	%p
+		%b What class are you reviewing?
+	- if @subdept_id
+		.row-fluid
+			.span12
+				.row-fluid
+					.span4{:align=>"center", :id=>"departments"}
+						= f.label 'Department (prefix):'
+						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}, @subdept_id), :include_blank => true
+					.span4{:align=>"center", :id=>"courses"}
+						= f.label 'Course:'
+						= select_tag :course_select, options_for_select(@courses.map{|c| [@mnemonic + " #{c.course_number}", c.id]}, @course_id), :include_blank => true
+					.span4{:align=>"center", :id=>"professors"}
+						= f.label 'Professor:'
+						= select_tag :prof_select, options_for_select(@professors.map{|p| ["#{p.last_name}, #{p.first_name}", p.id]}, @prof_id), :include_blank => true
+	- else
+		.row-fluid	
+			.span12
+				.row-fluid
+					.span4{:align=>"center", :id=>"departments"}
+						= f.label 'Department (prefix):'
+						= select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), :include_blank => true
+					.span4{:align=>"center", :style=>"display: none", :id=>"courses"}
+						= f.label 'Course:'
+						%select{:name=>"course_select", :id => "course_select"} 
+					.span4{:align=>"center", :style=>"display: none", :id=>"professors"}
+						= f.label 'Professor:'
+						%select{:name=>"prof_select", :id => "prof_select"} 
+						
+	%hr
+
+	%p
+		%b What semester did you take the course?
+	- if @semester_season
+		.row-fluid
+			.span12
+				.row-fluid
+					.span6{:align => "right"}
+						= select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"], @semester_season), :include_blank => true					
+					.span6{:align => "left"}
+						= select_tag :semester_year, options_for_select(@years, @semester_year), :include_blank => true
+	- else
+		.row-fluid
+			.span12
+				.row-fluid
+					.span6{:align => "right"}
+						= select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"]), :include_blank => true					
+					.span6{:align => "left"}
+						= select_tag :semester_year, options_for_select(@years), :include_blank => true
+	%hr
+	%p
+		%b Grade the course:
+	.row-fluid
+		.span12
+			.row-fluid
+				.span6 
+					.row-fluid
+						.span1
+						.span11{:align=>"center"}
+							%b Professor Rating:
+					.row-fluid
+						.span4{:align=>"right"} Lowest
+						.span1{:align=>"center"} 1
+						.span1{:align=>"center"} 2
+						.span1{:align=>"center"} 3
+						.span1{:align=>"center"} 4
+						.span1{:align=>"center"} 5
+						.span3{:align=>"left"} Highest
+					.row-fluid
+						.span4
+						.span1{:align=>"center"}= f.radio_button :professor_rating, 1.0 
+						.span1{:align=>"center"}= f.radio_button :professor_rating, 2.0
+						.span1{:align=>"center"}= f.radio_button :professor_rating, 3.0 
+						.span1{:align=>"center"}= f.radio_button :professor_rating, 4.0 
+						.span1{:align=>"center"}= f.radio_button :professor_rating, 5.0
+						.span3
+				.span6
+					.row-fluid
+						.span1
+						.span11{:align=>"center"}
+							%b Fun Factor:
+					.row-fluid
+						.span4{:align=>"right"} Least Fun
+						.span1{:align=>"center"} 1
+						.span1{:align=>"center"} 2
+						.span1{:align=>"center"} 3
+						.span1{:align=>"center"} 4
+						.span1{:align=>"center"} 5
+						.span3{:align=>"left"} Most Fun
+					.row-fluid
+						.span4
+						.span1{:align=>"center"}= f.radio_button :enjoyability, 1
+						.span1{:align=>"center"}= f.radio_button :enjoyability, 2
+						.span1{:align=>"center"}= f.radio_button :enjoyability, 3
+						.span1{:align=>"center"}= f.radio_button :enjoyability, 4
+						.span1{:align=>"center"}= f.radio_button :enjoyability, 5
+						.span3
+	.row-fluid
+		.span12
+			&nbsp
+	.row-fluid
+		.span12
+			.row-fluid
+				.span6 
+					.row-fluid
+						.span1
+						.span11{:align=>"center"}
+							%b Difficulty:
+					.row-fluid
+						.span4{:align=>"right"} Easiest
+						.span1{:align=>"center"} 1
+						.span1{:align=>"center"} 2
+						.span1{:align=>"center"} 3
+						.span1{:align=>"center"} 4
+						.span1{:align=>"center"} 5
+						.span3{:align=>"left"} Hardest
+					.row-fluid
+						.span4
+						.span1{:align=>"center"}= f.radio_button :difficulty, 1
+						.span1{:align=>"center"}= f.radio_button :difficulty, 2
+						.span1{:align=>"center"}= f.radio_button :difficulty, 3
+						.span1{:align=>"center"}= f.radio_button :difficulty, 4
+						.span1{:align=>"center"}= f.radio_button :difficulty, 5
+						.span3
+				.span6 
+					.row-fluid
+						.span1
+						.span11{:align=>"center"}
+							%b Recommendability:
+					.row-fluid
+						.span4{:align=>"right"} Lowest
+						.span1{:align=>"center"} 1
+						.span1{:align=>"center"} 2
+						.span1{:align=>"center"} 3
+						.span1{:align=>"center"} 4
+						.span1{:align=>"center"} 5
+						.span3{:align=>"left"} Highest
+					.row-fluid
+						.span4
+						.span1{:align=>"center"}= f.radio_button :recommend, 1
+						.span1{:align=>"center"}= f.radio_button :recommend, 2
+						.span1{:align=>"center"}= f.radio_button :recommend, 3
+						.span1{:align=>"center"}= f.radio_button :recommend, 4
+						.span1{:align=>"center"}= f.radio_button :recommend, 5
+						.span3
+	%hr
+	.row-fluid
+		.span12
+			.row-fluid
+				.span6
+					.row-fluid
+						.span12
+							%b This course emphasizes:
+					.row-fluid
+						.span8.offset4{:align=>"center"} Avg. # Hours/Week
+					.row-fluid
+						.span1{:valign=>"top"}
+							%input{:type=>"checkbox", :id=>"readingbox", :onchange=>'setBox("readingbox","readingfield")'}
+						.span3
+							Reading:
+						.span8
+							= f.number_field :amount_reading, :id => "readingfield", :disabled => true, :value => "", :min => 0
+					.row-fluid
+						.span1{:valign=>"top"}
+							%input{:type=>"checkbox", :id=>"writingbox", :onchange=>'setBox("writingbox","writingfield")'}
+						.span3
+							Writing:
+						.span8
+							= f.number_field :amount_writing, :id => "writingfield", :disabled => true, :value => "", :min => 0
+					.row-fluid
+						.span1{:valign=>"top"}
+							%input{:type=>"checkbox", :id=>"groupbox", :onchange=>'setBox("groupbox","groupfield")'}
+						.span3
+							Groupwork:
+						.span8
+							= f.number_field :amount_group, :id => "groupfield", :disabled => true, :value => "", :min => 0
+					.row-fluid
+						.span1{:valign=>"top"}
+							%input{:type=>"checkbox", :id =>"homeworkbox", :onchange=>'setBox("homeworkbox","homeworkfield")'}
+						.span3
+							Homework:
+						.span8
+							= f.number_field :amount_homework, :id => "homeworkfield", :disabled => true, :value => "", :min => 0
+				.span6
+					.row-fluid
+						.span12
+							%b Tell us more about the course/professor:
+					.row-fluid
+						.span12
+							&nbsp
+					.row-fluid
+						.span12{:align=>"center"}
+							= f.text_area :comment, :placeholder=>"Write Your Review!"
+	%hr
+
+	
+
+	.actions{:align=>"center"}
+		= f.submit 'Submit Review!', :class => "btn btn-primary", :id => "review-button"
+
+
+
+
+
+
+
+
+:javascript
+
+	function setBox(check, text){
+		var box = document.getElementById(check);
+		if(box.checked)
+			document.getElementById(text).disabled = false;
+		else
+		 document.getElementById(text).disabled = true;    
+	}  
+		

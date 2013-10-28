@@ -1,0 +1,30 @@
+<!-- NOT USED CURRENTLY -->
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @subdepartment.name %>
+</p>
+
+<p>
+  <b>Mnemonic:</b>
+  <%= @subdepartment.mnemonic %>
+</p>
+
+<p>
+  <b>Department:</b>
+  <%= @subdepartment.department %>
+</p>
+
+<p>
+	<b> Courses: </b>
+	<% @courses.each do |course| %>
+  	<% if(course.subdepartment_id == @subdepartment.id) %>
+  		<%= link_to course.title, course %>
+  	<% end %>
+  <% end %>
+ </p>
+
+
+<%= link_to 'Edit', edit_subdepartment_path(@subdepartment) %> |
+<%= link_to 'Back', subdepartments_path %>

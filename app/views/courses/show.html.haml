@@ -1,0 +1,8 @@
+%p#notice= notice
+%p
+  %h1
+    = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
+%ul
+  - @course.professors_list.each do |professor|
+    = link_to professor.first_name + " " + professor.last_name, course_professors_path(:p => professor.id, :c => @course.id)
+    %br

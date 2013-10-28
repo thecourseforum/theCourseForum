@@ -1,0 +1,19 @@
+%footer
+  %nav
+    .container
+      - if current_user
+        .btn-primary.btn.error-report
+          - path = request.fullpath
+          - url = (path.include?("/contact_us") ? "/contact_us" : path)
+          = link_to "Contact Us | Feedback", contact_us_path(:url => url), :style => "color:white;"
+      .social-icons
+        = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank'
+        = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank'
+        = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank'
+      .static-pages
+        .about
+          = link_to "About", about_path
+        .privacy
+          = link_to "Privacy", privacy_path
+        .terms
+          = link_to "Terms", terms_path

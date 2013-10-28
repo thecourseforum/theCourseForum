@@ -1,19 +1,84 @@
 TheCourseForum::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+  root :to => 'welcome#index'
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+  # Routes for user authentication
+  devise_for :users, :controllers => {
+    :registrations => "registrations", 
+    :sessions => "sessions", 
+    :confirmations => "confirmations"}
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  devise_scope :user do
+    get '/student_sign_up', :to => "registrations#student_sign_up", :as => "student_sign_up"
+    get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
+  end
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #resources :grades
+
+  #resources :semesters
+
+  resources :reviews, :only => [:new, :create, :edit, :update]
+
+  #resources :student_majors
+
+  #resources :majors
+
+  resources :students, :only => [:create, :index]
+
+  # resources :users, :only => [:create, :index]
+
+  # resources :sessionsrequest.fullpath
+
+  resources :course_professors, :only => [:index, :show]
+
+  resources :professors, :only => [:index, :show]
+
+  resources :courses, :only => [:show]
+
+  #resources :schools
+
+  resources :subdepartments, :only => [:show]
+
+  resources :departments, :only => [:show, :index]
+
+  resources :home
+ 
+  resources :search do
+    collection do
+      get :search
+    end
+  end
+
+  get '/browse', :to => 'departments#index', :as => "browse"
+
+  get '/contact_us', :to => 'contact_us#new', :as => "contact_us"
+
+  post '/contact_us/submit', :to => 'contact_us#submit', :as => "submit_report"
+
+  get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
+
+  get '/about', :to => 'home#about', :as => "about"
+  get '/privacy', :to => 'home#privacy', :as => "privacy"
+  get '/terms_of_use', :to => 'home#terms', :as => "terms"
+
+  authenticated :user do
+    root :to => redirect("/browse"), :as => :authenticated_root
+  end
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
+
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
+
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+
+  # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  # Sample resource route with options:
+  # Example resource route with options:
   #   resources :products do
   #     member do
   #       get 'short'
@@ -25,34 +90,31 @@ TheCourseForum::Application.routes.draw do
   #     end
   #   end
 
-  # Sample resource route with sub-resources:
+  # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
   #     resource :seller
   #   end
 
-  # Sample resource route with more complex sub-resources
+  # Example resource route with more complex sub-resources:
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get 'recent', :on => :collection
+  #       get 'recent', on: :collection
   #     end
   #   end
+  
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
 
-  # Sample resource route within a namespace:
+  # Example resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

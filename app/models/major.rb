@@ -1,0 +1,3 @@
+class Major < ActiveRecord::Base
+  has_many :students, :through => :student_majors
+end

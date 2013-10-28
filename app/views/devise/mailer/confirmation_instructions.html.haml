@@ -1,0 +1,6 @@
+%p
+  Welcome #{@email}!
+%p You can confirm your account email through the link below:
+- if Rails.env.development?
+  - @token = @resource.confirmation_token
+%p= link_to 'Confirm my account', user_confirmation_url(:confirmation_token => @token)

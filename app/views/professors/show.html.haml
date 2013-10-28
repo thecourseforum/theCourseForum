@@ -1,0 +1,4 @@
+%h2 Courses taught by #{@professor.first_name} #{@professor.last_name}
+%ul
+  - @professor.courses_list.each do |c|
+    %li= link_to (c.subdepartment.mnemonic + " " + c.course_number.to_s), course_professors_path(:p => @professor.id, :c => c.id)

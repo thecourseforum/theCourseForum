@@ -1,0 +1,33 @@
+%h1 My Reviews
+- if @reviews.size > 0   
+  .row-fluid.my-review-titles
+    .span2
+      Course
+    .span2
+      Professor
+    .span2
+      Semester Taken
+    .span3
+      Go To Course
+    .span3
+      Edit Review
+  - @reviews.each do |review|
+    .row-fluid
+      .span2
+        = "#{review.course.subdepartment.mnemonic} #{review.course.course_number}"
+      .span2
+        = review.professor.full_name
+      .span2
+        = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
+      .span3
+        = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
+      .span3
+        = link_to "Edit", edit_review_path(review)
+  %br
+- else
+  .row-fluid
+    .span12
+      You haven't written any reviews yet! :(
+  .row-fluid
+    .span12
+      = link_to "Write one now!", new_review_path, :class => "btn btn-primary"

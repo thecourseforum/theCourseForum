@@ -1,0 +1,417 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+//variables to override bootstrap
+$orange: #d9551e;
+$navbarHeight: 35px;
+$navbarBackground: #011F4A;
+$navbarBackgroundHighlight: #011F4A;
+$linkColor: #000;
+$linkColorHover: $orange;
+$btnPrimaryBackground: $orange;
+$btnPrimaryBackgroundHighlight: $orange;
+
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import "jquery.ui.autocomplete";
+
+//rest of variables
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+//base styles
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  @extend .container;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+header {
+  @extend .navbar;
+  @extend .navbar-fixed-top;
+}
+
+footer {
+  @extend .navbar;
+  @extend .navbar-fixed-bottom;
+}
+
+nav {
+  @extend .navbar-inner;
+}
+
+section {
+  @include makeColumn(9);
+}
+
+section.wide {
+  @include makeColumn(15);
+}
+
+aside {
+  @include makeColumn(3);
+}
+
+.brand-login{
+  margin-top: 7px;
+}
+
+.login_remember{
+  color: #FFF !important;
+  font-size: 11px !important;
+}
+
+.login_remember_box{
+  width: 13px !important;
+  margin: 0 0 0 !important;
+}
+
+.remember-box{
+  padding-left: 0px;
+}
+
+h1 {
+  font-size: 18px;
+  color: $orange;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+}
+
+h2 {
+  font-size: 14px;
+  color: $orange;
+  margin:0px;
+}
+
+ul.left {
+  @include makeColumn(4);
+}
+
+ul.right {
+  @include makeColumn(4);
+  margin-left: 80px;
+}
+
+.content {
+  @include makeRow();
+}
+
+.content .main {
+  @include makeColumn(8);
+}
+
+.content .sidebar {
+  @include makeColumn(4, 2);
+}
+
+li {
+  list-style: none;
+}
+
+li.bullet{
+  list-style-type: disc;
+}
+
+li.indented {
+  padding-left: 20px;
+}
+
+td.review{
+  padding:10px;
+}
+
+td.section{
+  padding:20px;
+}
+
+table.ratings td{
+  border-left:solid 15px transparent;
+  border-right:solid 15px transparent
+}
+
+p.title{
+  text-align:center;
+  font-weight:bold;
+}
+
+//header related
+.login {
+  @extend .form-inline;
+  @extend .pull-right;
+  margin-top: 22px;
+  margin-bottom: -21px;
+
+  form{
+    input {
+      @extend .input-medium;
+    }
+
+    div.input {
+      @extend .pull-left;
+    }
+
+    div.input.password {
+      margin-left: 10px;
+    }
+
+    input.login-button {
+      width: 100px;      
+      margin-top: 0px !important;
+    }
+  }
+}
+
+form.site-search {
+  @extend .navbar-search;
+  @extend .pull-right;
+  margin-top: 22px;
+
+  input {
+    border-left: none;
+  }
+
+  .add-on {
+    background-color: #FFF;
+
+    
+  }
+}
+
+.account-header {
+  @extend .pull-right;
+  margin-top: 27px;
+
+  a, a:hover {
+    color: #FFF;
+    margin-left: 30px;
+  }
+}
+
+//aside/nav related
+ul.site-nav-links {
+  @extend .nav;
+  @extend .nav-list;
+
+  li.active a, li.active a:hover {
+    color: $orange;
+    background-color: #FFF;
+
+  }
+
+
+}
+
+.sidefiller {
+  height: 50px;
+}
+
+//home page
+.marketing {
+  @include makeColumn(5);
+}
+
+.sign-up {
+  @include makeColumn(6);
+  margin-left: 80px;
+}
+
+form.register {
+  input {
+    @extend .input-large;
+  }
+
+  input.button {
+    @extend .btn;
+  }
+}
+
+
+
+.review-container {
+  @extend .container-fluid;
+  font-size: 85%;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000;
+}
+
+textarea {
+  width: 325px;
+  height: 150px;
+}
+
+//course professors
+
+.course-professor-h1 {
+  @include makeRow();
+  border-bottom: 1px solid #000;
+  margin-bottom: 16px;
+
+  h1 {
+    @include makeColumn(7);
+    @include ellipsis;
+    float: left;
+    border-bottom: none;
+    margin-bottom:8px;
+  }
+
+  select {
+    @include makeColumn(2);
+    float: right;
+    margin-top: 4px;
+  }
+}
+
+.course-breakdown {
+  @include makeRow();
+}
+
+.course-stats {
+  @include makeColumn(5);
+}
+
+.course-grades {
+  @include makeColumn(4);
+  float: right;
+
+  h2 {
+    margin-left: 25px;
+  }
+}
+
+.review-button {
+  @include makeColumn(5);
+}
+
+//Grades
+.grade-donut .slice {
+  font-size: 11px;
+}
+
+.grade-donut .inner-label {
+  fill: gray;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.single-review {
+  @include makeRow();
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 10px;
+
+  ul.meta {
+    @include makeColumn(1.5)
+  }
+
+  .comment {
+    @include makeColumn(6.5)
+  }
+
+  ul.ratings {
+    @include makeColumn(1)
+  }
+}
+
+// Single Reviews
+.single-review ul.ratings {
+  li {
+    padding-left: 22px;
+    background-repeat: no-repeat;
+    background-position-y: 2px;
+  }
+
+  li.overall {
+    background-image: image-url("icons/heart.png");
+  }
+  li.professor_rating {
+    background-image: image-url("icons/user_gray.png");
+  }
+  li.enjoyability {
+    background-image: image-url("icons/emoticon_smile.png");
+  }
+  li.difficulty {
+    background-image: image-url("icons/pencil.png");
+  }
+  li.recommend {
+    background-image: image-url("icons/user_comment.png");
+  }
+}
+
+.static-pages{
+  margin-top: 6px;
+  margin-left: 20px;
+  float: left;
+
+}
+
+.about, .privacy, .terms {
+  float: left;
+  margin-right: 20px;
+
+  a{
+    color: #FFFFFF;
+    font-size: 10px;
+  }
+}
+
+.my-review-titles{
+  font-weight: bold;
+}
+
+.terms-of-use, .privacy-policy{
+  line-height: 14px;
+  font-size: 11px;
+  h2{
+    font-size: 13px;
+  }
+}
+
+
+.orange-caret
+{
+border-top-color: $orange !important;
+border-bottom-color: $orange !important;
+}
+
+.dropdown-menu.right {
+    left:auto;
+    right:0;
+}
+
+.error-report{
+  float: right;
+}
+
+.social-icons{
+  margin-top: 5px;
+  float: left;
+
+  img{
+    height: 30px;
+    width: auto;
+  }
+}
+
+.twitter {
+  margin-left: 10px;
+}

@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Password crypt:</b>
+  <%= @user.password_digest %>
+</p>
+
+<p>
+  <b>Old password:</b>
+  <%= @user.old_password %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <% if (@user.student != nil) %>
+    <%= Student.find(@user.student_id).first_name %>
+    <%= Student.find(@user.student_id).last_name %>
+  <%end%>
+</p>
+
+<p>
+  <b>Professor:</b>
+  <% if (@user.professor_id != nil) %>
+    <%= Professor.find(@user.professor_id).first_name %>
+    <%= Professor.find(@user.professor_id).last_name %>
+  <%end%>
+</p>
+
+<p>
+  <b>Last login:</b>
+  <%= @user.last_login %>
+</p>
+
+<p>
+  <b>Subscribed to email:</b>
+  <%= @user.subscribed_to_email %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

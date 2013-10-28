@@ -1,0 +1,47 @@
+%h1 Thanks for helping us improve theCourseForum!
+= form_for :report, :url => submit_report_path(:user_id => current_user.id) do |f|
+  %h2 
+    What do you want to tell us? 
+  .row-fluid
+    .span12
+      %i
+        Use this form or contact us directly at 
+        %b
+          = mail_to "support@thecourseforum.com", "support@thecourseforum.com."
+  .row-fluid
+    .row-fluid
+      .span3
+        General Feedback:
+      .span1
+        = f.radio_button :type, "feedback", :checked => true
+    .row-fluid
+      .span3
+        Problem with a page: 
+      .span1
+        = f.radio_button :type, "problem"
+    .row-fluid
+      .span3
+        Other Question(s):
+      .span1
+        = f.radio_button :type, "other"
+        
+  %hr
+  .feedback
+    %h2 We're listening! Let us know what's on your mind:
+  .problem
+    Problem Page: 
+    %br
+    %h5 
+      theCourseForum.com
+      = f.text_field :url, :value => @url, :style => "width:400px;"
+    %h2 Describe the problem:
+  .other
+    %h2 What questions do you have? We'll get back to you ASAP:
+  .description
+    = f.text_area :description
+    %br
+    .anonymous
+      = f.check_box :anonymous
+      = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", :class => "checkbox inline remember-box"
+    %br
+    = f.submit "Submit", :class => "btn btn-primary"
