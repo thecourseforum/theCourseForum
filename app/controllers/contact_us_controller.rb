@@ -5,8 +5,9 @@ class ContactUsController < ApplicationController
   end
 
   def submit
+    binding.pry
     if params[:report][:type] == "problem"
-      if params[:report][:anonymous] == ""
+      if params[:report][:anonymous] == "1"
         ContactUsMailer.error_report(nil, params[:report][:url], params[:report][:description]).deliver
       else
         ContactUsMailer.error_report(params[:user_id], params[:report][:url], params[:report][:description]).deliver
@@ -16,7 +17,7 @@ class ContactUsController < ApplicationController
       end
     
     elsif params[:report][:type] == "feedback"
-      if params[:report][:anonymous] == ""
+      if params[:report][:anonymous] == "1"
         ContactUsMailer.feedback(nil, params[:report][:description]).deliver
       else
         ContactUsMailer.feedback(params[:user_id], params[:report][:description]).deliver
