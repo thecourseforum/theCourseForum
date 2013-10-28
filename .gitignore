@@ -24,3 +24,6 @@ config/initializers/secret_token.rb
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore devise secret key
+/config/initializers/devise.rb
