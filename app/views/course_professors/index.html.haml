@@ -62,7 +62,7 @@
             %td --
             %td=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
   .course-grades
-    %h2 Grades
+    %h2 Grades (cumulative since Spring 2012)
     - if @grades.size > 0
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
