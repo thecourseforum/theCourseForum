@@ -108,6 +108,7 @@ class ReviewsController < ApplicationController
         
         @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
         @review.semester_id = @semester.id
+        @review.save
 
         format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
