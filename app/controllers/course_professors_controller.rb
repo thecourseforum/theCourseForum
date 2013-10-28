@@ -106,19 +106,19 @@ class CourseProfessorsController < ApplicationController
     }
 
     @reviews.each do |r|
-      if r.amount_reading > 0
+      if r.amount_reading != nil && r.amount_reading > 0
         emphasizes[:reading] += r.amount_reading
         emphasizes[:reading_count] += 1
       end
-      if r.amount_writing > 0
+      if r.amount_writing != nil && r.amount_writing > 0
         emphasizes[:writing] += r.amount_writing
         emphasizes[:writing_count] += 1
       end
-      if r.amount_group > 0
+      if r.amount_group != nil && r.amount_group > 0
         emphasizes[:group] += r.amount_group
         emphasizes[:group_count] += 1
       end
-      if r.amount_homework > 0
+      if r.amount_homework != nil && r.amount_homework > 0
         emphasizes[:homework] += r.amount_homework
         emphasizes[:homework_count] += 1
       end
