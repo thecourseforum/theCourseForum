@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
   #todo not sure how best to share this code between here and department controller
+  skip_before_filter :authenticate_user!, :only => [ :about, :terms, :privacy]
+  skip_before_filter :check_info, :only => [ :about, :terms, :privacy]
+  
   def index
     @user = User.new
     @student = Student.new
