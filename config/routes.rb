@@ -12,35 +12,19 @@ TheCourseForum::Application.routes.draw do
     get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
   end
 
-  #resources :grades
-
-  #resources :semesters
-
   resources :reviews, :only => [:new, :create, :edit, :update]
 
-  #resources :student_majors
+  resources :students, :only => [:create]
 
-  #resources :majors
-
-  resources :students, :only => [:create, :index]
-
-  # resources :users, :only => [:create, :index]
-
-  # resources :sessionsrequest.fullpath
-
-  resources :course_professors, :only => [:index, :show]
+  resources :course_professors, :only => [:index]
 
   resources :professors, :only => [:index, :show]
 
   resources :courses, :only => [:show]
 
-  #resources :schools
-
-  resources :subdepartments, :only => [:show]
-
   resources :departments, :only => [:show, :index]
 
-  resources :home
+  resources :subdepartments, :only => [:show]
  
   resources :search do
     collection do

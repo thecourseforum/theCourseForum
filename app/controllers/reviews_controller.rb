@@ -10,21 +10,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # GET /reviews/1
-  # GET /reviews/1.json
-  def show
-    @review = Review.find(params[:id])
-    @course_professor = CourseProfessor.find(@review.course_professor_id)
-    @course = Course.find(@course_professor.course_id)
-    @subdepartment = Subdepartment.find(@course.subdepartment_id)
-    @professor = Professor.find(@course_professor.professor_id)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @review }
-    end
-  end
-
   # GET /reviews/new
   # GET /reviews/new.json
   def new

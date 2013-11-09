@@ -1,7 +1,0 @@
-.course-professor-h1
-  %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
-  %select.course-professor-switcher
-    - @professors.each do |c|
-      %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id}="#{c.last_name}, #{c.first_name}"
-
-%h2 No reviews.

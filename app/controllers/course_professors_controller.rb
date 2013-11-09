@@ -34,36 +34,6 @@ class CourseProfessorsController < ApplicationController
 
   end
 
-  # GET /course_professors/1
-  # GET /course_professors/1.json
-  def show
-    @course_professor = CourseProfessor.find(params[:id])
-
-    @reviews_temp = @course_professor.reviews.sort_by{|r| - r.created_at.to_i}
-    @reviews = @reviews_temp.paginate(:page => params[:page], :per_page=> 2)
-
-    @grades = @course_professor.grades
-    @course = Course.where(:id => @course_professor.course_id).first()
-    @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
-    @professor = Professor.where(:id => @course_professor.professor_id).first()
-    @paginate = @course_professor.reviews.paginate(page: 1, per_page: 2)
-    @professors = CourseProfessor.where("course_id = ?", @course[:id])
-      .joins(:professor)
-
-    #used to pass grades to the donut chart
-    gon.grades = @grades
-
-    if @reviews.length > 0
-      @rev_ratings = get_review_ratings
-      @rev_emphasizes = get_review_emphasizes
-    end
-
-    respond_to do |format|
-      format.html # show.html.haml
-      format.json { render json: @course_professor }
-    end
-  end
-
   # Get aggregated course ratings
   # @todo this could be cleaner
   def get_review_ratings
@@ -142,73 +112,10 @@ class CourseProfessorsController < ApplicationController
 
     emphasizes
   end
-
-  # GET /course_professors/new
-  # GET /course_professors/new.json
-  def new
-    @course_professor = CourseProfessor.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @course_professor }
+  
+  private
+    def course_professor_params
+      params.require(:course_professor).permit(:course_id, :professor_id)
     end
-  end
-
-  # GET /course_professors/1/edit
-  def edit
-    @course_professor = CourseProfessor.find(params[:id])
-    redirect_to @course_professor
-  end
-
-  # POST /course_professors
-  # POST /course_professors.json
-  def create
-    @course_professor = CourseProfessor.new(course_professor_params)
-
-    respond_to do |format|
-      if @course_professor.save
-        format.html { redirect_to @course_professor, notice: 'Course professor was successfully created.' }
-        format.json { render json: @course_professor, status: :created, location: @course_professor }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @course_professor.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /course_professors/1
-  # PUT /course_professors/1.json
-  def update
-    @course_professor = CourseProfessor.find(params[:id])
-    redirect_to @course_professor
-    return
-
-    respond_to do |format|
-      if @course_professor.update_attributes(course_professor_params)
-        format.html { redirect_to @course_professor, notice: 'Course professor was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @course_professor.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /course_professors/1
-  # DELETE /course_professors/1.json
-  def destroy
-    @course_professor = CourseProfessor.find(params[:id])
-    @course_professor.destroy
-
-    respond_to do |format|
-      format.html { redirect_to course_professors_url }
-      format.json { head :no_content }
-    end
-  end
-
-private
-  def course_professor_params
-    params.require(:course_professor).permit(:course_id, :professor_id)
-  end
 
 end
