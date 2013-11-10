@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-
+  skip_before_action :check_info, :only => :create
   # POST /students
   # POST /students.json
   def create
