@@ -44,7 +44,7 @@ class CourseProfessorsController < ApplicationController
       recommend: 0
     }
 
-    @reviews.each do |r|
+    @reviews_temp.each do |r|
       ratings[:prof] += r.professor_rating
       ratings[:enjoy] += r.enjoyability
       ratings[:difficulty] += r.difficulty
@@ -53,11 +53,9 @@ class CourseProfessorsController < ApplicationController
 
     ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
 
-    num_reviews = @reviews.length
-
-    ratings.each_with_object({}) { |(k, v), h|
-       h[k] = (v / num_reviews).round(2)
-    }
+    ratings.each do |k, v|
+      ratings[k] = (v / @reviews_temp.count).round(2)
+    end
   end
 
   #Get aggregated emphasizes numbers
