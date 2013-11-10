@@ -5,11 +5,11 @@
     %b Professor
   .span2.centertext
     %b Reviews
-  .span1.overall
-  .span1.professor_rating
-  .span1.enjoyability
-  .span1.difficulty
-  .span1.recommend
+  .span1.overall{:title => "Overall"}
+  .span1.professor_rating{:title => "Professor Rating"}
+  .span1.enjoyability{:title => "Fun-Factor"}
+  .span1.difficulty{:title => "Difficulty"}
+  .span1.recommend{:title => "Recommendability"}
 - @professors.each do |professor|
   - @reviews = Review.where(:course_id => @course.id, :professor_id => professor.id)
   - ratings = {prof: 0, enjoy: 0, difficulty: 0, recommend: 0, overall: 0}
