@@ -72,8 +72,12 @@
 
 
 - if @reviews.count > 0
-  %h2 #{@reviews_temp.count} Reviews
+  - if @reviews.count > 1
+    %h2 #{@reviews_temp.count} Reviews
+  - else
+    %h2 #{@reviews_temp.count} Review
   = will_paginate @reviews
+  %hr
   - @reviews.each do |r|
     - if r.comment.length > 0
       .single-review

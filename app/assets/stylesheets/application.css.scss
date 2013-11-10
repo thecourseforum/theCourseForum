@@ -419,3 +419,24 @@ border-bottom-color: $orange !important;
   margin-top: 7px;
   text-align: center;
 }
+
+.centertext
+{
+  text-align: center;
+}
+
+.span1.overall {
+  background: image-url("icons/heart.png") no-repeat center top;
+}
+.span1.professor_rating {
+  background: image-url("icons/user_gray.png") no-repeat center top;
+}
+.span1.enjoyability {
+  background: image-url("icons/emoticon_smile.png") no-repeat center top;
+}
+.span1.difficulty {
+  background: image-url("icons/pencil.png") no-repeat center top;
+}
+.span1.recommend {
+  background: image-url("icons/user_comment.png") no-repeat center top;
+}

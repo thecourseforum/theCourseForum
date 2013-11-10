@@ -1,8 +1,42 @@
-%p#notice= notice
-%p
-  %h1
-    = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
-%ul
-  - @course.professors_list.each do |professor|
-    = link_to professor.first_name + " " + professor.last_name, course_professors_path(:p => professor.id, :c => @course.id)
-    %br
+%h1
+  = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
+.row-fluid
+  .span3.centertext
+    %b Professor
+  .span2.centertext
+    %b Reviews
+  .span1.overall
+  .span1.professor_rating
+  .span1.enjoyability
+  .span1.difficulty
+  .span1.recommend
+- @professors.each do |professor|
+  - @reviews = Review.where(:course_id => @course.id, :professor_id => professor.id)
+  - ratings = {prof: 0, enjoy: 0, difficulty: 0, recommend: 0, overall: 0}
+  - if @reviews.count > 0
+    - @reviews.each do |r|
+      - ratings[:prof] += r.professor_rating
+      - ratings[:enjoy] += r.enjoyability
+      - ratings[:difficulty] += r.difficulty
+      - ratings[:recommend] += r.recommend
+    - ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
+    - ratings.each do |k, v|
+      - ratings[k] = (v / @reviews.count).round(2)
+  %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
+    .row-fluid
+      .span3
+        = professor.first_name + " " + professor.last_name
+      .span2.centertext
+        = @reviews.count
+      .span1.centertext
+        = (@reviews.count > 0 ? ratings[:overall].round(2) : "--")
+      .span1.centertext
+        = (@reviews.count > 0 ? ratings[:prof].round(2) : "--")
+      .span1.centertext
+        = (@reviews.count > 0 ? ratings[:enjoy].round(2) : "--")
+      .span1.centertext
+        = (@reviews.count > 0 ? ratings[:difficulty].round(2) : "--")
+      .span1.centertext
+        = (@reviews.count > 0 ? ratings[:recommend].round(2) : "--")
+    
+
