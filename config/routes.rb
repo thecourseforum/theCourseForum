@@ -38,7 +38,7 @@ TheCourseForum::Application.routes.draw do
 
   post '/contact_us/submit', :to => 'contact_us#submit', :as => "submit_report"
 
-  get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
+  get '/my_reviews', :to => 'reviews#index', :as => 'my_reviews'
 
   get '/about', :to => 'home#about', :as => "about"
   get '/privacy', :to => 'home#privacy', :as => "privacy"

@@ -1,5 +1,7 @@
-%h1
-  = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
+.course-professor-h1
+  %h1{:title => "#{@course.title}"}
+    = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
+  .bottom-border
 .row-fluid
   .span3.centertext
     %b Professor

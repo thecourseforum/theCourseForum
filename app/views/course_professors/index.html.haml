@@ -1,13 +1,14 @@
 .course-professor-h1
   .row-fluid
     .span12
-      %h1 #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
+      %h1{:title => "#{@course.title}"} #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
   .row-fluid
     %select.course-professor-switcher
       - @professors.each do |c|
-        %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id}="#{c.last_name}, #{c.first_name}"
+        %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id, :style => (c.id == @professor.id ? "color: #d9551e;" : "")}="#{c.last_name}, #{c.first_name}"
     .review-button
       = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
+  .bottom-border
 
 .course-breakdown
   .course-stats

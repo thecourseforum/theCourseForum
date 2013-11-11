@@ -4,7 +4,7 @@ class CourseProfessorsController < ApplicationController
   def index
     @course = Course.find(params[:c])
     @professor = Professor.find(params[:p])
-    @professors = @course.professors_list
+    @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
     @reviews_temp = Review.where(:course_id => @course.id, :professor_id => @professor.id).all.sort_by{|r| - r.created_at.to_i}
