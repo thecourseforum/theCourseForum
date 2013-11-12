@@ -1,4 +1,8 @@
-%h2 Courses taught by #{@professor.first_name} #{@professor.last_name}
+%h1 #{@professor.full_name}
 %ul
-  - @professor.courses_list.each do |c|
-    %li= link_to (c.subdepartment.mnemonic + " " + c.course_number.to_s), course_professors_path(:p => @professor.id, :c => c.id)
+  - mnemonic = @courses.first.subdepartment.mnemonic
+  - @courses.each do |c|
+    - if c.subdepartment.mnemonic != mnemonic
+      - mnemonic = c.subdepartment.mnemonic
+      %br
+    %li= link_to "#{c.subdepartment.mnemonic} #{c.course_number.to_s} - #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)

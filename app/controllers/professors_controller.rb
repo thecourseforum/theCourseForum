@@ -15,6 +15,7 @@ class ProfessorsController < ApplicationController
   # GET /professors/1.json
   def show
     @professor = Professor.find(params[:id])
+    @courses = @professor.courses_list.sort_by{|c| [c.subdepartment.mnemonic, c.course_number]}
 
     respond_to do |format|
       format.html # show.html.haml
