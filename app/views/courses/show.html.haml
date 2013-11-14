@@ -1,3 +1,4 @@
+- content_for :title, "#{@subdepartment.mnemonic} #{@course.course_number}"
 .course-professor-h1
   %h1{:title => "#{@course.title}"}
     = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"

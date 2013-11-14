@@ -1,3 +1,4 @@
+- content_for :title, @professor.full_name
 %h1 #{@professor.full_name}
 %ul
   - mnemonic = @courses.first.subdepartment.mnemonic
