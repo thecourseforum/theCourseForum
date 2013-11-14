@@ -19,6 +19,13 @@ class ContactUsMailer < ActionMailer::Base
     mail(to: @email, from: "feedback@thecourseforum.com", subject: 'Feedback from ' + (@user != nil ? @user.email : "Anonymous"))
   end
 
+  def feedback2(email_from, description)
+    @email = "support@thecourseforum.com"
+    @email_from = email_from
+    @description = description
+    mail(to: @email, from: "feedback@thecourseforum.com", subject: 'Feedback from ' + (@email_from != "" ? @email_from : "Anonymous"))
+  end
+
   def other(user_id, description)
     @user = User.find(user_id)
     @email = "support@thecourseforum.com"

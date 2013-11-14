@@ -1,10 +1,21 @@
 class ContactUsController < ApplicationController
 
+  skip_before_filter :authenticate_user!
+  skip_before_filter :check_info
+
   def new
     @url = params[:url]
   end
 
   def submit
+    if params[:report][:type] == nil
+      ContactUsMailer.feedback2(params[:report][:email], params[:report][:description]).deliver
+
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Sucessfully submitted! Thank you for your feedback!' }
+      end
+    end
+
     if params[:report][:type] == "problem"
       if params[:report][:anonymous] == "1"
         ContactUsMailer.error_report(nil, params[:report][:url], params[:report][:description]).deliver
