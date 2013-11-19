@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130826205627) do
-
-  create_table "course_professors", force: true do |t|
-    t.integer  "course_id"
-    t.integer  "professor_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "course_professors", ["course_id"], name: "index_course_professors_on_course_id", using: :btree
-  add_index "course_professors", ["professor_id"], name: "index_course_professors_on_professor_id", using: :btree
+ActiveRecord::Schema.define(version: 20131118235453) do
 
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"
@@ -43,12 +33,6 @@ ActiveRecord::Schema.define(version: 20130826205627) do
   end
 
   add_index "courses", ["subdepartment_id"], name: "index_courses_on_subdepartment_id", using: :btree
-
-  create_table "day_times", force: true do |t|
-    t.string   "day_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "day_times_sections", id: false, force: true do |t|
     t.integer "day_time_id"
@@ -97,12 +81,6 @@ ActiveRecord::Schema.define(version: 20130826205627) do
   add_index "grades", ["section_id"], name: "index_grades_on_CourseProfessor_id", using: :btree
   add_index "grades", ["semester_id"], name: "index_grades_on_semester_id", using: :btree
 
-  create_table "locations", force: true do |t|
-    t.string   "location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "locations_sections", id: false, force: true do |t|
     t.integer "location_id"
     t.integer "section_id"
@@ -113,14 +91,6 @@ ActiveRecord::Schema.define(version: 20130826205627) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "professor_users", force: true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "professor_users", ["user_id"], name: "index_professor_users_on_user_id", using: :btree
 
   create_table "professors", force: true do |t|
     t.string   "first_name"

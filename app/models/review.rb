@@ -7,6 +7,9 @@ class Review < ActiveRecord::Base
   
   # validates :comment, presence: true
 
+  validates_presence_of :student_id, :professor_rating, 
+    :enjoyability, :difficulty, :recommend, :course_id, :professor_id
+
   has_one :user, :through => :student
 
   # Get overall review rating from subcategories

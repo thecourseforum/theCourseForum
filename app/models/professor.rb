@@ -5,6 +5,8 @@ class Professor < ActiveRecord::Base
   has_many :course_semesters, :through => :sections
   has_many :courses, :through => :course_semesters
 
+  validates_presence_of :first_name, :last_name
+
   def courses_list
     return self.courses.uniq{ |p| p.id }.sort_by{|p| p.subdepartment.mnemonic}
   end

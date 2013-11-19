@@ -5,6 +5,8 @@ class Course < ActiveRecord::Base
   has_many :sections, :through => :course_semesters
   has_many :professors, :through => :sections
 
+  validates_presence_of :title, :course_number, :subdepartment
+
   def professors_list
     return self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
   end
