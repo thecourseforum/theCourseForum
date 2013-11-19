@@ -95,7 +95,7 @@ class ReviewsController < ApplicationController
         @review.semester_id = @semester.id
         @review.save
 
-        format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully updated.' }
+        format.html { redirect_to my_reviews_path, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
