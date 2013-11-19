@@ -3,7 +3,6 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @subdepartment = Subdepartment.find_by_id(@course.subdepartment_id)
-    @courseprofessors = CourseProfessor.all
     @professors = @course.professors_list.sort_by{|p| p.last_name.downcase}
 
     respond_to do |format|
