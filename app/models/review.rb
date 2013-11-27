@@ -10,6 +10,8 @@ class Review < ActiveRecord::Base
   validates_presence_of :student_id, :professor_rating, 
     :enjoyability, :difficulty, :recommend, :course_id, :professor_id
 
+  validates_uniqueness_of :student_id, :scope => [:course_id, :professor_id]
+
   has_one :user, :through => :student
 
   # Get overall review rating from subcategories
