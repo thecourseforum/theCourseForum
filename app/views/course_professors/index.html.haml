@@ -71,27 +71,32 @@
       %p There aren't any grade distributions available for this class. Sorry!
 
 
-
-
-- if @reviews.count > 0
-  - if @reviews.count > 1
-    %h2 #{@reviews_temp.count} Reviews
+- if @total_review_count > 0
+  - if @total_review_count > 1
+    %h2 
+      - if @reviews_with_comments.count == 1
+        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comment"
+      - else
+        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comments"
   - else
-    %h2 #{@reviews_temp.count} Review
+    %h2 
+      - if @reviews_with_comments.count == 1
+        = "1 Review -- 1 Comment"
+      - else
+        = "1 Review -- 0 Comments"
   = will_paginate @reviews
   %hr
   - @reviews.each do |r|
-    - if r.comment.length > 0
-      .single-review
-        %ul.meta
-          %li= r.created_at.strftime("%Y-%m-%d")
-        .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
-        %ul.ratings
-          %li.overall= r.overall
-          %li.professor_rating= r.professor_rating
-          %li.enjoyability= r.enjoyability
-          %li.difficulty= r.difficulty
-          %li.recommend= r.recommend
+    .single-review
+      %ul.meta
+        %li= r.created_at.strftime("%Y-%m-%d")
+      .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+      %ul.ratings
+        %li.overall= r.overall
+        %li.professor_rating= r.professor_rating
+        %li.enjoyability= r.enjoyability
+        %li.difficulty= r.difficulty
+        %li.recommend= r.recommend
   = will_paginate @reviews
 - else
   %h2 No reviews :(
