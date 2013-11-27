@@ -85,7 +85,7 @@
       .single-review
         %ul.meta
           %li= r.created_at.strftime("%Y-%m-%d")
-        .comment= r.comment
+        .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
         %ul.ratings
           %li.overall= r.overall
           %li.professor_rating= r.professor_rating
