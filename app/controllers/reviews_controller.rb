@@ -1,6 +1,9 @@
 class ReviewsController < ApplicationController
   # GET /reviews
   # GET /reviews.json
+
+  before_action :is_correct_user, :only => :edit
+
   def index
     @reviews = current_user.reviews.order(:created_at)
 
@@ -123,4 +126,11 @@ private
       :only_tests, :recommend, :ta_name)
   end
 
+  def is_correct_user
+    @review = Review.find(params[:id])
+    if current_user.id != @review.student_id
+      redirect_to my_reviews_path
+    end
+  end
+  
 end
