@@ -85,12 +85,16 @@
       - else
         = "1 Review -- 0 Comments"
   = will_paginate @reviews
-  %hr
+  .single-review
   - @reviews.each do |r|
     .single-review
       %ul.meta
         %li= r.created_at.strftime("%Y-%m-%d")
-      .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+        - if r.semester_id
+          .taken
+            = "#{r.semester.season} #{r.semester.year}"
+      .comment
+        = h(r.comment).gsub(/\n/, '<br/>').html_safe
       %ul.ratings
         %li.overall= r.overall
         %li.professor_rating= r.professor_rating
