@@ -59,7 +59,7 @@ class CourseProfessorsController < ApplicationController
     ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
 
     ratings.each do |k, v|
-      ratings[k] = (v / @reviews_temp.count).round(2)
+      ratings[k] = (v / @reviews_temp.count.to_f).round(2)
     end
   end
 

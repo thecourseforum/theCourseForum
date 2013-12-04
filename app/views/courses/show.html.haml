@@ -24,7 +24,7 @@
       - ratings[:recommend] += r.recommend
     - ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
     - ratings.each do |k, v|
-      - ratings[k] = (v / @reviews.count).round(2)
+      - ratings[k] = (v / @reviews.count.to_f).round(2)
   %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
     .row-fluid
       .span3
