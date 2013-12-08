@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   # GET /reviews
   # GET /reviews.json
 
-  before_action :is_correct_user, :only => :edit
+  before_action :is_correct_user, :only => [:edit, :update, :destroy]
 
   def index
     @reviews = current_user.reviews.order(:created_at)
@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
    # @courses = Course.all.sort_by{|e| e[:course_number]}
    # @professors = Professor.all.sort_by{|e| e[:last_name]}
 
@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
 
     @course_id = @review.course_id
     @prof_id = @review.professor_id
@@ -63,12 +63,17 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
     @review = Review.new(review_params)
     @review.professor_id = params[:prof_select]
     @review.course_id = params[:course_select]
 
     @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
+
+    if @semester == nil
+      @semester = Semester.create(:season => params[:semester_season], :year => params[:semester_year], :number => Semester.get_number(params))
+    end
+
     @review.semester_id = @semester.id
 
     @review.student_id = current_user.id
@@ -89,7 +94,7 @@ class ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
 
     respond_to do |format|
       if @review.update_attributes(review_params)
