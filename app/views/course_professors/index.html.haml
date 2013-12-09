@@ -5,8 +5,8 @@
       %h1{:title => "#{@course.title}"} #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
   .row-fluid
     %select.course-professor-switcher
-      - @professors.each do |c|
-        %option{value: "c=#{@course.id}&p=#{c.id}", selected: c.id == @professor.id, :style => (c.id == @professor.id ? "color: #d9551e;" : "")}="#{c.last_name}, #{c.first_name}"
+      - @professors.each do |p|
+        %option{value: "c=#{@course.id}&p=#{p.id}", selected: p.id == @professor.id, :style => (p.id == @professor.id ? "color: #d9551e;" : "")}="#{p.separated_name}"
     .review-button
       = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
   .bottom-border

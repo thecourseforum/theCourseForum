@@ -28,7 +28,7 @@
   %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
     .row-fluid
       .span3
-        = professor.first_name + " " + professor.last_name
+        = professor.full_name
       .span2.centertext
         = @reviews.count
       .span1.centertext
