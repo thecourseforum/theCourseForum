@@ -62,6 +62,13 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
+    r = Review.find_by(:student_id => current_user.id, :course_id => params[:course_select], :professor_id => params[:prof_select])
+    if r != nil
+      flash[:notice] = "You have already written a review for this class."
+      redirect_to my_reviews_path
+      return
+    end
+
     @subdepartments = Subdepartment.all.order(:name)
     @years = (2009..Time.now.year).to_a
     @review = Review.new(review_params)
