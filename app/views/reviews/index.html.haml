@@ -7,22 +7,22 @@
     .span2
       Professor
     .span2
-      Semester Taken
-    .span3
-      Go To Course
-    .span3
-      Edit Review
+      Semester
+    .span2
+      Go To Course  
+    .span2
+      Edit Review  
   - @reviews.each do |review|
     .row-fluid
       .span2
-        = "#{review.course.subdepartment.mnemonic} #{review.course.course_number}"
+        = link_to "#{review.course.subdepartment.mnemonic} #{review.course.course_number}", review.course
       .span2
-        = review.professor.full_name
+        = link_to review.professor.full_name, review.professor
       .span2
         = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
-      .span3
+      .span2
         = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
-      .span3
+      .span2
         = link_to "Edit", edit_review_path(review)
   %br
 - else

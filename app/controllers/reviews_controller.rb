@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   before_action :is_correct_user, :only => [:edit, :update, :destroy]
 
   def index
-    @reviews = current_user.reviews.order(:created_at)
+    @reviews = current_user.reviews.sort_by{|r| [r.semester_id ? -(Semester.find(r.semester_id).number) : 1, r.course.subdepartment.mnemonic]}
 
     respond_to do |format|
       format.html # index.html.erb
