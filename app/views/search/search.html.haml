@@ -5,24 +5,24 @@
   = will_paginate @result
   .row
     - if @result.size < 1
-      .col-md-12
+      .col-xs-12
         = "No results for #{@query} :("
     - else
-      .col-md-2
+      .col-xs-2
         %b Course
-      .col-md-3
+      .col-xs-3
         %b Professor
-      .col-md-7
+      .col-xs-7
         %b Title
   - @result.each do |r|
     .row
-      .col-md-12
+      .col-xs-12
         %a{:href => course_professors_path(:p => r["professor_id"].to_i, :c => r["course_id"].to_i)}
           .row
-            .col-md-2
+            .col-xs-2
               = "#{r["subdepartment_code"]} #{r["course_number"]}"
-            .col-md-3 
+            .col-xs-3 
               = "#{r["first_name"]} #{r["last_name"]}"
-            .col-md-7
+            .col-xs-7
               = "#{r["course_title"]}"
   = will_paginate @result

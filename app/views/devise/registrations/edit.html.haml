@@ -4,23 +4,23 @@
   = devise_error_messages!
 
   .row
-    .col-md-4
+    .col-xs-4
       = f.label :first_name, "First Name:"
-    .col-md-4.col-md-offset-2
+    .col-xs-4.col-xs-offset-2
       = f.label :last_name, "Last Name:"
   .row
-    .col-md-4
+    .col-xs-4
       = f.text_field :first_name
-    .col-md-4.col-md-offset-2
+    .col-xs-4.col-xs-offset-2
       = f.text_field :last_name
 
   %br
   
   .row
-    .col-md-4
+    .col-xs-4
       = f.label :email, "Email:"
   .row
-    .col-md-4
+    .col-xs-4
       = f.email_field :email
 
 
@@ -31,17 +31,17 @@
   %br
 
   .row
-    .col-md-4
+    .col-xs-4
       = f.label :password, "New Password:"
       %br
       .update-text{style: "width:110%;"}
         %i (leave blank if you don't want to change it)      
-    .col-md-4.col-md-offset-2
+    .col-xs-4.col-xs-offset-2
       = f.label :password_confirmation, "Confirm New Password:"
   .row
-    .col-md-4
+    .col-xs-4
       = f.password_field :password, :autocomplete => "off", :style => "float:left;"
-    .col-md-4.col-md-offset-2
+    .col-xs-4.col-xs-offset-2
       = f.password_field :password_confirmation
   
       
@@ -50,42 +50,42 @@
 
   = fields_for @student do |s|
     .row
-      .col-md-4.grad-year
+      .col-xs-4.grad-year
         = s.label :grad_year, "Graduation Year:"
         = s.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", 0]]
     %br
     .row
-      .col-md-4.major1 
+      .col-xs-4.major1 
         = label_tag :major1, "Major 1:"
         %br
         %i (leave blank if you don't have one)
-      .col-md-4.major2 
+      .col-xs-4.major2 
         = label_tag :major2, "Major 2:"
         %br
         %i (leave blank if you don't have one)
-      .col-md-4.major3 
+      .col-xs-4.major3 
         = label_tag :major3, "Major 3:"
         %br
         %i (leave blank if you don't have one)
     .row
-      .col-md-4.major1
+      .col-xs-4.major1
         = select_tag :major1, options_for_select(@majors_list, @major_ids[0]), :include_blank => true
-      .col-md-4.major2
+      .col-xs-4.major2
         = select_tag :major2, options_for_select(@majors_list, @major_ids[1]), :include_blank => true
-      .col-md-4.major3
+      .col-xs-4.major3
         = select_tag :major3, options_for_select(@majors_list, @major_ids[2]), :include_blank => true
   
   %br
 
   .row
-    .col-md-4
+    .col-xs-4
       = f.label :current_password, "Current Password:", :style => "font-weight: bold;"
   .row
-    .col-md-4
+    .col-xs-4
       = f.password_field :current_password
   %br
   .row
-    .col-md-4
+    .col-xs-4
       %i
         %b (we need your current password to confirm your changes)
 

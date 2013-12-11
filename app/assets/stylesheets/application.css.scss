@@ -69,6 +69,39 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   padding-bottom: 5px;
 }
 
+.aside-navigation {
+  .hidden-lg {
+    ul {
+      margin-top: 10px;
+      li {
+        min-width: 25%;
+        margin: 0 auto;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.aside-nav {
+  @extend .nav;
+  @extend .nav-pills;
+  li a {
+    color: #FFF;
+  }
+
+  li a:hover {
+    background-color: inherit;
+  }
+}
+
+.mobile-logout {
+  float: right;
+  margin-top:16px;
+  a{
+    color:#FFF;
+  }
+}
+
 .navbar-toggle {
   border-color: transparent;
 }
@@ -147,6 +180,7 @@ aside {
   @extend .navbar-fixed-bottom;
   border-radius: 0px;
   padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 h1 {
@@ -180,6 +214,8 @@ ul.right {
   padding-left: 1.5em;
   text-indent:-1.5em;
 }
+
+
 
 .dept-header{
   float: left;
@@ -219,7 +255,7 @@ p.title{
 //header related
 form.site-search {
   float: right; 
-  width: 350px;
+  max-width: 350px;
   margin-right: 30px;
   margin-top: 9px;
 }
@@ -311,8 +347,12 @@ textarea {
   height: 150px;
 }
 
-.professor-courses {
+ul.professor-courses, ul.department-courses{
   padding-left: 0px;
+  li{
+    padding-left: 1.5em;
+    text-indent:-1.5em;
+  }
 }
 
 //course professors
@@ -409,6 +449,12 @@ textarea {
   ul.ratings {
     @include make-md-column(1);
   }
+
+  .row {
+    .col-xs-1 {
+      padding: 0;
+    }
+  }
 }
 
 // Single Reviews
@@ -484,7 +530,6 @@ textarea {
 
 
 .social-icons{
-  margin-top: 5px;
   float: right;
 
   img{
@@ -494,7 +539,7 @@ textarea {
 }
 
 .static-pages{
-  margin-top: 6px;
+  margin-top: 4px;
   margin-left: 20px;
   float: left;
 
@@ -525,23 +570,23 @@ textarea {
   text-align: center;
 }
 
-.col-md-1.overall {
+.col-xs-1.overall {
   background: image-url("icons/heart.png") no-repeat center top;
-  height: 16px;
+  min-height: 16px;
 }
-.col-md-1.professor_rating {
+.col-xs-1.professor_rating {
   background: image-url("icons/user_gray.png") no-repeat center top;
-  height: 16px;
+  min-height: 16px;
 }
-.col-md-1.enjoyability {
+.col-xs-1.enjoyability {
   background: image-url("icons/emoticon_smile.png") no-repeat center top;
-  height: 16px;
+  min-height: 16px;
 }
-.col-md-1.difficulty {
+.col-xs-1.difficulty {
   background: image-url("icons/pencil.png") no-repeat center top;
-  height: 16px;
+  min-height: 16px;
 }
-.col-md-1.recommend {
+.col-xs-1.recommend {
   background: image-url("icons/user_comment.png") no-repeat center top;
-  height: 16px;
+  min-height: 16px;
 }

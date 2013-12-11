@@ -2,33 +2,39 @@
 %h1 My Reviews
 - if @reviews.size > 0   
   .row.my-review-titles
-    .col-md-2
+    .col-xs-2
       Course
-    .col-md-2
+    .col-xs-2
       Professor
-    .col-md-2
+    .col-xs-2.hidden-xs.hidden-sm
       Semester
-    .col-md-2
+    .col-xs-1.visible-xs.visible-sm
+      = ""
+    .col-xs-2
       Go To Course  
-    .col-md-2
+    .col-xs-2
       Edit Review  
   - @reviews.each do |review|
     .row
-      .col-md-2
+      .col-xs-2
         = link_to "#{review.course.subdepartment.mnemonic} #{review.course.course_number}", review.course
-      .col-md-2
+      .col-xs-2.hidden-xs.hidden-sm
         = link_to review.professor.full_name, review.professor
-      .col-md-2
+      .col-xs-2.visible-xs.visible-sm
+        = link_to review.professor.last_name, review.professor
+      .col-xs-1.visible-xs.visible-sm
+        = ""
+      .col-xs-2.hidden-xs.hidden-sm
         = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
-      .col-md-2
+      .col-xs-2
         = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
-      .col-md-2
+      .col-xs-2
         = link_to "Edit", edit_review_path(review)
   %br
 - else
   .row
-    .col-md-12
+    .col-xs-12
       You haven't written any reviews yet! :(
   .row
-    .col-md-12
+    .col-xs-12
       = link_to "Write one now!", new_review_path, :class => "btn btn-primary"
