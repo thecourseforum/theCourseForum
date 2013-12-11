@@ -13,14 +13,13 @@
     = yield(:head)
   %body
     = render 'layouts/header'
-    .content
-      .container
-        %aside
-          = render 'layouts/navigation'
-        %section#main
-          #notice= notice
-          #alert= alert
-          = yield
+    .container.main
+      %aside
+        = render 'layouts/navigation'
+      %section#main
+        #notice= notice
+        #alert= alert
+        = yield
     = render 'layouts/footer'
     = render 'layouts/ga'
 
