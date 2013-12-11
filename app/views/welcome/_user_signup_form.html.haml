@@ -1,28 +1,30 @@
 = form_for @user, :url => registration_path(:user) do |f|
-  .row-fluid
-    .span6
-      = f.text_field :first_name, {:placeholder => "First Name"}
-    .span6.first-name-error{:style => "display:none;"}
+  .row
+    .col-md-6
+      = f.text_field :first_name, :placeholder => "First Name", :class => "form-control"
+    .col-md-6.first-name-error{:style => "display:none;"}
       Please enter a first name.
-  .row-fluid
-    .span6
-      = f.text_field :last_name, {:placeholder => "Last Name"}
-    .span6.last-name-error{:style => "display:none;"}
+  .row
+    .col-md-6
+      = f.text_field :last_name, :placeholder => "Last Name", :class => "form-control"
+    .col-md-6.last-name-error{:style => "display:none;"}
       Please enter a last name.
-  .row-fluid
-    .span6
-      = f.email_field :email, {:placeholder => "UVa Email Address"}
-    .span6.email-error{:style => "display:none;"}
+  .row
+    .col-md-6
+      = f.email_field :email, :placeholder => "UVa Email Address", :class => "form-control"
+    .col-md-6.email-error{:style => "display:none;"}
       Please enter a valid UVa email.
-  .row-fluid
-    .span6
-      = f.password_field :password, {:placeholder => "Password: at least 8 characters"}
-    .span6.password-error{:style => "display:none;"}
+  .row
+    .col-md-6
+      = f.password_field :password, :placeholder => "Password: at least 8 characters", :class => "form-control"
+    .col-md-6.password-error{:style => "display:none;"}
       Please enter a valid password (at least 8 characters).
-  .row-fluid
-    .span6
-      = f.password_field :password_confirmation, {:placeholder => "Confirm Password"}
-    .span6.password-confirm-error{:style => "display:none;"}
+  .row
+    .col-md-6
+      = f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "form-control"
+    .col-md-6.password-confirm-error{:style => "display:none;"}
       Confirmation does not match password.
-  .row-fluid
-    = f.submit 'Sign Up!', :class => 'btn btn-large btn-primary', :id => "sign-up-button"
+  %br
+  .row
+    .col-md-6
+      = f.submit 'Sign Up!', :class => 'btn btn-large btn-primary', :id => "sign-up-button"

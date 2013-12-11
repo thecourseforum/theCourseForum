@@ -3,16 +3,16 @@
   %h1{:title => "#{@course.title}"}
     = "#{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}"
   .bottom-border
-.row-fluid
-  .span3.centertext
+.row
+  .col-md-3.centertext
     %b Professor
-  .span2.centertext
+  .col-md-2.centertext
     %b Reviews
-  .span1.overall{:title => "Overall"}
-  .span1.professor_rating{:title => "Professor Rating"}
-  .span1.enjoyability{:title => "Fun-Factor"}
-  .span1.difficulty{:title => "Difficulty"}
-  .span1.recommend{:title => "Recommendability"}
+  .col-md-1.overall{:title => "Overall"}
+  .col-md-1.professor_rating{:title => "Professor Rating"}
+  .col-md-1.enjoyability{:title => "Fun-Factor"}
+  .col-md-1.difficulty{:title => "Difficulty"}
+  .col-md-1.recommend{:title => "Recommendability"}
 - @professors.each do |professor|
   - @reviews = Review.where(:course_id => @course.id, :professor_id => professor.id)
   - ratings = {prof: 0, enjoy: 0, difficulty: 0, recommend: 0, overall: 0}
@@ -26,20 +26,20 @@
     - ratings.each do |k, v|
       - ratings[k] = (v / @reviews.count.to_f).round(2)
   %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
-    .row-fluid
-      .span3
+    .row
+      .col-md-3
         = professor.full_name
-      .span2.centertext
+      .col-md-2.centertext
         = @reviews.count
-      .span1.centertext
+      .col-md-1.centertext
         = (@reviews.count > 0 ? ratings[:overall].round(2) : "--")
-      .span1.centertext
+      .col-md-1.centertext
         = (@reviews.count > 0 ? ratings[:prof].round(2) : "--")
-      .span1.centertext
+      .col-md-1.centertext
         = (@reviews.count > 0 ? ratings[:enjoy].round(2) : "--")
-      .span1.centertext
+      .col-md-1.centertext
         = (@reviews.count > 0 ? ratings[:difficulty].round(2) : "--")
-      .span1.centertext
+      .col-md-1.centertext
         = (@reviews.count > 0 ? ratings[:recommend].round(2) : "--")
     
 

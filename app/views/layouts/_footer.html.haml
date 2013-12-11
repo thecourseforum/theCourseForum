@@ -1,24 +1,23 @@
-%footer
-  %nav
-    .container
-      .copyright
-        theCourseForum © 2013
-      .social-icons
-        = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank'
-        = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank'
-        = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank'
-      .btn-primary.btn.btn-small.contact-us
-        - if current_user
-          - path = request.fullpath
-          - url = (path.include?("/contact_us") ? "/contact_us" : path)
-          = link_to "Contact Us", contact_us_path(:url => url), :style => "color:white;"
-        - else
-          = link_to "Contact Us", contact_us_path, :style => "color:white;"
-      .static-pages
-        .about
-          = link_to "About", about_path
-        .privacy
-          = link_to "Privacy", privacy_path
-        .terms
-          = link_to "Terms", terms_path
+.footer-nav
+  .container
+    .copyright
+      theCourseForum © 2013
+    .social-icons
+      = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank'
+      = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank'
+      = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank'
+    .btn-primary.btn.btn-sm.contact-us
+      - if current_user
+        - path = request.fullpath
+        - url = (path.include?("/contact_us") ? "/contact_us" : path)
+        = link_to "Contact Us", contact_us_path(:url => url), :style => "color:white;"
+      - else
+        = link_to "Contact Us", contact_us_path, :style => "color:white;"
+    .static-pages
+      .about
+        = link_to "About", about_path
+      .privacy
+        = link_to "Privacy", privacy_path
+      .terms
+        = link_to "Terms", terms_path
       

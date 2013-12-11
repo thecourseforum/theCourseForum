@@ -1,4 +1,4 @@
-%h2 Arts &amp; Sciences Departments
+%h2.dept-header Arts &amp; Sciences Departments
 
 %ul.left
   - @artDeps[0].each do |d|
@@ -7,7 +7,7 @@
   - @artDeps[1].each do |d|
     %li= link_to d.name, d
 
-%h2 Engineering &amp; Applied Sciences
+%h2.dept-header Engineering &amp; Applied Sciences
 
 %ul.left
   - @engrDeps[0].each do |d|
@@ -16,7 +16,7 @@
   - @engrDeps[1].each do |d|
     %li= link_to d.name, d
 
-%h2 Others Schools at the University of Virginia
+%h2.dept-header Others Schools at the University of Virginia
 
 %ul.left
   - @otherSchools[0].each do |s|

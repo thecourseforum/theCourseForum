@@ -1,6 +1,6 @@
 - content_for :title, @professor.full_name
 %h1 #{@professor.full_name}
-%ul
+%ul.professor-courses
   - mnemonic = @courses.first.subdepartment.mnemonic
   - @courses.each do |c|
     - if c.subdepartment.mnemonic != mnemonic

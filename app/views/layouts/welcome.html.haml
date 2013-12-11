@@ -9,8 +9,7 @@
     = yield(:head)
   %body
     = render 'layouts/header_welcome'
-    .container.main
-      %section.wide#main
-        = yield
+    .container
+      = yield
     = render 'layouts/footer'
 

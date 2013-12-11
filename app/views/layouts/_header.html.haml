@@ -1,29 +1,30 @@
-%header
-  %nav
-    .container
-      %a.brand{:href => "/"}
-        %img{:src => "/images/logo.png"}
-      - if current_user
+.header-nav
+  .container
+    %a.brand{:href => "/"}
+      %img{:src => "/images/logo.png"}
+    - if current_user
+      %ul.nav.navbar-nav.navbar-right
         .account-header
           .dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"} 
+            %a{"data-toggle" => "dropdown", :href => "#"} 
               = current_user.email.split("@virginia.edu").first
               %b.caret.orange-caret
-            %ul.dropdown-menu.right{"aria-labelledby" => "dropdownMenu", :role => "menu"}
+            %ul.dropdown-menu{"aria-labelledby" => "account-dropdown", :role => "menu"}
               %li
                 %a{href: my_reviews_path}
-                  %i.icon-comment
+                  %i.glyphicon.glyphicon-comment
                   My Reviews
               %li
                 %a{href: edit_user_registration_path}
-                  %i.icon-cog
+                  %i.glyphicon.glyphicon-cog
                   My Account
               %li.divider
               %li
                 = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"
-        = form_tag '/search/search', :method => "get", :class => "site-search" do
-          .input-append.input-prepend
-            %span.add-on
-              %i.icon-search
-            = text_field_tag :query, nil, :id => "searchbox"
+      = form_tag '/search/search', :method => "get", :class => "site-search" do
+        .input-group
+          .input-group-addon
+            %i.glyphicon.glyphicon-search
+          = text_field_tag :query, nil, :id => "searchbox"
+          %span.input-group-btn
             = button_tag 'SEARCH', :class => 'btn btn-primary'
