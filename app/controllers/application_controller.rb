@@ -9,12 +9,8 @@ class ApplicationController < ActionController::Base
 
   def check_info
     if current_user
-      if !(current_user.student || current_user.professor)
-        if Professor.pluck(:email_alias).include?(current_user.email.split("@").first)
-          redirect_to professor_sign_up_path
-        else
-          redirect_to student_sign_up_path
-        end
+      if !(current_user.student) 
+        redirect_to student_sign_up_path
       end
     end
   end

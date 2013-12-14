@@ -9,7 +9,7 @@ TheCourseForum::Application.routes.draw do
 
   devise_scope :user do
     get '/student_sign_up', :to => "registrations#student_sign_up", :as => "student_sign_up"
-    get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
+    # get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
   end
 
   resources :reviews, :only => [:new, :create, :edit, :update]
