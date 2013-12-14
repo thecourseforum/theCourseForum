@@ -229,21 +229,15 @@ h2 {
   line-height: 40px;
 }
 
-ul.left {
-  @include make-md-column(6);
-  float: left;
+.department-list
+{
+  .col-sm-6
+  {
+    padding-left: 30px;
+  }
   padding-left: 1.5em;
   text-indent:-1.5em;
 }
-
-ul.right {
-  @include make-md-column(6);
-  float: left;
-  padding-left: 1.5em;
-  text-indent:-1.5em;
-}
-
-
 
 .dept-header{
   float: left;
