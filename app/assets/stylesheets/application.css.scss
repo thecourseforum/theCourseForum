@@ -188,8 +188,13 @@ aside {
       margin-top: 0px !important;
     }
 
-    .user-login{
+    .row{
       max-width: 500px;
+      .col-xs-4
+      {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
     }
   }
 }
