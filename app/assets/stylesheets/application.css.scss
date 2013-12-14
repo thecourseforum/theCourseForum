@@ -58,6 +58,25 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   @extend .navbar;
   border-radius: 0px;
   padding-top: 10px;
+  .navbar-toggle {
+    @extend .btn-primary;
+    border-color: inherit;
+  }
+  .navbar-toggle:hover {
+    @extend .btn:hover;
+    @extend .btn-primary:hover;
+    background-color: #b54719;
+  }
+
+  .navbar-toggle:focus {
+    @extend .btn:focus;
+    @extend .btn-primary:focus;
+    background-color: #b54719;
+  } 
+
+  .navbar-collapse {
+    padding-top: 10px;
+  }
 }
 
 .header-nav {
@@ -71,10 +90,12 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
 
 .aside-navigation {
   .hidden-lg {
+    margin-bottom: 20px;
+    margin-top: -20px;
     ul {
       margin-top: 10px;
       li {
-        min-width: 25%;
+        width: 25%;
         margin: 0 auto;
         border-radius: 0;
       }
@@ -96,14 +117,10 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
 
 .mobile-logout {
   float: right;
-  margin-top:16px;
+  margin-top: 9px;
   a{
     color:#FFF;
   }
-}
-
-.navbar-toggle {
-  border-color: transparent;
 }
 
 .navbar-header {
@@ -170,8 +187,14 @@ aside {
       width: 100px;      
       margin-top: 0px !important;
     }
+
+    .user-login{
+      max-width: 500px;
+    }
   }
 }
+
+
 
 .footer-nav {
   @extend nav;
@@ -328,7 +351,6 @@ ul.site-nav-links {
 
 .sign-up {
   @include make-md-column(6);
-  margin-left: 80px;
 }
 
 form.register {

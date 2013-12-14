@@ -12,48 +12,53 @@
             %ul.dropdown-menu{"aria-labelledby" => "account-dropdown", :role => "menu"}
               %li
                 %a{href: my_reviews_path}
-                  %i.glyphicon.glyphicon-comment
+                  %span.glyphicon.glyphicon-comment
                   My Reviews
               %li
                 %a{href: edit_user_registration_path}
-                  %i.glyphicon.glyphicon-cog
+                  %span.glyphicon.glyphicon-cog
                   My Account
               %li.divider
               %li
                 = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"
       .visible-xs.mobile-logout
-        = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"
+        = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1", :class => "btn btn-primary"
       = form_tag '/search/search', :method => "get", :class => "site-search" do
         .input-group
           .input-group-addon
-            %i.glyphicon.glyphicon-search
+            %span.glyphicon.glyphicon-search
           = text_field_tag :query, nil, :id => "searchbox"
           %span.input-group-btn
             = button_tag 'SEARCH', :class => 'btn btn-primary'
-  .container.aside-navigation
+- if current_user
+  .aside-navigation
     .hidden-lg
       %ul.aside-nav
-        %li.btn.btn-xs.btn-primary.hidden-xs
+        %li.btn.btn-xs.btn-primary
           %a{:href => "/"}
-            %i.glyphicon.glyphicon.glyphicon-home
-            Home
+            .hidden-xs
+              %span.glyphicon.glyphicon.glyphicon-home
+              Home
+            .visible-xs
+              %span.glyphicon.glyphicon-home
         %li.btn.btn-xs.btn-primary
           %a{:href => "/reviews/new"}
-            %i.glyphicon.glyphicon-pencil
-            Write a review
-        %li.btn.btn-xs.btn-primary
+            .hidden-xs
+              %span.glyphicon.glyphicon-pencil
+              Write a review
+            .visible-xs
+              %span.glyphicon.glyphicon-pencil
+        %li.btn.btn-xs.btn-primary.hidden-xs
           %a{:href => "/browse"}
-            %i.glyphicon.glyphicon-list
+            %span.glyphicon.glyphicon-list
             Browse All
         %li.btn.btn-xs.btn-primary.hidden-xs
           %a{:href => "/professors"}
-            %i.glyphicon.glyphicon-list
+            %span.glyphicon.glyphicon-list
             Browse by Professor
         %li.btn.btn-xs.btn-primary.visible-xs
           %a{:href => "/my_reviews"}
-            %i.glyphicon.glyphicon-comment
-            My Reviews
+            %span.glyphicon.glyphicon-comment
         %li.btn.btn-xs.btn-primary.visible-xs
           %a{:href => "/users/edit"}
-            %i.glyphicon.glyphicon-cog
-            My Account
+            %span.glyphicon.glyphicon-cog
