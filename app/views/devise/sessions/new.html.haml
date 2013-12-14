@@ -1,11 +1,11 @@
 %h2 Sign in
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   .row
-    .col-md-4
+    .col-sm-4.col-xs-12
       = f.label :email
       = f.email_field :email, :autofocus => true
   .row
-    .col-md-4
+    .col-sm-4.col-xs-12
       = f.label :password
       = f.password_field :password
   - if devise_mapping.rememberable?

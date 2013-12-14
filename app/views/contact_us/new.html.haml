@@ -13,19 +13,19 @@
     .row
       .col-md-12
         .row
-          .col-md-3
+          .col-sm-3.col-xs-6
             General Feedback:
-          .col-md-1
+          .col-xs-1
             = f.radio_button :type, "feedback", :checked => true
         .row
-          .col-md-3
+          .col-sm-3.col-xs-6
             Problem with a page: 
-          .col-md-1
+          .col-xs-1
             = f.radio_button :type, "problem"
         .row
-          .col-md-3
+          .col-sm-3.col-xs-6
             Other Question(s):
-          .col-md-1
+          .col-xs-1
             = f.radio_button :type, "other"
         
   %hr
@@ -36,7 +36,7 @@
     .feedback
       = f.label :email, "Email (leave blank if you want to remain anonymous):", :style => "font-weight:bold;"
       .row
-        .col-md-4
+        .col-sm-6.col-xs-12
           = f.email_field :email
       %br
       %h2 We're listening! Please include your contact information if you would like us to respond!
