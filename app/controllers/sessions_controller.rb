@@ -24,7 +24,6 @@ class SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    binding.pry
     a = stored_location_for(resource_or_scope)
     if a != nil && a.include?('confirmation')
       signed_in_root_path(resource_or_scope)
