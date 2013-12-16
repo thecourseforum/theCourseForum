@@ -127,6 +127,15 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   width: 100%;
 }
 
+#student_form{
+  form {
+    .row
+    {
+      margin-bottom: 5px;
+    }
+  }
+}
+
 section {
   @include make-md-column(9);
 }
