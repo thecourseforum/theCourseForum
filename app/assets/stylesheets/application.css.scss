@@ -325,7 +325,6 @@ border-bottom-color: $orange !important;
 //aside/nav related
 ul.site-nav-links {
   @extend .nav;
-  @extend .nav-list;
 
   li.active a, li.active a:hover {
     color: $orange;
@@ -353,10 +352,6 @@ ul.site-nav-links {
 }
 
 form.register {
-  input {
-    @extend .input-large;
-  }
-
   input.button {
     @extend .btn;
   }
