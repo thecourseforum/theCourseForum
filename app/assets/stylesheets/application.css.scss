@@ -309,7 +309,6 @@ border-bottom-color: $orange !important;
 }
 
 .dropdown-menu {
-  @extend .nav-list;
   left:auto;
   right:0;
   width: 100%;
