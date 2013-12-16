@@ -54,7 +54,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '>= 3.0.0'
 gem 'will_paginate', '>=3.0.3'
 gem 'jquery-ui-rails'
 gem 'd3_rails'
