@@ -359,7 +359,8 @@ textarea {
   }
 
   .comment {
-    @include makeColumn(6.5)
+    @include makeColumn(6.5);
+    margin-bottom: 10px;
   }
 
   ul.ratings {
