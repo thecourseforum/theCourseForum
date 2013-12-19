@@ -11,4 +11,8 @@ class Course < ActiveRecord::Base
     return self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
   end
 
+  def mnemonic_number
+    return "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
+  end
+
 end

@@ -17,7 +17,7 @@
   - @reviews.each do |review|
     .row
       .col-xs-2
-        = link_to "#{review.course.subdepartment.mnemonic} #{review.course.course_number}", review.course
+        = link_to "#{review.course.mnemonic_number}", review.course
       .col-xs-2.hidden-xs.hidden-sm
         = link_to review.professor.full_name, review.professor
       .col-xs-2.visible-xs.visible-sm

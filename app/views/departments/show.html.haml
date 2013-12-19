@@ -19,8 +19,8 @@
           - separator = (course.course_number / 1000) * 1000 + 1000
         - p_list = course.professors_list
         - if p_list.size > 1
-          %li= link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course
+          %li= link_to course.mnemonic_number + " " + course.title, course
         - elsif !p_list.empty?
-          %li= link_to subdepartment.mnemonic + " " + course.course_number.to_s + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
+          %li= link_to course.mnemonic_number + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
         - else
           - next

@@ -1,8 +1,8 @@
-- content_for :title, "#{@subdepartment.mnemonic} #{@course.course_number} - #{@professor.last_name}"
+- content_for :title, "#{@course.mnemonic_number} - #{@professor.last_name}"
 .course-professor-h1
   .row
     .col-md-12
-      %h1{:title => "#{@course.title}"} #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
+      %h1{:title => "#{@course.title}"}= "#{@course.mnemonic_number} - #{@course.title}"
   .row{:style => "margin-bottom: 10px;"}
     %select.course-professor-switcher
       - @professors.each do |p|

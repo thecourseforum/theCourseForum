@@ -6,4 +6,4 @@
     - if c.subdepartment.mnemonic != mnemonic
       - mnemonic = c.subdepartment.mnemonic
       %br
-    %li= link_to "#{c.subdepartment.mnemonic} #{c.course_number.to_s} - #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)
+    %li= link_to "#{c.mnemonic_number} #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)
