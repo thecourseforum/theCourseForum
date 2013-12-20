@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.ui.slider
  */
 
 //variables to override bootstrap
@@ -448,6 +449,25 @@ ul.professor-courses, ul.department-courses{
 
 .average-stat{
   min-height: 40px;
+
+  .col-xs-4
+  {
+    padding-top: 7px;
+    .glyphicon
+    {
+      margin-right: 10px;
+    }
+  }  
+
+  input[type=checkbox]
+  {
+    vertical-align: middle;
+  }
+}
+
+.review-radios
+{
+  display: none;
 }
 
 //Grades
