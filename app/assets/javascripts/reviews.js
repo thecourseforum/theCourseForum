@@ -122,25 +122,30 @@ $(document).ready(function() {
     else
     {
       var prof_val = 3;
-      prof_radios[2].click();
+      prof_radios[4].click();
       $(".current-prof-rating").text(prof_val);
       $(".current-prof-rating").css("background-color", "#FFFF00");
     }  
 
     $( ".prof-rating-slider" ).slider({
       step: 1,
-      min: 2,
-      max: 10,
-      value: prof_val*2,
+      min: 200,
+      max: 1000,
+      value: prof_val*200,
       slide: function(event, ui) {
-        prof_radios[ui.value-2].click();
-        $(".current-prof-rating").text(ui.value/2);
-        if (ui.value/2 < 3)
+        var val = parseInt((ui.value + 50) / 100); 
+        prof_radios[val-2].click();
+        $(".current-prof-rating").text(val/2);
+        if (val/2 < 3)
           $(".current-prof-rating").css("background-color", "#FF1111");
-        else if (ui.value/2 < 4.5)
+        else if (val/2 < 4.5)
           $(".current-prof-rating").css("background-color", "#FFFF00");
         else
           $(".current-prof-rating").css("background-color", "#00BB00");
+      },
+      stop: function(event, ui) {
+        var val = parseInt((ui.value + 50) / 100) * 100;      
+        $( ".prof-rating-slider" ).slider('value', val);
       }
     });
 
