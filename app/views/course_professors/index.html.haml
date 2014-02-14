@@ -93,16 +93,7 @@
         - if r.semester_id
           .taken
             = "#{r.semester.season} #{r.semester.year}"
-      .comment
-        = h(r.comment).gsub(/\n/, '<br/>').html_safe
-      %ul.ratings.visible-md.visible-lg
-        %li.overall= r.overall
-        %li.professor_rating= r.professor_rating
-        %li.enjoyability= r.enjoyability
-        %li.difficulty= r.difficulty
-        %li.recommend= r.recommend
       .row.visible-xs.visible-sm{:style => "margin-left: 0px;"}
-        %br
         .col-xs-1.overall
         .col-xs-1= r.overall
         .col-xs-1.professor_rating
@@ -113,6 +104,14 @@
         .col-xs-1= r.difficulty
         .col-xs-1.recommend
         .col-xs-1= r.recommend
+      .comment
+        = h(r.comment).gsub(/\n/, '<br/>').html_safe
+      %ul.ratings.visible-md.visible-lg
+        %li.overall= r.overall
+        %li.professor_rating= r.professor_rating
+        %li.enjoyability= r.enjoyability
+        %li.difficulty= r.difficulty
+        %li.recommend= r.recommend
   = will_paginate @reviews
 - else
   %h2 No reviews :(
