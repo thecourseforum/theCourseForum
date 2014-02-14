@@ -15,7 +15,7 @@
 //variables to override bootstrap
 $orange: #d9551e;
 $navbar-height: 35px;
-$navbar-default-bg: #011F4A;
+$navbar-default-bg: #011f4a;
 $link-color: #000;
 $link-hover-color: $orange;
 $btn-primary-bg: $orange;
@@ -468,6 +468,13 @@ ul.professor-courses, ul.department-courses{
 .review-radios
 {
   display: none;
+}
+
+.review-field
+{
+  border-radius: 4px;
+  background-color: $orange;
+  color: white;
 }
 
 //Grades

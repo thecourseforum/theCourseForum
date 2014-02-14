@@ -49,9 +49,10 @@ $(document).ready(function() {
     }
 
     $("#subdept_select").bind("change", function(){
-      $("#professors").fadeOut("fast");
-      $("#courses").fadeOut("fast");
+      $("#prof_select").prop("disabled", true);
+      $("#course_select").prop("disabled", false);
       $("#course_select").empty();
+      $("#prof_select").empty();
       var value = $(this).find(":selected").val();
       $.ajax({
         url: '/subdepartments/' + value,
@@ -75,6 +76,7 @@ $(document).ready(function() {
     });
 
     $("#course_select").bind("change", function(){
+      $("#prof_select").prop("disabled", false);
       $("#prof_select").empty();
       var value = $(this).find(":selected").val();
       $.ajax({
@@ -111,20 +113,12 @@ $(document).ready(function() {
       {
         $(".current-prof-rating").text(parseInt(prof_val));
       }
-
-      if (prof_val < 3)
-        $(".current-prof-rating").css("background-color", "#FF1111");
-      else if (prof_val < 4.5)
-        $(".current-prof-rating").css("background-color", "#FFFF00");
-      else
-        $(".current-prof-rating").css("background-color", "#00BB00");
     }
     else
     {
       var prof_val = 3;
       prof_radios[4].click();
       $(".current-prof-rating").text(prof_val);
-      $(".current-prof-rating").css("background-color", "#FFFF00");
     }  
 
     $( ".prof-rating-slider" ).slider({
@@ -136,12 +130,6 @@ $(document).ready(function() {
         var val = parseInt((ui.value + 50) / 100); 
         prof_radios[val-2].click();
         $(".current-prof-rating").text(val/2);
-        if (val/2 < 3)
-          $(".current-prof-rating").css("background-color", "#FF1111");
-        else if (val/2 < 4.5)
-          $(".current-prof-rating").css("background-color", "#FFFF00");
-        else
-          $(".current-prof-rating").css("background-color", "#00BB00");
       },
       stop: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100) * 100;      
@@ -156,36 +144,27 @@ $(document).ready(function() {
 
       var enjoy_val = selected_enjoy.val();
       $(".current-enjoyability").text(enjoy_val);
-
-      if (enjoy_val < 3)
-        $(".current-enjoyability").css("background-color", "#FF1111");
-      else if (enjoy_val < 4.5)
-        $(".current-enjoyability").css("background-color", "#FFFF00");
-      else
-        $(".current-enjoyability").css("background-color", "#00BB00");
     }
     else
     {
       var enjoy_val = 3;
       enjoy_radios[2].click();
       $(".current-enjoyability").text(enjoy_val);
-      $(".current-enjoyability").css("background-color", "#FFFF00");
     } 
 
     $( ".enjoyability-slider" ).slider({
       step: 1,
-      min: 1,
-      max: 5,
-      value: enjoy_val,
+      min: 200,
+      max: 1000,
+      value: enjoy_val*200,
       slide: function(event, ui) {
-        enjoy_radios[ui.value-1].click();
-        $(".current-enjoyability").text(ui.value);
-        if (ui.value < 3)
-          $(".current-enjoyability").css("background-color", "#FF1111");
-        else if (ui.value < 5)
-          $(".current-enjoyability").css("background-color", "#FFFF00");
-        else
-          $(".current-enjoyability").css("background-color", "#00BB00");
+        var val = parseInt((ui.value + 50) / 100); 
+        enjoy_radios[val-2].click();
+        $(".current-enjoyability").text(val/2);
+      },
+      stop: function(event, ui) {
+        var val = parseInt((ui.value + 50) / 100) * 100;      
+        $( ".enjoyability-slider" ).slider('value', val);
       }
     });
 
@@ -196,36 +175,27 @@ $(document).ready(function() {
 
       var diff_val = selected_difficulty.val();
       $(".current-difficulty").text(diff_val);
-
-      if (diff_val < 3)
-        $(".current-difficulty").css("background-color", "#00BB00");
-      else if (diff_val < 4.5)
-        $(".current-difficulty").css("background-color", "#FFFF00");
-      else
-        $(".current-difficulty").css("background-color", "#FF1111");
     }
     else
     {
       var diff_val = 3;
       diff_radios[2].click();
       $(".current-difficulty").text(diff_val);
-      $(".current-difficulty").css("background-color", "#FFFF00");
     } 
 
     $( ".difficulty-slider" ).slider({
       step: 1,
-      min: 1,
-      max: 5,
-      value: diff_val,
+      min: 200,
+      max: 1000,
+      value: diff_val*200,
       slide: function(event, ui) {
-        diff_radios[ui.value-1].click();
-        $(".current-difficulty").text(ui.value);
-        if (ui.value < 3)
-          $(".current-difficulty").css("background-color", "#00BB00");
-        else if (ui.value < 5)
-          $(".current-difficulty").css("background-color", "#FFFF00");
-        else
-          $(".current-difficulty").css("background-color", "#FF1111");
+        var val = parseInt((ui.value + 50) / 100); 
+        diff_radios[val-2].click();
+        $(".current-difficulty").text(val/2);
+      },
+      stop: function(event, ui) {
+        var val = parseInt((ui.value + 50) / 100) * 100;      
+        $( ".difficulty-slider" ).slider('value', val);
       }
     });
 
@@ -237,36 +207,27 @@ $(document).ready(function() {
 
       var recommend_val = selected_recommend.val();
       $(".current-recommend").text(recommend_val);
-
-      if (recommend_val < 3)
-        $(".current-recommend").css("background-color", "#FF1111");
-      else if (recommend_val < 4.5)
-        $(".current-recommend").css("background-color", "#FFFF00");
-      else
-        $(".current-recommend").css("background-color", "#00BB00");
     }
     else
     {
       var recommend_val = 3;
       recommend_radios[2].click();
       $(".current-recommend").text(recommend_val);
-      $(".current-recommend").css("background-color", "#FFFF00");
     } 
 
     $( ".recommend-slider" ).slider({
       step: 1,
-      min: 1,
-      max: 5,
-      value: recommend_val,
+      min: 200,
+      max: 1000,
+      value: recommend_val*200,
       slide: function(event, ui) {
-        recommend_radios[ui.value-1].click();
-        $(".current-recommend").text(ui.value);
-        if (ui.value < 3)
-          $(".current-recommend").css("background-color", "#FF1111");
-        else if (ui.value < 5)
-          $(".current-recommend").css("background-color", "#FFFF00");
-        else
-          $(".current-recommend").css("background-color", "#00BB00");
+        var val = parseInt((ui.value + 50) / 100); 
+        recommend_radios[val-2].click();
+        $(".current-recommend").text(val/2);
+      },
+      stop: function(event, ui) {
+        var val = parseInt((ui.value + 50) / 100) * 100;      
+        $( ".recommend-slider" ).slider('value', val);
       }
     });
   }

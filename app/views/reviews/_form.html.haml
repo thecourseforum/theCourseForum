@@ -30,12 +30,12 @@
           .col-md-4{:align=>"center", :id=>"departments"}
             = f.label 'Department (prefix):'
             = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), :include_blank => true
-          .col-md-4{:align=>"center", :style=>"display: none", :id=>"courses"}
+          .col-md-4{:align=>"center", :id=>"courses"}
             = f.label 'Course:'
-            %select{:name=>"course_select", :id => "course_select"} 
-          .col-md-4{:align=>"center", :style=>"display: none", :id=>"professors"}
+            %select{:name=>"course_select", :id => "course_select", :disabled => true} 
+          .col-md-4{:align=>"center", :id=>"professors"}
             = f.label 'Professor:'
-            %select{:name=>"prof_select", :id => "prof_select"} 
+            %select{:name=>"prof_select", :id => "prof_select", :disabled => true} 
             
   %hr
 
@@ -72,7 +72,7 @@
             .col-xs-7{:style => "padding-top:5px;"}
               .prof-rating-slider
             .col-xs-1{style: "padding:0;text-align:center;"}
-              .current-prof-rating{style: "border-radius:4px;"}
+              .current-prof-rating.review-field
             .col-xs-2{:align=>"left"} Highest
           .row.review-radios
             .col-xs-3
@@ -95,15 +95,19 @@
             .col-xs-7{:style => "padding-top:5px;"}
               .enjoyability-slider
             .col-xs-1{style: "padding:0;text-align:center;"}
-              .current-enjoyability{style: "border-radius:4px;"}
+              .current-enjoyability.review-field
             .col-xs-2{:align=>"left"} Most Fun
           .row.review-radios
             .col-xs-3
-            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 1
-            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 2
-            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 3
-            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 4
-            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 5
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 1.0
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 1.5
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 2.0
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 2.5
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 3.0
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 3.5
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 4.0
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 4.5
+            .col-xs-1{:align=>"center"}= f.radio_button :enjoyability, 5.0
             .col-xs-3
   .row
     .col-md-12
@@ -117,15 +121,19 @@
             .col-xs-7{:style => "padding-top:5px;"}
               .difficulty-slider
             .col-xs-1{style: "padding:0;text-align:center;"}
-              .current-difficulty{style: "border-radius:4px;"}
+              .current-difficulty.review-field
             .col-xs-2{:align=>"left"} Hardest
           .row.review-radios
             .col-xs-3
-            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 1
-            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 2
-            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 3
-            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 4
-            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 5
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 1.0
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 1.5
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 2.0
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 2.5
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 3.0
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 3.5
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 4.0
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 4.5
+            .col-xs-1{:align=>"center"}= f.radio_button :difficulty, 5.0
             .col-md-3
         .col-md-6 
           .row
@@ -136,15 +144,19 @@
             .col-xs-7{:style => "padding-top:5px;"}
               .recommend-slider
             .col-xs-1{style: "padding:0;text-align:center;"}
-              .current-recommend{style: "border-radius:4px;"}
+              .current-recommend.review-field
             .col-xs-2{:align=>"left"} Highest
           .row.review-radios
             .col-xs-3
-            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 1
-            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 2
-            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 3
-            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 4
-            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 5
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 1.0
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 1.5
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 2.0
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 2.5
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 3.0
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 3.5
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 4.0
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 4.5
+            .col-xs-1{:align=>"center"}= f.radio_button :recommend, 5.0
             .col-xs-3
   %hr
   .row
