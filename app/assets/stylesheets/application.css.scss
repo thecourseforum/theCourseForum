@@ -374,8 +374,7 @@ form.register {
 
 
 textarea {
-  width: 325px;
-  height: 150px;
+  min-height: 150px;
 }
 
 ul.professor-courses, ul.department-courses{
@@ -646,4 +645,14 @@ ul.professor-courses, ul.department-courses{
 .col-xs-1.recommend {
   background: image-url("icons/user_comment.png") no-repeat center top;
   min-height: 16px;
+}
+
+.ui-slider-handle
+{
+  font-size: 22px;
+}
+
+.ui-slider-horizontal
+{
+  height: 15px !important;
 }

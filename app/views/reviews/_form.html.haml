@@ -71,9 +71,9 @@
             .col-xs-2{:align=>"right"} Lowest
             .col-xs-7{:style => "padding-top:5px;"}
               .prof-rating-slider
+            .col-xs-2{:align=>"left", style: "padding:0"} Highest
             .col-xs-1{style: "padding:0;text-align:center;"}
               .current-prof-rating.review-field
-            .col-xs-2{:align=>"left"} Highest
           .row.review-radios
             .col-xs-3
             .col-xs-1{:align=>"center"}= f.radio_button :professor_rating, 1.0 
@@ -208,11 +208,12 @@
                 %span.input-group-addon
                   %input{:type=>"checkbox", :id =>"homeworkbox", :onchange=>'setBox("homeworkbox","homeworkfield")', :checked => (@review.amount_homework > 0 ? true : false)}
                 = f.number_field :amount_homework, :id => "homeworkfield", :disabled => (@review.amount_homework > 0 ? false : true), :value => (@review.amount_homework > 0 ? @review.amount_homework.to_i : ""), :min => 0
+        .row.visible-xs.visible-sm
         .col-md-6
           .row
             .col-md-12
               %b Tell us more about the course/professor:
-          .row
+          .row.hidden-xs.hidden-sm
             .col-md-12
               &nbsp
           .row
