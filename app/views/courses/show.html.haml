@@ -6,7 +6,7 @@
 .row
   .col-xs-3.centertext
     %b Professor
-  .col-xs-2.centertext
+  .col-xs-3.col-sm-2.centertext
     %b Reviews
   .col-xs-1.overall{:title => "Overall"}
   .col-xs-1.professor_rating{:title => "Professor Rating"}
@@ -27,9 +27,11 @@
       - ratings[k] = (v / @reviews.count.to_f).round(2)
   %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
     .row
-      .col-xs-3
+      .col-sm-3.hidden-xs
         = professor.full_name
-      .col-xs-2.centertext
+      .col-xs-3.visible-xs
+        = professor.last_name
+      .col-xs-3.col-sm-2.centertext
         = @reviews.count
       .col-xs-1.centertext
         = (@reviews.count > 0 ? ratings[:overall].round(2) : "--")
