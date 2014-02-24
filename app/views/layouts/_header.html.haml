@@ -9,7 +9,7 @@
             %a{"data-toggle" => "dropdown", :href => "#"} 
               = current_user.email.split("@virginia.edu").first
               %b.caret.orange-caret
-            %ul.dropdown-menu{"aria-labelledby" => "account-dropdown", :role => "menu"}
+            %ul.dropdown-menu.dropdown-login{"aria-labelledby" => "account-dropdown", :role => "menu"}
               %li
                 %a{href: my_reviews_path}
                   %span.glyphicon.glyphicon-comment

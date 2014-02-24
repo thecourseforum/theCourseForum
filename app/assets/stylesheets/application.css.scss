@@ -227,6 +227,37 @@ aside {
   padding-bottom: 4px;
 }
 
+.dropdown-media, .dropdown-links 
+{
+  float: left;
+  margin-left: 3px; 
+  a
+  {
+    color: white;
+  }
+
+  .dropdown-menu
+  {
+    min-width: 0px;
+  }
+}
+
+.dropdown-media a 
+{
+  .share-icon
+  {
+    width: 17px;
+    height: auto;
+  }
+
+  img
+  {
+    width: 30px;
+    height: auto;
+  }
+  
+}
+
 h1 {
   font-size: 18px;
   color: $orange;
@@ -323,7 +354,7 @@ border-top-color: $orange !important;
 border-bottom-color: $orange !important;
 }
 
-.dropdown-menu {
+.dropdown-login {
   left:auto;
   right:0;
   width: 100%;
@@ -555,8 +586,13 @@ ul.professor-courses, ul.department-courses{
   }
 }
 
-.contact-us{
+.contact-us
+{
   float: left;
+  a 
+  {
+    color: white;
+  }
 }
 
 .anonymous {
