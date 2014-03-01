@@ -23,31 +23,32 @@
                 = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"
       .visible-xs.mobile-logout
         = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1", :class => "btn btn-primary"
-      = form_tag '/search/search', :method => "get", :class => "site-search" do
-        .input-group
-          .input-group-addon
-            %span.glyphicon.glyphicon-search
-          = text_field_tag :query, nil, :id => "searchbox"
-          %span.input-group-btn
-            = button_tag 'SEARCH', :class => 'btn btn-primary'
+      .collapse.navbar-collapse#search-bar
+        = form_tag '/search/search', :method => "get", :class => "site-search" do
+          .input-group
+            .input-group-addon
+              %span.glyphicon.glyphicon-search
+            = text_field_tag :query, nil, :id => "searchbox"
+            %span.input-group-btn
+              = button_tag 'SEARCH', :class => 'btn btn-primary'
 - if current_user
   .aside-navigation
     .hidden-lg
       %ul.aside-nav
-        %li.btn.btn-xs.btn-primary
+        %li.btn.btn-xs.btn-primary.visible-xs
           %a{:href => "/"}
-            .hidden-xs
-              %span.glyphicon.glyphicon.glyphicon-home
-              Home
-            .visible-xs
-              %span.glyphicon.glyphicon-home
-        %li.btn.btn-xs.btn-primary
+            %span.glyphicon.glyphicon-home
+        %li.btn.btn-xs.btn-primary.hidden-xs
+          %a{:href => "/"}
+            %span.glyphicon.glyphicon.glyphicon-home
+            Home
+        %li.btn.btn-xs.btn-primary.hidden-xs
           %a{:href => "/reviews/new"}
-            .hidden-xs
-              %span.glyphicon.glyphicon-pencil
-              Write a review
-            .visible-xs
-              %span.glyphicon.glyphicon-pencil
+            %span.glyphicon.glyphicon-pencil
+            Write a review
+        %li.btn.btn-xs.btn-primary.visible-xs
+          %a{:href => "/reviews/new"}
+            %span.glyphicon.glyphicon-pencil
         %li.btn.btn-xs.btn-primary.hidden-xs
           %a{:href => "/browse"}
             %span.glyphicon.glyphicon-list
@@ -62,3 +63,6 @@
         %li.btn.btn-xs.btn-primary.visible-xs
           %a{:href => "/users/edit"}
             %span.glyphicon.glyphicon-cog
+        %li.btn.btn-xs.btn-primary.visible-xs
+          %a{"data-target" => "#search-bar", "data-toggle" => "collapse", :type => "button"}
+            %span.glyphicon.glyphicon-search

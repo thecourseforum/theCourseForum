@@ -89,16 +89,25 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   padding-bottom: 5px;
 }
 
-.aside-navigation {
-  .hidden-lg {
+.aside-navigation 
+{
+  .hidden-lg 
+  {
     margin-bottom: 20px;
     margin-top: -20px;
-    ul {
+    ul 
+    {
       margin-top: 10px;
-      li {
-        width: 25%;
+      li
+      {
+        width: 20%;
         margin: 0 auto;
         border-radius: 0;
+      }
+
+      li.hidden-xs
+      {
+        width: 25%;
       }
     }
   }
