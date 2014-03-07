@@ -150,10 +150,6 @@ section {
   @include make-md-column(9);
 }
 
-section.wide {
-  @include make-md-column(15);
-}
-
 aside {
   @include make-md-column(3);
   width: auto !important;
@@ -427,35 +423,31 @@ ul.professor-courses, ul.department-courses{
 
 //course professors
 .course-professor-switcher {
-  margin-left: 30px;
+  // margin-left: 30px;
 }
 
 .course-professor-h1 {
-  @include make-row();
+  // @include make-row();
   margin-bottom: 16px;
-  margin-left: -30px;
-  max-width: 90%;
 
   h1 {
-    @include make-md-column(7);
+    @include make-xs-column(12);
     @include ellipsis;
-    float: left;
+    // float: left;
     border-bottom: none;
     margin-bottom: 0px;
-    // margin-bottom: -10px;
   }
 
   .bottom-border {
-    width: 100%;
-    float: left;
+    // width: 100%;
+    // float: left;
     border-bottom: 1px solid #000;
     margin-top: 5px;
-    margin-left: 15px;
+    // margin-left: 15px;
   }
 
   select {
-    @include make-md-column(4);
-    float: left;
+    // float: left;
     color: $orange;
     font-weight: bold;
     option {
@@ -464,26 +456,28 @@ ul.professor-courses, ul.department-courses{
   }
 }
 
-.course-breakdown {
-  @include make-row();
+.review-button
+{
+  .review-btn 
+  {
+    width: 100%;
+  }
 }
 
-.course-stats {
-  @include make-md-column(5);
+.course-breakdown 
+{
+}
+
+.course-stats 
+{
 }
 
 .course-grades {
-  @include make-md-column(6);
-  float: right;
+  float: left;
 
   h2 {
     margin-left: 25px;
   }
-}
-
-.review-button {
-  // @include make-md-column(5);
-  float: right;
 }
 
 .average-stat{
@@ -517,6 +511,11 @@ ul.professor-courses, ul.department-courses{
 }
 
 //Grades
+.grade-donut
+{
+  text-align: center;
+}
+
 .grade-donut .slice {
   font-size: 11px;
 }
@@ -528,10 +527,10 @@ ul.professor-courses, ul.department-courses{
 }
 
 .single-review {
-  @include make-row();
   max-width: 90%;
   border-bottom: 1px solid #dddddd;
   margin-bottom: 10px;
+
 
   ul.meta {
     @include make-md-column(2);

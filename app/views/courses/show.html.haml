@@ -1,7 +1,8 @@
 - content_for :title, @course.mnemonic_number
 .course-professor-h1
-  %h1{:title => "#{@course.title}"}
-    = "#{@course.mnemonic_number} - #{@course.title}"
+  .row
+    %h1{:title => "#{@course.title}"}
+      = "#{@course.mnemonic_number} - #{@course.title}"
   .bottom-border
 .row
   .col-xs-3.centertext
