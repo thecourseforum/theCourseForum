@@ -60,25 +60,29 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   @extend .navbar-default;
   @extend .navbar;
   border-radius: 0px;
-  padding-top: 10px;
-  .navbar-toggle {
-    @extend .btn-primary;
-    border-color: inherit;
-  }
-  .navbar-toggle:hover {
-    @extend .btn:hover;
-    @extend .btn-primary:hover;
-    background-color: #b54719;
-  }
+  padding-bottom: 5px;
+  .container
+  {
+    .navbar-toggle {
+      @extend .btn-primary;
+      margin-top: 9px;
+      border-color: inherit;
+    }
+    .navbar-toggle:hover {
+      @extend .btn:hover;
+      @extend .btn-primary:hover;
+      background-color: #b54719;
+    }
 
-  .navbar-toggle:focus {
-    @extend .btn:focus;
-    @extend .btn-primary:focus;
-    background-color: #b54719;
-  } 
+    .navbar-toggle:focus {
+      @extend .btn:focus;
+      @extend .btn-primary:focus;
+      background-color: #b54719;
+    } 
 
-  .navbar-collapse {
-    padding-top: 10px;
+    .navbar-collapse {
+      padding-top: 10px;
+    }
   }
 }
 
@@ -89,6 +93,77 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   border-radius: 0px;
   padding-top: 5px;
   padding-bottom: 5px;
+  .container
+  {
+    .navbar-toggle {
+      @extend .btn-primary;
+      margin-top: 7px;
+      border-color: inherit;
+    }
+    .navbar-toggle:hover {
+      @extend .btn:hover;
+      @extend .btn-primary:hover;
+      background-color: #b54719;
+    }
+
+    .navbar-toggle:focus {
+      @extend .btn:focus;
+      @extend .btn-primary:focus;
+      background-color: #b54719;
+    } 
+
+    .menu-button
+    {
+      .icon-bar
+      {
+        background-color: white;
+      }
+    }
+
+    #menu-collapse
+    {
+      .mobile-dropdown li
+      {
+        text-align: center;
+        a:first-child
+        {
+          float: left;
+        }
+
+        a
+        {
+          float:right;
+          width: 50%;
+          color: white;
+          max-height: 40px;
+        }
+
+      }
+
+      .mobile-dropdown li.divider
+      {
+        min-height: 1px;
+        width: 100%;
+        float: left;
+        border-bottom: 1px solid $orange;
+      }
+
+      .mobile-dropdown li.search:hover
+      {
+        background: transparent;
+      }
+
+      .mobile-dropdown li a:hover
+      {
+        background-color: $orange;
+      }
+
+      .mobile-dropdown li.icon a img
+      {
+        max-width: 30px;
+      }
+    }
+  }
 }
 
 .top-padding-fix
@@ -124,22 +199,6 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   }
 }
 
-#menu-collapse
-{
-  ul li
-  {
-    text-align: center;
-    a
-    {
-      color: white;
-    }    
-  }
-
-  ul li.divider
-  {
-    border-bottom: 1px solid $orange;
-  }
-}
 
 .navbar-header {
   width: 100%;
