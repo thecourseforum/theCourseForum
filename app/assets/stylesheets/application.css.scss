@@ -53,6 +53,8 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   @extend .form-control;
 }
 
+//header related
+
 .header-welcome-nav {
   @extend nav;
   @extend .navbar-default;
@@ -89,53 +91,107 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   padding-bottom: 5px;
 }
 
+.top-padding-fix
+{
+  margin-top: 40px;
+}
+
 .aside-navigation 
 {
-  .hidden-lg 
-  {
-    margin-bottom: 20px;
-    margin-top: -20px;
-    ul 
-    {
-      margin-top: 10px;
-      li
-      {
-        width: 20%;
-        margin: 0 auto;
-        border-radius: 0;
-      }
+  margin-bottom: 20px;
+  margin-top: -20px;
 
-      li.hidden-xs
-      {
-        width: 25%;
-      }
-    }
+  ul li
+  {
+    margin: 0 auto;
+    border-radius: 0;
   }
+
 }
 
-.aside-nav {
+.small-nav {
   @extend .nav;
   @extend .nav-pills;
-  li a {
-    color: #FFF;
+  li
+  {
+    width: 25%;
+    border-left:1px solid #000;
+    border-bottom:1px solid #000;
   }
 
-  li a:hover {
-    background-color: inherit;
+  li:hover {
+    background-color: #eeeeee;
   }
 }
 
-.mobile-logout {
-  float: right;
-  margin-top: 9px;
-  a{
-    color:#FFF;
+#menu-collapse
+{
+  ul li
+  {
+    text-align: center;
+    a
+    {
+      color: white;
+    }    
+  }
+
+  ul li.divider
+  {
+    border-bottom: 1px solid $orange;
   }
 }
 
 .navbar-header {
   width: 100%;
 }
+
+form.site-search {
+  max-width: 350px;
+  margin-top: 9px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.search {
+  .pagination {
+    margin: 5px 0;
+  }
+}
+
+.account-header {
+  margin-top: 16px;
+  float: right;
+  margin-left: 30px;
+
+  a, a:hover {
+    color: #FFF;
+  }
+
+  .open a{
+    background-color: transparent !important;
+  }
+}
+
+.orange-caret
+{
+border-top-color: $orange !important;
+border-bottom-color: $orange !important;
+}
+
+.dropdown-login {
+  left:auto;
+  right:0;
+  width: 100%;
+
+  li{
+    a:hover{
+      background-color: #EEEEEE !important;
+      background-image: none;
+      color: $orange;
+    }
+  }   
+}
+
 
 #student_form{
   form {
@@ -324,53 +380,6 @@ table.ratings td{
 p.title{
   text-align:center;
   font-weight:bold;
-}
-
-//header related
-form.site-search {
-  float: right; 
-  max-width: 350px;
-  margin-right: 30px;
-  margin-top: 9px;
-}
-
-.search {
-  .pagination {
-    margin: 5px 0;
-  }
-}
-
-.account-header {
-  margin-top: 16px;
-  float: right;
-
-  a, a:hover {
-    color: #FFF;
-  }
-
-  .open a{
-    background-color: transparent !important;
-  }
-}
-
-.orange-caret
-{
-border-top-color: $orange !important;
-border-bottom-color: $orange !important;
-}
-
-.dropdown-login {
-  left:auto;
-  right:0;
-  width: 100%;
-
-  li{
-    a:hover{
-      background-color: #EEEEEE !important;
-      background-image: none;
-      color: $orange;
-    }
-  }   
 }
 
 //aside/nav related

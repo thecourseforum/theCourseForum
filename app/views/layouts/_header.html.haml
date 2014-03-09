@@ -1,68 +1,86 @@
-.header-nav
+.header-nav{role: "navigation"}
   .container
-    %a.brand{:href => "/"}
-      %img{:src => "/images/logo.png"}
+    .div
+      %a.brand{:href => "/"}
+        %img{:src => "/images/logo.png"}
+      - if current_user
+        %button.navbar-toggle.btn.btn-primary.visible-xs{"data-target" => "#menu-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.glyphicon.glyphicon-chevron-down
     - if current_user
-      %ul.nav.navbar-nav.navbar-right.hidden-xs
-        .account-header
-          .dropdown
-            %a{"data-toggle" => "dropdown", :href => "#"} 
-              = current_user.email.split("@virginia.edu").first
-              %b.caret.orange-caret
-            %ul.dropdown-menu.dropdown-login{"aria-labelledby" => "account-dropdown", :role => "menu"}
-              %li
-                %a{href: my_reviews_path}
-                  %span.glyphicon.glyphicon-comment
-                  My Reviews
-              %li
-                %a{href: edit_user_registration_path}
-                  %span.glyphicon.glyphicon-cog
-                  My Account
-              %li.divider
-              %li
-                = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1"
-      .visible-xs.mobile-logout
-        = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1", :class => "btn btn-primary"
-      .collapse.navbar-collapse#search-bar
-        = form_tag '/search/search', :method => "get", :class => "site-search" do
-          .input-group
-            .input-group-addon
-              %span.glyphicon.glyphicon-search
-            = text_field_tag :query, nil, :id => "searchbox"
-            %span.input-group-btn
-              = button_tag 'SEARCH', :class => 'btn btn-primary'
+      .collapse.navbar-collapse#menu-collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = form_tag '/search/search', :method => "get", :class => "site-search" do
+              .input-group
+                .input-group-addon
+                  %span.glyphicon.glyphicon-search
+                = text_field_tag :query, nil, :id => "searchbox"
+                %span.input-group-btn
+                  = button_tag 'SEARCH', :class => 'btn btn-primary'
+          %li.visible-xs
+            %a{:href => "/"}
+              %span.glyphicon.glyphicon.glyphicon-home
+              Home
+          %li.visible-xs
+            %a{:href => "/reviews/new"}
+              %span.glyphicon.glyphicon-pencil
+              Write a review
+          %li.visible-xs
+            %a{:href => "/browse"}
+              %span.glyphicon.glyphicon-list
+              Browse All
+          %li.visible-xs
+            %a{:href => "/professors"}
+              %span.glyphicon.glyphicon-list
+              Browse by Professor
+          %li.divider
+          %li.visible-xs
+            %a{:href => "/my_reviews"}
+              %span.glyphicon.glyphicon-comment
+              My Reviews
+          %li.visible-xs
+            %a{:href => "/users/edit"}
+              %span.glyphicon.glyphicon-cog
+              My Account
+          %li.visible-xs
+            = link_to 'Logout', destroy_user_session_path, :method => :delete
+
+
+          %ul.nav.navbar-nav.navbar-right.hidden-xs
+            .account-header
+              .dropdown
+                %a{"data-toggle" => "dropdown", :href => "#"} 
+                  = current_user.email.split("@virginia.edu").first
+                  %b.caret.orange-caret
+                %ul.dropdown-menu.dropdown-login{"aria-labelledby" => "account-dropdown", :role => "menu"}
+                  %li
+                    %a{href: my_reviews_path}
+                      %span.glyphicon.glyphicon-comment
+                      My Reviews
+                  %li
+                    %a{href: edit_user_registration_path}
+                      %span.glyphicon.glyphicon-cog
+                      My Account
+                  %li.divider
+                  %li
+                    = link_to 'Logout', destroy_user_session_path, :method => :delete, :tabindex => "-1" 
 - if current_user
-  .aside-navigation
-    .hidden-lg
-      %ul.aside-nav
-        %li.btn.btn-xs.btn-primary.visible-xs
-          %a{:href => "/"}
-            %span.glyphicon.glyphicon-home
-        %li.btn.btn-xs.btn-primary.hidden-xs
-          %a{:href => "/"}
-            %span.glyphicon.glyphicon.glyphicon-home
-            Home
-        %li.btn.btn-xs.btn-primary.hidden-xs
-          %a{:href => "/reviews/new"}
-            %span.glyphicon.glyphicon-pencil
-            Write a review
-        %li.btn.btn-xs.btn-primary.visible-xs
-          %a{:href => "/reviews/new"}
-            %span.glyphicon.glyphicon-pencil
-        %li.btn.btn-xs.btn-primary.hidden-xs
-          %a{:href => "/browse"}
-            %span.glyphicon.glyphicon-list
-            Browse All
-        %li.btn.btn-xs.btn-primary.hidden-xs
-          %a{:href => "/professors"}
-            %span.glyphicon.glyphicon-list
-            Browse by Professor
-        %li.btn.btn-xs.btn-primary.visible-xs
-          %a{:href => "/my_reviews"}
-            %span.glyphicon.glyphicon-comment
-        %li.btn.btn-xs.btn-primary.visible-xs
-          %a{:href => "/users/edit"}
-            %span.glyphicon.glyphicon-cog
-        %li.btn.btn-xs.btn-primary.visible-xs
-          %a{"data-target" => "#search-bar", "data-toggle" => "collapse", :type => "button"}
-            %span.glyphicon.glyphicon-search
+  .top-padding-fix.visible-xs
+  .aside-navigation.hidden-lg
+    %ul.small-nav.hidden-xs
+      %li.btn.btn-xs
+        %a{:href => "/"}
+          %span.glyphicon.glyphicon.glyphicon-home
+          Home
+      %li.btn.btn-xs
+        %a{:href => "/reviews/new"}
+          %span.glyphicon.glyphicon-pencil
+          Write a review
+      %li.btn.btn-xs
+        %a{:href => "/browse"}
+          %span.glyphicon.glyphicon-list
+          Browse All
+      %li.btn.btn-xs
+        %a{:href => "/professors"}
+          %span.glyphicon.glyphicon-list
+          Browse by Professor
