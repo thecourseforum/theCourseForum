@@ -124,7 +124,10 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
     {
       .mobile-dropdown li
       {
+        float: left;
         text-align: center;
+        width: 100%;
+
         a:first-child
         {
           float: left;
@@ -134,6 +137,7 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
         {
           float:right;
           width: 50%;
+          height: auto;
           color: white;
           max-height: 40px;
         }

@@ -43,19 +43,15 @@
             %li.divider.visible-xs
             %li.visible-xs
               = link_to "theBlog", "http://blog.thecourseforum.com", :target => "_blank"
-            %li.visible-xs
               = link_to "About", about_path
             %li.visible-xs
               = link_to "Privacy", privacy_path
-            %li.visible-xs
               = link_to "Terms", terms_path
             %li.icon.visible-xs
               = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank'
-            %li.icon.visible-xs
               = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank'
             %li.icon.visible-xs
               = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank'
-            %li.visible-xs
               %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
                 %span.glyphicon.glyphicon-off
                 Logout
