@@ -98,6 +98,7 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
     .navbar-toggle {
       @extend .btn-primary;
       margin-top: 7px;
+      margin-right: 0px;
       border-color: inherit;
     }
     .navbar-toggle:hover {
