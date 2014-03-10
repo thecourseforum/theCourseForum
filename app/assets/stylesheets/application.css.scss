@@ -130,9 +130,27 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
         a
         {
           float: left;
-          width: 100%;
+          width: 33.33%;
+          height: 90%;
           color: white;
+          font-size: 12px;
         }
+
+        a:first-child
+        {
+          font-size: 14px;
+          width: 66.66%;
+        }
+
+        a.icon
+        {
+          img
+          {
+            max-width: 30px;
+          }
+          padding: 5px 15px;
+        }
+
 
       }
 
@@ -155,27 +173,6 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
       }
 
 
-
-      .mobile-dropdown li.xs-links 
-      {
-        a
-        {
-          width: 25%;
-          font-size: 12px;
-        }
-      }
-
-      .mobile-dropdown li.icons a 
-      {
-        text-align: center;
-        float: left;
-        width: 33.33%;
-        img
-        {
-          max-width: 30px;
-        }
-        
-      }
     }
   }
 }
