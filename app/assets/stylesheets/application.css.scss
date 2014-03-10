@@ -124,11 +124,12 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
     {
       .mobile-dropdown li
       {
-        text-align: center;
+        
         width: 100%;
 
         a
         {
+          text-align: right;
           float: left;
           width: 33.33%;
           height: 90%;
@@ -138,8 +139,10 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
 
         a:first-child
         {
+          text-align: left;
           font-size: 14px;
           width: 66.66%;
+          border-right: 1px solid $orange;
         }
 
         a.icon
@@ -152,6 +155,11 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
         }
 
 
+      }
+
+      .mobile-dropdown li.space-fix
+      {
+        margin-top: 8px;
       }
 
       .mobile-dropdown li.divider
