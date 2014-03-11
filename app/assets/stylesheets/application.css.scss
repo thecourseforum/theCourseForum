@@ -60,7 +60,7 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
   @extend .navbar-default;
   @extend .navbar;
   border-radius: 0px;
-  padding-bottom: 5px;
+  
   .container
   {
     .navbar-toggle {
@@ -321,7 +321,7 @@ aside {
 
 .brand-login
 {
-  margin-top: 5px;
+  margin: 5px 0;
 }
 
 .login {
