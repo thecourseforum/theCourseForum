@@ -3,8 +3,10 @@
     .navbar-header
       %button.navbar-toggle.btn{"data-target" => "#login-collapse", "data-toggle" => "collapse", :type => "button"}
         %span.glyphicon.glyphicon-chevron-down
-    %a.brand.brand-login{:href => "/"}
-      %img{:src => "/images/logo.png"}
+    .logo
+      .welcome-header-fix.hidden-xs
+      %a.brand.brand-login{:href => "/"}
+        %img{:src => "/images/logo.png"}
     .collapse.navbar-collapse#login-collapse
       .login
         = form_for @user, :url => session_path(:user) do |f|
