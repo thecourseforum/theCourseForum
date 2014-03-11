@@ -63,4 +63,3 @@ gem 'gon'
 gem 'rest-client'
 gem 'rb-readline', '0.5.0.pre.1', require: 'readline', github: 'luislavena/rb-readline'
 gem 'figaro'
->>>>>>> development
