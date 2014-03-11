@@ -1,27 +1,15 @@
 class ReviewsController < ApplicationController
   # GET /reviews
   # GET /reviews.json
+
+  before_action :is_correct_user, :only => [:edit, :update, :destroy]
+
   def index
-    @reviews = current_user.reviews.order(:created_at)
+    @reviews = current_user.reviews.sort_by{|r| [r.semester_id ? -(Semester.find(r.semester_id).number) : 1, r.course.subdepartment.mnemonic, r.course.course_number]}
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reviews }
-    end
-  end
-
-  # GET /reviews/1
-  # GET /reviews/1.json
-  def show
-    @review = Review.find(params[:id])
-    @course_professor = CourseProfessor.find(@review.course_professor_id)
-    @course = Course.find(@course_professor.course_id)
-    @subdepartment = Subdepartment.find(@course.subdepartment_id)
-    @professor = Professor.find(@course_professor.professor_id)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @review }
     end
   end
 
@@ -30,7 +18,7 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
    # @courses = Course.all.sort_by{|e| e[:course_number]}
    # @professors = Professor.all.sort_by{|e| e[:last_name]}
 
@@ -55,7 +43,7 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
 
     @course_id = @review.course_id
     @prof_id = @review.professor_id
@@ -74,13 +62,25 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
+    r = Review.find_by(:student_id => current_user.id, :course_id => params[:course_select], :professor_id => params[:prof_select])
+    if r != nil
+      flash[:notice] = "You have already written a review for this class."
+      redirect_to my_reviews_path
+      return
+    end
+
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
     @review = Review.new(review_params)
     @review.professor_id = params[:prof_select]
     @review.course_id = params[:course_select]
 
     @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
+
+    if @semester == nil
+      @semester = Semester.create(:season => params[:semester_season], :year => params[:semester_year], :number => Semester.get_number(params))
+    end
+
     @review.semester_id = @semester.id
 
     @review.student_id = current_user.id
@@ -101,15 +101,16 @@ class ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     @subdepartments = Subdepartment.all.order(:name)
-    @years = (2010..Time.now.year).to_a
+    @years = (2009..Time.now.year).to_a
 
     respond_to do |format|
       if @review.update_attributes(review_params)
         
         @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
         @review.semester_id = @semester.id
+        @review.save
 
-        format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully updated.' }
+        format.html { redirect_to my_reviews_path, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -137,4 +138,11 @@ private
       :only_tests, :recommend, :ta_name)
   end
 
+  def is_correct_user
+    @review = Review.find(params[:id])
+    if current_user.id != @review.student_id
+      redirect_to my_reviews_path
+    end
+  end
+  
 end

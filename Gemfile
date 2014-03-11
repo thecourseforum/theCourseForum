@@ -54,12 +54,12 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'will_paginate', '>=3.0.3'
 gem 'jquery-ui-rails'
 gem 'd3_rails'
 gem 'haml'
 gem 'gon'
 gem 'rest-client'
-gem 'rb-readline', '0.5.0.pre.1', require: 'readline', github: 'luislavena/rb-readline'
+gem 'rb-readline', '0.5.1', require: 'readline', github: 'luislavena/rb-readline'
 gem 'figaro'

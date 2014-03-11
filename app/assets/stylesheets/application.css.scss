@@ -40,8 +40,7 @@ html {
   overflow-y: scroll;
 }
 
-body {
-  @extend .container;
+.container.main {
   padding-top: 100px;
   padding-bottom: 50px;
 }
@@ -208,6 +207,30 @@ form.site-search {
   }
 }
 
+.orange-caret
+{
+border-top-color: $orange !important;
+border-bottom-color: $orange !important;
+}
+
+.dropdown-menu.right {
+  @extend .nav-list;
+  left:auto;
+  right:0;
+  width: 100%;
+
+  li{
+    a:hover{
+      background-color: #EEEEEE;
+      background-image: none;
+      color: $orange;
+      i {
+        background-image: image-url("glyphicons-halflings.png");
+      }
+    }
+  }   
+}
+
 //aside/nav related
 ul.site-nav-links {
   @extend .nav;
@@ -264,7 +287,6 @@ textarea {
 
 .course-professor-h1 {
   @include makeRow();
-  border-bottom: 1px solid #000;
   margin-bottom: 16px;
 
   h1 {
@@ -272,13 +294,25 @@ textarea {
     @include ellipsis;
     float: left;
     border-bottom: none;
-    margin-bottom:8px;
+    margin-bottom: 0px;
+    // margin-bottom: -10px;
+  }
+
+  .bottom-border {
+    width: 700px;
+    float: right;
+    border-bottom: 1px solid #000;
+    margin-top: 5px;
   }
 
   select {
-    @include makeColumn(2);
-    float: right;
-    margin-top: 4px;
+    @include makeColumn(4);
+    float: left;
+    color: $orange;
+    font-weight: bold;
+    option {
+      color: #000;
+    }
   }
 }
 
@@ -300,7 +334,8 @@ textarea {
 }
 
 .review-button {
-  @include makeColumn(5);
+  // @include makeColumn(5);
+  float: right;
 }
 
 //Grades
@@ -324,7 +359,8 @@ textarea {
   }
 
   .comment {
-    @include makeColumn(6.5)
+    @include makeColumn(6.5);
+    margin-bottom: 10px;
   }
 
   ul.ratings {
@@ -357,21 +393,9 @@ textarea {
   }
 }
 
-.static-pages{
-  margin-top: 6px;
-  margin-left: 20px;
-  float: left;
-
-}
-
-.about, .privacy, .terms {
-  float: left;
-  margin-right: 20px;
-
-  a{
-    color: #FFFFFF;
-    font-size: 10px;
-  }
+.taken
+{
+  font-size:11px;
 }
 
 .my-review-titles{
@@ -386,25 +410,15 @@ textarea {
   }
 }
 
-
-.orange-caret
-{
-border-top-color: $orange !important;
-border-bottom-color: $orange !important;
-}
-
-.dropdown-menu.right {
-    left:auto;
-    right:0;
-}
-
-.error-report{
-  float: right;
+.contact-us{
+  float: left;
+  margin-top: 4.5px !important;
+  margin-left: 8px;
 }
 
 .social-icons{
   margin-top: 5px;
-  float: left;
+  float: right;
 
   img{
     height: 30px;
@@ -412,6 +426,50 @@ border-bottom-color: $orange !important;
   }
 }
 
-.twitter {
-  margin-left: 10px;
+.static-pages{
+  margin-top: 6px;
+  margin-left: 20px;
+  float: left;
+
+}
+
+.about, .privacy, .terms, .blog {
+  float: left;
+  margin-right: 20px;
+
+  a{
+    color: #FFFFFF;
+    font-size: 10px;
+  }
+}
+
+.copyright
+{
+  color: #FFFFFF;
+  font-size: 10px;
+  margin-top: 8px;
+  text-align: center;
+  float: right;
+  margin-left: 20px;
+}
+
+.centertext
+{
+  text-align: center;
+}
+
+.span1.overall {
+  background: image-url("icons/heart.png") no-repeat center top;
+}
+.span1.professor_rating {
+  background: image-url("icons/user_gray.png") no-repeat center top;
+}
+.span1.enjoyability {
+  background: image-url("icons/emoticon_smile.png") no-repeat center top;
+}
+.span1.difficulty {
+  background: image-url("icons/pencil.png") no-repeat center top;
+}
+.span1.recommend {
+  background: image-url("icons/user_comment.png") no-repeat center top;
 }

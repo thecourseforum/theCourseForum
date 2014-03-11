@@ -12,12 +12,23 @@ class SessionsController < Devise::SessionsController
       
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       sign_in(:user, @user)
-      @user.student.destroy
+      if @user.student
+        @user.student.destroy
+      end
       redirect_to student_sign_up_path
     elsif @user && @user.valid_password?(params[:user][:password])
       super
     else
       redirect_to new_user_session_path, notice: 'Invalid email or password.', :email => params[:user][:email]
+    end
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    a = stored_location_for(resource_or_scope)
+    if a != nil && a.include?('confirmation')
+      signed_in_root_path(resource_or_scope)
+    else
+      a || signed_in_root_path(resource_or_scope)
     end
   end
 

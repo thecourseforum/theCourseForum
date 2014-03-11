@@ -1,3 +1,4 @@
+- content_for :title, "Browse by Professor"
 %h1 Professors
 .row-fluid
 	.span12
@@ -5,10 +6,6 @@
 			.span6
 				%p First Letter of Professor's Last Name:
 				= select_tag :prof_name, options_for_select(('A'..'Z').to_a), :include_blank => true
-				/ %select{:name => "prof_name", :id => "prof_name"}
-				/ 	- ('A'..'Z').each do |a|
-				/ 		%option{:value => (a)}
-				/ 			= a
 
 %hr
 
@@ -23,3 +20,4 @@
 
 	document.getElementById("prof_name").selectedIndex = -1;
 			
+-

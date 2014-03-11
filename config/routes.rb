@@ -9,38 +9,22 @@ TheCourseForum::Application.routes.draw do
 
   devise_scope :user do
     get '/student_sign_up', :to => "registrations#student_sign_up", :as => "student_sign_up"
-    get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
+    # get '/professor_sign_up', :to => "registrations#professor_sign_up", :as => "professor_sign_up"
   end
-
-  #resources :grades
-
-  #resources :semesters
 
   resources :reviews, :only => [:new, :create, :edit, :update]
 
-  #resources :student_majors
+  resources :students, :only => [:create]
 
-  #resources :majors
-
-  resources :students, :only => [:create, :index]
-
-  # resources :users, :only => [:create, :index]
-
-  # resources :sessionsrequest.fullpath
-
-  resources :course_professors, :only => [:index, :show]
+  resources :course_professors, :only => [:index]
 
   resources :professors, :only => [:index, :show]
 
   resources :courses, :only => [:show]
 
-  #resources :schools
-
-  resources :subdepartments, :only => [:show]
-
   resources :departments, :only => [:show, :index]
 
-  resources :home
+  resources :subdepartments, :only => [:show]
  
   resources :search do
     collection do
@@ -54,7 +38,7 @@ TheCourseForum::Application.routes.draw do
 
   post '/contact_us/submit', :to => 'contact_us#submit', :as => "submit_report"
 
-  get '/myreviews', :to => 'reviews#index', :as => 'my_reviews'
+  get '/my_reviews', :to => 'reviews#index', :as => 'my_reviews'
 
   get '/about', :to => 'home#about', :as => "about"
   get '/privacy', :to => 'home#privacy', :as => "privacy"

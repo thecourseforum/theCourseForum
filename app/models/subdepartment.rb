@@ -2,6 +2,8 @@ class Subdepartment < ActiveRecord::Base
   has_and_belongs_to_many :department
   has_many :courses
 
+  validates_presence_of :name, :mnemonic
+
   def professors_list
     profs = []
     self.courses.each do |course|

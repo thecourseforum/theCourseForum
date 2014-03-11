@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
                     :format     => { :with => VALID_EMAIL_REGEX },
                     :uniqueness => { :case_sensitive => false }
 
+  validates_presence_of :first_name #, :last_name
+
   # Authenticate user based on old MD5-hashed password
   def old_authenticate(password)
     password_salt = ENV["OLD_SALT"]
