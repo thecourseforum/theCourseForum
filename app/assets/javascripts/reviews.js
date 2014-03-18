@@ -105,31 +105,24 @@ $(document).ready(function() {
     if (selected_prof.length > 0)
     {
       var prof_val = selected_prof.val();
-      if (prof_val*10 % 10 == 5)
-      {
-        $(".current-prof-rating").text(prof_val);
-      }
-      else
-      {
-        $(".current-prof-rating").text(parseInt(prof_val));
-      }
+      $(".current-prof-rating").text(prof_val);
     }
     else
     {
       var prof_val = 3;
-      prof_radios[4].click();
+      prof_radios[2].click();
       $(".current-prof-rating").text(prof_val);
     }  
 
     $( ".prof-rating-slider" ).slider({
       step: 1,
-      min: 200,
-      max: 1000,
-      value: prof_val*200,
+      min: 100,
+      max: 500,
+      value: prof_val*100,
       slide: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100); 
-        prof_radios[val-2].click();
-        $(".current-prof-rating").text(val/2);
+        prof_radios[val-1].click();
+        $(".current-prof-rating").text(val);
       },
       stop: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100) * 100;      
@@ -154,13 +147,13 @@ $(document).ready(function() {
 
     $( ".enjoyability-slider" ).slider({
       step: 1,
-      min: 200,
-      max: 1000,
-      value: enjoy_val*200,
+      min: 100,
+      max: 500,
+      value: enjoy_val*100,
       slide: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100); 
-        enjoy_radios[val-2].click();
-        $(".current-enjoyability").text(val/2);
+        enjoy_radios[val-1].click();
+        $(".current-enjoyability").text(val);
       },
       stop: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100) * 100;      
@@ -185,13 +178,13 @@ $(document).ready(function() {
 
     $( ".difficulty-slider" ).slider({
       step: 1,
-      min: 200,
-      max: 1000,
-      value: diff_val*200,
+      min: 100,
+      max: 500,
+      value: diff_val*100,
       slide: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100); 
-        diff_radios[val-2].click();
-        $(".current-difficulty").text(val/2);
+        diff_radios[val-1].click();
+        $(".current-difficulty").text(val);
       },
       stop: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100) * 100;      
@@ -217,13 +210,13 @@ $(document).ready(function() {
 
     $( ".recommend-slider" ).slider({
       step: 1,
-      min: 200,
-      max: 1000,
-      value: recommend_val*200,
+      min: 100,
+      max: 500,
+      value: recommend_val*100,
       slide: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100); 
-        recommend_radios[val-2].click();
-        $(".current-recommend").text(val/2);
+        recommend_radios[val].click();
+        $(".current-recommend").text(val);
       },
       stop: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100) * 100;      
