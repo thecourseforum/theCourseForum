@@ -1,34 +1,42 @@
 - content_for :title, "My Reviews"
 %h1 My Reviews
 - if @reviews.size > 0   
-  .row-fluid.my-review-titles
-    .span2
+  .row.my-review-titles
+    .col-xs-3.col-sm-2
       Course
-    .span2
+    .col-xs-2
       Professor
-    .span2
+    .col-xs-1.visible-xs
+      = ""
+    .col-xs-3.col-sm-2
       Semester
-    .span2
+    .col-xs-2.hidden-xs
       Go To Course  
-    .span2
+    .col-xs-2.hidden-xs
       Edit Review  
+    .col-xs-1.visible-xs
+      Edit
   - @reviews.each do |review|
-    .row-fluid
-      .span2
-        = link_to "#{review.course.subdepartment.mnemonic} #{review.course.course_number}", review.course
-      .span2
+    .row
+      .col-xs-3.col-sm-2
+        = link_to "#{review.course.mnemonic_number}", review.course
+      .col-xs-2.hidden-xs.hidden-sm
         = link_to review.professor.full_name, review.professor
-      .span2
+      .col-xs-2.visible-xs.visible-sm
+        = link_to review.professor.last_name, review.professor
+      .col-xs-1.visible-xs
+        = ""
+      .col-xs-3.col-sm-2
         = review.semester ? "#{review.semester.season} #{review.semester.year}" : "-"
-      .span2
+      .col-xs-2.hidden-xs
         = link_to "Go", course_professors_path(:p => review.professor_id, :c => review.course_id)
-      .span2
+      .col-xs-1
         = link_to "Edit", edit_review_path(review)
   %br
 - else
-  .row-fluid
-    .span12
+  .row
+    .col-xs-12
       You haven't written any reviews yet! :(
-  .row-fluid
-    .span12
+  .row
+    .col-xs-12
       = link_to "Write one now!", new_review_path, :class => "btn btn-primary"

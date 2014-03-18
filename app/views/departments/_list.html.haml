@@ -1,26 +1,34 @@
-%h2 Arts &amp; Sciences Departments
+.row
+  .col-sm-6
+    %h2 Arts &amp; Sciences Departments
 
-%ul.left
-  - @artDeps[0].each do |d|
-    %li= link_to d.name, d
-%ul.right
-  - @artDeps[1].each do |d|
-    %li= link_to d.name, d
+.row.department-list
+  .col-sm-6
+    - @artDeps[0].each do |d|
+      .dept= link_to d.name, d
+  .col-sm-6
+    - @artDeps[1].each do |d|
+      .dept= link_to d.name, d
 
-%h2 Engineering &amp; Applied Sciences
+.row
+  .col-sm-6
+    %h2 Engineering &amp; Applied Sciences
 
-%ul.left
-  - @engrDeps[0].each do |d|
-    %li= link_to d.name, d
-%ul.right
-  - @engrDeps[1].each do |d|
-    %li= link_to d.name, d
+.row.department-list
+  .col-sm-6
+    - @engrDeps[0].each do |d|
+      .dept= link_to d.name, d
+  .col-sm-6
+    - @engrDeps[1].each do |d|
+      .dept= link_to d.name, d
+.row
+  .col-sm-6
+    %h2 Others Schools at the University of Virginia
 
-%h2 Others Schools at the University of Virginia
-
-%ul.left
-  - @otherSchools[0].each do |s|
-    %li= link_to s.name, s
-%ul.right
-  - @otherSchools[1].each do |s|
-    %li= link_to s.name, s
+.row.department-list
+  .col-sm-6
+    - @otherSchools[0].each do |d|
+      .dept= link_to d.name, d
+  .col-sm-6
+    - @otherSchools[1].each do |d|
+      .dept= link_to d.name, d

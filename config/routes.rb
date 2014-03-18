@@ -26,7 +26,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments, :only => [:show]
  
-  resources :search do
+  resources :search, :only => [] do
     collection do
       get :search
     end

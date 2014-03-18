@@ -3,29 +3,30 @@
 = form_for :report, :url => submit_report_path(:user_id => (current_user ? current_user.id : nil)) do |f|
   %h2 
     What do you want to tell us? 
-  .row-fluid
-    .span12
+  .row
+    .col-md-12
       %i
         Use this form or contact us directly at 
         %b
           = mail_to "support@thecourseforum.com", "support@thecourseforum.com."
   - if current_user
-    .row-fluid
-      .row-fluid
-        .span3
-          General Feedback:
-        .span1
-          = f.radio_button :type, "feedback", :checked => true
-      .row-fluid
-        .span3
-          Problem with a page: 
-        .span1
-          = f.radio_button :type, "problem"
-      .row-fluid
-        .span3
-          Other Question(s):
-        .span1
-          = f.radio_button :type, "other"
+    .row
+      .col-md-12
+        .row
+          .col-sm-3.col-xs-6
+            General Feedback:
+          .col-xs-1
+            = f.radio_button :type, "feedback", :checked => true
+        .row
+          .col-sm-3.col-xs-6
+            Problem with a page: 
+          .col-xs-1
+            = f.radio_button :type, "problem"
+        .row
+          .col-sm-3.col-xs-6
+            Other Question(s):
+          .col-xs-1
+            = f.radio_button :type, "other"
         
   %hr
   - if current_user 
@@ -33,9 +34,10 @@
       %h2 We're listening! Let us know what's on your mind:
   - else
     .feedback
-      %b
-        = f.label :email, "Email (leave blank if you want to remain anonymous):"
-        = f.email_field :email
+      = f.label :email, "Email (leave blank if you want to remain anonymous):", :style => "font-weight:bold;"
+      .row
+        .col-sm-6.col-xs-12
+          = f.email_field :email
       %br
       %h2 We're listening! Please include your contact information if you would like us to respond!
   - if current_user
@@ -44,7 +46,7 @@
       %br
       %h5 
         theCourseForum.com
-        = f.text_field :url, :value => @url, :style => "width:400px;"
+        = f.text_field :url, :value => @url, :style => "max-width:400px;"
       %h2 Describe the problem:
     .other
       %h2 What questions do you have? We'll get back to you ASAP:
@@ -54,6 +56,6 @@
     - if current_user
       .anonymous
         = f.check_box :anonymous
-        = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", :class => "checkbox inline remember-box"
+        = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", :class => "inline"
     %br
     = f.submit "Submit", :class => "btn btn-primary"
