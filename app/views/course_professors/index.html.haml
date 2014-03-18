@@ -1,18 +1,20 @@
-- content_for :title, "#{@subdepartment.mnemonic} #{@course.course_number} - #{@professor.last_name}"
+- content_for :title, "#{@course.mnemonic_number} - #{@professor.last_name}"
 .course-professor-h1
-  .row-fluid
-    .span12
-      %h1{:title => "#{@course.title}"} #{@subdepartment.mnemonic} #{@course.course_number} - #{@course.title}
-  .row-fluid
-    %select.course-professor-switcher
-      - @professors.each do |p|
-        %option{value: "c=#{@course.id}&p=#{p.id}", selected: p.id == @professor.id, :style => (p.id == @professor.id ? "color: #d9551e;" : "")}="#{p.separated_name}"
-    .review-button
-      = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
+  .row
+    %h1{:title => "#{@course.title}"}= "#{@course.mnemonic_number} - #{@course.title}"
+  .row{:style => "margin-bottom: 10px;"}
+    .col-sm-5
+      %select.course-professor-switcher
+        - @professors.each do |p|
+          %option{value: "c=#{@course.id}&p=#{p.id}", selected: p.id == @professor.id, :style => (p.id == @professor.id ? "color: #d9551e;" : "")}="#{p.separated_name}"
+    %br.visible-xs
+    .col-lg-4.col-lg-offset-3.col-sm-5.col-sm-offset-2
+      .review-button
+        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary"
   .bottom-border
 
-.course-breakdown
-  .course-stats
+.row.course-breakdown
+  .course-stats.col-md-5
     %h2 Ratings
     %table.table.table-striped
       %tr
@@ -63,7 +65,7 @@
             %td Tests/Midterms
             %td --
             %td=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
-  .course-grades
+  .course-grades.col-md-6
     %h2 Grades (cumulative since Spring 2012)
     - if @grades.size > 0
       = render :partial => "grades", :locals => {:grades => @grades}
@@ -86,21 +88,34 @@
         = "1 Review -- 0 Comments"
   = will_paginate @reviews
   .single-review
+  -# adds top line
   - @reviews.each do |r|
     .single-review
-      %ul.meta
-        %li= r.created_at.strftime("%Y-%m-%d")
-        - if r.semester_id
-          .taken
-            = "#{r.semester.season} #{r.semester.year}"
-      .comment
-        = h(r.comment).gsub(/\n/, '<br/>').html_safe
-      %ul.ratings
-        %li.overall= r.overall
-        %li.professor_rating= r.professor_rating
-        %li.enjoyability= r.enjoyability
-        %li.difficulty= r.difficulty
-        %li.recommend= r.recommend
+      .row
+        %ul.meta
+          %li= r.created_at.strftime("%Y-%m-%d")
+          - if r.semester_id
+            .taken
+              = "#{r.semester.season} #{r.semester.year}"
+        .row.visible-xs.visible-sm{:style => "margin-left: 0px;"}
+          .col-xs-1.overall
+          .col-xs-1= r.overall
+          .col-xs-1.professor_rating
+          .col-xs-1= r.professor_rating
+          .col-xs-1.enjoyability
+          .col-xs-1= r.enjoyability
+          .col-xs-1.difficulty
+          .col-xs-1= r.difficulty
+          .col-xs-1.recommend
+          .col-xs-1= r.recommend
+        .comment
+          = h(r.comment).gsub(/\n/, '<br/>').html_safe
+        %ul.ratings.visible-md.visible-lg
+          %li.overall= r.overall
+          %li.professor_rating= r.professor_rating
+          %li.enjoyability= r.enjoyability
+          %li.difficulty= r.difficulty
+          %li.recommend= r.recommend
   = will_paginate @reviews
 - else
   %h2 No reviews :(

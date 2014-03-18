@@ -54,9 +54,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'bootstrap-sass', '>= 3.0.0'
 gem 'will_paginate', '>=3.0.3'
 gem 'jquery-ui-rails'
+gem 'touchpunch-rails'
 gem 'd3_rails'
 gem 'haml'
 gem 'gon'

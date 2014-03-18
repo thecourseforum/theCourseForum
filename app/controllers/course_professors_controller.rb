@@ -7,9 +7,9 @@ class CourseProfessorsController < ApplicationController
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
-    @reviews_temp = Review.where(:course_id => @course.id, :professor_id => @professor.id)
-    @reviews_no_comments = @reviews_temp.where(:comment => "").sort_by{|r| - r.created_at.to_i}
-    @reviews_with_comments = @reviews_temp.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
+    @all_reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id)
+    @reviews_no_comments = @all_reviews.where(:comment => "").sort_by{|r| - r.created_at.to_i}
+    @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
 
     @total_review_count = @reviews_with_comments.count + @reviews_no_comments.count
 
@@ -24,7 +24,7 @@ class CourseProfessorsController < ApplicationController
       :group_count => 0, :homework_count => 0, :test_count => 0,
       :reading => 0, :writing => 0, :group => 0, :homework => 0}
 
-    if @reviews.length > 0
+    if @all_reviews.length > 0
       @rev_ratings = get_review_ratings
       @rev_emphasizes = get_review_emphasizes
       respond_to do |format|
@@ -49,7 +49,7 @@ class CourseProfessorsController < ApplicationController
       recommend: 0
     }
 
-    @reviews_temp.each do |r|
+    @all_reviews.each do |r|
       ratings[:prof] += r.professor_rating
       ratings[:enjoy] += r.enjoyability
       ratings[:difficulty] += r.difficulty
@@ -59,7 +59,7 @@ class CourseProfessorsController < ApplicationController
     ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
 
     ratings.each do |k, v|
-      ratings[k] = (v / @reviews_temp.count.to_f).round(2)
+      ratings[k] = (v / @all_reviews.count.to_f).round(2)
     end
   end
 

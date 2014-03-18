@@ -9,21 +9,18 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.ui.slider
  */
 
 //variables to override bootstrap
 $orange: #d9551e;
-$navbarHeight: 35px;
-$navbarBackground: #011F4A;
-$navbarBackgroundHighlight: #011F4A;
-$linkColor: #000;
-$linkColorHover: $orange;
-$btnPrimaryBackground: $orange;
-$btnPrimaryBackgroundHighlight: $orange;
-
+$navbar-height: 35px;
+$navbar-default-bg: #011f4a;
+$link-color: #000;
+$link-hover-color: $orange;
+$btn-primary-bg: $orange;
 
 @import "bootstrap";
-@import "bootstrap-responsive";
 @import "jquery.ui.autocomplete";
 
 //rest of variables
@@ -40,53 +37,370 @@ html {
   overflow-y: scroll;
 }
 
-.container.main {
-  padding-top: 100px;
-  padding-bottom: 50px;
+body {
+  padding-bottom: 70px;
 }
 
-header {
+select {
+  @extend .form-control;
+}
+
+label {
+  font-weight: normal;
+}
+
+input[type=number], input[type=text], input[type=email], textarea, input[type=password]{
+  @extend .form-control;
+}
+
+//header related
+
+.header-welcome-nav {
+  @extend nav;
+  @extend .navbar-default;
   @extend .navbar;
-  @extend .navbar-fixed-top;
+  border-radius: 0px;
+  
+  .container
+  {
+    .navbar-toggle {
+      @extend .btn-primary;
+      margin-top: 9px;
+      border-color: inherit;
+    }
+    .navbar-toggle:hover {
+      @extend .btn:hover;
+      @extend .btn-primary:hover;
+      background-color: #b54719;
+    }
+
+    .navbar-toggle:focus {
+      @extend .btn:focus;
+      @extend .btn-primary:focus;
+      background-color: #b54719;
+    } 
+
+    .navbar-collapse {
+      padding-top: 10px;
+    }
+
+    .logo .welcome-header-fix
+    {
+      margin-top: 5px;
+    }
+  }
 }
 
-footer {
+.header-nav {
+  @extend nav;
+  @extend .navbar-default;
   @extend .navbar;
-  @extend .navbar-fixed-bottom;
+  border-radius: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  .container
+  {
+    .navbar-toggle {
+      @extend .btn-primary;
+      margin-top: 7px;
+      margin-right: 0px;
+      border-color: inherit;
+    }
+    .navbar-toggle:hover {
+      @extend .btn:hover;
+      @extend .btn-primary:hover;
+      background-color: #b54719;
+    }
+
+    .navbar-toggle:focus {
+      @extend .btn:focus;
+      @extend .btn-primary:focus;
+      background-color: #b54719;
+    } 
+
+    .menu-button
+    {
+      .icon-bar
+      {
+        background-color: white;
+      }
+    }
+
+    #menu-collapse
+    {
+      .mobile-dropdown li
+      {
+        
+        width: 100%;
+
+        a
+        {
+          text-align: right;
+          float: left;
+          width: 33.33%;
+          height: 90%;
+          color: white;
+          font-size: 12px;
+        }
+
+        a:first-child
+        {
+          text-align: left;
+          font-size: 14px;
+          width: 66.66%;
+          border-right: 1px solid $orange;
+        }
+
+        a.icon
+        {
+          img
+          {
+            max-width: 30px;
+          }
+          padding: 5px 15px;
+        }
+
+
+      }
+
+      .mobile-dropdown li.space-fix
+      {
+        margin-top: 8px;
+      }
+
+      .mobile-dropdown li.divider
+      {
+        min-height: 1px;
+        width: 100%;
+        float: left;
+        border-bottom: 1px solid $orange;
+      }
+
+      .mobile-dropdown li.search:hover
+      {
+        background: transparent;
+      }
+
+      .mobile-dropdown li a:hover
+      {
+        background-color: $orange;
+      }
+
+
+    }
+  }
 }
 
-nav {
-  @extend .navbar-inner;
+.top-padding-fix
+{
+  margin-top: 40px;
+}
+
+.aside-navigation 
+{
+  margin-bottom: 20px;
+  margin-top: -20px;
+
+  ul li
+  {
+    margin: 0 auto;
+    border-radius: 0;
+  }
+
+}
+
+.small-nav {
+  @extend .nav;
+  @extend .nav-pills;
+  li
+  {
+    width: 25%;
+    border-left:1px solid #000;
+    border-bottom:1px solid #000;
+  }
+
+  li:hover {
+    background-color: #eeeeee;
+  }
+}
+
+
+.navbar-header {
+  width: 100%;
+}
+
+form.site-search {
+  max-width: 350px;
+  margin-top: 9px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.search {
+  .pagination {
+    margin: 5px 0;
+  }
+}
+
+.account-header {
+  margin-top: 16px;
+  float: right;
+  margin-left: 30px;
+
+  a, a:hover {
+    color: #FFF;
+  }
+
+  .open a{
+    background-color: transparent !important;
+  }
+}
+
+.orange-caret
+{
+border-top-color: $orange !important;
+border-bottom-color: $orange !important;
+}
+
+.dropdown-login {
+  left:auto;
+  right:0;
+  width: 100%;
+
+  li{
+    a:hover{
+      background-color: #EEEEEE !important;
+      background-image: none;
+      color: $orange;
+    }
+  }   
+}
+
+
+#student_form{
+  form {
+    .row
+    {
+      margin-bottom: 5px;
+    }
+  }
 }
 
 section {
-  @include makeColumn(9);
-}
-
-section.wide {
-  @include makeColumn(15);
+  @include make-md-column(9);
 }
 
 aside {
-  @include makeColumn(3);
+  @include make-md-column(3);
+  width: auto !important;
+  margin-right: 20px;
 }
 
-.brand-login{
-  margin-top: 7px;
+.row {
+  min-height: 30px;
 }
 
-.login_remember{
+.navbar-header{
+  float: right;
+  width: auto;
+}
+
+.login-remember{
   color: #FFF !important;
   font-size: 11px !important;
 }
 
-.login_remember_box{
+.login-remember-box{
   width: 13px !important;
   margin: 0 0 0 !important;
+  vertical-align: middle
 }
 
-.remember-box{
-  padding-left: 0px;
+.login-remember-box:hover{
+  cursor: pointer;
+}
+
+.brand {
+  float: left;
+}
+
+.brand-login
+{
+  margin: 5px 0;
+}
+
+.login {
+  float: right;
+
+  .col-md-4 {
+    padding: 0 5px 2px 5px;
+  }
+
+  form{
+    label {
+      font-weight: normal;
+    }
+    label:hover {
+      cursor: pointer;
+    }
+
+    input.login-button {
+      width: 100px;      
+      margin-top: 0px !important;
+    }
+
+    .row{
+      max-width: 500px;
+      .col-xs-4
+      {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+  }
+}
+
+
+
+.footer-nav {
+  @extend nav;
+  @extend .navbar-default;
+  @extend .navbar;
+  @extend .navbar-fixed-bottom;
+  border-radius: 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.dropdown-media, .dropdown-links 
+{
+  float: left;
+  margin-left: 3px; 
+  a
+  {
+    color: white;
+  }
+
+  .dropdown-menu
+  {
+    min-width: 0px;
+  }
+}
+
+.dropdown-media a 
+{
+  .share-icon
+  {
+    width: 17px;
+    height: auto;
+  }
+
+  img
+  {
+    width: 40px;
+    height: auto;
+  }
+  
 }
 
 h1 {
@@ -95,33 +409,31 @@ h1 {
   margin-top: 0px;
   margin-bottom: 20px;
   border-bottom: 1px solid #000;
+  font-weight: bold;
+  line-height: 40px;
 }
 
 h2 {
   font-size: 14px;
   color: $orange;
   margin:0px;
+  font-weight: bold;
+  line-height: 40px;
 }
 
-ul.left {
-  @include makeColumn(4);
+.department-list
+{
+  .col-sm-6
+  {
+    padding-left: 30px;
+  }
+  padding-left: 1.5em;
+  text-indent:-1.5em;
 }
 
-ul.right {
-  @include makeColumn(4);
-  margin-left: 80px;
-}
-
-.content {
-  @include makeRow();
-}
-
-.content .main {
-  @include makeColumn(8);
-}
-
-.content .sidebar {
-  @include makeColumn(4, 2);
+.dept-header{
+  float: left;
+  width: 100%;
 }
 
 li {
@@ -154,92 +466,17 @@ p.title{
   font-weight:bold;
 }
 
-//header related
-.login {
-  @extend .form-inline;
-  @extend .pull-right;
-  margin-top: 22px;
-  margin-bottom: -21px;
-
-  form{
-    input {
-      @extend .input-medium;
-    }
-
-    div.input {
-      @extend .pull-left;
-    }
-
-    div.input.password {
-      margin-left: 10px;
-    }
-
-    input.login-button {
-      width: 100px;      
-      margin-top: 0px !important;
-    }
-  }
-}
-
-form.site-search {
-  @extend .navbar-search;
-  @extend .pull-right;
-  margin-top: 22px;
-
-  input {
-    border-left: none;
-  }
-
-  .add-on {
-    background-color: #FFF;
-
-    
-  }
-}
-
-.account-header {
-  @extend .pull-right;
-  margin-top: 27px;
-
-  a, a:hover {
-    color: #FFF;
-    margin-left: 30px;
-  }
-}
-
-.orange-caret
-{
-border-top-color: $orange !important;
-border-bottom-color: $orange !important;
-}
-
-.dropdown-menu.right {
-  @extend .nav-list;
-  left:auto;
-  right:0;
-  width: 100%;
-
-  li{
-    a:hover{
-      background-color: #EEEEEE;
-      background-image: none;
-      color: $orange;
-      i {
-        background-image: image-url("glyphicons-halflings.png");
-      }
-    }
-  }   
-}
-
 //aside/nav related
 ul.site-nav-links {
   @extend .nav;
-  @extend .nav-list;
 
   li.active a, li.active a:hover {
     color: $orange;
     background-color: #FFF;
+  }
 
+  li a {
+    padding: 5px 15px;
   }
 
 
@@ -251,63 +488,59 @@ ul.site-nav-links {
 
 //home page
 .marketing {
-  @include makeColumn(5);
+  @include make-md-column(5);
 }
 
 .sign-up {
-  @include makeColumn(6);
-  margin-left: 80px;
+  @include make-md-column(6);
 }
 
 form.register {
-  input {
-    @extend .input-large;
-  }
-
   input.button {
     @extend .btn;
   }
 }
 
 
-
-.review-container {
-  @extend .container-fluid;
-  font-size: 85%;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #000;
+textarea {
+  min-height: 150px;
 }
 
-textarea {
-  width: 325px;
-  height: 150px;
+ul.professor-courses, ul.department-courses{
+  padding-left: 0px;
+  li{
+    padding-left: 1.5em;
+    text-indent:-1.5em;
+  }
 }
 
 //course professors
+.course-professor-switcher {
+  // margin-left: 30px;
+}
 
 .course-professor-h1 {
-  @include makeRow();
+  // @include make-row();
   margin-bottom: 16px;
 
   h1 {
-    @include makeColumn(7);
+    @include make-xs-column(12);
     @include ellipsis;
-    float: left;
+    // float: left;
     border-bottom: none;
     margin-bottom: 0px;
-    // margin-bottom: -10px;
   }
 
   .bottom-border {
-    width: 700px;
-    float: right;
+    // width: 100%;
+    // float: left;
     border-bottom: 1px solid #000;
     margin-top: 5px;
+    // margin-left: 15px;
   }
 
   select {
-    @include makeColumn(4);
-    float: left;
+    // float: left;
     color: $orange;
     font-weight: bold;
     option {
@@ -316,29 +549,66 @@ textarea {
   }
 }
 
-.course-breakdown {
-  @include makeRow();
+.review-button
+{
+  .review-btn 
+  {
+    width: 100%;
+  }
 }
 
-.course-stats {
-  @include makeColumn(5);
+.course-breakdown 
+{
+}
+
+.course-stats 
+{
 }
 
 .course-grades {
-  @include makeColumn(4);
-  float: right;
+  float: left;
 
   h2 {
     margin-left: 25px;
   }
 }
 
-.review-button {
-  // @include makeColumn(5);
-  float: right;
+.average-stat{
+  min-height: 40px;
+
+  .col-xs-4
+  {
+    padding-top: 7px;
+    .glyphicon
+    {
+      margin-right: 10px;
+    }
+  }  
+
+  input[type=checkbox]
+  {
+    vertical-align: middle;
+  }
+}
+
+.review-radios
+{
+  display: none;
+}
+
+.review-field
+{
+  border-radius: 4px;
+  background-color: $orange;
+  color: white;
 }
 
 //Grades
+.grade-donut
+{
+  text-align: center;
+}
+
 .grade-donut .slice {
   font-size: 11px;
 }
@@ -350,21 +620,28 @@ textarea {
 }
 
 .single-review {
-  @include makeRow();
+  max-width: 90%;
   border-bottom: 1px solid #dddddd;
   margin-bottom: 10px;
 
+
   ul.meta {
-    @include makeColumn(1.5)
+    @include make-md-column(2);
   }
 
   .comment {
-    @include makeColumn(6.5);
+    @include make-md-column(8.5);
     margin-bottom: 10px;
   }
 
   ul.ratings {
-    @include makeColumn(1)
+    @include make-md-column(1);
+  }
+
+  .row {
+    .col-xs-1 {
+      padding: 0;
+    }
   }
 }
 
@@ -410,14 +687,42 @@ textarea {
   }
 }
 
-.contact-us{
+.contact-us
+{
   float: left;
-  margin-top: 4.5px !important;
-  margin-left: 8px;
+  a 
+  {
+    color: white;
+  }
 }
 
+.anonymous {
+  label:hover 
+  {
+    cursor: pointer;
+  }
+
+  input[type=checkbox]
+  {
+    cursor: pointer;
+  }
+}
+
+.inline {
+  display: inline;
+
+}
+
+.problem h5 {
+  font-weight: bold;
+
+  input {
+    display: inline;
+  }
+}
+
+
 .social-icons{
-  margin-top: 5px;
   float: right;
 
   img{
@@ -427,7 +732,7 @@ textarea {
 }
 
 .static-pages{
-  margin-top: 6px;
+  margin-top: 4px;
   margin-left: 20px;
   float: left;
 
@@ -458,18 +763,33 @@ textarea {
   text-align: center;
 }
 
-.span1.overall {
+.col-xs-1.overall {
   background: image-url("icons/heart.png") no-repeat center top;
+  min-height: 16px;
 }
-.span1.professor_rating {
+.col-xs-1.professor_rating {
   background: image-url("icons/user_gray.png") no-repeat center top;
+  min-height: 16px;
 }
-.span1.enjoyability {
+.col-xs-1.enjoyability {
   background: image-url("icons/emoticon_smile.png") no-repeat center top;
+  min-height: 16px;
 }
-.span1.difficulty {
+.col-xs-1.difficulty {
   background: image-url("icons/pencil.png") no-repeat center top;
+  min-height: 16px;
 }
-.span1.recommend {
+.col-xs-1.recommend {
   background: image-url("icons/user_comment.png") no-repeat center top;
+  min-height: 16px;
+}
+
+.ui-slider-handle
+{
+  font-size: 22px;
+}
+
+.ui-slider-horizontal
+{
+  height: 15px !important;
 }
