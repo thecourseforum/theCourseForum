@@ -34,18 +34,27 @@ schools = School.create([
 departments = Department.create([
   {name: "Politics", school_id: 1},
   {name: "Computer Science", school_id: 2},
-  {name: "School of Architecture", school_id: 3}
+  {name: "School of Architecture", school_id: 3},
+  {name: "Electrical Engineering", school_id: 2},
+  {name: "Psychology", school_id: 1},
+  {name: "Univeristy Seminar", school_id: 3}
 ])
 
 subdepartments = Subdepartment.create([
   {name: "Politics-American Politics", mnemonic: "PLAP"},
   {name: "Computer Science", mnemonic: "CS"},
-  {name: "Architecture", mnemonic: "ARCH"}
+  {name: "Architecture", mnemonic: "ARCH"},
+  {name: "Electrical Engineering", mnemonic: "EE"},
+  {name: "Psychology", mnemonic: "PSYC"},
+  {name: "University Seminar", mnemonic: "USEM"}
 ])
 
 departments[0].subdepartments = [subdepartments[0]]
 departments[1].subdepartments = [subdepartments[1]]
 departments[2].subdepartments = [subdepartments[2]]
+departments[3].subdepartments = [subdepartments[3]]
+departments[4].subdepartments = [subdepartments[4]]
+departments[5].subdepartments = [subdepartments[5]]
 
 courses = Course.create([
   {title: "Intro to Programming", course_number: 1110, subdepartment_id: 2},
