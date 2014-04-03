@@ -215,7 +215,7 @@ $(document).ready(function() {
       value: recommend_val*100,
       slide: function(event, ui) {
         var val = parseInt((ui.value + 50) / 100); 
-        recommend_radios[val].click();
+        recommend_radios[val-1].click();
         $(".current-recommend").text(val);
       },
       stop: function(event, ui) {
