@@ -4,6 +4,9 @@ class Review < ActiveRecord::Base
   belongs_to :course_professor
   belongs_to :course
   belongs_to :professor
+
+  #Can cast votes for reviews
+  acts_as_voteable
   
   # validates :comment, presence: true
 

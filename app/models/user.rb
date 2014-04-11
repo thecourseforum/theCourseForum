@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :reviews, :foreign_key => "student_id"#, :through => :student
   belongs_to :professor_user
 
+  #Provides citizenship and voter priveleges
+  acts_as_voter
+
   before_save { self.email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w\-\.]+@(\w+\.)*virginia\.edu\z/i
 
