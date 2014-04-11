@@ -78,7 +78,7 @@ class CourseProfessorsController < ApplicationController
       test_count: 0
     }
 
-    @reviews.each do |r|
+    @all_reviews.each do |r|
       if r.amount_reading != nil && r.amount_reading > 0
         emphasizes[:reading] += r.amount_reading
         emphasizes[:reading_count] += 1
