@@ -1,13 +1,16 @@
 //sample course format
-var testCourse = {
+var results = [{
+	id: '12345',
 	title: 'CS 2150',
 	professor: 'Bloomfield',
-	startTime: '12:00:00',
-	endTime: '12:50:00',
+	location: 'Olsson 120',
+	startTime: '12:00',
+	endTime: '12:50',
+	allDay: false,
 	days: ['Mo', 'Wed', 'Fr']
-};
+}];
 
-//start format is '2014-04-07 12:00:00'
+//start format is '2014-04-07 12:00'
 var scheduledCourses = [];
 
 var schedule = $('#schedule');
@@ -55,9 +58,8 @@ function addClasses(course) {
 		var event = {
 			start:  dateString + ' ' + course.startTime,
 			end: dateString + ' ' + course.endTime,
-			allDay: false
 		};
-		event.prototype = course;
+		event.__proto__ = course;
 		scheduledCourses.push(event);
 	};
 	schedule.fullCalendar('refetchEvents');
@@ -73,9 +75,47 @@ function courseSearch(courseno) {
 	//fetch results
 	//display results
 	if(courseno == 'cs2150') {
-		var results = [testCourse];
 		for (var i = results.length - 1; i >= 0; i--) {
-					addClasses(results[i]);
-		};		
+					displayResult(results[i]);
+		};
 	}
 };
+
+function displayResult(result) {
+	var resultBox = $('.course-result.hidden').clone().removeClass('hidden');
+	resultBox.children('.course-title').text(result.title);
+	resultBox.children('.professor').text(result.professor);
+	resultBox.children('.location').text(result.location);
+	resultBox.children('.time').text(result.startTime + ' - ' + result.endTime + ' ' + result.days.join(''));
+	resultBox.draggable({
+		start: function(event, ui) {
+			ui.helper.addClass('is-dragging');
+		},
+		stop: function(event, ui) {
+			ui.helper.removeClass('is-dragging');
+		},
+		revert: true	
+	});
+	resultBox.mouseup(resultRelease);
+	resultBox.attr('id', result.id);
+	$('#results-box').append(resultBox);
+};
+
+function getPos($obj) {
+	return {
+		xPos: Math.floor($obj.offset().left + $obj.width() / 2),
+		yPos: Math.floor($obj.offset().top + $obj.height() / 2)
+	};
+}
+
+function resultRelease(eventObj) {
+	var position = getPos($(this));
+	if(position.xPos > schedule.offset().left && position.xPos < schedule.offset().left + schedule.width()
+				&& position.yPos > schedule.offset().top && position.yPos < schedule.offset().top + schedule.height()) {
+		$(this).addClass('hidden');
+		var id = $(this).attr('id');
+		addClasses(results.filter(function(result) {
+			return result.id == id;
+		})[0]);
+	}
+}

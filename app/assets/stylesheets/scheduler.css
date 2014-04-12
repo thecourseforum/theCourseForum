@@ -16,3 +16,28 @@
 	min-height: 400px;
 	background-color: #F5F5F5;
 }
+
+.course-result {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: #3a87ad;
+	margin: 0.7em;
+	padding: 4px;
+	z-index: 2;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.course-result p {
+	margin: 0em;
+	font-size: 12px;
+	color: white;
+}
+
+.is-dragging {
+	opacity: 0.5;
+}
+
+.hidden {
+	visibility: hidden;
+}
