@@ -144,5 +144,17 @@ private
       redirect_to my_reviews_path
     end
   end
+
+  def vote_up
+    @review = Review.find(params[:review_id])
+    
+    current_user.vote_for(@review)
+  end
+
+  def vote_down
+    @review = Review.find(params[:review_id])
+    
+    current_user.vote_against(@review)
+  end
   
 end

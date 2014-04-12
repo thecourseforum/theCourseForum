@@ -48,6 +48,12 @@ TheCourseForum::Application.routes.draw do
   get '/privacy', :to => 'home#privacy', :as => "privacy"
   get '/terms_of_use', :to => 'home#terms', :as => "terms"
 
+
+  #routes for voting
+  post '/vote_up/:review_id', :to => 'reviews#vote_up'
+  post '/vote_down/:review_id', :to => 'reviews#vote_down'
+
+
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root
   end

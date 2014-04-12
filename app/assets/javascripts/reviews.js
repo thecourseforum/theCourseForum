@@ -224,4 +224,19 @@ $(document).ready(function() {
       }
     });
   }
+
+  $('[id^="vote_up_"]').click(function(){
+    var review_id = this.id.match(/[\d]/)[0];
+    $.ajax({
+      url: '/vote_up/' + review_id,
+      type: 'POST',
+    });
+  });
+
+  $('[id^="vote_down_"]').click(function(){
+    var review_id = this.id.match(/[\d]/)[0];
+    $.ajax({
+      url: '/vote_down/' + review_id,
+      type: 'POST',
+    });
 });

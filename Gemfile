@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 1.2'
 # Devise for User Authentication
 gem 'devise'
 
+# Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
+gem 'thumbs_up'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
