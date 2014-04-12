@@ -28,6 +28,15 @@
 	cursor: hand;
 }
 
+.course-info {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: #3a87ad;
+	margin: 0.7em;
+	padding: 4px;
+	z-index: 2;
+}
+
 .course-result p {
 	margin: 0em;
 	font-size: 12px;
@@ -40,4 +49,8 @@
 
 .hidden {
 	visibility: hidden;
+}
+
+.ui-effects-transfer {
+    border: 1px dotted black;
 }

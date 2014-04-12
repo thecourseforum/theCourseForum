@@ -1,14 +1,16 @@
 //sample course format
 var results = [{
-	id: '12345',
+	sectionID: '12345',
 	title: 'CS 2150',
 	professor: 'Bloomfield',
 	location: 'Olsson 120',
-	startTime: '12:00',
-	endTime: '12:50',
+	startTime: '14:00',
+	endTime: '14:50',
 	allDay: false,
-	days: ['Mo', 'Wed', 'Fr']
+	days: ['Mo', 'Wed', 'Fr'],
+	//daysArr: this.days.split(/(?=[A-Z])/)
 }];
+
 
 //start format is '2014-04-07 12:00'
 var scheduledCourses = [];
@@ -28,6 +30,7 @@ schedule.fullCalendar({
     },
     contentHeight: 610,
     events: scheduledCourses,
+    eventClick: courseClick,
     year: 2014,
     month: 3,
     date: 7
@@ -97,9 +100,19 @@ function displayResult(result) {
 		revert: true	
 	});
 	resultBox.mouseup(resultRelease);
-	resultBox.attr('id', result.id);
+	resultBox.attr('id', result.sectionID);
 	$('#results-box').append(resultBox);
 };
+
+function displayInfo(result) {
+    $('#info-box').empty();
+    var infoBox = $('.course-info.hidden').clone().removeClass('hidden');
+    infoBox.children('.title').text(result.title);
+    infoBox.children('.professor').text(result.professor);
+    infoBox.children('.description').text(result.description);
+    infoBox.children('.location').text(result.location);
+    $('#info-box').append(infoBox);
+}
 
 function getPos($obj) {
 	return {
@@ -115,7 +128,14 @@ function resultRelease(eventObj) {
 		$(this).addClass('hidden');
 		var id = $(this).attr('id');
 		addClasses(results.filter(function(result) {
-			return result.id == id;
+			return result.sectionID == id;
 		})[0]);
 	}
+}
+
+function courseClick(calEvent, jsEvent, view) {
+	displayInfo(results.filter(function(result) {
+		return calEvent.sectionID == result.sectionID;
+	})[0]);
+
 }
