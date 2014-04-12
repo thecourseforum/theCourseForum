@@ -1,9 +1,16 @@
-$(document).ready(function() {
-
-    // page is now ready, initialize the calendar...
-
-    $('#calendar').fullCalendar({
-        // put your options and callbacks here
-    })
-
+$('#schedule').fullCalendar({
+    defaultView: 'agendaWeek',
+    weekends: false,
+    firstHour: 8,
+    allDaySlot: false,
+    columnFormat: {
+    	agendaWeek: 'dddd'
+    },
+    titleFormat: {
+    	agendaWeek: 'yyyy'
+    },
+    contentHeight: 610
+    //aspectRatio: 2
 });
+
+$('.fc-header-right').css('visibility', 'hidden');
