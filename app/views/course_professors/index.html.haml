@@ -116,7 +116,20 @@
           %li.enjoyability= r.enjoyability
           %li.difficulty= r.difficulty
           %li.recommend= r.recommend
+      %br
+      .row
+        .col-xs-7.col-md-4.col-md-offset-6.col-lg-3.col-lg-offset-7{:style => "margin-top: 2.5px;"}
+          .rating{:style => "font-size:12px;text-align:center;"}
+            Was this review helpful?
+        .col-md-1.col-xs-2
+          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;"}
+            Yes
+        .col-md-1.col-xs-2
+          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;"}
+            No
   = will_paginate @reviews
 - else
   %h2 No reviews :(
   = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
+
+#calendar

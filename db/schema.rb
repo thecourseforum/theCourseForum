@@ -17,12 +17,11 @@ ActiveRecord::Schema.define(version: 20140413071350) do
     t.integer  "course_id"
     t.integer  "professor_id"
     t.string   "days"
-    t.integer  "start_Time"
+    t.integer  "start_time"
     t.integer  "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
->>>>>>> Vote up/vote down calls probably do stuff
 
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"

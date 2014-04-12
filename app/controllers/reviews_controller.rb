@@ -131,6 +131,26 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def vote_up
+    @review = Review.find(params[:review_id])
+
+    current_user.unvote_for(@review)
+    
+    current_user.vote_for(@review)
+
+    render :nothing => true
+  end
+
+  def vote_down
+    @review = Review.find(params[:review_id])
+
+    current_user.unvote_for(@review)
+
+    current_user.vote_against(@review)
+
+    render :nothing => true
+  end
+
 private
   def review_params
     params.require(:review).permit(:comment, :professor_rating, :enjoyability,
@@ -143,18 +163,6 @@ private
     if current_user.id != @review.student_id
       redirect_to my_reviews_path
     end
-  end
-
-  def vote_up
-    @review = Review.find(params[:review_id])
-    
-    current_user.vote_for(@review)
-  end
-
-  def vote_down
-    @review = Review.find(params[:review_id])
-    
-    current_user.vote_against(@review)
   end
   
 end

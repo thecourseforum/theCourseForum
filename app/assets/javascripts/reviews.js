@@ -239,4 +239,6 @@ $(document).ready(function() {
       url: '/vote_down/' + review_id,
       type: 'POST',
     });
+  });
+
 });
