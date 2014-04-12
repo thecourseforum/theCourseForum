@@ -122,10 +122,10 @@
           .rating{:style => "font-size:12px;text-align:center;"}
             Was this review helpful?
         .col-md-1.col-xs-2
-          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;"}
+          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_against?(r) ? "background-color: #011f4a;border-color:#011f4a;" : "")}
             Yes
         .col-md-1.col-xs-2
-          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;"}
+          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_for?(r) ? "background-color: #011f4a;border-color:#011f4a;" : "")}
             No
   = will_paginate @reviews
 - else
