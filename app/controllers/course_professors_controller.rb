@@ -8,6 +8,8 @@ class CourseProfessorsController < ApplicationController
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
+    @naughty_words = "fuck|shit|damn|damm|stupid|bitch|ass|dick|bamf|prick|bastard"
+
     @all_reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id)
     @reviews_no_comments = @all_reviews.where(:comment => "")
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
@@ -21,7 +23,10 @@ class CourseProfessorsController < ApplicationController
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
       elsif @sort_type == "controversial"  
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+      elsif @sort_type == "fun"  
+        @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
       end
+
     end
 
 
