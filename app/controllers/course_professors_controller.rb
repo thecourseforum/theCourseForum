@@ -19,6 +19,8 @@ class CourseProfessorsController < ApplicationController
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
       elsif @sort_type == "lowest"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
+      elsif @sort_type == "controversial"  
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
       end
     end
 
