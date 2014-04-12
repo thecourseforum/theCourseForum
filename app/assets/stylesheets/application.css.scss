@@ -35,7 +35,7 @@ $btn-primary-bg: $orange;
 
 @font-face {
   font-family: 'comic-sans';
-  src: url('/assets/comic.ttf') format('truetype');
+  src: asset-url('comic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
