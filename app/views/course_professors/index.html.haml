@@ -72,10 +72,6 @@
     - else
       %p There aren't any grade distributions available for this class. Sorry!
 
-%select.review-type-switcher
-  %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == 0 ? "color: #d9551e;" : "")}="Sort by Latest"
-  %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == 0 ? "color: #d9551e;" : "")}="Sort by Most Helpful"
-
 - if @total_review_count > 0
   - if @total_review_count > 1
     %h2 
@@ -89,7 +85,13 @@
         = "1 Review -- 1 Comment"
       - else
         = "1 Review -- 0 Comments"
-  = will_paginate @reviews
+  .row
+    .col-xs-6
+      = will_paginate @reviews
+    .col-xs-3.col-xs-offset-2{:style => "margin-top:13px;"}
+      %select.review-type-switcher
+        %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Sort by Latest"
+        %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Sort by Most Helpful"
   .single-review
   -# adds top line
   - @reviews.each do |r|
