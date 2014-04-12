@@ -161,7 +161,12 @@ class CourseProfessorsController < ApplicationController
                       'so', 'as', 'if', 'it', 'for', @professor.last_name.downcase,
                       'he', 'she', 'not', 'an', 'can', 'good',
                       'him', 'her', 'that', 'if', 'on', 'with',
-                      'had', 'will', 'do', 'professor', 'it\'s', 'his',
+                      'had', 'will', 'do', 'professor', 'it\'s', 'his', 
+                      'go', 'up', 'look', 'all', 'get', 'really', 'pretty',
+                      'very', 'lot', 'way', 'take', 'ta', 'definitely',
+                      'about', 'have', 'more', 'one', 'there', '-',
+                      'than', 'then', 'thing', 'things', 'often', 'them', '.',
+                      'were', 'however',
                       @subdepartment.mnemonic.downcase]
 
       
@@ -209,7 +214,7 @@ class CourseProfessorsController < ApplicationController
         end
       end
 
-      a = arr2.sort_by{|k,v| v}.last(3)
+      a = arr2.sort_by{|k,v| v}.last(3).shuffle
 
       arr3 = []
 
