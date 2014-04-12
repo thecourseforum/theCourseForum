@@ -85,13 +85,14 @@
         = "1 Review -- 1 Comment"
       - else
         = "1 Review -- 0 Comments"
-  .row
-    .col-xs-6
-      = will_paginate @reviews
-    .col-xs-3.col-xs-offset-2{:style => "margin-top:13px;"}
-      %select.review-type-switcher
-        %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Sort by Latest"
-        %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Sort by Most Helpful"
+  - if @reviews_with_comments.count > 1
+    .row
+      .col-xs-6
+        = will_paginate @reviews
+      .col-xs-3.col-xs-offset-2{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "")}
+        %select.review-type-switcher
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Sort by Latest"
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Sort by Most Helpful"
   .single-review
   -# adds top line
   - @reviews.each do |r|
