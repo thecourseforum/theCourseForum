@@ -4,12 +4,20 @@ class CourseProfessorsController < ApplicationController
   def index
     @course = Course.find(params[:c])
     @professor = Professor.find(params[:p])
+    @sort_type = params[:sort]
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
     @all_reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id)
-    @reviews_no_comments = @all_reviews.where(:comment => "").sort_by{|r| - r.created_at.to_i}
+    @reviews_no_comments = @all_reviews.where(:comment => "")
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
+
+    if @sort_type != nil
+      if @sort_type == "helpful"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+      end
+    end
+
 
     @total_review_count = @reviews_with_comments.count + @reviews_no_comments.count
 
