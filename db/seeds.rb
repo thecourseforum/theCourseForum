@@ -119,3 +119,26 @@ reviews = Review.create([
     amount_reading: 2.0,
     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum dui et posuere lobortis. Aenean congue lectus sit amet arcu luctus, vel molestie odio tempor. Integer vitae semper est. Aenean semper leo in dolor elementum, sit amet convallis diam fringilla. Ut a feugiat turpis, quis aliquet nibh. Vivamus quis facilisis libero, ac accumsan dui. Aenean magna turpis, porta vel porttitor id, feugiat in tortor. Donec euismod non sapien sed convallis."}
 ])
+
+sections = Section.create([
+  {sis_class_number: 1, section_number: 1, units: "3", capacity: 60, section_type: "Discussion"},
+  {sis_class_number: 2, section_number: 2, units: "3", capacity: 100, section_type: "Discussion"},
+  {sis_class_number: 3, section_number: 3, units: "2", capacity: 30, section_type: "Discussion"},
+  {sis_class_number: 4, section_number: 1, units: "3", capacity: 20, section_type: "Discussion"}
+])
+
+day_times = DayTime.create([
+  {days: "MoWeFr", start_time: "10:00", end_time: "10:50"},
+  {days: "MoWeFr", start_time: "11:00", end_time: "11:50"},
+  {days: "TuTh", start_time: "9:30", end_time: "10:45"},
+  {days: "TuTh", start_time: "14:00", end_time: "15:15"},
+  {days: "Th", start_time: "8:30", end_time: "9:20"}
+])
+
+locations = Location.create([
+  {location: "Olsson Hall 120"},
+  {location: "Rice Hall 130"},
+  {location: "Old Cabel Hall 005"},
+  {location: "Glimer Hall 130"},
+  {location: "Chemistry Bldg 402"}
+])
