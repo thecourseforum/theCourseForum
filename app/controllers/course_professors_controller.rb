@@ -15,6 +15,10 @@ class CourseProfessorsController < ApplicationController
     if @sort_type != nil
       if @sort_type == "helpful"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+      elsif @sort_type == "highest"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+      elsif @sort_type == "lowest"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
       end
     end
 
