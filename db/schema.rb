@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127210231) do
+ActiveRecord::Schema.define(version: 20140412203900) do
 
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"
@@ -33,6 +33,19 @@ ActiveRecord::Schema.define(version: 20131127210231) do
   end
 
   add_index "courses", ["subdepartment_id"], name: "index_courses_on_subdepartment_id", using: :btree
+
+  create_table "day_times", force: true do |t|
+    t.string   "days"
+    t.string   "start_time"
+    t.string   "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "day_times_sections", id: false, force: true do |t|
+    t.integer "day_time_id"
+    t.integer "section_id"
+  end
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -75,6 +88,17 @@ ActiveRecord::Schema.define(version: 20131127210231) do
 
   add_index "grades", ["section_id"], name: "index_grades_on_CourseProfessor_id", using: :btree
   add_index "grades", ["semester_id"], name: "index_grades_on_semester_id", using: :btree
+
+  create_table "locations", force: true do |t|
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations_sections", id: false, force: true do |t|
+    t.integer "location_id"
+    t.integer "section_id"
+  end
 
   create_table "majors", force: true do |t|
     t.string   "name"
@@ -215,5 +239,19 @@ ActiveRecord::Schema.define(version: 20131127210231) do
   add_index "users", ["professor_id"], name: "index_users_on_professor_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["student_id"], name: "index_users_on_student_id", using: :btree
+
+  create_table "votes", force: true do |t|
+    t.boolean  "vote",          default: false, null: false
+    t.integer  "voteable_id",                   null: false
+    t.string   "voteable_type",                 null: false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], name: "index_votes_on_voteable_id_and_voteable_type", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], name: "fk_one_vote_per_user_per_entity", unique: true, using: :btree
+  add_index "votes", ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type", using: :btree
 
 end
