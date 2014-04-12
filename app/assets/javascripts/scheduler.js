@@ -1,3 +1,4 @@
+//sample course format
 var testCourse = {
 	title: 'CS 2150',
 	professor: 'Bloomfield',
@@ -6,7 +7,7 @@ var testCourse = {
 	days: ['Mo', 'Wed', 'Fr']
 };
 
-//{title: 'CS 2150', start: '2014-04-09 12:00:00', end: '2014-04-09 12:30:00', allDay: false}
+//start format is '2014-04-07 12:00:00'
 var scheduledCourses = [];
 
 var schedule = $('#schedule');
@@ -28,25 +29,7 @@ schedule.fullCalendar({
     month: 3,
     date: 7
 });
-/*$('#schedule').fullCalendar({
-    events: [
-        {
-            title  : 'event1',
-            start  : '2014-04-09'
-        },
-        {
-            title  : 'event2',
-            start  : '2014-04-08'
-        },
-        {
-            title  : 'event3',
-            start  : '2014-04-10 12:30:00',
-            allDay : false // will make the time show
-        }
-    ]
-});*/
-
-$('.fc-header-right').css('visibility', 'hidden');
+$('.fc-header-right').css('visibility', 'hidden'); //hides buttons
 
 //gets a day corresponding to the given weekDay
 function getDateString(weekDay) {
@@ -64,6 +47,7 @@ function getDateString(weekDay) {
 	return dateString;
 };
 
+
 function addClasses(course) {
 	var dateString;
 	for (var i = course.days.length - 1; i >= 0; i--) {
@@ -75,9 +59,23 @@ function addClasses(course) {
 		};
 		event.prototype = course;
 		scheduledCourses.push(event);
-		console.log(event);
 	};
 	schedule.fullCalendar('refetchEvents');
 }
 
-addClasses(testCourse);
+$('#class-search').keyup(function(key) {
+	if(key.keyCode == 13) { //if key is enter key
+		courseSearch($(this).val());
+	}
+});
+
+function courseSearch(courseno) {
+	//fetch results
+	//display results
+	if(courseno == 'cs2150') {
+		var results = [testCourse];
+		for (var i = results.length - 1; i >= 0; i--) {
+					addClasses(results[i]);
+		};		
+	}
+};

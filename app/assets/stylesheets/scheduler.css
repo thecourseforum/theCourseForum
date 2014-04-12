@@ -5,3 +5,14 @@
 #schedule {
 	float: left;
 }
+
+#results-title {
+	margin-top: 2em;
+}
+
+#results-box {
+	border-radius: 6px;
+	border: 0px solid gray;
+	min-height: 400px;
+	background-color: #F5F5F5;
+}
