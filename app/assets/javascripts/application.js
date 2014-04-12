@@ -26,6 +26,7 @@
 //= require sign_up
 //= require reviews
 //= require fullcalendar
+//= require scheduler
 
 $(document).ready(function() {
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
