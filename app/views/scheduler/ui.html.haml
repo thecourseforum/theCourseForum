@@ -1,4 +1,13 @@
 %link{href: "assets/fullcalendar.css", rel: "stylesheet", type: "text/css"}/
 %script{src: "assets/fullcalendar.js", type: "text/javascript"}
-%body
-  #calendar
+:javascript
+  $(document).ready(function() {
+  
+      // page is now ready, initialize the calendar...
+  
+      $('#calendar').fullCalendar({
+          // put your options and callbacks here
+      })
+  
+  });
+#calendar
