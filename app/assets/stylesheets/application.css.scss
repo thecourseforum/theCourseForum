@@ -11,6 +11,7 @@
  *= require_self
  *= require jquery.ui.slider
  *= require fullcalendar
+ *= require jqcloud
  */
 
 //variables to override bootstrap
@@ -30,6 +31,18 @@ $btn-primary-bg: $orange;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@font-face {
+  font-family: 'comic-sans';
+  src: url('/assets/comic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#word_cloud
+{
+  font-family: 'comic-sans';
 }
 
 //base styles

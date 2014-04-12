@@ -31,6 +31,7 @@ class CourseProfessorsController < ApplicationController
 
     end
 
+    @word_array = get_word_array
 
     @total_review_count = @reviews_with_comments.count + @reviews_no_comments.count
 
@@ -138,8 +139,85 @@ class CourseProfessorsController < ApplicationController
   end
   
   private
+    include ApplicationHelper
+
     def course_professor_params
       params.require(:course_professor).permit(:course_id, :professor_id)
     end
 
+    def get_word_array()
+
+      all_words = get_words()
+
+      total_count = 0
+
+      all_words.each do |k,v|
+        total_count += v
+      end
+
+      filter_words = ['the', 'and', 'is', 'was', 'be',
+                      'you', 'are', 'to', 'a', 'i', 'in',
+                      'but', 'of', 'class', 'this', 'very',
+                      'so', 'as', 'if', 'it', 'for', @professor.last_name.downcase,
+                      'he', 'she', 'not', 'an', 'can', 'good',
+                      'him', 'her', 'that', 'if', 'on', 'with',
+                      'had', 'will', 'do', 'professor', 'it\'s', 'his',
+                      @subdepartment.mnemonic.downcase]
+
+      
+      words = {}
+      @reviews_with_comments.each do |r|
+        r.comment.split(" ").each do |word|
+          if word.split("").last == "." || word.split("").last == ","
+            word = word[0..word.length-2]
+          end
+          word.downcase!
+          if words[word] != nil
+            words[word] += 1
+          else
+            words[word] = 1
+          end
+        end
+      end
+
+      count = 0
+      words.each do |k,v|
+        count += v
+      end
+
+      arr = []
+      arr2 = {}
+
+      words.each do |k,v|
+        if words[k]  / count.to_f > (all_words[k] / total_count.to_f)*1.7
+          if !filter_words.include?(k)
+            if arr.length >= 25
+              arr.each do |a|
+                if a[:weight] < v
+                  arr.delete(a)
+                  arr.push({text: k, weight: v})
+                  arr2.delete(k)
+                  arr2[k] = v
+                  break
+                end
+              end
+            else
+              arr2[k] = v
+              arr.push({text: k, weight: v})
+            end
+          end
+        end
+      end
+
+      a = arr2.sort_by{|k,v| v}.last(3)
+
+      arr3 = []
+
+      arr3.push({text: "such " + a[0][0], weight: 1})
+      arr3.push({text: "many " + a[1][0], weight: 1})
+      arr3.push({text: "wow", weight: 1})
+      arr3.push({text: "so " + a[2][0], weight: 1})
+
+      arr3
+    end
 end

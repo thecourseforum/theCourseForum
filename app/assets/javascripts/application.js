@@ -27,6 +27,7 @@
 //= require reviews
 //= require fullcalendar
 //= require scheduler
+//= require jqcloud
 
 $(document).ready(function() {
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {

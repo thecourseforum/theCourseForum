@@ -33,6 +33,9 @@ gem 'devise'
 # Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
 gem 'thumbs_up'
 
+# Word Cloud generator
+gem "jqcloud-rails"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

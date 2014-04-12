@@ -71,6 +71,10 @@
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
       %p There aren't any grade distributions available for this class. Sorry!
+    .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
+      #word_cloud
+
+
 
 - if @total_review_count > 0
   - if @total_review_count > 1
@@ -152,3 +156,12 @@
   = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
 
 #calendar
+
+:javascript
+  var arr = #{@word_array.to_json};
+  $(function() {
+    $("#word_cloud").jQCloud(arr, {
+      width: 300,
+      height: 300,
+    });
+  });
