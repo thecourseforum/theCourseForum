@@ -75,7 +75,6 @@
       #word_cloud
 
 
-
 - if @total_review_count > 0
   - if @total_review_count > 1
     %h2 
@@ -161,7 +160,8 @@
   var arr = #{@word_array.to_json};
   $(function() {
     $("#word_cloud").jQCloud(arr, {
+      removeOverflowing: true,
       width: 300,
-      height: 300,
+      height: 300
     });
   });

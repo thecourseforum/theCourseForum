@@ -158,15 +158,18 @@ class CourseProfessorsController < ApplicationController
       filter_words = ['the', 'and', 'is', 'was', 'be',
                       'you', 'are', 'to', 'a', 'i', 'in',
                       'but', 'of', 'class', 'this', 'very',
-                      'so', 'as', 'if', 'it', 'for', @professor.last_name.downcase,
+                      'so', 'as', 'if', 'it', 'for', 
                       'he', 'she', 'not', 'an', 'can', 'good',
                       'him', 'her', 'that', 'if', 'on', 'with',
                       'had', 'will', 'do', 'professor', 'it\'s', 'his', 
                       'go', 'up', 'look', 'all', 'get', 'really', 'pretty',
-                      'very', 'lot', 'way', 'take', 'ta', 'definitely',
+                      'very', 'lot', 'way', 'take', 'definitely',
                       'about', 'have', 'more', 'one', 'there', '-',
                       'than', 'then', 'thing', 'things', 'often', 'them', '.',
-                      'were', 'however',
+                      'were', 'however', 'course', 'problem',
+                      'set', 'sets', 'student', 'students',
+                      @professor.last_name.downcase,
+                      @professor.first_name.downcase,
                       @subdepartment.mnemonic.downcase]
 
       
@@ -214,15 +217,19 @@ class CourseProfessorsController < ApplicationController
         end
       end
 
-      a = arr2.sort_by{|k,v| v}.last(3).shuffle
+      if params[:doge] == "true"
+        a = arr2.sort_by{|k,v| v}.last(3).shuffle
 
-      arr3 = []
+        arr3 = []
 
-      arr3.push({text: "such " + a[0][0], weight: 1})
-      arr3.push({text: "many " + a[1][0], weight: 1})
-      arr3.push({text: "wow", weight: 1})
-      arr3.push({text: "so " + a[2][0], weight: 1})
+        arr3.push({text: "such " + a[0][0], weight: 1})
+        arr3.push({text: "many " + a[1][0], weight: 1})
+        arr3.push({text: "wow", weight: 1})
+        arr3.push({text: "so " + a[2][0], weight: 1})
 
-      arr3
+        arr3
+      else
+        arr
+      end
     end
 end
