@@ -236,9 +236,11 @@ $(document).ready(function() {
       {
         $("#vote_up_" + review_id).css("background-color", "#d9551e");
         $("#vote_up_" + review_id).css("border-color", "#d9551e");
+        $("#vote_up_" + review_id).css("opacity", "1");
 
-        $("#vote_down_" + review_id).css("background-color", "#011f4a");
-        $("#vote_down_" + review_id).css("border-color", "#011f4a");
+        $("#vote_down_" + review_id).css("background-color", "#d9551e");
+        $("#vote_down_" + review_id).css("border-color", "#d9551e");
+        $("#vote_down_" + review_id).css("opacity", "0.4");
       }
     });
 
@@ -256,9 +258,12 @@ $(document).ready(function() {
       {
         $("#vote_down_" + review_id).css("background-color", "#d9551e");
         $("#vote_down_" + review_id).css("border-color", "#d9551e");
+        $("#vote_down_" + review_id).css("opacity", "1");
 
-        $("#vote_up_" + review_id).css("background-color", "#011f4a");
-        $("#vote_up_" + review_id).css("border-color", "#011f4a");
+        $("#vote_up_" + review_id).css("background-color", "#d9551e");
+        $("#vote_up_" + review_id).css("border-color", "#d9551e");
+        $("#vote_up_" + review_id).css("opacity", "0.4");
+
       }
     });
 
