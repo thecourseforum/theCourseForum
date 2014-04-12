@@ -8,7 +8,7 @@ class CourseProfessorsController < ApplicationController
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
-    @naughty_words = "fuck|shit|damn|damm|stupid|bitch|\Aass|\Adick|bamf|\Aprick|bastard)"
+    @naughty_words = "tenure|hell|douche|pompous|smug|fuck|shit|damn|damm|stupid|bitch|\Aass|\Adick|bamf|\Aprick|bastard"
 
     @all_reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id)
     @reviews_no_comments = @all_reviews.where(:comment => "")
