@@ -22,6 +22,8 @@ TheCourseForum::Application.routes.draw do
 
   resources :courses, :only => [:show]
 
+  get '/scheduler' => 'scheduler#ui'
+
   resources :departments, :only => [:show, :index]
 
   resources :subdepartments, :only => [:show]
