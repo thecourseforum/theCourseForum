@@ -13,16 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140413071350) do
 
-  create_table "course_sections", force: true do |t|
-    t.integer  "course_id"
-    t.integer  "professor_id"
-    t.string   "days"
-    t.integer  "start_time"
-    t.integer  "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"
     t.integer  "semester_id"
@@ -168,6 +158,13 @@ ActiveRecord::Schema.define(version: 20140413071350) do
 
   add_index "section_professors", ["professor_id"], name: "index_section_professors_on_professor_id", using: :btree
   add_index "section_professors", ["section_id"], name: "index_section_professors_on_section_id", using: :btree
+
+  create_table "section_users", force: true do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sections", force: true do |t|
     t.integer  "sis_class_number"
