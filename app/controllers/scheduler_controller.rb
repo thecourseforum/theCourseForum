@@ -59,7 +59,14 @@ class SchedulerController < ApplicationController
 
     current_user.sections.push(section)
 
-    render :nothing => trues
+    render :nothing => true
   end
 
+  def delete
+    section_id = params[:section_id]
+    section = Section.find(section_id)
+
+    current_user.sections.remove(section)
+
+    render :nothing => true
 end
