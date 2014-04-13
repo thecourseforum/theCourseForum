@@ -26,6 +26,7 @@ TheCourseForum::Application.routes.draw do
 
   get '/scheduler/search' => 'scheduler#search'
 
+
   resources :departments, :only => [:show, :index]
 
   resources :subdepartments, :only => [:show]
