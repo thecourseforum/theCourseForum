@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412203900) do
+ActiveRecord::Schema.define(version: 20140413053411) do
+
+  create_table "course_sections", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "professor_id"
+    t.string   "days"
+    t.integer  "start_Time"
+    t.integer  "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"
@@ -95,11 +105,6 @@ ActiveRecord::Schema.define(version: 20140412203900) do
     t.datetime "updated_at"
   end
 
-  create_table "locations_sections", id: false, force: true do |t|
-    t.integer "location_id"
-    t.integer "section_id"
-  end
-
   create_table "majors", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -163,6 +168,13 @@ ActiveRecord::Schema.define(version: 20140412203900) do
   add_index "section_professors", ["professor_id"], name: "index_section_professors_on_professor_id", using: :btree
   add_index "section_professors", ["section_id"], name: "index_section_professors_on_section_id", using: :btree
 
+  create_table "section_users", force: true do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sections", force: true do |t|
     t.integer  "sis_class_number"
     t.integer  "section_number"
@@ -173,6 +185,7 @@ ActiveRecord::Schema.define(version: 20140412203900) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "section_type"
+    t.integer  "location_id"
   end
 
   add_index "sections", ["course_semester_id"], name: "index_sections_on_course_semester_id", using: :btree

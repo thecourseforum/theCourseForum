@@ -5,4 +5,5 @@ class Section < ActiveRecord::Base
   has_many :grades
   has_and_belongs_to_many :locations
   has_and_belongs_to_many :day_times
+  belongs_to :location
 end
