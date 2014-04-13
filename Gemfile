@@ -42,6 +42,9 @@ gem 'ledermann-rails-settings', '~> 2.2', :require => 'rails-settings'
 # bootstrap switch plug in
 gem "bootstrap-switch-rails", '~> 3.0.0'
 
+#Autocomplete used for the scheduler
+gem 'rails3-jquery-autocomplete'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

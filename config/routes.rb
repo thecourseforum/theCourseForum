@@ -30,6 +30,8 @@ TheCourseForum::Application.routes.draw do
 
   delete '/scheduler/delete' => 'scheduler#delete'
 
+  get '/scheduler/coursenos' => 'scheduler#coursenos'
+
 
   resources :departments, :only => [:show, :index]
 

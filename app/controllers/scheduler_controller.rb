@@ -69,4 +69,19 @@ class SchedulerController < ApplicationController
     current_user.sections.remove(section)
 
     render :nothing => true
+  end
+
+  def coursenos
+    c = Course.where.not(:title => "")
+
+    values = []
+
+    c.each do |course|
+      values.push(course.mnemonic_number)
+    end
+
+    respond_to do |format|
+      format.json {render json: values}
+    end
+  end
 end
