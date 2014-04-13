@@ -2,16 +2,27 @@
   #notice= notice
   #alert= alert
   %h1.welcome-header connecting you to the courses you love
-  .marketing
-    %p
-      %b Write reviews
-      for classes you've taken,
-      %b compare classes
-      you need to take,
-      %b learn
-      what other students think of classes and professors, and
-      = succeed "." do
-        %b view gradebooks
+  .marketing{:style => "font-size:20px;"}
+    .row{:style => "margin-top:13px;"}
+      .col-xs-2
+        = image_tag "icons/1_classprofessorthoughts_icon.png"
+      .col-xs-10
+        %b See what other students say
+        about classes and professors
+    %br
+    .row{:style => "margin-top:17px;"}
+      .col-xs-2
+        = image_tag "icons/2_gradedistribution_icon.png"
+      .col-xs-10
+        %b Check out actual grade distributions
+        from past semesters
+    %br
+    .row{:style => "margin-top:17px;"}
+      .col-xs-2
+        = image_tag "icons/3_writeareview_icon.png"
+      .col-xs-10
+        %b Write reviews
+        for courses you've taken.
   .sign-up
     %h1 Sign up!
     #student_form
