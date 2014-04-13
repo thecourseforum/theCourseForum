@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140413053411) do
-
-  create_table "course_sections", force: true do |t|
-    t.integer  "course_id"
-    t.integer  "professor_id"
-    t.string   "days"
-    t.integer  "start_Time"
-    t.integer  "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20140413071350) do
 
   create_table "course_semesters", force: true do |t|
     t.integer  "course_id"
@@ -55,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140413053411) do
   create_table "day_times_sections", id: false, force: true do |t|
     t.integer "day_time_id"
     t.integer "section_id"
+    t.integer "location_id"
   end
 
   create_table "departments", force: true do |t|
@@ -168,13 +159,6 @@ ActiveRecord::Schema.define(version: 20140413053411) do
   add_index "section_professors", ["professor_id"], name: "index_section_professors_on_professor_id", using: :btree
   add_index "section_professors", ["section_id"], name: "index_section_professors_on_section_id", using: :btree
 
-  create_table "section_users", force: true do |t|
-    t.integer  "section_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "sections", force: true do |t|
     t.integer  "sis_class_number"
     t.integer  "section_number"
@@ -185,7 +169,7 @@ ActiveRecord::Schema.define(version: 20140413053411) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "section_type"
-    t.integer  "location_id"
+    t.integer  "semester_id"
   end
 
   add_index "sections", ["course_semester_id"], name: "index_sections_on_course_semester_id", using: :btree
@@ -252,19 +236,5 @@ ActiveRecord::Schema.define(version: 20140413053411) do
   add_index "users", ["professor_id"], name: "index_users_on_professor_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["student_id"], name: "index_users_on_student_id", using: :btree
-
-  create_table "votes", force: true do |t|
-    t.boolean  "vote",          default: false, null: false
-    t.integer  "voteable_id",                   null: false
-    t.string   "voteable_type",                 null: false
-    t.integer  "voter_id"
-    t.string   "voter_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "votes", ["voteable_id", "voteable_type"], name: "index_votes_on_voteable_id_and_voteable_type", using: :btree
-  add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], name: "fk_one_vote_per_user_per_entity", unique: true, using: :btree
-  add_index "votes", ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type", using: :btree
 
 end
