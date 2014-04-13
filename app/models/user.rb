@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_one :student
   has_one :professor
   has_many :reviews, :foreign_key => "student_id"#, :through => :student
+  has_many :section_users
+  has_many :sections, :through => :section_users
   belongs_to :professor_user
 
   #Provides citizenship and voter priveleges

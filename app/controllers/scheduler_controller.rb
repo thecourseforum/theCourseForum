@@ -53,4 +53,13 @@ class SchedulerController < ApplicationController
     end
 	end
 
+  def save
+    section_id = params[:section_id]
+    section = Sections.find(section_id)
+
+    current_user.sections.push(section)
+
+    render :nothing => trues
+  end
+
 end

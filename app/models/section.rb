@@ -7,4 +7,8 @@ class Section < ActiveRecord::Base
   has_many :day_times, :through => :day_times_sections
   belongs_to :location
   belongs_to :semester
+  has_many :section_users
+  has_many :users, :through => :section_users
+  has_and_belongs_to_many :locations
+  has_and_belongs_to_many :day_times
 end
