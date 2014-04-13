@@ -1,3 +1,5 @@
+/*TODO make this file less redundant */
+
 #search-bar {
 	float: right;
 }
@@ -28,19 +30,26 @@
 	cursor: hand;
 }
 
-.course-info {
+.course-info-dialog {
 	border: 1px solid black;
 	border-radius: 4px;
-	background-color: #3a87ad;
+	background-color: white;
 	margin: 0.7em;
 	padding: 4px;
-	z-index: 2;
+	z-index: 3;
+	box-shadow: 1px 1px 1px gray;
 }
 
 .course-result p {
 	margin: 0em;
 	font-size: 12px;
 	color: white;
+}
+
+.course-info-dialog p {
+	margin: 0em;
+	font-size: 12px;
+	color: black;
 }
 
 .is-dragging {

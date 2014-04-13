@@ -1,11 +1,11 @@
 //sample course format
 var results = [{
-	sectionID: '12345',
+	section_id: '12345',
 	title: 'CS 2150',
 	professor: 'Bloomfield',
 	location: 'Olsson 120',
-	startTime: '14:00',
-	endTime: '14:50',
+	start_times: ['14:00', '14:00', '14:00'],
+	end_times: ['14:50','14:50','14:50'],
 	allDay: false,
 	days: ['Mo', 'Wed', 'Fr'],
 	//daysArr: this.days.split(/(?=[A-Z])/)
@@ -30,7 +30,7 @@ schedule.fullCalendar({
     },
     contentHeight: 610,
     events: scheduledCourses,
-    eventClick: courseClick,
+    eventClick: courseEventClick,
     year: 2014,
     month: 3,
     date: 7
@@ -59,13 +59,14 @@ function addClasses(course) {
 	for (var i = course.days.length - 1; i >= 0; i--) {
 		dateString = getDateString(course.days[i])
 		var event = {
-			start:  dateString + ' ' + course.startTime,
-			end: dateString + ' ' + course.endTime,
+			start:  dateString + ' ' + course.start_times[i],
+			end: dateString + ' ' + course.end_times[i],
 		};
 		event.__proto__ = course;
 		scheduledCourses.push(event);
 	};
 	schedule.fullCalendar('refetchEvents');
+	$('.fc-event').mouseup(courseViewClick);
 }
 
 $('#class-search').keyup(function(key) {
@@ -100,18 +101,32 @@ function displayResult(result) {
 		revert: true	
 	});
 	resultBox.mouseup(resultRelease);
-	resultBox.attr('id', result.sectionID);
+	resultBox.attr('id', result.section_id);
 	$('#results-box').append(resultBox);
 };
 
-function displayInfo(result) {
+function displayInfo(result, eventView) {
     $('#info-box').empty();
     var infoBox = $('.course-info.hidden').clone().removeClass('hidden');
     infoBox.children('.title').text(result.title);
     infoBox.children('.professor').text(result.professor);
     infoBox.children('.description').text(result.description);
     infoBox.children('.location').text(result.location);
-    $('#info-box').append(infoBox);
+    infoBox.mouseover(dialogMouseOver);
+    infoBox.mouseout(dialogMouseOut);
+    infoBox.addClass('course-info-dialog');
+    infoBox.mouseup(function(event) {
+    	infoBox.remove();
+    	mouseInDialog = false;
+    });
+    eventView.append(infoBox);
+    infoBox.css({
+    	position: 'relative',
+    	top: (-25 - infoBox.height() - eventView.height()) + 'px',
+    	left: '0px',
+    	display: 'block',
+    	'max-width': eventView.width()
+    });
 }
 
 function getPos($obj) {
@@ -128,14 +143,36 @@ function resultRelease(eventObj) {
 		$(this).addClass('hidden');
 		var id = $(this).attr('id');
 		addClasses(results.filter(function(result) {
-			return result.sectionID == id;
+			return result.section_id == id;
 		})[0]);
 	}
 }
 
-function courseClick(calEvent, jsEvent, view) {
-	displayInfo(results.filter(function(result) {
-		return calEvent.sectionID == result.sectionID;
-	})[0]);
-
+var eventBox;
+function courseViewClick() {
+	if(!mouseInDialog) {
+		eventBox = $(this);	
+	}
 }
+
+function courseEventClick(calEvent, jsEvent, view) {
+	if(!mouseInDialog && $('.course-info-dialog') != $('.course-info-dialog.hidden')) {
+		displayInfo(results.filter(function(result) {
+			return calEvent.section_id == result.section_id;
+		})[0], eventBox);
+	}
+}
+
+var mouseInDialog = false;
+function dialogMouseOver(obj) {
+	mouseInDialog = true;
+}
+
+function dialogMouseOut(obj) {
+	mouseInDialog = false;
+}
+
+$(document).mouseup(function() {
+	if(!mouseInDialog)
+		$('.course-info-dialog').remove();
+});
