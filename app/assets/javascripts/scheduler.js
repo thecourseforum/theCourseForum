@@ -8,7 +8,7 @@ var results = [{
 	end_times: ['14:50','14:50','14:50'],
 	allDay: false,
 	days: ['Mo', 'Wed', 'Fr'],
-	//daysArr: this.days.split(/(?=[A-Z])/)
+	events: []
 }];
 
 
@@ -26,7 +26,7 @@ schedule.fullCalendar({
     	agendaWeek: 'dddd'
     },
     titleFormat: {
-    	agendaWeek: 'yyyy'
+    	agendaWeek: 'yyyy'	
     },
     contentHeight: 610,
     events: scheduledCourses,
@@ -56,15 +56,24 @@ function getDateString(weekDay) {
 
 function addClasses(course) {
 	var dateString;
-	for (var i = course.days.length - 1; i >= 0; i--) {
-		dateString = getDateString(course.days[i])
-		var event = {
-			start:  dateString + ' ' + course.start_times[i],
-			end: dateString + ' ' + course.end_times[i],
+	if(course.events.length == 0) {
+		for (var i = course.days.length - 1; i >= 0; i--) {
+			dateString = getDateString(course.days[i])
+			var event = {
+				start:  dateString + ' ' + course.start_times[i],
+				end: dateString + ' ' + course.end_times[i],
+			};
+			event.__proto__ = course;
+			course.events.push(event);
+			scheduledCourses.push(event);
+		}
+	}
+	else {
+		for (var i = course.events.length - 1; i >= 0; i--) {
+			scheduledCourses.push(course.events[i]);
 		};
-		event.__proto__ = course;
-		scheduledCourses.push(event);
-	};
+	}
+	console.log(scheduledCourses);
 	schedule.fullCalendar('refetchEvents');
 	$('.fc-event').mouseup(courseViewClick);
 }
@@ -90,7 +99,12 @@ function displayResult(result) {
 	resultBox.children('.course-title').text(result.title);
 	resultBox.children('.professor').text(result.professor);
 	resultBox.children('.location').text(result.location);
-	resultBox.children('.time').text(result.startTime + ' - ' + result.endTime + ' ' + result.days.join(''));
+	var timeString = '';
+	for (var i = result.days.length - 1; i >= 0; i--) {
+			result.days[i]
+	};
+	var timeString = getTimeString(result);
+	resultBox.children('.time').text(timeString);
 	resultBox.draggable({
 		start: function(event, ui) {
 			ui.helper.addClass('is-dragging');
@@ -105,10 +119,25 @@ function displayResult(result) {
 	$('#results-box').append(resultBox);
 };
 
+function getTimeString(course){
+  var timeString = course.start_times[0];
+  var daysString = course.days[0];
+  for(var i = 0; i < course.start_times.length - 1; i++){
+  	if(course.start_times[i] == course.start_times[i+1]){
+    	timeString = course.start_times[i];
+    	i++;
+  		timeString += " - ";
+    	timeString += course.end_times[i];
+    }
+  daysString += course.days[i];
+  }
+  return timeString + daysString;
+}
+
 function displayInfo(result, eventView) {
     $('#info-box').empty();
     var infoBox = $('.course-info.hidden').clone().removeClass('hidden');
-    infoBox.children('.title').text(result.title);
+    infoBox.children('.course-title').text(result.title);
     infoBox.children('.professor').text(result.professor);
     infoBox.children('.description').text(result.description);
     infoBox.children('.location').text(result.location);
@@ -123,10 +152,12 @@ function displayInfo(result, eventView) {
     infoBox.css({
     	position: 'relative',
     	top: (-25 - infoBox.height() - eventView.height()) + 'px',
-    	left: '0px',
+    	left: '-7px',
     	display: 'block',
-    	'max-width': eventView.width()
+    	'width': eventView.width()
     });
+    infoBox.children('button').mousedown(removeButtonClick);
+    infoBox.children('button').attr('section_id', result.section_id);
 }
 
 function getPos($obj) {
@@ -163,6 +194,11 @@ function courseEventClick(calEvent, jsEvent, view) {
 	}
 }
 
+function removeEvents(id) {
+	scheduledCourses = scheduledCourses.filter(function (element) { element.section_id == id; });
+	schedule.fullCalendar('removeEvents', function (event) { return event.section_id == id; });
+}
+
 var mouseInDialog = false;
 function dialogMouseOver(obj) {
 	mouseInDialog = true;
@@ -173,6 +209,13 @@ function dialogMouseOut(obj) {
 }
 
 $(document).mouseup(function() {
-	if(!mouseInDialog)
+	if(!mouseInDialog) {
 		$('.course-info-dialog').remove();
+		mouseInDialog = false;
+	}
 });
+
+function removeButtonClick() {
+	removeEvents($(this).attr('section_id'));
+	$('#' + $(this).attr('section_id')).removeClass('hidden');
+}

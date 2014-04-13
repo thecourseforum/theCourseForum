@@ -40,7 +40,7 @@
 	box-shadow: 1px 1px 1px gray;
 }
 
-.course-result p {
+.course-result p{
 	margin: 0em;
 	font-size: 12px;
 	color: white;
@@ -50,6 +50,12 @@
 	margin: 0em;
 	font-size: 12px;
 	color: black;
+}
+
+.course-info-dialog button {
+	margin: 0.45em;
+	color: black;
+
 }
 
 .is-dragging {
