@@ -28,16 +28,16 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # Devise for User Authentication
-gem 'devise'
+gem 'devise', '~> 3.2.4'
 
 # Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
-gem 'thumbs_up'
+gem 'thumbs_up', '>=0.6.7'
 
 # Word Cloud generator
-gem "jqcloud-rails"
+gem "jqcloud-rails", '~> 1.0'
 
 # User Settings
-gem 'ledermann-rails-settings', :require => 'rails-settings'
+gem 'ledermann-rails-settings', '~> 2.2', :require => 'rails-settings'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
