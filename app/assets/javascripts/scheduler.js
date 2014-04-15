@@ -20,7 +20,8 @@ var schedule = $('#schedule');
 schedule.fullCalendar({
     defaultView: 'agendaWeek',
     weekends: false,
-    firstHour: 8,
+    minTime: 8,
+    maxTime: 22,
     allDaySlot: false,
     columnFormat: {
     	agendaWeek: 'dddd'
@@ -35,6 +36,7 @@ schedule.fullCalendar({
     month: 3,
     date: 7
 });
+
 $('.fc-header-right').css('visibility', 'hidden'); //hides buttons
 
 //gets a day corresponding to the given weekDay

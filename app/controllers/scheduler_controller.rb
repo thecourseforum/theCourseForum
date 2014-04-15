@@ -4,30 +4,25 @@ class SchedulerController < ApplicationController
 	end
 
 	def search
-    if params[:course] == nil
+    unless params[:course]
       render :nothing => true
-      return
     else
-      arr = params[:course].split(" ")
-      mnemonic = arr[0].upcase
-      course_number = arr[1]
+      mnemonic, course_number = params[:course].split(" ")
 
       subdept_id = Subdepartment.find_by(mnemonic: mnemonic).id
 
-      c = Course.find_by(subdepartment_id: subdept_id, course_number: course_number)
+      course = Course.find_by(subdepartment_id: subdept_id, course_number: course_number)
 
-      sections = c.sections
+      sections = course.sections
 
-      values = []
-
-      sections.each do |section|
+      render json: course.sections.map do |section|
         course = {}
 
         course[:section_id] = section.sis_class_number
         course[:title] = "#{mnemonic} #{course_number}"
         course[:professor] = "TODO: CHANGE"
         course[:section_type] = section.section_type
-        course[:location] = section.locations.first.location
+        course[:location] = section.locations
         days = []
         start_times = []
         end_times = []
@@ -42,20 +37,13 @@ class SchedulerController < ApplicationController
         course[:start_times] = start_times
         course[:end_times] = end_times
 
-        values.push(course)
-      end    
-
-
-
-  		respond_to do |format|
-  			format.json { render json: values}
-  		end
+        course
+      end
     end
-	end
+  end
 
   def save
-    section_id = params[:section_id]
-    section = Sections.find(section_id)
+    section = Sections.find(params[:section_id])
 
     current_user.sections.push(section)
 
@@ -63,9 +51,7 @@ class SchedulerController < ApplicationController
   end
 
   def delete
-    section_id = params[:section_id]
-    section = Section.find(section_id)
-
+    section = Section.find(params[:section_id])
     current_user.sections.remove(section)
 
     render :nothing => true
