@@ -13,6 +13,11 @@ class User < ActiveRecord::Base
   #Provides citizenship and voter priveleges
   acts_as_voter
 
+  # creates default settings
+  has_settings do |s|
+    s.key :word_cloud, :defaults => {:on => false, :doge => false}
+  end
+
   before_save { self.email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w\-\.]+@(\w+\.)*virginia\.edu\z/i
 

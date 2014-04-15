@@ -69,8 +69,12 @@
                       My Reviews
                   %li
                     %a{href: edit_user_registration_path}
-                      %span.glyphicon.glyphicon-cog
+                      %span.glyphicon.glyphicon-user
                       My Account
+                  %li
+                    %a{href: user_settings_path}
+                      %span.glyphicon.glyphicon-cog
+                      Settings
                   %li.divider
                   %li
                     %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}

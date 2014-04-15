@@ -36,6 +36,9 @@ gem 'thumbs_up'
 # Word Cloud generator
 gem "jqcloud-rails"
 
+# User Settings
+gem 'ledermann-rails-settings', :require => 'rails-settings'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -66,6 +69,8 @@ gem 'jquery-ui-rails'
 gem 'touchpunch-rails'
 gem 'd3_rails'
 gem 'haml'
+# adds haml for default rails generators
+gem 'haml-rails'
 gem 'gon'
 gem 'rest-client'
 gem 'rb-readline', '0.5.1', require: 'readline', github: 'luislavena/rb-readline'

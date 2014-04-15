@@ -48,6 +48,8 @@ TheCourseForum::Application.routes.draw do
   get '/privacy', :to => 'home#privacy', :as => "privacy"
   get '/terms_of_use', :to => 'home#terms', :as => "terms"
 
+  # route for user settings
+  get '/users/settings', :to => "users#settings", :as => "user_settings"
 
   #routes for voting
   post '/vote_up/:review_id', :to => 'reviews#vote_up'
