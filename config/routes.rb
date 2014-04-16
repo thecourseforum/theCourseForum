@@ -51,6 +51,12 @@ TheCourseForum::Application.routes.draw do
   # route for user settings
   get '/users/settings', :to => "users#settings", :as => "user_settings"
 
+  post '/word_cloud_on', :to => "users#word_cloud_on"
+  post '/word_cloud_off', :to => "users#word_cloud_off"
+  post '/doge_on', :to => "users#doge_on"
+  post '/doge_off', :to => "users#doge_off"
+
+
   #routes for voting
   post '/vote_up/:review_id', :to => 'reviews#vote_up'
   post '/vote_down/:review_id', :to => 'reviews#vote_down'

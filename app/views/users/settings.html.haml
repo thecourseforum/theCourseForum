@@ -4,17 +4,32 @@
   .col-xs-3
     Word Cloud
   .col-xs-2
-    .btn.btn-primary.btn-xs
-      On
-  .col-xs-2
-    .btn.btn-primary.btn-xs
-      Off
+    %input#word-cloud-switch{:type => "checkbox"}
+
 .row
   .col-xs-2.col-xs-offset-1
     Doge Cloud
   .col-xs-2
-    .btn.btn-primary.btn-xs
-      On
-  .col-xs-2
-    .btn.btn-primary.btn-xs
-      Off
+    %input#doge-switch{:type => "checkbox"}
+
+
+:javascript
+  $(document).ready(function() {
+    var word_cloud = #{@word_cloud};
+    var doge = #{@doge};
+
+    if (!word_cloud || !doge)
+    {
+      $("#doge-switch").bootstrapSwitch('disabled', true);
+    }
+
+    if(word_cloud)
+    {
+      $("#word-cloud-switch").bootstrapSwitch('state', true);
+
+      if (doge)
+      {
+        $("#doge-switch").bootstrapSwitch('state', true);
+      }
+    }
+  });

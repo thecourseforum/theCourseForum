@@ -12,12 +12,14 @@
  *= require jquery.ui.slider
  *= require fullcalendar
  *= require jqcloud
+ *= require bootstrap3-switch
  */
 
 //variables to override bootstrap
 $orange: #d9551e;
+$blue: #011f4a;
 $navbar-height: 35px;
-$navbar-default-bg: #011f4a;
+$navbar-default-bg: $blue;
 $link-color: #000;
 $link-hover-color: $orange;
 $btn-primary-bg: $orange;
@@ -44,6 +46,13 @@ $btn-primary-bg: $orange;
 {
   font-family: 'comic-sans';
   overflow: visible;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, 
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary
+{
+  color: #fff;
+  background: $orange !important;
 }
 
 //base styles
