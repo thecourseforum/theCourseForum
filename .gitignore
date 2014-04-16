@@ -27,3 +27,7 @@ config/initializers/secret_token.rb
 
 # Ignore devise secret key
 /config/initializers/devise.rb
+
+# Ignore generated words.json file
+lib/words.json
+

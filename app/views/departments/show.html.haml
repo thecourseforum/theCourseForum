@@ -10,14 +10,16 @@
     %ul.department-courses
       - flag = true
       - separator = 0
+      / = subdepartment.courses.order(:course_number).pluck(:title)
       - subdepartment.courses.order(:course_number).each do |course|
+        - p_list = course.professors_list
+        - if p_list.empty?
+          - next
         - if flag
           - separator = (course.course_number / 1000) * 1000 + 1000
           - flag = false
-        - p_list = course.professors_list
         - if course.course_number >= separator
-          - if p_list.size > 0
-            %br
+          %br            
           - separator = (course.course_number / 1000) * 1000 + 1000
         - if p_list.size > 1
           %li= link_to course.mnemonic_number + " " + course.title, course

@@ -78,9 +78,12 @@ end
 
 puts "Generating courses"
 
+course_words = ["Intro to", "Intermediate", "Advanced", "Special Topics in", "Studies in"]
+
 Subdepartment.count.times do |i|
   10.times do
-    Course.find_or_create_by(title: Faker::Company.name, course_number: 1000+rand(8000), subdepartment_id: i+1)
+    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + Faker::Lorem.words(2).join(" "),
+                             course_number: 1000+rand(8000), subdepartment_id: i+1)
   end
 end
 
@@ -144,26 +147,10 @@ Course.all.each do |c|
                     difficulty: rand(5)+1, recommend: rand(5)+1, amount_reading: (rand*5*2).round / 2.0,
                     amount_writing: (rand*5*2).round / 2.0, amount_homework: (rand*5*2).round / 2.0,
                     amount_group: (rand*5*2).round / 2.0,
-                    comment: Faker::Lorem.paragraph(1+rand(3)))
+                    comment: Faker::Lorem.paragraphs(1+rand(3)).join(" "))
     end
   end
 end
-
-
-# reviews = Review.create([
-#   {course_id: 1, professor_id: 1, semester_id: 1, student_id: 1, 
-#     professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-#     amount_reading: 2.0,
-#     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum posuere justo eget blandit dictum. Etiam mattis tellus vel fermentum molestie. Sed sed porttitor lacus. Donec quis varius est. Ut sed pretium lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec accumsan nunc eu risus elementum convallis. Vestibulum lobortis, nulla sit amet consequat cursus, eros lacus ultricies lacus, id tincidunt massa eros et tellus. Mauris ultrices odio nec nulla congue faucibus. Pellentesque pharetra convallis purus, nec tincidunt sapien viverra sed. Sed sit amet volutpat nisi. Phasellus tincidunt lectus id tincidunt lobortis. Mauris ut ipsum vulputate, convallis ipsum vitae, tempor erat. Morbi suscipit nec odio vitae imperdiet."},
-#   {course_id: 2, professor_id: 2, semester_id: 1, student_id: 1, 
-#     professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-#     amount_reading: 2.0,
-#     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum dui et posuere lobortis. Aenean congue lectus sit amet arcu luctus, vel molestie odio tempor. Integer vitae semper est. Aenean semper leo in dolor elementum, sit amet convallis diam fringilla. Ut a feugiat turpis, quis aliquet nibh. Vivamus quis facilisis libero, ac accumsan dui. Aenean magna turpis, porta vel porttitor id, feugiat in tortor. Donec euismod non sapien sed convallis."},
-#   {course_id: 3, professor_id: 3, semester_id: 1, student_id: 1, 
-#     professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-#     amount_reading: 2.0,
-#     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum dui et posuere lobortis. Aenean congue lectus sit amet arcu luctus, vel molestie odio tempor. Integer vitae semper est. Aenean semper leo in dolor elementum, sit amet convallis diam fringilla. Ut a feugiat turpis, quis aliquet nibh. Vivamus quis facilisis libero, ac accumsan dui. Aenean magna turpis, porta vel porttitor id, feugiat in tortor. Donec euismod non sapien sed convallis."}
-# ])
 
 days = ["Mo", "Tu", "We", "Th", "Fr"]
 
