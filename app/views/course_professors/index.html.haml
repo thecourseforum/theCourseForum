@@ -160,11 +160,16 @@
 #calendar
 
 :javascript
-  var arr = #{@word_array.to_json};
-  $(function() {
-    $("#word_cloud").jQCloud(arr, {
-      removeOverflowing: true,
-      width: 300,
-      height: 300
-    });
+  $(document).ready(function() {
+    var cloud = #{@word_cloud_on}
+    if (cloud) {
+      var arr = #{@word_array.to_json};
+      $(function() {
+        $("#word_cloud").jQCloud(arr, {
+          removeOverflowing: true,
+          width: 300,
+          height: 300
+        });
+      });
+    }
   });

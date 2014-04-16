@@ -31,7 +31,11 @@ class CourseProfessorsController < ApplicationController
 
     end
 
-    @word_array = get_word_array
+    @word_cloud_on = current_user.settings(:word_cloud).on
+
+    if @word_cloud_on
+      @word_array = get_word_array
+    end
 
     @total_review_count = @reviews_with_comments.count + @reviews_no_comments.count
 
@@ -40,8 +44,6 @@ class CourseProfessorsController < ApplicationController
     @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN course_semesters b ON a.id=b.course_id JOIN sections c ON b.id=c.course_semester_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
     #used to pass grades to the donut chart
     gon.grades = @grades
-
-    @word_cloud_on = current_user.settings(:word_cloud).on
 
     @rev_ratings = {}
     @rev_emphasizes = {:reading_count => 0, :writing_count => 0, 
