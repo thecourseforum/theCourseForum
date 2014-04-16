@@ -56,6 +56,8 @@ group :development, :test do
   gem 'pry-nav'
   gem 'mailcatcher'
   gem 'priscilla', '~> 1.0'
+  # used for generating fake data
+  gem 'faker', '~> 1.3'
 end
 
 # Use unicorn as the app server
