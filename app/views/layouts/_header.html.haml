@@ -60,7 +60,10 @@
             .account-header
               .dropdown
                 %a{"data-toggle" => "dropdown", :href => "#"} 
-                  = current_user.email.split("@virginia.edu").first
+                  - if current_user.first_name != nil && current_user.first_name != "" 
+                    = current_user.first_name
+                  - else
+                    = current_user.email.split("@virginia.edu").first
                   %b.caret.orange-caret
                 %ul.dropdown-menu.dropdown-login{"aria-labelledby" => "account-dropdown", :role => "menu"}
                   %li
