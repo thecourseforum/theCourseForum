@@ -41,6 +41,8 @@ class CourseProfessorsController < ApplicationController
     #used to pass grades to the donut chart
     gon.grades = @grades
 
+    @word_cloud_on = current_user.settings(:word_cloud).on
+
     @rev_ratings = {}
     @rev_emphasizes = {:reading_count => 0, :writing_count => 0, 
       :group_count => 0, :homework_count => 0, :test_count => 0,
@@ -217,7 +219,7 @@ class CourseProfessorsController < ApplicationController
         end
       end
 
-      if params[:doge] == "true"
+      if current_user.settings(:word_cloud).doge
         a = arr2.sort_by{|k,v| v}.last(3).shuffle
 
         arr3 = []

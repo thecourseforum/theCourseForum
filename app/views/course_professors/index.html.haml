@@ -71,7 +71,7 @@
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
       %p There aren't any grade distributions available for this class. Sorry!
-    - if @reviews_with_comments.count > 0
+    - if @reviews_with_comments.count > 0 && @word_cloud_on
       .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
         #word_cloud
 
