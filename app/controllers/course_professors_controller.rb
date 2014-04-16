@@ -201,7 +201,7 @@ class CourseProfessorsController < ApplicationController
       arr2 = {}
 
       words.each do |k,v|
-        if words[k]  / count.to_f > (all_words[k] / total_count.to_f)*1.7
+        if all_words[k] != nil && (words[k]  / count.to_f > (all_words[k] / total_count.to_f)*1.7)
           if !filter_words.include?(k)
             if arr.length >= 25
               arr.each do |a|
