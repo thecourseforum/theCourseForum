@@ -21,34 +21,34 @@
                     = button_tag 'SEARCH', :class => 'btn btn-primary'
             %li.space-fix
             %li.visible-xs
-              %a{:href => "/"}
-                %span.glyphicon.glyphicon.glyphicon-home
-                Home
-                = link_to "theBlog", "http://blog.thecourseforum.com", :target => "_blank"
-            %li.visible-xs
               %a{:href => "/reviews/new"}
                 %span.glyphicon.glyphicon-pencil
                 Write a review
-              = link_to "About", about_path
+              = link_to "theBlog", "http://blog.thecourseforum.com", :target => "_blank"
             %li.visible-xs
               %a{:href => "/browse"}
                 %span.glyphicon.glyphicon-list
                 Browse All
-              = link_to "Privacy", privacy_path
+              = link_to "About", about_path
             %li.visible-xs
               %a{:href => "/professors"}
                 %span.glyphicon.glyphicon-list
                 Browse by Professor
-              = link_to "Terms", terms_path
+              = link_to "Privacy", privacy_path
             %li.visible-xs
               %a{:href => "/my_reviews"}
                 %span.glyphicon.glyphicon-comment
                 My Reviews
-              = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
+              = link_to "Terms", terms_path
             %li.visible-xs
               %a{:href => "/users/edit"}
-                %span.glyphicon.glyphicon-cog
+                %span.glyphicon.glyphicon-user
                 My Account
+              = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
+            %li.visible-xs
+              %a{:href => "/users/settings"}
+                %span.glyphicon.glyphicon-cog
+                Settings
               = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank', :class => "icon"
             %li.visible-xs
               %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}

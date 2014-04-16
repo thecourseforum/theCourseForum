@@ -91,9 +91,9 @@
         = "1 Review -- 0 Comments"
   - if @reviews_with_comments.count > 1
     .row
-      .col-xs-6
+      .col-sm-6
         = will_paginate @reviews
-      .col-xs-3.col-xs-offset-2{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")}
+      .col-lg-3.col-lg-offset-2.col-sm-4.col-sm-offset-1{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")}
         %select.review-type-switcher{:style => "font-size:13px;"}
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Sort by Most Recent"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Sort by Most Helpful"
@@ -102,6 +102,8 @@
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=controversial", selected: @sort_type == "controversial", :style=> (@sort_type == "controversial" ? "color: #d9551e;" : "")}="Sort by Controversial"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=fun", selected: @sort_type == "fun", :style=> (@sort_type == "fun" ? "color: #d9551e;" : "")}="Sort by Fun"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=semester", selected: @sort_type == "semester", :style=> (@sort_type == "semester" ? "color: #d9551e;" : "")}="Sort by Semester"
+      .visible-xs
+        %br
 
 
   .single-review
@@ -135,7 +137,7 @@
           %li.recommend= r.recommend
       %br
       .row
-        .col-xs-7.score{:style => "font-size:12px;margin-top: 2.5px;"}
+        .col-xs-5.col-sm-7.score{:style => "font-size:12px;margin-top: 2.5px;"}
           - if r.votes_count > 0
             = r.votes_for
             out of
@@ -144,10 +146,10 @@
         .col-xs-3{:style => "margin-top: 2.5px;"}
           .rating{:style => "font-size:12px;text-align:center;"}
             Was this review helpful?
-        .col-md-1.col-xs-2
+        .col-xs-2.col-sm-1
           .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_against?(r) ? "opacity: 0.4;" : "")}
             Yes
-        .col-md-1.col-xs-2
+        .col-xs-2.col-sm-1
           .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_for?(r) ? "opacity: 0.4;" : "")}
             No
   = will_paginate @reviews
