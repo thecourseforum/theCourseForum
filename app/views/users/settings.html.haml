@@ -18,12 +18,12 @@
     var word_cloud = #{@word_cloud};
     var doge = #{@doge};
 
-    if (!word_cloud || !doge)
+    if (!word_cloud)
     {
       $("#doge-switch").bootstrapSwitch('disabled', true);
     }
 
-    if(word_cloud)
+    else
     {
       $("#word-cloud-switch").bootstrapSwitch('state', true, true);
 

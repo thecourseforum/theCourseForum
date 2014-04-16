@@ -221,7 +221,7 @@ class CourseProfessorsController < ApplicationController
         end
       end
 
-      if current_user.settings(:word_cloud).doge
+      if current_user.settings(:word_cloud).doge && arr2.size >= 3
         a = arr2.sort_by{|k,v| v}.last(3).shuffle
 
         arr3 = []
