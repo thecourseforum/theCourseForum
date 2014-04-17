@@ -230,6 +230,76 @@ Course.all.each do |c|
 end
 
 
+puts "Generating grades"
+
+Section.all.each do |s|
+  semester = Semester.last
+
+  count_aplus = rand(50)
+  count_a = rand(50)
+  count_aminus = rand(50)
+
+  count_bplus = rand(50)
+  count_b = rand(50)
+  count_bminus = rand(50)
+
+  count_cplus = rand(50)
+  count_c = rand(50)
+  count_cminus = rand(50)
+
+  count_dplus = rand(30)
+  count_d = rand(30)
+  count_dminus = rand(30)
+
+  count_f = rand(10)
+
+  count_drop = rand(5)
+  count_withdraw = rand(5)
+  count_other = rand(3)
+
+  total = count_aplus + count_a + count_aminus +
+          count_bplus + count_b + count_bminus +
+          count_cplus + count_c + count_cminus +
+          count_dplus + count_d + count_dminus +
+          count_f + count_drop + count_withdraw + count_other
+
+  gpa = (((count_aplus + count_a)*4 +
+        count_aminus * 3.7 +
+        count_bplus * 3.3 +
+        count_b * 3 +
+        count_bminus * 2.7 +
+        count_cplus * 2.3 +
+        count_c * 2 +
+        count_cminus * 1.7 + 
+        count_dplus * 1.3 + 
+        count_d +
+        count_dminus * 0.7) / (total - count_other - count_drop - count_withdraw)).round(2)
+
+  Grade.find_or_create_by(
+    section_id: s.id,
+    semester_id: semester.id,
+    count_aplus: count_aplus,
+    count_a: count_a,
+    count_aminus: count_aminus,
+    count_bplus: count_bplus,
+    count_b: count_b,
+    count_bminus: count_bminus,
+    count_cplus: count_cplus,
+    count_c: count_c,
+    count_cminus: count_cminus,
+    count_dplus: count_dplus,
+    count_d: count_d,
+    count_dminus: count_dminus,
+    count_f: count_f,
+    count_drop: count_drop,
+    count_withdraw: count_withdraw,
+    count_other: count_other,
+    total: total,
+    gpa: gpa
+  )
+end
+
+
 
 days = ["Mo", "Tu", "We", "Th", "Fr"]
 
