@@ -23,23 +23,35 @@ student = Student.create(
 puts "Generating users"
 
 20.times do
-  password = Faker::Internet.password(8)
-  email = Faker::Internet.user_name + "@virginia.edu"
+  f = Faker::Name.first_name
+  l = Faker::Name.last_name
+  ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
+
+  email = ea + "@virginia.edu"
+  
   u = User.find_by(email: email)
 
-  if (u == nil)
-    new_user = User.create(
-      email: email, 
-      password: password, 
-      password_confirmation: password,
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      confirmed_at: Time.now)
-
-    Student.create(
-      grad_year: 2010 + rand(7),
-      user_id: new_user.id)
+  while u != nil
+    f = Faker::Name.first_name
+    l = Faker::Name.last_name
+    ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
+    email = ea + "@virginia.edu"
+    u = User.find_by(email: email)
   end
+
+  password = Faker::Internet.password(8)
+
+  new_user = User.create(
+    email: email, 
+    password: password, 
+    password_confirmation: password,
+    first_name: f,
+    last_name: l,
+    confirmed_at: Time.now)
+
+  Student.create(
+    grad_year: 2010 + rand(7),
+    user_id: new_user.id)
 end
 
 puts "Generating majors"
@@ -82,7 +94,7 @@ course_words = ["Intro to", "Intermediate", "Advanced", "Special Topics in", "St
 
 Subdepartment.count.times do |i|
   10.times do
-    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + Faker::Lorem.words(2).join(" "),
+    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + Faker::Company.bs.split(" ").last(2).each{|w| w.capitalize!}.join(" "),
                              course_number: 1000+rand(8000), subdepartment_id: i+1)
   end
 end
@@ -137,6 +149,35 @@ Section.count.times do |s|
   SectionProfessor.find_or_create_by(section_id: s+1, professor_id: 1+rand(Professor.count))
 end
 
+puts "Assigning profs to empty courses"
+
+Course.all.each do |c|
+  if c.professors.empty?
+    s = 0
+    num = 0
+    while s != nil
+      num = 10000 + rand(10000)
+      s = Section.find_by(sis_class_number: num)
+    end
+    s = Section.create(sis_class_number: num)
+    s.section_number = 1 + rand(5)
+    s.units = 1 + rand(4)
+    s.capacity = ((rand(100)+5)*10)/10
+    s.section_type = types[rand(3)]
+    s.course_semester_id = c.course_semesters.first.id
+    s.save
+    SectionProfessor.find_or_create_by(section_id: s.id, professor_id: 1+rand(Professor.count))
+  end
+end
+
+puts "Assigning courses to empty profs"
+
+Professor.all.each do |p|
+  if p.courses.count == 0
+    SectionProfessor.find_or_create_by(section_id: 1+rand(Section.count), professor_id: p.id)
+  end
+end
+
 puts "Generating reviews"
 
 Course.all.each do |c|
@@ -151,6 +192,8 @@ Course.all.each do |c|
     end
   end
 end
+
+
 
 days = ["Mo", "Tu", "We", "Th", "Fr"]
 
