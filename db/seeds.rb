@@ -6,6 +6,21 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# generates a topic name containing two words
+# used for Departments, Subdepartments, Courses, and Majors
+def generate_topic_name()
+  num = rand(2)
+  if num == 0
+    Faker::Company.bs.split(" ").last(2).each{|w| w.capitalize!}.join(" ")
+  else
+    name = Faker::Company.catch_phrase.split(" ").last(2).each{|w| w.capitalize!}.join(" ")
+    if name.split("").last == "k" || name.split("").last == "n"
+      name += "s"
+    end
+    name
+  end
+end
+
 puts "Generating default user, mst3k"
 
 user = User.create(
@@ -22,6 +37,7 @@ student = Student.create(
 
 puts "Generating users"
 
+# create 20 users
 20.times do
   f = Faker::Name.first_name
   l = Faker::Name.last_name
@@ -29,8 +45,10 @@ puts "Generating users"
 
   email = ea + "@virginia.edu"
   
+  # see if user already exists
   u = User.find_by(email: email)
 
+  # keep generating a new user until one doesn't exist
   while u != nil
     f = Faker::Name.first_name
     l = Faker::Name.last_name
@@ -41,6 +59,7 @@ puts "Generating users"
 
   password = Faker::Internet.password(8)
 
+  # create the user
   new_user = User.create(
     email: email, 
     password: password, 
@@ -57,7 +76,7 @@ end
 puts "Generating majors"
 
 40.times do
-  Major.find_or_create_by(name: Faker::Lorem.words(3).join.capitalize)
+  Major.find_or_create_by(name: generate_topic_name())
 end
 
 puts "Creating schools"
@@ -72,7 +91,15 @@ puts "Generating departments"
 
 3.times do |i|
   4.times do
-    Department.find_or_create_by(name: Faker::Lorem.words(3).join.capitalize, school_id: i+1)
+    name = generate_topic_name()
+    d = Department.find_by(name: name)
+
+    while d != nil
+      name = generate_topic_name()
+      d = Department.find_by(name: name)
+    end
+
+    d = Department.create(name: name, school_id: i+1)
   end
 end
 
@@ -80,8 +107,17 @@ puts "Generating subdepartments"
 
 Department.count.times do |i|
   2.times do 
-    name = Faker::Lorem.words(4).join.capitalize
-    s = Subdepartment.find_or_create_by(name: name, mnemonic: name[0..3].upcase)
+    name = generate_topic_name()
+    mnemonic = name.tr("-", "")[0..3].upcase
+    s = Subdepartment.find_by(mnemonic: mnemonic)
+
+    while s != nil
+      name = generate_topic_name()
+      mnemonic = name.tr("-", "")[0..3].upcase
+      s = Subdepartment.find_by(mnemonic: mnemonic)
+    end
+
+    s = Subdepartment.create(name: name, mnemonic: name.tr("-", "")[0..3].upcase)
     if !Department.find(i+1).subdepartments.include?(s)
       Department.find(i+1).subdepartments.push(s)
     end
@@ -94,7 +130,7 @@ course_words = ["Intro to", "Intermediate", "Advanced", "Special Topics in", "St
 
 Subdepartment.count.times do |i|
   10.times do
-    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + Faker::Company.bs.split(" ").last(2).each{|w| w.capitalize!}.join(" "),
+    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + generate_topic_name(),
                              course_number: 1000+rand(8000), subdepartment_id: i+1)
   end
 end
@@ -223,6 +259,22 @@ puts "Generating daytimes"
   end
 
   DayTime.find_or_create_by(days: day, start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+
+  case day
+  when "Mo"
+    DayTime.find_or_create_by(days: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(days: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Tu"
+    DayTime.find_or_create_by(days: "Th", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "We"
+    DayTime.find_or_create_by(days: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(days: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Th"
+    DayTime.find_or_create_by(days: "Tu", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Fr"
+    DayTime.find_or_create_by(days: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(days: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  end
 end
 
 bldg = ["Hall", "Bldg", "Library"]
