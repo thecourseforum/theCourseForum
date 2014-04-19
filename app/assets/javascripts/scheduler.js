@@ -1,15 +1,17 @@
 //sample course format
-var results = [{
-	section_id: '12345',
-	title: 'CS 2150',
-	professor: 'Bloomfield',
-	location: 'Olsson 120',
-	start_times: ['14:00', '14:00', '14:00'],
-	end_times: ['14:50','14:50','14:50'],
-	allDay: false,
-	days: ['Mo', 'Wed', 'Fr'],
-	events: []
-}];
+// var results = [{
+// 	section_id: '12345',
+// 	title: 'CS 2150',
+// 	professor: 'Bloomfield',
+// 	location: 'Olsson 120',
+// 	start_times: ['14:00', '14:00', '14:00'],
+// 	end_times: ['14:50','14:50','14:50'],
+// 	allDay: false,
+// 	days: ['Mo', 'We', 'Fr'],
+// 	events: []
+// }];
+
+var results = [];
 
 
 //start format is '2014-04-07 12:00'
@@ -75,7 +77,6 @@ function addClasses(course) {
 			scheduledCourses.push(course.events[i]);
 		};
 	}
-	console.log(scheduledCourses);
 	schedule.fullCalendar('refetchEvents');
 	$('.fc-event').mouseup(courseViewClick);
 }
@@ -89,11 +90,23 @@ $('#class-search').keyup(function(key) {
 function courseSearch(courseno) {
 	//fetch results
 	//display results
-	if(courseno == 'cs2150') {
-		for (var i = results.length - 1; i >= 0; i--) {
-					displayResult(results[i]);
-		};
-	}
+	// if(courseno == 'cs2150') {
+	// 	for (var i = results.length - 1; i >= 0; i--) {
+	// 				displayResult(results[i]);
+	// 	};
+	// }
+	jQuery.ajax('scheduler/search', {
+		data: {
+			course: courseno
+		},
+		success: function(response) {
+			results = [];
+			for(var i = 0; i < response.length; i++) {
+				results.push(response[i]);
+				displayResult(response[i]);
+			}
+		}
+	})
 };
 
 function displayResult(result) {
