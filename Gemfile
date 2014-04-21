@@ -45,6 +45,9 @@ gem "bootstrap-switch-rails", '~> 3.0.0'
 #Autocomplete used for the scheduler
 gem 'rails3-jquery-autocomplete'
 
+# Full Calendar for the scheduler
+gem 'fullcalendar-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

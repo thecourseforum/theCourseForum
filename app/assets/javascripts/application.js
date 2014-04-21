@@ -12,10 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.autocomplete
-//= require jquery.ui.slider
-//= require jquery.ui.widget
-//= require jquery.ui.mouse
+//= require jquery.ui.all
 //= require jquery.ui.touch-punch
 // require turbolinks
 //= require bootstrap
