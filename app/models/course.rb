@@ -1,8 +1,7 @@
 class Course < ActiveRecord::Base
   belongs_to :subdepartment
-  has_many :course_semesters
-  has_many :semesters, :through => :course_semesters
-  has_many :sections, :through => :course_semesters
+  has_many :sections
+  has_many :semesters, :through => :sections
   has_many :professors, :through => :sections
 
   validates_presence_of :title, :course_number, :subdepartment

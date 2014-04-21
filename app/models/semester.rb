@@ -1,5 +1,6 @@
 class Semester < ActiveRecord::Base
-  has_many :courses, :through => :course_semesters
+  has_many :sections
+  has_many :courses, :through => :sections
 
   def self.get_number(params)
     num = 1090 + 10*(params[:semester_year].to_i - 2009)

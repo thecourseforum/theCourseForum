@@ -157,14 +157,6 @@ years.each do |year|
   end
 end
 
-puts "Creating course semesters"
-
-Course.count.times do |c|
-  Semester.count.times do |s|
-    CourseSemester.create(course_id: c+1, semester_id: s+1)
-  end
-end
-
 types = ["Lecture", "Laboratory", "Discussion"]
 
 puts "Generating sections"
@@ -175,7 +167,8 @@ puts "Generating sections"
   s.units = 1 + rand(4)
   s.capacity = ((rand(100)+5)*10)/10
   s.section_type = types[rand(3)]
-  s.course_semester_id = 1+rand(CourseSemester.count)
+  s.semester_id = 1+rand(Semester.count)
+  s.course_id = 1+rand(Course.count)
   s.save
 end
 
@@ -200,7 +193,8 @@ Course.all.each do |c|
     s.units = 1 + rand(4)
     s.capacity = ((rand(100)+5)*10)/10
     s.section_type = types[rand(3)]
-    s.course_semester_id = c.course_semesters.first.id
+    s.course_id = c.id
+    s.semester_id = 1+rand(Semester.count)
     s.save
     SectionProfessor.find_or_create_by(section_id: s.id, professor_id: 1+rand(Professor.count))
   end
@@ -328,22 +322,22 @@ puts "Generating daytimes"
     end
   end
 
-  DayTime.find_or_create_by(days: day, start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  DayTime.find_or_create_by(day: day, start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
 
   case day
   when "Mo"
-    DayTime.find_or_create_by(days: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
-    DayTime.find_or_create_by(days: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
   when "Tu"
-    DayTime.find_or_create_by(days: "Th", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Th", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
   when "We"
-    DayTime.find_or_create_by(days: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
-    DayTime.find_or_create_by(days: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
   when "Th"
-    DayTime.find_or_create_by(days: "Tu", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Tu", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
   when "Fr"
-    DayTime.find_or_create_by(days: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
-    DayTime.find_or_create_by(days: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
   end
 end
 
@@ -354,3 +348,45 @@ puts "Generating locations"
 50.times do
   Location.find_or_create_by(location: Faker::Name.last_name + " " + bldg[rand(3)] + " " + rand(500).to_s)
 end
+
+puts "Creating day_times_sections"
+
+Section.all.each do |s|
+  
+  d1 = DayTime.find(1+rand(DayTime.count))
+
+  case d1.day
+  when "Mo"
+    d2 = DayTime.find_by(day: "We", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "Fr", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+  when "Tu"
+    d2 = DayTime.find_by(day: "Th", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+  when "We"
+    d2 = DayTime.find_by(day: "Mo", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "Fr", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+  when "Th"
+    d2 = DayTime.find_by(day: "Tu", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+  when "Fr"
+    d2 = DayTime.find_by(day: "Mo", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "We", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+  end
+end
+    
