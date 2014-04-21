@@ -48,9 +48,9 @@ function getDateString(weekDay) {
 		dateString += '07';
 	else if(weekDay == 'Tu')
 		dateString += '08';	
-	else if(weekDay == 'Wed')
+	else if(weekDay == 'We')
 		dateString += '09';	
-	else if(weekDay == 'Tr')
+	else if(weekDay == 'Th')
 		dateString += '10';	
 	else if(weekDay == 'Fr')
 		dateString += '11';
@@ -61,7 +61,7 @@ function getDateString(weekDay) {
 function addClasses(course) {
 	var dateString;
 	if(course.events.length == 0) {
-		for (var i = course.days.length - 1; i >= 0; i--) {
+		for (var i = 0; i < course.days.length; i++) {
 			dateString = getDateString(course.days[i])
 			var event = {
 				start:  dateString + ' ' + course.start_times[i],
@@ -73,7 +73,7 @@ function addClasses(course) {
 		}
 	}
 	else {
-		for (var i = course.events.length - 1; i >= 0; i--) {
+		for (var i = 0; i < course.events.length; i++) {
 			scheduledCourses.push(course.events[i]);
 		};
 	}
@@ -114,10 +114,6 @@ function displayResult(result) {
 	resultBox.children('.course-title').text(result.title);
 	resultBox.children('.professor').text(result.professor);
 	resultBox.children('.location').text(result.location);
-	var timeString = '';
-	for (var i = result.days.length - 1; i >= 0; i--) {
-			result.days[i]
-	};
 	var timeString = getTimeString(result);
 	resultBox.children('.time').text(timeString);
 	resultBox.draggable({
@@ -137,23 +133,43 @@ function displayResult(result) {
 function getTimeString(course){
   var timeString = course.start_times[0];
   var daysString = course.days[0];
-  for(var i = 0; i < course.start_times.length - 1; i++){
+  for(var i = 0; i < course.start_times.length; i++){
   	if(course.start_times[i] == course.start_times[i+1]){
-    	timeString = course.start_times[i];
+    	timeString = formatTime(course.start_times[i]);
     	i++;
   		timeString += " - ";
-    	timeString += course.end_times[i];
+    	timeString += formatTime(course.end_times[i]);
     }
-  daysString += course.days[i];
+    daysString += course.days[i];
   }
-  return timeString + daysString;
+  return daysString + " " + timeString;
+}
+
+function formatTime(time)
+{
+  var timeArray = time.split(":");
+  if(parseInt(timeArray[0],10) < 12)
+  {
+    return time + "AM"
+  }
+  else
+  {
+    if (parseInt(timeArray[0],10) == 12)
+    {
+      return time + "PM"
+    }
+    else
+    {
+      return parseInt(timeArray[0],10)-12 + ":" + timeArray[1] + "PM"
+    }    
+  }
 }
 
 function displayInfo(result, eventView) {
     $('#info-box').empty();
     var infoBox = $('.course-info.hidden').clone().removeClass('hidden');
     infoBox.children('.course-title').text(result.title);
-    infoBox.children('.professor').text(result.professor);
+    infoBox.children('.professor').text(result.professor.split(" ")[1]);
     infoBox.children('.description').text(result.description);
     infoBox.children('.location').text(result.location);
     infoBox.mouseover(dialogMouseOver);

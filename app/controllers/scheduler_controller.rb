@@ -14,20 +14,26 @@ class SchedulerController < ApplicationController
       course = Course.find_by(subdepartment_id: subdept_id, course_number: course_number)
 
       sections = course.sections.map do |section|
+        days = []
+        start_times = []
+        end_times = []
+
+        section.day_times.each do |s|
+          days.push(s.day)
+          start_times.push(s.start_time)
+          end_times.push(s.end_time)
+        end
+
         {
           :section_id => section.sis_class_number,
-          :title => "#{mnemonic} #{course_number}",
-          :location => section.location.location,
-          :days => section.day_time.days.split(/(?=[A-Z])/),
-          :start_times => section.day_time.days.split(/(?=[A-Z])/).map do |i|
-            section.day_time.start_time
-          end,
-          :end_times => section.day_time.days.split(/(?=[A-Z])/).map do |i|
-            section.day_time.end_time
-          end,
+          :title => "#{mnemonic.upcase} #{course_number}",
+          :location => section.locations.first.location,
+          :days => days,
+          :start_times => start_times,
+          :end_times => end_times,
           :events => [],
           :allDay => false,
-          :professor => "Bloomfield" #placeholder until backend is cleaned up
+          :professor => section.professors.first.full_name
         }
       end
 
