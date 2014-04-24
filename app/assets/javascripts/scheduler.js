@@ -1,16 +1,4 @@
 $(document).ready(function() {
-  //sample course format
-  // var results = [{
-  // 	section_id: '12345',
-  // 	title: 'CS 2150',
-  // 	professor: 'Bloomfield',
-  // 	location: 'Olsson 120',
-  // 	start_times: ['14:00', '14:00', '14:00'],
-  // 	end_times: ['14:50','14:50','14:50'],
-  // 	allDay: false,
-  // 	days: ['Mo', 'We', 'Fr'],
-  // 	events: []
-  // }];
 
   var results = [];
 
@@ -89,26 +77,40 @@ $(document).ready(function() {
   });
 
   function courseSearch(courseno) {
-  	//fetch results
-  	//display results
-  	// if(courseno == 'cs2150') {
-  	// 	for (var i = results.length - 1; i >= 0; i--) {
-  	// 				displayResult(results[i]);
-  	// 	};
-  	// }
   	jQuery.ajax('scheduler/search', {
   		data: {
   			course: courseno
   		},
   		success: function(response) {
-  			results = [];
   			for(var i = 0; i < response.length; i++) {
-  				results.push(response[i]);
-  				displayResult(response[i]);
+          if ( scheduledCourses.filter(function(result) {
+            return result.section_id == response[i].section_id }).length == 0
+            && !inResultsBox(response[i]) && response[i] != " ")
+            //response[i] is a string of a single space if the controller
+            //renders nothing (i.e. course doesn't exist/invalid input)
+          {
+  				  results.push(response[i]);
+  				  displayResult(response[i]);
+          }
   			}
   		}
   	})
   };
+
+  function inResultsBox(section)
+  {
+    var children = $('#results-box').children()
+
+    for(var i = 0; i < children.length; i++)
+    {
+      if (children[i].id == section.section_id)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   function displayResult(result) {
   	var resultBox = $('.course-result.hidden').clone().removeClass('hidden');
@@ -203,12 +205,38 @@ $(document).ready(function() {
   	var position = getPos($(this));
   	if(position.xPos > schedule.offset().left && position.xPos < schedule.offset().left + schedule.width()
   				&& position.yPos > schedule.offset().top && position.yPos < schedule.offset().top + schedule.height()) {
-  		$(this).addClass('hidden');
+  		$(this).remove();
   		var id = $(this).attr('id');
-  		addClasses(results.filter(function(result) {
-  			return result.section_id == id;
-  		})[0]);
+      if (scheduledCourses.filter(function(result){ return result.section_id == id}).length == 0)
+      {
+        var course = results.filter(function(result) {
+          return result.section_id == id;
+        })[0];
+        if (course)
+        {
+          addClasses(course);
+          removeCourseFromResults(id);
+        }
+        else
+        {
+          alert(id);
+        }
+      }  		
   	}
+  }
+
+  function removeCourseFromResults(id)
+  {
+    for(var i = 0; i < results.length; i++)
+    {
+      if (results[i].section_id == id)
+      {
+        results.splice(i, 1);
+        return true;
+      }
+    }
+
+    return false;
   }
 
   var eventBox;
@@ -220,9 +248,7 @@ $(document).ready(function() {
 
   function courseEventClick(calEvent, jsEvent, view) {
   	if(!mouseInDialog && $('.course-info-dialog') != $('.course-info-dialog.hidden')) {
-  		displayInfo(results.filter(function(result) {
-  			return calEvent.section_id == result.section_id;
-  		})[0], eventBox);
+  		displayInfo(calEvent, eventBox);
   	}
   }
 

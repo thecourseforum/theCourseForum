@@ -9,9 +9,24 @@ class SchedulerController < ApplicationController
     else
       mnemonic, course_number = params[:course].split(" ")
 
+      if mnemonic == nil or course_number == nil
+        render :nothing => true
+        return
+      end
+
       subdept_id = Subdepartment.find_by(mnemonic: mnemonic).id
 
+      if subdept_id == nil
+        render :nothing => true
+        return
+      end
+
       course = Course.find_by(subdepartment_id: subdept_id, course_number: course_number)
+
+      if course == nil
+        render :nothing => true
+        return
+      end
 
       sections = course.sections.map do |section|
         days = []
@@ -38,27 +53,6 @@ class SchedulerController < ApplicationController
       end
 
       render json: sections
-
-        # course[:section_id] = section.sis_class_number
-        # course[:title] = "#{mnemonic} #{course_number}"
-        # course[:professor] = "TODO: CHANGE"
-        # course[:section_type] = section.section_type
-        # course[:location] = section.locations
-        # days = []
-        # start_times = []
-        # end_times = []
-
-        # section.day_times.each do |dt|
-        #   days.push(dt.days)
-        #   start_times.push(dt.start_time)
-        #   end_times.push(dt.end_time)
-        # end
-
-        # course[:days] = days
-        # course[:start_times] = start_times
-        # course[:end_times] = end_times
-
-        # course
     end
   end
 
