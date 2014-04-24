@@ -1,12 +1,10 @@
 $(document).ready(function() {
 
-  var results = [];
-
-
+  var results = [],
   //start format is '2014-04-07 12:00'
-  var scheduledCourses = [];
+    scheduledCourses = [],
 
-  var schedule = $('#schedule');
+    schedule = $('#schedule');
 
   schedule.fullCalendar({
       defaultView: 'agendaWeek',
@@ -25,24 +23,17 @@ $(document).ready(function() {
       eventClick: courseEventClick,
       year: 2014,
       month: 3,
-      date: 7
+      date: 14
   });
 
   $('.fc-header-right').css('visibility', 'hidden'); //hides buttons
 
   //gets a day corresponding to the given weekDay
   function getDateString(weekDay) {
-  	var dateString = '2014-04-';
-  	if(weekDay == 'Mo')
-  		dateString += '07';
-  	else if(weekDay == 'Tu')
-  		dateString += '08';	
-  	else if(weekDay == 'We')
-  		dateString += '09';	
-  	else if(weekDay == 'Th')
-  		dateString += '10';	
-  	else if(weekDay == 'Fr')
-  		dateString += '11';
+    var days = ['Mo', 'Tu', 'We', 'Th', 'Fr'],
+  	 dateString = '2014-04-';
+
+    dateString += (days.indexOf(weekDay) + 14);
   	return dateString;
   };
 
@@ -76,35 +67,34 @@ $(document).ready(function() {
   	}
   });
 
-  function courseSearch(courseno) {
+  function courseSearch(course) {
+    course = course.split(' ');
   	jQuery.ajax('scheduler/search', {
   		data: {
-  			course: courseno
+        mnemonic: course[0],
+  			course_number: course[1]
   		},
   		success: function(response) {
   			for(var i = 0; i < response.length; i++) {
-          if ( scheduledCourses.filter(function(result) {
+          if(scheduledCourses.filter(function(result) {
             return result.section_id == response[i].section_id }).length == 0
-            && !inResultsBox(response[i]) && response[i] != " ")
-            //response[i] is a string of a single space if the controller
-            //renders nothing (i.e. course doesn't exist/invalid input)
-          {
+            && !inResultsBox(response[i])) {
   				  results.push(response[i]);
   				  displayResult(response[i]);
           }
   			}
-  		}
+  		},
+      error: function(response) {
+        alert("Improper search!");
+      }
   	})
   };
 
-  function inResultsBox(section)
-  {
+  function inResultsBox(section) {
     var children = $('#results-box').children()
 
-    for(var i = 0; i < children.length; i++)
-    {
-      if (children[i].id == section.section_id)
-      {
+    for(var i = 0; i < children.length; i++) {
+      if (children[i].id == section.section_id) {
         return true;
       }
     }
@@ -148,22 +138,17 @@ $(document).ready(function() {
     return daysString + " " + timeString;
   }
 
-  function formatTime(time)
-  {
+  function formatTime(time) {
     var timeArray = time.split(":");
-    if(parseInt(timeArray[0],10) < 12)
-    {
-      return time + "AM"
+    if(parseInt(timeArray[0], 10) < 12) {
+      return time + "AM";
     }
-    else
-    {
-      if (parseInt(timeArray[0],10) == 12)
-      {
-        return time + "PM"
+    else {
+      if(parseInt(timeArray[0],10) == 12) {
+        return time + "PM";
       }
-      else
-      {
-        return parseInt(timeArray[0],10)-12 + ":" + timeArray[1] + "PM"
+      else {
+        return parseInt(timeArray[0], 10) - 12 + ":" + timeArray[1] + "PM";
       }    
     }
   }
@@ -207,30 +192,26 @@ $(document).ready(function() {
   				&& position.yPos > schedule.offset().top && position.yPos < schedule.offset().top + schedule.height()) {
   		$(this).remove();
   		var id = $(this).attr('id');
-      if (scheduledCourses.filter(function(result){ return result.section_id == id}).length == 0)
-      {
+      if(scheduledCourses.filter(function(result){
+        return result.section_id == id
+      }).length == 0) {
         var course = results.filter(function(result) {
           return result.section_id == id;
         })[0];
-        if (course)
-        {
+        if (course) {
           addClasses(course);
           removeCourseFromResults(id);
         }
-        else
-        {
+        else {
           alert(id);
         }
       }  		
   	}
   }
 
-  function removeCourseFromResults(id)
-  {
-    for(var i = 0; i < results.length; i++)
-    {
-      if (results[i].section_id == id)
-      {
+  function removeCourseFromResults(id) {
+    for(var i = 0; i < results.length; i++) {
+      if(results[i].section_id == id) {
         results.splice(i, 1);
         return true;
       }
