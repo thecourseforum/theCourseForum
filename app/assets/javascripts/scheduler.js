@@ -76,9 +76,10 @@ $(document).ready(function() {
   		},
   		success: function(response) {
   			for(var i = 0; i < response.length; i++) {
-          if(scheduledCourses.filter(function(result) {
+          if ( scheduledCourses.filter(function(result) {
             return result.section_id == response[i].section_id }).length == 0
-            && !inResultsBox(response[i])) {
+            && !inResultsBox(response[i]))
+          {
   				  results.push(response[i]);
   				  displayResult(response[i]);
           }
@@ -104,6 +105,14 @@ $(document).ready(function() {
 
   function displayResult(result) {
   	var resultBox = $('.course-result.hidden').clone().removeClass('hidden');
+    resultBox.children('.remove').text('x');
+    resultBox.children('.remove').css({"float": "right", "color": "white"});
+    
+    resultBox.children('.remove').click(function(){
+      removeCourseFromResults(result.section_id);
+      $(this).parent().remove();
+    });
+
   	resultBox.children('.course-title').text(result.title);
   	resultBox.children('.professor').text(result.professor);
   	resultBox.children('.location').text(result.location);
@@ -175,8 +184,14 @@ $(document).ready(function() {
       	display: 'block',
       	'width': eventView.width()
       });
-      infoBox.children('button').mousedown(removeButtonClick);
-      infoBox.children('button').attr('section_id', result.section_id);
+      infoBox.children('.remove').text('x');
+      infoBox.children('.remove').css({"float": "right"});
+      infoBox.children('.remove').hover(function(){
+        $(this).css({"cursor":"pointer"});
+      });
+      infoBox.children('.remove').mousedown(removeButtonClick);
+      infoBox.children('.remove').attr('section_id', result.section_id);
+
   }
 
   function getPos($obj) {
@@ -201,9 +216,6 @@ $(document).ready(function() {
         if (course) {
           addClasses(course);
           removeCourseFromResults(id);
-        }
-        else {
-          alert(id);
         }
       }  		
   	}
@@ -234,8 +246,8 @@ $(document).ready(function() {
   }
 
   function removeEvents(id) {
-  	scheduledCourses = scheduledCourses.filter(function (element) { element.section_id == id; });
-  	schedule.fullCalendar('removeEvents', function (event) { return event.section_id == id; });
+  	scheduledCourses = scheduledCourses.filter(function (element) { return element.section_id != id; });
+  	schedule.fullCalendar('removeEvents', function (course) { return course.section_id == id; });
   }
 
   var mouseInDialog = false;
@@ -256,7 +268,6 @@ $(document).ready(function() {
 
   function removeButtonClick() {
   	removeEvents($(this).attr('section_id'));
-  	$('#' + $(this).attr('section_id')).removeClass('hidden');
   }
 
 });

@@ -5,7 +5,7 @@ class SchedulerController < ApplicationController
 
 	def search
     unless params[:mnemonic] and params[:course_number]
-      render :nothing => true and return
+      render :nothing => true, :status => 404 and return
     else
       subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
       course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
