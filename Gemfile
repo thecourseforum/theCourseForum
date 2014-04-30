@@ -70,6 +70,10 @@ group :development, :test do
   gem 'rspec-rails'
   # capybara for web simulation in tests
   gem 'capybara'
+  # capybara-webdkit for testing javascript events
+  # also need 'sudo apt-get install libqt4-dev libqtwebkit-dev'
+  # http://stackoverflow.com/questions/8365764/error-installing-gem-capybara-webkit
+  gem 'capybara-webkit'
 end
 
 # Use unicorn as the app server
