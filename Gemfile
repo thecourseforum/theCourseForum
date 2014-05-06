@@ -74,6 +74,9 @@ group :development, :test do
   # also need 'sudo apt-get install libqt4-dev libqtwebkit-dev'
   # http://stackoverflow.com/questions/8365764/error-installing-gem-capybara-webkit
   gem 'capybara-webkit'
+  # gem 'selenium-webdriver'
+  # Database Cleaner to clear test databases
+  gem 'database_cleaner'
 end
 
 # Use unicorn as the app server

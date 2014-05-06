@@ -1,4 +1,5 @@
 require 'spec_helper'
+include Devise::TestHelpers 
 
 feature 'Sign Up' do
   scenario 'user fills out the sign up form correctly' do
@@ -42,5 +43,21 @@ feature 'Sign Up' do
     expect(page).to have_content("Please enter a valid UVa email.")
     expect(page).to have_content("Please enter a valid password (at least 8 characters).")
     expect(page).to have_content("Confirmation does not match password.")
+  end
+
+  scenario 'Confirmed user signs in and sees student sign up page' do
+    @user = User.find_by(email: "example@virginia.edu") ? 
+            User.find_by(email: "example@virginia.edu") : 
+            User.create(email: "example@virginia.edu", password: "password", password_confirmation: "password")
+    @user.confirm!
+
+    visit root_path
+
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: "password"
+
+    click_button "Login"
+
+    expect(page).to have_content("Tell us more about yourself:")
   end
 end

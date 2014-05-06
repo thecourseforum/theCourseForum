@@ -3,9 +3,9 @@ include Devise::TestHelpers
 
 describe ReviewsController do
   before(:each) do
-    @user = User.find_by(:email => "example@email.com") ? 
-            User.find_by(:email => "example@email.com") : 
-            User.create(:email => "example@email.com", :password => "password", :password_confirmation => "password")
+    @user = User.find_by(:email => "example@virginia.edu") ? 
+            User.find_by(:email => "example@virginia.edu") : 
+            User.create(:email => "example@virginia.edu", :password => "password", :password_confirmation => "password")
     @student = Student.find_or_create_by(grad_year: 2014, user_id: @user.id)
     @user.student = @student
     @review = Review.find_or_create_by(student_id: 1, professor_rating: 1.0, enjoyability: 1, 
