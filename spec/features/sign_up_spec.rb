@@ -61,7 +61,7 @@ feature 'Sign Up' do
     expect(page).to have_content("Tell us more about yourself:")
   end
 
-  scenario 'Confirmed user signs in and fills our student sign up' do
+  scenario 'Confirmed user signs in and fills out student sign up' do
     @user = User.find_by(email: "example@virginia.edu") ? 
             User.find_by(email: "example@virginia.edu") : 
             User.create(email: "example@virginia.edu", password: "password", password_confirmation: "password")
@@ -74,7 +74,7 @@ feature 'Sign Up' do
 
     click_button "Login"
 
-    page.select Time.now.year, :from => 'Graduation Year'
+    select Time.now.year, from: 'Graduation Year'
 
     click_button "Start using theCourseForum!"
 

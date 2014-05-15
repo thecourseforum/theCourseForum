@@ -4,7 +4,7 @@
     .row
       .col-md-4
         = f.label :grad_year, "Graduation Year: "
-        = f.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", 0]], {:selected => Time.now.year+4}
+        = f.select :grad_year, options_for_select((2009..Time.now.year).to_a.push(["N/A", 0]), Time.now.year+4)
     %h4 Major(s):
     = fields_for :majors do |m|
       .row
