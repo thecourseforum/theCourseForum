@@ -6,10 +6,10 @@ class DepartmentsController < ApplicationController
       redirect_to root_url
       return
     end
-    subdepartments = Subdepartment.find(:all)
-    departments = Department.find(:all, :order => "name")
+    subdepartments = Subdepartment.all
+    departments = Department.all.order(:name)
     departments.uniq {|subdepartments| subdepartments.name}
-    schools = School.find(:all, :order => "name")
+    schools = School.all.order(:name)
     artSchoolId = 1
     engrSchoolId = 2
 
