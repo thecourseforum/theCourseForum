@@ -116,8 +116,18 @@ $(document).ready(function() {
   	resultBox.children('.course-title').text(result.title);
   	resultBox.children('.professor').text(result.professor);
   	resultBox.children('.location').text(result.location);
-  	var timeString = getTimeString(result);
-  	resultBox.children('.time').text(timeString);
+  	var timeStrings = getTimeStrings(result);
+    
+    for(var i = 0; i < timeStrings.length; i++)
+    {
+      var timeString = timeStrings[i];
+      resultBox.append("<p class=time" + i + "></p>");
+      resultBox.children('.time' + i).text(timeString);
+    }
+  	
+    resultBox.append("<p class=sisID></p>");
+    resultBox.children('.sisID').text(result.section_id);
+
   	resultBox.draggable({
   		start: function(event, ui) {
   			ui.helper.addClass('is-dragging');
@@ -132,19 +142,27 @@ $(document).ready(function() {
   	$('#results-box').append(resultBox);
   };
 
-  function getTimeString(course){
-    var timeString = course.start_times[0];
-    var daysString = course.days[0];
+  function getTimeStrings(course){
+    var result = "";
+    var times = [];
+    var daysString = "";
+    var timeString = "";
+
     for(var i = 0; i < course.start_times.length; i++){
-    	if(course.start_times[i] == course.start_times[i+1]){
+      daysString += course.days[i];
+
+    	if(course.start_times[i] != course.start_times[i+1] || course.end_times[i] != course.end_times[i+1]){
       	timeString = formatTime(course.start_times[i]);
-      	i++;
     		timeString += " - ";
       	timeString += formatTime(course.end_times[i]);
+
+        times.push(daysString + " " + timeString);
+        daysString = "";
       }
-      daysString += course.days[i];
+      
     }
-    return daysString + " " + timeString;
+    return times;
+    
   }
 
   function formatTime(time) {

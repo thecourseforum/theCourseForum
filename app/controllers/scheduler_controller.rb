@@ -16,7 +16,8 @@ class SchedulerController < ApplicationController
         days = []
         start_times = []
         end_times = []
-        section.day_times.each do |day_time|
+        pr section.day_times.to_a
+        section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
           days << day_time.day
           start_times << day_time.start_time
           end_times << day_time.end_time
@@ -66,4 +67,12 @@ class SchedulerController < ApplicationController
       format.json {render json: values}
     end
   end
+
+  private
+
+  def day_to_number(day)
+    days = ['Mo', 'Tu', 'We', 'Th', 'Fr']
+    return days.index(day) == nil ? -1 : days.index(day)
+  end
+
 end
