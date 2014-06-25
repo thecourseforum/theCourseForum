@@ -16,7 +16,7 @@ class SchedulerController < ApplicationController
         days = []
         start_times = []
         end_times = []
-        pr section.day_times.to_a
+        # pr section.day_times.to_a
         section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
           days << day_time.day
           start_times << day_time.start_time
