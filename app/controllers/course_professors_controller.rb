@@ -41,7 +41,12 @@ class CourseProfessorsController < ApplicationController
 
     @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 10)
 
+    # section_professors = SectionProfessor.where(professor_id: @professor.id)
+    # sections = Section.where(id: section_professors.pluck(:section_id), course_id: @course.id)
+    # @grades = Grade.where(section_id: sections.pluck(:id))
+
     @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
+
     #used to pass grades to the donut chart
     gon.grades = @grades
 
