@@ -3,6 +3,9 @@ class AddSemesterIdToSections < ActiveRecord::Migration
     add_column :sections, :semester_id, :integer
 
     Section.all.each do |s|
+      if s.semester_id
+        next
+      end
       c = ActiveRecord::Base.connection.execute("SELECT * FROM course_semesters WHERE id = #{s.course_semester_id}").to_a.first
       if c
         s.semester_id = c[2]
