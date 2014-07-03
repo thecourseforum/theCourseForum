@@ -12,7 +12,13 @@ class SchedulerController < ApplicationController
       
       render :nothing => true, :status => 404 and return unless course
 
-      sections = course.sections.map do |section|
+      #Need a better way to get current semester
+      #Maybe let user choose?
+      current_semester_id = Semester.find_by(season: "Fall", year: 2014).id
+
+      current_sections = course.sections.where(semester_id: current_semester_id)
+
+      sections = current_sections.map do |section|
         days = []
         start_times = []
         end_times = []
