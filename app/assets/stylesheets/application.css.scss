@@ -818,3 +818,14 @@ ul.professor-courses, ul.department-courses{
 {
   height: 15px !important;
 }
+
+.go-to-review
+{
+  @extend .glyphicon;
+  @extend .glyphicon-circle-arrow-right;
+}
+
+.go-to-review:hover
+{
+  text-decoration: none;
+}
