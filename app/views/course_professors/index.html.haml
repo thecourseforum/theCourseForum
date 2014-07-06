@@ -147,10 +147,10 @@
           .rating{:style => "font-size:12px;text-align:center;"}
             Was this review helpful?
         .col-xs-2.col-sm-1
-          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_against?(r) ? "opacity: 0.4;" : "")}
+          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_against?(r) ? "opacity: 0.4;" : ""), disabled: (r.user == current_user ? true : false)}
             Yes
         .col-xs-2.col-sm-1
-          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_for?(r) ? "opacity: 0.4;" : "")}
+          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_for?(r) ? "opacity: 0.4;" : ""), disabled: (r.user == current_user ? true : false)}
             No
   = will_paginate @reviews
 - else

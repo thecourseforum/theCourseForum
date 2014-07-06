@@ -134,9 +134,10 @@ class ReviewsController < ApplicationController
   def vote_up
     @review = Review.find(params[:review_id])
 
-    current_user.unvote_for(@review)
-    
-    current_user.vote_for(@review)
+    if @review.user != current_user
+      current_user.unvote_for(@review)
+      current_user.vote_for(@review)
+    end
 
     render :nothing => true
   end
@@ -144,9 +145,10 @@ class ReviewsController < ApplicationController
   def vote_down
     @review = Review.find(params[:review_id])
 
-    current_user.unvote_for(@review)
-
-    current_user.vote_against(@review)
+    if @review.user != current_user
+      current_user.unvote_for(@review)
+      current_user.vote_against(@review)
+    end
 
     render :nothing => true
   end
