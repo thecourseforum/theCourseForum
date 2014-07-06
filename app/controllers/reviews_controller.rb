@@ -5,7 +5,12 @@ class ReviewsController < ApplicationController
   before_action :is_correct_user, :only => [:edit, :update, :destroy]
 
   def index
-    @reviews = current_user.reviews.sort_by{|r| [r.semester_id ? -(Semester.find(r.semester_id).number) : 1, r.course.subdepartment.mnemonic, r.course.course_number]}
+    @semesters = Semester.find(current_user.reviews.pluck(:semester_id)).sort_by{|s| -s.number}
+
+    @reviews = current_user.reviews
+    @reviews_map = Hash[@semesters.collect { |v| [v.number, @reviews.where(semester_id: v.id).sort_by{|r| r.course.mnemonic_number}] }]
+
+    @reviews_map[nil] = @reviews.where(semester_id: nil).sort_by{|r| r.course.mnemonic_number}
 
     respond_to do |format|
       format.html # index.html.erb
