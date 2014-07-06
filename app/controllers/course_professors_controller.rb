@@ -8,7 +8,7 @@ class CourseProfessorsController < ApplicationController
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
 
-    @naughty_words = "evil|crazy|regret|tenure|hell|douche|pompous|smug|fuck|shit|damn|damm|stupid|bitch|\Aass|\Adick|bamf|\Aprick|bastard"
+    # @naughty_words = "evil|crazy|regret|tenure|hell|douche|pompous|smug|fuck|shit|damn|damm|stupid|bitch|\Aass|\Adick|bamf|\Aprick|bastard"
 
     @all_reviews = Review.where(:course_id => @course.id, :professor_id => @professor.id)
     @reviews_no_comments = @all_reviews.where(:comment => "")
@@ -16,19 +16,18 @@ class CourseProfessorsController < ApplicationController
 
     if @sort_type != nil
       if @sort_type == "helpful"
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+        @reviews_with_comments = @reviews_with_comments.sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
       elsif @sort_type == "highest"
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+        @reviews_with_comments = @reviews_with_comments.sort_by{|r| [-r.overall, -r.created_at.to_i]}
       elsif @sort_type == "lowest"
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
-      elsif @sort_type == "controversial"  
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
-      elsif @sort_type == "fun"  
-        @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
+        @reviews_with_comments = @reviews_with_comments.sort_by{|r| [r.overall, -r.created_at.to_i]}
+      # elsif @sort_type == "controversial"  
+      #   @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+      # elsif @sort_type == "fun"  
+      #   @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
       elsif @sort_type == "semester"
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-Semester.get_number(:semester_year => r.semester.year, :semester_season => r.semester.season), r.created_at.to_i]}
+        @reviews_with_comments = @reviews_with_comments.sort_by{|r| [-(r.semester ? r.semester.number : 0), -r.created_at.to_i]}
       end
-
     end
 
     @word_cloud_on = current_user.settings(:word_cloud).on
