@@ -2,7 +2,7 @@
 %h1 My Reviews
 - if @reviews.size > 0
   - @semesters.each do |semester|
-    %h4{style: "color:#d9551e;"}
+    %h4.orange-text
       = "#{semester.season} #{semester.year}"
     - @reviews_map[semester.number].each do |review|
       .row
@@ -19,7 +19,7 @@
         .col-xs-1.hidden-xs
           = link_to "", course_professors_path(:p => review.professor_id, :c => review.course_id), :class => "go-to-review"
   - if not @reviews_map[nil].empty?
-    %h4{style: "color:#d9551e;"}
+    %h4.orange-text
       = "Other"
     - @reviews_map[nil].each do |review|
       .row

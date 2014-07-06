@@ -77,9 +77,10 @@
       #grades
     - else
       %p There aren't any grade distributions available for this class. Sorry!
-    - if @reviews_with_comments.count > 0 && @word_cloud_on
-      .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
-        #word_cloud
+    -#
+      - if @reviews_with_comments.count > 0 && @word_cloud_on
+        .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
+          #word_cloud
 
     %select.distribution-semester-switcher{:onchange => "window.redraw()", :style => "font-size:13px;"}
       %option{value: "#", selected: @semester == 2}="Default Value"
@@ -104,7 +105,10 @@
     .row
       .col-sm-6
         = will_paginate @reviews
-      .col-lg-3.col-lg-offset-2.col-sm-4.col-sm-offset-1{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")}
+      .col-sm-2.col-xs-4
+        .pagination.sort-by
+          Sort by:
+      .col-sm-3{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")}
         %select.review-type-switcher{:style => "font-size:13px;"}
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Sort by Most Recent"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Sort by Most Helpful"

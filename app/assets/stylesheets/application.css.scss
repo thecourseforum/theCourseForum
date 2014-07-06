@@ -57,6 +57,11 @@ $btn-primary-bg: $orange;
   background: $orange !important;
 }
 
+.orange-text
+{
+  color: $orange;
+}
+
 //base styles
 
 html {
@@ -277,6 +282,11 @@ form.site-search {
   .pagination {
     margin: 5px 0;
   }
+}
+
+.update-text
+{
+  width: 110%;
 }
 
 .account-header {
@@ -632,9 +642,21 @@ ul.professor-courses, ul.department-courses{
   }
 }
 
+.sort-by
+{
+  float:right;
+  font-size:13px;
+}
+
 .review-radios
 {
   display: none;
+}
+
+.review-value
+{
+  padding:0;
+  text-align:center;
 }
 
 .review-field
