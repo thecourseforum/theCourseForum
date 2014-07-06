@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   # creates default settings
   has_settings do |s|
     s.key :word_cloud, :defaults => {:on => false, :doge => false}
+    s.key :last_four_years, :defaults => {:professors => false}
   end
 
   before_save { self.email.downcase! }
