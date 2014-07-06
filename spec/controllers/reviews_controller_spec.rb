@@ -8,7 +8,14 @@ describe ReviewsController do
             User.create(:email => "example@virginia.edu", :password => "password", :password_confirmation => "password")
     @student = Student.find_or_create_by(grad_year: 2014, user_id: @user.id)
     @user.student = @student
-    @review = Review.find_or_create_by(student_id: 1, professor_rating: 1.0, enjoyability: 1, 
+
+    @user2 = User.find_by(:email => "example2@virginia.edu") ? 
+            User.find_by(:email => "example2@virginia.edu") : 
+            User.create(:email => "example2@virginia.edu", :password => "password", :password_confirmation => "password")
+    @student2 = Student.find_or_create_by(grad_year: 2014, user_id: @user2.id)
+    @user2.student = @student2
+
+    @review = Review.find_or_create_by(student_id: 2, professor_rating: 1.0, enjoyability: 1, 
                             difficulty: 1, recommend: 1, course_id: 1, professor_id: 1)
     @user.confirm!
     sign_in @user
