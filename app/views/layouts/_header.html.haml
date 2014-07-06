@@ -46,9 +46,10 @@
                 My Account
               = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
             %li.visible-xs
-              / %a{:href => "/users/settings"}
-              /   %span.glyphicon.glyphicon-cog
-              /   Settings
+              -#
+                %a{:href => "/users/settings"}
+                  %span.glyphicon.glyphicon-cog
+                  Settings
               %a{href: root_path}
                 %span.glyphicon.glyphicon-home
                 Home
@@ -58,7 +59,6 @@
                 %span.glyphicon.glyphicon-off
                 Logout
               = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank', :class => "icon"
-              / = link_to 'Logout', destroy_user_session_path, :method => :delete
           %ul.user-dropdown.nav.navbar-nav.hidden-xs
             .account-header
               .dropdown
@@ -77,19 +77,16 @@
                     %a{href: edit_user_registration_path}
                       %span.glyphicon.glyphicon-user
                       My Account
-                  / %li
-                  /   %a{href: user_settings_path}
-                  /     %span.glyphicon.glyphicon-cog
-                  /     Settings
+                  -#
+                    %li
+                      %a{href: user_settings_path}
+                        %span.glyphicon.glyphicon-cog
+                        Settings
                   %li.divider
                   %li
                     %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
                       %span.glyphicon.glyphicon-off
                       Logout
-/ .btn.btn-primary.visible-xs{:style => "border-radius:0px;margin-top:-20px;"}
-/   %a{:href => "/reviews/new", :style => "color:white;"}
-/     %span.glyphicon.glyphicon-pencil
-/     Write a review
 - if current_user
   .top-padding-fix.visible-xs
   .aside-navigation.hidden-lg

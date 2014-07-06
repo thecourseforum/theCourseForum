@@ -103,8 +103,9 @@
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=semester", selected: @sort_type == "semester", :style=> (@sort_type == "semester" ? "color: #d9551e;" : "")}="Semester"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=highest", selected: @sort_type == "highest", :style=> (@sort_type == "highest" ? "color: #d9551e;" : "")}="Highest Rating"
           %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=lowest", selected: @sort_type == "lowest", :style=> (@sort_type == "lowest" ? "color: #d9551e;" : "")}="Lowest Rating"
-          / %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=controversial", selected: @sort_type == "controversial", :style=> (@sort_type == "controversial" ? "color: #d9551e;" : "")}="Sort by Controversial"
-          / %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=fun", selected: @sort_type == "fun", :style=> (@sort_type == "fun" ? "color: #d9551e;" : "")}="Sort by Fun"
+          -#
+            %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=controversial", selected: @sort_type == "controversial", :style=> (@sort_type == "controversial" ? "color: #d9551e;" : "")}="Sort by Controversial"
+            %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=fun", selected: @sort_type == "fun", :style=> (@sort_type == "fun" ? "color: #d9551e;" : "")}="Sort by Fun"
       .visible-xs
         %br
 

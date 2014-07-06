@@ -10,7 +10,6 @@
     %ul.department-courses
       - flag = true
       - separator = 0
-      / = subdepartment.courses.order(:course_number).pluck(:title)
       - subdepartment.courses.order(:course_number).each do |course|
         - p_list = course.professors_list
         - if p_list.empty?
