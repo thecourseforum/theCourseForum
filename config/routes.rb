@@ -56,12 +56,12 @@ TheCourseForum::Application.routes.draw do
   get '/terms_of_use', :to => 'home#terms', :as => "terms"
 
   # route for user settings
-  get '/users/settings', :to => "users#settings", :as => "user_settings"
+  # get '/users/settings', :to => "users#settings", :as => "user_settings"
 
-  post '/word_cloud_on', :to => "users#word_cloud_on"
-  post '/word_cloud_off', :to => "users#word_cloud_off"
-  post '/doge_on', :to => "users#doge_on"
-  post '/doge_off', :to => "users#doge_off"
+  # post '/word_cloud_on', :to => "users#word_cloud_on"
+  # post '/word_cloud_off', :to => "users#word_cloud_off"
+  # post '/doge_on', :to => "users#doge_on"
+  # post '/doge_off', :to => "users#doge_off"
 
 
   #routes for voting

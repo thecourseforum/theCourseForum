@@ -46,9 +46,12 @@
                 My Account
               = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
             %li.visible-xs
-              %a{:href => "/users/settings"}
-                %span.glyphicon.glyphicon-cog
-                Settings
+              / %a{:href => "/users/settings"}
+              /   %span.glyphicon.glyphicon-cog
+              /   Settings
+              %a{href: root_path}
+                %span.glyphicon.glyphicon-home
+                Home
               = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank', :class => "icon"
             %li.visible-xs
               %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
@@ -74,10 +77,10 @@
                     %a{href: edit_user_registration_path}
                       %span.glyphicon.glyphicon-user
                       My Account
-                  %li
-                    %a{href: user_settings_path}
-                      %span.glyphicon.glyphicon-cog
-                      Settings
+                  / %li
+                  /   %a{href: user_settings_path}
+                  /     %span.glyphicon.glyphicon-cog
+                  /     Settings
                   %li.divider
                   %li
                     %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
