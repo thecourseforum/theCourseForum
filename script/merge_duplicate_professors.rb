@@ -130,7 +130,7 @@ def merge_professors
 
           professor_list = Professor.where(first_name: name[0], last_name: name[1]).to_a
         elsif going_to_merge == "courses"
-          all_courses = (p1_courses + p2_courses).uniq
+          all_courses = (p1_courses + p2_courses).uniq.sort
 
           puts
           puts "Assigning Courses:"
