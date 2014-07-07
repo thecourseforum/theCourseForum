@@ -52,7 +52,7 @@
     .row
       .col-xs-6.col-sm-4.grad-year
         = s.label :grad_year, "Graduation Year:"
-        = s.select :grad_year, options_for_select((2009..Time.now.year).to_a.push(["N/A", 0]), @student.grad_year)
+        = s.select :grad_year, options_for_select((2009..Time.now.year+4).to_a.push(["N/A", 0]), @student.grad_year)
     %br
     .row
       .col-xs-12.col-sm-4.major1 
