@@ -20,10 +20,10 @@ The code stack is current standard technologies. They were chosen specifically b
 - Javascript
 
 ###Deployment
-The rails app can be deployed in any fashion, there is no special deployment requirements. Our server deployment uses Phusion Passenger AKA mod_rails on top of the Apache Webserver. For development, we switch between Passenger testing and rails internal webrick server. Internally, everything is vanilla including MySQL, Javascript, Bootstrap 2.
+The rails app can be deployed in any fashion, there is no special deployment requirements. Our server deployment uses Phusion Passenger AKA mod_rails on top of the Apache Webserver. For development, we switch between Passenger testing and rails internal webrick server. Internally, everything is vanilla including MySQL, Javascript, and Bootstrap 3.
 
 ###Singular Deployment Guide
-In the works of being built!
+[Getting Started Guide](https://github.com/thecourseforum/theCourseForum/wiki/Getting-Started)
 
 ###Want to get involved? 
 Don't hesitate to contact us whether or not that you are at the University of Virginia! We love to talk about our app and we love to discuss everything that we do! Shoot us an email at info@thecourseforum.com

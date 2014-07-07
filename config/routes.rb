@@ -22,6 +22,17 @@ TheCourseForum::Application.routes.draw do
 
   resources :courses, :only => [:show]
 
+  # get '/scheduler' => 'scheduler#ui'
+
+  # get '/scheduler/search' => 'scheduler#search'
+
+  # post '/scheduler/save' => 'scheduler#save'
+
+  # delete '/scheduler/delete' => 'scheduler#delete'
+
+  # get '/scheduler/coursenos' => 'scheduler#coursenos'
+
+
   resources :departments, :only => [:show, :index]
 
   resources :subdepartments, :only => [:show]
@@ -43,6 +54,20 @@ TheCourseForum::Application.routes.draw do
   get '/about', :to => 'home#about', :as => "about"
   get '/privacy', :to => 'home#privacy', :as => "privacy"
   get '/terms_of_use', :to => 'home#terms', :as => "terms"
+
+  # route for user settings
+  # get '/users/settings', :to => "users#settings", :as => "user_settings"
+
+  # post '/word_cloud_on', :to => "users#word_cloud_on"
+  # post '/word_cloud_off', :to => "users#word_cloud_off"
+  # post '/doge_on', :to => "users#doge_on"
+  # post '/doge_off', :to => "users#doge_off"
+
+
+  #routes for voting
+  post '/vote_up/:review_id', :to => 'reviews#vote_up'
+  post '/vote_down/:review_id', :to => 'reviews#vote_down'
+
 
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root

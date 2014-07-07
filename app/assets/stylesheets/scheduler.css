@@ -1,0 +1,71 @@
+/*TODO make this file less redundant */
+
+#search-bar {
+	float: right;
+}
+
+#schedule {
+	float: left;
+}
+
+#results-title {
+	margin-top: 2em;
+}
+
+#results-box {
+	border-radius: 6px;
+	border: 0px solid gray;
+	min-height: 400px;
+	background-color: #F5F5F5;
+}
+
+.course-result {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: #3a87ad;
+	margin: 0.7em;
+	padding: 4px;
+	z-index: 2;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.course-info-dialog {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: white;
+	margin: 0.7em;
+	padding: 4px;
+	z-index: 3;
+	box-shadow: 1px 1px 1px gray;
+}
+
+.course-result p{
+	margin: 0em;
+	font-size: 12px;
+	color: white;
+}
+
+.course-info-dialog p {
+	margin: 0em;
+	font-size: 12px;
+	color: black;
+}
+
+.course-info-dialog button {
+	margin: 0.45em;
+	color: black;
+
+}
+
+.is-dragging {
+	opacity: 0.5;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.ui-effects-transfer {
+    border: 1px dotted black;
+}

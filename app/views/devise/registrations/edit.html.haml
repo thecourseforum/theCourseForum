@@ -34,7 +34,7 @@
     .col-xs-6.col-sm-4
       = f.label :password, "New Password:"
       %br
-      .update-text{style: "width:110%;"}
+      .update-text
         %i (leave blank if you don't want to change it)      
     .col-xs-6.col-sm-4.col-sm-offset-2
       = f.label :password_confirmation, "Confirm New Password:"
@@ -52,7 +52,7 @@
     .row
       .col-xs-6.col-sm-4.grad-year
         = s.label :grad_year, "Graduation Year:"
-        = s.select :grad_year, [[Time.now.year-1], [Time.now.year], [Time.now.year+1], [Time.now.year+2], [Time.now.year+3], [Time.now.year+4], ["N/A", 0]]
+        = s.select :grad_year, options_for_select((2009..Time.now.year).to_a.push(["N/A", 0]), @student.grad_year)
     %br
     .row
       .col-xs-12.col-sm-4.major1 

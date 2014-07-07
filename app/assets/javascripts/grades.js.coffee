@@ -37,9 +37,25 @@ class App.GradeDonut
   # Set data to be used in donut
   # curr series is index of data array
   setData: (data, currSeries) ->
+    console.log(data)
     @data = @toPoints(@aggregateBySection sem for sem in @groupBySemester(data))
+    console.log(@data)
 
-    @currSeries = @data[currSeries || 0]
+    @currSeries = {values: new Array, total: 0, gpa: 0}
+
+    for obj in @data
+      @currSeries.total += obj.total
+      @currSeries.gpa += obj.gpa
+
+      if (@currSeries.values.length == 0)
+        @currSeries.values = obj.values
+      else
+        for i of @currSeries.values
+          @currSeries.values[i].value += obj.values[i].value
+
+    @currSeries.gpa = (@currSeries.gpa / @data.length).toFixed(2)
+
+    console.log(@currSeries)
     this
 
   # Render the donut

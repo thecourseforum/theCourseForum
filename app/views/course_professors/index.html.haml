@@ -66,11 +66,15 @@
             %td --
             %td=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
   .course-grades.col-md-6
-    %h2 Grades (cumulative since Spring 2012)
+    %h2 Grades (cumulative since Fall 2009)
     - if @grades.size > 0
       = render :partial => "grades", :locals => {:grades => @grades}
     - else
       %p There aren't any grade distributions available for this class. Sorry!
+    -#
+      - if @reviews_with_comments.count > 0 && @word_cloud_on
+        .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
+          #word_cloud
 
 
 - if @total_review_count > 0
@@ -86,7 +90,27 @@
         = "1 Review -- 1 Comment"
       - else
         = "1 Review -- 0 Comments"
-  = will_paginate @reviews
+  - if @reviews_with_comments.count > 1
+    .row
+      .col-sm-6
+        = will_paginate @reviews
+      .col-sm-2.col-xs-4
+        .pagination.sort-by
+          Sort by:
+      .col-sm-3{:style => (@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")}
+        %select.review-type-switcher{:style => "font-size:13px;"}
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=new", selected: @sort_type == "new", :style=> (@sort_type == "new" ? "color: #d9551e;" : "")}="Most Recent"
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=helpful", selected: @sort_type == "helpful", :style=> (@sort_type == "helpful" ? "color: #d9551e;" : "")}="Most Helpful"
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=semester", selected: @sort_type == "semester", :style=> (@sort_type == "semester" ? "color: #d9551e;" : "")}="Semester"
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=highest", selected: @sort_type == "highest", :style=> (@sort_type == "highest" ? "color: #d9551e;" : "")}="Highest Rating"
+          %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=lowest", selected: @sort_type == "lowest", :style=> (@sort_type == "lowest" ? "color: #d9551e;" : "")}="Lowest Rating"
+          -#
+            %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=controversial", selected: @sort_type == "controversial", :style=> (@sort_type == "controversial" ? "color: #d9551e;" : "")}="Sort by Controversial"
+            %option{value: "c=#{@course.id}&p=#{@professor.id}&sort=fun", selected: @sort_type == "fun", :style=> (@sort_type == "fun" ? "color: #d9551e;" : "")}="Sort by Fun"
+      .visible-xs
+        %br
+
+
   .single-review
   -# adds top line
   - @reviews.each do |r|
@@ -116,7 +140,41 @@
           %li.enjoyability= r.enjoyability
           %li.difficulty= r.difficulty
           %li.recommend= r.recommend
+      %br
+      .row
+        .col-xs-5.col-sm-7.score{:style => "font-size:12px;margin-top: 2.5px;"}
+          - if r.votes_count > 0
+            = r.votes_for
+            out of
+            = r.votes_count
+            people found this helpful.
+        .col-xs-3{:style => "margin-top: 2.5px;"}
+          .rating{:style => "font-size:12px;text-align:center;"}
+            Was this review helpful?
+        .col-xs-2.col-sm-1
+          .btn.btn-primary.btn-xs{:id => "vote_up_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_against?(r) ? "opacity: 0.4;" : ""), disabled: (r.user == current_user ? true : false)}
+            Yes
+        .col-xs-2.col-sm-1
+          .btn.btn-primary.btn-xs{:id => "vote_down_#{r.id}", :style => "font-size:12px;text-align:center;" + (current_user.voted_for?(r) ? "opacity: 0.4;" : ""), disabled: (r.user == current_user ? true : false)}
+            No
   = will_paginate @reviews
 - else
   %h2 No reviews :(
   = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
+
+#calendar
+
+:javascript
+  $(document).ready(function() {
+    var cloud = #{@word_cloud_on}
+    if (cloud) {
+      var arr = #{@word_array.to_json};
+      $(function() {
+        $("#word_cloud").jQCloud(arr, {
+          removeOverflowing: true,
+          width: 300,
+          height: 300
+        });
+      });
+    }
+  });

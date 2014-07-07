@@ -16,7 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
         respond_with @user, :location => after_sign_up_path_for(@user)
       else
         set_flash_message :notice, :"signed_up_but_#{@user.inactive_message}" if is_navigational_format?
-        expire_session_data_after_sign_in!
+        expire_data_after_sign_in!
         respond_with @user, :location => after_inactive_sign_up_path_for(@user)
       end
     else

@@ -28,7 +28,25 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # Devise for User Authentication
-gem 'devise'
+gem 'devise', '~> 3.2.4'
+
+# Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
+gem 'thumbs_up', '>=0.6.7'
+
+# Word Cloud generator
+gem "jqcloud-rails", '~> 1.0'
+
+# User Settings
+gem 'ledermann-rails-settings', '~> 2.2', :require => 'rails-settings'
+
+# bootstrap switch plug in
+gem "bootstrap-switch-rails", '~> 3.0.0'
+
+#Autocomplete used for the scheduler
+gem 'rails3-jquery-autocomplete'
+
+# Full Calendar for the scheduler
+gem 'fullcalendar-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -38,11 +56,27 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Pry for debugging in development and test
 group :development, :test do
+  # Pry for debugging in development and test
   gem 'pry'
   gem 'pry-nav'
+  # mailcatcher to simulate emails
   gem 'mailcatcher'
+  # priscilla for easy debug messages
+  gem 'priscilla', '~> 1.0'
+  # used for generating fake data
+  gem 'faker', '~> 1.3'
+  # rspec testing framework
+  gem 'rspec-rails'
+  # capybara for web simulation in tests
+  gem 'capybara'
+  # capybara-webdkit for testing javascript events
+  # also need 'sudo apt-get install libqt4-dev libqtwebkit-dev'
+  # http://stackoverflow.com/questions/8365764/error-installing-gem-capybara-webkit
+  gem 'capybara-webkit'
+  # gem 'selenium-webdriver'
+  # Database Cleaner to clear test databases
+  gem 'database_cleaner'
 end
 
 # Use unicorn as the app server
@@ -60,6 +94,8 @@ gem 'jquery-ui-rails'
 gem 'touchpunch-rails'
 gem 'd3_rails'
 gem 'haml'
+# adds haml for default rails generators
+gem 'haml-rails'
 gem 'gon'
 gem 'rest-client'
 gem 'rb-readline', '0.5.1', require: 'readline', github: 'luislavena/rb-readline'

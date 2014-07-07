@@ -10,12 +10,17 @@
  *
  *= require_self
  *= require jquery.ui.slider
+ *= require fullcalendar
+ *= require jqcloud
+ *= require bootstrap3-switch
+ *= require scheduler
  */
 
 //variables to override bootstrap
 $orange: #d9551e;
+$blue: #011f4a;
 $navbar-height: 35px;
-$navbar-default-bg: #011f4a;
+$navbar-default-bg: $blue;
 $link-color: #000;
 $link-hover-color: $orange;
 $btn-primary-bg: $orange;
@@ -29,6 +34,31 @@ $btn-primary-bg: $orange;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@font-face {
+  font-family: 'comic-sans';
+  src: asset-url('comic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#word_cloud
+{
+  font-family: 'comic-sans';
+  overflow: visible;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, 
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary
+{
+  color: #fff;
+  background: $orange !important;
+}
+
+.orange-text
+{
+  color: $orange;
 }
 
 //base styles
@@ -240,6 +270,11 @@ form.site-search {
   .pagination {
     margin: 5px 0;
   }
+}
+
+.update-text
+{
+  width: 110%;
 }
 
 .account-header {
@@ -591,9 +626,21 @@ ul.professor-courses, ul.department-courses{
   }
 }
 
+.sort-by
+{
+  float:right;
+  font-size:13px;
+}
+
 .review-radios
 {
   display: none;
+}
+
+.review-value
+{
+  padding:0;
+  text-align:center;
 }
 
 .review-field
@@ -792,4 +839,15 @@ ul.professor-courses, ul.department-courses{
 .ui-slider-horizontal
 {
   height: 15px !important;
+}
+
+.go-to-review
+{
+  @extend .glyphicon;
+  @extend .glyphicon-circle-arrow-right;
+}
+
+.go-to-review:hover
+{
+  text-decoration: none;
 }

@@ -12,7 +12,7 @@
         = form_for @user, :url => session_path(:user) do |f|
           .row.user-login
             .col-xs-4
-              = f.email_field :email, :placeholder => "Email", :id => "login_email"
+              = f.email_field :email, :placeholder => "Email", :id => "login-email"
             .col-xs-4
               = f.password_field :password, :placeholder => "Password", :id => "login-password"
             .col-xs-4

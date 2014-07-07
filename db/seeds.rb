@@ -6,6 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# generates a topic name containing two words
+# used for Departments, Subdepartments, Courses, and Majors
+def generate_topic_name()
+  num = rand(2)
+  if num == 0
+    Faker::Company.bs.split(" ").last(2).each{|w| w.capitalize!}.join(" ")
+  else
+    name = Faker::Company.catch_phrase.split(" ").last(2).each{|w| w.capitalize!}.join(" ")
+    if name.split("").last == "k" || name.split("").last == "n"
+      name += "s"
+    end
+    name
+  end
+end
+
+puts "Generating default user, mst3k"
+
 user = User.create(
   email: "mst3k@virginia.edu", 
   password: "foobarbaz", 
@@ -18,12 +35,51 @@ student = Student.create(
   grad_year: 2014,
   user_id: user.id)
 
-majors = Major.create([
-  {name: "Computer Science"},
-  {name: "Architecture"},
-  {name: "English"},
-  {name: "SWAG"}
-])
+puts "Generating users"
+
+# create 20 users
+20.times do
+  f = Faker::Name.first_name
+  l = Faker::Name.last_name
+  ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
+
+  email = ea + "@virginia.edu"
+  
+  # see if user already exists
+  u = User.find_by(email: email)
+
+  # keep generating a new user until one doesn't exist
+  while u != nil
+    f = Faker::Name.first_name
+    l = Faker::Name.last_name
+    ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
+    email = ea + "@virginia.edu"
+    u = User.find_by(email: email)
+  end
+
+  password = Faker::Internet.password(8)
+
+  # create the user
+  new_user = User.create(
+    email: email, 
+    password: password, 
+    password_confirmation: password,
+    first_name: f,
+    last_name: l,
+    confirmed_at: Time.now)
+
+  Student.create(
+    grad_year: 2010 + rand(7),
+    user_id: new_user.id)
+end
+
+puts "Generating majors"
+
+40.times do
+  Major.find_or_create_by(name: generate_topic_name())
+end
+
+puts "Creating schools"
 
 schools = School.create([
   {name: "College of Arts & Sciences"},
@@ -31,91 +87,306 @@ schools = School.create([
   {name: "Other Schools"}
 ])
 
-departments = Department.create([
-  {name: "Politics", school_id: 1},
-  {name: "Computer Science", school_id: 2},
-  {name: "School of Architecture", school_id: 3},
-  {name: "Electrical Engineering", school_id: 2},
-  {name: "Psychology", school_id: 1},
-  {name: "Univeristy Seminar", school_id: 3}
-])
+puts "Generating departments"
 
-subdepartments = Subdepartment.create([
-  {name: "Politics-American Politics", mnemonic: "PLAP"},
-  {name: "Computer Science", mnemonic: "CS"},
-  {name: "Architecture", mnemonic: "ARCH"},
-  {name: "Electrical Engineering", mnemonic: "EE"},
-  {name: "Psychology", mnemonic: "PSYC"},
-  {name: "University Seminar", mnemonic: "USEM"}
-])
+3.times do |i|
+  4.times do
+    name = generate_topic_name()
+    d = Department.find_by(name: name)
 
-departments[0].subdepartments = [subdepartments[0]]
-departments[1].subdepartments = [subdepartments[1]]
-departments[2].subdepartments = [subdepartments[2]]
-departments[3].subdepartments = [subdepartments[3]]
-departments[4].subdepartments = [subdepartments[4]]
-departments[5].subdepartments = [subdepartments[5]]
+    while d != nil
+      name = generate_topic_name()
+      d = Department.find_by(name: name)
+    end
 
-courses = Course.create([
-  {title: "Intro to Programming", course_number: 1110, subdepartment_id: 2},
-  {title: "Programming and Data Representation", course_number: 2150, subdepartment_id: 2},
-  {title: "Software Development Tools", course_number: 2110, subdepartment_id: 2},
-  {title: "Introduction to American Politics", course_number: 1010, subdepartment_id: 1},
-  {title: "Lessons of the Lawn", course_number: 1010, subdepartment_id: 3},
-  {title: "Lessons in Making", course_number: 1020, subdepartment_id: 3}
-])
+    d = Department.create(name: name, school_id: i+1)
+  end
+end
 
-professors = Professor.create([
-  {first_name: "Mark", last_name: "Sherriff", email_alias: "mss2x"},
-  {first_name: "Aaron", last_name: "Bloomfield", email_alias: "asb2t"},
-  {first_name: "Tom", last_name: "Horton", email_alias: "tbh3f"},
-  {first_name: "Larry", last_name: "Sabato", email_alias: "ljs"},
-  {first_name: "Peter", last_name: "Waldman", email_alias: "pdw7e"},
-  {first_name: "Sanda", last_name: "Iliescu", email_alias: "sdi5h"}
-])
+puts "Generating subdepartments"
 
-course_semesters = CourseSemester.create([
-  {course_id: 1, semester_id: 1},
-  {course_id: 2, semester_id: 1},
-  {course_id: 3, semester_id: 1},
-  {course_id: 4, semester_id: 1},
-  {course_id: 5, semester_id: 1},
-  {course_id: 6, semester_id: 1}
-])
+Department.count.times do |i|
+  2.times do 
+    name = generate_topic_name()
+    mnemonic = name.tr("-", "")[0..3].upcase
+    s = Subdepartment.find_by(mnemonic: mnemonic)
 
-sections = Section.create([
-  {course_semester_id: 1},
-  {course_semester_id: 2},
-  {course_semester_id: 3},
-  {course_semester_id: 4},
-  {course_semester_id: 5},
-  {course_semester_id: 6}
-])
+    while s != nil
+      name = generate_topic_name()
+      mnemonic = name.tr("-", "")[0..3].upcase
+      s = Subdepartment.find_by(mnemonic: mnemonic)
+    end
 
-section_professors = SectionProfessor.create([
-  {section_id: 1, professor_id: 1},
-  {section_id: 2, professor_id: 2},
-  {section_id: 3, professor_id: 3},
-  {section_id: 4, professor_id: 4},
-  {section_id: 5, professor_id: 5},
-  {section_id: 6, professor_id: 6}
-])
+    s = Subdepartment.create(name: name, mnemonic: name.tr("-", "")[0..3].upcase)
+    if !Department.find(i+1).subdepartments.include?(s)
+      Department.find(i+1).subdepartments.push(s)
+    end
+  end
+end
 
-semesters = Semester.create([
-  {number: 1148, season: "Fall", year: 2014}
-])
+puts "Generating courses"
 
-reviews = Review.create([
-  {course_id: 1, professor_id: 1, semester_id: 1, student_id: 1, 
-    professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-    amount_reading: 2.0,
-    comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum posuere justo eget blandit dictum. Etiam mattis tellus vel fermentum molestie. Sed sed porttitor lacus. Donec quis varius est. Ut sed pretium lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec accumsan nunc eu risus elementum convallis. Vestibulum lobortis, nulla sit amet consequat cursus, eros lacus ultricies lacus, id tincidunt massa eros et tellus. Mauris ultrices odio nec nulla congue faucibus. Pellentesque pharetra convallis purus, nec tincidunt sapien viverra sed. Sed sit amet volutpat nisi. Phasellus tincidunt lectus id tincidunt lobortis. Mauris ut ipsum vulputate, convallis ipsum vitae, tempor erat. Morbi suscipit nec odio vitae imperdiet."},
-  {course_id: 2, professor_id: 2, semester_id: 1, student_id: 1, 
-    professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-    amount_reading: 2.0,
-    comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum dui et posuere lobortis. Aenean congue lectus sit amet arcu luctus, vel molestie odio tempor. Integer vitae semper est. Aenean semper leo in dolor elementum, sit amet convallis diam fringilla. Ut a feugiat turpis, quis aliquet nibh. Vivamus quis facilisis libero, ac accumsan dui. Aenean magna turpis, porta vel porttitor id, feugiat in tortor. Donec euismod non sapien sed convallis."},
-  {course_id: 3, professor_id: 3, semester_id: 1, student_id: 1, 
-    professor_rating: 4.0, enjoyability: 5, difficulty: 3, recommend: 4,
-    amount_reading: 2.0,
-    comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum dui et posuere lobortis. Aenean congue lectus sit amet arcu luctus, vel molestie odio tempor. Integer vitae semper est. Aenean semper leo in dolor elementum, sit amet convallis diam fringilla. Ut a feugiat turpis, quis aliquet nibh. Vivamus quis facilisis libero, ac accumsan dui. Aenean magna turpis, porta vel porttitor id, feugiat in tortor. Donec euismod non sapien sed convallis."}
-])
+course_words = ["Intro to", "Intermediate", "Advanced", "Special Topics in", "Studies in"]
+
+Subdepartment.count.times do |i|
+  10.times do
+    Course.find_or_create_by(title: course_words[rand(5)].to_s + " " + generate_topic_name(),
+                             course_number: 1000+rand(8000), subdepartment_id: i+1)
+  end
+end
+
+puts "Generating professors"
+
+50.times do
+  f = Faker::Name.first_name
+  l = Faker::Name.last_name
+  ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
+  Professor.find_or_create_by(first_name: f, last_name: l, email_alias: ea)
+end
+
+years = (2008..2014).to_a
+seasons = ["January", "Spring", "Summer", "Fall"]
+
+puts "Creating semesters"
+
+years.each do |year|
+  seasons.each do |season|
+    p = {semester_year: year, semester_season: season}
+    num = Semester.get_number(p)
+    Semester.find_or_create_by(:season => season, :year => year, :number => num)
+  end
+end
+
+types = ["Lecture", "Laboratory", "Discussion"]
+
+puts "Generating sections"
+
+100.times do
+  s = Section.find_or_create_by(sis_class_number: 10000 + rand(10000))
+  s.section_number = 1 + rand(5)
+  s.units = 1 + rand(4)
+  s.capacity = ((rand(100)+5)*10)/10
+  s.section_type = types[rand(3)]
+  s.semester_id = 1+rand(Semester.count)
+  s.course_id = 1+rand(Course.count)
+  s.save
+end
+
+puts "Generating section professors"
+
+Section.count.times do |s|
+  SectionProfessor.find_or_create_by(section_id: s+1, professor_id: 1+rand(Professor.count))
+end
+
+puts "Assigning profs to empty courses"
+
+Course.all.each do |c|
+  if c.professors.empty?
+    s = 0
+    num = 0
+    while s != nil
+      num = 10000 + rand(10000)
+      s = Section.find_by(sis_class_number: num)
+    end
+    s = Section.create(sis_class_number: num)
+    s.section_number = 1 + rand(5)
+    s.units = 1 + rand(4)
+    s.capacity = ((rand(100)+5)*10)/10
+    s.section_type = types[rand(3)]
+    s.course_id = c.id
+    s.semester_id = 1+rand(Semester.count)
+    s.save
+    SectionProfessor.find_or_create_by(section_id: s.id, professor_id: 1+rand(Professor.count))
+  end
+end
+
+puts "Assigning courses to empty profs"
+
+Professor.all.each do |p|
+  if p.courses.count == 0
+    SectionProfessor.find_or_create_by(section_id: 1+rand(Section.count), professor_id: p.id)
+  end
+end
+
+puts "Generating reviews"
+
+Course.all.each do |c|
+  c.professors.each do |p|
+    10.times do
+      Review.create(course_id: c.id, professor_id: p.id, semester_id: 1+rand(Semester.count), 
+                    student_id: 1+rand(User.count), professor_rating: (rand*5*2).round / 2.0, enjoyability: rand(5)+1, 
+                    difficulty: rand(5)+1, recommend: rand(5)+1, amount_reading: (rand*5*2).round / 2.0,
+                    amount_writing: (rand*5*2).round / 2.0, amount_homework: (rand*5*2).round / 2.0,
+                    amount_group: (rand*5*2).round / 2.0,
+                    comment: Faker::Lorem.paragraphs(1+rand(3)).join(" "))
+    end
+  end
+end
+
+
+puts "Generating grades"
+
+Section.all.each do |s|
+  semester = Semester.last
+
+  count_aplus = rand(50)
+  count_a = rand(50)
+  count_aminus = rand(50)
+
+  count_bplus = rand(50)
+  count_b = rand(50)
+  count_bminus = rand(50)
+
+  count_cplus = rand(50)
+  count_c = rand(50)
+  count_cminus = rand(50)
+
+  count_dplus = rand(30)
+  count_d = rand(30)
+  count_dminus = rand(30)
+
+  count_f = rand(10)
+
+  count_drop = rand(5)
+  count_withdraw = rand(5)
+  count_other = rand(3)
+
+  total = count_aplus + count_a + count_aminus +
+          count_bplus + count_b + count_bminus +
+          count_cplus + count_c + count_cminus +
+          count_dplus + count_d + count_dminus +
+          count_f + count_drop + count_withdraw + count_other
+
+  gpa = (((count_aplus + count_a)*4 +
+        count_aminus * 3.7 +
+        count_bplus * 3.3 +
+        count_b * 3 +
+        count_bminus * 2.7 +
+        count_cplus * 2.3 +
+        count_c * 2 +
+        count_cminus * 1.7 + 
+        count_dplus * 1.3 + 
+        count_d +
+        count_dminus * 0.7) / (total - count_other - count_drop - count_withdraw)).round(2)
+
+  Grade.find_or_create_by(
+    section_id: s.id,
+    semester_id: semester.id,
+    count_aplus: count_aplus,
+    count_a: count_a,
+    count_aminus: count_aminus,
+    count_bplus: count_bplus,
+    count_b: count_b,
+    count_bminus: count_bminus,
+    count_cplus: count_cplus,
+    count_c: count_c,
+    count_cminus: count_cminus,
+    count_dplus: count_dplus,
+    count_d: count_d,
+    count_dminus: count_dminus,
+    count_f: count_f,
+    count_drop: count_drop,
+    count_withdraw: count_withdraw,
+    count_other: count_other,
+    total: total,
+    gpa: gpa
+  )
+end
+
+
+
+days = ["Mo", "Tu", "We", "Th", "Fr"]
+
+sm = ["00", "30"]
+
+puts "Generating daytimes"
+
+50.times do
+  day = days[rand(5)]
+  start_hour = 8 + rand(12)
+  start_minute = sm[rand(2)]
+  if day == "Mo" || day == "We" || day == "Fr"
+    if start_minute == "00"
+      end_hour = start_hour
+      end_minute = "50"
+    else
+      end_hour = start_hour+1
+      end_minute = "20"
+    end
+  else
+    end_hour = start_hour+1
+    if start_minute == "00"
+      end_minute = "15"
+    else
+      end_minute = "45"
+    end
+  end
+
+  DayTime.find_or_create_by(day: day, start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+
+  case day
+  when "Mo"
+    DayTime.find_or_create_by(day: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Tu"
+    DayTime.find_or_create_by(day: "Th", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "We"
+    DayTime.find_or_create_by(day: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "Fr", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Th"
+    DayTime.find_or_create_by(day: "Tu", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  when "Fr"
+    DayTime.find_or_create_by(day: "Mo", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+    DayTime.find_or_create_by(day: "We", start_time: "#{start_hour}:#{start_minute}", end_time: "#{end_hour}:#{end_minute}")
+  end
+end
+
+bldg = ["Hall", "Bldg", "Library"]
+
+puts "Generating locations"
+
+50.times do
+  Location.find_or_create_by(location: Faker::Name.last_name + " " + bldg[rand(3)] + " " + rand(500).to_s)
+end
+
+puts "Creating day_times_sections"
+
+Section.all.each do |s|
+  
+  d1 = DayTime.find(1+rand(DayTime.count))
+
+  case d1.day
+  when "Mo"
+    d2 = DayTime.find_by(day: "We", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "Fr", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+  when "Tu"
+    d2 = DayTime.find_by(day: "Th", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+  when "We"
+    d2 = DayTime.find_by(day: "Mo", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "Fr", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+  when "Th"
+    d2 = DayTime.find_by(day: "Tu", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+  when "Fr"
+    d2 = DayTime.find_by(day: "Mo", start_time: d1.start_time, end_time: d1.end_time)
+    d3 = DayTime.find_by(day: "We", start_time: d1.start_time, end_time: d1.end_time)
+    l = 1+rand(Location.count)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d2.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d3.id)
+    DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
+  end
+end
+    

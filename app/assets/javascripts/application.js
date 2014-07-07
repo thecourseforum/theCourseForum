@@ -12,10 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.autocomplete
-//= require jquery.ui.slider
-//= require jquery.ui.widget
-//= require jquery.ui.mouse
+//= require jquery.ui.all
 //= require jquery.ui.touch-punch
 // require turbolinks
 //= require bootstrap
@@ -25,8 +22,60 @@
 //= require contact_us
 //= require sign_up
 //= require reviews
+//= require fullcalendar
+//= require scheduler
+//= require jqcloud
+//= require bootstrap-switch
 
 $(document).ready(function() {
+	$("#word-cloud-switch").bootstrapSwitch({
+		size: 'small',
+		onColor: 'primary',
+		onSwitchChange: function(event, state)
+		{
+			if (state)
+			{
+				$.ajax({
+					url: '/word_cloud_on/',
+					type: 'POST'
+				});
+				$("#doge-switch").bootstrapSwitch('disabled', false);
+			}
+			else
+			{
+				$.ajax({
+					url: '/word_cloud_off/',
+					type: 'POST'
+				});
+				$("#doge-switch").bootstrapSwitch('state', false, true);
+				$("#doge-switch").bootstrapSwitch('disabled', true);
+			}
+		}
+	});
+
+	$("#doge-switch").bootstrapSwitch({
+		size: 'small',
+		onColor: 'primary',
+		onText: 'wow',
+		onSwitchChange: function(event, state)
+		{
+			if (state)
+			{
+				$.ajax({
+					url: '/doge_on/',
+					type: 'POST'
+				});
+			}
+			else
+			{
+				$.ajax({
+					url: '/doge_off/',
+					type: 'POST'
+				});
+			}
+		}
+	});
+
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
 		var target = $(this).data('update-target');
 		alert(target);

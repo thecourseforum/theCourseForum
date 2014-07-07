@@ -21,46 +21,52 @@
                     = button_tag 'SEARCH', :class => 'btn btn-primary'
             %li.space-fix
             %li.visible-xs
-              %a{:href => "/"}
-                %span.glyphicon.glyphicon.glyphicon-home
-                Home
-                = link_to "theBlog", "http://blog.thecourseforum.com", :target => "_blank"
-            %li.visible-xs
               %a{:href => "/reviews/new"}
                 %span.glyphicon.glyphicon-pencil
                 Write a review
-              = link_to "About", about_path
+              = link_to "theBlog", "http://blog.thecourseforum.com", :target => "_blank"
             %li.visible-xs
               %a{:href => "/browse"}
                 %span.glyphicon.glyphicon-list
                 Browse All
-              = link_to "Privacy", privacy_path
+              = link_to "About", about_path
             %li.visible-xs
               %a{:href => "/professors"}
                 %span.glyphicon.glyphicon-list
                 Browse by Professor
-              = link_to "Terms", terms_path
+              = link_to "Privacy", privacy_path
             %li.visible-xs
               %a{:href => "/my_reviews"}
                 %span.glyphicon.glyphicon-comment
                 My Reviews
-              = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
+              = link_to "Terms", terms_path
             %li.visible-xs
               %a{:href => "/users/edit"}
-                %span.glyphicon.glyphicon-cog
+                %span.glyphicon.glyphicon-user
                 My Account
+              = link_to image_tag("icons/tcf_facebook.png"), "http://www.facebook.com/theCourseForum", :target => '_blank', :class => "icon"
+            %li.visible-xs
+              -#
+                %a{:href => "/users/settings"}
+                  %span.glyphicon.glyphicon-cog
+                  Settings
+              %a{href: root_path}
+                %span.glyphicon.glyphicon-home
+                Home
               = link_to image_tag("icons/tcf_twitter.png"), "http://www.twitter.com/theCourseForum", :target => '_blank', :class => "icon"
             %li.visible-xs
               %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
                 %span.glyphicon.glyphicon-off
                 Logout
               = link_to image_tag("icons/tcf_reddit.png"), "http://www.reddit.com/r/theCourseForum", :target => '_blank', :class => "icon"
-              / = link_to 'Logout', destroy_user_session_path, :method => :delete
           %ul.user-dropdown.nav.navbar-nav.hidden-xs
             .account-header
               .dropdown
                 %a{"data-toggle" => "dropdown", :href => "#"} 
-                  = current_user.email.split("@virginia.edu").first
+                  - if current_user.first_name != nil && current_user.first_name != "" 
+                    = current_user.first_name
+                  - else
+                    = current_user.email.split("@virginia.edu").first
                   %b.caret.orange-caret
                 %ul.dropdown-menu.dropdown-login{"aria-labelledby" => "account-dropdown", :role => "menu"}
                   %li
@@ -69,17 +75,18 @@
                       My Reviews
                   %li
                     %a{href: edit_user_registration_path}
-                      %span.glyphicon.glyphicon-cog
+                      %span.glyphicon.glyphicon-user
                       My Account
+                  -#
+                    %li
+                      %a{href: user_settings_path}
+                        %span.glyphicon.glyphicon-cog
+                        Settings
                   %li.divider
                   %li
                     %a{"data-method" => "delete", href: destroy_user_session_path, :rel => "nofollow"}
                       %span.glyphicon.glyphicon-off
                       Logout
-/ .btn.btn-primary.visible-xs{:style => "border-radius:0px;margin-top:-20px;"}
-/   %a{:href => "/reviews/new", :style => "color:white;"}
-/     %span.glyphicon.glyphicon-pencil
-/     Write a review
 - if current_user
   .top-padding-fix.visible-xs
   .aside-navigation.hidden-lg
