@@ -25,6 +25,7 @@ $link-color: #000;
 $link-hover-color: $orange;
 $btn-primary-bg: $orange;
 
+@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
 
