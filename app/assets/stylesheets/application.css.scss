@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require jquery.ui.slider
+ *= require jquery-ui/slider
  *= require fullcalendar
  *= require jqcloud
  *= require bootstrap3-switch
@@ -26,7 +26,7 @@ $link-hover-color: $orange;
 $btn-primary-bg: $orange;
 
 @import "bootstrap";
-@import "jquery.ui.autocomplete";
+@import "jquery-ui/autocomplete";
 
 //rest of variables
 

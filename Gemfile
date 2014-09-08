@@ -90,7 +90,10 @@ end
 
 gem 'bootstrap-sass', '>= 3.0.0'
 gem 'will_paginate', '>=3.0.3'
-gem 'jquery-ui-rails'
+
+# Use JQuery UI 
+gem 'jquery-ui-rails', '~> 5.0.0'
+
 gem 'touchpunch-rails'
 gem 'd3_rails'
 gem 'haml'
