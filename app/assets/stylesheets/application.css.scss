@@ -110,6 +110,11 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
       padding-top: 10px;
     }
 
+    .welcome-header {
+      float: none; 
+      margin: 0 0;
+    }
+
     .logo .welcome-header-fix
     {
       margin-top: 5px;

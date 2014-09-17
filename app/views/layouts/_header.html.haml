@@ -1,6 +1,14 @@
 .header-nav{role: "navigation"}
   .container
-    .navbar-header
+    .navbar-header.visible-xs
+      %a.brand{:href => "/"}
+        %img{:src => "/images/logo.png"}
+      - if current_user
+        %button.menu-button.navbar-toggle.btn.btn-primary.visible-xs{"data-target" => "#menu-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+    .hidden-xs
       %a.brand{:href => "/"}
         %img{:src => "/images/logo.png"}
       - if current_user

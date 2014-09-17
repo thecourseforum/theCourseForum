@@ -1,9 +1,17 @@
 .header-welcome-nav
   .container
-    .navbar-header
+    .welcome-header.navbar-header.visible-xs
+      .navbar-header
+        %button.navbar-toggle.btn{"data-target" => "#login-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.glyphicon.glyphicon-chevron-down
+      .logo
+        .welcome-header-fix.hidden-xs
+        %a.brand.brand-login{:href => "/"}
+          %img{:src => "/images/logo.png"}
+    .navbar-header.hidden-xs
       %button.navbar-toggle.btn{"data-target" => "#login-collapse", "data-toggle" => "collapse", :type => "button"}
         %span.glyphicon.glyphicon-chevron-down
-    .logo
+    .logo.hidden-xs
       .welcome-header-fix.hidden-xs
       %a.brand.brand-login{:href => "/"}
         %img{:src => "/images/logo.png"}
