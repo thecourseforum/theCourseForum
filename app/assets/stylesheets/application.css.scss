@@ -144,6 +144,12 @@ input[type=number], input[type=text], input[type=email], textarea, input[type=pa
       background-color: #b54719;
     } 
 
+    .navbar-header
+    {
+      float: none; 
+      margin: 0 0;
+    }
+
     .menu-button
     {
       .icon-bar

@@ -1,12 +1,13 @@
 .header-nav{role: "navigation"}
   .container
-    %a.brand{:href => "/"}
-      %img{:src => "/images/logo.png"}
-    - if current_user
-      %button.menu-button.navbar-toggle.btn.btn-primary.visible-xs{"data-target" => "#menu-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
+    .navbar-header
+      %a.brand{:href => "/"}
+        %img{:src => "/images/logo.png"}
+      - if current_user
+        %button.menu-button.navbar-toggle.btn.btn-primary.visible-xs{"data-target" => "#menu-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
     - if current_user
       .collapse.navbar-collapse#menu-collapse
         .navbar-right
