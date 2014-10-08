@@ -144,7 +144,7 @@ puts "Generating professors"
   Professor.find_or_create_by(first_name: f, last_name: l, email_alias: ea)
 end
 
-years = (2008..2014).to_a
+years = (2009..Time.now.year).to_a
 seasons = ["January", "Spring", "Summer", "Fall"]
 
 puts "Creating semesters"
@@ -161,15 +161,27 @@ types = ["Lecture", "Laboratory", "Discussion"]
 
 puts "Generating sections"
 
-100.times do
-  s = Section.find_or_create_by(sis_class_number: 10000 + rand(10000))
-  s.section_number = 1 + rand(5)
-  s.units = 1 + rand(4)
-  s.capacity = ((rand(100)+5)*10)/10
-  s.section_type = types[rand(3)]
-  s.semester_id = 1+rand(Semester.count)
-  s.course_id = 1+rand(Course.count)
-  s.save
+Course.all.each do |c|
+  3.times do 
+
+    number = 10000 + rand(10000)
+
+    s = Section.find_by(sis_class_number: number)
+
+    while s != nil
+      number = 10000 + rand(10000)
+      s = Section.find_by(sis_class_number: number)
+    end
+
+    s = Section.new(sis_class_number: number)
+    s.section_number = 1 + rand(5)
+    s.units = 1 + rand(4)
+    s.capacity = ((rand(100)+5)*10)/10
+    s.section_type = types[rand(3)]
+    s.semester_id = Semester.now.id
+    s.course_id = c.id
+    s.save
+  end
 end
 
 puts "Generating section professors"
@@ -227,7 +239,7 @@ end
 puts "Generating grades"
 
 Section.all.each do |s|
-  semester = Semester.last
+  semester = Semester.now
 
   count_aplus = rand(50)
   count_a = rand(50)
