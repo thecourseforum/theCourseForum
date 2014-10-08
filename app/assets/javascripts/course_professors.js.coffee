@@ -8,11 +8,11 @@ $(document).ready () ->
   $('.review-type-switcher').change () ->
     window.location.href='/course_professors?' + $(this).val()
   $('#save-course').click () ->
-    course = $(this).text().split(' ')
+    course = $(this).attr('data-course').split(' ')
     $.ajax "scheduler/course",
       type: "POST"
       data:
-        mnemonic: course[1]
-        course_number: course[2]
+        mnemonic: course[0]
+        course_number: course[1]
       success:
         alert('Course Saved!')
