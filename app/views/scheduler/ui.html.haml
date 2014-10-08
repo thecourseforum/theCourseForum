@@ -2,7 +2,13 @@
   #schedule
   #search-bar
     %h2 Class Search
-    %input#class-search{name: "class-search", type: "text"}/
+    %input#class-search{name: "class-search", type: "text"}
+    %select#saved-classes
+      %option -- Select Class --
+      - current_user.courses.each do |course|
+        %option= "#{course.subdepartment.mnemonic} #{course.course_number}"
+      end
+    %button#clear-saved{:class => "btn btn-primary"} Clear Saved Courses
     %h5#results-title Results
     #results-box
   .course-result.hidden

@@ -110,29 +110,61 @@ $(document).ready(function() {
 		}
 	});
 
-	function courseSearch(course) {
-		// Split the course search string (i.e. CS 2150) into two portions
-		course = course.split(' ');
-		$.ajax('scheduler/search', {
-			// mnemonic - "CS"
-			// course_number - "2150"
-			data: {
-				mnemonic: course[0],
-				course_number: course[1]
-			},
-			success: function(response) {
-				var calendarSections = calendarCourses.map(function(element) {
-					return element.__proto__.section_id;
-				});
-				searchResults = $.grep(response, function(result) {
-					return calendarSections.indexOf(result.section_id) == -1;
-				});
-				displayResults();
-			},
-			error: function(response) {
-				alert("Improper search!");
+	$('#saved-classes').change(function() {
+		var course = $('#saved-classes option:selected').text();
+		if (course !== '-- Select Class --') {
+			courseSearch(course);
+		}
+	});
+
+	$('#clear-saved').click(function() {
+		$('#saved-classes')
+			.find('option')
+			.remove()
+			.end()
+			.append('<option value="-- Select Class --">-- Select Class --</option>')
+			.val('-- Select Class --');
+
+		$.ajax('scheduler/clear', {
+			type: 'DELETE',
+			success: function() {
+				alert("Saved courses cleared!");
 			}
-		})
+		});
+	});
+
+	function courseSearch(course) {
+		if (course === '') {
+			searchResults = [];
+			displayResults();
+		} else {
+			// Split the course search string (i.e. CS 2150) into two portions
+			course = course.split(' ');
+			$.ajax('scheduler/search', {
+				// mnemonic - "CS"
+				// course_number - "2150"
+				data: {
+					mnemonic: course[0],
+					course_number: course[1]
+				},
+				success: function(response) {
+					var calendarSections = calendarCourses.map(function(element) {
+						return element.__proto__.section_id;
+					});
+					searchResults = $.grep(response, function(result) {
+						return calendarSections.indexOf(result.section_id) == -1;
+					});
+					if (searchResults.length == 0) {
+						alert('No classes found for this semester!');
+					} else {
+						displayResults();
+					}
+				},
+				error: function(response) {
+					alert("Improper search!");
+				}
+			});
+		}
 	};
 
 	function displayResults() {

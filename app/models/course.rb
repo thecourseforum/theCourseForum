@@ -7,6 +7,8 @@ class Course < ActiveRecord::Base
   has_many :departments, through: :subdepartment
   has_many :reviews
 
+  has_and_belongs_to_many :users
+
   validates_presence_of :title, :course_number, :subdepartment
 
   def professors_list

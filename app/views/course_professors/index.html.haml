@@ -3,14 +3,16 @@
   .row
     %h1{:title => "#{@course.title}"}= "#{@course.mnemonic_number} - #{@course.title}"
   .row{:style => "margin-bottom: 10px;"}
-    .col-sm-5
+    .col-sm-4
       %select.course-professor-switcher
         - @professors.each do |p|
           %option{value: "c=#{@course.id}&p=#{p.id}", selected: p.id == @professor.id, :style => (p.id == @professor.id ? "color: #d9551e;" : "")}="#{p.separated_name}"
     %br.visible-xs
-    .col-lg-4.col-lg-offset-3.col-sm-5.col-sm-offset-2
+    .col-lg-4.col-lg-offset-0.col-sm-5.col-sm-offset-2
       .review-button
         = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary"
+    .col-sm-4
+      %button#save-course{:class => "btn btn-primary", :style => 'width: 100%'}= "Save #{@course.subdepartment.mnemonic} #{@course.course_number} to scheduler"
   .bottom-border
 
 .row.course-breakdown

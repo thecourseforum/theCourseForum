@@ -47,31 +47,24 @@ class SchedulerController < ApplicationController
   end
 
   def save
-    section = Sections.find(params[:section_id])
-    current_user.sections << section
+    subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+    course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
+    current_user.courses << course
 
-    render :nothing => true and return
+    render :nothing => true
   end
 
-  def delete
-    section = Section.find(params[:section_id])
-    current_user.sections.remove(section)
+  def clear
+    current_user.courses = []
 
-    render :nothing => true and return
+    render :nothing => true
   end
 
-  def coursenos
-    c = Course.where.not(:title => "")
+  def saved
+    subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+    course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
 
-    values = []
-
-    c.each do |course|
-      values.push(course.mnemonic_number)
-    end
-
-    respond_to do |format|
-      format.json {render json: values}
-    end
+    render :text => current_user.courses.include?(course) ? '1' : '0'
   end
 
   private

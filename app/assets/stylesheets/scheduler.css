@@ -8,6 +8,15 @@
 	float: left;
 }
 
+#saved-classes {
+	margin-top: 6px;
+}
+
+#clear-saved {
+	margin-top: 6px;
+	width: 100%;
+}
+
 #results-title {
 	margin-top: 2em;
 }
