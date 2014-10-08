@@ -27,7 +27,10 @@ class SchedulerController < ApplicationController
   def save_course
     subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
     course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-    current_user.courses << course
+    
+    if !current_user.courses.include? course
+      current_user.courses << course
+    end
 
     render :nothing => true
   end
