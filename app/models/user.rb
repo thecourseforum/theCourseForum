@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   belongs_to :professor_user
 
   has_and_belongs_to_many :courses
+  has_and_belongs_to_many :sections
 
   #Provides citizenship and voter priveleges
   acts_as_voter

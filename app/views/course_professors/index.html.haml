@@ -12,7 +12,7 @@
       .review-button
         = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary"
     .col-sm-4
-      %button#save-course{:class => "btn btn-primary", :style => 'width: 100%'}= "Save #{@course.subdepartment.mnemonic} #{@course.course_number} to scheduler"
+      .btn.btn-primary#save-course{:style => 'width: 100%'}= "Save #{@course.subdepartment.mnemonic} #{@course.course_number} to scheduler"
   .bottom-border
 
 .row.course-breakdown

@@ -24,8 +24,10 @@ TheCourseForum::Application.routes.draw do
 
   get '/scheduler' => 'scheduler#ui'
   get '/scheduler/search' => 'scheduler#search'
-  post '/scheduler/save' => 'scheduler#save'
-  delete '/scheduler/clear' => 'scheduler#clear'
+  get '/scheduler/sections' => 'scheduler#sections'
+  post '/scheduler/course' => 'scheduler#save_course'
+  post '/scheduler/sections' => 'scheduler#save_sections'
+  delete '/scheduler/courses' => 'scheduler#clear_courses'
 
   resources :departments, :only => [:show, :index]
 

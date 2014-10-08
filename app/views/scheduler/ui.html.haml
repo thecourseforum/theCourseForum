@@ -1,14 +1,23 @@
 %body
-  #schedule
+  #calendar
+    .row
+      .col-lg-3
+        .btn.btn-primary#save-sections Save Sections
+      .col-lg-3
+        .btn.btn-primary#reset-sections Reset Saved Sections
+      .col-lg-3
+        .btn.btn-primary#clear-sections Clear Calendar
+      .col-lg-3
+        %h2 Class Search
+    #schedule
   #search-bar
-    %h2 Class Search
     %input#class-search{name: "class-search", type: "text"}
-    %select#saved-classes
-      %option -- Select Class --
+    %select#saved-courses
+      %option -- Select Course --
       - current_user.courses.each do |course|
         %option= "#{course.subdepartment.mnemonic} #{course.course_number}"
       end
-    %button#clear-saved{:class => "btn btn-primary"} Clear Saved Courses
+    .btn.btn-primary#clear-courses Clear Saved Courses
     %h5#results-title Results
     #results-box
   .course-result.hidden

@@ -49,7 +49,6 @@ $(document).ready(function() {
 			var sections = courses.map(function(element) {
 				element.section_id;
 			});
-			console.log(sections);
 			return sections.indexOf(course.section_id) != -1;
 		},
 
@@ -70,7 +69,7 @@ $(document).ready(function() {
 		}
 	}
 
-	var searchResults = [],
+	var searchResults = [];
 		calendarCourses = [],
 		schedule = $('#schedule'),
 		mouseInDialog = false;
@@ -110,22 +109,73 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#saved-classes').change(function() {
-		var course = $('#saved-classes option:selected').text();
-		if (course !== '-- Select Class --') {
+	$('#save-sections').click(function() {
+		var section_ids = calendarCourses.map(function(event) {
+			return event.section_id;
+		}),
+			section_courses = calendarCourses.map(function(event) {
+				return event.title;
+			});
+
+		var unique_sections = [];
+		$.each(section_courses, function(i, el) {
+			if($.inArray(el, unique_sections) === -1) unique_sections.push(el);
+		});
+
+		$.ajax('scheduler/sections', {
+			type: 'POST',
+			data: {
+				sections: JSON.stringify(section_ids)
+			},
+			success: function() {
+				var saved_courses = [];
+				$('#saved-courses option').each(function() {
+					saved_courses.push($(this).text());
+				});
+				for (var i = 0; i < unique_sections.length; i++) {
+					if (saved_courses.indexOf(unique_sections[i]) == -1) {
+						$('#saved-courses').append('<option value="' + unique_sections[i] + '">' + unique_sections[i] + '</option>')
+					}
+				}
+				alert("Sections saved!");
+			}
+		});
+	});
+
+	$('#reset-sections').click(function() {
+		$.ajax('scheduler/sections', {
+			success: function(response) {
+				var sections = response['sections'];
+				for(var i = 0; i < sections.length; i++) {
+					searchResults = [];
+					displayResults();
+					addClass(sections[i]);
+				}
+			}
+		});
+	});
+
+	$('#clear-sections').click(function() {
+		calendarCourses = [];
+		schedule.fullCalendar('removeEvents');
+	});
+
+	$('#saved-courses').change(function() {
+		var course = $('#saved-courses option:selected').text();
+		if (course !== '-- Select Course --') {
 			courseSearch(course);
 		}
 	});
 
-	$('#clear-saved').click(function() {
-		$('#saved-classes')
+	$('#clear-courses').click(function() {
+		$('#saved-courses')
 			.find('option')
 			.remove()
 			.end()
-			.append('<option value="-- Select Class --">-- Select Class --</option>')
-			.val('-- Select Class --');
+			.append('<option value="-- Select Course --">-- Select Course --</option>')
+			.val('-- Select Course --');
 
-		$.ajax('scheduler/clear', {
+		$.ajax('scheduler/courses', {
 			type: 'DELETE',
 			success: function() {
 				alert("Saved courses cleared!");
@@ -203,7 +253,7 @@ $(document).ready(function() {
 		}
 
 		resultBox.append("<p class=sisID></p>");
-		resultBox.children('.sisID').text(result.section_id);
+		resultBox.children('.sisID').text(result.sis_id);
 
 		resultBox.draggable({
 			start: function(event, ui) {
@@ -297,6 +347,10 @@ $(document).ready(function() {
 
 	function removeButtonClick() {
 		var section_id = $(this).attr('section_id');
+		removeEvent(section_id);
+	}
+
+	function removeEvent(section_id) {
 		calendarCourses = calendarCourses.filter(function(element) {
 			return element.section_id != section_id;
 		});

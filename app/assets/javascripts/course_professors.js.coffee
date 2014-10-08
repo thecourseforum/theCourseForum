@@ -9,7 +9,7 @@ $(document).ready () ->
     window.location.href='/course_professors?' + $(this).val()
   $('#save-course').click () ->
     course = $(this).text().split(' ')
-    $.ajax "scheduler/save",
+    $.ajax "scheduler/course",
       type: "POST"
       data:
         mnemonic: course[1]

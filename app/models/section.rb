@@ -9,4 +9,6 @@ class Section < ActiveRecord::Base
   belongs_to :course
   belongs_to :location
   belongs_to :day_time
+
+  has_and_belongs_to_many :users
 end

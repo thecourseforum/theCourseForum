@@ -8,11 +8,19 @@
 	float: left;
 }
 
-#saved-classes {
+#saved-courses {
 	margin-top: 6px;
 }
 
-#clear-saved {
+#calendar .btn.btn-primary {
+	width: 100%;
+}
+
+#calendar .row h2 {
+	text-indent: 10px;
+}
+
+#clear-courses {
 	margin-top: 6px;
 	width: 100%;
 }
