@@ -143,6 +143,7 @@ $(document).ready(function() {
 	});
 
 	$('#reset-sections').click(function() {
+		$('#clear-sections').click();
 		$.ajax('scheduler/sections', {
 			success: function(response) {
 				var sections = response['sections'];
@@ -366,4 +367,6 @@ $(document).ready(function() {
 			displayInfo(calEvent, eventBox);
 		}
 	}
+
+	$('#reset-sections').click();
 });
