@@ -125,6 +125,9 @@ $(document).ready(function() {
 
 });
 
+var prof_ajax = $.ajax();
+
+
 $(document).ready(function() {
 	$("#prof_name").bind("change", function(){
 		$("#prof_list").empty();
@@ -132,7 +135,8 @@ $(document).ready(function() {
 		if (value == ""){
 			return;
 		}
-		$.ajax({
+		prof_ajax.abort();
+		prof_ajax = $.ajax({
 			url: '/professors/',
 			dataType: 'json',
 			type: 'GET',
