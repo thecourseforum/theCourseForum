@@ -24,6 +24,7 @@ TheCourseForum::Application.routes.draw do
 
   get '/scheduler' => 'scheduler#ui'
   get '/scheduler/search' => 'scheduler#search'
+  get '/scheduler/get_course' => 'scheduler#get_course'
   get '/scheduler/sections' => 'scheduler#sections'
   post '/scheduler/course' => 'scheduler#save_course'
   post '/scheduler/sections' => 'scheduler#save_sections'

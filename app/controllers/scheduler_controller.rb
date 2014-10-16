@@ -15,8 +15,23 @@ class SchedulerController < ApplicationController
       #Need a better way to get current semester
       #Maybe let user choose?
       current_sections = course.sections.where(semester_id: Semester.find_by(season: "Fall", year: 2014).id)
-
+      
       render json: rsections_to_jssections(current_sections) and return
+    end
+  end
+
+  def get_course
+    unless params[:mnemonic] and params[:course_number]
+      render :nothing => true, :status => 404 and return
+    else
+      subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+      course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
+      
+      render :nothing => true, :status => 404 and return unless course
+      #pr course
+      #course_sections = course.sections.where()
+      render json: course and return
+      
     end
   end
 
@@ -52,6 +67,17 @@ class SchedulerController < ApplicationController
 
     render :nothing => true
   end
+
+  # def gen_schedules 
+  #   possible_schedules = []
+  #   schedule = []
+  #   #max_sections = 3
+  #   #i=0
+  #   #until i > 3
+  #   current_user.courses.each do |course|
+  #     course.sections.each do |section|
+  #       if()
+  # end
 
   private
 
