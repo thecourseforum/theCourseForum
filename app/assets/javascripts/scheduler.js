@@ -71,6 +71,7 @@ $(document).ready(function() {
 
 	var searchResults = [];
 		calendarCourses = [],
+		schedules = [],
 		schedule = $('#schedule'),
 		mouseInDialog = false;
 
@@ -93,11 +94,6 @@ $(document).ready(function() {
 		month: 3,
 		date: 14
 	});
-
-
-	var possibleSchedules = [];
-	var individualSchedule = [];
-	var coursesWithSections = [];
 
 	$('.fc-header-right').css('visibility', 'hidden'); //hides buttons
 
@@ -161,23 +157,35 @@ $(document).ready(function() {
 		});
 	});
 
-	// generates all possible combinations of sections (should be put into possibleSchedules)
-	// need to take this array and convert it to events to be put into calendar
-	$('#gen-schedules').click(function() {
-			
-			getArrayOfCourses();
-			console.log("in gen schedules");
-			console.log(coursesWithSections);
-			//console.log(possibleSchedules[0]);
-			//var courseArray = getArrayOfCourses();
-			// console.log("course array is: ");
-			// console.log(courseArray);
-			// console.log("coursesWithSections is: ");
-			// console.log(coursesWithSections);
-			// addPossibleSection(courseArray[0], individualSchedule);
-			// console.log("schedule is: ");
-			// console.log(individualSchedule);
-	
+	$('#generate-schedules').click(function() {
+		$.ajax('scheduler/schedules', {
+			success: function(response) {
+				$('#schedules-box').empty();
+				schedules = response;
+				for(var i = 0; i < schedules.length; i++) {
+					var scheduleBox = $('.schedule-result.hidden').clone().removeClass('hidden');
+					scheduleBox.children('.remove').text('x');
+					scheduleBox.children('.remove').css({
+						"float": "right",
+						"color": "white"
+					});
+
+					scheduleBox.children('.remove').click(function() {
+						$(this).parent().remove();
+						mouseInDialog = false;
+					});
+
+					scheduleBox.children('.title').text('Schedule #' + (i + 1));
+					scheduleBox.attr('schedule_id', i);
+
+					scheduleBox.mouseup(function() {
+						$('#clear-sections').click();
+						loadSchedule(schedules[$(this).attr('schedule_id')]);
+					});
+					$('#schedules-box').append(scheduleBox);
+				}
+			}
+		});
 	});
 
 	$('#clear-sections').click(function() {
@@ -223,11 +231,9 @@ $(document).ready(function() {
 					course_number: course[1]
 				},
 				success: function(response) {
-					console.log(response);
 					var calendarSections = calendarCourses.map(function(element) {
 						return element.__proto__.section_id;
 					});
-					console.log(calendarSections);
 					searchResults = $.grep(response, function(result) {
 						return calendarSections.indexOf(result.section_id) == -1;
 					});
@@ -372,6 +378,12 @@ $(document).ready(function() {
 		infoBox.children('.remove').attr('section_id', result.section_id);
 	}
 
+	function loadSchedule(schedule) {
+		for (var i = 0; i < schedule.length; i++) {
+			addClass(schedule[i]);
+		}
+	}
+
 	function removeButtonClick() {
 		var section_id = $(this).attr('section_id');
 		removeEvent(section_id);
@@ -393,129 +405,6 @@ $(document).ready(function() {
 			displayInfo(calEvent, eventBox);
 		}
 	}
-
-// A recursive function that takes a course to start with and a blank array
-// Will fill that array with a possible course combination (section ids) and then push it to a larger 2D array containing all possiblities
-//coursesWithSections should be in the same order as uniqueCourses, by course
-
-	function addPossibleSection(course, array) {
-				
-		console.log("course is: ");
-		console.log(course);
-		var uniqueCourses = getUniqueCourses(calendarCourses);
-
-		// Loops through a course's sections
-		for (var i = 0; i < course.length; i++) { 
-			//pushes a section to the array
-			 array.push(course[i].section_id);
-
-			//a base case of sorts to check if it's the last course
-			var nextCourse = uniqueCourses.indexOf(course[0].title) + 1;
-			console.log(nextCourse);
-			console.log(coursesWithSections);
-			//console.log(uniqueCourses.length);
-			//if there is another course, recursive call with that course, but the same array
-			if (nextCourse <= uniqueCourses.length - 1) {
-				addPossibleSection(coursesWithSections[0][nextCourse], array); //**problem here. courses with sections is empty?? the ajax call should fill it, but it gets cleared?
-				array.pop(); //remove last section because the recursive function took care of possibilities starting with course[i]
-			}
-			//otherwise, the function is on the last course and should start incrementing possiblities 
-			else {
-				//adds the array as a possible schedule
-				possibleSchedules.push(array);
-				console.log("A possible schedule is: ");
-				console.log(array);
-				//removes the last element
-				array.pop();
-				//the loop will continue, adding the next section to the end of the array, and adding that array as a possiblity
-			}
-		}
-					
-	}
-
-
-// Takes calendarCourses, which has multiple sections belonging to the same course
-// and returns an array of the unique course titles
-	function getUniqueCourses(calendarCourses) {
-		uniqueCourses = [];
-		for (var i = 0; i < calendarCourses.length; i++) {
-			if (uniqueCourses.length == 0)
-				uniqueCourses.push(calendarCourses[i].__proto__.title);
-			else {
-				for (var j = 0; j < uniqueCourses.length; j++) {
-					if (calendarCourses[i].__proto__.title == uniqueCourses[j]) 
-						break;
-					if (j == uniqueCourses.length - 1)
-						uniqueCourses.push(calendarCourses[i].__proto__.title);
-				}
-			}
-		}
-
-		//console.log(uniqueCourses);
-		return uniqueCourses;
-	}	
-
-	// gets an array of course arrays containing their sections
-	// makes an ajax request for each unique course, 
-	function getArrayOfCourses() {
-		var courses = [];
-		var individualSchedule = [];
-		// console.log("calendar courses: ");
-		// console.log(calendarCourses);
-		var uniqueCourses = getUniqueCourses(calendarCourses);
-		// console.log(uniqueCourses);
-		for(var i = 0; i < uniqueCourses.length; i++) {
-
-		var title = uniqueCourses[i].split(' ');
-
-		$.ajax('scheduler/search', {
-				data: {
-					mnemonic: title[0],
-					course_number: title[1]
-				},
-				success: function(response) {
-						//console.log("response is");
-						//console.log(response);
-						courses.push(response);
-						if( courses.length == uniqueCourses.length ) {
-							//console.log("courses");
-							//console.log(courses);
-							coursesIntoArray(courses);
-							//return courses;
-							//addPossibleSection(courses[0], individualSchedule);
-							// console.log("schedules are: ");
-							// console.log(possibleSchedules);
-							// console.log(possibleSchedules.length);
-						}
-							
-						//console.log(courses);
-				},
-				error: function(response) {
-					console.log("error");
-					alert("Improper search!");
-				}
-			});	
-		}
-	// console.log("courses are: ");
-	// console.log(courses);
-	//return courses;
-	}
-
-	function coursesIntoArray(courses) {
-		coursesWithSections.push(courses);
-		//console.log(courses);
-		console.log(coursesWithSections);
-		console.log(coursesWithSections[0]);
-		console.log(coursesWithSections[0][0]);
-		var individualSchedule = [];
-		addPossibleSection(coursesWithSections[0][0], individualSchedule);
-	}
-
-
-
-
-
-
 
 	$('#reset-sections').click();
 });

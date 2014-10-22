@@ -15,23 +15,8 @@ class SchedulerController < ApplicationController
       #Need a better way to get current semester
       #Maybe let user choose?
       current_sections = course.sections.where(semester_id: Semester.find_by(season: "Fall", year: 2014).id)
-      
-      render json: rsections_to_jssections(current_sections) and return
-    end
-  end
 
-  def get_course
-    unless params[:mnemonic] and params[:course_number]
-      render :nothing => true, :status => 404 and return
-    else
-      subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
-      course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-      
-      render :nothing => true, :status => 404 and return unless course
-      #pr course
-      #course_sections = course.sections.where()
-      render json: course and return
-      
+      render json: rsections_to_jssections(current_sections) and return
     end
   end
 
@@ -68,16 +53,29 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
-  # def gen_schedules 
-  #   possible_schedules = []
-  #   schedule = []
-  #   #max_sections = 3
-  #   #i=0
-  #   #until i > 3
-  #   current_user.courses.each do |course|
-  #     course.sections.each do |section|
-  #       if()
-  # end
+  def schedules
+    # Generate an array of arrays, where each course is mapped to an array of its sections
+    # If there are no sections for that course for the desired semester, then remove that course by nil then remove through Array.compact
+    course_sections = current_user.courses.map do |course|
+      sections = course.sections.where(:semester_id => 28)
+      sections.empty? ? nil : sections
+    end.compact
+
+    # Permute through the array of arrays to generate all possible combinations of schedules
+    schedules = course_sections.inject(&:product).map(&:flatten)
+
+    # Examine each schedule and only keep the ones that do not conflict
+    # If a schedule has conflicts - is turned into nil and removed in Array.compact
+    valid_schedules = schedules.map do |sections|
+      schedule = []
+      sections.each do |section|
+        schedule << section unless conflicts(schedule, section)
+      end
+      sections.count == schedule.count ? rsections_to_jssections(schedule) : nil
+    end.compact
+
+    render :json => valid_schedules and return
+  end
 
   private
 
@@ -105,6 +103,15 @@ class SchedulerController < ApplicationController
         :sis_id => section.sis_class_number
       }
     end
+  end
+
+  def conflicts(partial_schedule, new_section)
+    partial_schedule.each do |section|
+      if section.conflicts?(new_section)
+        return true
+      end
+    end
+    return false
   end
 
   def day_to_number(day)

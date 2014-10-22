@@ -36,6 +36,17 @@
 	background-color: #F5F5F5;
 }
 
+#schedules-title {
+	margin-top: 2em;
+}
+
+#schedules-box {
+	border-radius: 6px;
+	border: 0px solid gray;
+	min-height: 400px;
+	background-color: #F5F5F5;
+}
+
 .course-result {
 	border: 1px solid black;
 	border-radius: 4px;
@@ -45,6 +56,28 @@
 	z-index: 2;
 	cursor: pointer;
 	cursor: hand;
+}
+
+.course-result p{
+	margin: 0em;
+	font-size: 12px;
+	color: white;
+}
+
+.schedule-result {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: #3a87ad;
+	margin: 0.7em;
+	padding: 4px;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.schedule-result p{
+	margin: 0em;
+	font-size: 12px;
+	color: white;
 }
 
 .course-info-dialog {
@@ -57,12 +90,6 @@
 	box-shadow: 1px 1px 1px gray;
 }
 
-.course-result p{
-	margin: 0em;
-	font-size: 12px;
-	color: white;
-}
-
 .course-info-dialog p {
 	margin: 0em;
 	font-size: 12px;
@@ -72,7 +99,6 @@
 .course-info-dialog button {
 	margin: 0.45em;
 	color: black;
-
 }
 
 .is-dragging {
