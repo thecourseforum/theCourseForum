@@ -21,6 +21,15 @@
     %h5#results-title Results
     #results-box
     .btn.btn-primary#generate-schedules Generate Schedules
+    .checkbox
+      %label
+        %input#fridays{:type => "checkbox"} Free Fridays
+    .checkbox
+      %label
+        %input#mornings{:type => "checkbox"} Free Mornings (<10AM)
+    .checkbox
+      %label
+        %input#evenings{:type => "checkbox"} Free Evenings (>5PM)
     %h5#schedules-title Schedules
     #schedules-box
   .course-result.hidden

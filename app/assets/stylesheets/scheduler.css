@@ -25,6 +25,11 @@
 	width: 100%;
 }
 
+#generate-schedules {
+	margin-top: 6px;
+	width: 100%;
+}
+
 #results-title {
 	margin-top: 2em;
 }
@@ -43,7 +48,7 @@
 #schedules-box {
 	border-radius: 6px;
 	border: 0px solid gray;
-	min-height: 400px;
+	min-height: 130px;
 	background-color: #F5F5F5;
 }
 
@@ -66,9 +71,9 @@
 
 .schedule-result {
 	border: 1px solid black;
-	border-radius: 4px;
+	border-radius: 2px;
 	background-color: #3a87ad;
-	margin: 0.7em;
+	margin: 0.1em;
 	padding: 4px;
 	z-index: 2;
 	cursor: pointer;

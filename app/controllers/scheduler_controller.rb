@@ -27,10 +27,8 @@ class SchedulerController < ApplicationController
   def save_course
     subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
     course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-    
-    if !current_user.courses.include? course
-      current_user.courses << course
-    end
+
+    current_user.courses << course unless current_user.courses.include? course
 
     render :nothing => true
   end
@@ -69,7 +67,11 @@ class SchedulerController < ApplicationController
     valid_schedules = schedules.map do |sections|
       schedule = []
       sections.each do |section|
-        schedule << section unless conflicts(schedule, section)
+        if conflicts(schedule, section)
+          break
+        else
+          schedule << section
+        end
       end
       sections.count == schedule.count ? rsections_to_jssections(schedule) : nil
     end.compact
@@ -106,6 +108,27 @@ class SchedulerController < ApplicationController
   end
 
   def conflicts(partial_schedule, new_section)
+    if params[:mornings] == 'true'
+      new_section.day_times.each do |day_time|
+        if day_time.start_time.sub(':', '.').to_f < 10
+          return true
+        end
+      end
+    end
+    if params[:evenings] == 'true'
+      new_section.day_times.each do |day_time|
+        if day_time.end_time.sub(':', '.').to_f > 17
+          return true
+        end
+      end
+    end
+    if params[:fridays] == 'true'
+      new_section.day_times.each do |day_time|
+        if day_time.day = 'Fr'
+          return true
+        end
+      end
+    end
     partial_schedule.each do |section|
       if section.conflicts?(new_section)
         return true

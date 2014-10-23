@@ -69,7 +69,7 @@ $(document).ready(function() {
 		}
 	}
 
-	var searchResults = [];
+	var searchResults = [],
 		calendarCourses = [],
 		schedules = [],
 		schedule = $('#schedule'),
@@ -120,7 +120,7 @@ $(document).ready(function() {
 
 		var unique_sections = [];
 		$.each(section_courses, function(i, el) {
-			if($.inArray(el, unique_sections) === -1) unique_sections.push(el);
+			if ($.inArray(el, unique_sections) === -1) unique_sections.push(el);
 		});
 
 		$.ajax('scheduler/sections', {
@@ -148,7 +148,7 @@ $(document).ready(function() {
 		$.ajax('scheduler/sections', {
 			success: function(response) {
 				var sections = response['sections'];
-				for(var i = 0; i < sections.length; i++) {
+				for (var i = 0; i < sections.length; i++) {
 					searchResults = [];
 					displayResults();
 					addClass(sections[i]);
@@ -159,30 +159,39 @@ $(document).ready(function() {
 
 	$('#generate-schedules').click(function() {
 		$.ajax('scheduler/schedules', {
+			data: {
+				fridays: $('#fridays').prop('checked'),
+				mornings: $('#mornings').prop('checked'),
+				evenings: $('#evenings').prop('checked')
+			},
 			success: function(response) {
 				$('#schedules-box').empty();
-				schedules = response;
-				for(var i = 0; i < schedules.length; i++) {
-					var scheduleBox = $('.schedule-result.hidden').clone().removeClass('hidden');
-					scheduleBox.children('.remove').text('x');
-					scheduleBox.children('.remove').css({
-						"float": "right",
-						"color": "white"
-					});
+				if (response.length == 0) {
+					alert('No schedules could be generated for your saved courses!');
+				} else {
+					schedules = response;
+					for (var i = 0; i < schedules.length; i++) {
+						var scheduleBox = $('.schedule-result.hidden').clone().removeClass('hidden');
+						scheduleBox.children('.remove').text('x');
+						scheduleBox.children('.remove').css({
+							"float": "right",
+							"color": "white"
+						});
 
-					scheduleBox.children('.remove').click(function() {
-						$(this).parent().remove();
-						mouseInDialog = false;
-					});
+						scheduleBox.children('.remove').click(function() {
+							$(this).parent().remove();
+							mouseInDialog = false;
+						});
 
-					scheduleBox.children('.title').text('Schedule #' + (i + 1));
-					scheduleBox.attr('schedule_id', i);
+						scheduleBox.children('.title').text('Schedule #' + (i + 1));
+						scheduleBox.attr('schedule_id', i);
 
-					scheduleBox.mouseup(function() {
-						$('#clear-sections').click();
-						loadSchedule(schedules[$(this).attr('schedule_id')]);
-					});
-					$('#schedules-box').append(scheduleBox);
+						scheduleBox.mouseup(function() {
+							$('#clear-sections').click();
+							loadSchedule(schedules[$(this).attr('schedule_id')]);
+						});
+						$('#schedules-box').append(scheduleBox);
+					}
 				}
 			}
 		});
