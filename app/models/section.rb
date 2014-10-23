@@ -14,7 +14,7 @@ class Section < ActiveRecord::Base
 
   def conflicts?(other_section)
     day_times.each do |day_time|
-      other_section.day_times do |other_day_time|
+      other_section.day_times.each do |other_day_time|
         if day_time.overlaps?(other_day_time)
           return true
         end
