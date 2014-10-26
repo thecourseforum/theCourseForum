@@ -21,9 +21,17 @@
         - if course.course_number >= separator
           %br            
           - separator = (course.course_number / 1000) * 1000 + 1000
+        - now_sections = course.sections.select do | section | 
+          - section.semester == Semester.now
         - if p_list.size > 1
-          %li= link_to course.mnemonic_number + " " + course.title, course
+          %li 
+            - if now_sections.count > 0
+              %span.glyphicon.glyphicon-star
+            = link_to course.mnemonic_number + " " + course.title, course
         - elsif !p_list.empty?
-          %li= link_to course.mnemonic_number + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
+          %li 
+            - if now_sections.count > 0
+              %span.glyphicon.glyphicon-star
+            = link_to course.mnemonic_number + " " + course.title, course_professors_path(:p => p_list.first.id, :c => course.id)
         - else
           - next
