@@ -1,6 +1,14 @@
 class SchedulerController < ApplicationController
 
+  require 'icalendar/tzinfo'
 	def ui
+
+    # calls export_ics if .ics is appended to the url (otherwise no special action)
+    respond_to do |format|
+      format.html
+      format.ics {export_ics}
+    end
+    
 	end
 
 	def search
@@ -142,4 +150,87 @@ class SchedulerController < ApplicationController
     return days.index(day) == nil ? -1 : days.index(day)
   end
 
-end
+  # takes a section, and turns each of its days into an iCal event
+  # stores those events into an array 
+  # each event (day) will be repeated weekly
+  def render_ical_event(section)
+    
+      events = [] #array to hold all the days in a section (MWF are 3 separate events that repeat weekly)
+      tzid = "America/New_York" # time zone
+
+      # loop through each day of the section
+      section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
+
+        event = Icalendar::Event.new
+
+        # Create the start and end DateTimes
+        firstMondayOfClasses = 12 # classes start monday Jan 12, 2015 
+        eventDate = firstMondayOfClasses + day_to_number(day_time.day) # add the day of the week to the first day to get the date
+
+        # Break the start_time format (18:00) into hour and minutes
+        startTimeString = day_time.start_time
+        startTimeString[":"] = "" #remove the colon
+        (startTimeString.to_i >= 1000) ? startingHour = startTimeString.slice(0,2) : startingHour = startTimeString.slice(0, 1) #character size of hour will vary
+        startingMinutes = startTimeString.slice(startTimeString.size-2, 2) # the minutes are always the last two chars
+
+        # Do the same for the end time
+        endTimeString = day_time.end_time
+        endTimeString[":"] = ""
+        (endTimeString.to_i >= 1000) ? endingHour = endTimeString.slice(0,2) : endingHour = endTimeString.slice(0,1)
+        endingMinutes = endTimeString.slice(endTimeString.size-2, 2)
+
+        # Construct DateTime objects using the above values
+        event_start = DateTime.new(2015, 1, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be something otherwise it doesn't add? (weird af)
+        event_end = DateTime.new(2015, 1, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
+
+        # assign this to event's start and end fields along with the timezone
+        event.dtstart = Icalendar::Values::DateTime.new event_start, 'tzid' => tzid
+        event.dtend   = Icalendar::Values::DateTime.new event_end, 'tzid' => tzid
+
+        #other event fields
+        event.summary = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
+        event.description = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
+        event.location = section.locations.first.location
+        event.rrule = "FREQ=WEEKLY;UNTIL=20150428T000000Z" #repeats once a week until hardcoded course end date (could do COUNT= if num occurences is known)
+
+        #other unused fields
+        #event.klass
+        #event.created
+        #event.last_modified
+        #event.uid
+        #event.add_comment = "created from theCourseForum.com!?"
+
+        #adds the day for that section into an array
+        events << event
+
+      end 
+      
+      return events
+  end
+
+  # creates a calendar. loops through the saved sections.
+  # turns each one as an ical event using render_ical_event
+  # adds them to the calendar. publishes that calendar as a file
+  def export_ics
+    @calendar = Icalendar::Calendar.new
+    # tzid = "America/New_York"
+    # tz = TZInfo::Timezone.get tzid
+    # timezone = tz.ical_timezone event.dtstart
+    # @calendar.add_timezone timezone
+
+    sections = current_user.sections
+    sections.each do |section|
+      events = render_ical_event(section)
+      events.each do |event|
+        @calendar.add_event(event)
+      end  
+    end
+
+    @calendar.publish
+    headers['Content-Type'] = "text/calendar; charset=UTF-8"
+    render :text => @calendar.to_ical
+
+  end
+
+
+end  

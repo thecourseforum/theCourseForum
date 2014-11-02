@@ -103,3 +103,6 @@ gem 'gon'
 gem 'rest-client'
 gem 'rb-readline', '0.5.1', require: 'readline', github: 'luislavena/rb-readline'
 gem 'figaro'
+
+# for calendar exports
+gem 'icalendar'
