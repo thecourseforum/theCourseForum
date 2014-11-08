@@ -8,18 +8,14 @@
     %ul.department-courses
       - flag = true
       - separator = 0
-      - @courses.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each do |course|
-        - number_of_professors = @sections.select{|s| s.course_id == course.id}.count
-        - if number_of_professors == 0
-          - next
+      - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each do |course|
         - if flag
           - separator = (course.course_number / 1000) * 1000 + 1000
           - flag = false
         - if course.course_number >= separator
           %br
           - separator = (course.course_number / 1000) * 1000 + 1000
-        - if number_of_professors > 0
-          %li= link_to course.mnemonic_number + " " + course.title, course
+        %li= link_to course.mnemonic_number + " " + course.title, course
         -# elsif number_of_professors == 1
           -# %li= link_to course.mnemonic_number + " " + course.title, course_professors_path(:p => @section_professor_mapping.select(|v| v[0] == professor_id, :c => course.id)
         - else
