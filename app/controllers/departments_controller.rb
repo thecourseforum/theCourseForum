@@ -29,6 +29,18 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
     @subdepartments = @department.subdepartments #Subdepartment.where(:department_id => @department.id)
 
+    @subdepartment_ids = @subdepartments.pluck(:id)
+    @courses = Course.where(subdepartment_id: @subdepartment_ids)
+    @course_ids = @courses.pluck(:id)
+    @sections = Section.where(course_id: @course_ids)
+    @courses_with_sections_ids = @sections.pluck(:course_id)
+    @courses_with_sections = @courses.where(id: @courses_with_sections_ids)
+    @subdepartments_with_sections_ids = @courses_with_sections.pluck(:subdepartment_id)
+    @subdepartments_with_sections = @subdepartments.where(id: @subdepartments_with_sections_ids)
+
+    # @section_ids = @sections.pluck(:id)
+    # @section_professor_mapping = SectionProfessor.where(section_id: @section_ids).pluck(:section_id, :professor_id)
+
     @count = @subdepartments.size
 
     respond_to do |format|
@@ -36,6 +48,7 @@ class DepartmentsController < ApplicationController
       format.json { render json: @department }
     end
   end
+
 
   private
     def department_params
