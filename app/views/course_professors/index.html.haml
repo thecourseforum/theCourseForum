@@ -81,9 +81,9 @@
       .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
         #word_cloud
 
-    %select.distribution-semester-switcher{:onchange => "redraw()", :style => "font-size:13px;"}
-      %option{value: "#"}="Default Value"
-      %option{value: "#", selected: @semester = 1}="Change semester"
+    %select.distribution-semester-switcher{:onchange => "window.redraw()", :style => "font-size:13px;"}
+      %option{value: "#", selected: @semester == 2}="Default Value"
+      %option{value: "#", selected: @semester == 1}="Change semester"
     %br.visible-xs
 
 
@@ -185,14 +185,15 @@
     }
   });
 
-  function redraw() {
-    console.log("It fucking works!");
-
-    donut.setData(gon.grades, gon.semester).render()
-  };
 
 
 :coffee
   donut = new App.GradeDonut('#grades', { width: 300, height: 300})
     .setData(gon.grades, gon.semester)
     .render()
+
+  window.redraw = () ->
+    console.log("It fucking works!")
+    donut = new App.GradeDonut('#grades', { width: 300, height: 300})
+      .setData(gon.grades, gon.semester)
+      .render()
