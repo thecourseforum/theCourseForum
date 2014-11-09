@@ -1,9 +1,7 @@
 require 'spec_helper'
-require 'support/devise_helper'
-include Warden::Test::Helpers
-Warden.test_mode!
 
 feature 'Viewing a Review' do
+
   before :each do 
     # pending "FIX SIGN UP"
     Subdepartment.create(name: "Computer Science", mnemonic: "CS")
@@ -11,12 +9,8 @@ feature 'Viewing a Review' do
     Professor.create(first_name: "Mark", last_name: "Sherriff")
     @review = Review.create(comment: "This is the worst.", course_id: 1, professor_id: 1)
 
-    @user = User.find_by(email: "example@virginia.edu") ? 
-            User.find_by(email: "example@virginia.edu") : 
-            User.create(email: "example@virginia.edu", password: "password", password_confirmation: "password")
-
-    Student.create(user_id: 1, grad_year: 2014)
-    sign_in(@user)
+    @user = create(:confirmed_user_with_student)
+    sign_in_user @user
   end
 
   scenario 'Viewing correct review' do

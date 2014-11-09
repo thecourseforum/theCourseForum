@@ -67,7 +67,9 @@ group :development, :test do
   # used for generating fake data
   gem 'faker', '~> 1.3'
   # rspec testing framework
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.1.0'
+  # FactoryGirl for fixture replacement
+  gem 'factory_girl_rails', '~> 4.5.0'
   # capybara for web simulation in tests
   gem 'capybara'
   # capybara-webdkit for testing javascript events

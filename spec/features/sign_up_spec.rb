@@ -1,5 +1,4 @@
 require 'spec_helper'
-include Devise::TestHelpers 
 
 feature 'Sign Up' do
   scenario 'user fills out the sign up form correctly' do
@@ -15,10 +14,10 @@ feature 'Sign Up' do
     fill_in 'user_password_confirmation', with: 'password'
     click_button 'Sign Up!'
 
-    find("#notice").text.should_not be_empty
+    expect(find("#notice").text).to_not be_empty
     # Sign up should have sent an email to the user
-    ActionMailer::Base.deliveries.count.should be_equal mail_count + 1
-    User.count.should be_equal past_count + 1
+    expect(ActionMailer::Base.deliveries.count).to be_equal mail_count + 1
+    expect(User.count).to be_equal past_count + 1
   end
 
   scenario 'user fills out the sign up form incorrectly', js: true do
@@ -34,9 +33,9 @@ feature 'Sign Up' do
     fill_in 'user_password_confirmation', with: 'fail'
     click_button 'Sign Up!'
 
-    find("#notice").text.should be_empty
-    ActionMailer::Base.deliveries.count.should be_equal mail_count
-    User.count.should be_equal past_count
+    expect(find("#notice").text).to be_empty
+    expect(ActionMailer::Base.deliveries.count).to be_equal mail_count
+    expect(User.count).to be_equal past_count
 
     expect(page).to have_content("Please enter a first name.")
     expect(page).to have_content("Please enter a last name.")
