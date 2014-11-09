@@ -103,13 +103,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$(document).mouseup(function() {
-		if (!mouseInDialog) {
-			$('.course-info-dialog').remove();
-			mouseInDialog = false;
-		}
-	});
-
 	$('#save-sections').click(function() {
 		var section_ids = calendarCourses.map(function(event) {
 			return event.section_id;
@@ -143,86 +136,11 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#reset-sections').click(function() {
-		$('#clear-sections').click();
-		$.ajax('scheduler/sections', {
-			success: function(response) {
-				var sections = response['sections'];
-				for (var i = 0; i < sections.length; i++) {
-					searchResults = [];
-					displayResults();
-					addClass(sections[i]);
-				}
-			}
-		});
-	});
-
-	$('#generate-schedules').click(function() {
-		$.ajax('scheduler/schedules', {
-			data: {
-				fridays: $('#fridays').prop('checked'),
-				mornings: $('#mornings').prop('checked'),
-				evenings: $('#evenings').prop('checked')
-			},
-			success: function(response) {
-				$('#schedules-box').empty();
-				if (response.length == 0) {
-					alert('No schedules could be generated for your saved courses!');
-				} else {
-					schedules = response;
-					for (var i = 0; i < schedules.length; i++) {
-						var scheduleBox = $('.schedule-result.hidden').clone().removeClass('hidden');
-						scheduleBox.children('.remove').text('x');
-						scheduleBox.children('.remove').css({
-							"float": "right",
-							"color": "white"
-						});
-
-						scheduleBox.children('.remove').click(function() {
-							$(this).parent().remove();
-							mouseInDialog = false;
-						});
-
-						scheduleBox.children('.title').text('Schedule #' + (i + 1));
-						scheduleBox.attr('schedule_id', i);
-
-						scheduleBox.mouseup(function() {
-							$('#clear-sections').click();
-							loadSchedule(schedules[$(this).attr('schedule_id')]);
-						});
-						$('#schedules-box').append(scheduleBox);
-					}
-				}
-			}
-		});
-	});
-
-	$('#clear-sections').click(function() {
-		calendarCourses = [];
-		schedule.fullCalendar('removeEvents');
-	});
-
 	$('#saved-courses').change(function() {
 		var course = $('#saved-courses option:selected').text();
 		if (course !== '-- Select Course --') {
 			courseSearch(course);
 		}
-	});
-
-	$('#clear-courses').click(function() {
-		$('#saved-courses')
-			.find('option')
-			.remove()
-			.end()
-			.append('<option value="-- Select Course --">-- Select Course --</option>')
-			.val('-- Select Course --');
-
-		$.ajax('scheduler/courses', {
-			type: 'DELETE',
-			success: function() {
-				alert("Saved courses cleared!");
-			}
-		});
 	});
 
 	function courseSearch(course) {
@@ -232,7 +150,7 @@ $(document).ready(function() {
 		} else {
 			// Split the course search string (i.e. CS 2150) into two portions
 			course = course.split(' ');
-			$.ajax('scheduler/search', {
+			$.ajax('search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
 				data: {
@@ -240,29 +158,12 @@ $(document).ready(function() {
 					course_number: course[1]
 				},
 				success: function(response) {
-					var calendarSections = calendarCourses.map(function(element) {
-						return element.__proto__.section_id;
-					});
-					searchResults = $.grep(response, function(result) {
-						return calendarSections.indexOf(result.section_id) == -1;
-					});
-					if (searchResults.length == 0) {
-						alert('No classes found for this semester!');
-					} else {
-						displayResults();
-					}
+					displayResult(response);
 				},
 				error: function(response) {
 					alert("Improper search!");
 				}
 			});
-		}
-	};
-
-	function displayResults() {
-		$('#results-box').empty();
-		for (var i = 0; i < searchResults.length; i++) {
-			displayResult(searchResults[i]);
 		}
 	}
 
@@ -275,55 +176,49 @@ $(document).ready(function() {
 		});
 
 		resultBox.children('.remove').click(function() {
-			searchResults = $.grep(searchResults, function(course) {
-				return result.section_id != course.section_id;
-			});
 			$(this).parent().remove();
-			mouseInDialog = false;
+		});
+
+		resultBox.mouseup(function(event) {
+			$('#course-title').text(result.title);
+			$('.lectures').empty();
+			$('.discussions').empty();
+			$('.laboratories').empty();
+			if (result.lectures.length > 0) {
+				for(var i = 0; i < result.lectures.length; i++) {
+					$('.lectures').append('<input type="checkbox"> Checkbox 2')
+					$('.lectures').append(Utils.formatTimeStrings(result.lectures[i]));
+					$('.lectures').append(", " + result.lectures[i].professor);
+					if (i != result.lectures.length - 1) {
+						$('.lectures').append("<br/>");
+					}
+				}
+			}
+			if (result.discussions.length > 0) {
+				for(var i = 0; i < result.discussions.length; i++) {
+					$('.discussions').append('<input type="checkbox"> Checkbox 2')
+					$('.discussions').append(Utils.formatTimeStrings(result.discussions[i]));
+					$('.discussions').append(", " + result.discussions[i].professor);
+					if (i != result.discussions.length - 1) {
+						$('.discussions').append("<br/>");
+					}
+				}
+			}
+			if (result.laboratories.length > 0) {
+				for(var i = 0; i < result.laboratories.length; i++) {
+					$('.laboratories').append('<input type="checkbox"> Checkbox 2')
+					$('.laboratories').append(Utils.formatTimeStrings(result.laboratories[i]));
+					$('.laboratories').append(", " + result.laboratories[i].professor);
+					if (i != result.laboratories.length - 1) {
+						$('.laboratories').append("<br/>");
+					}
+				}
+			}
+			$('#course').modal();
 		});
 
 		resultBox.children('.course-title').text(result.title);
-		resultBox.children('.professor').text(result.professor);
-		resultBox.children('.location').text(result.location);
-
-		var timeStrings = Utils.formatTimeStrings(result);
-
-		for (var i = 0; i < timeStrings.length; i++) {
-			var timeString = timeStrings[i];
-			resultBox.append("<p class=time" + i + "></p>");
-			resultBox.children('.time' + i).text(timeString);
-		}
-
-		resultBox.append("<p class=sisID></p>");
-		resultBox.children('.sisID').text(result.sis_id);
-
-		resultBox.draggable({
-			start: function(event, ui) {
-				ui.helper.addClass('is-dragging');
-			},
-			stop: function(event, ui) {
-				ui.helper.removeClass('is-dragging');
-			},
-			revert: true
-		});
-		resultBox.mouseup(resultRelease);
-		resultBox.attr('section_id', result.section_id);
 		$('#results-box').append(resultBox);
-	}
-
-	function resultRelease(eventObj) {
-		var position = getPos($(this));
-		if (position.xPos > schedule.offset().left && position.xPos < schedule.offset().left + schedule.width() && position.yPos > schedule.offset().top && position.yPos < schedule.offset().top + schedule.height()) {
-			$(this).remove();
-			addClass(Utils.findCourse(searchResults, $(this).attr('section_id')));
-		}
-	}
-
-	function getPos($obj) {
-		return {
-			xPos: Math.floor($obj.offset().left + $obj.width() / 2),
-			yPos: Math.floor($obj.offset().top + $obj.height() / 2)
-		};
 	}
 
 	function addClass(course) {

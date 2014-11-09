@@ -1,17 +1,19 @@
 class SchedulerController < ApplicationController
 
   require 'icalendar/tzinfo'
-	def ui
 
+	def manual
     # calls export_ics if .ics is appended to the url (otherwise no special action)
     respond_to do |format|
       format.html
       format.ics {export_ics}
     end
-    
 	end
 
-	def search
+  def automatic
+  end
+
+	def search_sections
     unless params[:mnemonic] and params[:course_number]
       render :nothing => true, :status => 404 and return
     else
@@ -25,6 +27,23 @@ class SchedulerController < ApplicationController
       current_sections = course.sections.where(semester_id: Semester.find_by(season: "Fall", year: 2014).id)
 
       render json: rsections_to_jssections(current_sections) and return
+    end
+  end
+
+  def search_course
+    unless params[:mnemonic] and params[:course_number]
+      render :nothing => true, :status => 404 and return
+    else
+      subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+      course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
+      
+      render :nothing => true, :status => 404 and return unless course
+
+      render :json => course.as_json.merge({
+        :lectures => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Lecture')),
+        :discussions => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Discussion')),
+        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory'))
+      }) and return
     end
   end
 
@@ -60,14 +79,23 @@ class SchedulerController < ApplicationController
   end
 
   def schedules
-    # Generate an array of arrays, where each course is mapped to an array of its sections
-    # If there are no sections for that course for the desired semester, then remove that course by nil then remove through Array.compact
-    course_sections = current_user.courses.map do |course|
-      sections = course.sections.where(:semester_id => 28)
-      sections.empty? ? nil : sections
-    end.compact
+    if params[:course_sections]
+      course_sections = JSON.parse(params[:course_sections]).map do |course|
+        course.map do |section_id|
+          Section.find(section_id)
+        end
+      end 
+    else
+      course_sections = []
+      current_user.courses.each do |course|
+        sections = course.sections.where(:semester_id => Semester.now.id).pluck(:section_type).uniq.map do |type|
+          course_sections << course.sections.where(:section_type => type, :semester_id => Semester.now.id).flatten
+        end
+      end
+    end
 
     # Permute through the array of arrays to generate all possible combinations of schedules
+    # http://stackoverflow.com/questions/5582481/creating-permutations-from-a-multi-dimensional-array-in-ruby
     schedules = course_sections.inject(&:product).map(&:flatten)
 
     # Examine each schedule and only keep the ones that do not conflict
@@ -103,7 +131,7 @@ class SchedulerController < ApplicationController
       {
         :section_id => section.id,
         :title => "#{section.course.subdepartment.mnemonic} #{section.course.course_number}",
-        :location => section.locations.first.location,
+        :location => section.locations.empty? ? 'NA' : section.locations.first.location,
         :days => days,
         :start_times => start_times,
         :end_times => end_times,

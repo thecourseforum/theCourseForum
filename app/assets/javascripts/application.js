@@ -23,7 +23,6 @@
 //= require sign_up
 //= require reviews
 //= require fullcalendar
-//= require scheduler
 //= require jqcloud
 //= require bootstrap-switch
 

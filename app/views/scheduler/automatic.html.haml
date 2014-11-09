@@ -1,0 +1,38 @@
+= javascript_include_tag "scheduler/automatic"
+%body
+  #calendar
+    .row
+      .col-lg-3
+        .btn.btn-primary#save-sections Save Sections
+      .col-lg-3.col-lg-offset-6
+        %h2 Class Search
+    #schedule
+  #search-bar
+    %input#class-search{name: "class-search", type: "text"}
+    %select#saved-courses
+      %option -- Select Course --
+      - current_user.courses.each do |course|
+        %option= "#{course.subdepartment.mnemonic} #{course.course_number}"
+      end
+    .btn.btn-primary#clear-courses Clear Saved Courses
+    %h5#results-title Courses
+    #results-box
+    
+  .course-result.hidden
+    %a.remove
+    %p.course-title
+  #course.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "course-title", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h4#course-title
+        .modal-body
+          %h4 Lectures
+          .lectures
+          %h4 Discussions
+          .discussions
+          %h4 Laboratories
+          .laboratories
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+          %button.btn.btn-primary{:type => "button"} Save changes
