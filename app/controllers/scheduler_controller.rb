@@ -97,7 +97,15 @@ class SchedulerController < ApplicationController
 
     # Permute through the array of arrays to generate all possible combinations of schedules
     # http://stackoverflow.com/questions/5582481/creating-permutations-from-a-multi-dimensional-array-in-ruby
-    schedules = course_sections.inject(&:product).map(&:flatten)
+    if course_sections.count == 1
+      schedules = course_sections.flatten.map do |section|
+        [section]
+      end
+    elsif course_sections.count == 0
+      schedules = []
+    else
+      schedules = course_sections.inject(&:product).map(&:flatten)
+    end
 
     # Examine each schedule and only keep the ones that do not conflict
     # If a schedule has conflicts - is turned into nil and removed in Array.compact

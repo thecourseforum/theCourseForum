@@ -2,10 +2,15 @@
 %body
   #calendar
     .row
-      .col-lg-3
+      .col-lg-4
         .btn.btn-primary#save-sections Save Sections
-      .col-lg-3.col-lg-offset-6
+      .col-lg-4
+        .btn.btn-primary#clear-sections Clear Calendar
+      .col-lg-3.col-lg-offset-1
         %h2 Class Search
+    .row
+      .col-lg-9
+        %input#schedule-slider{:type => "range", :max => 0, :min => 0, :step => 1}
     #schedule
   #search-bar
     %input#class-search{name: "class-search", type: "text"}
@@ -17,11 +22,12 @@
     .btn.btn-primary#clear-courses Clear Saved Courses
     %h5#results-title Courses
     #results-box
-    
+
   .course-result.hidden
     %a.remove
     %p.course-mnemonic
     %p.course-title
+    %input{:type => 'checkbox'}
   #course-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "course-title", :role => "dialog", :tabindex => "-1"}
     .modal-dialog
       .modal-content

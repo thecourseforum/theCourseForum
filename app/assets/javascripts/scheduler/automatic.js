@@ -75,7 +75,7 @@ $(document).ready(function() {
 		$("#laboratory-header").hide();
 	}
 
-	var searchResults = [],
+	var searchResults = {},
 		calendarCourses = [],
 		schedules = [],
 		schedule = $('#schedule'),
@@ -95,7 +95,6 @@ $(document).ready(function() {
 		},
 		contentHeight: 610,
 		events: calendarCourses,
-		eventClick: courseEventClick,
 		year: 2014,
 		month: 3,
 		date: 14
@@ -112,8 +111,8 @@ $(document).ready(function() {
 
 	// Hide headers when Modal is closed
 	$('#course-modal').on('hidden.bs.modal', function (e) {
-  	hideHeaders();
-	})
+  		hideHeaders();
+	});
 
 	$('#save-sections').click(function() {
 		var section_ids = calendarCourses.map(function(event) {
@@ -128,7 +127,7 @@ $(document).ready(function() {
 			if ($.inArray(el, unique_sections) === -1) unique_sections.push(el);
 		});
 
-		$.ajax('scheduler/sections', {
+		$.ajax('sections', {
 			type: 'POST',
 			data: {
 				sections: JSON.stringify(section_ids)
@@ -155,10 +154,45 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#save-selection').click(function() {
+		var lecture_ids = [],
+			discussion_ids = [],
+			laboratory_ids = [];
+
+		$('.lectures').children(':checked').each(function(index, element) {
+			lecture_ids.push(parseInt(element.name));
+		});
+		$('.discussions').children(':checked').each(function(index, element) {
+			discussion_ids.push(parseInt(element.name));
+		});
+
+		$('.laboratories').children(':checked').each(function(index, element) {
+			laboratory_ids.push(parseInt(element.name));
+		});
+
+		searchResults[$('#course-title').attr('course_id')]['lectures'] = lecture_ids;
+
+		searchResults[$('#course-title').attr('course_id')]['discussions'] = discussion_ids;
+
+		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
+
+		$('#course-modal').modal('hide');
+	});
+
+	$('#schedule-slider').change(function() {
+		$('#clear-sections').click();
+		loadSchedule(schedules[$(this).val()]);
+	});
+
+	$('#clear-sections').click(function() {
+		calendarCourses = [];
+		schedule.fullCalendar('removeEvents');
+	});
+
 	function courseSearch(course) {
 		if (course === '') {
-			searchResults = [];
-			displayResults();
+			searchResults = {};
+			resultBox.empty();
 		} else {
 			// Split the course search string (i.e. CS 2150) into two portions
 			course = course.split(' ');
@@ -170,6 +204,7 @@ $(document).ready(function() {
 					course_number: course[1]
 				},
 				success: function(response) {
+					searchResults[response.id] = {};
 					displayResult(response);
 				},
 				error: function(response) {
@@ -188,18 +223,24 @@ $(document).ready(function() {
 		});
 
 		resultBox.children('.remove').mouseup(function() {
+			delete searchResults[result.id];
 			$(this).parent().remove();			
 		});
 
 		resultBox.mouseup(function(event) {
 			$('#course-title').text(result.title);
+			$('#course-title').attr('course_id', result.id);
 			$('.lectures').empty();
 			$('.discussions').empty();
 			$('.laboratories').empty();
 			if (result.lectures.length > 0) {
 				$("#lecture-header").show();
 				for(var i = 0; i < result.lectures.length; i++) {
-					$('.lectures').append('<input type="checkbox"> ')
+					if (searchResults[result.id]['lectures'] && searchResults[result.id]['lectures'].indexOf(result.lectures[i].section_id) != -1) {
+						$('.lectures').append('<input type="checkbox" checked name="' + result.lectures[i].section_id + '"> ');
+					} else {
+						$('.lectures').append('<input type="checkbox" name="' + result.lectures[i].section_id + '"> ');
+					}
 					$('.lectures').append(Utils.formatTimeStrings(result.lectures[i]));
 					$('.lectures').append(", " + result.lectures[i].professor);
 					if (i != result.lectures.length - 1) {
@@ -210,7 +251,11 @@ $(document).ready(function() {
 			if (result.discussions.length > 0) {
 				$("#discussion-header").show();
 				for(var i = 0; i < result.discussions.length; i++) {
-					$('.discussions').append('<input type="checkbox"> ')
+					if (searchResults[result.id]['discussions'] && searchResults[result.id]['discussions'].indexOf(result.discussions[i].section_id) != -1) {
+						$('.discussions').append('<input type="checkbox" checked name="' + result.discussions[i].section_id + '"> ');
+					} else {
+						$('.discussions').append('<input type="checkbox" name="' + result.discussions[i].section_id + '"> ');
+					}
 					$('.discussions').append(Utils.formatTimeStrings(result.discussions[i]));
 					$('.discussions').append(", " + result.discussions[i].professor);
 					if (i != result.discussions.length - 1) {
@@ -221,7 +266,11 @@ $(document).ready(function() {
 			if (result.laboratories.length > 0) {
 				$("#laboratory-header").show();
 				for(var i = 0; i < result.laboratories.length; i++) {
-					$('.laboratories').append('<input type="checkbox"> ')
+					if (searchResults[result.id]['laboratories'] && searchResults[result.id]['laboratories'].indexOf(result.laboratories[i].section_id) != -1) {
+						$('.laboratories').append('<input type="checkbox" checked name="' + result.laboratories[i].section_id + '"> ');
+					} else {
+						$('.laboratories').append('<input type="checkbox" name="' + result.laboratories[i].section_id + '"> ');
+					}
 					$('.laboratories').append(Utils.formatTimeStrings(result.laboratories[i]));
 					$('.laboratories').append(", " + result.laboratories[i].professor);
 					if (i != result.laboratories.length - 1) {
@@ -234,6 +283,37 @@ $(document).ready(function() {
 		
 		resultBox.children('.course-mnemonic').text(result.course_mnemonic);
 		resultBox.children('.course-title').text(result.title);
+		resultBox.children(':checkbox').attr('name', result.id);
+		resultBox.children(':checkbox').change(function() {
+			var sections = [],
+				course_ids = [];
+			$('.course-result').children(':checked').each(function(index, element) {
+				course_ids.push(parseInt(element.name));
+			});
+
+			for (var i = 0; i < course_ids.length; i++) {
+				course = course_ids[i];
+				if (searchResults[course]['lectures'] && searchResults[course]['lectures'].length > 0) {
+					sections.push(searchResults[course]['lectures']);
+				}
+				if (searchResults[course]['discussions'] && searchResults[course]['discussions'].length > 0) {
+					sections.push(searchResults[course]['discussions']);
+				}
+				if (searchResults[course]['laboratories'] && searchResults[course]['laboratories'].length > 0) {
+					sections.push(searchResults[course]['laboratories']);
+				}
+			}
+			$.ajax('schedules', {
+				data: {
+					course_sections: JSON.stringify(sections)
+				},
+				success: function(response) {
+					schedules = response;
+					$('#schedule-slider').attr('max', schedules.length - 1);
+					$('#schedule-slider').change();
+				}
+			});
+		});
 		$('#results-box').append(resultBox);
 	}
 
@@ -253,49 +333,10 @@ $(document).ready(function() {
 		} else {
 			for (var i = 0; i < course.events.length; i++) {
 				calendarCourses.push(course.events[i]);
-			};
+			}
 		}
 		schedule.fullCalendar('removeEvents');
 		schedule.fullCalendar('addEventSource', $.merge([], calendarCourses));
-	}
-
-	function displayInfo(result, eventView) {
-		$('#info-box').empty();
-		var infoBox = $('.course-info.hidden').clone().hide().removeClass('hidden').fadeIn();
-		infoBox.children('.course-title').text(result.title);
-		infoBox.children('.professor').text(result.professor.split(" ")[1]);
-		infoBox.children('.description').text(result.description);
-		infoBox.children('.location').text(result.location);
-		infoBox.mouseover(function() {
-			mouseInDialog = true;
-		});
-		infoBox.mouseout(function() {
-			mouseInDialog = false;
-		});
-		infoBox.addClass('course-info-dialog');
-		infoBox.mouseup(function(event) {
-			infoBox.remove();
-			mouseInDialog = false;
-		});
-		eventView.append(infoBox);
-		infoBox.css({
-			position: 'relative',
-			top: (-25 - infoBox.height() - eventView.height()) + 'px',
-			left: '-7px',
-			display: 'block',
-			'width': eventView.width()
-		});
-		infoBox.children('.remove').text('x');
-		infoBox.children('.remove').css({
-			"float": "right"
-		});
-		infoBox.children('.remove').hover(function() {
-			$(this).css({
-				"cursor": "pointer"
-			});
-		});
-		infoBox.children('.remove').mousedown(removeButtonClick);
-		infoBox.children('.remove').attr('section_id', result.section_id);
 	}
 
 	function loadSchedule(schedule) {
@@ -303,28 +344,4 @@ $(document).ready(function() {
 			addClass(schedule[i]);
 		}
 	}
-
-	function removeButtonClick() {
-		var section_id = $(this).attr('section_id');
-		removeEvent(section_id);
-	}
-
-	function removeEvent(section_id) {
-		calendarCourses = calendarCourses.filter(function(element) {
-			return element.section_id != section_id;
-		});
-		schedule.fullCalendar('removeEvents', function(course) {
-			return course.section_id == section_id;
-		});
-		mouseInDialog = false;
-	}
-
-	function courseEventClick(calEvent, jsEvent, view) {
-		if (!mouseInDialog && $('.course-info-dialog') != $('.course-info-dialog.hidden')) {
-			eventBox = $(this);
-			displayInfo(calEvent, eventBox);
-		}
-	}
-
-	$('#reset-sections').click();
 });
