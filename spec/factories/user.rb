@@ -13,5 +13,14 @@ FactoryGirl.define do
         create_list(:student, 1, user: user)
       end
     end
+
+    factory :confirmed_user_no_student do
+      first_name "John"
+      last_name  "Doe"
+      email "email@virginia.edu"
+      password "password"
+      password_confirmation "password"
+      confirmed_at Time.now
+    end
   end
 end

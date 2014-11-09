@@ -11,6 +11,113 @@ RSpec.describe ReviewsController, :type => :controller do
     sign_in @user
   end
 
+  let(:valid_attributes) do
+    {
+      course_id: Review.count+1,
+      professor_id: Review.count+1,
+      student_id: 1,
+      professor_rating: 3,
+      enjoyability: 3,
+      difficulty: 3,
+      recommend: 3,
+    }
+  end
+
+  let(:invalid_attributes) do
+    {
+      professor_rating: 0,
+      enjoyability: -1,
+      difficulty: 0,
+      recommend: 0.2,
+    }
+  end
+
+  describe "GET new" do
+    it "assigns a new review as @review" do
+      get :new
+      expect(assigns(:review)).to be_a_new(Review)
+    end
+  end
+
+  describe "GET edit" do
+    it "assigns the requested review as @review" do
+      review = build(:review)
+      user = create(:confirmed_user_with_student, email: "more_different@virginia.edu")
+      review.user = user
+      review.save
+      get :edit, {:id => review.to_param}
+      expect(assigns(:review)).to eq(review)
+    end
+  end
+
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new Review" do
+        expect {
+          post :create, {:review => valid_attributes}
+        }.to change(Review, :count).by(1)
+      end
+
+      it "redirects to the created review" do
+        post :create, {:review => valid_attributes}
+        expect(response).to redirect_to(Review.last)
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns a newly created but unsaved review as @review" do
+        post :create, {:review => valid_attributes}
+        expect(assigns(:review)).to be_a_new(Review)
+      end
+
+      it "re-renders the 'new' template" do
+        post :create, {:review => invalid_attributes}
+        expect(response).to render_template("new")
+      end
+    end
+  end
+
+  describe "PUT update" do
+    describe "with valid params" do
+      let(:new_attributes) {
+        skip("Add a hash of attributes valid for your model")
+      }
+
+      it "updates the requested review" do
+        review = Review.create! valid_attributes
+        put :update, {:id => review.to_param, :review => new_attributes}
+        review.reload
+        skip("Add assertions for updated state")
+      end
+
+      it "assigns the requested review as @review" do
+        review = Review.create! valid_attributes
+        put :update, {:id => review.to_param, :review => valid_attributes}
+        expect(assigns(:review)).to eq(review)
+      end
+
+      it "redirects to the review" do
+        review = Review.create! valid_attributes
+        put :update, {:id => review.to_param, :review => valid_attributes}
+        expect(response).to redirect_to(review)
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns the review as @review" do
+        review = Review.create! valid_attributes
+        put :update, {:id => review.to_param, :review => invalid_attributes}
+        expect(assigns(:review)).to eq(review)
+      end
+
+      it "re-renders the 'edit' template" do
+        review = Review.create! valid_attributes
+        put :update, {:id => review.to_param, :review => invalid_attributes}
+        expect(response).to render_template("edit")
+      end
+    end
+  end
+
   describe "POST vote_up" do
     it "should add a positive vote" do
       post :vote_up, review_id: @review.id

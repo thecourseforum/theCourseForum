@@ -44,11 +44,8 @@ feature 'Sign Up' do
     expect(page).to have_content("Confirmation does not match password.")
   end
 
-  scenario 'Confirmed user signs in and sees student sign up page' do
-    @user = User.find_by(email: "example@virginia.edu") ? 
-            User.find_by(email: "example@virginia.edu") : 
-            User.create(email: "example@virginia.edu", password: "password", password_confirmation: "password")
-    @user.confirm!
+  scenario 'Confirmed user signs in and fills out student sign up' do
+    @user = create(:confirmed_user_no_student)
 
     visit root_path
 
@@ -58,20 +55,6 @@ feature 'Sign Up' do
     click_button "Login"
 
     expect(page).to have_content("Tell us more about yourself:")
-  end
-
-  scenario 'Confirmed user signs in and fills out student sign up' do
-    @user = User.find_by(email: "example@virginia.edu") ? 
-            User.find_by(email: "example@virginia.edu") : 
-            User.create(email: "example@virginia.edu", password: "password", password_confirmation: "password")
-    @user.confirm!
-
-    visit root_path
-
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: "password"
-
-    click_button "Login"
 
     select Time.now.year, from: 'Graduation Year'
 
