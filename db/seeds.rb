@@ -24,8 +24,8 @@ end
 puts "Generating default user, mst3k"
 
 user = User.create(
-  email: "mst3k@virginia.edu", 
-  password: "foobarbaz", 
+  email: "mst3k@virginia.edu",
+  password: "foobarbaz",
   password_confirmation: "foobarbaz",
   first_name: "Mystery",
   last_name: "Theater",
@@ -44,7 +44,7 @@ puts "Generating users"
   ea = f[0] + (97 + rand(26)).chr + l[0] + rand(10).to_s + (0...2).map{ (97 + rand(26)).chr }.join
 
   email = ea + "@virginia.edu"
-  
+
   # see if user already exists
   u = User.find_by(email: email)
 
@@ -61,8 +61,8 @@ puts "Generating users"
 
   # create the user
   new_user = User.create(
-    email: email, 
-    password: password, 
+    email: email,
+    password: password,
     password_confirmation: password,
     first_name: f,
     last_name: l,
@@ -106,7 +106,7 @@ end
 puts "Generating subdepartments"
 
 Department.count.times do |i|
-  2.times do 
+  2.times do
     name = generate_topic_name()
     mnemonic = name.tr("-", "")[0..3].upcase
     s = Subdepartment.find_by(mnemonic: mnemonic)
@@ -162,7 +162,7 @@ types = ["Lecture", "Laboratory", "Discussion"]
 puts "Generating sections"
 
 Course.all.each do |c|
-  3.times do 
+  3.times do
 
     number = 10000 + rand(10000)
 
@@ -225,8 +225,8 @@ puts "Generating reviews"
 Course.all.each do |c|
   c.professors.each do |p|
     10.times do
-      Review.create(course_id: c.id, professor_id: p.id, semester_id: 1+rand(Semester.count), 
-                    student_id: 1+rand(User.count), professor_rating: (rand*5*2).round / 2.0, enjoyability: rand(5)+1, 
+      Review.create(course_id: c.id, professor_id: p.id, semester_id: 1+rand(Semester.count),
+                    student_id: 1+rand(User.count), professor_rating: (rand*5*2).round / 2.0, enjoyability: rand(5)+1,
                     difficulty: rand(5)+1, recommend: rand(5)+1, amount_reading: (rand*5*2).round / 2.0,
                     amount_writing: (rand*5*2).round / 2.0, amount_homework: (rand*5*2).round / 2.0,
                     amount_group: (rand*5*2).round / 2.0,
@@ -239,70 +239,73 @@ end
 puts "Generating grades"
 
 Section.all.each do |s|
-  semester = Semester.now
+  for i in 1..3
+    #semester = Semester.now
+    semester = Semester.find_by(id: i)
 
-  count_aplus = rand(50)
-  count_a = rand(50)
-  count_aminus = rand(50)
+    count_aplus = rand(50)
+    count_a = rand(50)
+    count_aminus = rand(50)
 
-  count_bplus = rand(50)
-  count_b = rand(50)
-  count_bminus = rand(50)
+    count_bplus = rand(50)
+    count_b = rand(50)
+    count_bminus = rand(50)
 
-  count_cplus = rand(50)
-  count_c = rand(50)
-  count_cminus = rand(50)
+    count_cplus = rand(50)
+    count_c = rand(50)
+    count_cminus = rand(50)
 
-  count_dplus = rand(30)
-  count_d = rand(30)
-  count_dminus = rand(30)
+    count_dplus = rand(30)
+    count_d = rand(30)
+    count_dminus = rand(30)
 
-  count_f = rand(10)
+    count_f = rand(10)
 
-  count_drop = rand(5)
-  count_withdraw = rand(5)
-  count_other = rand(3)
+    count_drop = rand(5)
+    count_withdraw = rand(5)
+    count_other = rand(3)
 
-  total = count_aplus + count_a + count_aminus +
-          count_bplus + count_b + count_bminus +
-          count_cplus + count_c + count_cminus +
-          count_dplus + count_d + count_dminus +
-          count_f + count_drop + count_withdraw + count_other
+    total = count_aplus + count_a + count_aminus +
+            count_bplus + count_b + count_bminus +
+            count_cplus + count_c + count_cminus +
+            count_dplus + count_d + count_dminus +
+            count_f + count_drop + count_withdraw + count_other
 
-  gpa = (((count_aplus + count_a)*4 +
-        count_aminus * 3.7 +
-        count_bplus * 3.3 +
-        count_b * 3 +
-        count_bminus * 2.7 +
-        count_cplus * 2.3 +
-        count_c * 2 +
-        count_cminus * 1.7 + 
-        count_dplus * 1.3 + 
-        count_d +
-        count_dminus * 0.7) / (total - count_other - count_drop - count_withdraw)).round(2)
+    gpa = (((count_aplus + count_a)*4 +
+          count_aminus * 3.7 +
+          count_bplus * 3.3 +
+          count_b * 3 +
+          count_bminus * 2.7 +
+          count_cplus * 2.3 +
+          count_c * 2 +
+          count_cminus * 1.7 +
+          count_dplus * 1.3 +
+          count_d +
+          count_dminus * 0.7) / (total - count_other - count_drop - count_withdraw)).round(2)
 
-  Grade.find_or_create_by(
-    section_id: s.id,
-    semester_id: semester.id,
-    count_aplus: count_aplus,
-    count_a: count_a,
-    count_aminus: count_aminus,
-    count_bplus: count_bplus,
-    count_b: count_b,
-    count_bminus: count_bminus,
-    count_cplus: count_cplus,
-    count_c: count_c,
-    count_cminus: count_cminus,
-    count_dplus: count_dplus,
-    count_d: count_d,
-    count_dminus: count_dminus,
-    count_f: count_f,
-    count_drop: count_drop,
-    count_withdraw: count_withdraw,
-    count_other: count_other,
-    total: total,
-    gpa: gpa
-  )
+    Grade.find_or_create_by(
+      section_id: s.id,
+      semester_id: semester.id,
+      count_aplus: count_aplus,
+      count_a: count_a,
+      count_aminus: count_aminus,
+      count_bplus: count_bplus,
+      count_b: count_b,
+      count_bminus: count_bminus,
+      count_cplus: count_cplus,
+      count_c: count_c,
+      count_cminus: count_cminus,
+      count_dplus: count_dplus,
+      count_d: count_d,
+      count_dminus: count_dminus,
+      count_f: count_f,
+      count_drop: count_drop,
+      count_withdraw: count_withdraw,
+      count_other: count_other,
+      total: total,
+      gpa: gpa
+    )
+  end
 end
 
 
@@ -364,7 +367,7 @@ end
 puts "Creating day_times_sections"
 
 Section.all.each do |s|
-  
+
   d1 = DayTime.find(1+rand(DayTime.count))
 
   case d1.day
@@ -401,4 +404,3 @@ Section.all.each do |s|
     DayTimesSection.find_or_create_by(location_id: l, section_id: s.id, day_time_id: d1.id)
   end
 end
-    

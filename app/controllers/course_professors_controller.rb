@@ -4,6 +4,7 @@ class CourseProfessorsController < ApplicationController
   def index
     @course = Course.find(params[:c])
     @professor = Professor.find(params[:p])
+    @semester = 0
     @sort_type = params[:sort]
     @professors = @course.professors_list.sort_by{|p| p.last_name}
     @subdepartment = Subdepartment.where(:id => @course.subdepartment_id).first()
@@ -21,9 +22,9 @@ class CourseProfessorsController < ApplicationController
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
       elsif @sort_type == "lowest"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
-      elsif @sort_type == "controversial"  
+      elsif @sort_type == "controversial"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
-      elsif @sort_type == "fun"  
+      elsif @sort_type == "fun"
         @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
       elsif @sort_type == "semester"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-Semester.get_number(:semester_year => r.semester.year, :semester_season => r.semester.season), r.created_at.to_i]}
@@ -49,9 +50,10 @@ class CourseProfessorsController < ApplicationController
 
     #used to pass grades to the donut chart
     gon.grades = @grades
+    gon.semester = @semester
 
     @rev_ratings = {}
-    @rev_emphasizes = {:reading_count => 0, :writing_count => 0, 
+    @rev_emphasizes = {:reading_count => 0, :writing_count => 0,
       :group_count => 0, :homework_count => 0, :test_count => 0,
       :reading => 0, :writing => 0, :group => 0, :homework => 0}
 
@@ -146,7 +148,7 @@ class CourseProfessorsController < ApplicationController
 
     emphasizes
   end
-  
+
   private
     include ApplicationHelper
 
@@ -167,10 +169,10 @@ class CourseProfessorsController < ApplicationController
       filter_words = ['the', 'and', 'is', 'was', 'be',
                       'you', 'are', 'to', 'a', 'i', 'in',
                       'but', 'of', 'class', 'this', 'very',
-                      'so', 'as', 'if', 'it', 'for', 
+                      'so', 'as', 'if', 'it', 'for',
                       'he', 'she', 'not', 'an', 'can', 'good',
                       'him', 'her', 'that', 'if', 'on', 'with',
-                      'had', 'will', 'do', 'professor', 'it\'s', 'his', 
+                      'had', 'will', 'do', 'professor', 'it\'s', 'his',
                       'go', 'up', 'look', 'all', 'get', 'really', 'pretty',
                       'very', 'lot', 'way', 'take', 'definitely',
                       'about', 'have', 'more', 'one', 'there', '-',
@@ -181,7 +183,7 @@ class CourseProfessorsController < ApplicationController
                       @professor.first_name.downcase,
                       @subdepartment.mnemonic.downcase]
 
-      
+
       words = {}
       @reviews_with_comments.each do |r|
         r.comment.split(" ").each do |word|
