@@ -40,6 +40,7 @@ class SchedulerController < ApplicationController
       render :nothing => true, :status => 404 and return unless course
 
       render :json => course.as_json.merge({
+        :course_mnemonic => "#{params[:mnemonic].upcase} #{params[:course_number]}",
         :lectures => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Lecture')),
         :discussions => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Discussion')),
         :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory'))

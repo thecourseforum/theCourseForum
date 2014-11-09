@@ -20,19 +20,20 @@
     
   .course-result.hidden
     %a.remove
+    %p.course-mnemonic
     %p.course-title
-  #course.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "course-title", :role => "dialog", :tabindex => "-1"}
+  #course-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "course-title", :role => "dialog", :tabindex => "-1"}
     .modal-dialog
       .modal-content
         .modal-header
           %h4#course-title
         .modal-body
-          %h4 Lectures
+          %h4#lecture-header Lectures
           .lectures
-          %h4 Discussions
+          %h4#discussion-header Discussions
           .discussions
-          %h4 Laboratories
+          %h4#laboratory-header Laboratories
           .laboratories
         .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
-          %button.btn.btn-primary{:type => "button"} Save changes
+          %button.btn.btn-default#close-selection{"data-dismiss" => "modal", :type => "button"} Close
+          %button.btn.btn-primary#save-selection{:type => "button"} Save Changes

@@ -10,8 +10,11 @@ class User < ActiveRecord::Base
   has_many :reviews, :foreign_key => "student_id"#, :through => :student
   belongs_to :professor_user
 
+  # relationships for scheduling
   has_and_belongs_to_many :courses
   has_and_belongs_to_many :sections
+
+  has_one :calendar, through: :calendar_sections
 
   #Provides citizenship and voter priveleges
   acts_as_voter

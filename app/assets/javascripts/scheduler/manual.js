@@ -350,7 +350,7 @@ $(document).ready(function() {
 
 	function displayInfo(result, eventView) {
 		$('#info-box').empty();
-		var infoBox = $('.course-info.hidden').clone().removeClass('hidden');
+		var infoBox = $('.course-info.hidden').clone().hide().removeClass('hidden').fadeIn();
 		infoBox.children('.course-title').text(result.title);
 		infoBox.children('.professor').text(result.professor.split(" ")[1]);
 		infoBox.children('.description').text(result.description);

@@ -1,5 +1,13 @@
 /*TODO make this file less redundant */
 
+body.modal-open {
+	padding-right: 0 !important;
+}
+
+#lecture-header, #discussion-header, #laboratory-header {
+	display: none;
+}
+
 #search-bar {
 	float: right;
 }
@@ -53,14 +61,21 @@
 }
 
 .course-result {
-	border: 1px solid black;
+	border: 1px solid transparent;
 	border-radius: 4px;
-	background-color: #3a87ad;
-	margin: 0.7em;
+	background-color: #d9551e;
+	border-color: #c34c1b;
+	margin: 0.7em 0;
 	padding: 4px;
 	z-index: 2;
 	cursor: pointer;
 	cursor: hand;
+	max-width: 178px;
+}
+
+.course-result:hover {
+	background-color: #ac4318;
+	border-color: #8d3713;
 }
 
 .course-result p{
@@ -69,10 +84,16 @@
 	color: white;
 }
 
+.fc-event {
+	background-color: #d9551e;
+	border-color: #c34c1b;
+}
+
 .schedule-result {
 	border: 1px solid black;
 	border-radius: 2px;
-	background-color: #3a87ad;
+	background-color: #d9551e;
+	border-color: #c34c1b;
 	margin: 0.1em;
 	padding: 4px;
 	z-index: 2;
