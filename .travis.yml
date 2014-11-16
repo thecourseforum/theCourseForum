@@ -14,6 +14,8 @@ rvm:
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - cp config/database.yml.skel config/database.yml
+  - cp config/initializers/devise.rb.example config/initializers/devise.rb
+  - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - mysql -e 'create database thecourseforum_test'
 
 # Set up test database, and then run the tests.
