@@ -1,4 +1,12 @@
 language: ruby
-script: "bundle exec rspec spec/"
+env:
+  - DB=mysql
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec/
 rvm:
   - 2.0.0
+before_script:
+  - cp config/database.yml.skel config/database.yml
+  - mysql -e 'create database thecourseforum_test'
