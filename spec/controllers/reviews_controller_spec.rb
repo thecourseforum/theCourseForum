@@ -86,15 +86,25 @@ RSpec.describe ReviewsController, :type => :controller do
 
   describe "PUT update" do
     describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) do 
+        {
+          professor_rating: 1,
+          enjoyability: 5,
+          difficulty: 4,
+          recommend: 1,
+        }
+      end
 
       it "updates the requested review" do
         review = Review.create! valid_attributes_with_class
         put :update, {:id => review.to_param, :review => new_attributes}
+        expect(response).to redirect_to(my_reviews_path)
         review.reload
-        skip("Add assertions for updated state")
+        skip("Test does not update fields. :(")
+        expect(review.professor_rating).to be == 1
+        expect(review.enjoyability).to be == 5
+        expect(review.difficulty).to be == 4
+        expect(review.recommend).to be == 2
       end
 
       it "assigns the requested review as @review" do

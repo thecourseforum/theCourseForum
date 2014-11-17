@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Sign Up' do
   scenario 'user fills out the sign up form correctly' do
@@ -42,24 +42,5 @@ feature 'Sign Up' do
     expect(page).to have_content("Please enter a valid UVa email.")
     expect(page).to have_content("Please enter a valid password (at least 8 characters).")
     expect(page).to have_content("Confirmation does not match password.")
-  end
-
-  scenario 'Confirmed user signs in and fills out student sign up' do
-    @user = create(:confirmed_user_no_student)
-
-    visit root_path
-
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: "password"
-
-    click_button "Login"
-
-    expect(page).to have_content("Tell us more about yourself:")
-
-    select Time.now.year, from: 'Graduation Year'
-
-    click_button "Start using theCourseForum!"
-
-    expect(page).to have_content("Browse")
   end
 end

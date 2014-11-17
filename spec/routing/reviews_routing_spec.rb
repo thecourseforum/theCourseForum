@@ -3,10 +3,17 @@ require "support/devise_helper.rb"
 
 RSpec.describe ReviewsController, :type => :routing do
   before(:each) do
-    
+    review = create(:review_with_user)
   end
 
   describe "routing" do
+    it "does not route to #index" do 
+      expect(:get => "/reviews/").to_not be_routable
+    end
+
+    it "does not route to #show" do 
+      expect(:get => "/reviews/1").to_not be_routable
+    end
 
     it "routes to #new" do
       expect(:get => "/reviews/new").to route_to("reviews#new")

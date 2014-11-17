@@ -9,7 +9,7 @@ FactoryGirl.define do
     recommend 3
 
     factory :review_with_user do
-      user_id 1
+      student_id 1
     end
   end
 end
