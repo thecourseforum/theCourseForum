@@ -9,3 +9,7 @@ SEARCH_URL: ""
 
 # Salt for the password hash from the old site.
 OLD_SALT: ""
+
+# Email/Password for production mailer
+EMAIL_USERNAME: ""
+EMAIL_PASSWORD: ""
