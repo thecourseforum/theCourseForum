@@ -8,14 +8,18 @@ class SessionsController < Devise::SessionsController
     if @user && (@user.old_password != nil)
       if @user.old_authenticate(params[:user][:password])
         @user.migrate(params[:user][:password])
+
+        set_flash_message(:notice, :signed_in) if is_navigational_format?
+        sign_in(:user, @user)
+
+        if @user.student
+          @user.student.destroy
+        end
+
+        redirect_to student_sign_up_path
+      else
+        redirect_to new_user_session_path, notice: 'Invalid email or password.', :email => params[:user][:email]
       end
-      
-      set_flash_message(:notice, :signed_in) if is_navigational_format?
-      sign_in(:user, @user)
-      if @user.student
-        @user.student.destroy
-      end
-      redirect_to student_sign_up_path
     elsif @user && @user.valid_password?(params[:user][:password])
       super
     else
