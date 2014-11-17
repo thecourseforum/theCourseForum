@@ -104,8 +104,7 @@ class ReviewsController < ApplicationController
     @years = (2009..Time.now.year).to_a
 
     respond_to do |format|
-      if @review.update_attributes!(review_params)
-        
+      if @review.update_attributes(review_params)
         @semester = Semester.where(:season => params[:semester_season], :year => params[:semester_year]).first
         @review.semester_id = @semester.id
         @review.save

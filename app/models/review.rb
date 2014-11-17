@@ -16,6 +16,9 @@ class Review < ActiveRecord::Base
   validates :professor_rating, :enjoyability, :difficulty, :recommend, 
     :numericality => { :greater_than_or_equal_to => 1 }
 
+  validates :amount_reading, :amount_writing, :amount_group, :amount_homework,
+    :numericality => { :greater_than_or_equal_to => 0 }
+
   validates_uniqueness_of :student_id, :scope => [:course_id, :professor_id]
 
   # Get overall review rating from subcategories
