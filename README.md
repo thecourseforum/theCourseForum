@@ -1,3 +1,6 @@
+Beta:
+![build status](https://travis-ci.org/thecourseforum/theCourseForum.svg?branch=beta)
+
 theCourseForum
 ==============
 ###Connecting University of Virginia Students to Course information and Reviews
