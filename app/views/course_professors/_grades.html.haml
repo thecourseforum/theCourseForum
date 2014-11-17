@@ -1,6 +1,24 @@
 #grades.grade-donut
 
 :coffee
-  new App.GradeDonut('#grades', { width: 300, height: 300})
-    .setData(gon.grades, gon.semester)
-    .render()
+  $(document).ready () ->
+
+    donut = new App.GradeDonut('#grades', { width: 300, height: 300})
+      .setData(gon.grades)
+      .render()
+
+    change = () ->
+      if $("input:checked").length > 0
+        $("#all-semesters").prop('checked', false)
+      else
+        $("#all-semesters").prop('checked', true)
+
+      value = $(this).data("semesterId")
+      if $(this).is(':checked')
+        donut.add(value)
+      else
+        donut.remove(value)
+
+    $(".grade-checkbox").on("change", change)
+
+    return

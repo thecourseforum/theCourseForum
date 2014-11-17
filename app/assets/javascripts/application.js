@@ -17,6 +17,7 @@
 // require turbolinks
 //= require bootstrap
 //= require d3
+// require new_wheel
 //= require grades
 //= require course_professors
 //= require contact_us

@@ -18,7 +18,7 @@ class App.GradeDonut
   colors: ['#5254a3', '#6b6ecf', '#9c9ede', '#31a354', '#74c476', '#a1d99b',
     '#fdae6b', '#969696']
   # Margin around donut
-  margin: 15
+  margin: 0
   # Distance from radius to inner arc
   innerRadiusOffset: 65
   # Distance from radius to outer arc
@@ -28,6 +28,8 @@ class App.GradeDonut
   # go on outside
   labelInSliceMin: 6
 
+  selected_semeters: []
+
   # Set el and height and width
   constructor: (@el, opts) ->
     opts or= {}
@@ -36,7 +38,8 @@ class App.GradeDonut
 
   # Set data to be used in donut
   # curr series is index of data array
-  setData: (data, currSeries) ->
+  setData: (data) ->
+    console.log(data)
     @data = @toPoints(@aggregateBySection sem for sem in @groupBySemester(data))
 
     @currSeries = {values: new Array, total: 0, gpa: 0}
@@ -46,7 +49,9 @@ class App.GradeDonut
       @currSeries.gpa += obj.gpa
 
       if (@currSeries.values.length == 0)
-        @currSeries.values = obj.values
+        @currSeries.values = obj.values.slice()
+        for i of @currSeries.values
+          @currSeries.values[i] = $.extend(true, {}, obj.values[i])
       else
         for i of @currSeries.values
           @currSeries.values[i].value += obj.values[i].value
@@ -62,32 +67,116 @@ class App.GradeDonut
     # set width/height/radius
     @setDimensions()
     # add svg elem to el
-    viz = @renderContainer()
+    @viz = @renderContainer()
 
     # create pie descriptor
-    pie = d3.layout.pie()
+    @pie = d3.layout.pie()
       .sort(null)
       .value((d) -> d.value)
 
     # set slices to match pie values
-    slices = viz.selectAll('.slice')
-      .data(pie(@currSeries.values))
+    @slices = @viz.selectAll('.slice')
+      .data(@pie(@currSeries.values))
 
     # add any new slices (new grades)
-    @addNewSlices(slices)
+    @addNewSlices(@slices)
 
     # update all existing slices to 
     # set their current values
     me = this
-    slices.each (d) -> me.updateSlices(this)
+    @slices.each (d) -> me.updateSlices(this)
 
     # remove old slices (probably won't happen 
     # just yet since we always have all grade keys
     # for each section)
-    slices.exit().remove()
+    @slices.exit().remove()
 
     # update inner label to show new info
-    @updateInnerLabel(viz)
+    @updateInnerLabel(@viz)
+
+    this
+    
+  add: (semester_id) ->
+    console.log("adding: " + semester_id)
+    @selected_semeters.push(semester_id)
+
+    count = 0
+    @currSeries = {values: new Array, total: 0, gpa: 0}
+
+    for obj in @data
+      if $.inArray(parseInt(obj.key), @selected_semeters) > -1 || @selected_semeters.length == 0
+        count++
+        @currSeries.total += obj.total
+        @currSeries.gpa += obj.gpa
+
+        if (@currSeries.values.length == 0)
+          @currSeries.values = obj.values.slice()
+          for i of @currSeries.values
+            @currSeries.values[i] = $.extend(true, {}, obj.values[i])
+        else
+          for i of @currSeries.values
+            @currSeries.values[i].value += obj.values[i].value
+
+    @currSeries.gpa = (@currSeries.gpa / count).toFixed(2)
+
+    @updateWheel()
+
+  remove: (semester_id) -> 
+    console.log("removing: " + semester_id)
+
+    @selected_semeters = $.grep(@selected_semeters, (value) -> 
+      return value != semester_id;
+    )
+
+    count = 0
+    @currSeries = {values: new Array, total: 0, gpa: 0}
+
+    for obj in @data
+      if $.inArray(parseInt(obj.key), @selected_semeters) > -1 || @selected_semeters.length == 0
+        count++
+        @currSeries.total += obj.total
+        @currSeries.gpa += obj.gpa
+
+        if (@currSeries.values.length == 0)
+          @currSeries.values = obj.values.slice()
+          for i of @currSeries.values
+            @currSeries.values[i] = $.extend(true, {}, obj.values[i])
+        else
+          for i of @currSeries.values
+            @currSeries.values[i].value += obj.values[i].value
+
+    @currSeries.gpa = (@currSeries.gpa / count).toFixed(2)
+
+    @updateWheel()
+
+  updateWheel: () ->
+    console.log(@currSeries)
+    console.log(@selected_semeters)
+    # add svg elem to el
+    @viz = @renderContainer()
+
+    @pie = d3.layout.pie()
+      .sort(null)
+      .value((d) -> d.value)
+
+    # set slices to match pie values
+    @slices = @viz.selectAll('.slice')
+      .data(@pie(@currSeries.values))
+
+    # update all existing slices to 
+    # set their current values
+    me = this
+    @slices.each (d) -> me.updateSlices(this)
+
+    # remove old slices (probably won't happen 
+    # just yet since we always have all grade keys
+    # for each section)
+    @slices.exit().remove()
+
+    # update inner label to show new info
+    @updateInnerLabel(@viz)
+
+    this
 
   # Add svg container to el if it hasn't been 
   # added already.  Note that we add a g elem 
@@ -115,9 +204,6 @@ class App.GradeDonut
       .attr('d', @arc())
       .each((d) -> this._current = d)
 
-    newSlices.append('text')
-    slices.select('text').attr('text-anchor', 'middle')
-
   # Update all slices
   updateSlices: (el) ->
     me = this
@@ -126,32 +212,6 @@ class App.GradeDonut
     d3.select(el).select('path').transition()
       .duration(500)
       .attrTween('d', (d) -> me.arcTween(d, this))
-
-    # move text into proper placement
-    d3.select(el).select('text')
-      .attr('transform', (d) =>
-        c = @arc().centroid(d)
-        x = c[0]
-        y = c[1]
-        h = Math.sqrt(x*x + y*y) # pythagorean theorem for hypotenuse
-        percent = @getPercent(d)
-
-        # if too small a slice, put label outside the pie
-        if percent < me.labelInSliceMin
-            x =  x/h * @radius
-            y = y/h * @radius
-
-        'translate(' + x +  ',' + y +  ')'
-    )
-    .attr('text-anchor', (d) ->
-        # if past center, switch orientation
-        (d.endAngle + d.startAngle)/2 > Math.PI ? 'end' : 'start'
-    )
-    .text((d) =>
-        percent = @getPercent(d)
-        return d.data.id.capitalize()
-            .replace('plus', '+').replace('minus', '-') + ' (' + percent + '%)'
-    )
 
   # Show donut info in middle of donut
   updateInnerLabel: (viz) ->
@@ -203,9 +263,6 @@ class App.GradeDonut
     @height = @height || d3.select(@el)[0][0].getBoundingClientRect().height
     @radius = (Math.min(@width, @height) - 2 * @margin) / 2
 
-  # Get percent for given grade
-  getPercent: (d) ->
-    Math.round((d.data.value / @currSeries.total) * 100)
 
   # Group grade data by semester
   groupBySemester: (data) ->

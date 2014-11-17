@@ -71,12 +71,38 @@
             %td --
             %td=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
   .course-grades.col-md-6
-    %h2 Grades (cumulative since Fall 2009)
-    - if @grades.size > 0
-      //= render :partial => "grades", :locals => {:grades => @grades}
-      #grades
-    - else
-      %p There aren't any grade distributions available for this class. Sorry!
+    .row
+      %h2 Grades (cumulative since Fall 2009)
+      .col-xs-9
+        - if @grades.size > 0
+          = render :partial => "grades", :locals => {:grades => @grades}
+        - else
+          %p There aren't any grade distributions available for this class. Sorry!
+      .col-xs-3
+        .row
+        - @letters.each_with_index do |letter, i|
+          .row
+            .col-xs-12
+              %span.glyphicon.glyphicon-stop{style: "color:#{@colors[i]}"}
+              = letter
+    .row{style: "font-size:10px"}
+      .col-xs-12
+        * O contains grades less than C-, withdrawals, pass/fails, and audits
+    .row
+      .col-xs-6
+        %input#all-semesters{type: "checkbox", checked: true, "data-semester-id" => "all"}
+          All Semesters
+
+    - @semesters.reverse.each_slice(2) do |slice|
+      .row
+        .col-xs-6
+          %input.grade-checkbox{type: "checkbox", "data-semester-id" => slice[0].id}
+            = slice[0].to_s
+        - if slice[1]
+          .col-xs-6
+            %input.grade-checkbox{type: "checkbox", "data-semester-id" => slice[1].id}
+              = slice[1].to_s
+
     -#
       - if @reviews_with_comments.count > 0 && @word_cloud_on
         .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
