@@ -30,6 +30,8 @@ class App.GradeDonut
 
   selected_semeters: []
 
+  letters: ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'O*']
+
   # Set el and height and width
   constructor: (@el, opts) ->
     opts or= {}
@@ -39,7 +41,6 @@ class App.GradeDonut
   # Set data to be used in donut
   # curr series is index of data array
   setData: (data) ->
-    console.log(data)
     @data = @toPoints(@aggregateBySection sem for sem in @groupBySemester(data))
 
     @currSeries = {values: new Array, total: 0, gpa: 0}
@@ -97,7 +98,6 @@ class App.GradeDonut
     this
     
   add: (semester_id) ->
-    console.log("adding: " + semester_id)
     @selected_semeters.push(semester_id)
 
     count = 0
@@ -122,8 +122,6 @@ class App.GradeDonut
     @updateWheel()
 
   remove: (semester_id) -> 
-    console.log("removing: " + semester_id)
-
     @selected_semeters = $.grep(@selected_semeters, (value) -> 
       return value != semester_id;
     )
@@ -150,8 +148,6 @@ class App.GradeDonut
     @updateWheel()
 
   updateWheel: () ->
-    console.log(@currSeries)
-    console.log(@selected_semeters)
     # add svg elem to el
     @viz = @renderContainer()
 
@@ -204,43 +200,25 @@ class App.GradeDonut
       .attr('d', @arc())
       .each((d) -> this._current = d)
 
-    newSlices.append('text')
-    slices.select('text').attr('text-anchor', 'middle')
-
   # Update all slices
   updateSlices: (el) ->
     me = this
 
     # transition arc for new value
     d3.select(el).select('path').transition()
-      .duration(500)
+      .duration(750)
       .attrTween('d', (d) -> me.arcTween(d, this))
 
-    # move text into proper placement
-    d3.select(el).select('text')
-      .attr('transform', (d) =>
-        c = @arc().centroid(d)
-        x = c[0]
-        y = c[1]
-        h = Math.sqrt(x*x + y*y) # pythagorean theorem for hypotenuse
-        percent = @getPercent(d)
+    # Set Percentages on page
 
-        # if too small a slice, put label outside the pie
-        if percent < me.labelInSliceMin
-            x =  x/h * @radius
-            y = y/h * @radius
+    for i of @currSeries.values
+      grade = @currSeries.values[i]
+      number = @currSeries.values[i].value
+      percent = Math.round((number / @currSeries.total) * 100)
+      $('#' + i + "-percent").html("(" + percent + "%)")
 
-        'translate(' + x +  ',' + y +  ')'
-    )
-    .attr('text-anchor', (d) ->
-        # if past center, switch orientation
-        (d.endAngle + d.startAngle)/2 > Math.PI ? 'end' : 'start'
-    )
-    .text((d) =>
-        percent = @getPercent(d)
-        return d.data.id.capitalize()
-            .replace('plus', '+').replace('minus', '-') + ' (' + percent + '%)'
-    )
+    this
+
 
   # Get percent for given grade
   getPercent: (d) ->

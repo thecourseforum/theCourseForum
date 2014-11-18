@@ -70,21 +70,24 @@
             %td Tests/Midterms
             %td --
             %td=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
-  .course-grades.col-md-6
+  .course-grades.col-md-7
     .row
       %h2 Grades (cumulative since Fall 2009)
-      .col-xs-9
+      .col-xs-8
         - if @grades.size > 0
           = render :partial => "grades", :locals => {:grades => @grades}
         - else
           %p There aren't any grade distributions available for this class. Sorry!
-      .col-xs-3
+      .col-xs-4
         .row
         - @letters.each_with_index do |letter, i|
           .row
-            .col-xs-12
+            %span
               %span.glyphicon.glyphicon-stop{style: "color:#{@colors[i]}"}
+            %span
               = letter
+            %span{id: "#{i}-percent"}
+              (100%)
     .row{style: "font-size:10px"}
       .col-xs-12
         * O contains grades less than C-, withdrawals, pass/fails, and audits
@@ -107,7 +110,7 @@
       - if @reviews_with_comments.count > 0 && @word_cloud_on
         .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
           #word_cloud
-
+  -#
     %select.distribution-semester-switcher{:onchange => "window.redraw()", :style => "font-size:13px;"}
       %option{value: "#", selected: @semester == 2}="Default Value"
       %option{value: "#", selected: @semester == 1}="Change semester"
