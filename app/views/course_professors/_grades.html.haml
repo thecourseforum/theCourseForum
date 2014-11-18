@@ -19,8 +19,9 @@
       else
         donut.remove(value)
 
-    allSemesters = () ->
+    allSemesters = (e) ->
       if !$(this).is(":checked")
+        e.preventDefault();
         return
 
       $(this).prop('checked', true)
