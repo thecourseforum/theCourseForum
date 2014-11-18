@@ -204,6 +204,9 @@ class App.GradeDonut
       .attr('d', @arc())
       .each((d) -> this._current = d)
 
+    newSlices.append('text')
+    slices.select('text').attr('text-anchor', 'middle')
+
   # Update all slices
   updateSlices: (el) ->
     me = this
@@ -212,6 +215,36 @@ class App.GradeDonut
     d3.select(el).select('path').transition()
       .duration(500)
       .attrTween('d', (d) -> me.arcTween(d, this))
+
+    # move text into proper placement
+    d3.select(el).select('text')
+      .attr('transform', (d) =>
+        c = @arc().centroid(d)
+        x = c[0]
+        y = c[1]
+        h = Math.sqrt(x*x + y*y) # pythagorean theorem for hypotenuse
+        percent = @getPercent(d)
+
+        # if too small a slice, put label outside the pie
+        if percent < me.labelInSliceMin
+            x =  x/h * @radius
+            y = y/h * @radius
+
+        'translate(' + x +  ',' + y +  ')'
+    )
+    .attr('text-anchor', (d) ->
+        # if past center, switch orientation
+        (d.endAngle + d.startAngle)/2 > Math.PI ? 'end' : 'start'
+    )
+    .text((d) =>
+        percent = @getPercent(d)
+        return d.data.id.capitalize()
+            .replace('plus', '+').replace('minus', '-') + ' (' + percent + '%)'
+    )
+
+  # Get percent for given grade
+  getPercent: (d) ->
+    Math.round((d.data.value / @currSeries.total) * 100)
 
   # Show donut info in middle of donut
   updateInnerLabel: (viz) ->
