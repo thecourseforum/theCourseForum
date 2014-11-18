@@ -19,6 +19,21 @@
       else
         donut.remove(value)
 
+    allSemesters = () ->
+      if !$(this).is(":checked")
+        return
+
+      $(this).prop('checked', true)
+
+      $(".grade-checkbox").each -> 
+        value = $(this).data("semesterId")
+        $(this).prop('checked', false)
+        donut.remove(value)
+
+
+
     $(".grade-checkbox").on("change", change)
+    $("#all-semesters").click(allSemesters)
+
 
     return
