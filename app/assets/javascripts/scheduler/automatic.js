@@ -78,6 +78,7 @@ $(document).ready(function() {
 	var searchResults = {},
 		calendarCourses = [],
 		schedules = [],
+		savedSelections = [],
 		schedule = $('#schedule'),
 		mouseInDialog = false;
 
@@ -162,6 +163,7 @@ $(document).ready(function() {
 		$('.lectures').children(':checked').each(function(index, element) {
 			lecture_ids.push(parseInt(element.name));
 		});
+
 		$('.discussions').children(':checked').each(function(index, element) {
 			discussion_ids.push(parseInt(element.name));
 		});
@@ -177,10 +179,30 @@ $(document).ready(function() {
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
 
 		$('#course-modal').modal('hide');
+
+		sections = []
+		$.merge(sections, lecture_ids);
+		$.merge(sections, discussion_ids);
+		$.merge(sections, laboratory_ids);
+		console.log(sections);
+
+		//passes all checked sections to a controller method that will put them in a user table user_section
+		//Need a way to remove newly unchecked sections
+		$.ajax('/scheduler/save_selections', {
+			type: 'POST',
+			data: {
+				sections: sections
+	 	 	},
+	 	 	success: function(response) {
+				hideHeaders();
+	 	 	}
+	 	});
+
 	});
 
 	$('#schedule-slider').change(function() {
 		$('#clear-sections').click();
+		console.log($(this));
 		loadSchedule(schedules[$(this).val()]);
 	});
 
@@ -228,19 +250,43 @@ $(document).ready(function() {
 		});
 
 		resultBox.mouseup(function(event) {
+
+			//gets an array of checked sections from the user_section table
+			//Weird behavior. Not getting called all the time?
+			$.ajax('saved_selections', {	
+				success: function(response) {
+					//console.log(response);
+					loadSelections(response);
+					console.log(savedSelections);
+					//savedSelections.push(response);
+				}
+			});
+
+
 			$('#course-title').text(result.title);
 			$('#course-title').attr('course_id', result.id);
 			$('.lectures').empty();
 			$('.discussions').empty();
 			$('.laboratories').empty();
+
+			//Updated way of restoring checks to checkboxes
+			//matched against array from above
+
 			if (result.lectures.length > 0) {
 				$("#lecture-header").show();
 				for(var i = 0; i < result.lectures.length; i++) {
-					if (searchResults[result.id]['lectures'] && searchResults[result.id]['lectures'].indexOf(result.lectures[i].section_id) != -1) {
-						$('.lectures').append('<input type="checkbox" checked name="' + result.lectures[i].section_id + '"> ');
-					} else {
-						$('.lectures').append('<input type="checkbox" name="' + result.lectures[i].section_id + '"> ');
+					isChecked="";
+					if (sectionSelected(result.lectures[i].section_id)) {
+						isChecked = "checked";
 					}
+					$('.lectures').append('<input type="checkbox" ' + isChecked + ' name="' + result.lectures[i].section_id + '"> ');
+
+					// if (searchResults[result.id]['lectures'] && searchResults[result.id]['lectures'].indexOf(result.lectures[i].section_id) != -1) {
+					// 	$('.lectures').append('<input type="checkbox" checked name="' + result.lectures[i].section_id + '"> ');
+					// } else {
+					// 	$('.lectures').append('<input type="checkbox" name="' + result.lectures[i].section_id + '"> ');
+					// }
+
 					$('.lectures').append(Utils.formatTimeStrings(result.lectures[i]));
 					$('.lectures').append(", " + result.lectures[i].professor);
 					if (i != result.lectures.length - 1) {
@@ -251,11 +297,20 @@ $(document).ready(function() {
 			if (result.discussions.length > 0) {
 				$("#discussion-header").show();
 				for(var i = 0; i < result.discussions.length; i++) {
-					if (searchResults[result.id]['discussions'] && searchResults[result.id]['discussions'].indexOf(result.discussions[i].section_id) != -1) {
-						$('.discussions').append('<input type="checkbox" checked name="' + result.discussions[i].section_id + '"> ');
-					} else {
-						$('.discussions').append('<input type="checkbox" name="' + result.discussions[i].section_id + '"> ');
+
+					isChecked = "";
+					if (sectionSelected(result.discussions[i].section_id)) {
+						isChecked = "checked";
 					}
+					console.log(isChecked);
+					$('.discussions').append('<input type="checkbox" ' + isChecked + ' name="' + result.discussions[i].section_id + '"> ');
+
+					// if (searchResults[result.id]['discussions'] && searchResults[result.id]['discussions'].indexOf(result.discussions[i].section_id) != -1) {
+					// 	$('.discussions').append('<input type="checkbox" checked name="' + result.discussions[i].section_id + '"> ');
+					// } else {
+					// 	$('.discussions').append('<input type="checkbox" name="' + result.discussions[i].section_id + '"> ');
+					// }
+
 					$('.discussions').append(Utils.formatTimeStrings(result.discussions[i]));
 					$('.discussions').append(", " + result.discussions[i].professor);
 					if (i != result.discussions.length - 1) {
@@ -266,11 +321,17 @@ $(document).ready(function() {
 			if (result.laboratories.length > 0) {
 				$("#laboratory-header").show();
 				for(var i = 0; i < result.laboratories.length; i++) {
-					if (searchResults[result.id]['laboratories'] && searchResults[result.id]['laboratories'].indexOf(result.laboratories[i].section_id) != -1) {
-						$('.laboratories').append('<input type="checkbox" checked name="' + result.laboratories[i].section_id + '"> ');
-					} else {
-						$('.laboratories').append('<input type="checkbox" name="' + result.laboratories[i].section_id + '"> ');
+					isChecked = "";
+					if (sectionSelected(result.laboratories[i].section_id)) {
+						isChecked = "checked";
 					}
+					$('.laboratories').append('<input type="checkbox" ' + isChecked + ' name="' + result.laboratories[i].section_id + '"> ');
+
+					// if (searchResults[result.id]['laboratories'] && searchResults[result.id]['laboratories'].indexOf(result.laboratories[i].section_id) != -1) {
+					// 	$('.laboratories').append('<input type="checkbox" checked name="' + result.laboratories[i].section_id + '"> ');
+					// } else {
+					// 	$('.laboratories').append('<input type="checkbox" name="' + result.laboratories[i].section_id + '"> ');
+					// }
 					$('.laboratories').append(Utils.formatTimeStrings(result.laboratories[i]));
 					$('.laboratories').append(", " + result.laboratories[i].professor);
 					if (i != result.laboratories.length - 1) {
@@ -341,7 +402,29 @@ $(document).ready(function() {
 
 	function loadSchedule(schedule) {
 		for (var i = 0; i < schedule.length; i++) {
+			console.log("test");
 			addClass(schedule[i]);
 		}
 	}
+
+
+	function loadSelections(selections) {
+		
+		savedSelections.length = 0;
+		for (var i = 0; i < selections.length; i++) {
+			//console.log(selections[i]);
+			savedSelections[savedSelections.length] = (selections[i]);
+		}
+		console.log(savedSelections);
+	}
+
+	// checks if  section has been saved so that it can be marked as checked
+	function sectionSelected(section_id) {
+		for (var i = 0; i < savedSelections.length; i++) {
+			if(savedSelections[i].section_id == section_id) {
+				return true;
+			}
+		}
+	}
+
 });

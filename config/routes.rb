@@ -28,8 +28,10 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/search_course' => 'scheduler#search_course'
   get '/scheduler/schedules' => 'scheduler#schedules'
   get '/scheduler/sections' => 'scheduler#sections'
+  get 'scheduler/saved_selections' => 'scheduler#saved_selections'
   post '/scheduler/course' => 'scheduler#save_course'
   post '/scheduler/sections' => 'scheduler#save_sections'
+  post '/scheduler/save_selections' => 'scheduler#save_selections'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
 
   resources :departments, :only => [:show, :index]

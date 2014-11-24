@@ -73,6 +73,21 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
+  def save_selections
+    sections = Section.where(id: params[:sections])
+    pr sections
+    sections.each do |section|
+      unless current_user.sections.include?(section)
+        current_user.sections << section
+      end
+    end
+    render :nothing => true
+  end
+
+  def saved_selections
+    render :json => rsections_to_jssections(current_user.sections)
+  end
+
   def clear_courses
     current_user.courses = []
 
