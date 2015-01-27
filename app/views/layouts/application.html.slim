@@ -15,10 +15,13 @@ html
   body
     = render 'layouts/header'
     .container
-      aside
-        / = render 'layouts/navigation'
+      - if current_user
+        aside
+          / render nav bar
       section#main
         #notice= notice
         #alert= alert
         = yield
+    - if !current_user
+      = render 'layouts/footer'
     = render 'layouts/ga'
