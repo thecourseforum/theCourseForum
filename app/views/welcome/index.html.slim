@@ -28,32 +28,37 @@
             .row
               .col-xs-12
                 input type="email" placeholder="Email" class="form-control"
-            .row#password-row
+            .row.form-row
               .col-xs-8#password
                 input type="password" placeholder="Password" class="form-control"
               .col-xs-4#submit-button
                 input type="submit" value="Login" class="form-control btn btn-primary"
-
+            .row.form-row
+              .col-xs-6 style="color:#777;"
+                input id="remember-me-box" type="checkbox"
+                label for="remember-me-box" style="font-weight:normal;" Remember Me?
+              .col-xs-6.text-right
+                a href="#{new_user_password_path}" Forgot Your Password?            
       form
         #panel-login.panel.panel-default
           .panel-body
             .row
               .col-xs-12
                 h3#sign-up-title Sign up now!
-            .row.sign-up-row
+            .row.form-row
               .col-xs-6
                 input type="text" placeholder="First Name" class="form-control"
               .col-xs-6
                 input type="text" placeholder="Last Name" class="form-control"
-            .row.sign-up-row
+            .row.form-row
               .col-xs-12
                 input type="email" placeholder="UVa Email Address" class="form-control"
-            .row.sign-up-row
+            .row.form-row
               .col-xs-12
                 input type="password" placeholder="Password" class="form-control"
-            .row.sign-up-row
+            .row.form-row
               .col-xs-12
                 input type="password" placeholder="Password Confirmation" class="form-control"
-            .row.sign-up-row
+            .row.form-row
               .col-xs-4.col-xs-offset-8
                 input type="submit" value="Sign Up!" class="form-control btn btn-primary"
