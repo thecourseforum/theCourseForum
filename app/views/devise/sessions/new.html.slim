@@ -1,0 +1,29 @@
+.row
+  .col-xs-12.text-center.text-white
+    h1.brand theCourseForum
+.row
+  .col-xs-12.text-center.text-white
+    h3.catch-phrase connecting you to the courses you love
+
+.row
+  .col-xs-4.col-xs-offset-4
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-xs-12.text-center
+            = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+              .row
+                .col-xs-12
+                  = f.email_field :email, :autofocus => true, placeholder: "Email", class: "form-control"
+              .row.form-row
+                .col-xs-12
+                  = f.password_field :password, placeholder: "Password", class: "form-control"
+              - if devise_mapping.rememberable?
+                .row.form-row
+                  .col-xs-12
+                    = f.check_box :remember_me, id: "remember-me-box"
+                    = f.label :remember_me, "Remember Me?", id: "remember-me-label", for: "remember-me-box"
+              div= f.submit "Login", :class => "form-control btn btn-primary"
+.row
+  .col-xs-12.text-center
+    = render "devise/shared/links"

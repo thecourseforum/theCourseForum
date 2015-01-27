@@ -1,5 +1,9 @@
 @import "variables";
 
+.catch-phrase {
+  margin-top: 5px;
+}
+
 #panel-login {
   width: 100%;
 }
@@ -10,6 +14,11 @@
 
 #remember-me-box {
   margin-right: 5px;
+}
+
+#remember-me-label {
+  color: #777;
+  font-weight: normal;
 }
 
 #sign-up-title {
