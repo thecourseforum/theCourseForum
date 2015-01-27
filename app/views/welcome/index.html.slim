@@ -39,7 +39,7 @@
                 = f.label :remember_me, "Remember Me?", id: "remember-me-label", for: "remember-me-box"
               .col-xs-6.text-right
                 a href="#{new_user_password_path}" Forgot Your Password?            
-      form
+      = form_for @user, url: user_registration_path do |f|
         #panel-login.panel.panel-default
           .panel-body
             .row
@@ -47,18 +47,18 @@
                 h3#sign-up-title Sign up now!
             .row.form-row
               .col-xs-6
-                input type="text" placeholder="First Name" class="form-control"
+                = f.text_field :first_name, placeholder: "First Name", class: "form-control"
               .col-xs-6
-                input type="text" placeholder="Last Name" class="form-control"
+                = f.text_field :last_name, placeholder: "Last Name", class: "form-control"
             .row.form-row
               .col-xs-12
-                input type="email" placeholder="UVa Email Address" class="form-control"
+                = f.email_field :email, placeholder: "UVa Email Address", class: "form-control"
             .row.form-row
               .col-xs-12
-                input type="password" placeholder="Password" class="form-control"
+                = f.password_field :password, placeholder: "Password (at least 8 characters)", class: "form-control"
             .row.form-row
               .col-xs-12
-                input type="password" placeholder="Password Confirmation" class="form-control"
+                = f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control"
             .row.form-row
               .col-xs-4.col-xs-offset-8
-                input type="submit" value="Sign Up!" class="form-control btn btn-primary"
+                = f.submit "Sign Up!", class: "form-control btn btn-primary"

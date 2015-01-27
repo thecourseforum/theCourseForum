@@ -54,6 +54,10 @@ BS3-switch used for settings toggles.
   font-style: normal;
 }
 
+#alert, #notice {
+  color: white;
+}
+
 body {
   font-family: "Futura", sans-serif;
   background-color: $blue;
