@@ -1,0 +1,18 @@
+// default colors
+$orange: #D75626;
+$blue: #15214B;
+
+// variables to ovverride bootstrap
+$navbar-height: 117px;
+$navbar-default-bg: white;
+$link-color: #000;
+$link-hover-color: $orange;
+$btn-primary-bg: $orange;
+
+// font sizes
+$regular-font-size: 14px;
+$sidebar-font-side: 18px;
+$tab-font-size: 21px;
+$menu-font-size: 21px;
+$subtitle-font-size: 24px; // ALL CAPS
+$title-font-size: 36px;

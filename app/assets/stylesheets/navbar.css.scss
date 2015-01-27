@@ -1,0 +1,29 @@
+@import "variables";
+
+.navbar {
+  border: 0;
+  border-radius: 0px;
+  height: $navbar-height;
+}
+
+.navbar-default .navbar-brand {
+  padding: 0;
+  width: 300px;
+  background-color: $orange;
+  color: white;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  background-color: $orange;
+  color: white;
+}
+
+#logo {
+  max-height: $navbar-height;
+  width: 100%;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $blue;
+  font-size: $subtitle-font-size;
+}

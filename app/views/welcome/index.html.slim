@@ -1,0 +1,59 @@
+.user-sign-up
+  .row
+    .col-xs-offset-1.col-xs-6
+      .row
+        .col-xs-12
+          h1.welcome-header.brand style="margin-bottom:0px;" Welcome to theCourseForum
+      .row
+        .col-xs-12
+          h3 style="margin-top:5px;" connecting you to the courses you love
+
+      .marketing style="font-size:20px;"
+        .row style="margin-top:13px;"
+          .col-xs-2.text-right
+            = image_tag "icons/1_classprofessorthoughts_icon.png"
+          .col-xs-10 See what other students say about classes and professors
+        .row style="margin-top:17px;"
+          .col-xs-2.text-right
+            = image_tag "icons/2_gradedistribution_icon.png"
+          .col-xs-10 Check out actual grade distributions from past semesters
+        .row style="margin-top:17px;"
+          .col-xs-2.text-right
+            = image_tag "icons/3_writeareview_icon.png"
+          .col-xs-10 Write reviews for courses you've taken.
+    .col-xs-4
+      form
+        #panel-login.panel.panel-default
+          .panel-body
+            .row
+              .col-xs-12
+                input type="email" placeholder="Email" class="form-control"
+            .row#password-row
+              .col-xs-8#password
+                input type="password" placeholder="Password" class="form-control"
+              .col-xs-4#submit-button
+                input type="submit" value="Login" class="form-control btn btn-primary"
+
+      form
+        #panel-login.panel.panel-default
+          .panel-body
+            .row
+              .col-xs-12
+                h3#sign-up-title Sign up now!
+            .row.sign-up-row
+              .col-xs-6
+                input type="text" placeholder="First Name" class="form-control"
+              .col-xs-6
+                input type="text" placeholder="Last Name" class="form-control"
+            .row.sign-up-row
+              .col-xs-12
+                input type="email" placeholder="UVa Email Address" class="form-control"
+            .row.sign-up-row
+              .col-xs-12
+                input type="password" placeholder="Password" class="form-control"
+            .row.sign-up-row
+              .col-xs-12
+                input type="password" placeholder="Password Confirmation" class="form-control"
+            .row.sign-up-row
+              .col-xs-4.col-xs-offset-8
+                input type="submit" value="Sign Up!" class="form-control btn btn-primary"

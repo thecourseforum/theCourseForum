@@ -1,0 +1,27 @@
+@import "variables";
+
+#panel-login {
+  width: 100%;
+}
+
+#password {
+  padding-right: 0;
+}
+
+#password-row {
+  margin-top: 10px;
+}
+
+#sign-up-title {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: $orange;
+}
+
+.sign-up-row {
+  margin-top: 10px;
+}
+
+.user-sign-up {
+  color: white;
+}
