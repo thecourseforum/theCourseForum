@@ -1,0 +1,18 @@
+footer, footer a {
+  color: white;
+}
+
+footer {
+  background-color: inherit;
+  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
+}
+
+.links {
+  a {
+    img {
+      max-height: 30px;
+    }
+  }
+}
