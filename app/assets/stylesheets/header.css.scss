@@ -10,6 +10,12 @@
   width: 300px;
   background-color: $orange;
   color: white;
+  text-align: center;
+
+  h1 {
+    margin-top: ($navbar-height - 39px) / 2;
+    margin-bottom: ($navbar-height - 39px) / 2;
+  }
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
@@ -19,7 +25,8 @@
 
 #logo {
   max-height: $navbar-height;
-  width: 100%;
+  max-width: 80%;
+  margin-top: 6px;
 }
 
 .navbar-default .navbar-nav > li > a {
