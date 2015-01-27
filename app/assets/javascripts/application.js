@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.ui.touch-punch
-// require turbolinks
+//= require turbolinks
 //= require bootstrap
 //= require d3
 // require new_wheel

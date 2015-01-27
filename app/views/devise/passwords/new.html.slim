@@ -1,0 +1,21 @@
+.row
+  .col-xs-12.text-center
+    h1.text-white Forgot your password?
+
+.row
+  .col-xs-4.col-xs-offset-4
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-xs-12.text-center
+            = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+              = devise_error_messages!
+              .row
+                .col-xs-12
+                  = f.email_field :email, :autofocus => true, placeholder: "Email", class: "form-control"
+              .row.form-row
+                .col-xs-12
+                  = f.submit "Send me reset password instructions", class: "form-control btn btn-primary"
+.row
+  .col-xs-12.text-center
+    = render "devise/shared/links"
