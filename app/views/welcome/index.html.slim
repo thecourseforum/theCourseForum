@@ -22,21 +22,21 @@
             = image_tag "icons/3_writeareview_icon.png"
           .col-xs-10 Write reviews for courses you've taken.
     .col-xs-4
-      form
+      = form_for @user, url: user_session_path do |f|
         #panel-login.panel.panel-default
           .panel-body
             .row
               .col-xs-12
-                input type="email" placeholder="Email" class="form-control"
+                = f.email_field :email, placeholder: "Email", class: "form-control"
             .row.form-row
               .col-xs-8#password
-                input type="password" placeholder="Password" class="form-control"
+                = f.password_field :password, placeholder: "Password", class: "form-control"
               .col-xs-4#submit-button
-                input type="submit" value="Login" class="form-control btn btn-primary"
+                = f.submit "Login", class: "form-control btn btn-primary"
             .row.form-row
               .col-xs-6
-                input id="remember-me-box" type="checkbox"
-                label id="remember-me-label" for="remember-me-box" style="font-weight:normal;" Remember Me?
+                = f.check_box :remember_me, id: "remember-me-box"
+                = f.label :remember_me, "Remember Me?", id: "remember-me-label", for: "remember-me-box"
               .col-xs-6.text-right
                 a href="#{new_user_password_path}" Forgot Your Password?            
       form
