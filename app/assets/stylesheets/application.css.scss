@@ -10,8 +10,8 @@
  *
  *= require_self
  *= require bootstrap_overrides
+ *= require header
  *= require footer
- *= require navbar
  *= require welcome
 = require jquery-ui/slider
 = require fullcalendar
