@@ -18,6 +18,11 @@ before_script:
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - mysql -e 'create database thecourseforum_test'
 
+# Ignore redesign branch for now
+branches:
+  except:
+    - redesign-3.0
+
 # Set up test database, and then run the tests.
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
