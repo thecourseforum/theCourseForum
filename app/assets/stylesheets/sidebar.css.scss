@@ -1,0 +1,51 @@
+@import "variables";
+
+#nav-footer {
+  left: auto;
+  right: auto;
+  text-align: center;
+  padding-bottom: 25px;
+  font-size: 12px;
+  width: $sidebar-width;
+
+  a {
+    color: white;
+  }
+
+}
+
+#search-form {
+  i {
+    margin-right: 10px;
+  }
+
+  input {
+    background-color:#15214B;
+    border: 0;
+    outline: none;
+  }
+
+}
+
+.site-nav-links {
+  color: white;
+  list-style-type: none;
+  margin-top: 8px;
+
+  .nav-row {
+    text-align: center;
+    font-size: $sidebar-font-size;
+    height: 100%;
+
+    .col-wrapper {
+      padding-top: 20.5px;
+      padding-bottom: 20.5px;
+      border-bottom: 1px solid white;
+    }
+
+    a {
+      color: white;
+    }
+  }
+  
+}

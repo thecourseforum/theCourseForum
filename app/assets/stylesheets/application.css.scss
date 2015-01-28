@@ -12,6 +12,7 @@
  *= require bootstrap_overrides
  *= require header
  *= require footer
+ *= require sidebar
  *= require welcome
 = require jquery-ui/slider
 = require fullcalendar
@@ -60,10 +61,8 @@ BS3-switch used for settings toggles.
   background-color: $orange;
   padding: 5px 0;
   vertical-align: middle;
-  font-size: $sidebar-font-side;
+  font-size: $sidebar-font-size;
 }
-
-
 
 body {
   font-family: "Futura", sans-serif;

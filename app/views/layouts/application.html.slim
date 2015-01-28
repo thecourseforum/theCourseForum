@@ -20,6 +20,7 @@ html
       #alert= alert
     - if current_user
         aside
+          = render 'layouts/navigation'
         section#main
           .container-fluid
             = yield

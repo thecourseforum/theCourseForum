@@ -1,0 +1,44 @@
+.container-fluid.site-nav-links
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+         = form_tag '/search/search', method: "get", id: "search-form"
+          i.glyphicon.glyphicon.glyphicon-search
+          input type="text" placeholder="Type to Search"
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+        a href="/reviews/new"
+          i.glyphicon.glyphicon.glyphicon-pencil
+          |  Write a review
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+        a href="/browse"
+          i.glyphicon.glyphicon-list
+          |  Browse All
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+        a href="/professors"
+          i.glyphicon.glyphicon-list
+          |  Browse by Professor
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+        a href="/scheduler/manual"
+          i.glyphicon.glyphicon-calendar
+          |  Manual Scheduler
+  .row.nav-row
+    .col-xs-12
+      .col-wrapper
+        a href="/scheduler/automatic"
+          i.glyphicon.glyphicon-calendar
+          |  Automatic Scheduler
+
+  #nav-footer.row.navbar-fixed-bottom
+    a href="#{privacy_path}" Privacy
+    = " | "
+    a href="#{terms_path}" Terms
+    = " | "
+    | theCourseForum © 2014
