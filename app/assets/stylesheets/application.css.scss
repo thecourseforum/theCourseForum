@@ -56,11 +56,38 @@ BS3-switch used for settings toggles.
 
 #alert, #notice {
   color: white;
+  text-align: center;
+  background-color: $orange;
+  padding: 5px 0;
+  vertical-align: middle;
+  font-size: $sidebar-font-side;
 }
+
+
 
 body {
   font-family: "Futura", sans-serif;
   background-color: $blue;
+}
+
+aside {
+  width: $sidebar-width !important;
+  float: left;
+}
+
+section#main {
+  margin-left: $sidebar-width;
+  background-color: #EEE;
+  // http://stackoverflow.com/questions/7198282/how-to-make-div-occupy-remaining-height
+  // bottom: 0;
+  // top: $navbar-height;
+  // right: 0;
+  // left: 0;
+  // position: absolute;
+}
+
+#welcome-container {
+  margin-top: 20px;
 }
 
 .brand {

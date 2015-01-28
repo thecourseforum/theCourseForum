@@ -3,11 +3,12 @@
 .navbar {
   border: 0;
   border-radius: 0px;
+  margin-bottom: 0;
 }
 
 .navbar-default .navbar-brand {
   padding: 0;
-  width: 300px;
+  width: $sidebar-width;
   background-color: $orange;
   color: white;
   text-align: center;
