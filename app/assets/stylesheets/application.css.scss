@@ -64,9 +64,15 @@ BS3-switch used for settings toggles.
   font-size: $sidebar-font-size;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: "Futura", sans-serif;
   background-color: $blue;
+  overflow: hidden;
 }
 
 aside {
@@ -76,13 +82,25 @@ aside {
 
 section#main {
   margin-left: $sidebar-width;
-  background-color: #EEE;
+  position: fixed;
+  top: 75px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
   // http://stackoverflow.com/questions/7198282/how-to-make-div-occupy-remaining-height
   // bottom: 0;
   // top: $navbar-height;
   // right: 0;
   // left: 0;
   // position: absolute;
+
+  #main-container {
+    background-color: #EEE;
+    height: 100%;
+    overflow: auto;
+    padding: 0 50px;
+  }
 }
 
 #welcome-container {
@@ -99,4 +117,9 @@ section#main {
 
 .text-white {
   color: white;
+}
+
+.page-title {
+  margin-top: 40px;
+  margin-bottom: 31px;
 }

@@ -19,5 +19,9 @@ nav.navbar.navbar-default
           a href="http://blog.thecourseforum.com" target="_blank" BLOG
         li
           a href="#{contact_us_path}" CONTACT US
+        - if current_user
+          li
+            a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
+              | Logout
     /! /.navbar-collapse
   /! /.container-fluid

@@ -14,18 +14,16 @@ html
 
   body
     = render 'layouts/header'
-    - if notice
-      #notice= notice
-    - if alert
-      #alert= alert
     - if current_user
         aside
           = render 'layouts/navigation'
         section#main
-          .container-fluid
+          = render 'layouts/notice'
+          .container-fluid#main-container
             = yield
     - else
-      .container#welcome-container
+      = render 'layouts/notice'
+      .container-fluid#welcome-container
         = yield
       = render 'layouts/footer'
     = render 'layouts/ga'
