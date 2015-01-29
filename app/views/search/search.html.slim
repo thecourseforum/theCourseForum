@@ -1,5 +1,5 @@
 - content_for :title, "#{@query} - Search Results"
-%h1 Search results
+h1 Search results
 
 .search
   = will_paginate @result
@@ -17,7 +17,7 @@
   - @result.each do |r|
     .row
       .col-xs-12
-        %a{:href => course_professors_path(:p => r["professor_id"].to_i, :c => r["course_id"].to_i)}
+        a href="#{course_professors_path(:p => r["professor_id"].to_i, :c => r["course_id"].to_i)}"
           .row
             .col-xs-2
               = "#{r["subdepartment_code"]} #{r["course_number"]}"

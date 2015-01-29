@@ -27,7 +27,7 @@
 //= require jqcloud
 //= require bootstrap-switch
 
-$(document).ready(function() {
+var ready = function() {
 	$("#word-cloud-switch").bootstrapSwitch({
 		size: 'small',
 		onColor: 'primary',
@@ -83,7 +83,7 @@ $(document).ready(function() {
 		$('#' + target).toggle();
 	});
 
-	$('#searchbox').autocomplete({
+	$('#search-form').autocomplete({
 	source: function( request, response ) {
 		$.ajax({
 			url: '/search/search',
@@ -167,3 +167,6 @@ jQuery.ajaxSetup({
   },
   success: function() {}
 });
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
