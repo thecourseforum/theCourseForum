@@ -99,7 +99,12 @@ section#main {
     background-color: #EEE;
     height: 100%;
     overflow: auto;
-    padding: 0 50px;
+    padding: 40px 50px;
+
+    #content-container {
+      background-color: white;
+      padding-bottom: 20px;
+    }
   }
 }
 
@@ -120,6 +125,6 @@ section#main {
 }
 
 .page-title {
-  margin-top: 40px;
+  margin-top: 0px;
   margin-bottom: 31px;
 }

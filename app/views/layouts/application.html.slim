@@ -20,7 +20,10 @@ html
         section#main
           = render 'layouts/notice'
           .container-fluid#main-container
-            = yield
+            - if content_for?(:title)
+              h1.page-title= yield(:title)
+            .container-fluid#content-container
+              = yield
     - else
       = render 'layouts/notice'
       .container-fluid#welcome-container
