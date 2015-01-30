@@ -128,14 +128,9 @@ var ready = function() {
 	}
 	});
 
-	
 
-};
+	var prof_ajax = $.ajax();
 
-var prof_ajax = $.ajax();
-
-
-$(document).ready(function() {
 	$("#prof_name").bind("change", function(){
 		$("#prof_list").empty();
 		var value = $(this).find(":selected").val();
@@ -161,19 +156,24 @@ $(document).ready(function() {
 			}
 		});
 	});
-});
 
-jQuery.ajaxSetup({
-  beforeSend: function() {
-    $('#loading').fadeIn();
-    $("#second_letter").show();
+	jQuery.ajaxSetup({
+	  beforeSend: function() {
+	    $('#loading').fadeIn();
+	    $("#second_letter").show();
 
-  },
-  complete: function(){
-    $('#loading').hide();
-  },
-  success: function() {}
-});
+	  },
+	  complete: function(){
+	    $('#loading').hide();
+	  },
+	  success: function() {}
+	});
+
+	
+
+};
+
+
 
 $(document).ready(ready);
 $(document).on('page:load', ready);

@@ -1,7 +1,7 @@
 #grades.grade-donut
 
 coffee:
-  $(document).ready () ->
+  ready = ->
 
     donut = new App.GradeDonut('#grades', { width: 300, height: 300})
       .setData(gon.grades)
@@ -38,3 +38,6 @@ coffee:
 
 
     return
+
+  $(document).ready(ready)
+  $(document).on('page:load', ready)

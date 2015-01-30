@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var ready = function() {
   $(".problem").hide();
   $(".other").hide();
 
@@ -28,4 +28,7 @@ $(document).ready(function() {
     $(".description").fadeIn("fast");
     $(".anonymous").hide();
   });
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
