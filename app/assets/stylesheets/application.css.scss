@@ -57,11 +57,21 @@ BS3-switch used for settings toggles.
 
 #alert, #notice {
   color: white;
+  float: center;
   text-align: center;
   background-color: $orange;
   padding: 5px 0;
   vertical-align: middle;
   font-size: $sidebar-font-size;
+  padding-left: 30px;
+}
+
+#close-notice, #close-alert {
+  float: right;
+  margin-right: 20px;
+  a {
+    color: white;
+  }
 }
 
 html, body {
@@ -110,6 +120,7 @@ section#main {
 
 #welcome-container {
   margin-top: 20px;
+  margin-bottom: 50px; // height of footer
 }
 
 .brand {

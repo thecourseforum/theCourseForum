@@ -28,6 +28,13 @@
 //= require bootstrap-switch
 
 var ready = function() {
+	
+	$("#close-notice, #close-alert").click(function() {
+		$(this).parent().collapse('toggle');
+	});
+
+	
+
 	$("#word-cloud-switch").bootstrapSwitch({
 		size: 'small',
 		onColor: 'primary',
@@ -123,7 +130,7 @@ var ready = function() {
 
 	
 
-});
+};
 
 var prof_ajax = $.ajax();
 

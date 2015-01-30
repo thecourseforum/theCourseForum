@@ -1,4 +1,11 @@
 - if notice
-  #notice= notice
+  #notice.collapse.in
+    = notice
+    span#close-notice
+      a href="#" X
+
 - if alert
-  #alert= alert
+  #alert.collapse.in
+    = alert
+    span#close-alert
+      a href="#" X
