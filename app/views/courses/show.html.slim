@@ -1,19 +1,20 @@
 - content_for :title, @course.mnemonic_number
 .course-professor-h1
   .row
-    %h1{:title => "#{@course.title}"}
-      = "#{@course.mnemonic_number} - #{@course.title}"
+    .col-xs-12
+      h1 title="#{@course.title}"
+        = "#{@course.mnemonic_number} - #{@course.title}"
   .bottom-border
 .row
   .col-xs-3.centertext
-    %b Professor
+    b Professor
   .col-xs-3.col-sm-2.centertext
-    %b Reviews
-  .col-xs-1.overall{:title => "Overall"}
-  .col-xs-1.professor_rating{:title => "Professor Rating"}
-  .col-xs-1.enjoyability{:title => "Fun-Factor"}
-  .col-xs-1.difficulty{:title => "Difficulty"}
-  .col-xs-1.recommend{:title => "Recommendability"}
+    b Reviews
+  .col-xs-1.overall title= "Overall"
+  .col-xs-1.professor_rating title="Professor Rating"
+  .col-xs-1.enjoyability title="Fun-Factor"
+  .col-xs-1.difficulty title="Difficulty"
+  .col-xs-1.recommend title="Recommendability"
 - @professors.each do |professor|
   - @reviews = Review.where(:course_id => @course.id, :professor_id => professor.id)
   - ratings = {prof: 0, enjoy: 0, difficulty: 0, recommend: 0, overall: 0}
@@ -26,7 +27,7 @@
     - ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
     - ratings.each do |k, v|
       - ratings[k] = (v / @reviews.count.to_f).round(2)
-  %a{:href => course_professors_path(:p => professor.id, :c => @course.id)}
+  a href="#{course_professors_path(:p => professor.id, :c => @course.id)}"
     .row
       .col-sm-3.hidden-xs
         = professor.full_name
