@@ -1,36 +1,49 @@
-/ - content_for :title, "Browse All"
+- content_for :title, "Browse By Department"
+- content_for :page_heading, "Browse By Department"
 
-.row
-  .col-sm-12
-    h2 Arts &amp; Sciences Departments
-
-.row.department-list
-  .col-sm-6
-    - @artDeps[0].each do |d|
-      .dept= link_to d.name, d
-  .col-sm-6
-    - @artDeps[1].each do |d|
-      .dept= link_to d.name, d
-
-.row
-  .col-sm-12
-    h2 Engineering &amp; Applied Sciences
-
-.row.department-list
-  .col-sm-6
-    - @engrDeps[0].each do |d|
-      .dept= link_to d.name, d
-  .col-sm-6
-    - @engrDeps[1].each do |d|
-      .dept= link_to d.name, d
-.row
-  .col-sm-12
-    h2 Others Schools at the University of Virginia
-
-.row.department-list
-  .col-sm-6
-    - @otherSchools[0].each do |d|
-      .dept= link_to d.name, d
-  .col-sm-6
-    - @otherSchools[1].each do |d|
-      .dept= link_to d.name, d
+#department-accordion.panel-group aria-multiselectable="true" role="tablist" 
+  .panel.panel-default
+    #headingOne.panel-heading role="tab" 
+      / Potential Orange Block setup. Need to look more into this.
+      / .dept-block
+      /   span.glyphicon.glyphicon-euro
+      .panel-title
+        a.school-link.collapsed aria-controls="collapseOne" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseOne" 
+          h3.school-title Arts &amp; Sciences Departments
+    #collapseOne.panel-collapse.collapse aria-labelledby="headingOne" role="tabpanel" 
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @artDeps[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @artDeps[1].each do |d|
+              .dept= link_to d.name, d
+  .panel.panel-default
+    #headingTwo.panel-heading role="tab" 
+      h4.panel-title
+        a.school-link.collapsed aria-controls="collapseTwo" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseTwo" 
+          h3.school-title Engineering &amp; Applied Sciences
+    #collapseTwo.panel-collapse.collapse aria-labelledby="headingTwo" role="tabpanel" 
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @engrDeps[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @engrDeps[1].each do |d|
+              .dept= link_to d.name, d
+  .panel.panel-default
+    #headingThree.panel-heading role="tab" 
+      h4.panel-title
+        a.school-link.collapsed aria-controls="collapseThree" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseThree" 
+          h3.school-title Others Schools at the University of Virginia
+    #collapseThree.panel-collapse.collapse aria-labelledby="headingThree" role="tabpanel" 
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @otherSchools[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @otherSchools[1].each do |d|
+              .dept= link_to d.name, d

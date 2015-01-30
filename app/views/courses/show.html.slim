@@ -1,10 +1,6 @@
 - content_for :title, @course.mnemonic_number
-.course-professor-h1
-  .row
-    .col-xs-12
-      h1 title="#{@course.title}"
-        = "#{@course.mnemonic_number} - #{@course.title}"
-  .bottom-border
+- content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
+
 .row
   .col-xs-3.centertext
     b Professor

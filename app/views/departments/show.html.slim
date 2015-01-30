@@ -1,4 +1,6 @@
 - content_for :title, @department.name
+- content_for :page_heading, @department.name
+
 #dept-list
   - @subdepartments_with_sections.each do |subdepartment|
     - if (@count > 1)

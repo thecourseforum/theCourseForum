@@ -20,8 +20,8 @@ html
         section#main
           = render 'layouts/notice'
           .container-fluid#main-container
-            - if content_for?(:title)
-              h1.page-title= yield(:title)
+            - if content_for?(:page_heading)
+              h1.page-title= yield(:page_heading)
             .container-fluid#content-container
               = yield
     - else
