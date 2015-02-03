@@ -15,8 +15,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def columnize(arr)
-    [arr.shift((arr.length / 2).ceil), arr]
+  def columnize(arr, n=2)
+    val = []
+
+    length = (arr.count / n).ceil
+
+    (n-1).times do 
+      val << arr.shift(length)
+    end
+
+    val << arr
+
+    val
   end
   
 end

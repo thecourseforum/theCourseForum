@@ -1,33 +1,44 @@
 - content_for :title, @department.name
 - content_for :page_heading, @department.name
 
-div role="tabpanel" 
+div#dept-list role="tabpanel" 
   /! Nav tabs
-  ul.nav.nav-tabs role="tablist" 
+  ul#dept-tabs.nav.nav-tabs role="tablist" 
     li.active role="presentation" 
-      a aria-controls="home" data-toggle="tab" href="#dept-courses" role="tab"  Courses
+      a aria-controls="home" data-toggle="tab" href="#dept-courses" role="tab" Courses
     li role="presentation" 
-      a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab"  Professors
+      a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
   /! Tab panes
+  br
   .tab-content
     #dept-courses.tab-pane.fade.in.active role="tabpanel"
-      - @subdepartments_with_sections.each do |subdepartment|
-        - if (@count > 1)
-          h2= subdepartment.name
-        ul#department-courses
-          - flag = true
-          - separator = 0
-          - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each do |course|
-            - if flag
-              - separator = (course.course_number / 1000) * 1000 + 1000
-              - flag = false
-            - if course.course_number >= separator
-              br
-              - separator = (course.course_number / 1000) * 1000 + 1000
-            li= link_to course.mnemonic_number + " " + course.title, course
+      .container-fluid
+        - @subdepartments_with_sections.each do |subdepartment|
+          - if (@count > 1)
+            h2= subdepartment.name
+          ul#department-courses
+            - flag = true
+            - separator = 0
+            - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each do |course|
+              - if flag
+                - separator = (course.course_number / 1000) * 1000 + 1000
+                - flag = false
+              - if course.course_number >= separator
+                br
+                - separator = (course.course_number / 1000) * 1000 + 1000
+              li= link_to course.mnemonic_number + " " + course.title, course
     #dept-professors.tab-pane.fade role="tabpanel"
-      - @professors.each do |professor|
-        = professor.full_name
-        br
+      .container-fluid
+        .row
+          .col-xs-4
+            - @professors[0].each do |professor|
+              .prof= link_to professor.separated_name, professor_path(professor)
+          .col-xs-4
+            - @professors[1].each do |professor|
+              .prof= link_to professor.separated_name, professor_path(professor)
+          .col-xs-4
+            - @professors[2].each do |professor|
+              .prof= link_to professor.separated_name, professor_path(professor)
+        
 
-  
+    

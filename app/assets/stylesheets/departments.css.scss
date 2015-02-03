@@ -1,5 +1,7 @@
 @import "variables";
 
+/* INDEX */
+
 #department-courses {
   list-style-type: none;
   padding-left: 0;
@@ -25,3 +27,9 @@
   margin-left: 46px;
 }
 
+
+/* SHOW */
+
+#dept-tabs > li > a {
+  font-size: $subtitle-font-size;
+}

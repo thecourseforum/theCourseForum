@@ -40,7 +40,7 @@ class DepartmentsController < ApplicationController
 
     @section_ids = @sections.pluck(:id)
     @professor_ids = SectionProfessor.where(section_id: @section_ids).pluck(:professor_id)
-    @professors = Professor.where(id: @professor_ids).uniq.sort_by{|p| p.last_name}
+    @professors = columnize(Professor.where(id: @professor_ids).uniq.sort_by{|p| p.last_name}, 3)
 
     @count = @subdepartments.size
 
