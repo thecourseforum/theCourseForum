@@ -1,3 +1,5 @@
+@import "variables";
+
 h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 0;
 }
@@ -16,3 +18,10 @@ h1, .h1, h2, .h2, h3, .h3 {
   border: 0;
 }
 
+.nav-tabs > li > a {
+  border-radius: 0;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  border-top: 4px solid $orange;
+}

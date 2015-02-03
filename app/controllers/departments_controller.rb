@@ -38,8 +38,9 @@ class DepartmentsController < ApplicationController
     @subdepartments_with_sections_ids = @courses_with_sections.pluck(:subdepartment_id)
     @subdepartments_with_sections = @subdepartments.where(id: @subdepartments_with_sections_ids)
 
-    # @section_ids = @sections.pluck(:id)
-    # @section_professor_mapping = SectionProfessor.where(section_id: @section_ids).pluck(:section_id, :professor_id)
+    @section_ids = @sections.pluck(:id)
+    @professor_ids = SectionProfessor.where(section_id: @section_ids).pluck(:professor_id)
+    @professors = Professor.where(id: @professor_ids).uniq.sort_by{|p| p.last_name}
 
     @count = @subdepartments.size
 
