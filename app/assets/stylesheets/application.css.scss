@@ -9,18 +9,19 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ * BS3-switch used for settings toggles. 
+ *= require bootstrap3-switch
+ *= require jquery-ui/slider
+ *= require jqcloud
+ *= require fullcalendar
  *= require bootstrap_overrides
  *= require header
  *= require footer
  *= require sidebar
  *= require welcome
- *= require departments
-= require jquery-ui/slider
-= require fullcalendar
-= require jqcloud
-BS3-switch used for settings toggles. 
-= require bootstrap3-switch
-= require scheduler
+ *= require departments 
+ *= require reviews
+ *= require scheduler
  */
 
 @import "variables";
@@ -51,7 +52,7 @@ BS3-switch used for settings toggles.
 
 @font-face {
   font-family: "Futura";
-  src: asset-url('futura-medium.ttf') format('truetype');
+  src: asset-url('FuturaLT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -134,6 +135,11 @@ section#main {
 
 .brand {
   font-family: "Rockwell";
+}
+
+.orange-title {
+  font-size: $subtitle-font-size;
+  color: $orange;
 }
 
 .form-row {
