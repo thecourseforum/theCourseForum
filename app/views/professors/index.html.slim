@@ -1,0 +1,24 @@
+- content_for :title, "Browse by Professor"
+h1 Professors
+.row
+  .col-md-12
+    .row
+      .col-md-6
+        p First Letter of Professor's Last Name:
+    .row
+      .col-md-3
+        = select_tag :prof_name, options_for_select(('A'..'Z').to_a), include_blank: true, class: 'form-control'
+
+hr
+
+p id="loading" style="display: none" Loading...
+
+.row
+  .col-md-12 name="prof_list" id="prof_list"
+
+p &nbsp
+
+javascript:
+
+  document.getElementById("prof_name").selectedIndex = -1;
+      
