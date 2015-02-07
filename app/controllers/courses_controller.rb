@@ -27,10 +27,9 @@ class CoursesController < ApplicationController
 
     @semesters = Semester.where(id: @grades.map{|g| g.semester_id}).sort_by{|s| s.number}
 
-    if @all_reviews.length > 0
-      @rev_ratings = get_review_ratings
-      @rev_emphasizes = get_review_emphasizes
-    end
+    @rev_ratings = get_review_ratings
+    @rev_emphasizes = get_review_emphasizes
+    
 
     respond_to do |format|
       format.html # show.html.slim
