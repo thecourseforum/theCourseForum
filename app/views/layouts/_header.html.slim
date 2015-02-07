@@ -21,7 +21,20 @@ nav.navbar.navbar-default
           a href="#{contact_us_path}" CONTACT US
         - if current_user
           li
-            a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
-              | Logout
+            a#user-account data-toggle="dropdown" 
+              = current_user.first_name
+              span.caret
+            ul.dropdown-menu aria-labelledby="user-account" role="menu" 
+              li 
+                a href="#{my_reviews_path}" My Reviews
+              li 
+                a href="#{edit_user_registration_path}" My Account
+              li 
+                a href="#{user_settings_path}" Settings
+              li.divider
+              li role="presentation" 
+                a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
+                  | Logout
+            
     /! /.navbar-collapse
   /! /.container-fluid
