@@ -24,7 +24,6 @@
     scheduler_saved_selections GET    /scheduler/saved_selections(.:format) scheduler#saved_selections
                    departments GET    /departments(.:format)                departments#index
                     department GET    /departments/:id(.:format)            departments#show
-                 subdepartment GET    /subdepartments/:id(.:format)         subdepartments#show
            search_search_index GET    /search/search(.:format)              search#search
                         browse GET    /browse(.:format)                     departments#index
                     contact_us GET    /contact_us(.:format)                 contact_us#new
