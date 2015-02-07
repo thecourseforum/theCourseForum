@@ -21,6 +21,7 @@
  *= require welcome
  *= require departments 
  *= require reviews
+ *= require courses
  *= require scheduler
  */
 
@@ -133,6 +134,11 @@ section#main {
   }
 }
 
+/* hover style just for information */
+label:hover:before {
+  border: 1px solid #4778d9!important;
+}
+
 .brand {
   font-family: "Rockwell";
 }
@@ -140,6 +146,11 @@ section#main {
 .orange-title {
   font-size: $subtitle-font-size;
   color: $orange;
+}
+
+.blue-title {
+  font-size: $menu-font-size;
+  color: $blue;
 }
 
 .form-row {

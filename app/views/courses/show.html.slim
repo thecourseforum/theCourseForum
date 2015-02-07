@@ -1,45 +1,194 @@
-- content_for :title, @course.mnemonic_number
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
 
-.row
-  .col-xs-3.centertext
-    b Professor
-  .col-xs-3.col-sm-2.centertext
-    b Reviews
-  .col-xs-1.overall title= "Overall"
-  .col-xs-1.professor_rating title="Professor Rating"
-  .col-xs-1.enjoyability title="Fun-Factor"
-  .col-xs-1.difficulty title="Difficulty"
-  .col-xs-1.recommend title="Recommendability"
-- @professors.each do |professor|
-  - @reviews = Review.where(:course_id => @course.id, :professor_id => professor.id)
-  - ratings = {prof: 0, enjoy: 0, difficulty: 0, recommend: 0, overall: 0}
-  - if @reviews.count > 0
-    - @reviews.each do |r|
-      - ratings[:prof] += r.professor_rating
-      - ratings[:enjoy] += r.enjoyability
-      - ratings[:difficulty] += r.difficulty
-      - ratings[:recommend] += r.recommend
-    - ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
-    - ratings.each do |k, v|
-      - ratings[k] = (v / @reviews.count.to_f).round(2)
-  a href="#{course_professors_path(:p => professor.id, :c => @course.id)}" data-no-turbolink=""
+.row#course-page
+  .col-xs-3#courses-sidebar
     .row
-      .col-sm-3.hidden-xs
-        = professor.full_name
-      .col-xs-3.visible-xs
-        = professor.last_name
-      .col-xs-3.col-sm-2.centertext
-        = @reviews.count
-      .col-xs-1.centertext
-        = (@reviews.count > 0 ? ratings[:overall].round(2) : "--")
-      .col-xs-1.centertext
-        = (@reviews.count > 0 ? ratings[:prof].round(2) : "--")
-      .col-xs-1.centertext
-        = (@reviews.count > 0 ? ratings[:enjoy].round(2) : "--")
-      .col-xs-1.centertext
-        = (@reviews.count > 0 ? ratings[:difficulty].round(2) : "--")
-      .col-xs-1.centertext
-        = (@reviews.count > 0 ? ratings[:recommend].round(2) : "--")
-    
+      .col-xs-12
+        input type="radio" name="professor-id" id="check-all" class="professor-checkbox" checked=""
+        label for="check-all" style="font-weight:normal"
+          span
+          | All Professors
+    - @professors.each do |professor|
+      .row
+        .col-xs-12
+          input type="radio" name="professor-id" id="check-#{professor.id}" class="professor-checkbox"
+          label for="check-#{professor.id}" style="font-weight:normal"
+            span
+            = professor.separated_name
 
+
+  .col-xs-9#courses-main
+    .row
+      .col-xs-6
+        .orange-title All Professors
+      .col-xs-6
+        .orange-title Cumulative Grades
+    br
+    .container-fluid
+      .row.course-breakdown
+        .col-xs-6.course-stats
+          .row
+            h3 Ratings
+
+          .row.stat-row
+            .col-xs-2=image_tag "icons/heart.png"
+            .col-xs-6 Overall
+            .col-xs-4=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
+          .row.stat-row
+            .col-xs-2=image_tag "icons/user_gray.png"
+            .col-xs-6 Professor
+            .col-xs-4=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
+          .row.stat-row
+            .col-xs-2=image_tag "icons/emoticon_smile.png"
+            .col-xs-6 Fun-factor
+            .col-xs-4=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
+          .row.stat-row
+            .col-xs-2=image_tag "icons/pencil.png"
+            .col-xs-6 Difficulty
+            .col-xs-4=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
+          .row.stat-row
+            .col-xs-2=image_tag "icons/user_comment.png"
+            .col-xs-6 Recommend
+            .col-xs-4=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+
+          br
+
+          .row
+            h3 Emphasizes
+          .row.stat-row
+            .col-xs-6.col-xs-offset-2 style="text-align:right;" Avg Hrs/Week
+            .col-xs-4 # Reviews
+
+          .row.stat-row
+            .col-xs-6 Reading
+            .col-xs-4=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
+            .col-xs-2=@rev_emphasizes[:reading_count] > 0 ? @rev_emphasizes[:reading_count] : "--"
+          .row.stat-row
+            .col-xs-6 Writing
+            .col-xs-4= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
+            .col-xs-2= @rev_emphasizes[:writing_count] > 0 ? @rev_emphasizes[:writing_count] : "--"
+          .row.stat-row
+            .col-xs-6 Group
+            .col-xs-4= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
+            .col-xs-2= @rev_emphasizes[:group_count] > 0 ? @rev_emphasizes[:group_count] : "--"
+          .row.stat-row
+            .col-xs-6 Other HW
+            .col-xs-4=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
+            .col-xs-2=@rev_emphasizes[:homework_count] > 0 ? @rev_emphasizes[:homework_count] : "--"
+          .row.stat-row
+            .col-xs-6 Tests/Midterms
+            .col-xs-4= "--"
+            .col-xs-2=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
+        .course-grades.col-xs-6
+          .row
+            .col-xs-12
+              - if @grades.size > 0
+                = render :partial => "grades", :locals => {:grades => @grades}
+              - else
+                p There aren't any grade distributions available for this class. Sorry!
+          .row
+            .col-xs-12
+              - i = 0
+              - @letters.each_slice(3) do |slice|
+                .row
+                  .col-xs-12
+                    - slice.each do |letter|
+                      span.glyphicon.glyphicon-stop style="color:#{@colors[i]}"
+                      span
+                        = letter
+                      span id="#{i}-percent"
+                      - i += 1
+          .row style="font-size:10px"
+            .col-xs-12
+              | * O contains grades less than C-, withdrawals, pass/fails, and audits
+          .row
+            .col-xs-6
+              input#all-semesters type="checkbox" checked="true" data-semester-id="all"
+                | All Semesters
+
+          - @semesters.reverse.each_slice(2) do |slice|
+            .row
+              .col-xs-6
+                input.grade-checkbox type="checkbox" data-semester-id="#{slice[0].id}"
+                  = slice[0].to_s
+              - if slice[1]
+                .col-xs-6
+                  input.grade-checkbox type="checkbox" data-semester-id="#{slice[1].id}"
+                    = slice[1].to_s
+
+br
+
+- if @total_review_count > 0
+  - if @total_review_count > 1
+    .orange-title
+      - if @reviews_with_comments.count == 1
+        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comment"
+      - else
+        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comments"
+  - else
+    .orange-title
+      - if @reviews_with_comments.count == 1
+        = "1 Review -- 1 Comment"
+      - else
+        = "1 Review -- 0 Comments"
+
+  - if @reviews_with_comments.count > 1
+    = will_paginate @reviews
+
+  .container-fluid 
+    .single-review
+    -# adds top line
+    - @reviews.each do |r|
+      .single-review
+        .row
+          .col-xs-2
+            = r.created_at.strftime("%Y-%m-%d")
+            - if r.semester_id
+              .taken
+                = "#{r.semester.season} #{r.semester.year}"
+          .col-xs-8
+            .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+
+          .col-xs-2
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/heart.png"
+                = r.overall
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/user_gray.png"
+                = r.professor_rating
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/emoticon_smile.png"
+                = r.enjoyability
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/user_comment.png"
+                = r.difficulty
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/pencil.png"
+                = r.recommend
+          
+        br
+        .row
+          .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
+            - if r.votes_count > 0
+              = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
+          - if r.user != current_user
+            .col-xs-3 style="margin-top: 2.5px;"
+              .rating style="font-size:12px;text-align:center;"
+                | Was this review helpful?
+            .col-xs-2.col-sm-1
+              .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" 
+                | Yes
+            .col-xs-2.col-sm-1
+              .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
+                | No
+    = will_paginate @reviews
+
+
+- else
+  h2 No reviews :(
+  = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"

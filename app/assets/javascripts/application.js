@@ -19,6 +19,7 @@
 //= require d3
 // require new_wheel
 //= require grades
+//= require courses
 //= require course_professors
 //= require contact_us
 //= require sign_up
