@@ -104,12 +104,10 @@
         - if slice[1]
           .col-xs-6
             %input.grade-checkbox{type: "checkbox", "data-semester-id" => slice[1].id}
-              = slice[1].to_s
-
-    -#
-      - if @reviews_with_comments.count > 0 && @word_cloud_on
-        .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
-          #word_cloud
+              = slice[1].to_s    
+    - if @reviews_with_comments.count > 0 && @word_cloud_on
+      .col-md-6{style: "width: 300px; height: 300px;margin-left:50px;"}
+        #word_cloud
   -#
     %select.distribution-semester-switcher{:onchange => "window.redraw()", :style => "font-size:13px;"}
       %option{value: "#", selected: @semester == 2}="Default Value"
