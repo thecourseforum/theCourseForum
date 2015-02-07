@@ -1,9 +1,10 @@
 - content_for :title, @professor.full_name
-%h1 #{@professor.full_name}
-%ul.professor-courses
+
+h1= @professor.full_name
+ul.professor-courses style="list-style-type: none; padding: 0;"
   - mnemonic = @courses.first.subdepartment.mnemonic
   - @courses.each do |c|
     - if c.subdepartment.mnemonic != mnemonic
       - mnemonic = c.subdepartment.mnemonic
-      %br
-    %li= link_to "#{c.mnemonic_number} #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)
+      br
+    li= link_to "#{c.mnemonic_number} #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)
