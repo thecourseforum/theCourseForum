@@ -25,3 +25,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border-top: 4px solid $orange;
 }
+
+.navbar-nav > li > .dropdown-menu {
+  border-radius: 0;
+}
