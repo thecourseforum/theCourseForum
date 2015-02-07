@@ -1,25 +1,25 @@
 .student-sign-up
-  %h2 Tell us more about yourself:
+  h2 Tell us more about yourself:
   = form_for @student do |f|
     .row
       .col-md-4
         = f.label :grad_year, "Graduation Year: "
         = f.select :grad_year, options_for_select((2009..Time.now.year+4).to_a.push(["N/A", 0]), Time.now.year+4)
-    %h4 Major(s):
+    h4 Major(s):
     = fields_for :majors do |m|
       .row
         .col-md-4.major1 
-          Major 1:
-          %br
-          (leave blank if you don't have one)
+          | Major 1:
+          br
+          | (leave blank if you don't have one)
         .col-md-4.major2 
-          Major 2: 
-          %br
-          (leave blank if you don't have one)
+          | Major 2: 
+          br
+          | (leave blank if you don't have one)
         .col-md-4.major3 
-          Major 3:
-          %br
-          (leave blank if you don't have one)
+          | Major 3:
+          br
+          | (leave blank if you don't have one)
       .row
         .col-md-4.major1
           = m.select :major1, @majors_list, :include_blank => true
@@ -27,5 +27,5 @@
           = m.select :major2, @majors_list, :include_blank => true
         .col-md-4.major3
           = m.select :major3, @majors_list, :include_blank => true
-    %br
+    br
     = f.submit "Start using theCourseForum!", :class => "btn btn-primary"

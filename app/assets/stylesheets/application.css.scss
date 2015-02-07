@@ -58,25 +58,6 @@
   font-style: normal;
 }
 
-#alert, #notice {
-  color: white;
-  float: center;
-  text-align: center;
-  background-color: $orange;
-  padding: 5px 0;
-  vertical-align: middle;
-  font-size: $sidebar-font-size;
-  padding-left: 30px;
-}
-
-#close-notice, #close-alert {
-  float: right;
-  margin-right: 20px;
-  a {
-    color: white;
-  }
-}
-
 html, body {
   height: 100%;
   width: 100%;
@@ -134,9 +115,28 @@ section#main {
   }
 }
 
-/* hover style just for information */
-label:hover:before {
-  border: 1px solid #4778d9!important;
+select {
+  @extend .form-control;
+  border-radius: 0px;
+}
+
+#alert, #notice {
+  color: white;
+  float: center;
+  text-align: center;
+  background-color: $orange;
+  padding: 5px 0;
+  vertical-align: middle;
+  font-size: $sidebar-font-size;
+  padding-left: 30px;
+}
+
+#close-notice, #close-alert {
+  float: right;
+  margin-right: 20px;
+  a {
+    color: white;
+  }
 }
 
 .brand {
