@@ -1,61 +1,56 @@
 - content_for :title, "Contact Us"
-%h1 Thanks for helping us improve theCourseForum!
+- content_for :page_heading, "Thanks for helping us improve theCourseForum!"
+
 = form_for :report, :url => submit_report_path(:user_id => (current_user ? current_user.id : nil)) do |f|
-  %h2 
-    What do you want to tell us? 
+  .orange-title What do you want to tell us? 
   .row
     .col-md-12
-      %i
-        Use this form or contact us directly at 
-        %b
-          = mail_to "support@thecourseforum.com", "support@thecourseforum.com."
+      i Use this form or contact us directly at 
+      = mail_to "support@thecourseforum.com", "support@thecourseforum.com."
   - if current_user
     .row
       .col-md-12
         .row
-          .col-sm-3.col-xs-6
-            General Feedback:
+          .col-sm-3.col-xs-6 General Feedback:
           .col-xs-1
             = f.radio_button :type, "feedback", :checked => true
         .row
-          .col-sm-3.col-xs-6
-            Problem with a page: 
+          .col-sm-3.col-xs-6 Problem with a page: 
           .col-xs-1
             = f.radio_button :type, "problem"
         .row
-          .col-sm-3.col-xs-6
-            Other Question(s):
+          .col-sm-3.col-xs-6 Other Question(s):
           .col-xs-1
             = f.radio_button :type, "other"
         
-  %hr
+  hr
   - if current_user 
     .feedback
-      %h2 We're listening! Let us know what's on your mind:
+      .orange-title We're listening! Let us know what's on your mind:
   - else
     .feedback
       = f.label :email, "Email (leave blank if you want to remain anonymous):", :style => "font-weight:bold;"
       .row
         .col-sm-6.col-xs-12
           = f.email_field :email
-      %br
-      %h2 We're listening! Please include your contact information if you would like us to respond!
+      br
+      h2 We're listening! Please include your contact information if you would like us to respond!
   - if current_user
     .problem
-      Problem Page: 
-      %br
-      %h5 
-        theCourseForum.com
+      | Problem Page: 
+      br
+      h5 
+        | theCourseForum.com
         = f.text_field :url, :value => @url, :style => "max-width:400px;"
-      %h2 Describe the problem:
+      h2 Describe the problem:
     .other
-      %h2 What questions do you have? We'll get back to you ASAP:
+      h2 What questions do you have? We'll get back to you ASAP:
   .description
-    = f.text_area :description
-    %br
+    = f.text_area :description, class: 'form-control'
+    br
     - if current_user
       .anonymous
         = f.check_box :anonymous
-        = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", :class => "inline"
-    %br
+        = f.label :anonymous, "Submit Anonymously (we can't respond to you directly if you choose this)", style: "font-weight: normal;"
+    br
     = f.submit "Submit", :class => "btn btn-primary"
