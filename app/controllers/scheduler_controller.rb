@@ -13,45 +13,66 @@ class SchedulerController < ApplicationController
   def automatic
   end
 
+  # Old method of getting sections from the database
+  # Does not break them up by type (discussion, lab, lecture)
 	def search_sections
+    # return an error if the search was able to be split into mnemonic and course number
     unless params[:mnemonic] and params[:course_number]
       render :nothing => true, :status => 404 and return
     else
+      # Find the subdepartment by the given mnemonic
       subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+      # Find the course by that subdepartment id and the given course number
       course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-      
+      # return an error if no such course was found
       render :nothing => true, :status => 404 and return unless course
 
+      # Gets all the sections of the found course that are for the (hardcoded) fall 2014 semester
       #Need a better way to get current semester
       #Maybe let user choose?
       current_sections = course.sections.where(semester_id: Semester.find_by(season: "Fall", year: 2014).id)
 
+      # Passes the sections to a method that will convert them to javascript sections
+      # Wraps the result in json for the automatic.js to use, and returns
       render json: rsections_to_jssections(current_sections) and return
     end
   end
 
+  # Called via ajax request when enter is pressed in search
+  # Returns the sections that match the search
   def search_course
+    # return an error if the search was able to be split into mnemonic and course number
     unless params[:mnemonic] and params[:course_number]
       render :nothing => true, :status => 404 and return
     else
+      # Find the subdepartment by the given mnemonic
       subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+      # Find the course by that subdepartment id and the given course number
       course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-      
+      # return an error if no such course was found
       render :nothing => true, :status => 404 and return unless course
 
+      # Breaks up the course's sections by type, convertubg them to javascript sections,
+      # and wraps the result in json
       render :json => course.as_json.merge({
+        #sets the course mnemonic from the search parameters
         :course_mnemonic => "#{params[:mnemonic].upcase} #{params[:course_number]}",
+        #gets the sections of the course that are for the current semester and are lectures
         :lectures => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Lecture')),
+        #gets the sections of the course that are for the current semester and are discussions
         :discussions => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Discussion')),
+        #gets the sections of the course that are for the current semester and are labs
         :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory'))
       }) and return
     end
   end
 
+  # Returns as json the current user's saved sections
   def sections
     render :json => {:success => true, :sections => rsections_to_jssections(current_user.sections)}
   end
 
+  # Given a mnemonic and course number, add the matching course to the current user's courses (not used)
   def save_course
     subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
     course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
@@ -60,7 +81,8 @@ class SchedulerController < ApplicationController
 
     render :nothing => true
   end
-
+ 
+  # Given section ids from the javascript, add the sections' parent courses to the current user's courses
   def save_sections
     sections = Section.find(JSON.parse(params[:sections]))
     current_user.sections = sections
@@ -73,9 +95,11 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
+  # Given section ids from the javascript, add the sections into the current user's sections
   def save_selections
+    # Gets an array of sections with the given ids
     sections = Section.where(id: params[:sections])
-    pr sections
+    # Adds each section to current user's sections if it isn't already there
     sections.each do |section|
       unless current_user.sections.include?(section)
         current_user.sections << section
@@ -84,24 +108,50 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
+  # Returns the current user's saved sections as json
   def saved_selections
     render :json => rsections_to_jssections(current_user.sections)
   end
 
+  # Given an array of section ids, (ones that the user has unchecked)
+  # remove those sections from the current user's sections
+  def unsave_selections
+    sections =  current_user.sections.where(id: params[:sections])
+    sections.each do |section|
+      current_user.sections.delete(section.id) 
+    end
+    render :nothing => true
+  end
+
+  # Given a single section id, (when a use clicks 'x' on a section)
+  # remove that section from the current user's sections
+  def unsave_selection
+    current_user.sections.delete(params[:id])
+    render :nothing => true
+  end
+
+
+  # Clears the current users's saved courses (not used)
   def clear_courses
     current_user.courses = []
 
     render :nothing => true
   end
 
+  # Given an 2D array of section ids by type (lab, discussion, lecture)
+  # generates possible schedules that are without conflicts
   def schedules
+    # if sections were passed,
     if params[:course_sections]
+      # for each type of section in the array
       course_sections = JSON.parse(params[:course_sections]).map do |course|
+        # use its id to find the corresponding model object and replace it with that
         course.map do |section_id|
           Section.find(section_id)
         end
       end 
-    else
+    # otherwise use the current user's saved courses, separating them by type so that they fit the next steps
+    courses
       course_sections = []
       current_user.courses.each do |course|
         sections = course.sections.where(:semester_id => Semester.now.id).pluck(:section_type).uniq.map do |type|
@@ -141,17 +191,28 @@ class SchedulerController < ApplicationController
 
   private
 
+  # Converts rails sections to javascript sections
   def rsections_to_jssections(sections)
+    # for each of the sections,
+    # replace it with an object with its corresponding fields
     sections.map do |section|
+      # Three blank arrays to be 
+      # The days the the section is taught
       days = []
+      # its start and end times
       start_times = []
       end_times = []
       # pr section.day_times.to_a
+
+      # For each of the sections day_times, 
+      # sort them by start time, then end tie, then day of the week,
+      # then populate the arrays above the corresponding information
       section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
         days << day_time.day
         start_times << day_time.start_time
         end_times << day_time.end_time
       end
+      # Make this info, as well as other various fields, part of a json object
       {
         :section_id => section.id,
         :title => "#{section.course.subdepartment.mnemonic} #{section.course.course_number}",
@@ -167,28 +228,53 @@ class SchedulerController < ApplicationController
     end
   end
 
+  # Given a schedule being built, and a section to consider,
+  # checks if it conflits with any other previously added sections
+  # or if it conflicts with any optimization parameters (no mornings classes, no friday classes, etc)
+  # returning false means there are no conflicts and the section will be added
   def conflicts(partial_schedule, new_section)
+    # If a student wants no morning classes,
     if params[:mornings] == 'true'
+      # check if any of the section's day times start before 10am 
       new_section.day_times.each do |day_time|
         if day_time.start_time.sub(':', '.').to_f < 10
           return true
         end
       end
     end
+    # If a student wants no evening classes,
     if params[:evenings] == 'true'
+      # check if any of the section's day times end after 5pm
       new_section.day_times.each do |day_time|
         if day_time.end_time.sub(':', '.').to_f > 17
           return true
         end
       end
     end
+    # If a student wants no Friday classes,
     if params[:fridays] == 'true'
       new_section.day_times.each do |day_time|
+        # check if any of the section's day times is a Friday
         if day_time.day = 'Fr'
+          return true
+        end
+        # or if any classes on thursday end late at night (for a thirsty thursday)
+        if day_time.day == 'Th' && day_time.end_time.sub(':','.').to_f > 19
           return true
         end
       end
     end
+
+    # Other possible optimizations??
+    # would need to include this info in sections
+    # if params[:good] == 'true'
+    #   return new_section.rating > 2.5
+    # end
+    # if params[:easy] == 'true'
+    #   return new_section.average_gpa > 3.4
+    # end
+
+    # Lastly, check if any previous sections part of the schedule overlap with the new one
     partial_schedule.each do |section|
       if section.conflicts?(new_section)
         return true
@@ -197,6 +283,9 @@ class SchedulerController < ApplicationController
     return false
   end
 
+  # Given a day in the form 'Mo', 'Tu', etc
+  # return a number corresponding to the day of the week
+  # fullCalendar requires this format?
   def day_to_number(day)
     days = ['Mo', 'Tu', 'We', 'Th', 'Fr']
     return days.index(day) == nil ? -1 : days.index(day)
