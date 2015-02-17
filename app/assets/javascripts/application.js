@@ -35,21 +35,25 @@ var ready = function() {
 	});
 
 	$("#search-query").focus(function() {
-		$(".nav-row").each(function() {
-			if( !($(this).hasClass("search-row")) ) {
-				$(this).slideUp();
-			}
-		});
+		if ($("#search-query").val() == "") {
+			$(".nav-row").each(function() {
+				if( !($(this).hasClass("search-row")) ) {
+					$(this).slideUp();
+				}
+			});
 
-		$(".submit-row").slideDown();
+			$(".submit-row").slideDown();
+		}
 	});
 
 	$("#search-query").blur(function() {
-		$(".nav-row").each(function() {
-			$(this).slideDown();
-		});
+		if ($("#search-query").val() == "") {
+			$(".nav-row").each(function() {
+				$(this).slideDown();
+			});
 
-		$(".submit-row").slideUp();
+			$(".submit-row").slideUp();
+		}		
 	});
 
 	

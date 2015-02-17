@@ -26,7 +26,7 @@ div#dept-list role="tabpanel"
               - if course.course_number >= separator
                 br
                 - separator = (course.course_number / 1000) * 1000 + 1000
-              li= link_to course.mnemonic_number + " " + course.title, course, "data-no-turbolink" => true
+              li= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course, "data-no-turbolink" => true
     #dept-professors.tab-pane.fade role="tabpanel"
       .container-fluid
         .row

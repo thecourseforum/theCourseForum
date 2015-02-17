@@ -1,5 +1,5 @@
 - content_for :title, "#{@query} - Search Results"
-h1 Search results
+- content_for :page_heading, "#{@query} - Search Results"
 
 .search
   = will_paginate @result
@@ -9,11 +9,11 @@ h1 Search results
         = "No results for #{@query} :("
     - else
       .col-xs-2
-        %b Course
+        strong Course
       .col-xs-3
-        %b Professor
+        strong Professor
       .col-xs-7
-        %b Title
+        strong Title
   - @result.each do |r|
     .row
       .col-xs-12
