@@ -31,7 +31,7 @@
 var ready = function() {
 	
 	$("#close-notice, #close-alert").click(function() {
-		$(this).parent().collapse('toggle');
+		$(this).parent().slideUp();
 	});
 
 	
