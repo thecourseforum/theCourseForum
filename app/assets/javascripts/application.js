@@ -34,6 +34,24 @@ var ready = function() {
 		$(this).parent().slideUp();
 	});
 
+	$("#search-query").focus(function() {
+		$(".nav-row").each(function() {
+			if( !($(this).hasClass("search-row")) ) {
+				$(this).slideUp();
+			}
+		});
+
+		$(".submit-row").slideDown();
+	});
+
+	$("#search-query").blur(function() {
+		$(".nav-row").each(function() {
+			$(this).slideDown();
+		});
+
+		$(".submit-row").slideUp();
+	});
+
 	
 
 	$("#word-cloud-switch").bootstrapSwitch({

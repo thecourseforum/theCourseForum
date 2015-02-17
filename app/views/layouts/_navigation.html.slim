@@ -1,10 +1,14 @@
 .container-fluid.site-nav-links
-  .row.nav-row
-    .col-xs-12
-      .col-wrapper
-         = form_tag '/search/search', method: "get", id: "search-form"
+  = form_tag '/search/search', method: "get", id: "search-form"
+    .row.nav-row.search-row
+      .col-xs-12
+        .col-wrapper
           i.glyphicon.glyphicon.glyphicon-search
-          input type="text" placeholder="Type to Search" name="query"
+          input type="text" placeholder="Type to Search" name="query" id="search-query"
+    .row.nav-row.submit-row style="display:none;"
+      .col-xs-12
+        .col-wrapper
+          = submit_tag "Search", :class => "btn btn-primary"
   .row.nav-row
     .col-xs-12
       .col-wrapper
