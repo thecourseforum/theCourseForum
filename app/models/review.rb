@@ -1,7 +1,6 @@
 class Review < ActiveRecord::Base
   belongs_to :user, foreign_key: :student_id
   belongs_to :semester
-  belongs_to :course_professor
   belongs_to :course
   belongs_to :professor
 
