@@ -9,8 +9,8 @@ class Section < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   has_many :professors, :through => :section_professors
-  has_and_belongs_to_many :day_times, :through => :day_times_sections
-  has_and_belongs_to_many :locations, :through => :day_times_sections
+  has_many :day_times, :through => :day_times_sections
+  has_many :locations, :through => :day_times_sections
 
   def conflicts?(other_section)
     day_times.each do |day_time|
