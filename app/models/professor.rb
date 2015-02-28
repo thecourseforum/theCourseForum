@@ -1,10 +1,12 @@
 class Professor < ActiveRecord::Base
   belongs_to :department
+
   has_many :section_professors, dependent: :destroy
+  has_many :reviews
+
   has_many :sections, :through => :section_professors
   has_many :courses, :through => :sections
-  has_many :subdepartments, through: :courses
-  has_many :reviews
+  has_many :subdepartments, :through => :courses
 
   validates_presence_of :first_name, :last_name
 
