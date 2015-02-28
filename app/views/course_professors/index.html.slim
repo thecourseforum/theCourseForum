@@ -140,13 +140,14 @@
   - @reviews.each do |r|
     .single-review
       .row
-        ul.meta
-          li= r.created_at.strftime("%Y-%m-%d")
+        .col-xs-2
+          = r.created_at.strftime("%Y-%m-%d")
           - if r.semester_id
             .taken
               = "#{r.semester.season} #{r.semester.year}"
         .row.visible-xs.visible-sm style="margin-left: 0px;"
           .col-xs-1.overall
+
           .col-xs-1= r.overall
           .col-xs-1.professor_rating
           .col-xs-1= r.professor_rating
@@ -156,31 +157,46 @@
           .col-xs-1= r.difficulty
           .col-xs-1.recommend
           .col-xs-1= r.recommend
-        .comment
-          = h(r.comment).gsub(/\n/, '<br/>').html_safe
-        ul.ratings.visible-md.visible-lg
-          li.overall= r.overall
-          li.professor_rating= r.professor_rating
-          li.enjoyability= r.enjoyability
-          li.difficulty= r.difficulty
-          li.recommend= r.recommend
+        .col-xs-8
+          .comment
+           = h(r.comment).gsub(/\n/, '<br/>').html_safe
+        .col-xs-2
+          ul.ratings.visible-md.visible-lg
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/heart.png"
+                = r.overall
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/user_gray.png"
+                = r.professor_rating
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/emoticon_smile.png"
+                = r.enjoyability
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/user_comment.png"
+                = r.difficulty
+            .row
+              .col-xs-12
+                span.rating-icon= image_tag "icons/pencil.png"
+                = r.recommend
       br
       .row
         .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
           - if r.votes_count > 0
-            = r.votes_for
-            | out of
-            = r.votes_count
-            | people found this helpful.
-        .col-xs-3 style="margin-top: 2.5px;"
-          .rating style="font-size:12px;text-align:center;"
-            | Was this review helpful?
-        .col-xs-2.col-sm-1
-          .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" disabled="#{(r.user == current_user ? true : false)}"
-            | Yes
-        .col-xs-2.col-sm-1
-          .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" disabled="#{(r.user == current_user ? true : false)}"
-            | No
+            = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
+        - if r.user != current_user
+          .col-xs-3 style="margin-top: 2.5px;"
+            .rating style="font-size:12px;text-align:center;"
+              | Was this review helpful?
+          .col-xs-2.col-sm-1
+            .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
+              | Yes
+          .col-xs-2.col-sm-1
+            .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
+              | No
   = will_paginate @reviews
 - else
   h2 No reviews :(

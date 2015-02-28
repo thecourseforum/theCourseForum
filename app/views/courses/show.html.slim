@@ -181,12 +181,13 @@ br
               .rating style="font-size:12px;text-align:center;"
                 | Was this review helpful?
             .col-xs-2.col-sm-1
-              .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" 
+              .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
                 | Yes
             .col-xs-2.col-sm-1
               .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
                 | No
-    = will_paginate @reviews
+  = will_paginate @reviews
+
 
 
 - else
