@@ -10,7 +10,7 @@
       select.course-professor-switcher
         option value="#"="Switch Professor"
         - @professors.each do |p|
-          option value="c=#{@course.id}&p=#{p.id}" style="#{(p.id == @professor.id ? 'color: #d9551e;' : '')}"="#{p.separated_name}"
+          option value="c=#{@course.id}&p=#{p.id}" style="#{(p.id == @professor.id ? 'color: #d9551e;' : '')}"="#{p.separated_name}" , "data-no-turbolink=" => ""  
     br.visible-xs
     .col-lg-4.col-lg-offset-2.col-sm-5.col-sm-offset-2
       .review-button
