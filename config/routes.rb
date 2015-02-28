@@ -44,6 +44,7 @@ TheCourseForum::Application.routes.draw do
     end
   end
 
+  get '/recommendation/', to: 'recs#courselist'
   get '/browse', :to => 'departments#index', :as => "browse"
 
   get '/contact_us', :to => 'contact_us#new', :as => "contact_us"
