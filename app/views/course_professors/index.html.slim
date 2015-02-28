@@ -10,11 +10,11 @@
       select.course-professor-switcher
         option value="#"="Switch Professor"
         - @professors.each do |p|
-          option value="c=#{@course.id}&p=#{p.id}" style="#{(p.id == @professor.id ? 'color: #d9551e;' : '')}"="#{p.separated_name}" , "data-no-turbolink=" => ""  
+          option value="c=#{@course.id}&p=#{p.id}" style="#{(p.id == @professor.id ? 'color: #d9551e;' : '')}"="#{p.separated_name}"
     br.visible-xs
     .col-lg-4.col-lg-offset-2.col-sm-5.col-sm-offset-2
       .review-button
-        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary"
+        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary" , "data-no-turbolink=" => ""  
     .col-sm-2
       .btn.btn-primary#save-course data-course="#{@course.mnemonic_number}" style='width: 100'= "Save Course"
   .bottom-border
