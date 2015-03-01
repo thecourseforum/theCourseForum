@@ -1,9 +1,0 @@
-!!!
-%html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-  %body.mail
-    %p
-      = "Feedback from #{@user != nil ? @user.email : "Anonymous"}:"
-    %p
-      = @description

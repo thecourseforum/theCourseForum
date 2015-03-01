@@ -1,5 +1,5 @@
-require 'haml'
-require 'haml/template/plugin'
+#require 'slim'
+#require 'slim/template/plugin'
 
 class ContactUsMailer < ActionMailer::Base
   default from: "support@thecourseforum.com"

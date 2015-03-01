@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    meta content= "text/html; charset=UTF-8", "http-equiv" => "Content-Type"
+  body.mail
+    p
+      Problem page:
+      - page_url = root_url + @url[1..@url.length]
+      = link_to page_url, page_url
+    p
+      = @description
