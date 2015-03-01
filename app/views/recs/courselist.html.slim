@@ -1,20 +1,28 @@
 - content_for :title, "My Recommendations"
 - content_for :page_heading, "My Recommendations"
 
-- if @reviews.size > 0
-  - @semesters.each do |semester|
-    .row
-    - @reviews_map[semester.number].each do |review|
-      .row
-        .col-xs-2
-          = link_to "#{review.course.mnemonic_number}", review.course
-        .col-xs-3
-          = link_to review.professor.full_name, review.professor
-        .col-xs-2
-          = link_to "Edit Review", edit_review_path(review)
-        .col-xs-5
-          a href="#{course_professors_path(:p => review.professor_id, :c => review.course_id)}"
-            span Go To Class 
-            span.glyphicon.glyphicon-arrow-right
-    br
+div#dept-list role="tabpanel" 
+
+
+  /! Tab panes
+  br
+  .tab-content
+      .container-fluid
+          ul#department-courses
+            - flag = true
+            - separator = 0
+            - @courses.each do |course|
+              a href= "#{course.course_number}"
+              - if flag
+                - separator = (course.course_number / 1000) * 1000 + 1000
+                - flag = false
+              - if course.course_number >= separator
+                br
+                - separator = (course.course_number / 1000) * 1000 + 1000
+              
+             
+        
+
+    
+
     
