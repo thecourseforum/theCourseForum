@@ -2,15 +2,11 @@
 - content_for :page_heading, "My Recommendations"
 
 div#dept-list role="tabpanel" 
-
-
-  /! Tab panes
-  br
-    .container-fluid
-        ul#department-courses
-          - @courses.each do |course|
-            = link_to "#{course.mnemonic_number}" , course
-            br
+  .container-fluid
+    ul#department-courses
+      - @courses.each do |course|
+        = link_to "#{course.mnemonic_number}" , course
+        br
 
              
         
