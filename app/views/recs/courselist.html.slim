@@ -4,8 +4,6 @@
 - if @reviews.size > 0
   - @semesters.each do |semester|
     .row
-      .col-xs-12
-        h3= "#{semester.season} #{semester.year}"
     - @reviews_map[semester.number].each do |review|
       .row
         .col-xs-2
