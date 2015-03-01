@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready () ->
+  professor_id = window.location.search.split('=')[1]
+  $('#check-' + professor_id).prop('checked', true)
   $('input[name=professor-id]').change () ->
     course_id = window.location.pathname.split('/')[2]
     professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1]
