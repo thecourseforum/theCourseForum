@@ -4,8 +4,7 @@ Feature: Login to tCF homepage
 
 	Scenario: page should be found
 		Given the link 'http://localhost:3000'
-		Then I should see 'Email' and 'Password' text fields
-
+		Then I should see email and password text fields
 
 	Scenario: should not login ui without parameters
 		Given the link 'http://localhost:3000'
@@ -28,7 +27,7 @@ Feature: Login to tCF homepage
 		Given the link 'http://localhost:3000'
 		And credentials 'mst3k@virginia.edu' 'foobarbaz'
 		When I login ui
-		Then I should see notice: 'Signed in successfully'
+		Then I should see notice: 'Signed in successfully.'
 
 		Then I logout
 		And I should see 'Email' and 'Password' text fields
