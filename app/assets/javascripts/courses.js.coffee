@@ -9,3 +9,7 @@ $(document).ready () ->
     course_id = window.location.pathname.split('/')[2]
     professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1]
     window.location.href='/courses/' + course_id + '?p=' + professor_id
+  $('.courses-review-type-switcher').change () ->
+    course_id = window.location.pathname.split('/')[2]
+    professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1]
+    window.location.href='/course/' + $(this).val()

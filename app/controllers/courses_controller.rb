@@ -4,9 +4,14 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
+    @sort_type = params[:sort]
 
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
+    end
+
+    if params[:sort]
+      puts "-------------------------" + @sort_type + "---------------------------"
     end
 
     @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id) : Review.where(:course_id => @course.id)
@@ -14,6 +19,23 @@ class CoursesController < ApplicationController
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
     @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 10)
     @total_review_count = @all_reviews.count
+
+    if @sort_type != nil
+      if @sort_type == "helpful"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+      elsif @sort_type == "highest"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+      elsif @sort_type == "lowest"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+        puts "---------------------------------" + @reviews_with_comments[0].to_s + "-------------------------------"
+      elsif @sort_type == "controversial"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+      elsif @sort_type == "fun"
+        @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
+      elsif @sort_type == "semester"
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-Semester.get_number(:semester_year => r.semester.year, :semester_season => r.semester.season), r.created_at.to_i]}
+      end
+    end
 
 
     if @professor
