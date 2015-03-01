@@ -20,15 +20,12 @@ When /^I login ui without parameters$/ do
   click_button('Login')
 end
 
-Then /^I should see email and password text fields/ do
-  within ('form[action="/users/sign_in"]') do
-    find('#user_email')
-    find('#user_password')
-  end
-  # find('.user_password', :placeholder => bar)
-end
-
-Then /^I should see notice: '([^"]*)'/ do |notice|
-  find('#notice', :text => notice)
-  # find('.user_password', :placeholder => bar)
+# This is for regular user login, it has to have zone
+When /^I login as '([^"]*)' to zone '([^"]*)'$/ do |user, zone|
+  visit '/'
+  @page = page
+  fill_in('username', :with => user)
+  fill_in('password', :with => Passcode[user])
+  fill_in('zone_id', :with => zone)
+  click_button('Login')
 end

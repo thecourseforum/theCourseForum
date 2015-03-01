@@ -18,7 +18,7 @@ Feature: Browse by Professor
 		Given the link 'http://localhost:3000/'
 		When I click on 'Browse by Professor'
 		When I click on the letter 'A'
-		Then I should only see professor's whose last names begin with 'A'in alphabetical A 			order
+		Then I should only see professor's whose last names begin with 'A'
 
 	Scenario: should display correct courses
 		Given the link 'http://localhost:3000/

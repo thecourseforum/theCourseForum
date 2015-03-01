@@ -36,14 +36,15 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
 
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, :profile => Selenium::WebDriver::Firefox::Profile.new)
+Capybara.register_driver :chrome do |app|
+  # optional
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  # optional
+  client.timeout = 120
+  Capybara::Selenium::Driver.new(app, :browser => :chrome, :http_client => client)
 end
-
-Capybara.current_driver = :selenium
-Capybara.app_host = 'http://localhost:3000'
  
- # Capybara.current_driver = :firefox
+ Capybara.current_driver = :chrome
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
@@ -71,5 +72,5 @@ end
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
-Cucumber::Rails::Database.javascript_strategy = :transaction
+Cucumber::Rails::Database.javascript_strategy = :truncation
 
