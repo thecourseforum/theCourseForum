@@ -7,4 +7,4 @@ ul.professor-courses style="list-style-type: none; padding: 0;"
     - if c.subdepartment.mnemonic != mnemonic
       - mnemonic = c.subdepartment.mnemonic
       br
-    li= link_to "#{c.mnemonic_number} #{c.title}", course_professors_path(:p => @professor.id, :c => c.id)
+    li= link_to "#{c.mnemonic_number} #{c.title}", course_path(c.id, :p => @professor.id), 'data-no-turbolink' => true

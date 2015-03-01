@@ -17,7 +17,7 @@
         .col-xs-1
           = link_to "Edit", edit_review_path(review)
         .col-xs-1.hidden-xs
-          = link_to "", course_professors_path(:p => review.professor_id, :c => review.course_id), :class => "go-to-review"
+          = link_to "", course_path(review.course_id, :p => review.professor_id), 'data-no-turbolink' => true, :class => "go-to-review"
   - if not @reviews_map[nil].empty?
     %h4.orange-text
       = "Other"
@@ -34,7 +34,7 @@
         .col-xs-1
           = link_to "Edit", edit_review_path(review)
         .col-xs-1.hidden-xs
-          = link_to "", course_professors_path(:p => review.professor_id, :c => review.course_id), :class => "go-to-review"
+          = link_to "", course_path(review.course_id, :p => review.professor_id), 'data-no-turbolink' => true, :class => "go-to-review"
 
 - else
   .row
