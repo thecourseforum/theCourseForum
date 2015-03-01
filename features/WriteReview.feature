@@ -25,4 +25,15 @@ Feature: Write a tCF Review
 		Then I should only be able to select CHEM courses.
 
 	Scenario: should be able to select a valid professor
-		
+		Given the link 'http://localhost:3000'
+		When I click on Write a Review
+		When I click on the department ACCT
+		When I click the course 2010
+		Then I should be able to click on professor Brooks.
+
+	Scenario: should be able to select a valid professor
+		Given the linke 'http://localhost:3000'
+		When I click on Write a Review
+		When I click on the department CHEM
+		When I click on the course 1410
+		Then I should be able to click on professor Metcalf
