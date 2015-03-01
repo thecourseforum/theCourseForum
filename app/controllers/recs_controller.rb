@@ -9,7 +9,7 @@ class RecsController < ApplicationController
     coursesid_reviewed = prefs.values.map(&:keys).uniq()
     # puts sim_pearson(prefs,prefs.keys[1],prefs.keys[2])
     # puts topMatches(prefs,17786)
-    bestCourses = getRecommendations(prefs,17786)
+    bestCourses = getRecommendations(prefs,current_user.id)
 
     courses_reviewed = []
     for i in bestCourses
