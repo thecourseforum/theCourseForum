@@ -114,7 +114,7 @@ class RecsController < ApplicationController
       end
     end
     scores.sort do |first, second|
-      second[0] <=> first[0]
+      first[0] <=> second[0]
     end
     return scores[0..n]
   end
@@ -158,11 +158,11 @@ class RecsController < ApplicationController
     #Create the normalized list
     rankings = []
     totals.each do |key,value|
-      rankings = rankings << [value/simSums[key],item]
+      rankings = rankings << [value/simSums[key],key]
     end
 
     #Return the sorted list
-    totals.sort do |first, second|
+    rankings = rankings.sort do |first, second|
       second[0] <=> first[0]
     end
     return rankings
