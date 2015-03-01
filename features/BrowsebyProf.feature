@@ -4,7 +4,7 @@ Feature: Browse by Professor
 
 	Scenario: page should be found
 		Given the link 'http://localhost:3000/
-		When I click on 'Browse by Professor'
+		When I click on Browse by Professor
 		Then I should see 'First Letter of Professor's Last Name' and a dropdown option
 
 
@@ -16,7 +16,7 @@ Feature: Browse by Professor
 
 	Scenario: should not display incorrect inital letter
 		Given the link 'http://localhost:3000/'
-		When I click on 'Browse by Professor'
+		When I click on Browse by Professor
 		When I click on the letter 'A'
 		Then I should only see professor's whose last names begin with 'A'in alphabetical A	order
 

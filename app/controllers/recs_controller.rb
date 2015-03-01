@@ -1,7 +1,6 @@
 class RecsController < ApplicationController
 
   def courselist
-
     courses = current_user.reviews.map(&:course)
     all_reviews = courses.map do | course |
       course.reviews.sample(20)
