@@ -5,7 +5,11 @@ class CoursesController < ApplicationController
     @subdepartment = Subdepartment.find(@course.subdepartment_id)
     @professors = @course.professors_list.sort_by{|p| p.last_name.downcase}
 
-    if params[:p] and @professors.map(&:id).include?(params[:p])
+    puts "outside if statement"
+
+    /if params[:p] and @professors.map(&:id).include?(params[:p])/
+    if params[:p]
+      puts "-------------------------" + @professors.map(&:id).include?(params[:p].to_i).to_s + "------------------"
       @selected_professor_id = params[:p]
     end
 
@@ -40,6 +44,7 @@ class CoursesController < ApplicationController
   private
     # Get aggregated course ratings
     # @todo this could be cleaner
+
     def get_review_ratings
       ratings = {
         prof: 0,

@@ -1,20 +1,22 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
 
-.row#course-page
-  .col-xs-3#courses-sidebar
-    .row
-      .col-xs-12
-        input type="radio" name="professor-id" id="check-all" class="professor-checkbox" checked=""
-        label for="check-all" style="font-weight:normal"
-          span
-          | All Professors
-    - @professors.each do |professor|
-      .row
-        .col-xs-12
-          input type="radio" name="professor-id" id="check-#{professor.id}" class="professor-checkbox"
-          label for="check-#{professor.id}" style="font-weight:normal"
-            span
-            = professor.separated_name
+.course-professor-h1
+  .row
+    .col-xs-12
+      = link_to @selected_professor_id, professor_path(@selected_professor_id), style: "float:right;", class: "btn btn-primary"
+  .row style="margin-bottom: 10px;"
+    .col-sm-4
+      select.course-professor-switcher
+        option value="#"="Switch Professor"
+        - @selected_professor_id.each do |p|
+          option value="c=#{@course.id}&p=#{@selected_professor_id.to_s}" style="#{(p.id == @selected_professor_id ? 'color: #d9551e;' : '')}"="#{p.separated_name}"
+    br.visible-xs
+    .col-lg-4.col-lg-offset-2.col-sm-5.col-sm-offset-2
+      .review-button
+        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @selected_professor_id), :class => "review-btn btn btn-primary" , "data-no-turbolink=" => ""  
+    .col-sm-2
+      .btn.btn-primary#save-course data-course="#{@course.mnemonic_number}" style='width: 100'= "Save Course"
+  .bottom-border
 
 
   .col-xs-9#courses-main
