@@ -2,22 +2,28 @@ class CoursesController < ApplicationController
   
   def show
     @course = Course.find(params[:id])
-    @subdepartment = Subdepartment.find(@course.subdepartment_id)
-    @professors = @course.professors_list.sort_by{|p| p.last_name.downcase}
+    @subdepartment = @course.subdepartment
+    @professors = @course.professors.uniq
 
-    if params[:p] and @professors.map(&:id).include?(params[:p])
-      @selected_professor_id = params[:p]
+    if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
+      @professor = Professor.find(params[:p])
     end
 
-    @all_reviews = Review.where(:course_id => @course.id)
+    @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id) : Review.where(:course_id => @course.id)
     @reviews_no_comments = @all_reviews.where(:comment => "")
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
     @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 10)
     @total_review_count = @all_reviews.count
 
 
-    @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
+    if @professor
+      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
+    else
+      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
+    end
     
+    @semesters = Semester.where(id: @grades.map{|g| g.semester_id}).sort_by{|s| s.number}
+
     #used to pass grades to the donut chart
     gon.grades = @grades
     gon.semester = 0
@@ -30,7 +36,6 @@ class CoursesController < ApplicationController
     @rev_ratings = get_review_ratings
     @rev_emphasizes = get_review_emphasizes
     
-
     respond_to do |format|
       format.html # show.html.slim
       format.json { render json: @course, :methods => :professors_list}
