@@ -6,14 +6,13 @@ Feature: Contact tCF
 		Given the link 'http://localhost:3000'
 		When I click "Contact US"
 		Then I should see options for why to contact tcF
-		And a text box allowing me to say what i want.
+		And a text box allowing me to say what I want
 
 
 	Scenario: should not allow me to click more than one reason
 		Given the link 'http://localhost:3000'
 		When I click "Contact US"
-		Then I should only be allowed to check one option for 
-		why I want to contact tCF
+		Then I should only be allowed to check one option for why I want to contact tCF
 
 	Scenario: should switch layout based on reason for contact
 		Given the link 'http://localhost:3000'
