@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).ready () ->
+ready = ->
   professor_id = window.location.search.split('=')[1]
   $('#check-' + professor_id).prop('checked', true)
   $('input[name=professor-id]').change () ->
@@ -13,3 +13,6 @@ $(document).ready () ->
     course_id = window.location.pathname.split('/')[2]
     professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1]
     window.location.href='/course/' + $(this).val()
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
