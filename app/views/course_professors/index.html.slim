@@ -14,7 +14,7 @@
     br.visible-xs
     .col-lg-4.col-lg-offset-2.col-sm-5.col-sm-offset-2
       .review-button
-        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary" , "data-no-turbolink=" => ""  
+        = link_to "Write your own review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "review-btn btn btn-primary"
     .col-sm-2
       .btn.btn-primary#save-course data-course="#{@course.mnemonic_number}" style='width: 100'= "Save Course"
   .bottom-border
