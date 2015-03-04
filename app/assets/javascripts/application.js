@@ -22,6 +22,8 @@
 //= require contact_us
 //= require sign_up
 //= require reviews
+//= require moment
+//= require fullcalendar
 //= require jqcloud
 //= require bootstrap-switch
 

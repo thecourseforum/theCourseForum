@@ -22,8 +22,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :courses, :only => [:show]
 
-  get '/scheduler/manual' => 'scheduler#manual'
-  get '/scheduler/automatic' => 'scheduler#automatic'
+  get '/scheduler' => 'scheduler#automatic'
   get '/scheduler/search_sections' => 'scheduler#search_sections'
   get '/scheduler/search_course' => 'scheduler#search_course'
   get '/scheduler/schedules' => 'scheduler#schedules'

@@ -47,6 +47,7 @@ gem 'rails3-jquery-autocomplete'
 
 # Full Calendar for the scheduler
 gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 # Slim for better templating
 gem 'slim-rails'
