@@ -10,10 +10,17 @@ body.modal-open {
 
 #search-bar {
 	float: right;
+	min-width: 200px;
 }
 
-#schedule {
+#calendar {
 	float: left;
+	width: 80%;
+	overflow: hidden;
+}
+
+.fc-header {
+	display: none;
 }
 
 #saved-courses {
@@ -24,16 +31,7 @@ body.modal-open {
 	width: 100%;
 }
 
-#calendar .row h2 {
-	text-indent: 10px;
-}
-
 #clear-courses {
-	margin-top: 6px;
-	width: 100%;
-}
-
-#generate-schedules {
 	margin-top: 6px;
 	width: 100%;
 }
@@ -49,31 +47,28 @@ body.modal-open {
 	background-color: #F5F5F5;
 }
 
-#schedules-title {
-	margin-top: 2em;
-}
-
-#schedules-box {
-	border-radius: 6px;
-	border: 0px solid gray;
-	min-height: 130px;
-	background-color: #F5F5F5;
-}
-
 .course-result {
+	font-size: 10px;
+	letter-spacing: 0px;
+	word-spacing: 0px;
+	margin-bottom: 5px;
+}
+
+.course-result #content {
 	border: 1px solid transparent;
-	border-radius: 4px;
 	background-color: #d9551e;
 	border-color: #c34c1b;
-	margin: 0.7em 0;
 	padding: 4px;
-	z-index: 2;
 	cursor: pointer;
-	cursor: hand;
-	max-width: 178px;
+	max-width: 170px;
+	display: inline-block;
 }
 
-.course-result:hover {
+.course-result #checkbox {
+	display: inline-block;
+}
+
+.course-result #content:hover {
 	background-color: #ac4318;
 	border-color: #8d3713;
 }
@@ -87,23 +82,6 @@ body.modal-open {
 .fc-event {
 	background-color: #d9551e;
 	border-color: #c34c1b;
-}
-
-.schedule-result {
-	border: 1px solid black;
-	border-radius: 2px;
-	background-color: #d9551e;
-	border-color: #c34c1b;
-	margin: 0.1em;
-	padding: 4px;
-	z-index: 2;
-	cursor: pointer;
-}
-
-.schedule-result p{
-	margin: 0em;
-	font-size: 12px;
-	color: white;
 }
 
 .course-info-dialog {
@@ -125,10 +103,6 @@ body.modal-open {
 .course-info-dialog button {
 	margin: 0.45em;
 	color: black;
-}
-
-.is-dragging {
-	opacity: 0.5;
 }
 
 .hidden {

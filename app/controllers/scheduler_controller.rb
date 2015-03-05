@@ -150,14 +150,6 @@ class SchedulerController < ApplicationController
           Section.find(section_id)
         end
       end 
-    # otherwise use the current user's saved courses, separating them by type so that they fit the next steps
-    courses
-      course_sections = []
-      current_user.courses.each do |course|
-        sections = course.sections.where(:semester_id => Semester.now.id).pluck(:section_type).uniq.map do |type|
-          course_sections << course.sections.where(:section_type => type, :semester_id => Semester.now.id).flatten
-        end
-      end
     end
 
     # Permute through the array of arrays to generate all possible combinations of schedules
