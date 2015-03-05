@@ -101,8 +101,7 @@ $(document).ready(function() {
 		date: 14
 	});
 
-	$('.fc-header-right').css('visibility', 'hidden'); //hides buttons
-
+	$('.fc-toolbar').css('visibility', 'hidden'); //hides buttons
 
 	$('#class-search').keyup(function(key) {
 		if (key.keyCode == 13) { //if key is enter key
@@ -115,41 +114,8 @@ $(document).ready(function() {
   		hideHeaders();
 	});
 
-	$('#save-sections').click(function() {
-		var section_ids = calendarCourses.map(function(event) {
-			return event.section_id;
-		}),
-			section_courses = calendarCourses.map(function(event) {
-				return event.title;
-			});
-
-		var unique_sections = [];
-		$.each(section_courses, function(i, el) {
-			if ($.inArray(el, unique_sections) === -1) unique_sections.push(el);
-		});
-
-		$.ajax('sections', {
-			type: 'POST',
-			data: {
-				sections: JSON.stringify(section_ids)
-			},
-			success: function() {
-				var saved_courses = [];
-				$('#saved-courses option').each(function() {
-					saved_courses.push($(this).text());
-				});
-				for (var i = 0; i < unique_sections.length; i++) {
-					if (saved_courses.indexOf(unique_sections[i]) == -1) {
-						$('#saved-courses').append('<option value="' + unique_sections[i] + '">' + unique_sections[i] + '</option>')
-					}
-				}
-				alert("Sections saved!");
-			}
-		});
-	});
-
 	$('#saved-courses').change(function() {
-		var course = $('#saved-courses option:selected').text();
+		var course = $.trim($('#saved-courses option:selected').text());
 		if (course !== '-- Select Course --') {
 			courseSearch(course);
 		}
@@ -180,23 +146,19 @@ $(document).ready(function() {
 
 		$('#course-modal').modal('hide');
 
-		sections = []
-		$.merge(sections, lecture_ids);
-		$.merge(sections, discussion_ids);
-		$.merge(sections, laboratory_ids);
-		console.log(sections);
+		console.log(searchResults);
 
-		//passes all checked sections to a controller method that will put them in a user table user_section
-		//Need a way to remove newly unchecked sections
-		$.ajax('/scheduler/save_selections', {
-			type: 'POST',
-			data: {
-				sections: sections
-	 	 	},
-	 	 	success: function(response) {
-				hideHeaders();
-	 	 	}
-	 	});
+		// //passes all checked sections to a controller method that will put them in a user table user_section
+		// //Need a way to remove newly unchecked sections
+		// $.ajax('/scheduler/save_selections', {
+		// 	type: 'POST',
+		// 	data: {
+		// 		sections: sections
+	 // 	 	},
+	 // 	 	success: function(response) {
+		// 		hideHeaders();
+	 // 	 	}
+	 // 	});
 
 	});
 
@@ -206,11 +168,6 @@ $(document).ready(function() {
 		loadSchedule(schedules[$(this).val()]);
 	});
 
-	$('#clear-sections').click(function() {
-		calendarCourses = [];
-		schedule.fullCalendar('removeEvents');
-	});
-
 	function courseSearch(course) {
 		if (course === '') {
 			searchResults = {};
@@ -218,7 +175,7 @@ $(document).ready(function() {
 		} else {
 			// Split the course search string (i.e. CS 2150) into two portions
 			course = course.split(' ');
-			$.ajax('search_course', {
+			$.ajax('scheduler/search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
 				data: {
@@ -226,7 +183,11 @@ $(document).ready(function() {
 					course_number: course[1]
 				},
 				success: function(response) {
-					searchResults[response.id] = {};
+					searchResults[response.id] = {
+						'lectures': [],
+						'discussions': [],
+						'laboratories': []
+					};
 					displayResult(response);
 				},
 				error: function(response) {
@@ -250,19 +211,6 @@ $(document).ready(function() {
 		});
 
 		resultBox.mouseup(function(event) {
-
-			//gets an array of checked sections from the user_section table
-			//Weird behavior. Not getting called all the time?
-			$.ajax('saved_selections', {	
-				success: function(response) {
-					//console.log(response);
-					loadSelections(response);
-					console.log(savedSelections);
-					//savedSelections.push(response);
-				}
-			});
-
-
 			$('#course-title').text(result.title);
 			$('#course-title').attr('course_id', result.id);
 			$('.lectures').empty();
@@ -276,7 +224,7 @@ $(document).ready(function() {
 				$("#lecture-header").show();
 				for(var i = 0; i < result.lectures.length; i++) {
 					isChecked="";
-					if (sectionSelected(result.lectures[i].section_id)) {
+					if (sectionSelected(result.lectures[i].section_id, result.id, 'lectures')) {
 						isChecked = "checked";
 					}
 					$('.lectures').append('<input type="checkbox" ' + isChecked + ' name="' + result.lectures[i].section_id + '"> ');
@@ -297,12 +245,10 @@ $(document).ready(function() {
 			if (result.discussions.length > 0) {
 				$("#discussion-header").show();
 				for(var i = 0; i < result.discussions.length; i++) {
-
 					isChecked = "";
-					if (sectionSelected(result.discussions[i].section_id)) {
+					if (sectionSelected(result.lectures[i].section_id, result.id, 'discussions')) {
 						isChecked = "checked";
 					}
-					console.log(isChecked);
 					$('.discussions').append('<input type="checkbox" ' + isChecked + ' name="' + result.discussions[i].section_id + '"> ');
 
 					// if (searchResults[result.id]['discussions'] && searchResults[result.id]['discussions'].indexOf(result.discussions[i].section_id) != -1) {
@@ -322,7 +268,7 @@ $(document).ready(function() {
 				$("#laboratory-header").show();
 				for(var i = 0; i < result.laboratories.length; i++) {
 					isChecked = "";
-					if (sectionSelected(result.laboratories[i].section_id)) {
+					if (sectionSelected(result.lectures[i].section_id, result.id, 'laboratories')) {
 						isChecked = "checked";
 					}
 					$('.laboratories').append('<input type="checkbox" ' + isChecked + ' name="' + result.laboratories[i].section_id + '"> ');
@@ -407,9 +353,7 @@ $(document).ready(function() {
 		}
 	}
 
-
 	function loadSelections(selections) {
-		
 		savedSelections.length = 0;
 		for (var i = 0; i < selections.length; i++) {
 			//console.log(selections[i]);
@@ -419,12 +363,8 @@ $(document).ready(function() {
 	}
 
 	// checks if  section has been saved so that it can be marked as checked
-	function sectionSelected(section_id) {
-		for (var i = 0; i < savedSelections.length; i++) {
-			if(savedSelections[i].section_id == section_id) {
-				return true;
-			}
-		}
+	function sectionSelected(section_id, course_id, type) {
+		return searchResults[course_id][type].indexOf(section_id) != -1;
 	}
 
 });
