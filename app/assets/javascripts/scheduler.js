@@ -76,8 +76,6 @@ $(document).ready(function() {
 		date: 14
 	});
 
-	$('.fc-toolbar').css('visibility', 'hidden'); //hides buttons
-
 	$('#class-search').keyup(function(key) {
 		if (key.keyCode == 13) { //if key is enter key
 			courseSearch($(this).val());
@@ -120,6 +118,38 @@ $(document).ready(function() {
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
 
 		$('#course-modal').modal('hide');
+	});
+
+	$('#save-schedule-dialog').click(function() {
+		$('#save-schedule-modal').modal();
+	});
+
+	$('#save-schedule').click(function() {
+		var schedule = schedules[$('#schedule-slider').val()];
+		if (schedule) {
+			var section_ids = $.map(schedule, function(section) {
+				return section['section_id'];
+			});
+			$.ajax('scheduler/schedules', {
+				method: 'POST',
+				data: {
+					name: $('#name').val(),
+					sections: JSON.stringify(section_ids)
+				},
+				success: function() {
+					alert("Schedule saved!");
+				},
+				failure: function() {
+					alert("Could not save schedule!");
+				}
+			});
+		}
+	});
+
+	$('#load-schedule').click(function() {
+		$.ajax('scheduler/schedules', {
+
+		});
 	});
 
 	$('#schedule-slider').change(function() {
@@ -175,7 +205,7 @@ $(document).ready(function() {
 				}
 			}
 		});
-		$.ajax('scheduler/schedules', {
+		$.ajax('scheduler/generate_schedules', {
 			data: {
 				course_sections: JSON.stringify(sections)
 			},

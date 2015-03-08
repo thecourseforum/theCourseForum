@@ -10,7 +10,7 @@ class SchedulerController < ApplicationController
     end
 	end
 
-  def automatic
+  def scheduler
   end
 
   # Old method of getting sections from the database
@@ -108,29 +108,6 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
-  # Returns the current user's saved sections as json
-  def saved_selections
-    render :json => rsections_to_jssections(current_user.sections)
-  end
-
-  # Given an array of section ids, (ones that the user has unchecked)
-  # remove those sections from the current user's sections
-  def unsave_selections
-    sections =  current_user.sections.where(id: params[:sections])
-    sections.each do |section|
-      current_user.sections.delete(section.id) 
-    end
-    render :nothing => true
-  end
-
-  # Given a single section id, (when a use clicks 'x' on a section)
-  # remove that section from the current user's sections
-  def unsave_selection
-    current_user.sections.delete(params[:id])
-    render :nothing => true
-  end
-
-
   # Clears the current users's saved courses (not used)
   def clear_courses
     current_user.courses = []
@@ -138,9 +115,22 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
+  def save_schedule
+    schedule = current_user.schedules.create(:name => params[:name])
+    schedule.sections = Section.find(JSON.parse(params[:sections]))
+
+    render :json => {:success => true}
+  end
+
+  def show_schedules
+    render :json => {:success => true, :results => current_user.schedules.map { |schedule|
+      schedule.as_json.merge(:sections => rsections_to_jssections(schedule.sections))
+    }}
+  end
+
   # Given an 2D array of section ids by type (lab, discussion, lecture)
   # generates possible schedules that are without conflicts
-  def schedules
+  def generate_schedules
     # if sections were passed,
     if params[:course_sections]
       # for each type of section in the array

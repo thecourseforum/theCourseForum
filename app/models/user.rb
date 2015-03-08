@@ -12,10 +12,7 @@ class User < ActiveRecord::Base
 
   # relationships for scheduling
   has_and_belongs_to_many :courses
-  has_and_belongs_to_many :sections
-
-  has_one :calendar, through: :calendar_sections
-  has_many :calendar_sections
+  has_many :schedules, dependent: :destroy
 
   #Provides citizenship and voter priveleges
   acts_as_voter

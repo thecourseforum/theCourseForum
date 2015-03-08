@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109022627) do
+ActiveRecord::Schema.define(version: 20150308033519) do
 
   create_table "book_requirements", id: false, force: true do |t|
     t.integer "section_id"
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20141109022627) do
     t.datetime "updated_at",          null: false
     t.string   "middle_name"
     t.text     "classification"
-    t.text     "department"
+    t.text     "ldap_department"
     t.text     "department_code"
     t.text     "primary_email"
     t.text     "office_phone"
@@ -196,6 +196,13 @@ ActiveRecord::Schema.define(version: 20141109022627) do
   add_index "reviews", ["semester_id"], name: "index_reviews_on_semester_id", using: :btree
   add_index "reviews", ["student_id"], name: "index_reviews_on_student_id", using: :btree
 
+  create_table "schedules", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "schools", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -225,13 +232,6 @@ ActiveRecord::Schema.define(version: 20141109022627) do
     t.integer  "course_id"
     t.integer  "semester_id"
   end
-
-  create_table "sections_users", id: false, force: true do |t|
-    t.integer "section_id"
-    t.integer "user_id"
-  end
-
-  add_index "sections_users", ["user_id", "section_id"], name: "index_sections_users_on_user_id_and_section_id", unique: true, using: :btree
 
   create_table "semesters", force: true do |t|
     t.integer  "number"

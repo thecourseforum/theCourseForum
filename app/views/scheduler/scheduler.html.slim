@@ -1,10 +1,10 @@
-= javascript_include_tag "scheduler/automatic"
+= javascript_include_tag "scheduler"
 - content_for :page_heading, "Course Scheduler"
 body
   #calendar
     .row
       .col-lg-6
-        .btn.btn-primary#save-schedule Save Schedule
+        .btn.btn-primary#save-schedule-dialog Save Schedule
       .col-lg-6
         .btn.btn-primary#load-schedule Load Schedule
     .row
@@ -30,6 +30,18 @@ body
       p.course-title
     #checkbox
       input type = "checkbox"
+  #save-schedule-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Save Schedule
+        .modal-body
+          .form-group
+            label.control-label for="name"  Name:
+            input#name.form-control type="text"
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" type="button"  Close
+          button.btn.btn-primary#save-schedule type="button"  Save Schedule
   #course-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
     .modal-dialog
       .modal-content

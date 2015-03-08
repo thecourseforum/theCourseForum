@@ -22,15 +22,12 @@ TheCourseForum::Application.routes.draw do
 
   resources :courses, :only => [:show]
 
-  get '/scheduler' => 'scheduler#automatic'
-  get '/scheduler/search_sections' => 'scheduler#search_sections'
+  get '/scheduler' => 'scheduler#scheduler'
   get '/scheduler/search_course' => 'scheduler#search_course'
-  get '/scheduler/schedules' => 'scheduler#schedules'
-  get '/scheduler/sections' => 'scheduler#sections'
-  get 'scheduler/saved_selections' => 'scheduler#saved_selections'
+  get '/scheduler/generate_schedules' => 'scheduler#generate_schedules'
+  get '/scheduler/schedules' => 'scheduler#show_schedules'
   post '/scheduler/course' => 'scheduler#save_course'
-  post '/scheduler/sections' => 'scheduler#save_sections'
-  post '/scheduler/save_selections' => 'scheduler#save_selections'
+  post '/scheduler/schedules' => 'scheduler#save_schedule'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
 
   resources :departments, :only => [:show, :index]
