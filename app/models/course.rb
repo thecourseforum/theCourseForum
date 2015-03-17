@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
 
   has_many :sections
   has_many :reviews
+  has_many :books, :through => :sections
 
   has_and_belongs_to_many :users
 
@@ -20,5 +21,6 @@ class Course < ActiveRecord::Base
   def mnemonic_number
     return "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
   end
+
 
 end

@@ -21,4 +21,5 @@ class Professor < ActiveRecord::Base
   def separated_name
     self.last_name + ", " + self.first_name
   end
+
 end
