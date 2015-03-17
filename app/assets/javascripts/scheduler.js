@@ -291,7 +291,7 @@ $(document).ready(function() {
 				$("#laboratory-header").show();
 				for (var i = 0; i < result.laboratories.length; i++) {
 					isChecked = "";
-					if (sectionSelected(result.lectures[i].section_id, result.id, 'laboratories')) {
+					if (sectionSelected(result.laboratories[i].section_id, result.id, 'laboratories')) {
 						isChecked = "checked";
 					}
 					$('.laboratories').append('<input type="checkbox" ' + isChecked + ' name="' + result.laboratories[i].section_id + '"> ');
