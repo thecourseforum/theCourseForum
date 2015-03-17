@@ -11,6 +11,10 @@ class SchedulerController < ApplicationController
 	end
 
   def scheduler
+    respond_to do |format|
+      format.html
+      format.ics {export_ics}
+    end
   end
 
   # Old method of getting sections from the database
@@ -292,6 +296,8 @@ class SchedulerController < ApplicationController
 
         # Break the start_time format (18:00) into hour and minutes
         startTimeString = day_time.start_time
+        pr startTimeString
+        pr section.course.title
         startTimeString[":"] = "" #remove the colon
         (startTimeString.to_i >= 1000) ? startingHour = startTimeString.slice(0,2) : startingHour = startTimeString.slice(0, 1) #character size of hour will vary
         startingMinutes = startTimeString.slice(startTimeString.size-2, 2) # the minutes are always the last two chars
@@ -340,13 +346,15 @@ class SchedulerController < ApplicationController
     # tz = TZInfo::Timezone.get tzid
     # timezone = tz.ical_timezone event.dtstart
     # @calendar.add_timezone timezone
-
-    sections = current_user.sections
-    sections.each do |section|
-      events = render_ical_event(section)
-      events.each do |event|
-        @calendar.add_event(event)
-      end  
+    courses = current_user.courses
+    courses.each do |course|
+      sections = course.sections
+      sections.each do |section|
+        events = render_ical_event(section)
+        events.each do |event|
+          @calendar.add_event(event)
+        end  
+      end
     end
 
     @calendar.publish
