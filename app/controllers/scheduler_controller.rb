@@ -171,7 +171,6 @@ class SchedulerController < ApplicationController
       end
       sections.count == schedule.count ? rsections_to_jssections(schedule) : nil
     end.compact
-
     render :json => valid_schedules and return
   end
 
@@ -188,15 +187,22 @@ class SchedulerController < ApplicationController
       # its start and end times
       start_times = []
       end_times = []
-      # pr section.day_times.to_a
 
       # For each of the sections day_times, 
       # sort them by start time, then end tie, then day of the week,
       # then populate the arrays above the corresponding information
       section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
         days << day_time.day
-        start_times << day_time.start_time
-        end_times << day_time.end_time
+        startTime = day_time.start_time
+        endTime = day_time.end_time
+        if startTime.length == 4
+          startTime = "0" + startTime
+        end
+        if endTime.length == 4
+          endTime = "0" + endTime
+        end
+        start_times << startTime
+        end_times << endTime
       end
       # Make this info, as well as other various fields, part of a json object
       {
@@ -296,8 +302,6 @@ class SchedulerController < ApplicationController
 
         # Break the start_time format (18:00) into hour and minutes
         startTimeString = day_time.start_time
-        pr startTimeString
-        pr section.course.title
         startTimeString[":"] = "" #remove the colon
         (startTimeString.to_i >= 1000) ? startingHour = startTimeString.slice(0,2) : startingHour = startTimeString.slice(0, 1) #character size of hour will vary
         startingMinutes = startTimeString.slice(startTimeString.size-2, 2) # the minutes are always the last two chars
