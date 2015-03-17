@@ -60,8 +60,8 @@ $(document).ready(function() {
 	schedule.fullCalendar({
 		defaultView: 'agendaWeek',
 		weekends: false,
-		minTime: 8,
-		maxTime: 22,
+		minTime: "08:00:00",
+		maxTime: "22:00:00",
 		allDaySlot: false,
 		columnFormat: {
 			agendaWeek: 'dddd'
