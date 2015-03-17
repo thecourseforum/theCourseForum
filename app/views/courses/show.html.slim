@@ -30,7 +30,7 @@
         .col-xs-6.course-stats
           .row
             h3 Ratings
-
+            .hr
           .row.stat-row
             .col-xs-2=image_tag "icons/heart.png"
             .col-xs-6 Overall
@@ -56,6 +56,7 @@
 
           .row
             h3 Emphasizes
+            .hr
           .row.stat-row
             .col-xs-6.col-xs-offset-2 style="text-align:right;" Avg Hrs/Week
             .col-xs-4 # Reviews
@@ -80,6 +81,20 @@
             .col-xs-6 Tests/Midterms
             .col-xs-4= "--"
             .col-xs-2=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
+
+          br
+          .row
+            h3 Textbooks
+            .hr
+          .row.textbooks-row 
+            .p.title Physics, Math, and Magic
+            .p.author by Dumbledore
+            .p.requirement-cost-condition Required - $19.99 New
+          .row.textbooks-row 
+            .p.title Superdupercalifragilisticespialidocious
+            .p.author by Mary Poppins
+            .p.requirement-cost-condition Recommended - $203.49 Used
+
         .course-grades.col-xs-6
           .row
             .col-xs-12

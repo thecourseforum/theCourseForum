@@ -10,6 +10,35 @@
   overflow-y: auto;
 }
 
+h3 {
+  color: #2423B3;
+}
+
+.hr {
+  border-bottom: 2px solid black;
+  width: 375px;
+}
+
+.title {
+  color: #E25424;
+}
+
+.author {
+  margin-left: 30px;
+  color: #E25424;
+}
+
+.p.requirement-cost-condition {
+  margin-left: 30px;
+  color: #2423B3;
+}
+
+.textbooks-row {
+  border-bottom: 1px dotted black;
+  height: 80px;
+  padding-top: 8px;
+}
+
 .stat-row {
   border-bottom: 1px dotted $blue;
   height: 40px;
