@@ -251,18 +251,45 @@ $(document).ready(function() {
 			// TODO THX
 		});
 	});
+	//$('#schedule-slider').slider();
+	$('#schedule-slider').slider( {
+		
+		 step: 1,
+		 min: 1,
+		 max: 10,
+
+		 value: 1000,
+
+			slide: function(event, ui) {
+				
+			},
+			stop: function(event, ui) {
+				//$('#schedule-slider').change();
+			}
+
+		
+	});
 
 	// Attach listener when the slider's value is changed (user selects a schedule)
 	$('#schedule-slider').change(function() {
+<<<<<<< HEAD
 		// Clear out calendar first
+=======
+	
+>>>>>>> slider modification
 		calendarCourses = [];
 		$('#schedule').fullCalendar('removeEvents');
 
 		// Load new schedule in (utility function at bottom of file) based on selected slider's value
 		loadSchedule(schedules[$(this).val()]);
+		
 	});
 
+<<<<<<< HEAD
 	// Asks server for course information + sections based on search string
+=======
+
+>>>>>>> slider modification
 	function courseSearch(course) {
 		// If text was empty, implies that user wants to clear all courses
 		if (course === '') {
