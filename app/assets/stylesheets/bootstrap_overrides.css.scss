@@ -29,3 +29,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar-nav > li > .dropdown-menu {
   border-radius: 0;
 }
+
+.navbar-brand > img {
+  display: inline;
+}
