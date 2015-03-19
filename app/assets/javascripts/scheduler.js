@@ -218,6 +218,13 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#name').keyup(function(key) {
+		// Anonymous function gets passed in the keyCode of the pressed key, 13 is the Enter key
+		if (key.keyCode == 13) {
+			$('#save-schedule').click();
+		}
+	});
+
 	// Upon hitting save-schedule in the save-schedule-modal, POST to the server the currently selected schedule and save it
 	$('#save-schedule').click(function() {
 		// Grab the current selected schedule based on the slider's current value
