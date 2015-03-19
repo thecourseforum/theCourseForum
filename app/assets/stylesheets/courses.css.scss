@@ -10,13 +10,12 @@
   overflow-y: auto;
 }
 
-h3 {
-  color: #2423B3;
+.rating-title {
+  color: $blue;
 }
 
-.hr {
-  border-bottom: 2px solid black;
-  width: 375px;
+.title-row {
+  border-bottom: solid 1px $blue;
 }
 
 .title {
