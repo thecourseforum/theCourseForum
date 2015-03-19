@@ -206,9 +206,14 @@ $(document).ready(function() {
 
 	// Shows the save-schedule modal upon clicking the save-schedule button
 	$('#save-schedule-dialog').click(function() {
-		if (schedules[$('#schedule-slider').slider('value')]) {
+		// Grab the current selected schedule based on the slider's current value
+		var schedule = schedules[$('#schedule-slider').slider('value')];
+		// Only allow saving schedule if a schedule is on the calendar
+		if (schedule) {
 			// Select the (hidden) element save-schedule-modal and shows it with modal
 			$('#save-schedule-modal').modal();
+			// Autofill with name
+			$('#name').val(schedule['name']);
 		}
 	});
 
@@ -219,7 +224,7 @@ $(document).ready(function() {
 		// If such a schedule exists (aka there's a schedule on the calendar)
 		if (schedule) {
 			// Turns the array of section objects into just an array of section_ids
-			var section_ids = $.map(schedule, function(section) {
+			var section_ids = $.map(schedule['schedule'], function(section) {
 				// Each section object has a property (section_id) with the ids
 				return section['section_id'];
 			});
@@ -237,8 +242,12 @@ $(document).ready(function() {
 				},
 				// If server didn't complain (no 404, 500 error, etc)
 				success: function() {
+					schedule['name'] = $('#name').val();
+					$('#schedule-name').text(schedule['name']);
+
 					// Simple alert, can be customized later
 					alert("Schedule saved!");
+					$('#course-modal').modal('hide');
 				},
 				// If server complains
 				failure: function() {
@@ -484,6 +493,7 @@ $(document).ready(function() {
 		calendarCourses = [];
 		$('#schedule').fullCalendar('removeEvents');
 		if (schedule) {
+			$('#schedule-name').text(schedule['name']);
 			for (var i = 0; i < schedule['schedule'].length; i++) {
 				addClass(schedule['schedule'][i]);
 			}
