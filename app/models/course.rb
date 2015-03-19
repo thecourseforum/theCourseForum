@@ -27,4 +27,8 @@ class Course < ActiveRecord::Base
     self.book_requirements.where(:requirement_status => status).map{|r| r.book}
   end
 
+  def units
+    self.sections.select(:units).max.units.to_i
+  end
+
 end

@@ -19,8 +19,30 @@ body.modal-open {
 	overflow: hidden;
 }
 
+#schedule-slider {
+	margin-top: 12px;
+	margin-bottom: 8px;
+	margin-right: 10px;
+}
+
+#schedule-name {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+#credits {
+	margin-top: 5px;
+	text-align: center;
+	vertical-align: center;
+}
+
 .fc-toolbar {
 	display: none;
+}
+
+#search-footer {
+	margin-top: 6px;
 }
 
 #saved-courses {
@@ -31,9 +53,16 @@ body.modal-open {
 	width: 100%;
 }
 
+#search-bar .btn.btn-primary {
+	width: 100%;
+}
+
+#class-search {
+	width: 100%;
+}
+
 #clear-courses {
 	margin-top: 6px;
-	width: 100%;
 }
 
 #results-title {
@@ -60,7 +89,7 @@ body.modal-open {
 	border-color: #c34c1b;
 	padding: 4px;
 	cursor: pointer;
-	max-width: 170px;
+	width: 170px;
 	display: inline-block;
 }
 
@@ -80,8 +109,11 @@ body.modal-open {
 }
 
 .fc-event {
+	margin-top: 2px;
 	background-color: #d9551e;
 	border-color: #c34c1b;
+	/*border-radius: 0px;*/
+	width: 100%;
 }
 
 .course-info-dialog {

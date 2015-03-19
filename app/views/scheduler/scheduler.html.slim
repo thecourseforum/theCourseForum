@@ -6,8 +6,10 @@
       .btn.btn-primary#save-schedule-dialog Save Schedule
     .col-lg-6
       .btn.btn-primary#load-schedule Load Schedule
-  .row
-    .col-lg-12
+  .row#slider
+    .col-lg-2
+      #schedule-name Schedule Name
+    .col-lg-10
       #schedule-slider
   #schedule
 #search-bar
@@ -21,6 +23,12 @@
   .btn.btn-primary#clear-courses Clear Saved Courses
   h5#results-title Courses
   #results-box
+  .row#search-footer
+    .col-lg-5
+      #credits 0 / 25
+    .col-lg-7
+      .btn.btn-primary#generate-schedules Generate
+
 
 .course-result.hidden
   #content

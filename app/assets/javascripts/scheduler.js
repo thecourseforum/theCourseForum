@@ -72,10 +72,10 @@ $(document).ready(function() {
 				// Can return original time, plus AM
 				// LOOKAT
 				// Actually, this is a little weird - don't know how it turns 08:00 to 08:00AM or 8:00AM
-				return time + "AM";
+				return hour + ":" + timeArray[1] + "AM";
 			} else if (hour == 12) {
 				// If noon, then again like previous case just append PM to original string
-				return time = "PM";
+				return time + "PM";
 			} else {
 				// Subtract twelve from hour, re-append minutes to it, then "PM"
 				return hour - 12 + ":" + timeArray[1] + "PM";
@@ -90,7 +90,8 @@ $(document).ready(function() {
 	// sample representation of searchResults is as follows:
 	// searchResults = {
 	// 	20382: {
-	// 		selected: false
+	// 		selected: false,
+	// 		units: 3
 	// 		lectures: [203955, 30291, 203432],
 	// 		discussions: [20392, 20395],
 	// 		laboratories: []
@@ -130,12 +131,8 @@ $(document).ready(function() {
 		contentHeight: 610,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
-		// Set initial year for calendar view
-		year: 2014,
-		// Set initial month for calendar view
-		month: 4,
-		// Set initial date for calendar view
-		date: 14
+		// New default date
+		defaultDate: '2014-4-14'
 	});
 
 	// Bind a listener to the class-search textbox to listen for the enter key to start a search
@@ -157,6 +154,14 @@ $(document).ready(function() {
 		if (course !== '-- Select Course --') {
 			// Call internal function courseSearch with the search phrase associated with the selected option
 			courseSearch(course);
+		}
+	});
+
+	$('#generate-schedules').click(function() {
+		if ($('#credits').text().split(" / ")[0] > 25) {
+			alert("Too many credits selected!");
+		} else {
+			searchSchedules();
 		}
 	});
 
@@ -201,14 +206,16 @@ $(document).ready(function() {
 
 	// Shows the save-schedule modal upon clicking the save-schedule button
 	$('#save-schedule-dialog').click(function() {
-		// Select the (hidden) element save-schedule-modal and shows it with modal
-		$('#save-schedule-modal').modal();
+		if (schedules[$('#schedule-slider').slider('value')]) {
+			// Select the (hidden) element save-schedule-modal and shows it with modal
+			$('#save-schedule-modal').modal();
+		}
 	});
 
 	// Upon hitting save-schedule in the save-schedule-modal, POST to the server the currently selected schedule and save it
 	$('#save-schedule').click(function() {
 		// Grab the current selected schedule based on the slider's current value
-		var schedule = schedules[$('#schedule-slider').val()];
+		var schedule = schedules[$('#schedule-slider').slider('value')];
 		// If such a schedule exists (aka there's a schedule on the calendar)
 		if (schedule) {
 			// Turns the array of section objects into just an array of section_ids
@@ -252,34 +259,13 @@ $(document).ready(function() {
 		});
 	});
 	//$('#schedule-slider').slider();
-	$('#schedule-slider').slider( {
-		
-		 step: 1,
-		 min: 0,
-		 max: 10,
-
-		 value: 0,
-
-			slide: function(event, ui) {
-				
-			},
-			stop: function(event, ui) {
-				$('#schedule-slider').change();
-			}
-
-		
-	});
-
-	// Attach listener when the slider's value is changed (user selects a schedule)
-	$('#schedule-slider').change(function() {
-		// Clear out calendar first
-		calendarCourses = [];
-		$('#schedule').fullCalendar('removeEvents');
-		console.log(schedules);
-		console.log($(this).slider('value'))
-		// Load new schedule in (utility function at bottom of file) based on selected slider's value
-		loadSchedule(schedules[$(this).slider('value')]);
-		
+	$('#schedule-slider').slider({
+		step: 1,
+		min: 0,
+		value: 0,
+		slide: function(event, ui) {
+			loadSchedule(schedules[ui.value]);
+		}
 	});
 
 	// Asks server for course information + sections based on search string
@@ -306,7 +292,8 @@ $(document).ready(function() {
 						// Initialize this course in searchResults
 						// See above for sample searchResults representation
 						searchResults[response.id] = {
-							'selected': false,
+							'selected': true,
+							'units': response.units,
 							'lectures': [],
 							'discussions': [],
 							'laboratories': []
@@ -344,8 +331,13 @@ $(document).ready(function() {
 			},
 			success: function(response) {
 				schedules = response;
-				$('#schedule-slider').attr('max', schedules.length - 1);
-				$('#schedule-slider').change();
+				if (schedules.length > 0) {
+					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
+					$('#schedule-slider').slider('option', 'value', 0);
+				} else {
+					alert('No possible schedules!');
+				}
+				loadSchedule(schedules[0]);
 			}
 		});
 	}
@@ -448,12 +440,21 @@ $(document).ready(function() {
 		content.children('.course-title').text(result.title);
 
 		checkbox.attr('name', result.id);
+		checkbox.attr('checked', true);
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 
-			searchSchedules();
+			var total = 0;
+			$.each(searchResults, function(course_id, data) {
+				if (data['selected']) {
+					total += data['units'];
+				}
+			});
+			$('#credits').text(total + " / 25");
 		});
+		checkbox.change();
 		$('#results-box').append(resultBox);
+		content.click();
 	}
 
 	function addClass(course) {
@@ -468,24 +469,24 @@ $(document).ready(function() {
 				event.__proto__ = course;
 				course.events.push(event);
 				calendarCourses.push(event);
-				console.log(event)
 			}
 		} else {
 			for (var i = 0; i < course.events.length; i++) {
 				calendarCourses.push(course.events[i]);
 			}
 		}
-		PLEASE_DELETE_ME =  course;
-		console.log(course);
-		console.log(calendarCourses)
-		
+
 		$('#schedule').fullCalendar('removeEvents');
 		$('#schedule').fullCalendar('addEventSource', $.merge([], calendarCourses));
 	}
 
 	function loadSchedule(schedule) {
-		for (var i = 0; i < schedule.length; i++) {
-			addClass(schedule[i]);
+		calendarCourses = [];
+		$('#schedule').fullCalendar('removeEvents');
+		if (schedule) {
+			for (var i = 0; i < schedule['schedule'].length; i++) {
+				addClass(schedule['schedule'][i]);
+			}
 		}
 	}
 

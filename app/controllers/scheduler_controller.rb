@@ -66,7 +66,9 @@ class SchedulerController < ApplicationController
         #gets the sections of the course that are for the current semester and are discussions
         :discussions => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Discussion')),
         #gets the sections of the course that are for the current semester and are labs
-        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory'))
+        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory')),
+        # Returns units of course
+        :units => course.units
       }) and return
     end
   end
@@ -171,6 +173,12 @@ class SchedulerController < ApplicationController
       end
       sections.count == schedule.count ? rsections_to_jssections(schedule) : nil
     end.compact
+    valid_schedules.map!.with_index do |schedule, index|
+      {
+        name: "Schedule \##{index + 1}",
+        schedule: schedule
+      }
+    end
     render :json => valid_schedules and return
   end
 
@@ -205,7 +213,7 @@ class SchedulerController < ApplicationController
         end_times << endTime
       end
       # Make this info, as well as other various fields, part of a json object
-      {
+      start_times[0] == "" ? nil : {
         :section_id => section.id,
         :title => "#{section.course.subdepartment.mnemonic} #{section.course.course_number}",
         :location => section.locations.empty? ? 'NA' : section.locations.first.location,
@@ -217,7 +225,7 @@ class SchedulerController < ApplicationController
         :professor => section.professors.first.full_name,
         :sis_id => section.sis_class_number
       }
-    end
+    end.compact
   end
 
   # Given a schedule being built, and a section to consider,
