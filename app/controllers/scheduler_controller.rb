@@ -17,6 +17,15 @@ class SchedulerController < ApplicationController
     end
   end
 
+  def index
+    render :json => current_user.schedules
+  end
+
+  def destroy
+    current_user.schedules = []
+    render :nothing => true
+  end
+
   # Old method of getting sections from the database
   # Does not break them up by type (discussion, lab, lecture)
 	def search_sections
@@ -176,7 +185,7 @@ class SchedulerController < ApplicationController
     valid_schedules.map!.with_index do |schedule, index|
       {
         name: "Schedule \##{index + 1}",
-        schedule: schedule
+        sections: schedule
       }
     end
     render :json => valid_schedules and return

@@ -104,6 +104,7 @@ $(document).ready(function() {
 		// calendarCourses is a DIRECT representation of CALENDAR events
 		// Clearing, adding, events must use this array of fullCalendar events!
 		calendarCourses = [],
+		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [];
 
@@ -224,7 +225,7 @@ $(document).ready(function() {
 		// If such a schedule exists (aka there's a schedule on the calendar)
 		if (schedule) {
 			// Turns the array of section objects into just an array of section_ids
-			var section_ids = $.map(schedule['schedule'], function(section) {
+			var section_ids = $.map(schedule['sections'], function(section) {
 				// Each section object has a property (section_id) with the ids
 				return section['section_id'];
 			});
@@ -247,7 +248,7 @@ $(document).ready(function() {
 
 					// Simple alert, can be customized later
 					alert("Schedule saved!");
-					$('#course-modal').modal('hide');
+					$('#save-schedule-modal').modal('hide');
 				},
 				// If server complains
 				failure: function() {
@@ -259,19 +260,66 @@ $(document).ready(function() {
 	});
 
 	// Attach listener to the load-schedule button
-	$('#load-schedule').click(function() {
+	$('#load-schedules').click(function() {
 		// Ask server for a list of saved schedules for that user and populate the modal with them
 		// LOOKAT
 		// Needs Modal, populating the modal, and function to relace schedules array with the loaded array of selected schedules from server
 		$.ajax('scheduler/schedules', {
-			// TODO THX
+			success: function(response) {
+				$('.schedules').empty();
+				$.each(response['results'], function(index, schedule) {
+					$('.schedules').append('<input type="checkbox" ' + false + ' name="' + schedule.id + '"> ' + schedule.name);
+
+					if (index != response['results'].length - 1) {
+						$('.schedules').append("<br/>");
+					}
+				});
+
+				savedSchedules = response['results'];
+				if (response['results'].length > 0) {
+					$('#load-schedules-modal').modal();	
+				} else {
+					alert('No saved schedules!');
+				}
+			}
 		});
 	});
-	//$('#schedule-slider').slider();
+
+	$('#load-selected-schedules').click(function() {
+		var selectedScheduleIds = $('.schedules').children(':checked').map(function(index, checkbox) {
+				return parseInt(checkbox.name);
+			}),
+			selectedSchedules = $.grep(savedSchedules, function(schedule) {
+				return selectedScheduleIds.index(schedule.id) != -1;
+			});
+
+		schedules = selectedSchedules;
+		if (schedules.length > 0) {
+			$('#schedule-slider').slider('option', 'max', schedules.length - 1);
+			$('#load-schedules-modal').modal('hide');
+		} else {
+			$('#schedule-slider').slider('option', 'max', 0);
+			alert('No selected schedules!');
+		}
+		$('#schedule-slider').slider('option', 'value', 0);
+		loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+	});
+
+	$('#clear-schedules').click(function() {
+		$.ajax('scheduler/schedules', {
+			method: 'DELETE',
+			success: function() {
+				savedSchedules = [];
+				alert('Saved schedules cleared!');
+			}
+		});
+	});
+
 	$('#schedule-slider').slider({
 		step: 1,
 		min: 0,
 		value: 0,
+		animate: 'fast',
 		slide: function(event, ui) {
 			loadSchedule(schedules[ui.value]);
 		}
@@ -342,11 +390,12 @@ $(document).ready(function() {
 				schedules = response;
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
-					$('#schedule-slider').slider('option', 'value', 0);
 				} else {
+					$('#schedule-slider').slider('option', 'max', 0);
 					alert('No possible schedules!');
 				}
-				loadSchedule(schedules[0]);
+				$('#schedule-slider').slider('option', 'value', 0);
+				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
 			}
 		});
 	}
@@ -492,12 +541,14 @@ $(document).ready(function() {
 	function loadSchedule(schedule) {
 		calendarCourses = [];
 		$('#schedule').fullCalendar('removeEvents');
+		var name = 'Schedule Name';
 		if (schedule) {
-			$('#schedule-name').text(schedule['name']);
-			for (var i = 0; i < schedule['schedule'].length; i++) {
-				addClass(schedule['schedule'][i]);
+			name = schedule['name'];
+			for (var i = 0; i < schedule['sections'].length; i++) {
+				addClass(schedule['sections'][i]);
 			}
 		}
+		$('#schedule-name').text(name);
 	}
 
 	// checks if  section has been saved so that it can be marked as checked
