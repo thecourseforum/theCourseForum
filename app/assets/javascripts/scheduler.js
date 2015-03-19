@@ -10,7 +10,7 @@ $(document).ready(function() {
 		formatDateString: function(weekDay) {
 			// Days of the week placeholder array
 			var days = ['Mo', 'Tu', 'We', 'Th', 'Fr'],
-			// Reference month defined (April 2014)
+				// Reference month defined (April 2014)
 				dateString = '2014-04-';
 
 			// Append to the date the selected day of the week - If monday, then date is 2014-04-14 (a Monday)
@@ -63,8 +63,8 @@ $(document).ready(function() {
 		formatTime: function(time) {
 			// Split incoming argument by colon, so "08:00" becomes ["08", "00"]
 			var timeArray = time.split(":"),
-			// Grab the first element (hour) and parse into int
-			// Second argument (10) specifies what base we are in
+				// Grab the first element (hour) and parse into int
+				// Second argument (10) specifies what base we are in
 				hour = parseInt(timeArray[0], 10);
 
 			// Less than 12 hours, we are in the morning
@@ -101,10 +101,10 @@ $(document).ready(function() {
 	// ANY logic changes to courses (selected sections, removing a course) MUST update this object!!
 	var searchResults = {},
 
-	// calendarCourses is a DIRECT representation of CALENDAR events
-	// Clearing, adding, events must use this array of fullCalendar events!
+		// calendarCourses is a DIRECT representation of CALENDAR events
+		// Clearing, adding, events must use this array of fullCalendar events!
 		calendarCourses = [],
-	// schedules stores an array of potential schedules, which themselves are just an array of section objects
+		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [];
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
@@ -472,7 +472,7 @@ $(document).ready(function() {
 			for (var i = 0; i < course.days.length; i++) {
 				dateString = Utils.formatDateString(course.days[i])
 				var event = {
-					start: dateString + ' ' + course.start_times[i] ,
+					start: dateString + ' ' + course.start_times[i],
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
