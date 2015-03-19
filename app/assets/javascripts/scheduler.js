@@ -264,7 +264,7 @@ $(document).ready(function() {
 				
 			},
 			stop: function(event, ui) {
-				//$('#schedule-slider').change();
+				$('#schedule-slider').change();
 			}
 
 		
@@ -272,11 +272,7 @@ $(document).ready(function() {
 
 	// Attach listener when the slider's value is changed (user selects a schedule)
 	$('#schedule-slider').change(function() {
-<<<<<<< HEAD
 		// Clear out calendar first
-=======
-	
->>>>>>> slider modification
 		calendarCourses = [];
 		$('#schedule').fullCalendar('removeEvents');
 
@@ -285,11 +281,7 @@ $(document).ready(function() {
 		
 	});
 
-<<<<<<< HEAD
 	// Asks server for course information + sections based on search string
-=======
-
->>>>>>> slider modification
 	function courseSearch(course) {
 		// If text was empty, implies that user wants to clear all courses
 		if (course === '') {
