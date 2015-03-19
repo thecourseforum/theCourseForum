@@ -133,7 +133,7 @@ $(document).ready(function() {
 		// Set initial year for calendar view
 		year: 2014,
 		// Set initial month for calendar view
-		month: 3,
+		month: 4,
 		// Set initial date for calendar view
 		date: 14
 	});
@@ -255,10 +255,10 @@ $(document).ready(function() {
 	$('#schedule-slider').slider( {
 		
 		 step: 1,
-		 min: 1,
+		 min: 0,
 		 max: 10,
 
-		 value: 1000,
+		 value: 0,
 
 			slide: function(event, ui) {
 				
@@ -275,9 +275,10 @@ $(document).ready(function() {
 		// Clear out calendar first
 		calendarCourses = [];
 		$('#schedule').fullCalendar('removeEvents');
-
+		console.log(schedules);
+		console.log($(this).slider('value'))
 		// Load new schedule in (utility function at bottom of file) based on selected slider's value
-		loadSchedule(schedules[$(this).val()]);
+		loadSchedule(schedules[$(this).slider('value')]);
 		
 	});
 
@@ -461,18 +462,23 @@ $(document).ready(function() {
 			for (var i = 0; i < course.days.length; i++) {
 				dateString = Utils.formatDateString(course.days[i])
 				var event = {
-					start: dateString + ' ' + course.start_times[i],
+					start: dateString + ' ' + course.start_times[i] ,
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
 				course.events.push(event);
 				calendarCourses.push(event);
+				console.log(event)
 			}
 		} else {
 			for (var i = 0; i < course.events.length; i++) {
 				calendarCourses.push(course.events[i]);
 			}
 		}
+		PLEASE_DELETE_ME =  course;
+		console.log(course);
+		console.log(calendarCourses)
+		
 		$('#schedule').fullCalendar('removeEvents');
 		$('#schedule').fullCalendar('addEventSource', $.merge([], calendarCourses));
 	}
