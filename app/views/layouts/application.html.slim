@@ -15,18 +15,22 @@ html
   body
     = render 'layouts/header'
     - if current_user
-        aside
-          = render 'layouts/navigation'
-        section#main
-          = render 'layouts/notice'
-          .container-fluid#main-container
-            - if content_for?(:page_heading)
-              h1.page-title= yield(:page_heading)
-            .container-fluid#content-container
-              = yield
+      aside
+        = render 'layouts/navigation'
+      section#main
+        = render 'layouts/notice'
+        .container-fluid#main-container
+          - if content_for?(:page_heading)
+            h1.page-title= yield(:page_heading)
+          .container-fluid#content-container
+            = yield
+      -# Necessary for rendering scheduler modals correctly      
+      - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
+        = render 'scheduler/modals'
     - else
       = render 'layouts/notice'
       .container-fluid#welcome-container
         = yield
       = render 'layouts/footer'
     = render 'layouts/ga'
+

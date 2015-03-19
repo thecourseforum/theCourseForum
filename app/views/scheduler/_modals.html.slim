@@ -1,0 +1,27 @@
+#save-schedule-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4 Save Schedule
+      .modal-body
+        .form-group
+          label.control-label for="name"  Name:
+          input#name.form-control type="text"
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+        button.btn.btn-primary#save-schedule type="button"  Save Schedule
+#course-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4#course-title
+      .modal-body
+        h4#lecture-header Lectures
+        .lectures
+        h4#discussion-header Discussions
+        .discussions
+        h4#laboratory-header Laboratories
+        .laboratories
+      .modal-footer
+        button.btn.btn-default#close-selection data-dismiss="modal" type="button"  Close
+        button.btn.btn-primary#save-selection type="button"  Save Changes

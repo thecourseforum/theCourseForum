@@ -1,59 +1,33 @@
 = javascript_include_tag "scheduler"
 - content_for :page_heading, "Course Scheduler"
-body
-  #calendar
-    .row
-      .col-lg-6
-        .btn.btn-primary#save-schedule-dialog Save Schedule
-      .col-lg-6
-        .btn.btn-primary#load-schedule Load Schedule
-    .row
-      .col-lg-12
-        #schedule-slider
-    #schedule
-  #search-bar
-    h2 Class Search
-    input#class-search name="class-search" type="text"
-    select#saved-courses
-      option -- Select Course --
-      - current_user.courses.each do |course|
-        option= "#{course.subdepartment.mnemonic} #{course.course_number}"
-      | end
-    .btn.btn-primary#clear-courses Clear Saved Courses
-    h5#results-title Courses
-    #results-box
+#calendar
+  .row
+    .col-lg-6
+      .btn.btn-primary#save-schedule-dialog Save Schedule
+    .col-lg-6
+      .btn.btn-primary#load-schedule Load Schedule
+  .row
+    .col-lg-12
+      #schedule-slider
+  #schedule
+#search-bar
+  h2 Class Search
+  input#class-search name="class-search" type="text"
+  select#saved-courses
+    option -- Select Course --
+    - current_user.courses.each do |course|
+      option= "#{course.subdepartment.mnemonic} #{course.course_number}"
+    | end
+  .btn.btn-primary#clear-courses Clear Saved Courses
+  h5#results-title Courses
+  #results-box
 
-  .course-result.hidden
-    #content
-      a.remove
-      p.course-mnemonic
-      p.course-title
-    #checkbox
-      input type = "checkbox"
-  #save-schedule-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
-    .modal-dialog
-      .modal-content
-        .modal-header
-          h4 Save Schedule
-        .modal-body
-          .form-group
-            label.control-label for="name"  Name:
-            input#name.form-control type="text"
-        .modal-footer
-          button.btn.btn-default data-dismiss="modal" type="button"  Close
-          button.btn.btn-primary#save-schedule type="button"  Save Schedule
-  #course-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1" 
-    .modal-dialog
-      .modal-content
-        .modal-header
-          h4#course-title
-        .modal-body
-          h4#lecture-header Lectures
-          .lectures
-          h4#discussion-header Discussions
-          .discussions
-          h4#laboratory-header Laboratories
-          .laboratories
-        .modal-footer
-          button.btn.btn-default#close-selection data-dismiss="modal" type="button"  Close
-          button.btn.btn-primary#save-selection type="button"  Save Changes
+.course-result.hidden
+  #content
+    a.remove
+    p.course-mnemonic
+    p.course-title
+  #checkbox
+    input type= "checkbox"
+
+-# modals rendered in application.html.slim
