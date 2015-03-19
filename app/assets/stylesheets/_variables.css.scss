@@ -2,8 +2,11 @@
 $orange: #D75626;
 $blue: #15214B;
 
+// element sizes
+$sidebar-width: 250px;
+
 // variables to ovverride bootstrap
-$navbar-height: 75px;
+$navbar-height: 60px;
 $navbar-default-bg: white;
 $link-color: #000;
 $link-hover-color: $orange;
@@ -17,5 +20,3 @@ $menu-font-size: 21px;
 $subtitle-font-size: 24px; // ALL CAPS
 $title-font-size: 36px;
 
-// element sizes
-$sidebar-width: 300px;
