@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
   has_many :sections
   has_many :reviews
   has_many :books, :through => :sections
+  has_many :book_requirements, :through => :sections
 
   has_and_belongs_to_many :users
 
@@ -22,5 +23,8 @@ class Course < ActiveRecord::Base
     return "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
   end
 
+  def book_requirements_list(status)
+    self.book_requirements.where(:requirement_status => status).map{|r| r.book}
+  end
 
 end

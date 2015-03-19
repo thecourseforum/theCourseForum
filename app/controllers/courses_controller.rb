@@ -5,13 +5,19 @@ class CoursesController < ApplicationController
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
+    @books = @course.books.uniq
+    @required_books  = @course.book_requirements_list("Required")
+    @books = @books - @required_books
+    @recommended_books  = @course.book_requirements_list("Recommended")
+    @books = @books - @recommended_books
+    @optional_books  = @course.book_requirements_list("Optional")
+    @books = @books - @optional_books
+
+
+
 
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
-    end
-
-    if params[:sort]
-      puts "-------------------------" + @sort_type + "---------------------------"
     end
 
     @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id) : Review.where(:course_id => @course.id)

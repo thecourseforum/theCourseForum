@@ -81,17 +81,15 @@
             .col-xs-2=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
 
           br
-          
-          .row.title-row
-            h3.rating-title Textbooks
-          .row.textbooks-row 
-            .p.title Physics, Math, and Magic
-            .p.author by Dumbledore
-            .p.requirement-cost-condition Required - $19.99 New
-          .row.textbooks-row 
-            .p.title Superdupercalifragilisticespialidocious
-            .p.author by Mary Poppins
-            .p.requirement-cost-condition Recommended - $203.49 Used
+          .row
+            h3 Textbooks
+            .hr
+          - [@required_books, @recommended_books, @optional_books, @books].each do |book_set|
+            - book_set.each do |book|
+              .row.textbooks-row 
+                .p.title = book.title
+                .p.author by = book.author
+                .p.requirement-cost-condition  ="Required - $#{book.new_price[0..-3]}.#{book.new_price[-2..-1]} New" 
 
         .col-xs-6.course-grades
           .row
