@@ -459,7 +459,7 @@ $(document).ready(function() {
 				$("#discussion-header").show();
 				for (var i = 0; i < result.discussions.length; i++) {
 					isChecked = "";
-					if (sectionSelected(result.lectures[i].section_id, result.id, 'discussions')) {
+					if (sectionSelected(result.discussions[i].section_id, result.id, 'discussions')) {
 						isChecked = "checked";
 					}
 					$('.discussions').append('<input type="checkbox" ' + isChecked + ' name="' + result.discussions[i].section_id + '"> ');
