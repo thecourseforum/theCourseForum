@@ -23,10 +23,16 @@ body.modal-open {
 	margin-top: 12px;
 	margin-bottom: 8px;
 	margin-right: 10px;
+	background-image:url(icons/sliderback.png);
+	outline:none; 
+	border-bottom:none;
+	border-left:none;
+	border-right:none;
+	border-top:none;
 }
 
 #schedule-name {
-	margin-top: 8px;
+	margin-top: 8px;	
 	margin-bottom: 8px;
 	text-align: center;
 }
@@ -143,4 +149,13 @@ body.modal-open {
 
 .ui-effects-transfer {
     border: 1px dotted black;
+}
+
+.ui-slider-tick-mark{
+    display:inline-block;
+    width:2px;
+    background:#00137F;
+    height:16px;
+    position:absolute;
+    top:-2px;
 }

@@ -304,6 +304,7 @@ $(document).ready(function() {
 		if (schedules.length > 0) {
 			$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 			$('#load-schedules-modal').modal('hide');
+			setSliderTicks();
 		} else {
 			$('#schedule-slider').slider('option', 'max', 0);
 			alert('No selected schedules!');
@@ -327,10 +328,42 @@ $(document).ready(function() {
 		min: 0,
 		value: 0,
 		animate: 'fast',
+
 		slide: function(event, ui) {
 			loadSchedule(schedules[ui.value]);
 		}
 	});
+
+	function setSliderTicks() {
+    	var $slider =  $('#schedule-slider');
+    	var maxTick =  $slider.slider("option", "max");
+    	var spacing =  100 / (maxTick);
+
+    	$slider.find('.ui-slider-tick-mark').remove();
+    	if(maxTick+1 < 30) {
+    		for (var i = 0; i < maxTick+1 ; i++) {
+        		$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
+     		}
+     	}
+     	else {
+     		if((maxTick+1)/5 < 25) {
+     			var remainder = (maxTick+1)%5;
+     			for (var i = 0; i < maxTick+1-5; i+=5) {
+        				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
+     			}
+     			if(remainder != 0)
+     				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
+     		}
+     		else {
+     			var remainder = (maxTick+1)%10;
+     			for (var i = 0; i < maxTick+1-10; i+=10) {
+        				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
+     			}
+     			if(remainder != 0)
+     				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
+     		}
+     	}
+	}
 
 	// Asks server for course information + sections based on search string
 	function courseSearch(course) {
@@ -397,6 +430,7 @@ $(document).ready(function() {
 				schedules = response;
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
+					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
 					alert('No possible schedules!');
