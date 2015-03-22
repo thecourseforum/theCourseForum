@@ -340,27 +340,23 @@ $(document).ready(function() {
     	var spacing =  100 / (maxTick);
 
     	$slider.find('.ui-slider-tick-mark').remove();
-    	if(maxTick+1 < 30) {
-    		for (var i = 0; i < maxTick+1 ; i++) {
+    	if(maxTick < 30) {
+    		for (var i = 0; i < maxTick + 1; i++) {
         		$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
      		}
      	}
      	else {
-     		if((maxTick+1)/5 < 25) {
-     			var remainder = (maxTick+1)%5;
-     			for (var i = 0; i < maxTick+1-5; i+=5) {
+     		if((maxTick)/5 < 25) {
+     			for (var i = 0; i < maxTick- 5 + 1; i+=5) {
         				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
      			}
-     			if(remainder != 0)
-     				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
+     			$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
      		}
      		else {
-     			var remainder = (maxTick+1)%10;
-     			for (var i = 0; i < maxTick+1-10; i+=10) {
+     			for (var i = 0; i < maxTick- 10 + 1; i+=10) {
         				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
      			}
-     			if(remainder != 0)
-     				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
+     			$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
      		}
      	}
 	}
