@@ -17,7 +17,7 @@
   #schedule
 #search-bar
   h2 Class Search
-  input#class-search name="class-search" type="text"
+  input#class-search name="class-search" type="text" placeholder="ex. ECON 2010"
   select#saved-courses
     option -- Select Course --
     - current_user.courses.each do |course|
