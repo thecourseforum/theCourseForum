@@ -148,18 +148,19 @@ br
     .row
       .col-sm-6
         = will_paginate @reviews
-      .col-sm-2.col-xs-4
-        .pagination.sort-by
+    .row
+      .col-xs-2
+        div style="float:right"
           | Sort by:
-      .col-sm-3 style=((@reviews.total_pages > 1 ? "margin-top:13px;" : "margin-bottom:13px;")) 
+      .col-xs-4
         select.courses-review-type-switcher style="font-size:13px;"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-      .visible-xs
-        br
+      .col-xs-4
+        = link_to "Write A Review!", new_review_path(c: @course.id), class: "btn btn-primary"
 
   .container-fluid 
     .single-review

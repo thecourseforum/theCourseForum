@@ -4,6 +4,7 @@
   left: auto;
   right: auto;
   text-align: center;
+  opacity: 0.5;
   padding-bottom: 25px;
   font-size: 12px;
   width: $sidebar-width;
@@ -40,11 +41,19 @@
     .col-wrapper {
       padding-top: 20.5px;
       padding-bottom: 20.5px;
-      border-bottom: 1px solid white;
-    }
+      border-bottom: 1px solid rgba(255,255,255,0.5);
 
-    a {
-      color: white;
+      a {
+        color: rgba(255,255,255,0.5);
+
+        i {
+          padding-right: 5px;
+        }
+      }
+
+      a:hover {
+        color: rgba(255,255,255,1.0);
+      }
     }
   }
   
