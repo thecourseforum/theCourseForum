@@ -203,6 +203,15 @@ ActiveRecord::Schema.define(version: 20150308033519) do
     t.datetime "updated_at"
   end
 
+  create_table "schedules_sections", id: false, force: true do |t|
+    t.integer "schedule_id", null: false
+    t.integer "section_id",  null: false
+  end
+
+  add_index "schedules_sections", ["schedule_id"], name: "index_schedules_sections_on_schedule_id", using: :btree
+  add_index "schedules_sections", ["section_id"], name: "index_schedules_sections_on_section_id", using: :btree
+  add_index "schedules_sections", ["schedule_id", "section_id"], name: "index_schedules_sections_on_schedule_id_and_section_id", unique: true, using: :btree
+
   create_table "schools", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
