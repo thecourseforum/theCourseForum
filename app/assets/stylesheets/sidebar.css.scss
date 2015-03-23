@@ -21,9 +21,14 @@
   }
 
   #search-query {
-    background-color:#15214B;
+    background-color: $blue;
     border: 0;
     outline: none;
+    width: 150px;
+  }
+
+  .submit-row {
+    text-align: center;
   }
 
 }
@@ -34,9 +39,10 @@
   margin-top: 8px;
 
   .nav-row {
-    text-align: center;
     font-size: $sidebar-font-size;
     height: 100%;
+    color: rgba(255,255,255,0.5);
+
 
     .col-wrapper {
       padding-top: 20.5px;
@@ -44,16 +50,26 @@
       border-bottom: 1px solid rgba(255,255,255,0.5);
 
       a {
+        margin-left: $sidebar-left-margin;
         color: rgba(255,255,255,0.5);
 
         i {
-          padding-right: 5px;
+          padding-right: $sidebar-icon-padding;
         }
       }
 
       a:hover {
         color: rgba(255,255,255,1.0);
       }
+    }
+  }
+
+  .search-row {
+    .col-wrapper {
+      span {
+        margin-left: $sidebar-left-margin;
+        padding-right: $sidebar-icon-padding;
+      }      
     }
   }
   
