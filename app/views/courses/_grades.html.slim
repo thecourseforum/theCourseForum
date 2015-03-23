@@ -8,7 +8,7 @@ coffee:
       .render()
 
     change = () ->
-      if $("input:checked").length > 0
+      if $(".grade-checkbox:checked").length > 0
         $("#all-semesters").prop('checked', false)
       else
         $("#all-semesters").prop('checked', true)
