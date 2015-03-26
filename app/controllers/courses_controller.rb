@@ -6,6 +6,7 @@ class CoursesController < ApplicationController
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
     @books = @course.books.uniq
+    @book_count = @books.length
     @required_books  = @course.book_requirements_list("Required")
     @books = @books - @required_books
     @recommended_books  = @course.book_requirements_list("Recommended")

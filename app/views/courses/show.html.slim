@@ -85,15 +85,18 @@
             h3 Textbooks
             .hr
           - h = {@required_books => "Required", @recommended_books => "Recommended", @optional_books => "Optional", @books => "Others"}
-          - h.each do |book_set, s|
-            - book_set.each do |book|
-              .row.textbooks-row 
-                -if book.affiliate_link == nil
-                  .p.title =book.title
-                -else
-                  .p =link_to(book.title, book.affiliate_link ,target: "_blank", class: "title") 
-                .p.author ="by #{book.author}"
-                .p.requirement-cost-condition  ="#{s} - $#{book.new_price[0..-3]}.#{book.new_price[-2..-1]} New" 
+          -if @book_count == 0
+            .row.title No Textbooks!
+          -else
+            - h.each do |book_set, s|
+              - book_set.each do |book|
+                .row.textbooks-row 
+                  -if book.affiliate_link == nil
+                    .p.title =book.title
+                  -else
+                    .p =link_to(book.title, book.affiliate_link ,target: "_blank", class: "title") 
+                  .p.author ="by #{book.author}"
+                  .p.requirement-cost-condition  ="#{s} - $#{book.new_price[0..-3]}.#{book.new_price[-2..-1]} New" 
 
         .col-xs-6.course-grades
           .row
