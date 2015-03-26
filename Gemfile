@@ -88,6 +88,7 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+gem 'nprogress-rails'
 # Use unicorn as the app server
 # gem 'unicorn'
 

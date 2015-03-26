@@ -25,10 +25,16 @@
  *= require scheduler
  */
 
+
 @import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
+
+$nprogress-color: $blue;
+$nprogress-height: 4.5px;
+@import "nprogress";
+@import "nprogress-bootstrap";
 
 //rest of variables
 @mixin ellipsis {

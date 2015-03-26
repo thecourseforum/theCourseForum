@@ -26,6 +26,8 @@
 //= require fullcalendar
 //= require jqcloud
 //= require bootstrap-switch
+//= require nprogress
+//= require nprogress-turbolinks
 
 var ready = function() {
 	
