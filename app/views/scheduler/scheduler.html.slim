@@ -3,11 +3,13 @@
 - content_for :page_heading, "Course Scheduler"
 #calendar
   .row
-    .col-lg-5
+    .col-lg-3
       .btn.btn-primary#save-schedule-dialog Save Schedule
-    .col-lg-5
+    .col-lg-3
       .btn.btn-primary#load-schedules Load Schedule
-    .col-lg-2
+    .col-lg-3
+      .btn.btn-primary = link_to("Export Schedule", "/scheduler.ics", target: "_blank", class:"btn-primary")
+    .col-lg-3
       .btn.btn-primary#clear-schedules Clear Saved
   .row#slider
     .col-lg-2
