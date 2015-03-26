@@ -296,7 +296,7 @@ $(document).ready(function() {
 	});
 
 	$("#select-all-lab").click(function(){
-		if($('.laboratories').find(":checked").length == $('.lectures').find("input[type=checkbox]").length){
+		if($('.laboratories').find(":checked").length == $('.laboratories').find("input[type=checkbox]").length){
 			$(".laboratories").find("input[type=checkbox]").each(function(){
 				$(this).prop('checked', false);
 			});
