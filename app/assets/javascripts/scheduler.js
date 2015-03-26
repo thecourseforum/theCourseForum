@@ -162,12 +162,25 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#generate-schedules').click(function() {
+	$('#generate-with-options').click(function() {
+		$("#generate-modal").modal('hide');
 		if ($('#credits').text().split(" / ")[0] > 25) {
 			alert("Too many credits selected!");
 		} else {
+			
 			searchSchedules();
+			//with options
 		}
+	});
+
+	$('#generate-schedules').click(function() {
+		// if ($('#credits').text().split(" / ")[0] > 25) {
+		// 	alert("Too many credits selected!");
+		// } else {
+		// 	searchSchedules();
+		// }
+		$('#generate-modal').modal();
+
 	});
 
 	// #save-selection exists in the Course - section selection modal
@@ -451,7 +464,8 @@ $(document).ready(function() {
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
 	function searchSchedules() {
-		var sections = [];
+		var sections = [],
+			params = {};
 		$.each(searchResults, function(course_id, data) {
 			if (data['selected']) {
 				if (data['lectures'].length > 0) {
@@ -465,10 +479,13 @@ $(document).ready(function() {
 				}
 			}
 		});
+		params['course_sections'] = JSON.stringify(sections);
+		$('.preferences').children(':checked').each(function(index, element) {
+			params[element.id] = true;
+		});
+		// params.add(JSON.stringify(sections));
 		$.ajax('scheduler/generate_schedules', {
-			data: {
-				course_sections: JSON.stringify(sections)
-			},
+			data: params,
 			success: function(response) {
 				schedules = response;
 				if (schedules.length > 0) {

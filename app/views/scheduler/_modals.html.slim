@@ -38,3 +38,24 @@
       .modal-footer
         button.btn.btn-default#close-selection data-dismiss="modal" type="button"  Close
         button.btn.btn-primary#save-selection type="button"  Save Changes
+#generate-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Any preferences?
+        .modal-body
+          .preferences
+            input type="checkbox" id="mornings"
+            span No morning classes (before 10am)
+            br
+            input type="checkbox" id="evenings"
+            span No evening classes (after 5pm)
+            br
+            input type="checkbox" id="lunch"
+            span Time for lunch!
+            br
+            input type="checkbox" id="thirst"
+            span A Thirsty Thursday
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary#generate-with-options type="button"  Generate
