@@ -126,6 +126,10 @@ body.modal-open {
 	width: 100%;
 }
 
+.remove {
+	font-size: 20px;
+}
+
 .course-info-dialog {
 	border: 1px solid black;
 	border-radius: 4px;

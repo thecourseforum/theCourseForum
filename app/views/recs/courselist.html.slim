@@ -1,16 +1,17 @@
 - content_for :title, "My Recommendations"
 - content_for :page_heading, "My Recommendations"
 
-div#dept-list role="tabpanel" 
-  .container-fluid
-    ul#department-courses
-      - @courses.each do |course|
-        = link_to "#{course.mnemonic_number}" , course
-        br
-
-             
-        
-
-    
-
-    
+- if @courses.size > 0
+	div#dept-list role="tabpanel" 
+  	.container-fluid
+    	ul#department-courses
+      	- @courses.each do |course|
+        	= link_to "#{course.mnemonic_number}" , course
+        	br
+- else
+  .row
+    .col-xs-12
+      You You have no recommendations :(. Write at least 10 reviews for meaningful recommendations!!!!! <3 <3 xoxooxoxoxo #courseforum5ever #danielisthebestestfriendEVAR #HOOSgotyourback #alansgotyourback #justin
+  .row
+    .col-xs-12
+      = link_to "Write one now!", new_review_path, :class => "btn btn-primary"

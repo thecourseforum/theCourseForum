@@ -28,6 +28,7 @@
 //= require bootstrap-switch
 //= require nprogress
 //= require nprogress-turbolinks
+//= require nprogress-ajax
 
 var ready = function() {
 	
