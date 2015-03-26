@@ -270,6 +270,43 @@ $(document).ready(function() {
 		}
 	});
 
+	// Listener for the select all in the modal for lectures, discussions and labs
+	$("#select-all-lec").click(function(){
+		if($('.lectures').find(":checked").length == $('.lectures').find("input[type=checkbox]").length){
+			$(".lectures").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', false);
+			});
+		}else{
+			$(".lectures").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', true);
+			});
+		}
+	});
+
+	$("#select-all-dis").click(function(){
+		if($('.discussions').find(":checked").length == $('.discussions').find("input[type=checkbox]").length){
+			$(".discussions").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', false);
+			});
+		}else{
+			$(".discussions").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', true);
+			});
+		}
+	});
+
+	$("#select-all-lab").click(function(){
+		if($('.laboratories').find(":checked").length == $('.lectures').find("input[type=checkbox]").length){
+			$(".laboratories").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', false);
+			});
+		}else{
+			$(".laboratories").find("input[type=checkbox]").each(function(){
+				$(this).prop('checked', true);
+			});
+		}
+	});
+
 	// Attach listener to the load-schedule button
 	$('#load-schedules').click(function() {
 		// Ask server for a list of saved schedules for that user and populate the modal with them
@@ -516,6 +553,8 @@ $(document).ready(function() {
 						$('.discussions').append("<br/>");
 					}
 				}
+			}else{
+				$("#select-all-dis").hide();
 			}
 			if (result.laboratories.length > 0) {
 				$("#laboratory-header").show();
@@ -537,6 +576,8 @@ $(document).ready(function() {
 						$('.laboratories').append("<br/>");
 					}
 				}
+			}else{
+				$("#select-all-lab").hide();
 			}
 			$('#course-modal').modal();
 		});
