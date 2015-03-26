@@ -24,7 +24,7 @@ class Course < ActiveRecord::Base
   end
 
   def book_requirements_list(status)
-    self.book_requirements.where(:requirement_status => status).map{|r| r.book}
+    self.book_requirements.where(:requirement_status => status).map{|r| r.book}.uniq
   end
 
   def units
