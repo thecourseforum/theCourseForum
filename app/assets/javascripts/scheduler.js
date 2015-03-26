@@ -338,6 +338,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
     	var $slider =  $('#schedule-slider');
     	var maxTick =  $slider.slider("option", "max");
