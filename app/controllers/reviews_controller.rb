@@ -92,7 +92,7 @@ class ReviewsController < ApplicationController
     
     respond_to do |format|
       if @review.save      
-        format.html { redirect_to '/course_professors?c='+@review.course_id.to_s+'&p='+@review.professor_id.to_s, notice: 'Review was successfully created.' }
+        format.html { redirect_to course_path(@review.course), notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }
