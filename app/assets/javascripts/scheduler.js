@@ -372,6 +372,11 @@ $(document).ready(function() {
 		} else {
 			// Split the course search string (i.e. CS 2150) into two portions, mnemonic and course_number
 			course = course.split(' ');
+			// If the user enters search string w/o a space, it accomodates for it.
+			if (course.length == 1){
+				course = course[0].match(/([A-Za-z]+)([0-9]+)/);
+				course = new Array(course[1], course[2]);
+			}
 			$.ajax('scheduler/search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
