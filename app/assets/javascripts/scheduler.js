@@ -145,6 +145,10 @@ $(document).ready(function() {
 			courseSearch($(this).val());
 		}
 	});
+	// Added search button functionality
+	$('#search-classes').click(function(){
+		courseSearch($('#class-search').val());
+	});
 
 	// Alternatively, users can also "search" by selecting a prior saved course
 	// Attaches an anonymous function to the change event thrown by the saved-courses combobox

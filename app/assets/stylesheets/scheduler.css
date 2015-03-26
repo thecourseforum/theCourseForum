@@ -67,6 +67,10 @@ body.modal-open {
 	width: 100%;
 }
 
+#search-classes .btn.btn-primary{
+	width: 100%;
+}
+
 #clear-courses {
 	margin-top: 6px;
 }

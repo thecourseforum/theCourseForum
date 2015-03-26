@@ -17,14 +17,22 @@
   #schedule
 #search-bar
   h2 Class Search
-  input#class-search name="class-search" type="text" placeholder="ex. ECON 2010"
+  .row
+    .col-lg-7
+      input#class-search name="class-search" type="text" placeholder="ex. ECON 2010"
+    .col-lg-5
+      .btn.btn-primary#search-classes Search
   select#saved-courses
     option -- Select Course --
     - current_user.courses.each do |course|
       option= "#{course.subdepartment.mnemonic} #{course.course_number}"
     | end
+
   .btn.btn-primary#clear-courses Clear Saved Courses
   h5#results-title Courses
+
+  
+
   #results-box
   .row#search-footer
     .col-lg-5
