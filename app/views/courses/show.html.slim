@@ -88,7 +88,10 @@
           - h.each do |book_set, s|
             - book_set.each do |book|
               .row.textbooks-row 
-                .p =link_to(book.title,book.affiliate_link,target: "_blank", class: "title") 
+                -if book.affiliate_link == nil
+                  .p.title =book.title
+                -else
+                  .p =link_to(book.title, book.affiliate_link ,target: "_blank", class: "title") 
                 .p.author ="by #{book.author}"
                 .p.requirement-cost-condition  ="#{s} - $#{book.new_price[0..-3]}.#{book.new_price[-2..-1]} New" 
 
