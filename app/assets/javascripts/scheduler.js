@@ -654,7 +654,7 @@ $(document).ready(function() {
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
-				event.title = course.title + '\n' + course.location;
+				event.title = course.title + ' — ' + course.professor + '\n' + course.location;
 				course.events.push(event);
 				calendarCourses.push(event);
 			}
