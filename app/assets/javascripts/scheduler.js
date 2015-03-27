@@ -4,7 +4,7 @@
 // $ denotes jQuery - $(document) means we select the "document" or HTML page object
 // We attach an anonymous function to be executed when the page is "ready" - all DOM elements are loaded
 $(document).ready(function() {
-	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0]);
+	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 40);
 
 	// Utility class to format strings for display
 	var Utils = {

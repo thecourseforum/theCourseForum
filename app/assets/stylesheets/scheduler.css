@@ -8,15 +8,13 @@ body.modal-open {
 	display: none;
 }
 
+#calendar {
+	float: left;
+}
+
 #search-bar {
 	float: right;
 	min-width: 200px;
-}
-
-#calendar {
-	float: left;
-	width: 70%;
-	overflow: hidden;
 }
 
 #schedule-slider {
