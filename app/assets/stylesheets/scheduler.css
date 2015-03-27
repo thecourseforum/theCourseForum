@@ -113,8 +113,6 @@ body.modal-open {
 
 .course-result #checkbox input[type='checkbox'] {
 	margin: 0;
-	height: 100%;
-	width: 100%;
 }
 
 #generate-options {
