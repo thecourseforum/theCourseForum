@@ -147,6 +147,18 @@ $(document).ready(function() {
 			courseSearch($(this).val());
 		}
 	});
+
+	$('#class-search').focus(function() {
+		$('#saved-courses').slideUp();
+		$('#clear-courses').slideUp();
+	});
+
+	$('#class-search').blur(function() {
+		$('#search-classes').removeClass('loading');
+		$('#saved-courses').slideDown();
+		$('#clear-courses').slideDown();
+	});
+
 	// Added search button functionality
 	$('#search-classes').click(function(){
 		courseSearch($('#class-search').val());
@@ -434,6 +446,7 @@ $(document).ready(function() {
 				course = course[0].match(/([A-Za-z]+)([0-9]+)/);
 				course = new Array(course[1], course[2]);
 			}
+			$('#search-classes').addClass('loading');
 			$.ajax('scheduler/search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
@@ -459,6 +472,9 @@ $(document).ready(function() {
 				},
 				error: function(response) {
 					alert("Improper search!");
+				},
+				complete: function() {
+					$('#search-classes').removeClass('loading');
 				}
 			});
 		}

@@ -50,7 +50,7 @@ body.modal-open {
 }
 
 #saved-courses {
-	margin-top: 6px;
+	margin-top: 4px;
 }
 
 #calendar .btn.btn-primary {
@@ -61,20 +61,18 @@ body.modal-open {
 	width: 100%;
 }
 
+#clear-courses {
+	margin-top: 4px;
+	width: 100%;
+}
+
 #class-search {
 	width: 100%;
-}
-
-#search-classes .btn.btn-primary{
-	width: 100%;
-}
-
-#clear-courses {
-	margin-top: 6px;
+	margin-bottom: 4px;
 }
 
 #results-title {
-	margin-top: 2em;
+	margin-top: 6px;
 }
 
 #results-box {
@@ -165,3 +163,16 @@ body.modal-open {
     position:absolute;
     top:-2px;
 }
+
+@-webkit-keyframes colours {
+    0% {background-color: #15214B;}
+    50% {background-color: #D75626;}
+    100% {background-color: #15214B;}
+}
+
+.loading {
+	-webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: colours;
+    -webkit-animation-timing-function: ease;
+}​
