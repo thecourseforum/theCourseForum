@@ -36,6 +36,7 @@ class SchedulerController < ApplicationController
 
   def search
     courses = Course.where('title LIKE ?', "%#{params[:term]}%")
+    courses += Section.where('topic LIKE ?', "%#{params[:term]}%").map(&:course).uniq
     render :json => {
       :success => true,
       :results => courses.map do |course|
