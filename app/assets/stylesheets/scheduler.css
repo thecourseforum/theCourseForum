@@ -72,7 +72,7 @@ body.modal-open {
 }
 
 #results-title {
-	margin-top: 6px;
+	margin-top: 8px;
 }
 
 #results-box {
@@ -107,6 +107,10 @@ body.modal-open {
 
 .course-result #checkbox input[type='checkbox'] {
 	margin: 0;
+}
+
+#generate-options {
+	margin-top: 6px;
 }
 
 .course-result #content:hover {

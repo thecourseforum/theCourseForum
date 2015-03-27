@@ -3,18 +3,18 @@
 - content_for :page_heading, "Course Scheduler"
 #calendar
   .row
-    .col-lg-3
+    .col-md-3
       .btn.btn-primary#save-schedule-dialog Save Schedule
-    .col-lg-3
+    .col-md-3
       .btn.btn-primary#load-schedules Load Schedule
-    .col-lg-3
+    .col-md-3
       .btn.btn-primary = link_to("Export Schedule", "/scheduler.ics", target: "_blank", class:"btn-primary")
-    .col-lg-3
+    .col-md-3
       .btn.btn-primary#clear-schedules Clear Saved
   .row#slider
-    .col-lg-2
+    .col-md-2
       #schedule-name Schedule Name
-    .col-lg-10
+    .col-md-10
       #schedule-slider
   #schedule
 #search-bar
@@ -29,15 +29,13 @@
 
   .btn.btn-primary#clear-courses Clear Saved Courses
   h5#results-title Courses
-
-  
-
   #results-box
-  .row#search-footer
-    .col-lg-5
-      #credits 0 / 25
-    .col-lg-7
+  .row.row-no-padding#search-footer
+    .col-md-5
+      #credits 0 credits
+    .col-md-7
       .btn.btn-primary#generate-schedules Generate
+  .btn.btn-primary#generate-options Generate with Options
 
 
 .course-result.hidden

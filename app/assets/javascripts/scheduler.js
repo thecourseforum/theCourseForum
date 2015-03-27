@@ -191,23 +191,34 @@ $(document).ready(function() {
 
 	$('#generate-with-options').click(function() {
 		$("#generate-modal").modal('hide');
-		if ($('#credits').text().split(" / ")[0] > 25) {
+		var options = {};
+		$('.preferences').children(':checked').each(function(index, element) {
+			options[element.id] = true;
+		});
+		searchSchedules(options);
+		//with options
+	});
+
+	$('#generate-options').click(function() {
+		var credits = $('#credits').text().split(' ')[0];
+		if (credits > 25) {
 			alert("Too many credits selected!");
+		} else if (credits == 0) {
+			alert("Select some courses!");
 		} else {
-			
-			searchSchedules();
-			//with options
+			$('#generate-modal').modal();
 		}
 	});
 
 	$('#generate-schedules').click(function() {
-		// if ($('#credits').text().split(" / ")[0] > 25) {
-		// 	alert("Too many credits selected!");
-		// } else {
-		// 	searchSchedules();
-		// }
-		$('#generate-modal').modal();
-
+		var credits = $('#credits').text().split(' ')[0];
+		if (credits > 25) {
+			alert("Too many credits selected!");
+		} else if (credits == 0) {
+			alert("Select some courses!");
+		} else {
+			searchSchedules();
+		}
 	});
 
 	// #save-selection exists in the Course - section selection modal
@@ -463,9 +474,9 @@ $(document).ready(function() {
 	}
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
-	function searchSchedules() {
+	function searchSchedules(extras) {
 		var sections = [],
-			params = {};
+			params = extras ? extras : {};
 		$.each(searchResults, function(course_id, data) {
 			if (data['selected']) {
 				if (data['lectures'].length > 0) {
@@ -480,9 +491,6 @@ $(document).ready(function() {
 			}
 		});
 		params['course_sections'] = JSON.stringify(sections);
-		$('.preferences').children(':checked').each(function(index, element) {
-			params[element.id] = true;
-		});
 		// params.add(JSON.stringify(sections));
 		$.ajax('scheduler/generate_schedules', {
 			data: params,
@@ -656,7 +664,7 @@ $(document).ready(function() {
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
-				event.title = course.title + ' — ' + course.professor + '\n' + course.location;
+				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1] + '\n' + course.location;
 				course.events.push(event);
 				calendarCourses.push(event);
 			}
