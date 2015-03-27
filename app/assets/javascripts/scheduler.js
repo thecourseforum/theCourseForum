@@ -208,19 +208,25 @@ $(document).ready(function() {
 		// For all checked elements under the lectures heading (checkbox is checked)
 		$('.lectures').children(':checked').each(function(index, element) {
 			// The name of the checkbox (HTML attribute) is the section_id
-			lecture_ids.push(parseInt(element.name));
+			if (element.name != '0') {
+				lecture_ids.push(parseInt(element.name));
+			}
 		});
 
 		// For all checked elements under the discussions heading (checkbox is checked)
 		$('.discussions').children(':checked').each(function(index, element) {
 			// The name of the checkbox (HTML attribute) is the section_id
-			discussion_ids.push(parseInt(element.name));
+			if (element.name != '0') {
+				discussion_ids.push(parseInt(element.name));
+			}
 		});
 
 		// For all checked elements under the laboratories heading (checkbox is checked)
 		$('.laboratories').children(':checked').each(function(index, element) {
 			// The name of the checkbox (HTML attribute) is the section_id
-			laboratory_ids.push(parseInt(element.name));
+			if (element.name != '0') {
+				laboratory_ids.push(parseInt(element.name));
+			}
 		});
 
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
@@ -293,43 +299,6 @@ $(document).ready(function() {
 					// Simple alert, can be customized later
 					alert("Could not save schedule!");
 				}
-			});
-		}
-	});
-
-	// Listener for the select all in the modal for lectures, discussions and labs
-	$("#select-all-lec").click(function(){
-		if($('.lectures').find(":checked").length == $('.lectures').find("input[type=checkbox]").length){
-			$(".lectures").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', false);
-			});
-		}else{
-			$(".lectures").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', true);
-			});
-		}
-	});
-
-	$("#select-all-dis").click(function(){
-		if($('.discussions').find(":checked").length == $('.discussions').find("input[type=checkbox]").length){
-			$(".discussions").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', false);
-			});
-		}else{
-			$(".discussions").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', true);
-			});
-		}
-	});
-
-	$("#select-all-lab").click(function(){
-		if($('.laboratories').find(":checked").length == $('.laboratories').find("input[type=checkbox]").length){
-			$(".laboratories").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', false);
-			});
-		}else{
-			$(".laboratories").find("input[type=checkbox]").each(function(){
-				$(this).prop('checked', true);
 			});
 		}
 	});
@@ -547,6 +516,13 @@ $(document).ready(function() {
 
 			if (result.lectures.length > 0) {
 				$("#lecture-header").show();
+				$('.lectures').append('<input type="checkbox" name="0" class="select-lectures"> ');
+				$('.lectures').append('Select all <br/>');
+				$('.select-lectures').click(function() {
+					$(this).parent().children('input[type=checkbox]').each(function() {
+						$(this).prop('checked', $('.select-lectures').prop('checked'));
+					});
+				});
 				for (var i = 0; i < result.lectures.length; i++) {
 					isChecked = "";
 					if (sectionSelected(result.lectures[i].section_id, result.id, 'lectures')) {
@@ -566,9 +542,18 @@ $(document).ready(function() {
 						$('.lectures').append("<br/>");
 					}
 				}
+			} else {
+				$("#lecture-header").hide();
 			}
 			if (result.discussions.length > 0) {
 				$("#discussion-header").show();
+				$('.discussions').append('<input type="checkbox" name="0" class="select-discussions"> ');
+				$('.discussions').append('Select all <br/>');
+				$('.select-discussions').click(function() {
+					$(this).parent().children('input[type=checkbox]').each(function() {
+						$(this).prop('checked', $('.select-discussions').prop('checked'));
+					});
+				});
 				for (var i = 0; i < result.discussions.length; i++) {
 					isChecked = "";
 					if (sectionSelected(result.discussions[i].section_id, result.id, 'discussions')) {
@@ -588,11 +573,18 @@ $(document).ready(function() {
 						$('.discussions').append("<br/>");
 					}
 				}
-			}else{
-				$("#select-all-dis").hide();
+			} else {
+				$("#discussion-header").hide();
 			}
 			if (result.laboratories.length > 0) {
 				$("#laboratory-header").show();
+				$('.laboratories').append('<input type="checkbox" name="0" class="select-laboratories"> ');
+				$('.laboratories').append('Select all <br/>');
+				$('.select-laboratories').click(function() {
+					$(this).parent().children('input[type=checkbox]').each(function() {
+						$(this).prop('checked', $('.select-laboratories').prop('checked'));
+					});
+				});
 				for (var i = 0; i < result.laboratories.length; i++) {
 					isChecked = "";
 					if (sectionSelected(result.laboratories[i].section_id, result.id, 'laboratories')) {
@@ -611,8 +603,8 @@ $(document).ready(function() {
 						$('.laboratories').append("<br/>");
 					}
 				}
-			}else{
-				$("#select-all-lab").hide();
+			} else {
+				$("#laboratory-header").hide();
 			}
 			$('#course-modal').modal();
 		});
@@ -671,7 +663,7 @@ $(document).ready(function() {
 				addClass(schedule['sections'][i]);
 			}
 		}
-		$('#schedule-name').text(name);
+		$('#schedule-name').text(name + ' / ' + schedules.length);
 	}
 
 	// checks if  section has been saved so that it can be marked as checked
