@@ -65,17 +65,18 @@ class SchedulerController < ApplicationController
       # return an error if no such course was found
       render :nothing => true, :status => 404 and return unless course
 
+      semester = Semester.find_by(:year => 2015, :season => 'Fall')
       # Breaks up the course's sections by type, convertubg them to javascript sections,
       # and wraps the result in json
       render :json => course.as_json.merge({
         #sets the course mnemonic from the search parameters
         :course_mnemonic => "#{params[:mnemonic].upcase} #{params[:course_number]}",
         #gets the sections of the course that are for the current semester and are lectures
-        :lectures => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Lecture')),
+        :lectures => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Lecture')),
         #gets the sections of the course that are for the current semester and are discussions
-        :discussions => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Discussion')),
+        :discussions => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Discussion')),
         #gets the sections of the course that are for the current semester and are labs
-        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => Semester.now.id, :section_type => 'Laboratory')),
+        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Laboratory')),
         # Returns units of course
         :units => course.units
       }) and return
