@@ -182,6 +182,12 @@ $(document).ready(function() {
 					response(data.results);
 				}
 			});
+		},
+		open: function() {
+			$('.ui-autocomplete').css('width', ($('#class-search').parent().width()));
+		},
+		select: function(event, ui) {
+			courseSearch(ui.item.value);
 		}
 	});
 
@@ -663,7 +669,9 @@ $(document).ready(function() {
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
-		checkbox.css('height', content.parent().height());
+		checkbox.parent().css('height', content.parent().height());
+		checkbox.parent().css('width', content.parent().width() - 170);
+		checkbox.css('margin-left', checkbox.width() / 2 - 11)
 		content.click();
 	}
 

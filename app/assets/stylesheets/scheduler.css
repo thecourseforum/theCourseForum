@@ -29,6 +29,13 @@ body.modal-open {
 	border-top:none;
 }
 
+.ui-autocomplete {
+	font-size: 12px;
+	max-height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 #schedule-name {
 	margin-top: 8px;	
 	margin-bottom: 8px;
@@ -102,11 +109,12 @@ body.modal-open {
 
 .course-result #checkbox {
 	float: right;
-	min-width: 22px;
 }
 
 .course-result #checkbox input[type='checkbox'] {
 	margin: 0;
+	height: 100%;
+	width: 100%;
 }
 
 #generate-options {
