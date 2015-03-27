@@ -628,6 +628,7 @@ $(document).ready(function() {
 
 		checkbox.attr('name', result.id);
 		checkbox.attr('checked', true);
+
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 
@@ -637,10 +638,11 @@ $(document).ready(function() {
 					total += data['units'];
 				}
 			});
-			$('#credits').text(total + " / 25");
+			$('#credits').text(total + " credits");
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
+		checkbox.css('height', content.parent().height());
 		content.click();
 	}
 
