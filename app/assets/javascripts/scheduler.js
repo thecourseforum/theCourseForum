@@ -135,7 +135,20 @@ $(document).ready(function() {
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 		// New default date
-		defaultDate: '2014-4-14'
+		defaultDate: '2014-4-14',
+		eventClick: function(calendarEvent) {
+			$.ajax('scheduler/course', {
+				data: {
+					section_id: calendarEvent.section_id
+				},
+				success: function(response) {
+					window.open('courses/' + response.course_id + '?p=' + response.professor_id, '_blank')
+				},
+				failure: function(response) {
+					alert('Could not load corresponding course!');
+				}
+			});
+		}
 	});
 
 	// Bind a listener to the class-search textbox to listen for the enter key to start a search
@@ -507,6 +520,7 @@ $(document).ready(function() {
 		content.click(function(event) {
 			$('#course-title').text(result.title);
 			$('#course-title').attr('course_id', result.id);
+
 			$('.lectures').empty();
 			$('.discussions').empty();
 			$('.laboratories').empty();
@@ -640,6 +654,7 @@ $(document).ready(function() {
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
+				event.title = course.title + '\n' + course.location;
 				course.events.push(event);
 				calendarCourses.push(event);
 			}

@@ -26,29 +26,12 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
-  # Old method of getting sections from the database
-  # Does not break them up by type (discussion, lab, lecture)
-	def search_sections
-    # return an error if the search was able to be split into mnemonic and course number
-    unless params[:mnemonic] and params[:course_number]
-      render :nothing => true, :status => 404 and return
-    else
-      # Find the subdepartment by the given mnemonic
-      subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
-      # Find the course by that subdepartment id and the given course number
-      course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-      # return an error if no such course was found
-      render :nothing => true, :status => 404 and return unless course
-
-      # Gets all the sections of the found course that are for the (hardcoded) fall 2014 semester
-      #Need a better way to get current semester
-      #Maybe let user choose?
-      current_sections = course.sections.where(semester_id: Semester.find_by(season: "Fall", year: 2014).id)
-
-      # Passes the sections to a method that will convert them to javascript sections
-      # Wraps the result in json for the automatic.js to use, and returns
-      render json: rsections_to_jssections(current_sections) and return
-    end
+  def course
+    section = Section.find(params[:section_id])
+    render :json => {
+      :course_id => section.course.id,
+      :professor_id => section.professors[0].id
+    }
   end
 
   # Called via ajax request when enter is pressed in search
@@ -83,11 +66,6 @@ class SchedulerController < ApplicationController
     end
   end
 
-  # Returns as json the current user's saved sections
-  def sections
-    render :json => {:success => true, :sections => rsections_to_jssections(current_user.sections)}
-  end
-
   # Given a mnemonic and course number, add the matching course to the current user's courses (not used)
   def save_course
     subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
@@ -95,32 +73,6 @@ class SchedulerController < ApplicationController
 
     current_user.courses << course unless current_user.courses.include? course
 
-    render :nothing => true
-  end
- 
-  # Given section ids from the javascript, add the sections' parent courses to the current user's courses
-  def save_sections
-    sections = Section.find(JSON.parse(params[:sections]))
-    current_user.sections = sections
-    sections.each do |section|
-      unless current_user.courses.include?(section.course)
-        current_user.courses << section.course
-      end
-    end
-
-    render :nothing => true
-  end
-
-  # Given section ids from the javascript, add the sections into the current user's sections
-  def save_selections
-    # Gets an array of sections with the given ids
-    sections = Section.where(id: params[:sections])
-    # Adds each section to current user's sections if it isn't already there
-    sections.each do |section|
-      unless current_user.sections.include?(section)
-        current_user.sections << section
-      end
-    end
     render :nothing => true
   end
 
