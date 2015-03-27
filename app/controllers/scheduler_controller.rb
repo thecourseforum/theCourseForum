@@ -34,6 +34,16 @@ class SchedulerController < ApplicationController
     }
   end
 
+  def search
+    courses = Course.where('title LIKE ?', "%#{params[:term]}%")
+    render :json => {
+      :success => true,
+      :results => courses.map do |course|
+        "#{course.subdepartment.mnemonic} #{course.course_number} - #{course.title}"
+      end
+    }
+  end
+
   # Called via ajax request when enter is pressed in search
   # Returns the sections that match the search
   def search_course

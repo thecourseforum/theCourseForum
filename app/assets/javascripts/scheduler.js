@@ -172,6 +172,19 @@ $(document).ready(function() {
 		$('#clear-courses').slideDown();
 	});
 
+	$('#class-search').autocomplete({
+		source: function(request, response) {
+			$.ajax('/scheduler/search', {
+				data: {
+					term: request.term
+				},
+				success: function(data) {
+					response(data.results);
+				}
+			});
+		}
+	});
+
 	// Added search button functionality
 	$('#search-classes').click(function(){
 		courseSearch($('#class-search').val());

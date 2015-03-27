@@ -23,6 +23,7 @@ TheCourseForum::Application.routes.draw do
   resources :courses, :only => [:show]
 
   get '/scheduler' => 'scheduler#scheduler'
+  get '/scheduler/search' => 'scheduler#search'
   get '/scheduler/search_course' => 'scheduler#search_course'
   get '/scheduler/generate_schedules' => 'scheduler#generate_schedules'
   get '/scheduler/schedules' => 'scheduler#show_schedules'
