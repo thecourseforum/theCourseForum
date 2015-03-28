@@ -240,6 +240,29 @@ $(document).ready(function() {
 		}
 	});
 
+	//When clicked, the current schedule is passed to the controller to turn it into .ics
+	$('#export-schedule').click(function() {
+		//Get the current schedule
+		var schedule = schedules[$('#schedule-slider').slider('value')];
+		// if not empty,
+		if (schedule) {
+			// Turn the array of section objects into just an array of section_ids
+			var section_ids = $.map(schedule['sections'], function(section) {
+				// Each section object has a property (section_id) with the ids
+				return section['section_id'];
+			});
+			// Form the data object
+			var  data ={
+    			sections: JSON.stringify(section_ids)
+			};
+
+			// Put the array in the url and redirect with the .ics extension.
+			// The controller then sees .ics as a format and does the appropriate stuff
+			window.location.href = "/scheduler.ics?" + decodeURIComponent( $.param(data) );
+		}
+	
+	});
+
 	// #save-selection exists in the Course - section selection modal
 	// Upon hitting "save" when selecting sections for a course, update searchResults (internal representation of selected sections)
 	$('#save-selection').click(function() {
