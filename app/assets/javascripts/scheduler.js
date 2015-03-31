@@ -551,6 +551,18 @@ $(document).ready(function() {
 		});
 	}
 
+	function updateCreditCount() {
+		var total = 0;
+
+		$.each(searchResults, function(course_id, data) {
+			if (data['selected']) {
+				total += data['units'];
+			}
+		});
+
+		$('#credits').text(total + " credits");
+	}
+
 	function displayResult(result) {
 		var resultBox = $('.course-result.hidden').clone().removeClass('hidden'),
 			content = resultBox.children('#content'),
@@ -564,6 +576,7 @@ $(document).ready(function() {
 
 		content.children('.remove').click(function() {
 			delete searchResults[result.id];
+			updateCreditCount();
 			$(this).parent().parent().remove();
 		});
 
@@ -682,13 +695,7 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 
-			var total = 0;
-			$.each(searchResults, function(course_id, data) {
-				if (data['selected']) {
-					total += data['units'];
-				}
-			});
-			$('#credits').text(total + " credits");
+			updateCreditCount();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
