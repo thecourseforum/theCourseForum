@@ -11,9 +11,7 @@
 	= "#{@professor.office_phone}"
 	br
 	= "Office: #{@professor.office_address}"
-	br
-	p
-hr style="border: solid 1px black;"
+hr style="border: solid 1px black; margin-top: 100px;"
 ul.professor-courses style="list-style-type: none; padding: 0;"
   - mnemonic = @courses.first.subdepartment.mnemonic
   - @courses.each do |c|
