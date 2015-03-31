@@ -22,4 +22,7 @@ class Professor < ActiveRecord::Base
     self.last_name + ", " + self.first_name
   end
 
+  def average_rating
+    
+
 end
