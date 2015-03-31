@@ -1,8 +1,9 @@
 - content_for :page_heading, "#{@professor.full_name}"
-.col-xs-3
-.col-xs-9
-	= "#{@avg_rating}"
-	br
+.col-xs-2
+	.avg-rating
+		= "#{@avg_rating}"
+		p Avg. Rating
+.col-xs-10
 	= "#{@professor.classification}, Department#{@professor.department}"
 	br
 	= "#{@professor.primary_email}"
@@ -10,6 +11,8 @@
 	= "#{@professor.office_phone}"
 	br
 	= "Office: #{@professor.office_address}"
+	br
+	p
 hr style="border: solid 1px black;"
 ul.professor-courses style="list-style-type: none; padding: 0;"
   - mnemonic = @courses.first.subdepartment.mnemonic
