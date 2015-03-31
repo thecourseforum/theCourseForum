@@ -1,9 +1,10 @@
 - content_for :page_heading, "#{@professor.full_name}"
-.col-xs-2
-	.avg-rating
-		= "#{@avg_rating}"
+
+.col-xs-1
+	.avg-rating style="height: 90px; width: 90px; background-color: #D75626; color: #FFFFFF; text-align: center; padding-top: 10px;"
+		h1 = "#{@avg_rating}"
 		p Avg. Rating
-.col-xs-10
+.col-xs-11
 	= "#{@professor.classification}, Department#{@professor.department}"
 	br
 	= "#{@professor.primary_email}"
@@ -12,7 +13,7 @@
 	br
 	= "Office: #{@professor.office_address}"
 hr style="border: solid 1px black; margin-top: 100px;"
-ul.professor-courses style="list-style-type: none; padding: 0;"
+ul.professor-courses style="list-style-type: none; padding: 15px;"
   - mnemonic = @courses.first.subdepartment.mnemonic
   - @courses.each do |c|
     - if c.subdepartment.mnemonic != mnemonic
