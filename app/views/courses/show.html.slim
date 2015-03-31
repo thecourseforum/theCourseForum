@@ -81,7 +81,7 @@
             .col-xs-2=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
 
           br
-          .row
+          .row.title-row
             h3 Textbooks
             .hr
           - h = {@required_books => "Required", @recommended_books => "Recommended", @optional_books => "Optional", @books => "Others"}
