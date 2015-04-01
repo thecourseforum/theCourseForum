@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @bug.title
+p
+  strong Content:
+  = @bug.content
+
+= link_to 'Edit', edit_bug_path(@bug)
+'|
+= link_to 'Back', bugs_path

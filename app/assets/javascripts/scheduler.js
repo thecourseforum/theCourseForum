@@ -208,6 +208,35 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#report-bug').click(function() {
+		$('#report-bug-modal').modal();
+	});
+
+	$('#report').click(function() {
+		parameters = {};
+		parameters["title"] = $('#title').val();
+		parameters["content"] = $('.input-large').val();
+		// console.log(parameters[content]);
+		// console.log(parameters[title]);
+
+		// var title = ($('#title').val());
+		// console.log(title);
+		// $('.response').children().each(function(index, element) {
+			// parameters[element.id] = element.text();
+		// });
+		console.log(parameters[title]);
+		console.log(parameters[content]);
+		console.log($('.input-large'));
+		$.ajax('/bugs/create', {
+			method: "POST",
+			data: parameters,
+			success: function(){
+				alert("Thank you for your feedback!");
+			}
+		});
+		$('#report-bug-modal').modal('hide');
+	});
+
 	$('#generate-with-options').click(function() {
 		$("#generate-modal").modal('hide');
 		var options = {};
