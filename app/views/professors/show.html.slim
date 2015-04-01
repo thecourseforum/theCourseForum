@@ -5,13 +5,13 @@
 		h1 = "#{@avg_rating}"
 		p Avg. Rating
 .col-xs-11
-	= "#{@professor.classification}, Department#{@professor.department}"
+	= "#{@professor.department}, Department#{@professor.department}"
 	br
-	= "#{@professor.primary_email}"
+	= "#{@professor.email_alias}"
 	br
-	= "#{@professor.office_phone}"
+	= "#{@professor.email_alias}"
 	br
-	= "Office: #{@professor.office_address}"
+	= "Office: #{@professor.email_alias}"
 hr style="border: solid 1px black; margin-top: 100px;"
 ul.professor-courses style="list-style-type: none; padding: 15px;"
   - mnemonic = @courses.first.subdepartment.mnemonic
