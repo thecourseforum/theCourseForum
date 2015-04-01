@@ -135,7 +135,7 @@ $(document).ready(function() {
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 		// New default date
-		defaultDate: '2014-4-14',
+		defaultDate: '2014-04-14',
 		eventClick: function(calendarEvent) {
 			$.ajax('scheduler/course', {
 				data: {
