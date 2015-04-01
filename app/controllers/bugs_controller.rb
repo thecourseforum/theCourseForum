@@ -34,8 +34,9 @@ class BugsController < ApplicationController
     def bug_params
       params[:bug] = {
         :url => params[:url],
-        :description => params[:description]
+        :description => params[:description],
+        :user_id => current_user.id
       }
-      params.require(:bug).permit(:url, :description)
+      params.require(:bug).permit(:url, :description, :user_id)
     end
 end

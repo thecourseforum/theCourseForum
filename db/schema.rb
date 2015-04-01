@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331031616) do
+ActiveRecord::Schema.define(version: 20150401202146) do
 
   create_table "book_requirements", id: false, force: true do |t|
     t.integer "section_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150331031616) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "courses", force: true do |t|
