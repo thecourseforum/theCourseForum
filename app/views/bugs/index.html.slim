@@ -10,7 +10,7 @@ table.table
       tr
         td = bug.url
         td = bug.description
-        td = link_to 'Show', "bugs/#{bug.id}"
-        td = link_to 'Destroy', "bugs/#{bug.id}", data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Show', "/bugs/#{bug.id}"
+        td = link_to 'Destroy', "/bugs/#{bug.id}", data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
