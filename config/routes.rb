@@ -1,6 +1,4 @@
 TheCourseForum::Application.routes.draw do
-
-
   root :to => 'welcome#index'
 
   # Routes for user authentication
@@ -35,7 +33,6 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/schedules' => 'scheduler#index'
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
-  post '/bugs/create' => 'bugs#create'
 
   resources :bugs
 

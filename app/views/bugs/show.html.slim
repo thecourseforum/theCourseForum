@@ -1,12 +1,7 @@
-p#notice = notice
-
 p
-  strong Title:
-  = @bug.title
+  strong URL: 
+  = @bug.url
 p
-  strong Content:
-  = @bug.content
-
-= link_to 'Edit', edit_bug_path(@bug)
-'|
+  strong Description: 
+  = @bug.description
 = link_to 'Back', bugs_path

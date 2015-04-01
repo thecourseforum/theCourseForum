@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20150331031616) do
   add_index "books", ["id"], name: "id_UNIQUE", unique: true, using: :btree
 
   create_table "bugs", force: true do |t|
-    t.string   "title"
-    t.text     "content"
+    t.string   "url"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

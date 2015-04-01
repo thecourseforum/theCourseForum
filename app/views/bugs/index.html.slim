@@ -1,25 +1,16 @@
 h1 Listing bugs
 
-table
+table.table
   thead
     tr
-      th Scheduler Bugs
-      th 
-      th
-      th
-      th
-
+      th URL
+      th Description
   tbody
     - @bugs.each do |bug|
       tr
-        td = bug.title
-        td = bug.content
+        td = bug.url
+        td = bug.description
         td = link_to 'Show', bug
-        td = ""
-        td = link_to 'Edit', edit_bug_path(bug)
-        td = ""
         td = link_to 'Destroy', bug, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
-
-= link_to 'New Bug', new_bug_path

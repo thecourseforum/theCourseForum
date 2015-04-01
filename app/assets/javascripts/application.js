@@ -19,6 +19,7 @@
 //= require d3
 // require new_wheel
 //= require grades
+//= require header
 //= require contact_us
 //= require sign_up
 //= require reviews
@@ -197,8 +198,6 @@ var ready = function() {
 	
 
 };
-
-
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
