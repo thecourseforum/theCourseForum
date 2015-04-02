@@ -22,11 +22,11 @@ html
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header
-            .col-xs-10.5#course-name
-              h1.page-title= yield(:page_heading)
-              - if controller.controller_name == "courses" && controller.action_name == "courses"
-            .col-xs-1.5#save-course
-                .btn.btn-primary#save-course SAVE COURSE
+              .col-xs-10.5#course-name
+                h1.page-title= yield(:page_heading)
+              - if controller.controller_name == "courses" && controller.action_name == "show"
+                .col-xs-1.5#save-course
+                  .btn.btn-primary#save-course SAVE COURSE
           .container-fluid#content-container
             = yield
       -# Necessary for rendering scheduler modals correctly      
