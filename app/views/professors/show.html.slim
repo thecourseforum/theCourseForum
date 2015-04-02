@@ -5,9 +5,9 @@
 		h1 = "#{@avg_rating}"
 		p Avg. Rating
 .col-xs-11
-	= "#{@professor.classification}, Department#{@professor.department}"
+	= "#{@professor.classification}, #{@professor[:department]}"
 	br
-	= "#{@professor.primary_email}"
+	=link_to(@professor.primary_email,"mailto:#{@professor.primary_email}")
 	br
 	= "#{@professor.office_phone}"
 	br
