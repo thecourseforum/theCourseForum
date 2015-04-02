@@ -34,6 +34,8 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
 
+  resources :bugs
+
   resources :departments, :only => [:show, :index]
 
   resources :subdepartments, :only => [:show]

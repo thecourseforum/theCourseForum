@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308033519) do
+ActiveRecord::Schema.define(version: 20150401202146) do
 
   create_table "book_requirements", id: false, force: true do |t|
     t.integer "section_id"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20150308033519) do
   end
 
   add_index "books", ["id"], name: "id_UNIQUE", unique: true, using: :btree
+
+  create_table "bugs", force: true do |t|
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
   create_table "calendar_sections", force: true do |t|
     t.integer "section_id"
@@ -127,6 +135,512 @@ ActiveRecord::Schema.define(version: 20150308033519) do
     t.datetime "updated_at"
   end
 
+  create_table "lou_sections1098", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1101", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1102", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1106", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1108", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1111", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1112", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1116", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1118", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1121", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1122", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1126", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1128", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1131", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1132", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1136", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1138", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1141", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1142", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1146", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1148", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1151", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
+  create_table "lou_sections1152", id: false, force: true do |t|
+    t.integer "sisID"
+    t.integer "sectionNumber"
+    t.string  "subdepartment"
+    t.string  "courseName"
+    t.string  "units"
+    t.integer "capacity"
+    t.integer "course_semester_id"
+    t.string  "sectionType"
+    t.string  "mnemonic"
+    t.integer "courseNumber"
+    t.string  "professor"
+    t.string  "professor_alias"
+    t.string  "scheduleTime"
+    t.string  "place"
+    t.string  "sectionLeader"
+    t.string  "sectionTime"
+    t.string  "sectionLocation"
+    t.string  "topic"
+    t.integer "enrollment"
+  end
+
   create_table "majors", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -154,7 +668,7 @@ ActiveRecord::Schema.define(version: 20150308033519) do
     t.datetime "updated_at",          null: false
     t.string   "middle_name"
     t.text     "classification"
-    t.text     "ldap_department"
+    t.text     "department"
     t.text     "department_code"
     t.text     "primary_email"
     t.text     "office_phone"
@@ -203,15 +717,6 @@ ActiveRecord::Schema.define(version: 20150308033519) do
     t.datetime "updated_at"
   end
 
-  create_table "schedules_sections", id: false, force: true do |t|
-    t.integer "schedule_id", null: false
-    t.integer "section_id",  null: false
-  end
-
-  add_index "schedules_sections", ["schedule_id"], name: "index_schedules_sections_on_schedule_id", using: :btree
-  add_index "schedules_sections", ["section_id"], name: "index_schedules_sections_on_section_id", using: :btree
-  add_index "schedules_sections", ["schedule_id", "section_id"], name: "index_schedules_sections_on_schedule_id_and_section_id", unique: true, using: :btree
-
   create_table "schools", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -241,6 +746,13 @@ ActiveRecord::Schema.define(version: 20150308033519) do
     t.integer  "course_id"
     t.integer  "semester_id"
   end
+
+  create_table "sections_users", id: false, force: true do |t|
+    t.integer "section_id"
+    t.integer "user_id"
+  end
+
+  add_index "sections_users", ["user_id", "section_id"], name: "index_sections_users_on_user_id_and_section_id", unique: true, using: :btree
 
   create_table "semesters", force: true do |t|
     t.integer  "number"

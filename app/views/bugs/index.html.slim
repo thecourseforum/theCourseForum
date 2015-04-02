@@ -1,0 +1,16 @@
+h1 Listing bugs
+
+table.table
+  thead
+    tr
+      th URL
+      th Description
+  tbody
+    - @bugs.each do |bug|
+      tr
+        td = bug.url
+        td = bug.description
+        td = link_to 'Show', bug
+        td = link_to 'Destroy', bug, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
