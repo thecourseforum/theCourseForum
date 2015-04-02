@@ -20,29 +20,25 @@ ready = function() {
 	});
 };
 
-$('#save-course').click(function(){
-		var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-		console.log(course_name);
-		course_name = course_name.split(' - ');
-		console.log(course_name[0]);
-		course_name = course_name[0].split(' ');
+$('#save-course').click(function() {
+	var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	course_name = course_name.split(' - ');
+	course_name = course_name[0].split(' ');
 
-		console.log(course_name[1]);
-
-		$.ajax('/scheduler/course', {
-				method: "POST",
-				data: {
-					mnemonic: course_name[0],
-					course_number: course_name[1]
-				},
-				success: function(response) {
-					console.log('YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
-				},
-				failure: function(response) {
-					alert('Could not load corresponding course!');
-				}
-			});
+	$.ajax('/scheduler/course', {
+		method: "POST",
+		data: {
+			mnemonic: course_name[0],
+			course_number: course_name[1]
+		},
+		success: function(response) {
+			alert('Course saved for scheduler!');
+		},
+		failure: function(response) {
+			alert('Could not load corresponding course!');
+		}
 	});
+});
 
 $(document).ready(ready);
 
