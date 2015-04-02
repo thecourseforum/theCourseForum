@@ -33,7 +33,7 @@
   .col-xs-9#courses-main
     .row
       .col-xs-6
-        .orange-title =@professor  ? @professor.full_name : "All Professor"
+        .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
       .col-xs-6
         .orange-title Cumulative Grades
     br
