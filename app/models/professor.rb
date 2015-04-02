@@ -19,7 +19,12 @@ class Professor < ActiveRecord::Base
   end
 
   def separated_name
-    self.last_name + ", " + self.first_name
+    
+    if self.first_name == "Staff" || self.first_name == "staff"
+      return "Staff"
+    else
+      return self.last_name + ", " + self.first_name
+    end
   end
     
 
