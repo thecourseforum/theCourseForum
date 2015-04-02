@@ -1,5 +1,17 @@
-- content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
+- content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"  
 = javascript_include_tag "courses"
+
+/ nav.navbar.navbar-default
+/   .container-fluid
+/     .navbar-header
+/       button.navbar-toggle.collapsed data-target="#navbar-header" data-toggle="collapse" type="button" 
+/         span.sr-only Toggle navigation
+
+/     #navbar-header.collapse.navbar-collapse
+/       ul.nav.navbar-nav.navbar-right
+/         li
+/           a href="#{about_path}" SAVE COURSE
+
 
 .row#course-page
   .col-xs-3#courses-sidebar

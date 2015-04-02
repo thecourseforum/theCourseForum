@@ -201,6 +201,7 @@ $(document).ready(function() {
 	$('#saved-courses').change(function() {
 		// For the selected option, trim any whitespace or newline around its text
 		var course = $.trim($('#saved-courses option:selected').text());
+		console.log(course);
 		// Ignore the placeholder option at the very top
 		if (course !== '-- Select Course --') {
 			// Call internal function courseSearch with the search phrase associated with the selected option
