@@ -21,7 +21,7 @@
   .col-xs-9#courses-main
     .row
       .col-xs-6
-        .orange-title All Professors
+        .orange-title =@professor  ? @professor.full_name : "All Professor"
       .col-xs-6
         .orange-title Cumulative Grades
     br
