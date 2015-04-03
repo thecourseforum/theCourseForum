@@ -16,11 +16,11 @@ class Course < ActiveRecord::Base
   validates_presence_of :title, :course_number, :subdepartment
 
   def professors_list
-    return self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
+    self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
   end
 
   def mnemonic_number
-    return "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
+    "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
   end
 
   def book_requirements_list(status)
@@ -29,6 +29,10 @@ class Course < ActiveRecord::Base
 
   def units
     self.sections.select(:units).max.units.to_i
+  end
+
+  def self.find_by_mnemonic_number(mnemonic, number)
+    Subdepartment.find_by(:mnemonic => mnemonic).courses.find_by(:course_number => number)
   end
 
 end
