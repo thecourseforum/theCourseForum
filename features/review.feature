@@ -2,8 +2,19 @@ Feature: Write a tCF Review
 	As a main feature on theCourseForum
 	I want to be able to write a review
 
-	Scenario: page should be found
-		Given the link 'http://localhost:3000'
+	Background:
+		Given a user is logged in
+		And I navigate to write a review
+
+	@javascript
+	Scenario: should be able to navigate to write a review
+		Then I should see "What class are you reviewing?"
+
+	@javascript
+	Scenario: should be able to write a review
+		When I write a review
+
+	Scenario: should be able to write a review
 		When I click on Write a Review
 		Then I should see 'Write a Review', fields for department,course,professor, grades, 			and a text field.
 

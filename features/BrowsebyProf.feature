@@ -2,6 +2,9 @@ Feature: Browse by Professor
 	In order to add/review classes, I 
 	need to be able to browse by Professor.
 
+	Background:
+		Given a user is logged in
+
 	Scenario: page should be found
 		Given the link 'http://localhost:3000/
 		When I click on Browse by Professor

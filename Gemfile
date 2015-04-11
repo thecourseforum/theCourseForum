@@ -74,14 +74,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.1.0'
   # FactoryGirl for fixture replacement
   gem 'factory_girl_rails', '~> 4.5.0'
-  # capybara for web simulation in tests
-  gem 'capybara'
 
   gem 'cucumber-rails', :require => false
-  # capybara-webdkit for testing javascript events
-  # also need 'sudo apt-get install libqt4-dev libqtwebkit-dev'
-  # http://stackoverflow.com/questions/8365764/error-installing-gem-capybara-webkit
-  gem 'capybara-webkit'
   
   gem 'selenium-webdriver'
   # Database Cleaner to clear test databases
