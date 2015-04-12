@@ -8,7 +8,7 @@ Feature: Write a tCF Review
 
 	@javascript
 	Scenario: should be able to navigate to write a review
-		Then I should see "What class are you reviewing?"
+		Then I should see 'What class are you reviewing?'
 
 	@javascript
 	Scenario: should be able to write a review
