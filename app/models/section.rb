@@ -5,8 +5,6 @@ class Section < ActiveRecord::Base
   has_many :section_professors
   has_many :grades
   has_many :day_times_sections
-  has_many :day_times, :through => :day_times_sections
-  has_many :locations, :through => :day_times_sections
   belongs_to :semester
   belongs_to :course
   belongs_to :location

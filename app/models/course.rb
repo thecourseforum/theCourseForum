@@ -20,7 +20,7 @@ class Course < ActiveRecord::Base
   end
 
   def mnemonic_number
-    "#{subdepartment.mnemonic} #{course_number}"
+    @mnemonic_number ||= "#{subdepartment.mnemonic} #{course_number}"
   end
 
   def book_requirements_list(status)

@@ -66,11 +66,11 @@ class SchedulerController < ApplicationController
         #sets the course mnemonic from the search parameters
         :course_mnemonic => "#{params[:mnemonic].upcase} #{params[:course_number]}",
         #gets the sections of the course that are for the current semester and are lectures
-        :lectures => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Lecture')),
+        :lectures => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Lecture').includes(:day_times, :locations, :professors)),
         #gets the sections of the course that are for the current semester and are discussions
-        :discussions => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Discussion')),
+        :discussions => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Discussion').includes(:day_times, :locations, :professors)),
         #gets the sections of the course that are for the current semester and are labs
-        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Laboratory')),
+        :laboratories => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Laboratory').includes(:day_times, :locations, :professors)),
         # Returns units of course
         :units => course.units
       }) and return
