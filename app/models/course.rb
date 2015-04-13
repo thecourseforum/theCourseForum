@@ -20,7 +20,7 @@ class Course < ActiveRecord::Base
   end
 
   def mnemonic_number
-    "#{Subdepartment.find_by_id(self.subdepartment_id).mnemonic} #{self.course_number}"
+    "#{subdepartment.mnemonic} #{course_number}"
   end
 
   def book_requirements_list(status)
@@ -32,7 +32,12 @@ class Course < ActiveRecord::Base
   end
 
   def self.find_by_mnemonic_number(mnemonic, number)
-    Subdepartment.find_by(:mnemonic => mnemonic).courses.find_by(:course_number => number)
+    subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
+    if subdepartment
+      subdepartment.courses.find_by(:course_number => number)
+    else
+      nil
+    end
   end
 
 end

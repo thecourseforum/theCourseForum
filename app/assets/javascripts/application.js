@@ -32,7 +32,7 @@
 //= require nprogress-ajax
 
 var ready = function() {
-	
+
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
 	});
@@ -40,7 +40,7 @@ var ready = function() {
 	$("#search-query").focus(function() {
 		if ($("#search-query").val() == "") {
 			$(".nav-row").each(function() {
-				if( !($(this).hasClass("search-row")) ) {
+				if (!($(this).hasClass("search-row"))) {
 					$(this).slideUp();
 				}
 			});
@@ -56,26 +56,22 @@ var ready = function() {
 			});
 
 			$(".submit-row").slideUp();
-		}		
+		}
 	});
 
-	
+
 
 	$("#word-cloud-switch").bootstrapSwitch({
 		size: 'small',
 		onColor: 'primary',
-		onSwitchChange: function(event, state)
-		{
-			if (state)
-			{
+		onSwitchChange: function(event, state) {
+			if (state) {
 				$.ajax({
 					url: '/word_cloud_on/',
 					type: 'POST'
 				});
 				$("#doge-switch").bootstrapSwitch('disabled', false);
-			}
-			else
-			{
+			} else {
 				$.ajax({
 					url: '/word_cloud_off/',
 					type: 'POST'
@@ -90,17 +86,13 @@ var ready = function() {
 		size: 'small',
 		onColor: 'primary',
 		onText: 'wow',
-		onSwitchChange: function(event, state)
-		{
-			if (state)
-			{
+		onSwitchChange: function(event, state) {
+			if (state) {
 				$.ajax({
 					url: '/doge_on/',
 					type: 'POST'
 				});
-			}
-			else
-			{
+			} else {
 				$.ajax({
 					url: '/doge_off/',
 					type: 'POST'
@@ -116,51 +108,40 @@ var ready = function() {
 		$('#' + target).toggle();
 	});
 
-	$('#search-form').autocomplete({
-	source: function( request, response ) {
-		$.ajax({
-			url: '/search/search',
-			dataType: 'json',
-			type: 'GET',
-			data: {
-				query: request.term
+	$('#search-query').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/search/search',
+				dataType: 'json',
+				type: 'GET',
+				data: {
+					query: request.term
+				},
+				success: function(data) {
+					response($.map(data, function(item) {
+						return {
+							label: item.mnemonic_number + " — " + item.full_name,
+							value: item.course_id + "?p=" + item.professor_id
+						}
+					}));
+				}
+			});
 		},
-		success: function( data ) {
-			response( $.map(data.slice(0,9), function( item ) {
-			return {
-				label: item.subdepartment_code + " " + item.course_number + "-" + item.last_name,
-				value: "c=" + item.course_id + "&p=" + item.professor_id
-			}
-			}));
+		minLength: 2,
+		select: function(event, ui) {
+			$('#searchbox').val(ui.item.label);
+			window.location = "/courses/" + ui.item.value;
+			return false;
 		}
-		});
-	},
-	minLength: 2,
-	focus: function(event, ui) {
-		$('#searchbox').val(ui.item.label);
-		return false;
-	},
-	select: function(event, ui) {
-		$('#searchbox').val(ui.item.label);
-		window.location = "/course_professors?" + ui.item.value;
-		return false;
-	},
-	open: function() {
-		$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-		$(this).autocomplete('widget').css('z-index', 5000);
-	},
-	close: function() {
-		$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-	}
 	});
 
 
 	var prof_ajax = $.ajax();
 
-	$("#prof_name").bind("change", function(){
+	$("#prof_name").bind("change", function() {
 		$("#prof_list").empty();
 		var value = $(this).find(":selected").val();
-		if (value == ""){
+		if (value == "") {
 			return;
 		}
 		prof_ajax.abort();
@@ -169,33 +150,32 @@ var ready = function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
-				$.each(data, function(){
-					if(this.last_name[0] == value) {
+				$.each(data, function() {
+					if (this.last_name[0] == value) {
 						$('#prof_list').append($("<a/>", {
 							href: "/professors/" + this.id,
 							text: this.last_name + ", " + this.first_name
 						}));
-						$('#prof_list').append($("<br/>", {						
-						}));
+						$('#prof_list').append($("<br/>", {}));
 					}
-				});			
+				});
 			}
 		});
 	});
 
 	jQuery.ajaxSetup({
-	  beforeSend: function() {
-	    $('#loading').fadeIn();
-	    $("#second_letter").show();
+		beforeSend: function() {
+			$('#loading').fadeIn();
+			$("#second_letter").show();
 
-	  },
-	  complete: function(){
-	    $('#loading').hide();
-	  },
-	  success: function() {}
+		},
+		complete: function() {
+			$('#loading').hide();
+		},
+		success: function() {}
 	});
 
-	
+
 
 };
 
