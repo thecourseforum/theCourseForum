@@ -15,8 +15,7 @@ class App.GradeDonut
   # Assume for now that users don't care about breakdown after c
   gradeKeys: ['aplus', 'a', 'aminus', 'bplus', 'b', 'bminus', 'c', 'o']
   # Colors per grade key
-  colors: ['#5254a3', '#6b6ecf', '#9c9ede', '#31a354', '#74c476', '#a1d99b',
-    '#fdae6b', '#969696']
+  colors: ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
   # Margin around donut
   margin: 0
   # Distance from radius to inner arc
@@ -30,7 +29,7 @@ class App.GradeDonut
 
   selected_semeters: []
 
-  letters: ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'O*']
+  letters: ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
 
   # Set el and height and width
   constructor: (@el, opts) ->

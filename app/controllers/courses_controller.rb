@@ -57,8 +57,8 @@ class CoursesController < ApplicationController
     gon.grades = @grades
     gon.semester = 0
 
-    @colors = ['#5254a3', '#6b6ecf', '#9c9ede', '#31a354', '#74c476', '#a1d99b','#fdae6b', '#969696']
-    @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'O*']
+    @colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
+    @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
 
     @semesters = Semester.where(id: @grades.map{|g| g.semester_id}).sort_by{|s| s.number}
 
