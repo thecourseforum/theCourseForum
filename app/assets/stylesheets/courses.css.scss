@@ -22,6 +22,10 @@
   color: $blue;
 }
 
+.sortby-title {
+  padding-top: 18px;
+}
+
 .title-row {
   border-bottom: solid 1px $blue;
 }
@@ -43,6 +47,23 @@
 .textbooks-row {
   border-bottom: 1px dotted black;
   padding-top: 8px;
+}
+.recommended-textbooks-row{
+  border-bottom: 1px dotted black;
+  padding-top: 8px;
+  opacity: 0.5
+}
+
+.optional-textbooks-row{
+  border-bottom: 1px dotted black;
+  padding-top: 8px;
+  opacity: 0.5
+}
+
+.other-textbooks-row{
+  border-bottom: 1px dotted black;
+  padding-top: 8px;
+  opacity: 0.5
 }
 
 .stat-row {
