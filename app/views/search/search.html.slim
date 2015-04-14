@@ -17,7 +17,7 @@
   - @result.each do |r|
     .row
       .col-xs-12
-        a href="/courses/#{r[:course_id]}?p=#{r[:professor_id]}"
+        a href="/courses/#{r[:course_id]}?p=#{r[:professor_id]}" data-no-turbolink=""
           .row
             .col-xs-2
               = "#{r[:mnemonic_number]}"

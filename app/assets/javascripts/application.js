@@ -20,6 +20,7 @@
 // require new_wheel
 //= require grades
 //= require header
+//= require courses
 //= require contact_us
 //= require sign_up
 //= require reviews
