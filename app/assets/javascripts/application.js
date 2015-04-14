@@ -111,7 +111,7 @@ var ready = function() {
 	$('#search-query').autocomplete({
 		source: function(request, response) {
 			$.ajax({
-				url: '/search/search',
+				url: '/search/search_subdepartment',
 				dataType: 'json',
 				type: 'GET',
 				data: {
@@ -120,8 +120,8 @@ var ready = function() {
 				success: function(data) {
 					response($.map(data, function(item) {
 						return {
-							label: item.mnemonic_number + " — " + item.full_name,
-							value: item.course_id + "?p=" + item.professor_id
+							label: item.mnemonic_number + " " + item.title,
+							value: item.course_id
 						}
 					}));
 				}

@@ -41,6 +41,27 @@ class SearchController < ApplicationController
     end
   end
 
+  def search_subdepartment
+    strings = params[:query].split(' ')
+
+    mnemonic = strings[0]
+
+    results = []
+    if mnemonic.length < 5 and mnemonic.to_i.to_s != mnemonic
+      results = Subdepartment.where("mnemonic LIKE ?", "%#{mnemonic}%").includes(:courses).map do |subdepartment|
+        subdepartment.courses.map do |course|
+          {
+            :course_id => course.id,
+            :mnemonic_number => "#{subdepartment.mnemonic} #{course.course_number}",
+            :title => course.title
+          }
+        end
+      end.flatten
+    end
+
+    render :json => results
+  end
+
   private
 
   def search_mnemonic(query)
