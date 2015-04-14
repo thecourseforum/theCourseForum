@@ -183,11 +183,11 @@ br
 
   - if @reviews_with_comments.count > 1
     .row
-      .col-xs-4
+      .col-xs-5
         = will_paginate @reviews
-      .col-xs-2.sortby-title style="font-size:18px"
+      .col-xs-2.sortby-title style="font-size:18px" align="right"
           | Sort by:
-      .col-xs-4.sortby-title
+      .col-xs-3.sortby-title
         select.courses-review-type-switcher style="font-size:13px;"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
