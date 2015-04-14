@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
       elsif @sort_type == "fun"
         @reviews_with_comments = @all_reviews.find_by_sql("SELECT reviews.* FROM reviews WHERE reviews.course_id = #{@course.id} AND reviews.professor_id=#{@professor.id} AND comment REGEXP '#{@naughty_words}'").sort_by{|r| -r.created_at.to_i}
       elsif @sort_type == "semester"
-        @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-Semester.get_number(:semester_year => r.semester.year, :semester_season => r.semester.season), r.created_at.to_i]}
+        @reviews_with_comments = @all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [r.semester_id, r.created_at.to_i]}
       end
     end
 
