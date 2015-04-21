@@ -134,6 +134,13 @@ $(document).ready(function() {
 		contentHeight: 610,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
+
+		
+		eventRender: function(event, element) {
+			console.log(event);
+      		$(element).tooltip({title: "SIS ID: " + event.sis_id});             
+  		},
+
 		// New default date
 		defaultDate: '2014-04-14',
 		eventClick: function(calendarEvent) {
