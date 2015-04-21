@@ -15,10 +15,10 @@ ready = function() {
 		professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1];
 		return window.location.href = '/courses/' + course_id + '?p=' + professor_id;
 	});
-	return $('.courses-review-type-switcher').change(function() {
+		$('.courses-review-type-switcher').change(function() {
 		return window.location.href = '/courses/' + $(this).val();
 	});
-	$('#save-course').click(function() {
+	$('#save-course-button').click(function() {
 		var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		course_name = course_name.split(' - ');
 		course_name = course_name[0].split(' ');
@@ -30,6 +30,7 @@ ready = function() {
 				course_number: course_name[1]
 			},
 			success: function(response) {
+
 				alert('Course saved for scheduler!');
 			},
 			failure: function(response) {

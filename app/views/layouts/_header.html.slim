@@ -20,6 +20,8 @@ nav.navbar.navbar-default
         li
           a href="http://blog.thecourseforum.com" target="_blank" BLOG
         li
+          a#better-contact CONTACT US BUT BETTERRRR
+        li
           a href="#{contact_us_path}" CONTACT US
         - if current_user
           li
@@ -51,6 +53,24 @@ nav.navbar.navbar-default
               p.help-block
             .form-group
               label Description (as verbose as possible!)
+              textarea.form-control rows="3" name="description" placeholder=("Thanks for your feedback!")
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary#report type="button" Submit
+
+#contact-us-new-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Let us know what's wrong, or how we can change!!
+        .modal-body
+          form#bug
+            .form-group
+              label URL
+              input.form-control placeholder=("Enter URL") name="url"
+              p.help-block
+            .form-group
+              label We're listening! Let us know what's on your mind! :)))))) <3
               textarea.form-control rows="3" name="description" placeholder=("Thanks for your feedback!")
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
