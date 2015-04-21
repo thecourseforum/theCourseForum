@@ -26,7 +26,12 @@ div#dept-list role="tabpanel"
               - if course.course_number >= separator
                 br
                 - separator = (course.course_number / 1000) * 1000 + 1000
-              li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+
+              - if course.is_offered(2014, "Fall")
+                .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+              - else
+                li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+
     #dept-professors.tab-pane.fade role="tabpanel"
       .container-fluid
         .row
