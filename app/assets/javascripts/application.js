@@ -60,8 +60,6 @@ var ready = function() {
 		}
 	});
 
-
-
 	$("#word-cloud-switch").bootstrapSwitch({
 		size: 'small',
 		onColor: 'primary',
@@ -177,20 +175,20 @@ var ready = function() {
 	});
 
 
+	var input = [],
+		konami = "38,38,40,40,37,39,37,39,66,65";
+
+	//The following function sets a timer that checks for user input. You can change the variation in how long the user has to input by changing the number in ‘setTimeout.’ In this case, it’s set for 500 milliseconds or ½ second.
+	$(document).keyup(function(e) {
+		input.push(e.keyCode);
+		if (input.toString().indexOf(konami) >= 0) {
+			$(document).unbind('keydown', arguments.callee);
+			alert('What did Alan the plate say to the other plate? Dinners on me.');
+			input = [];
+		}
+	});
 
 };
-
-var konami = "38,38,40,40,37,39,37,39"; 
-var input = [];
-//The following function sets a timer that checks for user input. You can change the variation in how long the user has to input by changing the number in ‘setTimeout.’ In this case, it’s set for 500 milliseconds or ½ second.
-$(document).keyup(function(e) {
-   input.push( e.keyCode );
-   if ( input.toString().indexOf( konami ) >= 0 ){
-   	$(document).unbind('keydown',arguments.callee);
-	alert('What did Alan the plate say to the other plate? Dinners on me.');
-	input = [];
-   }
-});
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
