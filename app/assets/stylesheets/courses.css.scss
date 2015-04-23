@@ -1,13 +1,14 @@
 @import "variables";
 
 #courses-main {
-  border-left: 1px solid black;
+
 }
 
 #courses-sidebar {
   // 590px foudn to be the max height of #courses-main
   max-height: 590px;
   overflow-y: auto;
+  border-right: 1px solid black;
 }
 
 #save-course .btn.btn-primary {

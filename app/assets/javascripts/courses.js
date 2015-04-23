@@ -40,24 +40,20 @@ ready = function() {
 		});
 	});
 
-	//hides the professors list on course page when enter is clicked
+	//hides the professors list on course page when the professor list is clicked
 	var toggled = true;
 	$("#courses-sidebar").click(function(){
     	if(toggled) {
         	toggled=false;
 			$(this).hide({ left: "0px" });
-      		$("#courses-main").css("border-left", "none");
+			$("#courses-main").removeClass('col-xs-9').addClass('col-xs-12');
+
 		} else {
         	toggled=true;
             $(this).show({right: '200px'});
-            $("#courses-main").css("border-left", "1px solid black");
+			$("#courses-main").removeClass('col-xs-12').addClass('col-xs-9');
     	}
 	});
-
-	$("#courses-main").click(function(){
-		$("#courses-sidebar").click();
-	});
-
 };
 
 //If enter button is pressed, hide professors list
@@ -65,6 +61,11 @@ $(document).keypress(function(e) {
     if(e.which == 13) {
     	$('#courses-sidebar').click();
     }
+});
+
+//sets the professor sidebar col height to the course information col height (mainly to adjust the right border height)
+$(document).ready(function() {
+  $("#courses-sidebar").css("height", $("#courses-main").height());
 });
 
 $(document).ready(ready);
