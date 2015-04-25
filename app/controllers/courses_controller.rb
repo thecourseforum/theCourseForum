@@ -51,7 +51,7 @@ class CoursesController < ApplicationController
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
     end
     
-    @semesters = Semester.where(id: @grades.map{|g| g.semester_id}).sort_by{|s| s.number}
+    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
 
     #used to pass grades to the donut chart
     gon.grades = @grades
@@ -60,7 +60,7 @@ class CoursesController < ApplicationController
     @colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
     @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
 
-    @semesters = Semester.where(id: @grades.map{|g| g.semester_id}).sort_by{|s| s.number}
+    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
 
     @rev_ratings = get_review_ratings
     @rev_emphasizes = get_review_emphasizes

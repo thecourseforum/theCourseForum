@@ -43,30 +43,27 @@ ready = function() {
 	//hides the professors list on course page when the professor list is clicked
 	var toggled = true;
 	$("#courses-sidebar").click(function(){
-    	if(toggled) {
-        	toggled=false;
+		if(toggled) {
+			toggled = false;
 			$(this).hide({ left: "0px" });
 			$("#courses-main").removeClass('col-xs-9').addClass('col-xs-12');
 
 		} else {
-        	toggled=true;
-            $(this).show({right: '200px'});
+			toggled = true;
+			$(this).show({right: '200px'});
 			$("#courses-main").removeClass('col-xs-12').addClass('col-xs-9');
-    	}
+		}
 	});
+
+	//If enter button is pressed, hide professors list
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			$('#courses-sidebar').click();
+		}
+	});
+
+	$("#courses-sidebar").css("height", $("#courses-main").height());
 };
-
-//If enter button is pressed, hide professors list
-$(document).keypress(function(e) {
-    if(e.which == 13) {
-    	$('#courses-sidebar').click();
-    }
-});
-
-//sets the professor sidebar col height to the course information col height (mainly to adjust the right border height)
-$(document).ready(function() {
-  $("#courses-sidebar").css("height", $("#courses-main").height());
-});
 
 $(document).ready(ready);
 
