@@ -1,0 +1,23 @@
+id should be int(11) rather than int(10)
+primary key means unique key
+title,author,binding should be varchar(255)
+dropped availability boolean columns in favor of nil price
+dropped rental_price columns
+added publisher,edition columns
+add not null to isbn
+changed ISBN to varchar in lieu of varchar(255)
+
+added not null to all three columns in book_requirements
+changed requirement_status to status
+added unique key for two columns
+
+creates duplicate books... come on rob
+
+http://stackoverflow.com/questions/2023481/mysql-large-varchar-vs-text
+
+
+aws
+
+why signed_request?
+why artificial construction of affiliate link?
+play around more with amazon api - request params

@@ -52,6 +52,9 @@ gem 'momentjs-rails'
 # Slim for better templating
 gem 'slim-rails'
 
+# Amazon Webservices Gem
+gem 'vacuum'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
