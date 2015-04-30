@@ -17,12 +17,14 @@ client.configure(
 	:associate_tag => config[:associate_tag]
 )
 
-puts "How many books? #{Book.count} total"
-limit = gets.chomp.to_i
-puts "Starting from? (0 indexed)"
-offset = gets.chomp.to_i
+books = Book.where.not(:isbn => nil).where(:asin => nil)
 
-books = Book.where.not(:isbn => nil)[offset..(limit + offset - 1)].each_slice(2)
+puts "How many books? #{books.count} total"
+limit = gets.chomp.to_i
+# puts "Starting from? (0 indexed)"
+# offset = gets.chomp.to_i
+
+books = books[0..limit].each_slice(2)
 
 books.each_with_index do |batch, index|
 	puts "Performing #{index + 1} query out of #{books.count}"
@@ -103,7 +105,7 @@ books.each_with_index do |batch, index|
 			merchant_used_price = summary["LowestUsedPrice"]["Amount"].to_f / 100 if summary["LowestUsedPrice"]
 		end
 
-		if content["Offers"]["TotalOffers"].to_i > 0
+		if content["Offers"] and content["Offers"]["TotalOffers"].to_i > 0
 			offers = content["Offers"]["Offer"]
 
 			if offers.class == Hash
@@ -120,7 +122,7 @@ books.each_with_index do |batch, index|
 
 			if new_offer
 				official_new_price = new_offer["OfferListing"]["Price"]["Amount"].to_f / 100
-				puts "#{official_new_price} #{book.id}"
+				# puts "#{official_new_price} #{book.id}"
 			end
 		end
 

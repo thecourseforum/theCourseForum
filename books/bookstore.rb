@@ -6,6 +6,12 @@ log = File.open("#{Rails.root.to_s}/books/bookstore_#{Time.now.strftime("%Y.%m.%
 
 initial_time = Time.now
 
+
+puts 'Wiping books and book_requirements...'
+
+Book.delete_all
+BookRequirement.delete_all
+
 departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92')).departments.department
 departments = [departments] if departments.class == Nokogiri::XML::Element
 departments.each do |xml_department|
