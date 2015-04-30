@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-	has_many :courses, :through => :book_requirements
+	has_many :sections, :through => :book_requirements
 	has_many :book_requirements
 
 	def bookstore_prices

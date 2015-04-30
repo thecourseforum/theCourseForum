@@ -138,6 +138,7 @@ $(document).ready(function() {
 
 			title.text(book.title);
 			title.attr('href', book.amazon_affiliate_link);
+			title.attr('target', '_blank');
 			// author.text(book.author);
 			// author.attr('href', book.amazon_affiliate_link);
 
