@@ -3,7 +3,7 @@ class Course < ActiveRecord::Base
 
   has_many :sections
   has_many :reviews
-  has_many :books, :through => :sections
+  has_many :books, -> { uniq }, :through => :sections
   has_many :book_requirements, :through => :sections
 
   has_and_belongs_to_many :users

@@ -39,6 +39,9 @@ TheCourseForum::Application.routes.draw do
   resources :departments, :only => [:show, :index]
 
   resources :subdepartments, :only => [:show]
+
+  resources :books, :only => [:index]
+  get '/books/course' => 'books#course'
  
   resources :search, :only => [] do
     collection do

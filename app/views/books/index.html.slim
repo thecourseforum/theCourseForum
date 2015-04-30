@@ -1,0 +1,31 @@
+= javascript_include_tag "books"
+
+- content_for :page_heading, "Course Book Listing"
+
+#books
+
+#search-bar
+  h2 Class Search
+  input#class-search name="class-search" type="text" placeholder="ex. ECON 2010 or Biology"
+  .btn.btn-primary.glyphicon.glyphicon-search#search-classes
+  select#saved-courses
+    option -- Select Course --
+    - current_user.courses.each do |course|
+      option= "#{course.subdepartment.mnemonic} #{course.course_number}"
+    | end
+
+  .btn.btn-primary#clear-courses Clear Saved Courses
+  h5#results-title Courses
+  #results-box
+
+.course-result.hidden
+  #content
+    a.remove
+    p.course-mnemonic
+    p.course-title
+
+.row.hidden.book
+  a#title
+  a#bookstore
+  a#amazon-official
+  a#amazon-merchant
