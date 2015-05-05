@@ -2,11 +2,11 @@
 - content_for :page_heading, "My Recommendations"
 
 - if @courses.size > 0
-	div#dept-list role="tabpanel" 
+	div#dept-list role="tabpanel"
   	.container-fluid
     	ul#department-courses
       	- @courses.each do |course|
-        	= link_to "#{course.mnemonic_number}" , course
+        	= link_to "#{course.mnemonic_number} - #{course.title}" , course
         	br
 - else
   .row
