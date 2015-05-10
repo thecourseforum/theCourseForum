@@ -2,30 +2,29 @@
 
 - content_for :page_heading, "Course Book Listing"
 
-#books
+#mnemonics-form.form-group.has-feedback
+  label.control-label for="mnemonics"  Course Mnemonics
+  #mnemonics = search_field_tag "course-mnemonics", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => 'Enter courses separated by comma, ex. ECON 2010, AAS 4570'
+  #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
-#search-bar
-  h2 Class Search
-  input#class-search name="class-search" type="text" placeholder="ex. ECON 2010 or Biology"
-  .btn.btn-primary.glyphicon.glyphicon-search#search-classes
-  select#saved-courses
-    option -- Select Course --
-    - current_user.courses.each do |course|
-      option= "#{course.subdepartment.mnemonic} #{course.course_number}"
-    | end
-
-  .btn.btn-primary#clear-courses Clear Saved Courses
-  h5#results-title Courses
-  #results-box
-
-.course-result.hidden
-  #content
-    a.remove
-    p.course-mnemonic
-    p.course-title
-
-.row.hidden.book
-  a#title
-  a#bookstore
-  a#amazon-official
-  a#amazon-merchant
+table.table.table-hover
+  thead
+    tr
+      th Course
+      th Title
+      th Author
+      th UVA Used
+      th UVA New
+      th Amazon Official (new)
+      th Amazon Merchant (used)
+      th Amazon Merchant (new)
+  tbody#books
+    tr.book.hidden
+      td#course
+      td#title
+      td#author
+      td#bookstore-used-price.warning
+      td#bookstore-new-price.warning
+      td#amazon-official-new-price.warning
+      td#amazon-merchant-used-price.warning
+      td#amazon-merchant-new-price.warning

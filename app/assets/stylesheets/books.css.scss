@@ -1,7 +1,3 @@
-#books {
-	float: left;
-}
-
-.book {
-	list-style-type: none;
+.book:hover {
+	cursor: pointer;
 }
