@@ -9,8 +9,7 @@ class BooksController < ApplicationController
       mnemonic = /^\w{2,4}/.match(mnemonic_number)[0].upcase
       number = /[1-9]\d{3}$/.match(mnemonic_number)[0]
       Course.find_by_mnemonic_number(mnemonic, number)
-    end
-    render :nothing => true, :status => 404 and return unless courses.count == mnemonics.count
+    end.compact
 
     books = courses.map do |course|
       course.books.map do |book|
