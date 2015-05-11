@@ -1,6 +1,6 @@
  .user-sign-up
   .row
-    .col-xs-offset-1.col-xs-6
+    .col-md-offset-1.col-md-6
       .row
         .col-xs-12
           h1.welcome-header.brand style="margin-bottom:0px;" Welcome to theCourseForum
@@ -21,7 +21,7 @@
           .col-xs-2.text-right
             = image_tag "icons/3_writeareview_icon.png"
           .col-xs-10 Write reviews for courses you've taken.
-    .col-xs-4
+    .col-md-4
       = form_for @user, url: user_session_path do |f|
         #panel-login.panel.panel-default
           .panel-body
