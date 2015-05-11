@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401202146) do
+ActiveRecord::Schema.define(version: 20150430034935) do
 
-  create_table "book_requirements", id: false, force: true do |t|
+  create_table "book_requirements", force: true do |t|
     t.integer "section_id", null: false
     t.integer "book_id",    null: false
     t.string  "status",     null: false
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 20150401202146) do
   create_table "bugs", force: true do |t|
     t.string   "url"
     t.text     "description"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "calendar_sections", force: true do |t|

@@ -14,15 +14,11 @@ nav.navbar.navbar-default
     #navbar-header.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li
-          a#report-bug REPORT BUG
+          a#report-bug CONTACT US
         li
           a href="#{about_path}" ABOUT US
         li
           a href="http://blog.thecourseforum.com" target="_blank" VAULT
-        li
-          a#better-contact CONTACT US BUT BETTERRRR
-        li
-          a href="#{contact_us_path}" CONTACT US
         - if current_user
           li
             a#user-account data-toggle="dropdown" 
@@ -44,34 +40,19 @@ nav.navbar.navbar-default
     .modal-dialog
       .modal-content
         .modal-header
-          h4 Let us know what's wrong, or how we can change!!
+          h3 Questions? Bugs? Login Issues? Let us know!
         .modal-body
           form#bug
             .form-group
               label URL
-              input.form-control placeholder=("Enter URL") name="url"
+              input.form-control placeholder="Enter URL" name="url"
               p.help-block
+            .form-group
+              label Email (for further contact - leave blank for anonymous)
+              input.form-control placeholder="Your Email" name="email" value=(current_user ? current_user.email : '')
             .form-group
               label Description (as verbose as possible!)
-              textarea.form-control rows="3" name="description" placeholder=("Thanks for your feedback!")
-          .modal-footer
-            button.btn.btn-default data-dismiss="modal" type="button"  Close
-            button.btn.btn-primary#report type="button" Submit
-
-#contact-us-new-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
-    .modal-dialog
-      .modal-content
-        .modal-header
-          h4 Let us know what's wrong, or how we can change!!
-        .modal-body
-          form#bug
-            .form-group
-              label URL
-              input.form-control placeholder=("Enter URL") name="url"
-              p.help-block
-            .form-group
-              label We're listening! Let us know what's on your mind! :)))))) <3
-              textarea.form-control rows="3" name="description" placeholder=("Thanks for your feedback!")
+              textarea.form-control rows="3" name="description" placeholder="Thanks for your feedback!"
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
             button.btn.btn-primary#report type="button" Submit

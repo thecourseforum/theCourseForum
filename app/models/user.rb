@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :courses
   has_many :schedules, dependent: :destroy
 
-  has_many :reports, :source => :bugs
-
   #Provides citizenship and voter priveleges
   acts_as_voter
 
