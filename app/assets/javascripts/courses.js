@@ -13,11 +13,11 @@ ready = function() {
 		var course_id, professor_id;
 		course_id = window.location.pathname.split('/')[2];
 		professor_id = $("input[name='professor-id']:checked").attr('id').split('-')[1];
-		return window.location.href = '/courses/' + course_id + '?p=' + professor_id;
+		Turbolinks.visit('/courses/' + course_id + '?p=' + professor_id);
 	});
 
 	$('.courses-review-type-switcher').change(function() {
-		return window.location.href = '/courses/' + $(this).val();
+		Turbolinks.visit('/courses/' + $(this).val());
 	});
 
 	$('#save-course').click(function() {
