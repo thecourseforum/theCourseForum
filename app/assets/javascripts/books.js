@@ -30,6 +30,10 @@ $(document).ready(function() {
 
 					table.append(emptyRow);
 
+					if (response.length == 0) {
+						table.append("<tr><td>No books found!</td></tr>");
+					}
+
 					$.each(response, function(index, book) {
 						var row = $('.book.hidden').clone().removeClass('hidden'),
 							minimumPrice = 9999,
