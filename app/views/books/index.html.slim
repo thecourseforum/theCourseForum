@@ -7,7 +7,7 @@
   #mnemonics = search_field_tag "course-mnemonics", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => 'Enter courses separated by comma, ex. ECON 2010, AAS 4570'
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
-table.table.table-hover
+table.table.table-hover.table-striped
   thead
     tr
       th Course
@@ -19,9 +19,7 @@ table.table.table-hover
       th Amazon Merchant (used)
       th Amazon Merchant (new)
   tbody#books
-    tr
-      td No books found!
-    tr.book.hidden style="cursor: pointer"
+    tr.book.hidden data-toggle='popover'
       td#course
       td#title
       td#author

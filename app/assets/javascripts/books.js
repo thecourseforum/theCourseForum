@@ -3,7 +3,7 @@ $(document).ready(function() {
 		var courses = $(this).val().split(/,\s?/),
 			valid = true;
 		$.each(courses, function(index, element) {
-			if (!/^\w{2,4}\s?[1-9]\d{3}$/.test(element)) {
+			if (!/^[A-z]{2,4}\s?[1-9]\d{3}$/.test(element)) {
 				valid = false;
 				return false;
 			}
@@ -40,15 +40,19 @@ $(document).ready(function() {
 							maximumPrice = 0,
 							minimumDiv = null,
 							maximumDiv = null,
+							course = row.children('#course'),
+							title = row.children('#title'),
+							author = row.children('#author'),
 							bookstoreUsed = row.children('#bookstore-used-price'),
 							bookstoreNew = row.children('#bookstore-new-price'),
 							amazonOfficial = row.children('#amazon-official-new-price'),
 							amazonMerchantUsed = row.children('#amazon-merchant-used-price'),
 							amazonMerchantNew = row.children('#amazon-merchant-new-price');
 
-						row.children('#course').text(book.course);
-						row.children('#title').text(book.title);
-						row.children('#author').text(book.author);
+						course.text(book.course);
+						title.text(book.title);
+						author.text(book.author);
+
 						bookstoreUsed.text(book.bookstore_used_price ? "$" + book.bookstore_used_price.toFixed(2) : "N/A");
 						bookstoreNew.text(book.bookstore_new_price ? "$" + book.bookstore_new_price.toFixed(2) : "N/A");
 						amazonOfficial.text(book.amazon_official_new_price ? "$" + book.amazon_official_new_price.toFixed(2) : "N/A");
@@ -72,13 +76,42 @@ $(document).ready(function() {
 						minimumDiv.removeClass('warning').addClass('success');
 						maximumDiv.removeClass('warning').addClass('danger');
 
-						row.click(function() {
+						var amazonFunction = function() {
 							if (book.amazon_affiliate_link) {
 								window.open(book.amazon_affiliate_link, '_blank');
-							} else {
-								alert('No Amazon page for this book!');
 							}
-						})
+						}
+
+						bookstoreNew.click(function() {
+							if (book.bookstore_new_price) {
+								window.open('http://uvabookstores.com/uvatext/default.asp', '_blank');
+							}
+						});
+
+						bookstoreUsed.click(function() {
+							if (book.bookstore_used_price) {
+								window.open('http://uvabookstores.com/uvatext/default.asp', '_blank');
+							}
+						});
+
+						course.click(function() {
+							window.open("/courses/" + book.course_id, '_blank');
+						});
+						title.click(amazonFunction);
+						author.click(amazonFunction);
+						amazonOfficial.click(amazonFunction);
+						amazonMerchantNew.click(amazonFunction);
+						amazonMerchantUsed.click(amazonFunction);
+
+						if (book.large_image_link) {
+							row.popover({
+								content: "<img class='img-thumbnail' src='" + book.large_image_link + "'/>",
+								html: true,
+								placement: 'left',
+								trigger: 'hover',
+								container: 'body'
+							});
+						}
 
 						table.append(row);
 					});
