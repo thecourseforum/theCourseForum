@@ -14,7 +14,7 @@ html
 
   body
     = render 'layouts/header'
-    - if current_user
+    - if current_user || (controller.controller_name == "books" && controller.action_name == "index")
       aside
         = render 'layouts/sidebar'
       section#main
