@@ -1,4 +1,30 @@
 $(document).ready(function() {
+
+	$('#course-mnemonics').autocomplete({
+		source: function(request, response) {
+			if (request.term.split(',').pop().trim().length > 1) {
+				$.ajax({
+					url: '/books/search_subdepartment',
+					dataType: 'json',
+					type: 'GET',
+					data: {
+						query: request.term
+					},
+					success: function(data) {
+						response($.map(data[1], function(item) {
+							return {
+								label: item.mnemonic_number + " " + item.title,
+								value: data[0] + item.mnemonic_number,
+								course_id: item.course_id
+							}
+						}));
+					}
+				});
+			}
+		},
+		minLength: 2
+	});
+
 	$('#course-mnemonics').keyup(function(key) {
 		var courses = $(this).val().split(/,\s?/),
 			valid = true;

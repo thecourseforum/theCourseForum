@@ -24,4 +24,29 @@ class BooksController < ApplicationController
     render :json => books.flatten
   end
 
+  def search_subdepartment
+    entries = params[:query].split(',')
+    entries.map!(&:strip)
+    prefix = entries.size > 1 ? entries[0...-1].join(", ") + ", " : ""
+
+    strings = entries.last.split(' ')
+
+    mnemonic = strings[0]
+
+    results = []
+    if mnemonic.length < 5 and mnemonic.to_i.to_s != mnemonic
+      results = Subdepartment.where("mnemonic LIKE ?", "%#{mnemonic}%").includes(:courses).map do |subdepartment|
+        subdepartment.courses.map do |course|
+          {
+            :course_id => course.id,
+            :mnemonic_number => "#{subdepartment.mnemonic} #{course.course_number}",
+            :title => course.title
+          }
+        end
+      end.flatten
+    end
+
+    render :json => [prefix,results]
+  end
+
 end
