@@ -51,6 +51,7 @@ class CoursesController < ApplicationController
     #used to pass grades to the donut chart
     gon.grades = @grades
     gon.semester = 0
+    gon.percentages = get_grade_percentages
 
     @colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
     @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
@@ -147,6 +148,79 @@ class CoursesController < ApplicationController
 
       emphasizes
     end
+
+    # Returns the percentage of A's, B's, C's etc and GPA for the course (1 section or multiple sections)
+    def get_grade_percentages
+      # these keys will correspond to the the grade's attributes (count_a, count_aminus, etc)
+      percentages = {
+        a: 0,
+        aminus: 0,
+        aplus: 0,
+        b: 0,
+        bminus: 0,
+        bplus: 0,
+        cplus: 0,
+        c: 0,
+        cminus: 0,
+        cplus: 0,
+        d: 0,
+        dminus: 0,
+        dplus: 0,
+        drop: 0,
+        f: 0,
+        other: 0,
+        wd: 0,
+        date: 0,
+        gpa: 0,
+        total: 0
+      }
+
+      # Gets the grades for the course or for the professor's sections
+      if @professor
+        @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
+      else
+        @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
+      end
+
+      # keep track of the total number of students (for calculating the percentage)
+      running_total = 0
+
+      # For each grade returned (section with the number of a's, b's, etc)
+      @grades.each do |grade|
+          # map those attributes to an array
+          grade_count_array = []
+          grade.attributes.sort.each do |attr_name, attr_value|
+            grade_count_array << attr_value
+          end
+
+          # For each key value in the percentages hash
+          # its index corresponds to the index of the grade_count_array
+          percentages.each_with_index do |(key,value),index| 
+
+            if (index != 16 && index != 17) #don't average the date time, and calculate average gpa differently so skip that
+              # if that value is nil, (the first iteration) then simply divide the count by the total number of grades to get the percentage
+              if (percentages[key] == nil)
+                percentages[key] = grade_count_array[index] / grade.total                      
+              # otherwise, multiply the percentage by the previous total, add the count, and divide by the new total to get the new percentage
+              else 
+                percentages[key] = ((percentages[key] * running_total) + grade_count_array[index].to_f) / (running_total + grade.total).to_f
+              end
+            # average the gpa by just summing it now, and dividing later (has nothing to do with number of students)
+            elsif (index == 17)
+              percentages[key]+= grade_count_array[index].to_f
+            end
+          end
+          #increment of the total number of students
+          running_total += grade.total
+        end
+        #average the gpa
+        percentages[:gpa] = (percentages[:gpa].to_f)/(@grades.length().to_f)
+        #store the total number of students
+        percentages[:total] = running_total
+        #return
+        percentages
+    end
+    
 
 end
 

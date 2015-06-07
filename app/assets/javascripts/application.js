@@ -18,7 +18,6 @@
 //= require bootstrap
 //= require d3
 // require new_wheel
-//= require grades
 //= require header
 //= require courses
 //= require contact_us
@@ -31,6 +30,8 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require nprogress-ajax
+//= require highcharts
+//= require highcharts/highcharts-more
 
 var ready = function() {
 

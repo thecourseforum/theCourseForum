@@ -1,5 +1,8 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
 
+= javascript_include_tag "courses"
+= javascript_include_tag "grades"
+
 .row#course-page
   .col-xs-3#courses-sidebar
     .row
@@ -104,41 +107,6 @@
 
 
         .col-xs-6.course-grades
-          .row
-            .col-xs-12
-              - if @grades.size > 0
-                = render :partial => "grades", :locals => {:grades => @grades}
-              - else
-                p There aren't any grade distributions available for this class. Sorry!
-          .row
-            .col-xs-12
-              - i = 0
-              - @letters.each_slice(3) do |slice|
-                .row
-                  .col-xs-12
-                    - slice.each do |letter|
-                      span.glyphicon.glyphicon-stop style="color:#{@colors[i]}"
-                      span
-                        = letter
-                      span id="#{i}-percent"
-                      - i += 1
-          .row style="font-size:10px"
-            .col-xs-12
-              | * O contains grades less than C-, withdrawals, pass/fails, and audits
-          .row
-            .col-xs-6
-              input#all-semesters type="checkbox" checked="true" data-semester-id="all"
-                | All Semesters
-
-          - @semesters.reverse.each_slice(2) do |slice|
-            .row
-              .col-xs-6
-                input.grade-checkbox type="checkbox" data-semester-id="#{slice[0].id}"
-                  = slice[0].to_s
-              - if slice[1]
-                .col-xs-6
-                  input.grade-checkbox type="checkbox" data-semester-id="#{slice[1].id}"
-                    = slice[1].to_s
 
 br
 
