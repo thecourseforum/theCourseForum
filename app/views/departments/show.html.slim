@@ -27,7 +27,7 @@ div#dept-list role="tabpanel"
                 br
                 - separator = (course.course_number / 1000) * 1000 + 1000
 
-              - if @offered[course.course_number]
+              - if @offered[course.id]
                 .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
               - else
                 li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
