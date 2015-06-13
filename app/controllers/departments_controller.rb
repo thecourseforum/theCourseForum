@@ -44,12 +44,19 @@ class DepartmentsController < ApplicationController
 
     @count = @subdepartments.size
 
+    # Fall 2015
+    @offered = offered(24)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @department }
     end
   end
 
+  def offered(id)
+    sections = Section.where(:semester_id => id)
+    return Hash[sections.map{|section| [section.course_id, true]}]
+  end
 
   private
     def department_params
