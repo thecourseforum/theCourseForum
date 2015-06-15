@@ -45,7 +45,7 @@ class DepartmentsController < ApplicationController
     @count = @subdepartments.size
 
     # Fall 2015
-    @offered = offered(24)
+    @offered = Course.offered(24)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -53,11 +53,7 @@ class DepartmentsController < ApplicationController
     end
   end
 
-  def offered(id)
-    sections = Section.where(:semester_id => id)
-    return Hash[sections.map{|section| [section.course_id, true]}]
-  end
-
+ 
   private
     def department_params
       params.require(:department).permit(:name)
