@@ -44,13 +44,16 @@ class DepartmentsController < ApplicationController
 
     @count = @subdepartments.size
 
+    # Fall 2015
+    @offered = Course.offered(24)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @department }
     end
   end
 
-
+ 
   private
     def department_params
       params.require(:department).permit(:name)

@@ -31,6 +31,12 @@ class Course < ActiveRecord::Base
     self.sections.select(:units).max.units.to_i
   end
 
+  def self.offered(id)
+    sections = Section.where(:semester_id => id)
+    return Hash[sections.map{|section| [section.course_id, true]}]
+  end
+
+
   def self.find_by_mnemonic_number(mnemonic, number)
     subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
     if subdepartment
@@ -39,19 +45,4 @@ class Course < ActiveRecord::Base
       nil
     end
   end
-
-  def is_offered(year, season)
-    section = self.sections
-    if not section.nil?
-      self.sections.each do |section|
-        if not section.semester.nil?
-          if section.semester.year == year and section.semester.season == season
-            return true
-          end
-        end
-      end
-    end
-    return false
-  end
-
 end
