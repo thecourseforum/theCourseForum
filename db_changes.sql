@@ -120,3 +120,6 @@ CREATE TABLE `schedules_sections` (
 
 
 DROP TABLE `section_users`;
+
+ALTER TABLE courses 
+ADD COLUMN description text AFTER title;
