@@ -3,8 +3,13 @@
 
 // $ denotes jQuery - $(document) means we select the "document" or HTML page object
 // We attach an anonymous function to be executed when the page is "ready" - all DOM elements are loaded
+
+$(window).resize(function(){
+	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 25);
+});
+
 $(document).ready(function() {
-	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 40);
+	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 25);
 
 	// Utility class to format strings for display
 	var Utils = {
@@ -125,7 +130,7 @@ $(document).ready(function() {
 		// Remove the box for showing potential all day events
 		allDaySlot: false,
 		columnFormat: {
-			agendaWeek: 'dddd'
+			agendaWeek: 'ddd'
 		},
 		titleFormat: {
 			agendaWeek: 'yyyy'

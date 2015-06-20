@@ -60,7 +60,7 @@ class SchedulerController < ApplicationController
       render :nothing => true, :status => 404 and return unless course
 
       semester = Semester.find_by(:year => 2015, :season => 'Fall')
-      # Breaks up the course's sections by type, convertubg them to javascript sections,
+      # Breaks up the course's sections by type, converting them to javascript sections,
       # and wraps the result in json
       render :json => course.as_json.merge({
         #sets the course mnemonic from the search parameters
