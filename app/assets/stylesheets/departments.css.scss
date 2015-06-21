@@ -27,11 +27,72 @@
   margin-left: 46px;
 }
 
+.course-block {
+  height: 42px;
+  background-color: $orange;
+  width: 46px;
+  float: left;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 0;
+  margin: -20px -15px -10px -15px;
+}
+
+.course-panel {
+  margin-bottom: 3px;
+
+}
+
+.class-title {
+  margin-bottom: 5px;
+  margin-left: 46px;
+}
+
+.grades-row  {
+  height: 50px;
+  width: 71%;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.number-box {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.number-box > .row {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.row.number {  
+  font-size: 50px;
+}
+
+.class-name {
+  text-align: center;
+  font-size: 60px;
+  border-bottom: thin solid black;
+  padding-right: 30px;
+}
+
+.review-box {
+  padding-top: 20px;
+  .btn > a {
+    color:white;
+  }
+}
+
 
 /* SHOW */
 
 #dept-tabs > li > a {
   font-size: $subtitle-font-size;
+}
+
+#course-panel > .panel-heading {
+  padding-bottom: 0px;
 }
 
 .bli {

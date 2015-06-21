@@ -2,6 +2,7 @@
 
 = javascript_include_tag "courses"
 = javascript_include_tag "grades"
+= content_tag "div", id: "percentages-0", data: {url: @course.get_grade_percentages} do end
 
 .row#course-page
   .col-xs-3#courses-sidebar

@@ -1,6 +1,8 @@
 - content_for :title, @department.name
 - content_for :page_heading, @department.name
 
+= javascript_include_tag "grades"
+
 div#dept-list role="tabpanel" 
   /! Nav tabs
   ul#dept-tabs.nav.nav-tabs role="tablist" 
@@ -13,24 +15,83 @@ div#dept-list role="tabpanel"
   .tab-content
     #dept-courses.tab-pane.fade.in.active role="tabpanel"
       .container-fluid
-        - @subdepartments_with_sections.each do |subdepartment|
-          - if (@count > 1)
-            h2= subdepartment.name
-          ul#department-courses
-            - flag = true
-            - separator = 0
-            - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each do |course|
-              - if flag
-                - separator = (course.course_number / 1000) * 1000 + 1000
-                - flag = false
-              - if course.course_number >= separator
-                br
-                - separator = (course.course_number / 1000) * 1000 + 1000
-
-              - if course.is_offered(2014, "Fall")
-                .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
-              - else
-                li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+        #accordion
+          - @subdepartments_with_sections.each do |subdepartment|
+            - if (@count > 1)
+              h2= subdepartment.name
+            ul#department-courses
+              - flag = true
+              - separator = 1000
+              - numCourses = @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.count
+              = content_tag "div", id: "numCourses", data: {url: numCourses} do end
+              - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each_with_index do |course, index|
+                - ratings = course.get_review_ratings
+                - percentages = course.get_grade_percentages            
+                = content_tag "div", id: "percentages-#{index}", data: {url: percentages} do end
+                / = content_tag :div, class: "temp_information", data: {temp: @temp} 
+                - if flag
+                  h3="#{separator}:"
+                  - separator = (course.course_number / 1000) * 1000 + 1000
+                  - flag = false
+                - if course.course_number >= separator
+                  br
+                  h3="#{separator}:"
+                  - separator = (course.course_number / 1000) * 1000 + 1000
+                #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
+                  #course-panel.panel.panel-default
+                    .panel-heading(id="heading-#{index}" role="tab")                       
+                      .panel-title
+                        a.course-link.collapsed aria-controls="collapse-#{index}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{index}" 
+                          .course-block
+                            span.glyphicon.glyphicon-th-list                         
+                          / span.glyphicon.glyphicon-plus.pull-right 
+                          h4.class-title= "#{subdepartment.mnemonic} #{course.course_number} #{course.title}"                         
+                    .panel-collapse.collapse(id="collapse-#{index}")                    
+                      .panel-body
+                        .row
+                          .grades-row(id="grade-bar-#{index}")
+                        .col-md-7.course-data-box
+                          .row  
+                            .col-md-7.col-md-offset-2.class-name
+                              p= "#{subdepartment.mnemonic} #{course.course_number}"
+                          br
+                          .row                              
+                            .col-sm-2.col-md-offset-1
+                              .number-box
+                                .row.number
+                                  p= ratings[:overall]
+                                .row
+                                  p avg rating
+                            .col-sm-2.col-md-offset-1
+                              .number-box
+                                .row.number                             
+                                  p= ratings[:difficulty]
+                                .row
+                                  p avg difficulty
+                            .col-sm-2.col-md-offset-1
+                              .number-box
+                                .row.number                             
+                                  p= percentages[:gpa].round(2)
+                                .row
+                                  p avg gpa
+                        .col-md-4.review-box
+                          .row
+                            .col-md-12
+                              p=course.get_top_review[0..300] + "..."                        
+                          .row.review-box
+                            btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", course
+                /- percentages = course.get_grade_percentages
+                /=percentages["total"].to_s
+                / =percentages
+                /=" a plus is #{percentages["total"]} percent"
+                / .panel-group#accordion 
+                /   .panel.panel-default
+                /     h4.panel-title
+                /       a text
+                / - if course.is_offered(2014, "Fall")                  
+                /   .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+                / - else
+                /   li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
 
     #dept-professors.tab-pane.fade role="tabpanel"
       .container-fluid
