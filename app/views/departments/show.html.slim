@@ -79,7 +79,7 @@ div#dept-list role="tabpanel"
                             .col-md-12
                               p=course.get_top_review[0..300] + "..."                        
                           .row.review-box
-                            btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", course
+                            .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", course
                 /- percentages = course.get_grade_percentages
                 /=percentages["total"].to_s
                 / =percentages
