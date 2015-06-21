@@ -32,3 +32,9 @@
 .user-sign-up {
   color: white;
 }
+
+@media (max-width: 991px){
+  #hide-responsive{
+    display:none;
+  }
+}
