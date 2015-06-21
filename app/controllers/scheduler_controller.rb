@@ -219,7 +219,7 @@ class SchedulerController < ApplicationController
       start_times[0] == "" ? nil : {
         :section_id => section.id,
         :title => "#{section.course.subdepartment.mnemonic} #{section.course.course_number}",
-        :location => section.locations.empty? ? 'NA' : section.locations.first.location,
+        :location => section.locations.length==0 ? 'NA' : section.locations.first.location,
         :days => days,
         :start_times => start_times,
         :end_times => end_times,
