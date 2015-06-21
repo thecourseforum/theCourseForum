@@ -26,6 +26,7 @@
  *= require books
  */
 
+$grid-float-breakpoint: 850px;
 
 @import "variables";
 @import "bootstrap-sprockets";
@@ -80,8 +81,13 @@ body {
 aside {
   width: $sidebar-width !important;
   float: left;
+  display: block;
   @media only screen and (max-width: 850px) {
     display: none;
+    background-color: $blue;
+    position: relative;
+    z-index: 1;
+    height: 100%
   }
 }
 
@@ -174,4 +180,16 @@ select {
 .page-title {
   margin-top: 0px;
   margin-bottom: 31px;
+}
+
+@media (min-width:851px){
+  #show-responsive{
+    display: none;
+  }
+}
+
+@media (max-width:850px){
+  #hide-responsive{
+    display: block;
+  }
 }

@@ -34,7 +34,37 @@
 //= require highcharts/highcharts-more
 
 var ready = function() {
+	$(window).resize(function(){
+		if ($(window).width()>=850){
+			$('aside').show();
+		} else{
+			$('aside').hide();
+		}
+	});
 
+	$('.navbar-toggle').click(function(){
+		$('aside').toggle('slide', {direction:'left'},"fast");
+	});
+
+
+	$(document).mousedown(function (e){
+
+	    	if (! $("aside").is(e.target)
+	       	 &&  $("aside").has(e.target).length === 0
+	    		 &&  $(window).width() < 850
+	    		 &&  ! $(".navbar-toggle").is(e.target))
+	    	{
+	        	 $("aside").hide('slide', "fast");
+	    	}
+	});
+
+	$(document).keydown(function (e){
+		if (e.which === 27){
+			$("aside").hide('slide', 'fast');
+		}
+	});
+
+	
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
 	});
