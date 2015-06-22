@@ -48,7 +48,11 @@ var ready = function() {
 
 
 	$(document).mousedown(function (e){
-
+		console.log($("a#user-account").is(e.target));
+		console.log(e.target);
+		if ( $("a#user-account").is(e.target)){
+			$(".col-secondary").toggle("fast");
+		}
 	    	if (! $("aside").is(e.target)
 	       	 &&  $("aside").has(e.target).length === 0
 	    		 &&  $(window).width() < 850
@@ -64,7 +68,6 @@ var ready = function() {
 		}
 	});
 
-	
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
 	});
