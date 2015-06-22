@@ -12,6 +12,8 @@ class Section < ActiveRecord::Base
   has_many :books, :through => :book_requirements, :source => :book
   has_many :book_requirements
 
+  has_many :textbook_transactions
+
   has_and_belongs_to_many :schedules
 
   has_many :professors, :through => :section_professors
