@@ -34,36 +34,29 @@
 //= require highcharts/highcharts-more
 
 var ready = function() {
-	$(window).resize(function(){
-		if ($(window).width()>=850){
-			$('aside').show();
-		} else{
-			$('aside').hide();
-		}
-	});
 
-	$('.navbar-toggle').click(function(){
-		$('aside').toggle('slide', {direction:'left'},"fast");
+	// Attatches navbar-toggle button to sidebar
+	$('.navbar-toggle').click(function() {
+		$('aside').toggle('slide', {
+			direction: 'left'
+		}, "fast");
 	});
 
 
-	$(document).mousedown(function (e){
-		console.log($("a#user-account").is(e.target));
-		console.log(e.target);
-		if ( $("a#user-account").is(e.target)){
+	$(document).mousedown(function(e) {
+		// expands user-account options in sidebar on click
+		if ($("a#user-account").is(e.target)) {
 			$(".col-secondary").toggle("fast");
 		}
-	    	if (! $("aside").is(e.target)
-	       	 &&  $("aside").has(e.target).length === 0
-	    		 &&  $(window).width() < 850
-	    		 &&  ! $(".navbar-toggle").is(e.target))
-	    	{
-	        	 $("aside").hide('slide', "fast");
-	    	}
+		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
+		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target)) {
+			$("aside").hide('slide', "fast");
+		}
 	});
 
-	$(document).keydown(function (e){
-		if (e.which === 27){
+	// retracts sidebar if esc key is pressed
+	$(document).keydown(function(e) {
+		if (e.which === 27) {
 			$("aside").hide('slide', 'fast');
 		}
 	});
