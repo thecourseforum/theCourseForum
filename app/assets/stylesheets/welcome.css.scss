@@ -1,4 +1,5 @@
 @import "variables";
+@import "bootstrap/variables";
 
 .catch-phrase {
   margin-top: 5px;
@@ -33,8 +34,8 @@
   color: white;
 }
 
-@media (max-width: 991px){
-  #hide-responsive{
+@media (max-width: $screen-md){
+  #hide-welcome{
     display:none;
   }
 }

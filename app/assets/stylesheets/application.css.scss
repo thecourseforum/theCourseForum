@@ -26,6 +26,8 @@
  *= require books
  */
 
+$screen-sm: 850px;
+$screen-sm-min: 851px;
 
 @import "variables";
 @import "bootstrap-sprockets";
@@ -80,8 +82,15 @@ body {
 aside {
   width: $sidebar-width !important;
   float: left;
-  @media only screen and (max-width: 850px) {
+  @media only screen and (min-width: $screen-sm-min) {
+    display: block!important;
+  }
+  @media only screen and (max-width: $screen-sm) {
     display: none;
+    background-color: $blue;
+    position: relative;
+    z-index: 1;
+    height: 100%
   }
 }
 
@@ -93,7 +102,7 @@ section#main {
   left: 0;
   right: 0;
 
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: $screen-sm) {
     margin-left: 0;
   }
   
@@ -174,4 +183,16 @@ select {
 .page-title {
   margin-top: 0px;
   margin-bottom: 31px;
+}
+
+@media (min-width: $screen-sm-min){
+  #show-responsive{
+    display: none;
+  }
+}
+
+@media (max-width: $screen-sm){
+  #hide-responsive{
+    display: block;
+  }
 }
