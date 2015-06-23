@@ -185,13 +185,13 @@ select {
   margin-bottom: 31px;
 }
 
-@media (min-width:$screen-sm-min){
+@media (min-width: $screen-sm-min){
   #show-responsive{
     display: none;
   }
 }
 
-@media (max-width:$screen-sm){
+@media (max-width: $screen-sm){
   #hide-responsive{
     display: block;
   }
