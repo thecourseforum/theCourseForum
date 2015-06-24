@@ -1,9 +1,12 @@
 class TextbookTransactionsController < ApplicationController
 
 	def index
+		@textbook_transactions = TextbookTransaction.active
 	end
 
 	def create
+		@textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
+		render json: {:sucess => @textbook_transaction.save}
 	end
 
 	def new

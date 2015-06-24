@@ -4,15 +4,12 @@ CREATE TABLE `textbook_transactions` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`seller_id` int(11) NOT NULL,
 	`buyer_id` int(11) DEFAULT NULL,
-	`course_id` int(11) DEFAULT NULL,
-	`title` varchar(255) NOT NULL,
-	`isbn` varchar(255) DEFAULT NULL,
+	`book_id` int(11) NOT NULL,
 	`price` int(11) NOT NULL,
 	`created_at` datetime NOT NUll,
 	`updated_at` datetime NOT NUll,
-	`active` bool DEFAULT TRUE,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `index_textbook_transactions_on_active` (`active`) USING BTREE
+	`sold_at` datetime DEFAULT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE users

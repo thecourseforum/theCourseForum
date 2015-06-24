@@ -7,10 +7,13 @@ log = File.open("#{Rails.root.to_s}/books/bookstore_#{Time.now.strftime("%Y.%m.%
 initial_time = Time.now
 
 
-puts 'Wiping books and book_requirements...'
+puts 'Wiping book_requirements...'
 
-Book.delete_all
-BookRequirement.delete_all
+semester_id = Semester.find_by(:season => 'Fall', :year => 2015)
+
+BookRequirement.includes(:section => :semester).load.select{ |br|
+	br.section.semester.id == semester_id
+}.map(&:delete)
 
 headers = {
 	:Referer => "http://www.uvabookstores.com/uvatext/",
@@ -52,24 +55,30 @@ departments.each do |xml_department|
 			section_number = xml_section['name']
 			section_id = xml_section['id']
 
-			section = course.sections.find_by(:section_number => section_number)
+			section = course.sections.find_by(:section_number => section_number, :semester => semester_id)
 
 			unless section
 				log.puts "No Section: #{mnemonic} #{course_number} #{section_number}"
 				next
 			end
 
-			Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}", headers)).css('.course-required').each_with_index do |book_info, index|
-				new_price = nil
-				new_data = book_info.css(".tr-radio-sku")[0]
-				unless new_data.css('input').first["disabled"]
-					new_price = new_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
-				end
-				used_price = nil
-				used_data = book_info.css(".tr-radio-sku")[1]
-				unless used_data.css('input').first["disabled"]
-					used_price = used_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
-				end
+			Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}", headers)).css('.book.course-required').each_with_index do |book_info, index|
+				# new_price = nil
+				# new_data = book_info.css(".tr-radio-sku")[0]
+				# unless new_data.css('input').first["disabled"]
+				# 	new_price = new_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
+				# 	new_
+				# end
+				# used_price = nil
+				# used_data = book_info.css(".tr-radio-sku")[1]
+				# unless used_data.css('input').first["disabled"]
+				# 	used_price = used_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
+				# end
+
+				new_price = book_info.css(".book-price-list").text.delete("$").to_f
+				new_price = nil if new_price == 0
+				used_price = book_info.css(".price").css("label").text.delete("$").to_f
+				used_price = nil if used_price == 0
 
 				isbn = book_info.css('.isbn').text
 
