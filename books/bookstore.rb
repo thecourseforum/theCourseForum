@@ -13,14 +13,7 @@ Book.delete_all
 BookRequirement.delete_all
 
 headers = {
-	:Host => "www.uvabookstores.com",
-	:Connection => "keep-alive",
-	:"User-Agent" => "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2431.0 Safari/537.36",
-	:Accept => "*/*",
 	:Referer => "http://www.uvabookstores.com/uvatext/",
-	:"Accept-Encoding" => "gzip, deflate, sdch",
-	:"Accept-Language" => "en-US,en;q=0.8",
-	:Cookie => "mscssid=7F774005A54744F5A1B991CBA0008DB5; cookies=true; referring_url=https%3A//www.google.com/; ASPSESSIONIDASATTQBS=KNFLHDPABGLBMOLLFGDLJHOG; __utmt=1; __utma=174301670.1461185500.1434961660.1435105496.1435108482.6; __utmb=174301670.2.9.1435108482; __utmc=174301670; __utmz=174301670.1435108482.6.6.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)"
 }
 
 departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92', headers)).departments.department
