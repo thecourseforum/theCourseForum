@@ -12,7 +12,18 @@ puts 'Wiping books and book_requirements...'
 Book.delete_all
 BookRequirement.delete_all
 
-departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92')).departments.department
+headers = {
+	:Host => "www.uvabookstores.com",
+	:Connection => "keep-alive",
+	:"User-Agent" => "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2431.0 Safari/537.36",
+	:Accept => "*/*",
+	:Referer => "http://www.uvabookstores.com/uvatext/",
+	:"Accept-Encoding" => "gzip, deflate, sdch",
+	:"Accept-Language" => "en-US,en;q=0.8",
+	:Cookie => "mscssid=7F774005A54744F5A1B991CBA0008DB5; cookies=true; referring_url=https%3A//www.google.com/; ASPSESSIONIDASATTQBS=KNFLHDPABGLBMOLLFGDLJHOG; __utmt=1; __utma=174301670.1461185500.1434961660.1435105496.1435108482.6; __utmb=174301670.2.9.1435108482; __utmc=174301670; __utmz=174301670.1435108482.6.6.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)"
+}
+
+departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92', headers)).departments.department
 departments = [departments] if departments.class == Nokogiri::XML::Element
 departments.each do |xml_department|
 	mnemonic = xml_department['abrev']
@@ -27,7 +38,7 @@ departments.each do |xml_department|
 
 	puts "Parsing #{mnemonic}"
 
-	courses = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=department&dept=#{department_id}&term=92")).courses.course
+	courses = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=department&dept=#{department_id}&term=92", headers)).courses.course
 	courses = [courses] if courses.class == Nokogiri::XML::Element
 	courses.each do |xml_course|
 		course_number = xml_course['name']
@@ -42,7 +53,7 @@ departments.each do |xml_department|
 
 		puts "Parsing #{mnemonic} #{course_number}"
 
-		sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=92")).sections.section
+		sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=92", headers)).sections.section
 		sections = [sections] if sections.class == Nokogiri::XML::Element
 		sections.each do |xml_section|
 			section_number = xml_section['name']
@@ -55,7 +66,7 @@ departments.each do |xml_department|
 				next
 			end
 
-			Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}")).css('.course-required').each_with_index do |book_info, index|
+			Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}", headers)).css('.course-required').each_with_index do |book_info, index|
 				new_price = nil
 				new_data = book_info.css(".tr-radio-sku")[0]
 				unless new_data.css('input').first["disabled"]
