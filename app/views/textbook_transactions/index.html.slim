@@ -15,22 +15,23 @@
 
 ul.nav.nav-tabs
   li.active role="presentation"
-    a href="#" role="tab" data-toggle="tab" All
-  li role="presentation"
+    a#all-listings-button href="#" role="tab" data-toggle="tab" All
+  li#selling-listings-button role="presentation"
     a href="#" role="tab" data-toggle="tab" Selling
-  li role="presentation"
+  li#buying-listings-button role="presentation"
     a href="#" role="tab" data-toggle="tab" Buying
 
 table.table.table-hover.table-striped
   thead
     tr
+      th.text-hide buy or sell
       th Title
-      th Course
+      th Course(s)
       th Author
       th Price
       th Condition
-      th Post Date
       th End Date
+      th.text-hide claim
   tbody#books
     tr.book.hidden data-toggle='popover'
       td#course
@@ -38,14 +39,19 @@ table.table.table-hover.table-striped
       td#author
       td#price
       td#condition
-      td#post-date
       td#end-date
+      td#claim
     - @textbook_transactions.each do |textbook_transaction|
       tr
+        - if textbook_transaction.seller_id
+          td.sell-listing S 
+        - else
+          td.buy-listing B
         td = textbook_transaction.book.title
         td = textbook_transaction.book.sections.map(&:course).map(&:title).uniq.join("/")
         td = textbook_transaction.book.author
         td = "$" + textbook_transaction.price.to_s
         td = textbook_transaction.condition
-        td = textbook_transaction.created_at.localtime.strftime("%m/%d/%y %I:%M %p")
         td = (textbook_transaction.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")
+        td
+          button.btn.btn-default.claim Claim

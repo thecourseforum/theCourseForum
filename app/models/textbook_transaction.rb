@@ -4,7 +4,9 @@ class TextbookTransaction < ActiveRecord::Base
 
 	belongs_to :book
 
+	validates_presence_of :price, :condition, :book_id
+
 	def self.active
-		TextbookTransaction.includes(book: {sections: :course}).where("created_at > ?",(Time.now - 3.days))
+		TextbookTransaction.includes(book: {sections: :course}).where("created_at > ?",(Time.now - 3.days)).where.not("seller_id is not null and buyer_id is not null")
 	end
 end

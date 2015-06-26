@@ -29,3 +29,24 @@
 	right: 0px;
 	text-align: center;
 }
+
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus {
+    background-color: #D75626;
+}
+
+.nav-pills > li {
+    background-color: #eeeeee;
+}
+
+#buy-or-sell {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 15px;
+}
+
+.claim {
+	border-radius: 5px;
+	border: 1px solid #D75626;
+}
