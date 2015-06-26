@@ -1,0 +1,51 @@
+= javascript_include_tag "textbook_transactions"
+= stylesheet_link_tag "textbook_transactions"
+
+- content_for :page_heading, "Textbook Listings"
+
+#mnemonics-form.form-group.has-feedback
+  #above-search-bar
+    ul
+      li
+        label.control-label for="search"  Search
+      li
+        button#post-listing.btn.btn-primary Post a Listing!
+  #mnemonics = search_field_tag "course-mnemonics", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
+  #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
+
+ul.nav.nav-tabs
+  li.active role="presentation"
+    a href="#" role="tab" data-toggle="tab" All
+  li role="presentation"
+    a href="#" role="tab" data-toggle="tab" Selling
+  li role="presentation"
+    a href="#" role="tab" data-toggle="tab" Buying
+
+table.table.table-hover.table-striped
+  thead
+    tr
+      th Title
+      th Course
+      th Author
+      th Price
+      th Condition
+      th Post Date
+      th End Date
+  tbody#books
+    tr.book.hidden data-toggle='popover'
+      td#course
+      td#title
+      td#author
+      td#price
+      td#condition
+      td#post-date
+      td#end-date
+    - @textbook_transactions.each do |textbook_transaction|
+      tr
+        td = textbook_transaction.book.title
+        td = textbook_transaction.book.sections.map(&:course).map(&:title).uniq.join("/")
+        td = textbook_transaction.book.author
+        td = "$" + textbook_transaction.price.to_s
+        td = textbook_transaction.condition
+        td = textbook_transaction.created_at.localtime.strftime("%m/%d/%y %I:%M %p")
+        td = (textbook_transaction.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")

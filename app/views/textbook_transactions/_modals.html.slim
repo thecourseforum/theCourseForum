@@ -1,0 +1,23 @@
+#post-listing-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h3 Post a Listing!
+        .modal-body
+          form#textbook_transaction
+            .form-group
+              label Book Title
+              input#book-title.form-control placeholder="Enter title" name="title"
+              p.help-block
+            .form-group
+              label Cellphone #
+              input.form-control placeholder="Yo digits!" name="cellphone" value=(current_user ? current_user.cellphone : '')
+            .form-group
+              label Price
+              input.form-control rows="3" name="price" placeholder="$30"
+            .form-group
+              label Condition
+              input.form-control rows="3" name="condition"
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary#submit-listing type="button" Submit

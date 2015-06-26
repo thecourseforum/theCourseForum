@@ -5,6 +5,6 @@ class TextbookTransaction < ActiveRecord::Base
 	belongs_to :book
 
 	def self.active
-		TextbookTransaction.where(:created_at > (Time.now - 3.days))
+		TextbookTransaction.includes(book: {sections: :course}).where("created_at > ?",(Time.now - 3.days))
 	end
 end

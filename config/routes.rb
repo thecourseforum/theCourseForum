@@ -43,14 +43,23 @@ TheCourseForum::Application.routes.draw do
   resources :books, :only => [:index]
   get '/books/courses' => 'books#courses'
 
-  resources :textbook_transactions
 
+  # Autocomplete for books feature
   resources :books, :only => [] do
     collection do
       get :search_subdepartment
     end
   end
  
+  resources :textbook_transactions
+  # Autocomplete for textbook titles
+  resources :textbook_transactions, :only => [] do
+    collection do
+      get :data
+      get :search_book_titles
+    end
+  end
+
   resources :search, :only => [] do
     collection do
       get :search
