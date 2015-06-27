@@ -27,7 +27,6 @@
  */
 
 $screen-sm: 850px;
-$screen-sm-min: 851px;
 
 @import "variables";
 @import "bootstrap-sprockets";
@@ -183,16 +182,4 @@ select {
 .page-title {
   margin-top: 0px;
   margin-bottom: 31px;
-}
-
-@media (min-width: $screen-sm-min){
-  #show-responsive{
-    display: none;
-  }
-}
-
-@media (max-width: $screen-sm){
-  #hide-responsive{
-    display: block;
-  }
 }
