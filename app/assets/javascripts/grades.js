@@ -207,7 +207,8 @@ $(function () {
             // Create the chart
             $('.col-xs-6.course-grades').highcharts({
                 chart: {
-                    type: 'pie'
+                    type: 'pie',
+                    height: 315
                 },
                 title: {         
                  verticalAlign: 'middle',

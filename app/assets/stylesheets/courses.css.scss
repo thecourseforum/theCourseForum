@@ -12,6 +12,11 @@ $lightgray: #cccccc;
   padding-right: 5px;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px
+}
+
 .col-xs-2 {
   padding-left: 0px;
   padding-right: 5px;
@@ -48,7 +53,7 @@ img {
 }
 
 .rating-row, .rating {
-  height:140px;
+  height:100px;
 }
 
 .pagination {
@@ -56,23 +61,27 @@ img {
 }
 
 .rating {
-  font-size: 56px;
-  font-size: 4vw;
+  font-size: 78px;
+  font-size: 5vw;
+  font-family: 'OpenSans';
+  color: rgb(215, 86, 38);
   text-align: center;
   position: absolute;
   top: 30%;
 }
 
 .ratings-stats, .workload-stats {
-  height:190px;
+  height:155px;
   /* Rectangle 13 Copy: */
   background: #FFFFFF;
   border: 1px solid #979797;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
   padding-right: 5px;
+  margin-bottom: 10px;
 }
 
 .course-grades {
+  height: 320px;
   padding-left: 5px;
   border: 1px solid #979797;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
@@ -145,7 +154,7 @@ img {
 }
 
 .stat-row {
-  height: 44px;
+  height: 30px;
 }
 
 .single-review {
@@ -161,7 +170,7 @@ img {
   //border-right-color: black;
   padding-right: 5px;
   padding-left: 5px;
-  height:190px;
+  height:150px;
   border-right: $blue 1px solid;
 }
 
@@ -170,6 +179,7 @@ img {
   font-size: 8px;
   padding-left: 5px;
   padding-right: 5px;
+  padding-top: 5px;
 }
 
 .icon-text {
@@ -179,7 +189,7 @@ img {
 .stats-col {
   padding-left: 0px;
   padding-right: 0px;
-  padding-top:12px;
+  padding-top:2px;
 }
 
 

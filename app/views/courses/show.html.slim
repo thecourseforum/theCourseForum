@@ -23,12 +23,12 @@
 
 
   .col-xs-12#courses-main
-    .row
-      .col-xs-6
-        .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
-      .col-xs-6
-        .orange-title Cumulative Grades
-    br
+    / .row
+    /   .col-xs-6
+    /     .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
+    /   .col-xs-6
+    /     .orange-title Cumulative Grades
+    / br
     .container-fluid
       .row.course-breakdown
         .col-xs-6.course-stats
@@ -75,7 +75,6 @@
                     .skillbar-bar
                 .col-xs-2=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
 
-          br
           .row.workload-stats
             .col-xs-4.overall-col
               .row.rating-row
@@ -202,19 +201,19 @@ br
                 = r.overall
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/user_gray.png"
+                span.rating-icon= image_tag("icons/professor.png", size: "20")
                 = r.professor_rating
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/emoticon_smile.png"
+                span.rating-icon= image_tag("icons/happy.png", size: "20")
                 = r.enjoyability
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/user_comment.png"
+                span.rating-icon= image_tag("icons/difficulty.png", size: "20")
                 = r.difficulty
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/pencil.png"
+                span.rating-icon= image_tag("icons/recommend.png", size: "20")
                 = r.recommend
           
         br
