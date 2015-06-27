@@ -35,6 +35,32 @@
 
 var ready = function() {
 
+	// Attatches navbar-toggle button to sidebar
+	$('.navbar-toggle').click(function() {
+		$('aside').toggle('slide', {
+			direction: 'left'
+		}, "fast");
+	});
+
+
+	$(document).mousedown(function(e) {
+		// expands user-account options in sidebar on click
+		if ($("a#user-account").is(e.target)) {
+			$(".col-secondary").toggle("fast");
+		}
+		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
+		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target)) {
+			$("aside").hide('slide', "fast");
+		}
+	});
+
+	// retracts sidebar if esc key is pressed
+	$(document).keydown(function(e) {
+		if (e.which === 27) {
+			$("aside").hide('slide', 'fast');
+		}
+	});
+
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
 	});
