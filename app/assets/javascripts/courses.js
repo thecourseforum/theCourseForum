@@ -40,6 +40,13 @@ ready = function() {
 		});
 	});
 
+
+	$('.skillbar').each(function(){
+		$(this).find('.skillbar-bar').animate({
+			width:$(this).attr('data-percent')
+		},1000);
+	});
+
 	//hides the professors list on course page when the professor list is clicked
 	var toggled = true;
 	$("#courses-sidebar").click(function(){

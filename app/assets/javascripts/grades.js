@@ -254,7 +254,7 @@ $(function () {
                 {
                     name: '',
                     data: plusOrMinus,
-                    size: '90%',
+                    size: '100%',
                     innerSize: '60%',
                     dataLabels: {
                         formatter: function () {
