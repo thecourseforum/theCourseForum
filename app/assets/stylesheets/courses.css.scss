@@ -1,5 +1,9 @@
 @import "variables";
 
+/*body {
+  font-family: "OpenSans";
+}*/
+
 #courses-main {
   padding-left: 0px;
   padding-right: 0px;
@@ -62,12 +66,13 @@ img {
 
 .rating {
   font-size: 78px;
-  font-size: 5vw;
+  font-size: 4.5vw;
   font-family: 'OpenSans';
   color: rgb(215, 86, 38);
   text-align: center;
+  height: 50px;
+  margin-top: 40px;
   position: absolute;
-  top: 30%;
 }
 
 .ratings-stats, .workload-stats {
@@ -109,7 +114,7 @@ img {
 }
 
 .title-row {
-  margin-top: 30px;
+  margin-top: 0px;
   background-color: #FFFFFF;
   height: 190px;
   /* Rectangle 13 Copy 2: */
