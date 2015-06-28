@@ -1,0 +1,110 @@
+- content_for :title, @course.title
+- content_for :page_heading, @course.title
+
+= javascript_include_tag "grades"
+
+div#prof-list role="tabpanel" 
+  /! Nav tabs
+  ul#dept-tabs.nav.nav-tabs role="tablist" 
+    li.active role="presentation" 
+      a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
+  /! Tab panes
+  br
+  .tab-content
+    #dept-courses.tab-pane.fade.in.active role="tabpanel"
+      .container-fluid
+        #accordion        
+          ul#department-courses              
+            - numSections = @professors.count
+            = content_tag "div", id: "numCourses", data: {count: numSections} do end
+            - @professors.each_with_index do |professor, index|
+              - percentages = @course.get_grade_percentages(professor.id)
+              = content_tag "div", id: "percentages-#{index}", data: {percents: percentages} do end
+              - ratings = @course.get_review_ratings(professor.id)
+              - review = @course.get_top_review(professor.id)
+              #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
+                #course-panel.panel.panel-default
+                  .panel-heading.prof-heading(id="heading-#{index}" role="tab")                       
+                    .panel-title
+                      a.course-link.collapsed aria-controls="collapse-#{index}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{index}"                         
+                        / span.glyphicon.glyphicon-plus.pull-right 
+                        .prof-block
+                          span.glyphicon.glyphicon-th-list                         
+                        .row.panel-title-content                          
+                          span.col-md-3.prof-title= "#{professor.first_name} #{professor.last_name}"
+                          .col-md-2
+                            - if review                            
+                              .glyphicon.glyphicon-pencil 
+                              span Has reviews
+                          .col-md-2
+                            - if percentages[:a] != 0
+                              .glyphicon.glyphicon-tasks
+                              span Has grades
+                  .panel-collapse.collapse(id="collapse-#{index}")                    
+                    .panel-body
+                      .row
+                        .grades-row(id="grade-bar-#{index}")
+                      .col-md-6.course-data-box                        
+                        .col-md-offset-1
+                          .class-name
+                            p= "#{professor.last_name}"
+                        br
+                        .row                              
+                          .col-sm-2.col-md-offset-2
+                            .number-box
+                              .row.number
+                                p= ratings[:overall]
+                              .row
+                                p avg rating
+                          .col-sm-3.col-md-offset-1
+                            .number-box
+                              .row.number                             
+                                p= ratings[:difficulty]
+                              .row
+                                p avg difficulty
+                          .col-sm-2.col-md-offset-1
+                            .number-box
+                              .row.number                             
+                                p= percentages[:gpa].round(2)
+                              .row
+                                p avg gpa
+                      .col-md-5.col-md-offset-1.review-box
+                        .row
+                          .col-md-12
+                            - if review
+                              - if review.length >= 300
+                                p= review[0..300] + "..."                        
+                              - else 
+                                p= review[0..300]
+                            - else 
+                              p No reviews yet :(
+                        .row.review-box
+                          .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "View course", @course
+              /- percentages = course.get_grade_percentages
+                /=percentages["total"].to_s
+                / =percentages
+                /=" a plus is #{percentages["total"]} percent"
+                / .panel-group#accordion 
+                /   .panel.panel-default
+                /     h4.panel-title
+                /       a text
+                / - if course.is_offered(2014, "Fall")                  
+                /   .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+                / - else
+                /   li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
+
+    / #dept-professors.tab-pane.fade role="tabpanel"
+    /   .container-fluid
+    /     .row
+    /       .col-xs-4
+    /         - @professors[0].each do |professor|
+    /           .prof= link_to professor.separated_name, professor_path(professor)
+    /       .col-xs-4
+    /         - @professors[1].each do |professor|
+    /           .prof= link_to professor.separated_name, professor_path(professor)
+    /       .col-xs-4
+    /         - @professors[2].each do |professor|
+    /           .prof= link_to professor.separated_name, professor_path(professor)
+        
+
+    

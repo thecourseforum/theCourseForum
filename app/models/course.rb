@@ -54,13 +54,18 @@ class Course < ActiveRecord::Base
     return false
   end
 
-  def get_top_review
-    self.reviews.last ? self.reviews.last.comment : "No reviews sorry :("
+  def get_top_review(prof_id = -1)
+    if prof_id != -1
+      review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
+    else 
+      review = Review.where(:course_id => self.id).where.not(:comment => '').last
+    end
+    review ? review.comment : nil
     # review.comment
   end
 
-  def get_review_ratings
-      @all_reviews = @professor ? Review.where(:course_id => self.id, :professor_id => @professor.id) : Review.where(:course_id => self.id)
+  def get_review_ratings(prof_id = -1)    
+      @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)
 
       ratings = {
         prof: 0,
@@ -89,7 +94,7 @@ class Course < ActiveRecord::Base
 
 
   # Returns the percentage of A's, B's, C's etc and GPA for the course (1 section or multiple sections)
-  def get_grade_percentages
+  def get_grade_percentages(prof_id = -1)
     # these keys will correspond to the the grade's attributes (count_a, count_aminus, etc)
     percentages = {
       a: 0,
@@ -115,9 +120,9 @@ class Course < ActiveRecord::Base
     }
 
     # Gets the grades for the course or for the professor's sections
-    if @professor
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", self.id, @professor.id])
-    else
+    if prof_id != -1      
+      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", self.id, prof_id])
+    else      
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", self.id])
     end
 

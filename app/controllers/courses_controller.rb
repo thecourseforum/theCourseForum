@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
     @recommended_books  = @course.book_requirements_list("Recommended")
     @optional_books  = @course.book_requirements_list("Optional")
     @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
-
+    pr "analyzing url again"
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
     end
@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
     end
 
 
-    if @professor
+    if @professor      
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
     else
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
@@ -63,6 +63,15 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html # show.html.slim
       format.json { render json: @course, :methods => :professors_list}
+    end
+  end
+
+
+  def show_professors
+    @course = Course.find(params[:id])
+    @professors = @course.professors.uniq    
+    respond_to do |format|
+      format.html # show_professors.html.slim
     end
   end
 

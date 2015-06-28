@@ -23,11 +23,12 @@ div#dept-list role="tabpanel"
               - flag = true
               - separator = 1000
               - numCourses = @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.count
-              = content_tag "div", id: "numCourses", data: {url: numCourses} do end
+              = content_tag "div", id: "numCourses", data: {count: numCourses} do end
               - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each_with_index do |course, index|
                 - ratings = course.get_review_ratings
-                - percentages = course.get_grade_percentages            
-                = content_tag "div", id: "percentages-#{index}", data: {url: percentages} do end
+                - percentages = course.get_grade_percentages        
+                - review = course.get_top_review    
+                = content_tag "div", id: "percentages-#{index}", data: {percents: percentages} do end
                 / = content_tag :div, class: "temp_information", data: {temp: @temp} 
                 - if flag
                   h3="#{separator}:"
@@ -77,9 +78,15 @@ div#dept-list role="tabpanel"
                         .col-md-4.review-box
                           .row
                             .col-md-12
-                              p=course.get_top_review[0..300] + "..."                        
+                              - if review
+                                - if review.length >= 300
+                                  p= review[0..300] + "..."                        
+                                - else 
+                                  p= review[0..300]
+                              - else 
+                                p No reviews yet :(                   
                           .row.review-box
-                            .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", course
+                            .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", '/courses/' + course.id.to_s + '/professors'
                 /- percentages = course.get_grade_percentages
                 /=percentages["total"].to_s
                 / =percentages

@@ -82,6 +82,32 @@
   margin-right: 4px;
 }
 
+.panel-title-content {
+  padding-top: 0;
+  margin-top:0;
+  vertical-align: middle;
+}
+
+.prof-block {
+  height: 46px;
+  background-color: $orange;
+  width: 46px;
+  float: left;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 0;
+  margin-top: -10px;  
+  margin-left: -15px;
+}
+
+.prof-heading {
+  margin-bottom: 5px;  
+}
+
+.prof-title {
+  font-size: 18px;
+}
 
 /* http://codepen.io/CreativeJuiz/pen/BiHzp */
 /* http://webdesign.tutsplus.com/tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953 */
