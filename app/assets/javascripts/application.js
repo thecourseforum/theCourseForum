@@ -42,12 +42,12 @@ var ready = function() {
 		}, "fast");
 	});
 
+	// expands user-account options in sidebar on click
+	$("a#user-account").click(function() {
+		$(".col-secondary").toggle("fast");
+	});
 
 	$(document).mousedown(function(e) {
-		// expands user-account options in sidebar on click
-		if ($("a#user-account").is(e.target)) {
-			$(".col-secondary").toggle("fast");
-		}
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
 		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target)) {
 			$("aside").hide('slide', "fast");
@@ -56,7 +56,7 @@ var ready = function() {
 
 	// retracts sidebar if esc key is pressed
 	$(document).keydown(function(e) {
-		if (e.which === 27) {
+		if (e.which === 27 && $(window).width() < 850) {
 			$("aside").hide('slide', 'fast');
 		}
 	});
