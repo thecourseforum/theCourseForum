@@ -1,14 +1,95 @@
 @import "variables";
 
-#courses-main {
+/*body {
+  font-family: "OpenSans";
+}*/
 
+#courses-main {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
+$lightgray: #cccccc;
+
+// .col-xs-6, .col-xs-7 {
+//   padding-left: 5px;
+//   padding-right: 5px;
+// }
+
+// .container-fluid {
+//   padding-left: 0px;
+//   padding-right: 0px
+// }
+
+// .col-xs-2 {
+//   padding-left: 0px;
+//   padding-right: 5px;
+//   font-size:12px;
+//   text-align: center;
+//   padding-top: 8px;
+// }
+
+img {
+  vertical-align: middle;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/*.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}*/
+
+
 #courses-sidebar {
-  // 590px foudn to be the max height of #courses-main
+  // 590px found to be the max height of #courses-main
   max-height: 590px;
   overflow-y: auto;
   border-right: 1px solid black;
+}
+
+.course-stats {
+  padding-left: 0px;
+  padding-right: 5px;
+}
+
+.rating-row, .rating {
+  height:100px;
+}
+
+.pagination {
+  font-size: 1.3vw;
+}
+
+.rating {
+  font-size: 78px;
+  font-size: 4.5vw;
+  font-family: 'OpenSans';
+  color: rgb(215, 86, 38);
+  text-align: center;
+  height: 50px;
+  margin-top: 40px;
+  position: absolute;
+}
+
+.ratings-stats, .workload-stats {
+  height:155px;
+  /* Rectangle 13 Copy: */
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  padding-right: 5px;
+  margin-bottom: 10px;
+}
+
+.course-grades {
+  height: 320px;
+  padding-left: 5px;
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
 }
 
 #save-course .btn.btn-primary {
@@ -19,6 +100,11 @@
   font-size: 20px;
 }
 
+// .row {
+//   margin-left: 0px;
+//   margin-right: 0px;
+// }
+
 .rating-title {
   color: $blue;
 }
@@ -28,7 +114,12 @@
 }
 
 .title-row {
-  border-bottom: solid 1px $blue;
+  margin-top: 0px;
+  background-color: #FFFFFF;
+  height: 190px;
+  /* Rectangle 13 Copy 2: */
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
 }
 
 .title {
@@ -68,9 +159,7 @@
 }
 
 .stat-row {
-  border-bottom: 1px dotted $blue;
-  height: 40px;
-  padding-top: 8px;
+  height: 30px;
 }
 
 .single-review {
@@ -108,6 +197,64 @@
 .prof-title {
   font-size: 18px;
 }
+
+.overall-col {
+  //border-right-color: black;
+  padding-right: 5px;
+  padding-left: 5px;
+  height:150px;
+  border-right: $blue 1px solid;
+}
+
+
+.icon {
+  font-size: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.icon-text {
+  text-align: center;
+}
+
+.stats-col {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top:2px;
+}
+
+
+
+.skillbar {
+  margin-top: 8px;
+  vertical-align: middle;
+  position:relative;
+  display:block;
+  margin-bottom:15px;
+  width:100%;
+  background:#eee;
+  height:13px;
+  -webkit-transition:0.4s linear;
+  -moz-transition:0.4s linear;
+  -ms-transition:0.4s linear;
+  -o-transition:0.4s linear;
+  transition:0.4s linear;
+  -webkit-transition-property:width, background-color;
+  -moz-transition-property:width, background-color;
+  -ms-transition-property:width, background-color;
+  -o-transition-property:width, background-color;
+  transition-property:width, background-color;
+}
+
+.skillbar-bar {
+  vertical-align: middle;
+  background: $blue;
+  height:13px;
+  width:0px;
+}
+
+
 
 /* http://codepen.io/CreativeJuiz/pen/BiHzp */
 /* http://webdesign.tutsplus.com/tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953 */

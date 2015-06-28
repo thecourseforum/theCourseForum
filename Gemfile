@@ -106,7 +106,7 @@ gem 'd3_rails'
 
 gem 'gon'
 gem 'rest-client'
-gem 'rb-readline', '0.5.2', require: 'readline', github: 'luislavena/rb-readline'
+gem 'rb-readline', '0.5.3', require: 'readline', github: 'luislavena/rb-readline'
 gem 'figaro'
 
 # for calendar exports

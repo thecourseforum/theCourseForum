@@ -203,7 +203,8 @@ $(function() {
             // Create the chart
             $('.col-xs-6.course-grades').highcharts({
                 chart: {
-                    type: 'pie'
+                    type: 'pie',                    
+                    height: 315
                 },
                 title: {
                     verticalAlign: 'middle',
@@ -245,33 +246,46 @@ $(function() {
                     //         },
                     //         color: 'white',
                     //         distance: -30
-                    //     }
-                    // }, 
-                    {
-                        name: '',
-                        data: plusOrMinus,
-                        size: '90%',
-                        innerSize: '60%',
-                        dataLabels: {
-                            formatter: function() {
-                                return this.y > 5 ? this.point.name : null;
-                            },
-                            color: 'white',
-                            style: {
-                                fontFamily: 'Futura',
-                                fontSize: '16px'
-                            },
-                            distance: -31
+                // This is the inner pie chart with overall letter data 
+                // we want a donut so we are hiding this
+                // {
+                //     name: 'Letters',
+                //     data: overallLetters,
+                //     size: '50%',
+                //     dataLabels: {
+                //         formatter: function () {
+                //             // return (allCoursePercentages[i].gpa);
+                //             // return this.y > 5 ? this.point.name : null;
+                //         },
+                //         color: 'white',
+                //         distance: -30
+                //     }
+                // }, 
+                {
+                    name: '',
+                    data: plusOrMinus,
+                    size: '100%',
+                    innerSize: '60%',
+                    dataLabels: {
+                        formatter: function () {
+                            return this.y > 5 ? this.point.name : null;
+                        },
+                        color: 'white',
+                        style: {
+                         fontFamily: 'Futura', 
+                         fontSize: '16px'
+                        },
+                        distance: -31
 
-                        }
-                        // dataLabels: {
-                        //     formatter: function () {
-                        //         return this.y > 5 ? this.point.name : null;
-                        //         // display only if larger than 1
-                        //         // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
-                        //     }
-                        // }
-                    }
+                    }                  
+                    // dataLabels: {
+                    //     formatter: function () {
+                    //         return this.y > 5 ? this.point.name : null;
+                    //         // display only if larger than 1
+                    //         // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                    //     }
+                    // },                             
+                }
                 ]
             });
 

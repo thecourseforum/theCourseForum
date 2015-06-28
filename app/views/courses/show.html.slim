@@ -2,91 +2,133 @@
 
 = javascript_include_tag "courses"
 = javascript_include_tag "grades"
+
 = content_tag "div", id: "percentages-0", data: {percents: @course.get_grade_percentages} do end
+= stylesheet_link_tag "courses"
+
+
 
 .row#course-page
-  .col-xs-3#courses-sidebar
-    .row
-      .col-xs-12
-        input type="radio" name="professor-id" id="check-all" class="professor-checkbox" checked=""
-        label for="check-all" style="font-weight:normal"
-          span
-          | All Professors
-    - @professors.each do |professor|
-      .row
-        .col-xs-12
-          input type="radio" name="professor-id" id="check-#{professor.id}" class="professor-checkbox"
-          label for="check-#{professor.id}" style="font-weight:normal"
-            span
-            = professor.separated_name
+  / .col-xs-3#courses-sidebar
+  /   .row
+  /     .col-xs-12
+    /     input type="radio" name="professor-id" id="check-all" class="professor-checkbox" checked=""
+    /     label for="check-all" style="font-weight:normal"
+    /       span
+    /       | All Professors
+    / - @professors.each do |professor|
+    /   .row
+    /     .col-xs-12
+    /       input type="radio" name="professor-id" id="check-#{professor.id}" class="professor-checkbox"
+    /       label for="check-#{professor.id}" style="font-weight:normal"
+    /         span
+    /         = professor.separated_name
 
 
-  .col-xs-9#courses-main
-    .row
-      .col-xs-6
-        .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
-      .col-xs-6
-        .orange-title Cumulative Grades
-    br
+  .col-xs-12#courses-main
+    / .row
+    /   .col-xs-6
+    /     .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
+    /   .col-xs-6
+    /     .orange-title Cumulative Grades
+    / br
     .container-fluid
       .row.course-breakdown
         .col-xs-6.course-stats
-          .row.title-row
-            h3.rating-title Ratings
-          .row.stat-row
-            .col-xs-2=image_tag "icons/heart.png"
-            .col-xs-6 Overall
-            .col-xs-4=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
-          .row.stat-row
-            .col-xs-2=image_tag "icons/user_gray.png"
-            .col-xs-6 Professor
-            .col-xs-4=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
-          .row.stat-row
-            .col-xs-2=image_tag "icons/emoticon_smile.png"
-            .col-xs-6 Fun-factor
-            .col-xs-4=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
-          .row.stat-row
-            .col-xs-2=image_tag "icons/pencil.png"
-            .col-xs-6 Difficulty
-            .col-xs-4=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
-          .row.stat-row
-            .col-xs-2=image_tag "icons/user_comment.png"
-            .col-xs-6 Recommend
-            .col-xs-4=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+          .row.ratings-stats
+            .col-xs-4.overall-col
+              .row.rating-row
+                .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
+              h5.rating-title Ratings
+            .col-xs-8.stats-col
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/professor.png", size: "20")
+                  div.icon-text Professor
+                .col-xs-7
+                  - percent = @rev_ratings[:prof] ? ((@rev_ratings[:prof]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/happy.png", size: "20")
+                  div.icon-text Fun
+                .col-xs-7
+                  - percent = @rev_ratings[:enjoy] ? ((@rev_ratings[:enjoy]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/difficulty.png", size: "20")
+                  div.icon-text Difficulty
+                .col-xs-7
+                  - percent = @rev_ratings[:difficulty] ? ((@rev_ratings[:difficulty]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div.recommend=image_tag("icons/recommend.png", size: "20")
+                  div.icon-text Recommend
+                .col-xs-7
+                  - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
 
-          br
+          .row.workload-stats
+            .col-xs-4.overall-col
+              .row.rating-row
+                - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
+                .rating= total
+              h5.rating-title Workload
+            .col-xs-8.stats-col
+              - #Calculate the max of the workload and add some amount to set the scale
+              - scale = total
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/reading.png", size: "20")
+                  div.icon-text Reading
+                .col-xs-7
+                  - percent = @rev_emphasizes[:reading] ? ((@rev_emphasizes[:reading]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/writing.png", size: "20")
+                  div.icon-text Writing
+                .col-xs-7
+                  - percent = @rev_emphasizes[:writing] ? ((@rev_emphasizes[:writing]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/group.png", size: "20")
+                  div.icon-text Group
+                .col-xs-7
+                  - percent = @rev_emphasizes[:group] ? ((@rev_emphasizes[:group]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
+              .row.stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/other.png", size: "20")
+                  div.icon-text Other
+                .col-xs-7
+                  - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
 
-          .row.title-row
-            h3.rating-title Emphasizes
-          .row.stat-row
-            .col-xs-6.col-xs-offset-2 style="text-align:right;" Avg Hrs/Week
-            .col-xs-4 # Reviews
+        .col-xs-6.course-grades GPA
 
-          .row.stat-row
-            .col-xs-6 Reading
-            .col-xs-4=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
-            .col-xs-2=@rev_emphasizes[:reading_count] > 0 ? @rev_emphasizes[:reading_count] : "--"
-          .row.stat-row
-            .col-xs-6 Writing
-            .col-xs-4= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
-            .col-xs-2= @rev_emphasizes[:writing_count] > 0 ? @rev_emphasizes[:writing_count] : "--"
-          .row.stat-row
-            .col-xs-6 Group
-            .col-xs-4= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
-            .col-xs-2= @rev_emphasizes[:group_count] > 0 ? @rev_emphasizes[:group_count] : "--"
-          .row.stat-row
-            .col-xs-6 Other HW
-            .col-xs-4=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
-            .col-xs-2=@rev_emphasizes[:homework_count] > 0 ? @rev_emphasizes[:homework_count] : "--"
-          .row.stat-row
-            .col-xs-6 Tests/Midterms
-            .col-xs-4= "--"
-            .col-xs-2=@rev_emphasizes[:test_count] > 0 ? @rev_emphasizes[:test_count] : "--"
-
-          br
-          .row.title-row
-            h3 Textbooks
-            .hr
+    .row.title-row
+      h3 Textbooks
+      .hr
           - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
           - if @book_count == 0
             .row.title No Textbooks!
@@ -107,27 +149,25 @@
                     .p.requirement-cost-condition = link_to "Amazon Merchants - #{book.amazon_merchant_new_price ? number_to_currency(book.amazon_merchant_new_price) + ' New' : ''} #{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
 
 
-        .col-xs-6.course-grades
-
 br
 
+.row
 - if @total_review_count > 0
   - if @total_review_count > 1
-    .orange-title
+    .col-xs-7.orange-title
       - if @reviews_with_comments.count == 1
         = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comment"
       - else
         = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comments"
   - else
-    .orange-title
+    .col-xs-5.orange-title
       - if @reviews_with_comments.count == 1
         = "1 Review -- 1 Comment"
       - else
         = "1 Review -- 0 Comments"
 
   - if @reviews_with_comments.count > 1
-    .row
-      .col-xs-5
+    .col-xs-5
         = will_paginate @reviews
   .row
     .col-xs-2
@@ -164,19 +204,19 @@ br
                 = r.overall
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/user_gray.png"
+                span.rating-icon= image_tag("icons/professor.png", size: "20")
                 = r.professor_rating
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/emoticon_smile.png"
+                span.rating-icon= image_tag("icons/happy.png", size: "20")
                 = r.enjoyability
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/user_comment.png"
+                span.rating-icon= image_tag("icons/difficulty.png", size: "20")
                 = r.difficulty
             .row
               .col-xs-12
-                span.rating-icon= image_tag "icons/pencil.png"
+                span.rating-icon= image_tag("icons/recommend.png", size: "20")
                 = r.recommend
           
         br
