@@ -12,10 +12,10 @@
 $lightgray: #cccccc;
 
 
-.container-fluid {
-  padding-left: 0px;
-  padding-right: 0px
-}
+// .container-fluid {
+//   padding-left: 0px;
+//   padding-right: 0px
+// }
 
 .rating-number {
   padding-left: 0px;
@@ -32,9 +32,6 @@ img {
   margin-right: auto;
 }
 
-#content-container {
-  background-color: #eee;
-}
 
 /*.container-fluid {
   padding-left: 0px;
@@ -113,10 +110,10 @@ img {
   font-size: 20px;
 }
 
-.row {
-  margin-left: 0px;
-  margin-right: 0px;
-}
+// .row {
+//   margin-left: 0px;
+//   margin-right: 0px;
+// }
 
 .rating-title {
   color: $blue;
@@ -184,6 +181,33 @@ img {
   margin-right: 4px;
 }
 
+.panel-title-content {
+  padding-top: 0;
+  margin-top:0;
+  vertical-align: middle;
+}
+
+.prof-block {
+  height: 46px;
+  background-color: $orange;
+  width: 46px;
+  float: left;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 0;
+  margin-top: -10px;  
+  margin-left: -15px;
+}
+
+.prof-heading {
+  margin-bottom: 5px;  
+}
+
+.prof-title {
+  font-size: 18px;
+}
+
 .overall-col {
   /*//border-right-color: black;*/
   padding-right: 5px;
@@ -240,6 +264,7 @@ img {
   height:13px;
   width:0px;
 }
+
 
 
 /* http://codepen.io/CreativeJuiz/pen/BiHzp */

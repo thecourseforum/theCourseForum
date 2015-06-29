@@ -20,7 +20,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :professors, :only => [:index, :show]
 
-  resources :courses, :only => [:show]
+  resources :courses, :only => [:show, :index, :show_professors]
 
   get '/scheduler' => 'scheduler#scheduler'
   get '/scheduler/search' => 'scheduler#search'
@@ -55,6 +55,8 @@ TheCourseForum::Application.routes.draw do
       get :search_subdepartment
     end
   end
+
+  get '/courses/:id/professors', :to => 'courses#show_professors'
 
   get '/recommendation/', to: 'recs#courselist'
   get '/browse', :to => 'departments#index', :as => "browse"

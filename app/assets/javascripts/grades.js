@@ -1,75 +1,74 @@
-$(function () {
+$(function() {
 
     // Get the number of courses that have percentage data (for the loop bounds)
-    numCourses = $('#numCourses').data('url');
+    numCourses = $('#numCourses').data('count');
     // If this was not passed in, then we are on the course page, only one set of data
     // This assignment determines whether to build the stacked bar graph on each course
     // or just the grade wheel for a single course
     numCourses = numCourses ? numCourses : 1;
-
+    console.log("num courses", numCourses);
     // Initialize vars
-    var colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F'],
-        categories = ['A\'s', 'B\'s', 'C\'s', 'D\'s', 'Other'];
+    var colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927', '#5A6D8E', '#9F9F9F'],
+        categories = ["A's", "B's", "C's", "D's", "Other"];
 
     // Put each course's percentage data into an array of all of them
     allCoursePercentages = [];
-    for(var i = 0; i < numCourses; i++){
-        allCoursePercentages.push(percentages = $('#percentages-'+i).data('url'))
+    for (var i = 0; i < numCourses; i++) {
+        allCoursePercentages.push($('#percentages-' + i).data('percents'))
     }
-    
+    console.log(allCoursePercentages);
     // Iterate through each one to build the graph data for each course
-    for(var i = 0; i < numCourses; i++) {
-
+    for (var i = 0; i < numCourses; i++) {
+        console.log("i is",i);
         //Breaks percentages up by letter, then drilled down by plus or minus
-        data = [
-        { 
+        data = [{
             //A's
-            y: Math.round(100*(allCoursePercentages[i].aplus + allCoursePercentages[i].a + allCoursePercentages[i].aminus)), //overall percentage
+            y: Math.round(100 * (allCoursePercentages[i].aplus + allCoursePercentages[i].a + allCoursePercentages[i].aminus)), //overall percentage
             color: colors[0],
             drilldown: {
                 name: 'A dist',
                 categories: ['A+', 'A', 'A-'],
-                data: [Math.round(100*allCoursePercentages[i].aplus), Math.round(100*allCoursePercentages[i].a), Math.round(100*allCoursePercentages[i].aminus)], //A+, A, A-
+                data: [Math.round(100 * allCoursePercentages[i].aplus), Math.round(100 * allCoursePercentages[i].a), Math.round(100 * allCoursePercentages[i].aminus)], //A+, A, A-
                 color: colors[0]
             }
         }, {
             //B's
-            y: Math.round(100*(allCoursePercentages[i].bplus + allCoursePercentages[i].b + allCoursePercentages[i].bminus)),
+            y: Math.round(100 * (allCoursePercentages[i].bplus + allCoursePercentages[i].b + allCoursePercentages[i].bminus)),
             color: colors[1],
             drilldown: {
                 name: 'B dist',
                 categories: ['B+', 'B', 'B-'],
-                data: [Math.round(100*allCoursePercentages[i].bplus), Math.round(100*allCoursePercentages[i].b), Math.round(100*allCoursePercentages[i].bminus)],
+                data: [Math.round(100 * allCoursePercentages[i].bplus), Math.round(100 * allCoursePercentages[i].b), Math.round(100 * allCoursePercentages[i].bminus)],
                 color: colors[1]
             }
         }, {
             //C's
-            y: Math.round(100*(allCoursePercentages[i].cplus + allCoursePercentages[i].c + allCoursePercentages[i].cminus)),
+            y: Math.round(100 * (allCoursePercentages[i].cplus + allCoursePercentages[i].c + allCoursePercentages[i].cminus)),
             color: colors[2],
             drilldown: {
                 name: 'C dist',
                 categories: ['C+', 'C', 'C-'],
-                data: [Math.round(100*allCoursePercentages[i].cplus), Math.round(100*allCoursePercentages[i].c), Math.round(100*allCoursePercentages[i].cminus)],
+                data: [Math.round(100 * allCoursePercentages[i].cplus), Math.round(100 * allCoursePercentages[i].c), Math.round(100 * allCoursePercentages[i].cminus)],
                 color: colors[2]
             }
         }, {
             //D's
-            y: Math.round(100*(allCoursePercentages[i].dplus + allCoursePercentages[i].d+ allCoursePercentages[i].dminus)),
+            y: Math.round(100 * (allCoursePercentages[i].dplus + allCoursePercentages[i].d + allCoursePercentages[i].dminus)),
             color: colors[3],
             drilldown: {
                 name: 'D dist',
                 categories: ['D+', 'D', 'D-'],
-                data: [Math.round(100*allCoursePercentages[i].dplus), Math.round(100*allCoursePercentages[i].d), Math.round(100*allCoursePercentages[i].dminus)],
+                data: [Math.round(100 * allCoursePercentages[i].dplus), Math.round(100 * allCoursePercentages[i].d), Math.round(100 * allCoursePercentages[i].dminus)],
                 color: colors[3]
             }
         }, {
             //Other (F's, drops, withdraws, and other)
-            y: Math.round(100*(allCoursePercentages[i].f + allCoursePercentages[i].drop+ allCoursePercentages[i].wd + allCoursePercentages[i].other)),
+            y: Math.round(100 * (allCoursePercentages[i].f + allCoursePercentages[i].drop + allCoursePercentages[i].wd + allCoursePercentages[i].other)),
             color: colors[4],
             drilldown: {
                 name: 'Other',
                 categories: ['F', 'Drop', 'Withdraw', 'Other'],
-                data: [Math.round(100*allCoursePercentages[i].f), Math.round(100*allCoursePercentages[i].drop), Math.round(100*allCoursePercentages[i].wd), Math.round(100*(allCoursePercentages[i].other))],
+                data: [Math.round(100 * allCoursePercentages[i].f), Math.round(100 * allCoursePercentages[i].drop), Math.round(100 * allCoursePercentages[i].wd), Math.round(100 * (allCoursePercentages[i].other))],
                 color: colors[4]
             }
         }];
@@ -103,49 +102,49 @@ $(function () {
         }
 
         // If displaying graphs for each course,
-        if(numCourses != 1) {
+        if (numCourses != 1) {
 
             //Build the data for the stacked bar graph
             var stackedGraphDataSeries = [];
-            for (m = overallLetters.length-1; m >= 0; m--) {
+            for (m = overallLetters.length - 1; m >= 0; m--) {
                 stackedGraphData = {};
                 stackedGraphData.name = overallLetters[m].name;
                 stackedGraphData.data = [overallLetters[m].y];
                 stackedGraphData.color = overallLetters[m].color;
                 stackedGraphData.y = overallLetters[m].y;
 
-                stackedGraphData.dataLabels = { 
-                    enabled: true,
-                    inside: true,
-                    color: 'white',
-                    formatter: function () {                    
-                        return this.y > 3 ? this.series.name : null;
-                    },
-                    style: {
-                     fontFamily: 'Futura', 
-                     fontSize: '16px'
+                stackedGraphData.dataLabels = {
+                        enabled: true,
+                        inside: true,
+                        color: 'white',
+                        formatter: function() {
+                            return this.y > 3 ? this.series.name : null;
+                        },
+                        style: {
+                            fontFamily: 'Futura',
+                            fontSize: '16px'
+                        }
                     }
-                }
-                // {
-                //     formatter: function () {
-                //             return this.y > 5 ? this.point.name : null;
-                //             // display only if larger than 1
-                //             // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
-                //     }
-                // }
+                    // {
+                    //     formatter: function () {
+                    //             return this.y > 5 ? this.point.name : null;
+                    //             // display only if larger than 1
+                    //             // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                    //     }
+                    // }
                 stackedGraphDataSeries.push(stackedGraphData);
 
             }
 
-  
+
             // Create the chart
-            $('#grade-bar-'+i).highcharts({
+            $('#grade-bar-' + i).highcharts({
                 chart: {
                     type: 'bar',
-                    margin:0
+                    margin: 0
                 },
-                title: {            
-                   text:''
+                title: {
+                    text: ''
                 },
                 xAxis: {
                     gridLineWidth: 0,
@@ -175,14 +174,12 @@ $(function () {
                 },
                 tooltip: {
                     formatter: function() {
-                        return this.y > 3 ? '' + this.y +'%' : this.series.name + ': ' + this.y + '%';
+                        return this.y > 3 ? '' + this.y + '%' : this.series.name + ': ' + this.y + '%';
                     }
                 },
-                credits: 
-                {
+                credits: {
                     enabled: true,
-                    position: 
-                    {
+                    position: {
                         align: 'left',
                         x: 10
                     }
@@ -195,24 +192,23 @@ $(function () {
                     }
                 },
                 series: stackedGraphDataSeries,
-                exporting: 
-                {
+                exporting: {
                     enabled: false
                 }
             });
-            $('.highcharts-axis').css('display','none');
+            $('.highcharts-axis').css('display', 'none');
         }
         // Otherwise build the gradewheel
         else {
             // Create the chart
             $('.col-xs-6.course-grades').highcharts({
                 chart: {
-                    type: 'pie',
+                    type: 'pie',                    
                     height: 315
                 },
-                title: {         
-                 verticalAlign: 'middle',
-                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" +(allCoursePercentages[i].total) + " students",
+                title: {
+                    verticalAlign: 'middle',
+                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" + (allCoursePercentages[i].total) + " students",
                     style: {
                      fontFamily: 'OpenSans',
                      fontSize: '16px'
@@ -232,12 +228,25 @@ $(function () {
                     }
                 },
                 tooltip: {
-                    pointFormat: '<b>{point.y}</b>', 
+                    pointFormat: '<b>{point.y}</b>',
                     valuePrefix: '',
                     valueSuffix: '%'
                 },
                 credits: false,
                 series: [
+                    // This is the inner pie chart with overall letter data 
+                    // we want a donut so we are hiding this
+                    // {
+                    //     name: 'Letters',
+                    //     data: overallLetters,
+                    //     size: '50%',
+                    //     dataLabels: {
+                    //         formatter: function () {
+                    //             // return (allCoursePercentages[i].gpa);
+                    //             // return this.y > 5 ? this.point.name : null;
+                    //         },
+                    //         color: 'white',
+                    //         distance: -30
                 // This is the inner pie chart with overall letter data 
                 // we want a donut so we are hiding this
                 // {
@@ -269,21 +278,22 @@ $(function () {
                         },
                         distance: -31
 
-                    }                           
+                    }                  
                     // dataLabels: {
                     //     formatter: function () {
                     //         return this.y > 5 ? this.point.name : null;
                     //         // display only if larger than 1
                     //         // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
                     //     }
-                    // }
-                }]
+                    // },                             
+                }
+                ]
             });
 
         }
 
     }
 
-    
+
 
 });
