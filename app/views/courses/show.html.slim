@@ -46,7 +46,7 @@
                   - percent = @rev_ratings[:prof] ? ((@rev_ratings[:prof]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
+                .col-xs-2.rating-number=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/happy.png", size: "20")
@@ -55,7 +55,7 @@
                   - percent = @rev_ratings[:enjoy] ? ((@rev_ratings[:enjoy]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
+                .col-xs-2.rating-number=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/difficulty.png", size: "20")
@@ -64,7 +64,7 @@
                   - percent = @rev_ratings[:difficulty] ? ((@rev_ratings[:difficulty]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
+                .col-xs-2.rating-number=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div.recommend=image_tag("icons/recommend.png", size: "20")
@@ -73,13 +73,15 @@
                   - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+                .col-xs-2.rating-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
 
           .row.workload-stats
             .col-xs-4.overall-col
               .row.rating-row
                 - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
-                .rating= total
+                - total = total.to_f.round(1)
+                / - if total.to_f < 9.99
+                .rating= total > 0 ? total : "--"
               h5.rating-title Workload
             .col-xs-8.stats-col
               - #Calculate the max of the workload and add some amount to set the scale
@@ -92,7 +94,7 @@
                   - percent = @rev_emphasizes[:reading] ? ((@rev_emphasizes[:reading]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
+                .col-xs-2.rating-number=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/writing.png", size: "20")
@@ -101,7 +103,7 @@
                   - percent = @rev_emphasizes[:writing] ? ((@rev_emphasizes[:writing]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
+                .col-xs-2.rating-number= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/group.png", size: "20")
@@ -110,7 +112,7 @@
                   - percent = @rev_emphasizes[:group] ? ((@rev_emphasizes[:group]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
+                .col-xs-2.rating-number= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/other.png", size: "20")
@@ -119,7 +121,7 @@
                   - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
+                .col-xs-2.rating-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
 
         .col-xs-6.course-grades GPA
 
@@ -146,92 +148,90 @@
                     .p.requirement-cost-condition = link_to "Amazon Merchants - #{book.amazon_merchant_new_price ? number_to_currency(book.amazon_merchant_new_price) + ' New' : ''} #{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
 
 
-br
-
 .row
 - if @total_review_count > 0
   - if @total_review_count > 1
     .col-xs-7.orange-title
       - if @reviews_with_comments.count == 1
-        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comment"
+        = "#{@reviews_with_comments.count} Comment"
       - else
-        = "#{@total_review_count} Reviews -- #{@reviews_with_comments.count} Comments"
+        = "#{@reviews_with_comments.count} Comments"
   - else
     .col-xs-5.orange-title
       - if @reviews_with_comments.count == 1
-        = "1 Review -- 1 Comment"
+        = "1 Comment"
       - else
-        = "1 Review -- 0 Comments"
+        = "0 Comments"
 
   - if @reviews_with_comments.count > 1
     .col-xs-5
         = will_paginate @reviews
-  .row
-    .col-xs-2
-      div style="float:right"
-        | Sort by:
-    .col-xs-4
-      select.courses-review-type-switcher style="font-size:13px;"
-        option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-        option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-        option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-        option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-        option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-    .col-xs-4
-      = link_to "Write A Review!", new_review_path(c: @course.id), class: "btn btn-primary"
+  .review-pane
+    .row
+      .col-xs-4
+        = link_to "Write A Review!", new_review_path(c: @course.id), class: "btn btn-primary"
+      .col-xs-2.rating-number
+        div style="float:right"
+          | Sort by:
+      .col-xs-4
+        select.courses-review-type-switcher style="font-size:13px;"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
 
-  .container-fluid 
-    .single-review
-    -# adds top line
-    - @reviews_with_comments.each do |r|
+    .container-fluid
       .single-review
-        .row
-          .col-xs-2
-            = r.created_at.strftime("%Y-%m-%d")
-            - if r.semester_id
-              .taken
-                = "#{r.semester.season} #{r.semester.year}"
-          .col-xs-8
-            .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+      -# adds top line
+      - @reviews_with_comments.each do |r|
+        .single-review
+          .row
+            .col-xs-2.rating-number
+              = r.created_at.strftime("%Y-%m-%d")
+              - if r.semester_id
+                .taken
+                  = "#{r.semester.season} #{r.semester.year}"
+            .col-xs-8
+              .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
 
-          .col-xs-2
-            .row
-              .col-xs-12
-                span.rating-icon= image_tag "icons/heart.png"
-                = r.overall
-            .row
-              .col-xs-12
-                span.rating-icon= image_tag("icons/professor.png", size: "20")
-                = r.professor_rating
-            .row
-              .col-xs-12
-                span.rating-icon= image_tag("icons/happy.png", size: "20")
-                = r.enjoyability
-            .row
-              .col-xs-12
-                span.rating-icon= image_tag("icons/difficulty.png", size: "20")
-                = r.difficulty
-            .row
-              .col-xs-12
-                span.rating-icon= image_tag("icons/recommend.png", size: "20")
-                = r.recommend
-          
-        br
-        .row
-          .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
-            - if r.votes_count > 0
-              = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
-          - if r.user != current_user
-            .col-xs-3 style="margin-top: 2.5px;"
-              .rating style="font-size:12px;text-align:center;"
-                | Was this review helpful?
-            .col-xs-2.col-sm-1
-              .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
-                | Yes
-            .col-xs-2.col-sm-1
-              .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
-                | No
-  = will_paginate @reviews
+            .col-xs-2.rating-number
+              .row
+                .col-xs-12
+                  span.rating-icon= image_tag "icons/heart.png"
+                  = r.overall
+              .row
+                .col-xs-12
+                  span.rating-icon= image_tag("icons/professor.png", size: "20")
+                  = r.professor_rating
+              .row
+                .col-xs-12
+                  span.rating-icon= image_tag("icons/happy.png", size: "20")
+                  = r.enjoyability
+              .row
+                .col-xs-12
+                  span.rating-icon= image_tag("icons/difficulty.png", size: "20")
+                  = r.difficulty
+              .row
+                .col-xs-12
+                  span.rating-icon= image_tag("icons/recommend.png", size: "20")
+                  = r.recommend
+          br
+          .row
+            .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
+              - if r.votes_count > 0
+                = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
+            - if r.user != current_user
+              .col-xs-3 style="margin-top: 2.5px;"
+                .helpful-prompt style="font-size:12px;text-align:center;"
+                  | Was this review helpful?
+              .col-xs-2.rating-number.col-sm-1
+                .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
+                  | Yes
+              .col-xs-2.rating-number.col-sm-1
+                .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
+                  | No
+    = will_paginate @reviews
 
 
 

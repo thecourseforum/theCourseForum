@@ -214,7 +214,7 @@ $(function () {
                  verticalAlign: 'middle',
                     text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" +(allCoursePercentages[i].total) + " students",
                     style: {
-                     fontFamily: 'Futura',
+                     fontFamily: 'OpenSans',
                      fontSize: '16px'
                     },
                     //aligns the title to center the two lines
@@ -236,6 +236,7 @@ $(function () {
                     valuePrefix: '',
                     valueSuffix: '%'
                 },
+                credits: false,
                 series: [
                 // This is the inner pie chart with overall letter data 
                 // we want a donut so we are hiding this
@@ -263,7 +264,7 @@ $(function () {
                         },
                         color: 'white',
                         style: {
-                         fontFamily: 'Futura', 
+                         fontFamily: 'OpenSans',
                          fontSize: '16px'
                         },
                         distance: -31

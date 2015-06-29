@@ -11,17 +11,13 @@
 
 $lightgray: #cccccc;
 
-.col-xs-6, .col-xs-7 {
-  padding-left: 5px;
-  padding-right: 5px;
-}
 
 .container-fluid {
   padding-left: 0px;
   padding-right: 0px
 }
 
-.col-xs-2 {
+.rating-number {
   padding-left: 0px;
   padding-right: 5px;
   font-size:12px;
@@ -36,7 +32,9 @@ img {
   margin-right: auto;
 }
 
-
+#content-container {
+  background-color: #eee;
+}
 
 /*.container-fluid {
   padding-left: 0px;
@@ -71,8 +69,12 @@ img {
   color: rgb(215, 86, 38);
   text-align: center;
   height: 50px;
-  margin-top: 40px;
+  /*margin-top: 40px;*/
+/*  display: inline-block;*/
+/*  vertical-align: 30%;*/
+  bottom: 40%;
   position: absolute;
+  width: 90%;
 }
 
 .ratings-stats, .workload-stats {
@@ -83,6 +85,17 @@ img {
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
   padding-right: 5px;
   margin-bottom: 10px;
+}
+
+.orange-title {
+  margin-top: 15px;
+}
+
+.review-pane {
+  margin-top: 10px;
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
 }
 
 .course-grades {
@@ -172,11 +185,12 @@ img {
 }
 
 .overall-col {
-  //border-right-color: black;
+  /*//border-right-color: black;*/
   padding-right: 5px;
   padding-left: 5px;
-  height:150px;
-  border-right: $blue 1px solid;
+  margin-top: 5px;
+  height:145px;
+  border-right: #bbb 1px solid;
 }
 
 
@@ -222,7 +236,7 @@ img {
 
 .skillbar-bar {
   vertical-align: middle;
-  background: $blue;
+  background: #6D8BC2;
   height:13px;
   width:0px;
 }
