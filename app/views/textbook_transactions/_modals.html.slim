@@ -11,7 +11,7 @@
               p.help-block
             .form-group
               label Cellphone #
-              input.form-control placeholder="Yo digits!" name="cellphone" value=(current_user ? current_user.cellphone : '')
+              input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
             .form-group
               label Price
               input.form-control rows="3" name="price" placeholder="$30"
@@ -19,11 +19,5 @@
               label Condition
               input.form-control rows="3" name="condition"
           .modal-footer
-            #buy-or-sell
-              ul.nav.nav-pills.nav-justified
-                li#sell-option.active role="presentation" 
-                  a data-toggle="pill" Selling
-                li#buy-option role="presentation"
-                  a data-toggle="pill" Buying
             button.btn.btn-default data-dismiss="modal" type="button"  Close
             button.btn.btn-primary#submit-listing type="button" Submit

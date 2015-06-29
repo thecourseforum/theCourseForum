@@ -14,25 +14,51 @@
       .col-wrapper
         a href="/reviews/new"
           i.glyphicon.glyphicon.glyphicon-pencil
-          |  Write a review
+          | Write a review
   .row.nav-row
     .col-xs-12
       .col-wrapper
         a href="/browse"
           i.glyphicon.glyphicon-list
-          |  Browse All
+          | Browse All
   .row.nav-row
     .col-xs-12
       .col-wrapper
         a href="/scheduler"
           i.glyphicon.glyphicon-calendar
-          |  Scheduler
+          | Scheduler
   .row.nav-row
     .col-xs-12
       .col-wrapper
         a href="/recommendation"
           i.glyphicon.glyphicon-star
-          |  Recommendations
+          | Recommendations
+  .row.nav-row.hidden-xl.hidden-lg.hidden-md.hidden-sm
+    .col-xs-12
+      .col-wrapper
+        a href="/about"
+          i.glyphicon.glyphicon-info-sign
+          | About us
+  .row.nav-row.hidden-xl.hidden-lg.hidden-md.hidden-sm
+    .col-xs-12
+      .col-wrapper
+          a#user-account
+            i.glyphicon.glyphicon-user 
+            = current_user.first_name
+            span.caret
+          .col-secondary
+            a href="/my_reviews"
+              i.glyphicon.glyphicon-book
+              | My Reviews
+          .col-secondary
+            a href="/users/edit"
+              i.glyphicon.glyphicon-wrench 
+              | My Account
+          .col-secondary
+            a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
+              i.glyphicon.glyphicon-log-out
+              | Logout
+
 
   #nav-footer.row.navbar-fixed-bottom
     a href="#{privacy_path}" Privacy

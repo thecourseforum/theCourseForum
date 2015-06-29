@@ -13,5 +13,11 @@ CREATE TABLE `textbook_transactions` (
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `books_users` (
+	`book_id` int(11) NOT NULL,
+	`user_id` int(11) NOT NULL,
+	UNIQUE KEY `index_books_users_on_book_id_and_user_id` (`book_id`,`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 ALTER TABLE users
-ADD COLUMN cellphone int(11) DEFAULT NULL AFTER email;
+ADD COLUMN cellphone varchar(255) DEFAULT NULL AFTER email;

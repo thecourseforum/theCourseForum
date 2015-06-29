@@ -3,8 +3,13 @@
 
 // $ denotes jQuery - $(document) means we select the "document" or HTML page object
 // We attach an anonymous function to be executed when the page is "ready" - all DOM elements are loaded
+
+$(window).resize(function(){
+	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 20);
+});
+
 $(document).ready(function() {
-	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 40);
+	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 20);
 
 	// Utility class to format strings for display
 	var Utils = {
@@ -125,7 +130,7 @@ $(document).ready(function() {
 		// Remove the box for showing potential all day events
 		allDaySlot: false,
 		columnFormat: {
-			agendaWeek: 'dddd'
+			agendaWeek: 'ddd'
 		},
 		titleFormat: {
 			agendaWeek: 'yyyy'
@@ -708,7 +713,7 @@ $(document).ready(function() {
 		$('#results-box').append(resultBox);
 		checkbox.parent().css('height', content.parent().height());
 		checkbox.parent().css('width', content.parent().width() - 170);
-		checkbox.css('margin-left', checkbox.parent().width() / 2 - 5);
+		checkbox.css('margin-left', checkbox.parent().width() / 2 - 10);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 - 5);
 		content.click();
 	}

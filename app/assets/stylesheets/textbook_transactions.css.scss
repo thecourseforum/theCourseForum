@@ -28,6 +28,10 @@
 	float: right;
 	right: 0px;
 	text-align: center;
+	top: -15px;
+	background-color: #D75626;
+	color: white;
+	border-radius: 2px; 
 }
 
 .nav-pills > li.active > a, 
@@ -40,13 +44,11 @@
     background-color: #eeeeee;
 }
 
-#buy-or-sell {
-	padding-bottom: 15px;
-	border-bottom: 1px solid #e5e5e5;
-	margin-bottom: 15px;
-}
-
 .claim {
 	border-radius: 5px;
 	border: 1px solid #D75626;
+}
+
+.claim:hover {
+	background-color: #e38867;
 }

@@ -9,16 +9,12 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def create
+    current_user.update(:cellphone => params[:cellphone])
     params[:book_id] = Book.where("title like ?", params[:title]).first.id
-    if eval(params[:sell?])
-      params[:seller_id] = current_user.id
-      puts "selling"
-    else
-      params[:buyer_id] = current_user.id
-      puts "buying"
-    end
+    params[:seller_id] = current_user.id
     @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
     render json: {:sucess => @textbook_transaction.save}
+    redirect_to index
   end
 
   def new

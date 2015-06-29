@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :textbook_listings, :class_name => 'TextbookTransaction', :foreign_key => 'seller_id'
   has_many :textbook_claims, :class_name => 'TextbookTransaction', :foreign_key => 'buyer_id'
 
+  # relationship for "following"
+  has_and_belongs_to_many :books
+
   #Provides citizenship and voter priveleges
   acts_as_voter
 

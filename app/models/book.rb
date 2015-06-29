@@ -4,6 +4,8 @@ class Book < ActiveRecord::Base
 
 	has_many :textbook_transactions
 
+	has_and_belongs_to_many :users
+
 	def bookstore_prices
 		prices = []
 		prices << {

@@ -61,6 +61,12 @@
       a:hover {
         color: rgba(255,255,255,1.0);
       }
+
+      .col-secondary{
+        display: none;
+        padding-top: 10px;
+        margin-left: $sidebar-left-tabbed;  
+      }
     }
   }
 
@@ -71,6 +77,5 @@
         padding-right: $sidebar-icon-padding;
       }      
     }
-  }
-  
+  }  
 }
