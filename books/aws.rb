@@ -50,6 +50,7 @@ books.each_with_index do |batch, index|
 			items = client.item_lookup(:query => query).to_h["ItemLookupResponse"]["Items"]
 		rescue Exception => e
 			puts "Retrying #{index + 1} query"
+			puts e
 			items = nil
 		end
 	end
