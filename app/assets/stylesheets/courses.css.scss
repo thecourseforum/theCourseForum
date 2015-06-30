@@ -25,6 +25,11 @@ $lightgray: #cccccc;
   padding-top: 8px;
 }
 
+.comment-container {
+  border-left: 2px solid #bbb;
+  min-height: 100%;
+}
+
 img {
   vertical-align: middle;
   display: block;

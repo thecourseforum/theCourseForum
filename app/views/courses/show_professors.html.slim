@@ -80,7 +80,7 @@ div#prof-list role="tabpanel"
                             - else 
                               p No reviews yet :(
                         .row.review-box
-                          .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "View course", @course
+                          .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to("View course", "#{course_path(@course)}?p=#{professor.id}")
               /- percentages = course.get_grade_percentages
                 /=percentages["total"].to_s
                 / =percentages

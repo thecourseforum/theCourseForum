@@ -131,24 +131,24 @@
     .row.title-row
       h3 Textbooks
       .hr
-          - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
-          - if @book_count == 0
-            .row.title No Textbooks!
-          - else
-            - book_sets.each do |status, book_set|
-              - book_set.each do |book|
-                .row.textbooks-row
-                  - if book.amazon_affiliate_link
-                    .p = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
-                  - else
-                    .p.title = book.title
-                  .p.author ="by #{book.author} - #{status.to_s.titlecase}"
-                  - if book.bookstore_prices.count > 0
-                    .p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
-                  - if book.amazon_official_prices.count > 0
-                    .p.requirement-cost-condition = link_to "Amazon - #{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) + ' New' : ''} #{book.amazon_official_used_price ? number_to_currency(book.amazon_official_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
-                  - if book.amazon_merchant_prices.count > 0
-                    .p.requirement-cost-condition = link_to "Amazon Merchants - #{book.amazon_merchant_new_price ? number_to_currency(book.amazon_merchant_new_price) + ' New' : ''} #{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
+        - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
+        - if @books_count == 0
+          .row.title No Textbooks!
+        - else
+          - book_sets.each do |status, book_set|
+            - book_set.each do |book|
+              .row.textbooks-row
+                - if book.amazon_affiliate_link
+                  .p = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
+                - else
+                  .p.title = book.title
+                .p.author ="by #{book.author} - #{status.to_s.titlecase}"
+                - if book.bookstore_prices.count > 0
+                  .p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
+                - if book.amazon_official_prices.count > 0
+                  .p.requirement-cost-condition = link_to "Amazon - #{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) + ' New' : ''} #{book.amazon_official_used_price ? number_to_currency(book.amazon_official_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
+                - if book.amazon_merchant_prices.count > 0
+                  .p.requirement-cost-condition = link_to "Amazon Merchants - #{book.amazon_merchant_new_price ? number_to_currency(book.amazon_merchant_new_price) + ' New' : ''} #{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
 
 
 .row
@@ -191,6 +191,18 @@
         .single-review
           .row
             .col-xs-2.rating-number
+              .row
+                .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
+              .row 
+               - if r.votes_count > 0
+                .upvotes= "#{r.votes_for}"
+               / - else
+               /  .upvotes= "0"
+              .row
+                .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
+            .col-xs-8.comment-container
+              .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+            .col-xs-2.rating-number
               / = r.created_at.strftime("%Y-%m-%d")
               / - if r.semester_id
               /   .taken
@@ -219,19 +231,7 @@
               - if r.semester_id
                 .taken
                   = "#{r.semester.season} #{r.semester.year}"
-            .col-xs-8
-              .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
 
-            .col-xs-2.rating-number
-              .row
-                .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
-              .row 
-               - if r.votes_count > 0
-                .upvotes= "#{r.votes_for}"
-               / - else
-               /  .upvotes= "0"
-              .row
-                .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
               / br
               / br
               / .row style="vertical-align:bottom;"
