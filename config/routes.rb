@@ -1,3 +1,4 @@
+
 TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
@@ -55,10 +56,10 @@ TheCourseForum::Application.routes.draw do
   # Autocomplete for textbook titles
   resources :textbook_transactions, :only => [] do
     collection do
-      get :data
       get :search_book_titles
     end
   end
+  post '/textbook_transactions/claim' => 'textbook_transactions#claim'
 
   resources :search, :only => [] do
     collection do

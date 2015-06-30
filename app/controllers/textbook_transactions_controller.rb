@@ -8,13 +8,17 @@ class TextbookTransactionsController < ApplicationController
     
   end
 
+  def claim
+    TextbookTransaction.find(params[:format]).update(:buyer_id => current_user.id)
+    redirect_to action: "index"
+  end
+
   def create
     current_user.update(:cellphone => params[:cellphone])
     params[:book_id] = Book.where("title like ?", params[:title]).first.id
     params[:seller_id] = current_user.id
     @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
     render json: {:sucess => @textbook_transaction.save}
-    redirect_to index
   end
 
   def new

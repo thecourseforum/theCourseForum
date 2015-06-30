@@ -35,7 +35,7 @@ table.table.table-hover.table-striped
     - @textbook_transactions.each do |textbook_transaction|
       tr
         td
-          = link_to "<button class='btn btn-default claim'>Claim</button>".html_safe
+          = button_to 'Claim', textbook_transactions_claim_path(textbook_transaction), :class => "claim btn btn-default"
           / button.btn.btn-default.claim = :id => "#{textbook_transaction.id}_claim_button"
         td = textbook_transaction.book.title
         td
