@@ -180,8 +180,22 @@ img {
   border-bottom: 1px solid black;
 }
 
-.rating-icon {
-  margin-right: 4px;
+.upvote {
+  padding: 0px 0px;
+  display: block;
+}
+
+.downvote {
+  padding: 0px 0px;
+  display: block;
+  -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+  -moz-transform: rotate(180deg);        /* FF */
+  -o-transform: rotate(180deg);          /* Opera */
+  -ms-transform: rotate(180deg);         /* IE9 */
+  transform: rotate(180deg);             /* W3C compliant browsers */
+
+  /* IE8 and below */
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
 }
 
 .overall-col {
@@ -211,6 +225,10 @@ img {
   padding-top:2px;
 }
 
+.upvotes {
+  text-align: center;
+  font-family: "OpenSans";
+}
 
 
 .skillbar {
