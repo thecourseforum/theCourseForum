@@ -191,33 +191,38 @@
         .single-review
           .row
             .col-xs-2.rating-number
+              / = r.created_at.strftime("%Y-%m-%d")
+              / - if r.semester_id
+              /   .taken
+              /     = "#{r.semester.season} #{r.semester.year}"
+              / br
+              .row.list-group-item
+                .col-xs-12
+                  .review-overall= r.overall
+              .row.list-group-item
+                .col-xs-6
+                  span.rating-icon= image_tag("icons/professor.png", size: "20")
+                  .= r.professor_rating
+                .col-xs-6
+                  .rating-icon= image_tag("icons/happy.png", size: "20")
+                  = r.enjoyability
+              .row.list-group-item
+                .col-xs-6
+                  .rating-icon= image_tag("icons/difficulty.png", size: "20")
+                  = r.difficulty
+                .col-xs-6
+                  .rating-icon= image_tag("icons/recommend.png", size: "20")
+                  = r.recommend
+              br
+              .row
               = r.created_at.strftime("%Y-%m-%d")
               - if r.semester_id
                 .taken
                   = "#{r.semester.season} #{r.semester.year}"
-                br
-                .row
-                  .col-xs-12
-                    span.rating-icon= image_tag "icons/heart.png"
-                    = r.overall
-                .row
-                  .col-xs-6
-                    span.rating-icon= image_tag("icons/professor.png", size: "20")
-                    .= r.professor_rating
-                  .col-xs-6
-                    .rating-icon= image_tag("icons/happy.png", size: "20")
-                    = r.enjoyability
-                .row
-                  .col-xs-6
-                    .rating-icon= image_tag("icons/difficulty.png", size: "20")
-                    = r.difficulty
-                  .col-xs-6
-                    .rating-icon= image_tag("icons/recommend.png", size: "20")
-                    = r.recommend
             .col-xs-8
               .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
 
-            .col-xs-2
+            .col-xs-2.rating-number
               .row
                 .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
               .row 
@@ -227,6 +232,13 @@
                /  .upvotes= "0"
               .row
                 .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
+              / br
+              / br
+              / .row style="vertical-align:bottom;"
+              /   = r.created_at.strftime("%Y-%m-%d")
+              /   - if r.semester_id
+              /     .taken
+              /       = "#{r.semester.season} #{r.semester.year}"
 
               
           / br

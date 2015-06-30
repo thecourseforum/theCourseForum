@@ -1,8 +1,8 @@
 @import "variables";
 
-/*body {
+body {
   font-family: "OpenSans";
-}*/
+}
 
 #courses-main {
   padding-left: 0px;
@@ -228,6 +228,13 @@ img {
 .upvotes {
   text-align: center;
   font-family: "OpenSans";
+}
+
+.review-overall {
+  font-size:20px;
+  padding-bottom: 5px;
+  font-family: 'OpenSans';
+  color: rgb(215, 86, 38);
 }
 
 
