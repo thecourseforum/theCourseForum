@@ -22,7 +22,7 @@ $lightgray: #cccccc;
   padding-right: 5px;
   font-size:12px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 14px;
 }
 
 .comment-container {
@@ -32,6 +32,7 @@ $lightgray: #cccccc;
 
 .book-image {
   margin-top: 4px;
+  margin-bottom: 4px;
   display: block;
   margin-left: auto;
   margin-right: auto
@@ -107,13 +108,13 @@ img {
   /*margin-top: 40px;*/
 /*  display: inline-block;*/
 /*  vertical-align: 30%;*/
-  bottom: 40%;
+  bottom: 50%;
   position: absolute;
   width: 90%;
 }
 
 .ratings-stats, .workload-stats {
-  height:155px;
+  height:190px;
   /* Rectangle 13 Copy: */
   background: #FFFFFF;
   border: 1px solid #979797;
@@ -134,10 +135,12 @@ img {
 }
 
 .course-grades {
-  height: 320px;
-  padding-left: 5px;
+  margin-left:5px;
+  height: 390px;
+  padding-right: 0px;
   border: 1px solid #979797;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  width: 49.5%
 }
 
 #save-course .btn.btn-primary {
@@ -155,6 +158,8 @@ img {
 
 .rating-title {
   color: $blue;
+  position: absolute;
+  bottom: 20%;
 }
 
 .sortby-title {
@@ -163,11 +168,13 @@ img {
 
 .title-row {
   margin-top: 0px;
-  background-color: #FFFFFF;
+  // background-color: #FFFFFF;
   height: 190px;
   /* Rectangle 13 Copy 2: */
-  border: 1px solid #979797;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  // border: 1px solid #979797;
+  // box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  margin-right: -5px;
+  margin-left: -5px;
   margin-bottom: 30px;
 }
 
@@ -247,7 +254,7 @@ p {
 }
 
 .stat-row {
-  height: 30px;
+  height: 48px;
 }
 
 .single-review {
@@ -278,8 +285,15 @@ p {
   padding-right: 5px;
   padding-left: 5px;
   margin-top: 5px;
-  height:145px;
+  height:180px;
   border-right: #bbb 1px solid;
+}
+
+.item {
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -314,7 +328,7 @@ p {
 
 
 .skillbar {
-  margin-top: 8px;
+  margin-top: 14px;
   vertical-align: middle;
   position:relative;
   display:block;

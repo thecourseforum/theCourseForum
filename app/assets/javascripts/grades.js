@@ -204,7 +204,7 @@ $(function() {
             $('.col-xs-6.course-grades').highcharts({
                 chart: {
                     type: 'pie',                    
-                    height: 315
+                    height: 380
                 },
                 title: {
                     verticalAlign: 'middle',
