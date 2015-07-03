@@ -5,7 +5,19 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def search_book_titles
-    
+    query = params[:query]
+
+    results = []
+    results = Book.where("title LIKE ?", "%#{query}%").map do |book|
+      {
+        :book_id => book.id,
+        :bookstore_used_price => book.bookstore_used_price,
+        :title => book.title
+      }
+    end
+    puts results
+
+    render :json => [results]
   end
 
   def claim

@@ -52,7 +52,7 @@ TheCourseForum::Application.routes.draw do
     end
   end
  
-  resources :textbook_transactions
+  resources :textbook_transactions, :only => [:index, :create]
   # Autocomplete for textbook titles
   resources :textbook_transactions, :only => [] do
     collection do

@@ -19,11 +19,55 @@ window.onload = function () {
 		$('#post-listing-modal').modal('hide');
 	});
 
-	// $('#book-titles').autocomplete({
-	// 	source: function(request, response) {
+	// Modal autocomplete
+	$('#book-title-post').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/textbook_transactions/search_book_titles',
+				dataType: 'json',
+				type: 'GET',
+				data: {
+					query: request.term
+				},
+				success: function(data) {
+					response($.map(data[0], function(item) {
+						return {
+							label: item.title,
+							value: item.title,
+							course_id: item.course_id
+						}
+					}));
+				}
+			});
+		},
+		minLength: 2
+	});
 
-	// 	}
-	// });
+	// Search bar autocomplete
+	$('#book-titles').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/textbook_transactions/search_book_titles',
+				dataType: 'json',
+				type: 'GET',
+				data: {
+					query: request.term
+				},
+				success: function(data) {
+					response($.map(data[0], function(item) {
+						return {
+							label: item.title,
+							value: item.title,
+							course_id: item.course_id
+						}
+					}));
+				}
+			});
+		},
+		minLength: 2
+	});
+
+
 
 
 }

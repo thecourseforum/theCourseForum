@@ -1,6 +1,7 @@
 // Place all the styles related to the textbook_transactions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 #above-search-bar {
 	display: inline;
 	position: relative;
@@ -32,6 +33,10 @@
 	background-color: #D75626;
 	color: white;
 	border-radius: 2px; 
+}
+
+.ui-autocomplete {
+  z-index:2147483647;
 }
 
 .nav-pills > li.active > a, 

@@ -10,7 +10,7 @@
         label.control-label for="search"  Search
       li
         button#post-listing.btn.btn-lg Post a Listing!
-  #mnemonics = search_field_tag "course-mnemonics", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
+  #mnemonics = search_field_tag "book-titles", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
 table.table.table-hover.table-striped
@@ -22,6 +22,7 @@ table.table.table-hover.table-striped
       th Author
       th Price
       th Condition
+      th Notes
       th End Date
   tbody#books
     tr.book.hidden data-toggle='popover'
@@ -34,13 +35,11 @@ table.table.table-hover.table-striped
       td#claim
     - @textbook_transactions.each do |textbook_transaction|
       tr
-        td
-          = button_to 'Claim', textbook_transactions_claim_path(textbook_transaction), :class => "claim btn btn-default"
-          / button.btn.btn-default.claim = :id => "#{textbook_transaction.id}_claim_button"
+        td = button_to 'Claim', textbook_transactions_claim_path(textbook_transaction), :class => "claim btn btn-default"
         td = textbook_transaction.book.title
-        td
-          = textbook_transaction.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
+        td = textbook_transaction.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
         td = textbook_transaction.book.author
         td = "$" + textbook_transaction.price.to_s
         td = textbook_transaction.condition
+        td = textbook_transaction.notes
         td = (textbook_transaction.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")
