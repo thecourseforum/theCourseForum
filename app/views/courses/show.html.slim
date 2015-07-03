@@ -142,9 +142,9 @@
             - book_sets.each do |status, book_set|
               - book_set.each do |book|
                 .item
-                  .col-xs-5
+                  .col-xs-4
                     .book-image=image_tag("#{book.large_image_link}", size: "140x180")
-                  .col-xs-7
+                  .col-xs-8
                     / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
                     - if book.amazon_affiliate_link
                       h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
@@ -173,39 +173,52 @@
           
 
 
-.row
-- if @total_review_count > 0
-  - if @total_review_count > 1
-    .col-xs-7.orange-title
-      - if @reviews_with_comments.count == 1
-        = "#{@reviews_with_comments.count} Comment"
-      - else
-        = "#{@reviews_with_comments.count} Comments"
-  - else
-    .col-xs-5.orange-title
-      - if @reviews_with_comments.count == 1
-        = "1 Comment"
-      - else
-        = "0 Comments"
 
-  - if @reviews_with_comments.count > 1
-    .col-xs-5
-        = will_paginate @reviews
+- if @total_review_count > 0
+  .row
+    - if @total_review_count > 1
+      h1
+        - if @reviews_with_comments.count == 1
+          = "#{@reviews_with_comments.count} Comment"
+        - else
+          = "#{@reviews_with_comments.count} Comments"
+    - else
+      h1
+        - if @reviews_with_comments.count == 1
+          = "1 Comment"
+        - else
+          = "0 Comments"
+  / .row
+  /   - if @total_review_count > 0
+  /     - if @total_review_count > 1
+  /       .col-xs-7.orange-title
+  /         - if @reviews_with_comments.count == 1
+  /           = "#{@reviews_with_comments.count} Comment"
+  /         - else
+  /           = "#{@reviews_with_comments.count} Comments"
+  /     - else
+  /       .col-xs-5.orange-title
+  /         - if @reviews_with_comments.count == 1
+  /           = "1 Comment"
+  /         - else
+  /           = "0 Comments"
   .review-pane
-    .row
+    .row.comment-header
       .col-xs-4
         = link_to "Write A Review!", new_review_path(c: @course.id), class: "btn btn-primary"
-      .col-xs-2.rating-number
+      .col-xs-5.rating-number
         div style="float:right"
           | Sort by:
-      .col-xs-4
-        select.courses-review-type-switcher style="font-size:13px;"
+      .col-xs-3
+        select.courses-review-type-switcher style="font-size:13px;float:right;"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
           option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-
+    .row
+      - if @reviews_with_comments.count > 1
+        div = will_paginate @reviews
     .container-fluid
       .single-review
       -# adds top line

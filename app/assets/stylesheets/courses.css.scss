@@ -46,7 +46,8 @@ img {
 }
 
 #content-container {
-  background-color: #eee;
+  background-color: #eee !important;
+  box-shadow: none !important;
 }
 
 .prev,
@@ -96,6 +97,14 @@ img {
 
 .pagination {
   font-size: 1.3vw;
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  .previous_page { border: 1px solid $blue; }
+  .previous_page.disabled { border: 1px solid $blue;}
+  .current { color: #E25424; font-weight: bold; font-style:normal;}
+  .next_page { border: 1px solid $blue;}
+  .next_page.disabled { border: 1px solid $blue;}
 }
 
 .rating {
@@ -135,12 +144,14 @@ img {
 }
 
 .course-grades {
-  margin-left:5px;
+  // margin-left:5px;
   height: 390px;
-  padding-right: 0px;
+  padding-left: 0px;
+  padding-right: 10px;
+  background-color: white;
   border: 1px solid #979797;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
-  width: 49.5%
+  // width: 49.0%
 }
 
 #save-course .btn.btn-primary {
@@ -154,6 +165,10 @@ img {
 .row {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+.comment-header {
+  margin: 10px 0;
 }
 
 .rating-title {
@@ -293,6 +308,7 @@ p {
   margin-left: 5px;
   margin-right: 5px;
   border: 1px solid #979797;
+  background-color: white;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
