@@ -217,10 +217,10 @@
             option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
       .row
         - if @reviews_with_comments.count > 1
-          div = will_paginate @reviews
+          = will_paginate @reviews 
     .container-fluid
       -# adds top line
-      - @reviews_with_comments.each do |r|
+      - @reviews.each do |r|
         .single-review
           .row
             .col-xs-2.rating-number
@@ -235,29 +235,30 @@
                 .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
             .col-xs-8.comment-container
               .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
-            .col-xs-2.rating-number
+            .col-xs-2.review-stats
               / = r.created_at.strftime("%Y-%m-%d")
               / - if r.semester_id
               /   .taken
               /     = "#{r.semester.season} #{r.semester.year}"
               / br
               .row.list-group-item
-                .col-xs-12
-                  .review-overall= r.overall
-              .row.list-group-item
-                .col-xs-6
-                  span.rating-icon= image_tag("icons/professor.png", size: "20")
-                  .= r.professor_rating
-                .col-xs-6
-                  .rating-icon= image_tag("icons/happy.png", size: "20")
-                  = r.enjoyability
-              .row.list-group-item
-                .col-xs-6
-                  .rating-icon= image_tag("icons/difficulty.png", size: "20")
-                  = r.difficulty
-                .col-xs-6
-                  .rating-icon= image_tag("icons/recommend.png", size: "20")
-                  = r.recommend
+                .review-overall= r.overall
+              .table-responsive
+                table.table.table-bordered
+                  tr
+                    td 
+                      span.rating-icon= image_tag("icons/professor.png", size: "20")
+                      = r.professor_rating
+                    td 
+                      .rating-icon= image_tag("icons/happy.png", size: "20")
+                      = r.enjoyability
+                  tr
+                    td
+                      .rating-icon= image_tag("icons/difficulty.png", size: "20")
+                      = r.difficulty
+                    td
+                      .rating-icon= image_tag("icons/recommend.png", size: "20")
+                      = r.recommend
               br
               .row.time
                 div = r.created_at.strftime("%Y-%m-%d")

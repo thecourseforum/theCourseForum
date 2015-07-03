@@ -25,6 +25,15 @@ $lightgray: #cccccc;
   padding-top: 14px;
 }
 
+.review-stats {
+  padding-left: 0px;
+  padding-right: 5px;
+  font-size:12px;
+  text-align: center;
+  padding-top: 14px;
+  float: right;
+}
+
 .comment-container {
   border-left: 2px solid #bbb;
   min-height: 100%;
@@ -339,7 +348,6 @@ p {
 
 .review-overall {
   font-size:20px;
-  padding-bottom: 5px;
   font-family: 'OpenSans';
   color: rgb(215, 86, 38);
 }
