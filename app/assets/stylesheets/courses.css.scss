@@ -30,6 +30,13 @@ $lightgray: #cccccc;
   min-height: 100%;
 }
 
+.book-image {
+  margin-top: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
 img {
   vertical-align: middle;
   display: block;
@@ -41,6 +48,29 @@ img {
   background-color: #eee;
 }
 
+.prev,
+.slick-next
+{
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    padding: 0;
+
+    cursor: pointer;
+
+    color: #222;
+    border: none;
+    outline: none;
+    background: transparent;
+}
 /*.container-fluid {
   padding-left: 0px;
   padding-right: 0px;
@@ -138,22 +168,62 @@ img {
   /* Rectangle 13 Copy 2: */
   border: 1px solid #979797;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  margin-bottom: 30px;
 }
 
 .title {
   color: #E25424;
+  margin-top: 10px;
+  font-weight: bold;
+  margin-bottom: 0px;
+
+}
+
+p {
+  font-family: 'OpenSans';
+  font-size: 14px;
 }
 
 .author {
-  margin-left: 30px;
+  margin-top:5px;
   color: #E25424;
+  border-bottom: 1px #bbb solid
 }
 
-.p.requirement-cost-condition {
-  margin-left: 30px;
+.amazon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px #bbb solid;
+}
+
+.amazon-info {
+  position: fixed;
+  bottom: 8%;
+}
+.requirement-cost-condition {
   color: $blue;
+  /* $125.99: */
+  // font-family: HelveticaNeue-MediumItalic;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  line-height: 23px;
+  margin-bottom: 0px
 }
 
+.bookstore {
+  margin-bottom: 5px
+}
+.condition {
+  font-size: 10px;
+  margin-bottom: 2px;
+  margin-left: 16px;
+}
+
+.shit {
+  font-size: 8px;
+}
 .textbooks-row {
   border-bottom: 1px dotted black;
   padding-top: 8px;

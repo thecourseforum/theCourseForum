@@ -101,12 +101,13 @@ gem 'will_paginate', '>=3.0.3'
 # Use JQuery UI
 gem 'jquery-ui-rails', '~> 5.0.0'
 
+gem 'jquery-slick-rails'
+
 gem 'touchpunch-rails'
 gem 'd3_rails'
 
 gem 'gon'
 gem 'rest-client'
-gem 'rb-readline', '0.5.3', require: 'readline', github: 'luislavena/rb-readline'
 gem 'figaro'
 
 # for calendar exports

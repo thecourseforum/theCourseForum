@@ -47,6 +47,31 @@ ready = function() {
 		},1000);
 	});
 
+	$('.carousel').slick({
+        infinite: true,
+  		slidesToShow: 2,
+  		slidesToScroll: 2,
+  		dots: true,
+  		responsive: [
+		    {
+		      breakpoint: 1200,
+		      settings: {
+		        slidesToShow: 1,
+		        slidesToScroll: 1,
+		        infinite: true,
+		        dots: true
+		      }
+		    },
+		    // {
+		    //   breakpoint: 00,
+		    //   settings: {
+		    //     slidesToShow: 1,
+		    //     slidesToScroll: 1
+		    //   }
+		    // },
+		    ],
+     });
+
 	//hides the professors list on course page when the professor list is clicked
 	var toggled = true;
 	$("#courses-sidebar").click(function(){

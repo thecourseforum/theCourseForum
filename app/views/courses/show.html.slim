@@ -3,6 +3,7 @@
 = javascript_include_tag "courses"
 = javascript_include_tag "grades"
 
+
 = content_tag "div", id: "percentages-0", data: {percents: @course.get_grade_percentages} do end
 = stylesheet_link_tag "courses"
 
@@ -129,26 +130,45 @@
         .col-xs-6.course-grades GPA
 
     .row.title-row
-      h3 Textbooks
+      / h3 Textbooks
       .hr
         - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
         - if @books_count == 0
           .row.title No Textbooks!
         - else
-          - book_sets.each do |status, book_set|
-            - book_set.each do |book|
-              .row.textbooks-row
-                - if book.amazon_affiliate_link
-                  .p = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
-                - else
-                  .p.title = book.title
-                .p.author ="by #{book.author} - #{status.to_s.titlecase}"
-                - if book.bookstore_prices.count > 0
-                  .p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
-                - if book.amazon_official_prices.count > 0
-                  .p.requirement-cost-condition = link_to "Amazon - #{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) + ' New' : ''} #{book.amazon_official_used_price ? number_to_currency(book.amazon_official_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
-                - if book.amazon_merchant_prices.count > 0
-                  .p.requirement-cost-condition = link_to "Amazon Merchants - #{book.amazon_merchant_new_price ? number_to_currency(book.amazon_merchant_new_price) + ' New' : ''} #{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) + ' Used' : ''}", book.amazon_affiliate_link, :target => '_blank'
+          div.carousel
+            - book_sets.each do |status, book_set|
+              - book_set.each do |book|
+                .item
+                  .col-xs-5
+                    .book-image=image_tag("#{book.large_image_link}", size: "140x180")
+                  .col-xs-7
+                    / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
+                    - if book.amazon_affiliate_link
+                      h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
+                    - else
+                      h4.title = book.title
+                    p.author ="by #{book.author}"
+                    - if book.bookstore_prices.count > 0
+                      .row.bookstore
+                        p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
+                    - if book.amazon_official_prices.count > 0
+                      .row.amazon-info
+                        .col-xs-3
+                          .row
+                            .requirement-cost-condition = link_to "#{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                          .row
+                            .condition New
+                        - if book.amazon_merchant_prices.count > 0
+                          .col-xs-3
+                            .row
+                              .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                            .row
+                              .condition Used  
+                        .col-xs-6
+                          div.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "100x40"), book.amazon_affiliate_link, :target => '_blank'
+
+          
 
 
 .row
@@ -226,11 +246,10 @@
                   .rating-icon= image_tag("icons/recommend.png", size: "20")
                   = r.recommend
               br
-              .row
-              = r.created_at.strftime("%Y-%m-%d")
-              - if r.semester_id
-                .taken
-                  = "#{r.semester.season} #{r.semester.year}"
+              .row.time
+                div = r.created_at.strftime("%Y-%m-%d")
+                - if r.semester_id
+                  .taken= "#{r.semester.season} #{r.semester.year}"
 
               / br
               / br
