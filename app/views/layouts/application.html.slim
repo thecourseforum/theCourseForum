@@ -22,10 +22,10 @@ html
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header
-            .col-xs-10.5#course-name
+            .col-xs-10#course-name
               h1.page-title= yield(:page_heading)
             - if controller.controller_name == "courses" && controller.action_name == "show"
-              .col-xs-1.5#save-course
+              .col-xs-2#save-course
                 .btn.btn-primary#save-course Save Course
           .container-fluid#content-container
             = yield

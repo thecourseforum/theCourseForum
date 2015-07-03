@@ -110,7 +110,7 @@ img {
 .rating {
   font-size: 78px;
   font-size: 4.5vw;
-  font-family: 'OpenSans';
+  font-family: 'HelveticaNeue-Medium';
   color: rgb(215, 86, 38);
   text-align: center;
   height: 50px;
@@ -157,9 +157,9 @@ img {
 #save-course .btn.btn-primary {
   width: 150px;
   height: 40px;
-  margin-left: 40px;
   float: center;
   font-size: 20px;
+  margin-right: 30px;
 }
 
 .row {
@@ -169,6 +169,8 @@ img {
 
 .comment-header {
   margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #bbb;
 }
 
 .rating-title {
@@ -274,7 +276,7 @@ p {
 
 .single-review {
   padding: 10px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #bbb;
 }
 
 .upvote {
