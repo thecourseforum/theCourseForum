@@ -129,10 +129,11 @@
 
         .col-xs-6.course-grades GPA
 
+    br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
     - if @books_count == 0    
     - else
-      h1 = "#{@professor.full_name} Textbooks"
+      h1 = "Textbooks"
       .row.title-row
         / h3 Textbooks
         .hr
@@ -172,151 +173,150 @@
 
 
 
-- if @total_review_count > 0
-  .row
-    - if @total_review_count > 1
-      h1
-        - if @reviews_with_comments.count == 1
-          = "#{@reviews_with_comments.count} Comment"
-        - else
-          = "#{@reviews_with_comments.count} Comments"
-    - else
-      h1
-        - if @reviews_with_comments.count == 1
-          = "1 Comment"
-        - else
-          = "0 Comments"
-  / .row
-  /   - if @total_review_count > 0
-  /     - if @total_review_count > 1
-  /       .col-xs-7.orange-title
-  /         - if @reviews_with_comments.count == 1
-  /           = "#{@reviews_with_comments.count} Comment"
-  /         - else
-  /           = "#{@reviews_with_comments.count} Comments"
-  /     - else
-  /       .col-xs-5.orange-title
-  /         - if @reviews_with_comments.count == 1
-  /           = "1 Comment"
-  /         - else
-  /           = "0 Comments"
-  .review-pane
-    div.comment-header
-      .row
-        .col-xs-4
-          = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
-        .col-xs-5.rating-number
-          div style="float:right"
-            | Sort by:
-        .col-xs-3
-          select.courses-review-type-switcher style="font-size:13px;float:right;"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+/ - if @total_review_count > 0
+.row
+  - if @total_review_count > 1
+    h1
+      - if @reviews_with_comments.count == 1
+        = "#{@reviews_with_comments.count} Comment"
+      - else
+        = "#{@reviews_with_comments.count} Comments"
+  - else
+    h1
+      - if @reviews_with_comments.count == 1
+        = "1 Comment"
+      - else
+        = "0 Comments"
+/ .row
+/   - if @total_review_count > 0
+/     - if @total_review_count > 1
+/       .col-xs-7.orange-title
+/         - if @reviews_with_comments.count == 1
+/           = "#{@reviews_with_comments.count} Comment"
+/         - else
+/           = "#{@reviews_with_comments.count} Comments"
+/     - else
+/       .col-xs-5.orange-title
+/         - if @reviews_with_comments.count == 1
+/           = "1 Comment"
+/         - else
+/           = "0 Comments"
+.review-pane
+  div.comment-header
+    .row
+      .col-xs-4
+        = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
+      .col-xs-5.rating-number
+        div style="float:right"
+          | Sort by:
+      .col-xs-3
+        select.courses-review-type-switcher style="font-size:13px;float:right;"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
 
-            /  - if @sort_type == "new"
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-            / - else
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-            / - if @sort_type == "helpful"
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="selected" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-            / - else
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-            / - if @sort_type == "semester"
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="selected" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-            / - else
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-            / - if @sort_type == "highest"
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="selected" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-            / - else
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest" ? "selected" : "false"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-            / - if @sort_type == "Lowest"
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="selected" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-            / - else
-            /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-      .row
-        - if @reviews_with_comments.count > 1
-          = will_paginate @reviews 
-    .container-fluid
-      -# adds top line
-      - @reviews.each do |r|
-        .single-review
-          .row
-            .col-xs-2.rating-number
-              .row
-                .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
-              .row 
-               - if r.votes_count > 0
-                .upvotes= "#{r.votes_for}"
-               / - else
-               /  .upvotes= "0"
-              .row
-                .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
-            .col-xs-8.comment-container
-              .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
-            .col-xs-2.review-stats
-              / = r.created_at.strftime("%Y-%m-%d")
-              / - if r.semester_id
-              /   .taken
-              /     = "#{r.semester.season} #{r.semester.year}"
-              / br
-              .row.list-group-item
-                .review-overall= r.overall
-              .table-responsive
-                table.table.table-bordered
-                  tr
-                    td 
-                      span.rating-icon= image_tag("icons/professor.png", size: "20")
-                      = r.professor_rating
-                    td 
-                      .rating-icon= image_tag("icons/happy.png", size: "20")
-                      = r.enjoyability
-                  tr
-                    td
-                      .rating-icon= image_tag("icons/difficulty.png", size: "20")
-                      = r.difficulty
-                    td
-                      .rating-icon= image_tag("icons/recommend.png", size: "20")
-                      = r.recommend
-              br
-              .row.time
-                div = r.created_at.strftime("%Y-%m-%d")
-                - if r.semester_id
-                  .taken= "#{r.semester.season} #{r.semester.year}"
+          /  - if @sort_type == "new"
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          / - else
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          / - if @sort_type == "helpful"
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="selected" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          / - else
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          / - if @sort_type == "semester"
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="selected" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          / - else
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          / - if @sort_type == "highest"
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="selected" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          / - else
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest" ? "selected" : "false"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          / - if @sort_type == "Lowest"
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="selected" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+          / - else
+          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+    .row
+      - if @reviews_with_comments.count > 1
+        = will_paginate @reviews 
+  .container-fluid
+    -# adds top line
+    - @reviews.each do |r|
+      .single-review
+        .row
+          .col-xs-2.rating-number
+            .row
+              .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
+            .row 
+             - if r.votes_count > 0
+              .upvotes= "#{r.votes_for}"
+             / - else
+             /  .upvotes= "0"
+            .row
+              .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
+          .col-xs-8.comment-container
+            .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
+          .col-xs-2.review-stats
+            / = r.created_at.strftime("%Y-%m-%d")
+            / - if r.semester_id
+            /   .taken
+            /     = "#{r.semester.season} #{r.semester.year}"
+            / br
+            .row.list-group-item
+              .review-overall= r.overall
+            .table-responsive
+              table.table.table-bordered
+                tr
+                  td 
+                    span.rating-icon= image_tag("icons/professor.png", size: "20")
+                    = r.professor_rating
+                  td 
+                    .rating-icon= image_tag("icons/happy.png", size: "20")
+                    = r.enjoyability
+                tr
+                  td
+                    .rating-icon= image_tag("icons/difficulty.png", size: "20")
+                    = r.difficulty
+                  td
+                    .rating-icon= image_tag("icons/recommend.png", size: "20")
+                    = r.recommend
+            br
+            .row.time
+              div = r.created_at.strftime("%Y-%m-%d")
+              - if r.semester_id
+                .taken= "#{r.semester.season} #{r.semester.year}"
 
-              / br
-              / br
-              / .row style="vertical-align:bottom;"
-              /   = r.created_at.strftime("%Y-%m-%d")
-              /   - if r.semester_id
-              /     .taken
-              /       = "#{r.semester.season} #{r.semester.year}"
+            / br
+            / br
+            / .row style="vertical-align:bottom;"
+            /   = r.created_at.strftime("%Y-%m-%d")
+            /   - if r.semester_id
+            /     .taken
+            /       = "#{r.semester.season} #{r.semester.year}"
 
-              
-          / br
-          / .row
-          /   .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
-          /     - if r.votes_count > 0
-          /       = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
-          /   - if r.user != current_user
-          /     .col-xs-3 style="margin-top: 2.5px;"
-          /       .helpful-prompt style="font-size:12px;text-align:center;"
-          /         | Was this review helpful?
-          /     .col-xs-2.rating-number.col-sm-1
-          /       .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
-          /         | Yes
-          /     .col-xs-2.rating-number.col-sm-1
-          /       .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
-          /         | No
-    = will_paginate @reviews
+            
+        / br
+        / .row
+        /   .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
+        /     - if r.votes_count > 0
+        /       = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
+        /   - if r.user != current_user
+        /     .col-xs-3 style="margin-top: 2.5px;"
+        /       .helpful-prompt style="font-size:12px;text-align:center;"
+        /         | Was this review helpful?
+        /     .col-xs-2.rating-number.col-sm-1
+        /       .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
+        /         | Yes
+        /     .col-xs-2.rating-number.col-sm-1
+        /       .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
+        /         | No
+  = will_paginate @reviews
 
 
 
-- else
-  .row
-    h1 No reviews :(
-  / TODO Update this link dynamically when selecting professor.
-  / = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
-  = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id), :class => "btn btn-primary"
+/ - else
+/   .row
+/     h1 No reviews :(
+/   / TODO Update this link dynamically when selecting professor.
+/   / = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
