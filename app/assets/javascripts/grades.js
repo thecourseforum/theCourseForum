@@ -1,12 +1,22 @@
 $(function() {
 
-    // Get the number of courses that have percentage data (for the loop bounds)
-    numCourses = $('#numCourses').data('count');
-    
-    // If this was not passed in, then we are on the course page, only one set of data
-    // This assignment determines whether to build the stacked bar graph on each course
-    // or just the grade wheel for a single course
-    numCourses = numCourses ? numCourses : 1;
+    // Get the array of course/professor ids that correspond to the grade graph element ids
+    IDs = $('#IDs').data('ids');    
+    numIDs = 0;
+    // This assignment determines whether to build the stacked bar graph on each course/section
+    // or just the grade wheel for a single section
+
+    // If IDs was passed in, then it defined and there are that many courses/sections
+    if (typeof IDs != 'undefined') {        
+        numIDs = IDs.length;
+
+    // Otherwise, we are on the course page
+    } else {
+        // and there is only 1 section
+        numIDs = 1;
+        // and one element with id suffix = 0
+        var IDs = [0];
+    }
 
     // Initialize vars
     var colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927', '#5A6D8E', '#9F9F9F'],
@@ -14,12 +24,12 @@ $(function() {
 
     // Put each course's percentage data into an array of all of them
     allCoursePercentages = [];
-    for (var i = 0; i < numCourses; i++) {
-        allCoursePercentages.push($('#percentages-' + i).data('percents'))
-    }
+    for (var i = 0; i < numIDs; i++) {
+        allCoursePercentages.push($('#percentages-' + IDs[i]).data('percents'))
+    }    
 
     // Iterate through each one to build the graph data for each course
-    for (var i = 0; i < numCourses; i++) {
+    for (var i = 0; i < numIDs; i++) {           
         // console.log("i is",i);
         //Breaks percentages up by letter, then drilled down by plus or minus
         data = [{
@@ -103,8 +113,8 @@ $(function() {
         }
 
         // If displaying graphs for each course,
-        if (numCourses != 1) {
-
+        if (IDs[0] != 0) {
+            console.log("here??");
             //Build the data for the stacked bar graph
             var stackedGraphDataSeries = [];
             for (m = overallLetters.length - 1; m >= 0; m--) {
@@ -139,7 +149,7 @@ $(function() {
 
 
             // Create the chart
-            $('#grade-bar-' + i).highcharts({
+            $('#grade-bar-' + IDs[i]).highcharts({
                 chart: {
                     type: 'bar',
                     margin: 0
@@ -201,6 +211,7 @@ $(function() {
         }
         // Otherwise build the gradewheel
         else {
+            console.log("or here??");
             // Create the chart
             $('.col-xs-6.course-grades').highcharts({
                 chart: {

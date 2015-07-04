@@ -16,6 +16,7 @@ div#dept-list role="tabpanel"
     #dept-courses.tab-pane.fade.in.active role="tabpanel"
       .container-fluid
         #accordion
+          = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
           - @subdepartments_with_sections.each do |subdepartment|
             - if (@count > 1)
               h2= subdepartment.name
@@ -23,12 +24,12 @@ div#dept-list role="tabpanel"
               - flag = true
               - separator = 1000
               - numCourses = @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.count
-              = content_tag "div", id: "numCourses", data: {count: numCourses} do end
+              / = content_tag "div", id: "numCourses-#{subdepartment.id}", data: {count: numCourses} do end
               - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each_with_index do |course, index|
                 - ratings = course.get_review_ratings
                 - percentages = course.get_grade_percentages
                 - review = course.get_top_review
-                = content_tag "div", id: "percentages-#{index}", data: {percents: percentages} do end
+                = content_tag "div", id: "percentages-#{course.id}", data: {percents: percentages} do end
                 / = content_tag :div, class: "temp_information", data: {temp: @temp} 
                 - if flag
                   h3="#{separator}:"
@@ -50,7 +51,7 @@ div#dept-list role="tabpanel"
                     .panel-collapse.collapse(id="collapse-#{course.id}")                    
                       .panel-body
                         .row
-                          .grades-row(id="grade-bar-#{index}")
+                          .grades-row(id="grade-bar-#{course.id}")
                         .col-md-7.course-data-box
                           .row  
                             .col-md-7.col-md-offset-2.class-name

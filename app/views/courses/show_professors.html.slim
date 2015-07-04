@@ -15,19 +15,18 @@ div#dept-list role="tabpanel"
   .tab-content
     #dept-courses.tab-pane.fade.in.active role="tabpanel"
       .container-fluid
-        #accordion        
-            - numSections = @professors.count
-            = content_tag "div", id: "numCourses", data: {count: numSections} do end
-            - @professors.each_with_index do |professor, index|
+        #accordion                              
+            = content_tag "div", id: "IDs", data: {ids: @professor_ids} do end
+            - @professors.each do |professor|
               - percentages = @course.get_grade_percentages(professor.id)
-              = content_tag "div", id: "percentages-#{index}", data: {percents: percentages} do end
+              = content_tag "div", id: "percentages-#{professor.id}", data: {percents: percentages} do end
               - ratings = @course.get_review_ratings(professor.id)
               - review = @course.get_top_review(professor.id)
               #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
                 #course-panel.panel.panel-default
-                  .panel-heading.prof-heading(id="heading-#{index}" role="tab")                       
+                  .panel-heading.prof-heading(id="heading-#{professor.id}" role="tab")                       
                     .panel-title
-                      a.course-link.collapsed aria-controls="collapse-#{index}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{index}"                         
+                      a.course-link.collapsed aria-controls="collapse-#{professor.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{professor.id}"                         
                         / span.glyphicon.glyphicon-plus.pull-right 
                         .prof-block
                           span.glyphicon.glyphicon-th-list                         
@@ -38,13 +37,13 @@ div#dept-list role="tabpanel"
                               .glyphicon.glyphicon-pencil 
                               span Has reviews
                           .col-md-2
-                            - if percentages[:a] != 0
+                            - if percentages[:total] != 0
                               .glyphicon.glyphicon-tasks
                               span Has grades
-                  .panel-collapse.collapse(id="collapse-#{index}")                    
+                  .panel-collapse.collapse(id="collapse-#{professor.id}")                    
                     .panel-body
                       .row
-                        .grades-row(id="grade-bar-#{index}")
+                        .grades-row(id="grade-bar-#{professor.id}")
                       .col-md-6.course-data-box                        
                         .col-md-offset-1
                           .class-name

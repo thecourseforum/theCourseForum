@@ -44,7 +44,9 @@ class CoursesController < ApplicationController
 
     if @professor      
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
+      @prof_id = @professor.id
     else
+      @prof_id = -1
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
     end
     
@@ -72,6 +74,7 @@ class CoursesController < ApplicationController
   def show_professors
     @course = Course.find(params[:id])
     @professors = @course.professors.uniq    
+    @professor_ids = @professors.collect(&:id)
     respond_to do |format|
       format.html # show_professors.html.slim
     end

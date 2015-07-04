@@ -33,7 +33,7 @@ class DepartmentsController < ApplicationController
     @courses = Course.where(subdepartment_id: @subdepartment_ids)
     @course_ids = @courses.pluck(:id)
     @sections = Section.where(course_id: @course_ids)
-    @courses_with_sections_ids = @sections.pluck(:course_id)
+    @courses_with_sections_ids = @sections.pluck(:course_id).uniq
     @courses_with_sections = @courses.where(id: @courses_with_sections_ids)
     @subdepartments_with_sections_ids = @courses_with_sections.pluck(:subdepartment_id)
     @subdepartments_with_sections = @subdepartments.where(id: @subdepartments_with_sections_ids)
