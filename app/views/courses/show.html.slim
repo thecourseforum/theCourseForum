@@ -211,32 +211,31 @@
           | Sort by:
       .col-xs-3
         select.courses-review-type-switcher style="font-size:13px;float:right;"
-          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-
-          /  - if @sort_type == "new"
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          / - else
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          / - if @sort_type == "helpful"
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="selected" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          / - else
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          / - if @sort_type == "semester"
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="selected" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          / - else
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          / - if @sort_type == "highest"
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="selected" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          / - else
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest" ? "selected" : "false"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          / - if @sort_type == "Lowest"
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="selected" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-          / - else
-          /   option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+          - if @sort_type == "new"
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          - else
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          - if @sort_type == "helpful"
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="selected" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          - else
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          - if @sort_type == "semester"
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="selected" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          - else
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          - if @sort_type == "highest"
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="selected" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          - else
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          - if @sort_type == "lowest"
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="selected" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+          - else
+            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
     .row
       - if @reviews_with_comments.count > 1
         = will_paginate @reviews 
