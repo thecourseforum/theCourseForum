@@ -2,11 +2,12 @@ $(function() {
 
     // Get the number of courses that have percentage data (for the loop bounds)
     numCourses = $('#numCourses').data('count');
+    
     // If this was not passed in, then we are on the course page, only one set of data
     // This assignment determines whether to build the stacked bar graph on each course
     // or just the grade wheel for a single course
     numCourses = numCourses ? numCourses : 1;
-    //console.log("num courses", numCourses);
+
     // Initialize vars
     var colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927', '#5A6D8E', '#9F9F9F'],
         categories = ["A's", "B's", "C's", "D's", "Other"];
@@ -16,7 +17,7 @@ $(function() {
     for (var i = 0; i < numCourses; i++) {
         allCoursePercentages.push($('#percentages-' + i).data('percents'))
     }
-    //console.log(allCoursePercentages);
+
     // Iterate through each one to build the graph data for each course
     for (var i = 0; i < numCourses; i++) {
         // console.log("i is",i);
