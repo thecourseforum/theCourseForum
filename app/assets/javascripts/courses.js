@@ -72,6 +72,10 @@ ready = function() {
 		    ],
      });
 
+	// $(window).unload(function() {
+ //  		$('select option').remove();
+	// });
+
 	//hides the professors list on course page when the professor list is clicked
 	var toggled = true;
 	$("#courses-sidebar").click(function(){

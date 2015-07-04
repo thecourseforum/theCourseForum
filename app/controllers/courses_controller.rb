@@ -19,7 +19,7 @@ class CoursesController < ApplicationController
     @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id) : Review.where(:course_id => @course.id)
     @reviews_no_comments = @all_reviews.where(:comment => "")
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
-    @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 20)
+    # @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
     @total_review_count = @all_reviews.count
 
     if @sort_type != nil
@@ -38,6 +38,8 @@ class CoursesController < ApplicationController
         @reviews_with_comments = @all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [r.semester_id, r.created_at.to_i]}
       end
     end
+
+    @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
 
 
     if @professor      
