@@ -5,81 +5,81 @@
 = stylesheet_link_tag "show_professors"
 = stylesheet_link_tag "departments"
 
-div#dept-list role="tabpanel"
-  /! Nav tabs
-  ul#dept-tabs.nav.nav-tabs role="tablist" 
-    li.active role="presentation" 
-      a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
-  /! Tab panes
-  br
-  .tab-content
-    #dept-courses.tab-pane.fade.in.active role="tabpanel"
-      .container-fluid
-        #accordion                              
-            = content_tag "div", id: "IDs", data: {ids: @professor_ids} do end
-            - @professors.each do |professor|
-              - percentages = @course.get_grade_percentages(professor.id)
-              = content_tag "div", id: "percentages-#{professor.id}", data: {percents: percentages} do end
-              - ratings = @course.get_review_ratings(professor.id)
-              - review = @course.get_top_review(professor.id)
-              #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
-                #course-panel.panel.panel-default
-                  .panel-heading.prof-heading(id="heading-#{professor.id}" role="tab")                       
-                    .panel-title
-                      a.course-link.collapsed aria-controls="collapse-#{professor.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{professor.id}"                         
-                        / span.glyphicon.glyphicon-plus.pull-right 
-                        .prof-block
-                          span.glyphicon.glyphicon-th-list                         
-                        .row.panel-title-content                          
-                          span.col-md-3.prof-title= "#{professor.first_name} #{professor.last_name}"
-                          .col-md-2
-                            - if review                            
-                              .glyphicon.glyphicon-pencil 
-                              span Has reviews
-                          .col-md-2
-                            - if percentages[:total] != 0
-                              .glyphicon.glyphicon-tasks
-                              span Has grades
-                  .panel-collapse.collapse(id="collapse-#{professor.id}")                    
-                    .panel-body
-                      .row
-                        .grades-row(id="grade-bar-#{professor.id}")
-                      .col-md-6.course-data-box                        
-                        .col-md-offset-1
-                          .class-name
-                            span= "#{professor.last_name}"
-                        br
-                        .row                              
-                          .col-sm-3.col-md-offset-2
-                            .number-box
-                              .row.number
-                                span= ratings[:overall]
-                              .row
-                                p avg rating
-                          .col-sm-3
-                            .number-box
-                              .row.number                             
-                                span= ratings[:difficulty]
-                              .row
-                                p avg difficulty
-                          .col-sm-3
-                            .number-box
-                              .row.number                             
-                                span= percentages[:gpa].round(2)
-                              .row
-                                p avg gpa
-                      .col-md-4.col-md-offset-1.review-box
+/ div#dept-list role="tabpanel"
+/   /! Nav tabs
+/   ul#dept-tabs.nav.nav-tabs role="tablist" 
+/     li.active role="presentation" 
+/       a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
+/   /! Tab panes
+/   br
+/   .tab-content
+/     #dept-courses.tab-pane.fade.in.active role="tabpanel"
+.container-fluid
+  #accordion                              
+      = content_tag "div", id: "IDs", data: {ids: @professor_ids} do end
+      - @professors.each do |professor|
+        - percentages = @course.get_grade_percentages(professor.id)
+        = content_tag "div", id: "percentages-#{professor.id}", data: {percents: percentages} do end
+        - ratings = @course.get_review_ratings(professor.id)
+        - review = @course.get_top_review(professor.id)
+        #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
+          #course-panel.panel.panel-default
+            .panel-heading.prof-heading(id="heading-#{professor.id}" role="tab")                       
+              .panel-title
+                a.course-link.collapsed aria-controls="collapse-#{professor.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{professor.id}"                         
+                  / span.glyphicon.glyphicon-plus.pull-right 
+                  .prof-block
+                    span.glyphicon.glyphicon-th-list                         
+                  .row.panel-title-content                          
+                    span.col-md-3.prof-title= "#{professor.first_name} #{professor.last_name}"
+                    .col-md-2
+                      - if review                            
+                        .glyphicon.glyphicon-pencil 
+                        span Has reviews
+                    .col-md-2
+                      - if percentages[:total] != 0
+                        .glyphicon.glyphicon-tasks
+                        span Has grades
+            .panel-collapse.collapse(id="collapse-#{professor.id}")                    
+              .panel-body
+                .row
+                  .grades-row(id="grade-bar-#{professor.id}")
+                .col-md-6.course-data-box                        
+                  .col-md-offset-1
+                    .class-name
+                      span= "#{professor.last_name}"
+                  br
+                  .row                              
+                    .col-sm-3.col-md-offset-2
+                      .number-box
+                        .row.number
+                          span= ratings[:overall]
                         .row
-                          .col-md-12
-                            - if review
-                              - if review.length >= 300
-                                p= review[0..300] + "..."                        
-                              - else 
-                                p= review[0..300]
-                            - else 
-                              p No reviews yet :(
-                        .row.review-box
-                          .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to("View course", "#{course_path(@course)}?p=#{professor.id}")
+                          p avg rating
+                    .col-sm-3
+                      .number-box
+                        .row.number                             
+                          span= ratings[:difficulty]
+                        .row
+                          p avg difficulty
+                    .col-sm-3
+                      .number-box
+                        .row.number                             
+                          span= percentages[:gpa].round(2)
+                        .row
+                          p avg gpa
+                .col-md-4.col-md-offset-1.review-box
+                  .row
+                    .col-md-12
+                      - if review
+                        - if review.length >= 300
+                          p= review[0..300] + "..."                        
+                        - else 
+                          p= review[0..300]
+                      - else 
+                        p No reviews yet :(
+                  .row.review-box
+                    .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to("View course", "#{course_path(@course)}?p=#{professor.id}")
               /- percentages = course.get_grade_percentages
                 /=percentages["total"].to_s
                 / =percentages
@@ -93,18 +93,7 @@ div#dept-list role="tabpanel"
                 / - else
                 /   li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
 
-    / #dept-professors.tab-pane.fade role="tabpanel"
-    /   .container-fluid
-    /     .row
-    /       .col-xs-4
-    /         - @professors[0].each do |professor|
-    /           .prof= link_to professor.separated_name, professor_path(professor)
-    /       .col-xs-4
-    /         - @professors[1].each do |professor|
-    /           .prof= link_to professor.separated_name, professor_path(professor)
-    /       .col-xs-4
-    /         - @professors[2].each do |professor|
-    /           .prof= link_to professor.separated_name, professor_path(professor)
+                
         
 
     

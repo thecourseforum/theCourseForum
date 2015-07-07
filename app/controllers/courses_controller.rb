@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
 
   def show_professors
     @course = Course.find(params[:id])
-    @professors = @course.professors.uniq    
+    @professors = @course.professors_list   
     @professor_ids = @professors.collect(&:id)
     respond_to do |format|
       format.html # show_professors.html.slim

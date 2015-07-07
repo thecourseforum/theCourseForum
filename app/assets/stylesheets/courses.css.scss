@@ -112,11 +112,16 @@ img {
   display: block;
   text-align: center;
   margin: 10px 0;
-  .previous_page { border: 1px solid $blue; }
-  .previous_page.disabled { border: 1px solid $blue;}
+  // .previous_page { border: 1px solid $blue; }
+  // .previous_page.disabled { border: 1px solid $blue;}
   .current { color: #E25424; font-weight: bold; font-style:normal;}
-  .next_page { border: 1px solid $blue;}
-  .next_page.disabled { border: 1px solid $blue;}
+  // .next_page { border: 1px solid $blue;}
+  // .next_page.disabled { border: 1px solid $blue;}
+  // a {
+  //   border:1px solid $blue;
+  //   width: 36px;
+
+  // }
 }
 
 .rating {
@@ -139,7 +144,7 @@ img {
   /* Rectangle 13 Copy: */
   background: #FFFFFF;
   border: 1px solid #979797;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  box-shadow: 1px 1px 0px 0px #B8B8B8;
   padding-right: 5px;
   margin-bottom: 10px;
 }
@@ -152,7 +157,7 @@ img {
   margin-top: 10px;
   background: #FFFFFF;
   border: 1px solid #979797;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  box-shadow: 1px 1px 0px 0px #B8B8B8;
 }
 
 .course-grades {
@@ -162,7 +167,7 @@ img {
   padding-right: 10px;
   background-color: white;
   border: 1px solid #979797;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+    box-shadow: 1px 1px 0px 0px #B8B8B8;
   // width: 49.0%
 }
 
@@ -323,7 +328,7 @@ p {
   margin-right: 5px;
   border: 1px solid #979797;
   background-color: white;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 0px 0px #B8B8B8
 }
 
 

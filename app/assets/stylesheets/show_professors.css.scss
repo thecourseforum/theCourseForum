@@ -6,6 +6,14 @@
   vertical-align: middle;
 }
 
+body {
+  font-family: "OpenSans";
+}
+
+.panel-heading.prof-heading {
+  background-color: white;
+}
+
 
 .number-box {
   text-align: center;
@@ -42,4 +50,12 @@
 }
 .prof-title {
   font-size: 18px;
+}
+
+#content-container {
+  background-color: #eee !important;
+  box-shadow: none !important;
+  padding-top: 0px !important;
+  padding-left: 0px;
+  padding-right: 0px;
 }

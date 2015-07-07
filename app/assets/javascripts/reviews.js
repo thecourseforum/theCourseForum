@@ -200,6 +200,7 @@ ready = function() {
 		});
 	}
 
+
 	$('[id^="vote_up_"]').click(function() {
 		var review_id = this.id.match(/\d+/)[0];
 		$.ajax({
@@ -207,11 +208,23 @@ ready = function() {
 			type: 'POST',
 			success: function() {
 				// $("#vote_up_" + review_id).css("background-color", "#d9551e");
-				// $("#vote_up_" + review_id).css("border-color", "#d9551e");
+				// $("#vote_up_" + review_id).css("border-color", "#d9551
+
 				$("#vote_up_" + review_id).css("opacity", "1");
 
+				// var count = $("#votes_" + review_id).text().trim();
+				// console.log("count: " + count);
+				// if (count == "") {
+				// 	console.log("gothere");
+				// 	count = 1
+				// } else {
+				// 	count = parseInt(count) + 1;
+				// }
+				
+       			// $("#votes_" + review_id).text(count);
 				// $("#vote_down_" + review_id).css("background-color", "#d9551e");
 				// $("#vote_down_" + review_id).css("border-color", "#d9551e");
+
 				$("#vote_down_" + review_id).css("opacity", "0.4");
 			}
 		});
@@ -226,6 +239,16 @@ ready = function() {
 				// $("#vote_down_" + review_id).css("border-color", "#d9551e");
 				$("#vote_down_" + review_id).css("opacity", "1");
 
+				// var count = $("#votes_" + review_id).text().trim();
+				// console.log("count: " + count);
+				// if (count == "") {
+				// 	console.log("gothere");
+				// 	count = 0
+				// } else {
+				// 	count = parseInt(count) - 1;
+				// }
+
+				// $("#votes_" + review_id).text(count);
 				// $("#vote_up_" + review_id).css("background-color", "#d9551e");
 				// $("#vote_up_" + review_id).css("border-color", "#d9551e");
 				$("#vote_up_" + review_id).css("opacity", "0.4");
