@@ -16,12 +16,7 @@
 /books/*.log
 /tmp
 /config/database.yml
-
-# Ignore lock file.
-*.lock
-/config/database.yml
-
-config/initializers/secret_token.rb
+/config/initializers/secret_token.rb
 
 # Ignore application configuration
 /config/application.yml

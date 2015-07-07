@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 gem 'mysql2'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -95,7 +95,7 @@ gem 'nprogress-rails'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass', '>= 3.0.0'
+gem 'bootstrap-sass'
 gem 'will_paginate', '>=3.0.3'
 
 # Use JQuery UI
