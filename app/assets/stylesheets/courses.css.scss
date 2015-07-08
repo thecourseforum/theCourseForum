@@ -18,16 +18,16 @@ $lightgray: #cccccc;
 }
 
 .rating-number {
-  padding-left: 0px;
-  padding-right: 5px;
+  // padding-left: 0px;
+  // padding-right: 5px;
   font-size:12px;
   text-align: center;
   padding-top: 14px;
 }
 
 .review-stats {
-  padding-left: 0px;
-  padding-right: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-size:12px;
   text-align: center;
   padding-top: 14px;
@@ -113,10 +113,10 @@ img {
   text-align: center;
   margin: 10px 0;
   // .previous_page { border: 1px solid $blue; }
-  // .previous_page.disabled { border: 1px solid $blue;}
+  .previous_page.disabled { opacity: 0.4;}
   .current { color: #E25424; font-weight: bold; font-style:normal;}
   // .next_page { border: 1px solid $blue;}
-  // .next_page.disabled { border: 1px solid $blue;}
+  .next_page.disabled { opacity: 0.4;}
   // a {
   //   border:1px solid $blue;
   //   width: 36px;
@@ -136,7 +136,7 @@ img {
 /*  vertical-align: 30%;*/
   bottom: 50%;
   position: absolute;
-  width: 90%;
+  width: 95%;
 }
 
 .ratings-stats, .workload-stats {
@@ -297,13 +297,21 @@ p {
 }
 
 .upvote {
+  width: 50px;
+  height: 50px;
   padding: 0px 0px;
   display: block;
+  margin: auto;
+  opacity: 0.4;
 }
 
 .downvote {
+  opacity: 0.4;
+  width: 50px;
+  height: 50px;
   padding: 0px 0px;
   display: block;
+  margin: auto;
   -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
   -moz-transform: rotate(180deg);        /* FF */
   -o-transform: rotate(180deg);          /* Opera */

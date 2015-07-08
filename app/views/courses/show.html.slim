@@ -248,17 +248,17 @@
     - @reviews.each do |r|
       .single-review
         .row
-          .col-xs-2.rating-number
+          .col-xs-1.rating-number
             .row
-              .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50") 
+              .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50") 
             .row 
               - if r.votes_count > 0
-                .upvotes id="votes_#{r.id}"= "#{r.votes_for}"
+                .upvotes id="votes_#{r.id}"= "#{r.votes_for - r.votes_against}"
               - else
                 .upvotes id="votes_#{r.id}"= ""
             .row
-              .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}" = image_tag("icons/up.png", size: "50")
-          .col-xs-8.comment-container
+              .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")
+          .col-xs-9.comment-container
             .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
           .col-xs-2.review-stats
             / = r.created_at.strftime("%Y-%m-%d")

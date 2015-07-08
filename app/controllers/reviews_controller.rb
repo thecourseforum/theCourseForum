@@ -134,6 +134,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def unvote
+    @review = Review.find(params[:review_id])
+
+    current_user.unvote_for(@review)
+
+    render :nothing => true
+  end
+
   def vote_up
     @review = Review.find(params[:review_id])
 

@@ -83,7 +83,7 @@ TheCourseForum::Application.routes.draw do
   #routes for voting
   post '/vote_up/:review_id', :to => 'reviews#vote_up'
   post '/vote_down/:review_id', :to => 'reviews#vote_down'
-
+  post '/unvote/:review_id', :to => 'reviews#unvote'
 
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root
