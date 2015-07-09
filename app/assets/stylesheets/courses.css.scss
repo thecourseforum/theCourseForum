@@ -22,7 +22,9 @@ $lightgray: #cccccc;
   // padding-right: 5px;
   font-size:12px;
   text-align: center;
-  padding-top: 14px;
+  // padding-top: 14px;
+  width: 10%;
+  display: inline-block;
 }
 
 .review-stats {
@@ -34,9 +36,19 @@ $lightgray: #cccccc;
   float: right;
 }
 
+.comment {
+  margin-bottom: 40px;
+}
+
 .comment-container {
   border-left: 2px solid #bbb;
   min-height: 100%;
+  float: right;
+  width: 90%;
+  padding-right: 30px;
+  min-height: 117px;
+  position: relative;
+  padding-left: 20px;
 }
 
 .book-image {
@@ -185,7 +197,7 @@ img {
 }
 
 .comment-header {
-  margin: 10px 0;
+  margin-top: 10px;
   padding: 10px 0;
   border-bottom: 1px solid #bbb;
 }
@@ -347,6 +359,19 @@ p {
   padding-top: 5px;
 }
 
+.rating-icon {
+  padding-left: 4px;
+  float: left;
+}
+
+.icon-and-text {
+  float:left;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 13px;
+}
+
 .icon-text {
   text-align: center;
 }
@@ -355,6 +380,14 @@ p {
   padding-left: 0px;
   padding-right: 0px;
   padding-top:2px;
+}
+
+.stats-row {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 0 20px;
 }
 
 .upvotes {
@@ -366,8 +399,16 @@ p {
   font-size:20px;
   font-family: 'OpenSans';
   color: rgb(215, 86, 38);
+  float: left;
+  margin-top: 10px;
+  margin-right: 20px;
 }
 
+.time {
+  float:right;
+  font-size: small;
+  text-align: center;
+}
 
 .skillbar {
   margin-top: 14px;
