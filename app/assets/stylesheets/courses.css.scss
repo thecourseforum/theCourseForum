@@ -17,6 +17,14 @@ $lightgray: #cccccc;
   padding-right: 0px;
 }
 
+.stats-number {
+  padding-left: 0px;
+  // padding-right: 5px;
+  padding-top: 12px;
+  font-size: 12px;
+  text-align: center;
+}
+
 .rating-number {
   // padding-left: 0px;
   // padding-right: 5px;
@@ -24,7 +32,7 @@ $lightgray: #cccccc;
   text-align: center;
   // padding-top: 14px;
   width: 10%;
-  display: inline-block;
+  float: left;
 }
 
 .review-stats {
@@ -41,14 +49,16 @@ $lightgray: #cccccc;
 }
 
 .comment-container {
-  border-left: 2px solid #bbb;
+  border-left: 1px solid #bbb;
   min-height: 100%;
-  float: right;
+  display: inline-block;
+  // float: right;
   width: 90%;
   padding-right: 30px;
   min-height: 117px;
   position: relative;
   padding-left: 20px;
+  margin: 0px
 }
 
 .book-image {
@@ -155,8 +165,8 @@ img {
   height:190px;
   /* Rectangle 13 Copy: */
   background: #FFFFFF;
-  border: 1px solid #979797;
-  box-shadow: 1px 1px 0px 0px #B8B8B8;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
   padding-right: 5px;
   margin-bottom: 10px;
 }
@@ -168,8 +178,8 @@ img {
 .review-pane {
   margin-top: 10px;
   background: #FFFFFF;
-  border: 1px solid #979797;
-  box-shadow: 1px 1px 0px 0px #B8B8B8;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
 }
 
 .course-grades {
@@ -178,8 +188,8 @@ img {
   padding-left: 0px;
   padding-right: 10px;
   background-color: white;
-  border: 1px solid #979797;
-    box-shadow: 1px 1px 0px 0px #B8B8B8;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
   // width: 49.0%
 }
 
@@ -251,8 +261,8 @@ p {
 }
 
 .amazon-info {
-  position: fixed;
-  bottom: 8%;
+  position: absolute;
+  bottom: -90%;
 }
 .requirement-cost-condition {
   color: $blue;
@@ -305,7 +315,7 @@ p {
 
 .single-review {
   padding: 10px 0;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #efefef;
 }
 
 .upvote {
@@ -346,9 +356,9 @@ p {
 .item {
   margin-left: 5px;
   margin-right: 5px;
-  border: 1px solid #979797;
+  //border: 1px solid #979797;
   background-color: white;
-  box-shadow: 1px 1px 0px 0px #B8B8B8
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
 }
 
 

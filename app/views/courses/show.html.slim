@@ -50,7 +50,7 @@
                   - percent = @rev_ratings[:prof] ? ((@rev_ratings[:prof]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
+                .col-xs-2.stats-number=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/happy.png", size: "20")
@@ -59,7 +59,7 @@
                   - percent = @rev_ratings[:enjoy] ? ((@rev_ratings[:enjoy]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
+                .col-xs-2.stats-number=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/difficulty.png", size: "20")
@@ -68,7 +68,7 @@
                   - percent = @rev_ratings[:difficulty] ? ((@rev_ratings[:difficulty]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
+                .col-xs-2.stats-number=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div.recommend=image_tag("icons/recommend.png", size: "20")
@@ -77,7 +77,7 @@
                   - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+                .col-xs-2.stats-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
 
           .row.workload-stats
             .col-xs-4.overall-col
@@ -98,7 +98,7 @@
                   - percent = @rev_emphasizes[:reading] ? ((@rev_emphasizes[:reading]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
+                .col-xs-2.stats-number=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/writing.png", size: "20")
@@ -107,7 +107,7 @@
                   - percent = @rev_emphasizes[:writing] ? ((@rev_emphasizes[:writing]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
+                .col-xs-2.stats-number= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/group.png", size: "20")
@@ -116,7 +116,7 @@
                   - percent = @rev_emphasizes[:group] ? ((@rev_emphasizes[:group]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
+                .col-xs-2.stats-number= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
               .row.stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/other.png", size: "20")
@@ -125,7 +125,7 @@
                   - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
+                .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
 
         .col-xs-6.course-grades GPA
 
@@ -288,6 +288,9 @@
                 div = r.created_at.strftime("%Y-%m-%d")
                 - if r.semester_id
                   .taken= "#{r.semester.season} #{r.semester.year}"
+              - if current_user == r.user
+                .icon-and-text
+                  div.rating-icon style="color:#E25424;" = "You wrote this!"
 
             / br
             / br
