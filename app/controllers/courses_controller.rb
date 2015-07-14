@@ -16,7 +16,7 @@ class CoursesController < ApplicationController
       @professor = Professor.find(params[:p])
     end
 
-    @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id) : Review.where(:course_id => @course.id)
+    @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id).includes(:votes) : Review.where(:course_id => @course.id).includes(:votes)
     @reviews_no_comments = @all_reviews.where(:comment => "")
     @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
     # @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)

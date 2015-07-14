@@ -37,7 +37,7 @@ body.modal-open {
 }
 
 #schedule-name {
-	margin-top: 8px;	
+	margin-top: 8px;
 	margin-bottom: 8px;
 	text-align: center;
 }
@@ -94,6 +94,7 @@ body.modal-open {
 	letter-spacing: 0px;
 	word-spacing: 0px;
 	margin-bottom: 5px;
+	margin-right: 3px;
 	clear: left;
 }
 
@@ -103,7 +104,7 @@ body.modal-open {
 	border-color: #c34c1b;
 	padding: 4px;
 	cursor: pointer;
-	width: 170px;
+	width: 90%;
 	display: inline-block;
 }
 
@@ -168,27 +169,27 @@ body.modal-open {
 }
 
 .ui-effects-transfer {
-    border: 1px dotted black;
+	border: 1px dotted black;
 }
 
 .ui-slider-tick-mark{
-    display:inline-block;
-    width:2px;
-    background:#00137F;
-    height:16px;
-    position:absolute;
-    top:-2px;
+	display:inline-block;
+	width:2px;
+	background:#00137F;
+	height:16px;
+	position:absolute;
+	top:-2px;
 }
 
 @-webkit-keyframes colours {
-    0% {background-color: #15214B;}
-    50% {background-color: #D75626;}
-    100% {background-color: #15214B;}
+	0% {background-color: #15214B;}
+	50% {background-color: #D75626;}
+	100% {background-color: #15214B;}
 }
 
 .loading {
 	-webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-name: colours;
-    -webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: colours;
+	-webkit-animation-timing-function: ease;
 }​

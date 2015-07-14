@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :subdepartment
+  belongs_to :last_taught_semester, :class_name => Semester
 
   has_many :sections
   has_many :reviews
@@ -31,6 +32,12 @@ class Course < ActiveRecord::Base
     self.sections.select(:units).max.units.to_i
   end
 
+  def self.offered(id)
+    sections = Section.where(:semester_id => id)
+    return Hash[sections.map{|section| [section.course_id, true]}]
+  end
+
+
   def self.find_by_mnemonic_number(mnemonic, number)
     subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
     if subdepartment
@@ -38,6 +45,17 @@ class Course < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def self.update_last_taught_semester
+    Course.includes(:sections).load.each do |course|
+      number = course.sections.map(&:semester).uniq.compact.map(&:number).sort.last
+      if number
+        course.update(:last_taught_semester_id => Semester.find_by(:number => number).id)
+      else
+        puts "No sections with semesters for course ID: #{course.id}"
+	  end
+	end
   end
 
   def is_offered(year, season)
@@ -51,7 +69,7 @@ class Course < ActiveRecord::Base
         end
       end
     end
-    return false
+	return false
   end
 
   def get_top_review(prof_id = -1)

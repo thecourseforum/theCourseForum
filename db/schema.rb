@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430034935) do
+ActiveRecord::Schema.define(version: 20150714174932) do
 
-  create_table "book_requirements", force: true do |t|
+  create_table "book_requirements", id: false, force: true do |t|
     t.integer "section_id", null: false
     t.integer "book_id",    null: false
     t.string  "status",     null: false
@@ -60,19 +60,15 @@ ActiveRecord::Schema.define(version: 20150430034935) do
 
   create_table "courses", force: true do |t|
     t.string   "title"
-    t.decimal  "course_number",    precision: 4, scale: 0, default: 0
+    t.decimal  "course_number",           precision: 4, scale: 0, default: 0
     t.integer  "subdepartment_id"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.boolean  "title_changed"
+    t.integer  "last_taught_semester_id"
   end
 
   add_index "courses", ["subdepartment_id"], name: "index_courses_on_subdepartment_id", using: :btree
-
-  create_table "courses_major_requirements", force: true do |t|
-    t.integer "course_id"
-    t.integer "major_requirement_id"
-  end
 
   create_table "courses_users", id: false, force: true do |t|
     t.integer "course_id"
@@ -139,14 +135,6 @@ ActiveRecord::Schema.define(version: 20150430034935) do
 
   create_table "locations", force: true do |t|
     t.string   "location"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "major_requirements", force: true do |t|
-    t.integer  "major_id"
-    t.integer  "credits_required", null: false
-    t.string   "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -264,13 +252,6 @@ ActiveRecord::Schema.define(version: 20150430034935) do
     t.integer  "course_id"
     t.integer  "semester_id"
   end
-
-  create_table "sections_users", id: false, force: true do |t|
-    t.integer "section_id"
-    t.integer "user_id"
-  end
-
-  add_index "sections_users", ["user_id", "section_id"], name: "index_sections_users_on_user_id_and_section_id", unique: true, using: :btree
 
   create_table "semesters", force: true do |t|
     t.integer  "number"
