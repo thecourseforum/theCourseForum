@@ -40,7 +40,7 @@
             .col-xs-4.overall-col
               .row.rating-row
                 .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
-              h5.rating-title Ratings
+              h5.rating-title Rating
             .col-xs-8.stats-col
               .row.stat-row
                 .col-xs-3.icon
@@ -212,7 +212,6 @@
         = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
       .col-xs-5
         div style="float:right"
-          | Sort by:
       .col-xs-3
         select.courses-review-type-switcher style="font-size:13px;float:right;"
           / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
@@ -285,9 +284,13 @@
                 div.rating-icon= image_tag("icons/recommend.png", size: "20")
                 div.rating-icon = r.recommend
               .time
-                div = r.created_at.strftime("%Y-%m-%d")
                 - if r.semester_id
                   .taken= "#{r.semester.season} #{r.semester.year}"
+                  div = r.created_at.strftime("%Y-%m-%d")
+                - else
+                  div style="margin-top: 18px;" = r.created_at.strftime("%Y-%m-%d")
+                / - if r.semester_id
+                /   .taken= "#{r.semester.season} #{r.semester.year}"
               - if current_user == r.user
                 .icon-and-text
                   div.rating-icon style="color:#E25424;" = "You wrote this!"

@@ -11,6 +11,33 @@
   margin-bottom: 0;
 }
 
+#departments-content {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.name-block {
+  background-color: $orange;
+  border-radius: 5px;
+  height: 120px;
+  margin: 10px 10px;
+  cursor: pointer;
+}
+
+.course-name {
+  margin-top: 20px;
+  padding: 0px 10px;
+  font-size: 30px;
+  font-family: "OpenSans";
+  color: white;
+}
+
+.course-title {
+  color: white;
+  padding: 0px 10px;
+  font-family: "OpenSans";
+}
+
 .dept-block {
   height: 46px;
   background-color: $orange;

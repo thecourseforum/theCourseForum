@@ -189,7 +189,7 @@ $(function() {
                     }
                 },
                 credits: {
-                    enabled: true,
+                    enabled: false,
                     position: {
                         align: 'left',
                         x: 10

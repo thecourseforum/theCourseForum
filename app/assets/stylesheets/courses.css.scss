@@ -4,6 +4,10 @@ body {
   font-family: "OpenSans";
 }
 
+h1 {
+  font-family: "HelveticaNeue-Medium";
+}
+
 #courses-main {
   padding-left: 0px;
   padding-right: 0px;
@@ -11,6 +15,11 @@ body {
 
 $lightgray: #cccccc;
 
+#course-page, .review-pane {
+  margin-left: auto;
+  margin-right: auto;
+  // max-width: 926px;
+}
 
 .container-fluid {
   padding-left: 0px;
@@ -162,13 +171,13 @@ img {
 }
 
 .ratings-stats, .workload-stats {
-  height:190px;
+  height:192.5px;
   /* Rectangle 13 Copy: */
   background: #FFFFFF;
   // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   padding-right: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .orange-title {
@@ -214,8 +223,9 @@ img {
 
 .rating-title {
   color: $blue;
-  position: absolute;
-  bottom: 20%;
+  position: relative;
+  bottom: -10%;
+  text-align:center;
 }
 
 .sortby-title {
@@ -412,6 +422,7 @@ p {
   float: left;
   margin-top: 10px;
   margin-right: 20px;
+  width: 40px;
 }
 
 .time {
