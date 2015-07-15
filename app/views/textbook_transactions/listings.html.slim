@@ -4,10 +4,10 @@
 - content_for :page_heading, "Textbook Listings"
 
 ul.nav.nav-pills
-  li.active role="presentation" 
-    a href="#" Books
   li role="presentation" 
-    a href="#" Listings
+    a href="/textbook_transactions/books" Books
+  li.active role="presentation" 
+    a href="/textbook_transactions/listings" Listings
 #mnemonics-form.form-group.has-feedback
   #above-search-bar
     ul
@@ -17,6 +17,7 @@ ul.nav.nav-pills
         button#post-listing.btn.btn-lg Post a Listing!
   #mnemonics = search_field_tag "book-titles", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
+
 
 table.table.table-hover.table-striped
   thead

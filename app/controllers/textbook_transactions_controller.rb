@@ -4,6 +4,14 @@ class TextbookTransactionsController < ApplicationController
     @textbook_transactions = TextbookTransaction.active
   end
 
+  def listings
+    @textbook_transactions = TextbookTransaction.active
+  end
+
+  def books
+    @books = Book.all
+  end
+
   def search_book_titles
     query = params[:query]
 
@@ -21,7 +29,11 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def claim
-    TextbookTransaction.find(params[:format]).update(:buyer_id => current_user.id)
+    if current_user.cellphone
+      transaction = TextbookTransaction.find(params[:format])
+      transaction.update(:buyer_id => current_user.id)
+      RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+    end 
     redirect_to action: "index"
   end
 
@@ -56,8 +68,9 @@ class TextbookTransactionsController < ApplicationController
         :buyer_id => params[:buyer_id],
         :price => params[:price],
         :condition => params[:condition],
+        :notes => params[:notes],
         :book_id => params[:book_id]
       }
-      params.require(:textbook_transaction).permit(:title, :cellphone, :price, :condition, :book_id, :seller_id, :buyer_id, :sell?)
+      params.require(:textbook_transaction).permit(:title, :cellphone, :price, :condition, :notes, :book_id, :seller_id, :buyer_id)
     end
 end

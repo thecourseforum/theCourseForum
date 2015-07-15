@@ -1,0 +1,23 @@
+= javascript_include_tag "textbook_transactions"
+= stylesheet_link_tag "textbook_transactions"
+
+- content_for :page_heading, "Textbook Listings"
+
+ul.nav.nav-pills
+  li.active role="presentation" 
+    a href="/textbook_transactions/books" Books
+  li role="presentation" 
+    a href="/textbook_transactions/listings" Listings
+#mnemonics-form.form-group.has-feedback
+  #above-search-bar
+    ul
+      li
+        label.control-label for="search"  Search
+      li
+        button#post-listing.btn.btn-lg Post a Listing!
+  #mnemonics = search_field_tag "book-titles", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
+  #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
+
+- @books.each do |book|
+  .col-md-4
+    = link_to book.title, :controller => :books, :action => :show, :id => book.id

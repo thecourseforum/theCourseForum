@@ -4,6 +4,10 @@ class BooksController < ApplicationController
   def index
   end
 
+  def show
+    @book = Book.find(params[:id])
+  end
+
   def courses
     mnemonics = JSON.parse(params[:mnemonics])
     courses = mnemonics.map do |mnemonic_number|

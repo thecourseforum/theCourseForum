@@ -36,7 +36,8 @@
 }
 
 .ui-autocomplete {
-  z-index:2147483647;
+	z-index: 2147483647;
+	list-style: none;
 }
 
 .nav-pills > li.active > a, 

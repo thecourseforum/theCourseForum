@@ -7,7 +7,7 @@ CREATE TABLE `textbook_transactions` (
 	`book_id` int(11) NOT NULL,
 	`price` int(11) NOT NULL,
 	`condition` varchar(255) NOT NULL,
-	`notes` varchar(255) DEFAULT NULL,
+	`notes` text DEFAULT NULL,
 	`created_at` datetime NOT NUll,
 	`updated_at` datetime NOT NUll,
 	`sold_at` datetime DEFAULT NULL,

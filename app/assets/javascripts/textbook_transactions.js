@@ -7,11 +7,10 @@ window.onload = function () {
 	});
 
 	$('#submit-listing').click(function() {
-		var isSelling = ($("#sell-option").hasClass("active"));
 		$.ajax({
 			url: '/textbook_transactions',
 			method: "POST",
-			data: $("#textbook_transaction").serialize() + "&sell?=" + isSelling,
+			data: $("#textbook_transaction").serialize(),
 			success: function(response) {
 				alert("Listing Posted!");
 			}

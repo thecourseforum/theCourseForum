@@ -41,7 +41,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments, :only => [:show]
 
-  resources :books, :only => [:index]
+  resources :books, :only => [:index, :show]
   get '/books/courses' => 'books#courses'
 
 
@@ -60,6 +60,8 @@ TheCourseForum::Application.routes.draw do
     end
   end
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'
+  get '/textbook_transactions/books' => 'textbook_transactions#books'
+  get '/textbook_transactions/listings' => 'textbook_transactions#listings'
 
   resources :search, :only => [] do
     collection do
