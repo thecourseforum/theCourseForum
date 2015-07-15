@@ -28,7 +28,7 @@
           / - separator = course.course_number.round(-3)
           - ratings = course.get_review_ratings
           - percentages = course.get_grade_percentages
-          - review = course.get_top_review
+          / - review = course.get_top_review
           = content_tag "div", id: "percentages-#{course.id}", data: {percents: percentages} do end
           / = content_tag :div, class: "temp_information", data: {temp: @temp} 
           - if flag
@@ -45,7 +45,7 @@
               h3 = ratings[:overall]
               h3 = ratings[:difficulty]
               h3 = percentages[:gpa].round(2)
-              h3 = course.last_taught_semester.to_s
+              h3 = course.last_taught_semester
           #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
             #course-panel.panel.panel-default
               .panel-heading(id="heading-#{course.id}" role="tab")
@@ -83,14 +83,14 @@
                             p avg gpa
                   .col-md-4.review-box
                     .row
-                      .col-md-12
-                        - if review
-                          - if review.length >= 300
-                            p= review[0..300] + "..."                        
-                          - else 
-                            p= review[0..300]
-                        - else 
-                          p No reviews yet :(                   
+                      / .col-md-12
+                      /   - if review
+                      /     - if review.length >= 300
+                      /       p= review[0..300] + "..."                        
+                      /     - else 
+                      /       p= review[0..300]
+                      /   - else 
+                      /     p No reviews yet :(                   
                     .row.review-box
                       .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", '/courses/' + course.id.to_s + '/professors'
                 /- percentages = course.get_grade_percentages
