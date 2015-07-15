@@ -45,6 +45,7 @@
               h3 = ratings[:overall]
               h3 = ratings[:difficulty]
               h3 = percentages[:gpa].round(2)
+              h3 = course.last_taught_semester.to_s
           #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
             #course-panel.panel.panel-default
               .panel-heading(id="heading-#{course.id}" role="tab")
@@ -100,7 +101,7 @@
                 /   .panel.panel-default
                 /     h4.panel-title
                 /       a text
-                / - if course.is_offered(2014, "Fall")                  
+                / - if @offered[course.id]                 
                 /   .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
                 / - else
                 /   li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course

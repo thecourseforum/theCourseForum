@@ -58,20 +58,6 @@ class Course < ActiveRecord::Base
 	end
   end
 
-  def is_offered(year, season)
-    section = self.sections
-    if not section.nil?
-      self.sections.each do |section|
-        if not section.semester.nil?
-          if section.semester.year == year and section.semester.season == season
-            return true
-          end
-        end
-      end
-    end
-	return false
-  end
-
   def get_top_review(prof_id = -1)
     if prof_id != -1
       review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
