@@ -25,7 +25,6 @@
         .course-panel
           .col-xs-4.name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
             .row.prof-title= "#{professor.first_name} #{professor.last_name}"
-            / .row.last-taught = "Fall 2012"
           .col-xs-7.details-block
             .row
               .col-xs-2.info
@@ -47,8 +46,7 @@
                 .row.rating-subheader
                   span GPA
               .col-xs-6
-                h3.semester = "Fall 2012"
-                / h3.semester = course.last_taught_semester
+                h3.semester =  @professors_semester[professor.id]
             .row.review-col
               - if review
                 - if review.length >= 260
