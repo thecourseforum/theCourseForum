@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "OpenSans";
+  // font-family: "OpenSans";
 }
 
 .panel-heading.prof-heading {
@@ -46,11 +46,42 @@ body {
   margin-top: -10px;
   margin-left: -15px;
 }
-.prof-heading {
+.last-taught {
   margin-bottom: 5px;
+  color: white;
+  padding: 0px 10px;
+  // font-family: "OpenSans";
 }
 .prof-title {
-  font-size: 18px;
+  margin-top: 20px;
+  padding: 0px 10px;
+  font-size: 30px;
+  // font-family: "OpenSans";
+  color: white;
+}
+
+.info {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 12%;
+  margin-top: 42px;
+}
+
+.review-col {
+  width: 62%;
+
+}
+.rating {
+
+}
+
+.rating-subheader {
+
+
+}
+
+.review {
+
 }
 
 

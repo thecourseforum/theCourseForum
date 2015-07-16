@@ -55,7 +55,10 @@
                     span Difficulty
                 .col-xs-2
                   .row
-                    h3.rating = percentages[:gpa].round(2)
+                    - if percentages[:gpa].round(2).nan?
+                      h3.rating = "--"
+                    - else
+                      h3.rating = percentages[:gpa].round(2)
                   .row.rating-subheader
                     span GPA
                 .col-xs-6
