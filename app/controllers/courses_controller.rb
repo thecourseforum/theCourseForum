@@ -73,7 +73,18 @@ class CoursesController < ApplicationController
 
   def show_professors
     @course = Course.find(params[:id])
-    @professors = @course.professors_list   
+    @professors = @course.professors_list
+
+    @professors_semester = {}
+    @course.sections.each do |section|
+      section.professors.each do |professor|
+        if section.semester
+          if !@professors_semester[professor.id] or section.semester.number > @professors_semester[professor.id].number
+            @professors_semester[professor.id] = section.semester
+          end
+        end
+      end
+    end
     @professor_ids = @professors.collect(&:id)
     respond_to do |format|
       format.html # show_professors.html.slim
