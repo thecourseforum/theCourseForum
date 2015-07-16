@@ -61,7 +61,6 @@ TheCourseForum::Application.routes.draw do
   end
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'
   get '/textbook_transactions/books' => 'textbook_transactions#books'
-  get '/textbook_transactions/listings' => 'textbook_transactions#listings'
 
   resources :search, :only => [] do
     collection do
