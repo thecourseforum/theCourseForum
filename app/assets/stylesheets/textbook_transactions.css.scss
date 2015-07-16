@@ -58,3 +58,17 @@
 .claim:hover {
 	background-color: #e38867;
 }
+
+#book-list > div:hover {
+	background-color: #c1e1ec;
+}
+#book-list > div {
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding: 3px;
+	transition: background-color 1.5s ease;
+}
+
+.title-thumb {
+	overflow: hidden;
+}

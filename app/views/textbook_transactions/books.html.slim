@@ -21,6 +21,9 @@ ul.nav.nav-pills
 .col-md-4.hidden
 
 #book-list
-  - @books.each do |book|
+  - @books[0..20].each do |book|
     .col-md-4
-      = link_to book.title, :controller => :books, :action => :show, :id => book.id
+      .col-md-3
+        = image_tag book.small_image_link, :class => 'img-rounded'
+      .col-md-9.title-thumb
+        = link_to book.title, :controller => :books, :action => :show, :id => book.id

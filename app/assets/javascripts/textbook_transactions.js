@@ -91,11 +91,11 @@ $(document).ready(function () {
 
 	$('#book-titles').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
-		$('#book-list').first().children().css("display", "inline");
+		$('#book-list').first().children().css("display", "none");
 		$('#book-list').first().children().filter(function (index) {
 			// console.log($(this).text().includes(query));
-			return !$(this).text().toLowerCase().includes(query);
-		}).css("display", "none");
+			return $(this).text().toLowerCase().includes(query);
+		}).slice(0, 30).css("display", "inline");
 	});
 
 
