@@ -11,6 +11,82 @@
   margin-bottom: 0;
 }
 
+#departments-content {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+// #content-container {
+//   background-color: transparent;
+//   box-shadow: none;
+// }
+
+.name-block {
+  background-color: $light-blue;
+  border-radius: 5px;
+  height: 120px;
+  margin: 10px 10px;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.details-block {
+  margin: 10px 10px;
+  width: 62%;
+}
+
+.course-name {
+  margin-top: 20px;
+  padding: 0px 10px;
+  font-size: 30px;
+  // font-family: "OpenSans";
+  color: white;
+}
+
+.course-panel {
+  height: 140px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-bottom: 1px solid #efefef;
+}
+
+.course-title {
+  color: white;
+  padding: 0px 10px;
+  // font-family: "OpenSans";
+}
+
+.semester {
+  margin-top: 10px;
+  float:right;
+}
+
+.rating, .rating-subheader {
+  text-align: center;
+}
+
+.rating {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.rating-subheader {
+  padding-top: 0px;
+  margin-top: 0px;
+  font-size: 12px;
+}
+
+.description {
+  font-size: 12px;
+  overflow:hidden;
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+
 .dept-block {
   height: 46px;
   background-color: $orange;
@@ -27,11 +103,71 @@
   margin-left: 46px;
 }
 
+.course-block {
+  height: 42px;
+  background-color: $orange;
+  width: 46px;
+  float: left;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 0;
+  margin: -20px -15px -10px -15px;
+}
+
+.course-panel {
+
+}
+
+.class-title {
+  margin-bottom: 5px;
+  margin-left: 46px;
+}
+
+.grades-row  {
+  height: 50px;
+  width: 71%;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.number-box {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.number-box > .row {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.row.number {  
+  font-size: 50px;
+}
+
+.class-name {
+  text-align: center;
+  font-size: 60px;
+  border-bottom: thin solid black;
+  padding-right: 30px;
+}
+
+.review-box {
+  padding-top: 20px;
+  .btn > a {
+    color:white;
+  }
+}
+
 
 /* SHOW */
 
 #dept-tabs > li > a {
   font-size: $subtitle-font-size;
+}
+
+#course-panel > .panel-heading {
+  padding-bottom: 0px;
 }
 
 .bli {

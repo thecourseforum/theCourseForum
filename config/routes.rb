@@ -21,7 +21,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :professors, :only => [:index, :show]
 
-  resources :courses, :only => [:show]
+  resources :courses, :only => [:show, :index, :show_professors]
 
   get '/scheduler' => 'scheduler#scheduler'
   get '/scheduler/search' => 'scheduler#search'
@@ -69,6 +69,8 @@ TheCourseForum::Application.routes.draw do
     end
   end
 
+  get '/courses/:id/professors', :to => 'courses#show_professors'
+
   get '/recommendation/', to: 'recs#courselist'
   get '/browse', :to => 'departments#index', :as => "browse"
 
@@ -94,7 +96,7 @@ TheCourseForum::Application.routes.draw do
   #routes for voting
   post '/vote_up/:review_id', :to => 'reviews#vote_up'
   post '/vote_down/:review_id', :to => 'reviews#vote_down'
-
+  post '/unvote/:review_id', :to => 'reviews#unvote'
 
   authenticated :user do
     root :to => redirect("/browse"), :as => :authenticated_root

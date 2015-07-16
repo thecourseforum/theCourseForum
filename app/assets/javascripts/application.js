@@ -20,6 +20,7 @@
 // require new_wheel
 //= require header
 //= require courses
+//= require departments
 //= require contact_us
 //= require sign_up
 //= require reviews
@@ -32,6 +33,7 @@
 //= require nprogress-ajax
 //= require highcharts
 //= require highcharts/highcharts-more
+//= require jquery.slick
 
 var ready = function() {
 

@@ -30,10 +30,15 @@ class DepartmentsController < ApplicationController
     @subdepartments = @department.subdepartments #Subdepartment.where(:department_id => @department.id)
 
     @subdepartment_ids = @subdepartments.pluck(:id)
-    @courses = Course.where(subdepartment_id: @subdepartment_ids)
+    if params[:all]
+      @courses = Course.where(subdepartment_id: @subdepartment_ids)
+    else
+      current_semester = Semester.find_by(:season => 'Fall', :year => 2015)
+      @courses = Course.where(subdepartment_id: @subdepartment_ids, :last_taught_semester_id => current_semester.id)
+    end
     @course_ids = @courses.pluck(:id)
     @sections = Section.where(course_id: @course_ids)
-    @courses_with_sections_ids = @sections.pluck(:course_id)
+    @courses_with_sections_ids = @sections.pluck(:course_id).uniq
     @courses_with_sections = @courses.where(id: @courses_with_sections_ids)
     @subdepartments_with_sections_ids = @courses_with_sections.pluck(:subdepartment_id)
     @subdepartments_with_sections = @subdepartments.where(id: @subdepartments_with_sections_ids)
@@ -43,9 +48,6 @@ class DepartmentsController < ApplicationController
     @professors = columnize(Professor.where(id: @professor_ids).uniq.sort_by{|p| p.last_name}, 3)
 
     @count = @subdepartments.size
-
-    # Fall 2015
-    @offered = Course.offered(24)
 
     respond_to do |format|
       format.html # show.html.erb

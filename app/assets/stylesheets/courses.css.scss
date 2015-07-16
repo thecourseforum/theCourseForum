@@ -1,26 +1,231 @@
 @import "variables";
 
-#courses-main {
-
+body {
+  // font-family: "OpenSans";
 }
 
+h1 {
+  font-family: "HelveticaNeue-Medium";
+}
+
+#courses-main {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+$lightgray: #cccccc;
+
+#course-page, .review-pane {
+  margin-left: auto;
+  margin-right: auto;
+  // max-width: 926px;
+}
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.stats-number {
+  padding-left: 0px;
+  // padding-right: 5px;
+  padding-top: 12px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.rating-number {
+  // padding-left: 0px;
+  // padding-right: 5px;
+  font-size:12px;
+  text-align: center;
+  // padding-top: 14px;
+  width: 10%;
+  float: left;
+}
+
+.review-stats {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size:12px;
+  text-align: center;
+  padding-top: 14px;
+  float: right;
+}
+
+.comment {
+  margin-bottom: 40px;
+}
+
+.comment-container {
+  border-left: 1px solid #bbb;
+  min-height: 100%;
+  display: inline-block;
+  // float: right;
+  width: 90%;
+  padding-right: 30px;
+  min-height: 117px;
+  position: relative;
+  padding-left: 20px;
+  margin: 0px
+}
+
+.book-image {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+img {
+  vertical-align: middle;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#content-container {
+  background-color: #eee !important;
+  box-shadow: none !important;
+  padding-top: 0px !important;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.prev,
+.slick-next
+{
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    padding: 0;
+
+    cursor: pointer;
+
+    color: #222;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+/*.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}*/
+
+
 #courses-sidebar {
-  // 590px foudn to be the max height of #courses-main
+  // 590px found to be the max height of #courses-main
   max-height: 590px;
   overflow-y: auto;
   border-right: 1px solid black;
 }
 
+.course-stats {
+  padding-left: 0px;
+  padding-right: 5px;
+}
+
+.rating-row, .rating {
+  height:100px;
+}
+
+.pagination {
+  font-size: 1.3vw;
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  // .previous_page { border: 1px solid $blue; }
+  .previous_page.disabled { opacity: 0.4;}
+  .current { color: #E25424; font-weight: bold; font-style:normal;}
+  // .next_page { border: 1px solid $blue;}
+  .next_page.disabled { opacity: 0.4;}
+  // a {
+  //   border:1px solid $blue;
+  //   width: 36px;
+
+  // }
+}
+
+.rating {
+  font-size: 78px;
+  font-size: 4.5vw;
+  font-family: 'HelveticaNeue-Medium';
+  color: rgb(215, 86, 38);
+  text-align: center;
+  height: 50px;
+  /*margin-top: 40px;*/
+/*  display: inline-block;*/
+/*  vertical-align: 30%;*/
+  bottom: 50%;
+  position: absolute;
+  width: 95%;
+}
+
+.ratings-stats, .workload-stats {
+  height:192.5px;
+  /* Rectangle 13 Copy: */
+  background: #FFFFFF;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  padding-right: 5px;
+  margin-bottom: 5px;
+}
+
+.orange-title {
+  margin-top: 15px;
+}
+
+.review-pane {
+  margin-top: 10px;
+  background: #FFFFFF;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+}
+
+.course-grades {
+  // margin-left:5px;
+  height: 390px;
+  padding-left: 0px;
+  padding-right: 10px;
+  background-color: white;
+  // border: 1px solid #979797;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  // width: 49.0%
+}
+
 #save-course .btn.btn-primary {
   width: 150px;
   height: 40px;
-  margin-left: 40px;
   float: center;
   font-size: 20px;
+  margin-right: 30px;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.comment-header {
+  margin-top: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #bbb;
 }
 
 .rating-title {
   color: $blue;
+  position: relative;
+  bottom: -10%;
+  text-align:center;
 }
 
 .sortby-title {
@@ -28,23 +233,70 @@
 }
 
 .title-row {
-  border-bottom: solid 1px $blue;
+  margin-top: 0px;
+  // background-color: #FFFFFF;
+  height: 190px;
+  /* Rectangle 13 Copy 2: */
+  // border: 1px solid #979797;
+  // box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
+  margin-right: -5px;
+  margin-left: -5px;
+  margin-bottom: 30px;
 }
 
 .title {
   color: #E25424;
+  margin-top: 10px;
+  font-weight: bold;
+  margin-bottom: 0px;
+
+}
+
+p {
+  // font-family: 'OpenSans';
+  font-size: 14px;
 }
 
 .author {
-  margin-left: 30px;
+  margin-top:5px;
   color: #E25424;
+  border-bottom: 1px #bbb solid
 }
 
-.p.requirement-cost-condition {
-  margin-left: 30px;
+.amazon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px #bbb solid;
+}
+
+.amazon-info {
+  position: absolute;
+  bottom: -90%;
+}
+.requirement-cost-condition {
   color: $blue;
+  /* $125.99: */
+  // font-family: HelveticaNeue-MediumItalic;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  line-height: 23px;
+  margin-bottom: 0px
 }
 
+.bookstore {
+  margin-bottom: 5px
+}
+.condition {
+  font-size: 10px;
+  margin-bottom: 2px;
+  margin-left: 16px;
+}
+
+.shit {
+  font-size: 8px;
+}
 .textbooks-row {
   border-bottom: 1px dotted black;
   padding-top: 8px;
@@ -68,18 +320,143 @@
 }
 
 .stat-row {
-  border-bottom: 1px dotted $blue;
-  height: 40px;
-  padding-top: 8px;
+  height: 48px;
 }
 
 .single-review {
   padding: 10px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #efefef;
+}
+
+.upvote {
+  width: 50px;
+  height: 50px;
+  padding: 0px 0px;
+  display: block;
+  margin: auto;
+  opacity: 0.4;
+}
+
+.downvote {
+  opacity: 0.4;
+  width: 50px;
+  height: 50px;
+  padding: 0px 0px;
+  display: block;
+  margin: auto;
+  -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+  -moz-transform: rotate(180deg);        /* FF */
+  -o-transform: rotate(180deg);          /* Opera */
+  -ms-transform: rotate(180deg);         /* IE9 */
+  transform: rotate(180deg);             /* W3C compliant browsers */
+
+  /* IE8 and below */
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+}
+
+.overall-col {
+  /*//border-right-color: black;*/
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-top: 5px;
+  height:180px;
+  border-right: #bbb 1px solid;
+}
+
+.item {
+  margin-left: 5px;
+  margin-right: 5px;
+  //border: 1px solid #979797;
+  background-color: white;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+}
+
+
+.icon {
+  font-size: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
 }
 
 .rating-icon {
-  margin-right: 4px;
+  padding-left: 4px;
+  float: left;
+}
+
+.icon-and-text {
+  float:left;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 13px;
+}
+
+.icon-text {
+  text-align: center;
+}
+
+.stats-col {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top:2px;
+}
+
+.stats-row {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 0 20px;
+}
+
+.upvotes {
+  text-align: center;
+  // font-family: "OpenSans";
+}
+
+.review-overall {
+  font-size:20px;
+  // font-family: 'OpenSans';
+  color: rgb(215, 86, 38);
+  float: left;
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 40px;
+}
+
+.time {
+  float:right;
+  font-size: small;
+  text-align: center;
+}
+
+.skillbar {
+  margin-top: 14px;
+  vertical-align: middle;
+  position:relative;
+  display:block;
+  margin-bottom:15px;
+  width:100%;
+  background:#eee;
+  height:13px;
+  -webkit-transition:0.4s linear;
+  -moz-transition:0.4s linear;
+  -ms-transition:0.4s linear;
+  -o-transition:0.4s linear;
+  transition:0.4s linear;
+  -webkit-transition-property:width, background-color;
+  -moz-transition-property:width, background-color;
+  -ms-transition-property:width, background-color;
+  -o-transition-property:width, background-color;
+  transition-property:width, background-color;
+}
+
+.skillbar-bar {
+  vertical-align: middle;
+  background: #6D8BC2;
+  height:13px;
+  width:0px;
 }
 
 

@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150401202146) do
 
   create_table "book_requirements", id: false, force: true do |t|
@@ -63,9 +64,10 @@ ActiveRecord::Schema.define(version: 20150401202146) do
     t.text     "description"
     t.decimal  "course_number",    precision: 4, scale: 0, default: 0
     t.integer  "subdepartment_id"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.boolean  "title_changed"
+    t.integer  "last_taught_semester_id"
   end
 
   add_index "courses", ["subdepartment_id"], name: "index_courses_on_subdepartment_id", using: :btree

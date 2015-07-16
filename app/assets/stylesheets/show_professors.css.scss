@@ -1,0 +1,94 @@
+@import "variables";
+
+.panel-title-content {
+  padding-top: 0;
+  margin-top:0;
+  vertical-align: middle;
+}
+
+body {
+  // font-family: "OpenSans";
+}
+
+.panel-heading.prof-heading {
+  background-color: white;
+  border: 1px solid #bbb;
+}
+
+
+.number-box {
+  text-align: center;
+  vertical-align: middle;
+}
+.number-box > .row {
+  text-align: center;
+  vertical-align: middle;
+}
+.row.number {
+  font-size: 50px;
+}
+.class-name {
+  text-align: center;
+  font-size: 60px;
+  border-bottom: thin solid black;
+  padding-right: 30px;
+}
+
+.prof-block {
+  height: 46px;
+  background-color: $orange;
+  width: 46px;
+  float: left;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 0;
+  margin-top: -10px;
+  margin-left: -15px;
+}
+.last-taught {
+  margin-bottom: 5px;
+  color: white;
+  padding: 0px 10px;
+  // font-family: "OpenSans";
+}
+.prof-title {
+  margin-top: 40px;
+  padding: 0px 10px;
+  font-size: 30px;
+  // font-family: "OpenSans";
+  color: white;
+}
+
+.info {
+  padding-left: 10px;
+  padding-right: 10px;
+  // width: 12%;
+}
+
+.review-col {
+  // width: 62%;
+
+}
+.rating {
+
+}
+
+.rating-subheader {
+
+
+}
+
+.review {
+  margin-top: 10px;
+}
+
+
+
+#content-container {
+  background-color: #eee !important;
+  box-shadow: none !important;
+  padding-top: 0px !important;
+  padding-left: 0px;
+  padding-right: 0px;
+}

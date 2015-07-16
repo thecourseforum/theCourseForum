@@ -21,8 +21,10 @@
  *= require welcome
  *= require departments 
  *= require reviews
- *= require courses
  *= require scheduler
+ *= require books
+ *= require slick
+ *= require slick-theme
  */
 
 $screen-sm: 850px;
@@ -48,6 +50,20 @@ $nprogress-height: 4.5px;
   font-family: 'comic-sans';
   src: asset-url('comic.ttf') format('truetype');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue-Medium';
+  src: asset-url('HelveticaNeue-Medium.ttf') format('truetype');
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: asset-url('OpenSans-Regular.ttf') format('truetype');
+  font-weight:normal;
   font-style: normal;
 }
 
@@ -117,11 +133,32 @@ section#main {
     overflow: auto;
     padding: 40px 50px;
 
+    #header {
+      max-width: $content-max-width;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0px;
+      padding-right: 0px;
+
+      #course-name {
+        padding-left: 0px;
+      }
+
+      #filter .row {
+        float: right;
+      }
+    }
+
     #content-container {
       box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.4), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.07);
       background-color: white;
       padding-bottom: 20px;
       padding-top: 20px;
+      padding-left: 15px;
+      padding-right: 15px;
+      max-width: $content-max-width;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
