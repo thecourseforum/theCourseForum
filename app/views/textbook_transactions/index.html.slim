@@ -38,13 +38,14 @@ table.table.table-hover.table-striped
       td#condition
       td#end-date
       td#claim
-    - @textbook_transactions.each do |textbook_transaction|
+    - @textbook_transactions.each do |tt|
       tr
-        td = button_to 'Claim', textbook_transactions_claim_path(textbook_transaction), :class => "claim btn btn-default"
-        td = textbook_transaction.book.title
-        td = textbook_transaction.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
-        td = textbook_transaction.book.author
-        td = "$" + textbook_transaction.price.to_s
-        td = textbook_transaction.condition
-        td = textbook_transaction.notes
-        td = (textbook_transaction.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")
+        td
+          input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
+        td = tt.book.title
+        td = tt.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
+        td = tt.book.author
+        td = "$" + tt.price.to_s
+        td = tt.condition
+        td = tt.notes
+        td = (tt.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")

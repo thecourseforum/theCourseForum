@@ -1,9 +1,7 @@
-- content_for :page_heading, "#{@book.title} - #{@book.author}"
-
+.col-md-6
+  .pull-left = image_tag @book.large_image_link, :class => 'img-rounded'
 .col-md-6
   br = @book.bookstore_new_price
   br = @book.bookstore_used_price
   br = @book.amazon_official_new_price
   br = @book.amazon_official_used_price
-.col-md-6
-  .pull-right = image_tag @book.large_image_link, :class => 'img-rounded'

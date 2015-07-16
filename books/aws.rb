@@ -143,6 +143,9 @@ books.each_with_index do |batch, index|
 			:amazon_affiliate_link => link
 		)
 	end
+
+	# Prevent 503 errors
+	sleep(0.2)
 end
 
 log.close

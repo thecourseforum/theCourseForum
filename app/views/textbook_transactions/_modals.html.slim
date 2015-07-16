@@ -1,4 +1,4 @@
-#post-listing-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+#post-listing-modal.modal.fade aria-hidden="true" role="dialog" tabindex="-1"
     .modal-dialog
       .modal-content
         .modal-header
@@ -24,3 +24,17 @@
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
             button.btn.btn-primary#submit-listing type="button" Submit
+
+#claim-listing-modal.modal.fade aria-hidden="true" role="dialog" tabindex="-1"
+  .modal-dialog
+      .modal-content
+        .modal-header
+          h3 Are you sure?
+        .modal-body
+          form#textbook_transaction
+            .form-group
+                label Cellphone #
+                input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary#submit-claim type="button" Submit

@@ -1,7 +1,11 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
-window.onload = function () {
+$(document).ready(function () {
+
+	var claim_id;
+
+	// Post modal
 	$('#post-listing').click(function() {
 		$('#post-listing-modal').modal();
 	});
@@ -12,11 +16,30 @@ window.onload = function () {
 			method: "POST",
 			data: $("#textbook_transaction").serialize(),
 			success: function(response) {
-				alert("Listing Posted!");
+				location.reload();
 			}
 		});
 		$('#post-listing-modal').modal('hide');
 	});
+
+	// Claim modal
+	$('.claim.btn').click(function() {
+		claim_id = $(this.id).selector;
+		$('#claim-listing-modal').modal();
+	});
+
+	$('#submit-claim').click(function() {
+		$.ajax({
+			url: '/textbook_transactions/claim.' + claim_id,
+			method: "POST",
+			data: $("#textbook_transaction").serialize(),
+			success: function(response) {
+				location.reload();
+			}
+		});
+		$('#claim-listing-modal').modal('hide');
+	});
+
 
 	// Modal autocomplete
 	$('#book-title-post').autocomplete({
@@ -69,4 +92,4 @@ window.onload = function () {
 
 
 
-}
+});

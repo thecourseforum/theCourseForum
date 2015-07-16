@@ -33,16 +33,20 @@ class TextbookTransactionsController < ApplicationController
       transaction = TextbookTransaction.find(params[:format])
       transaction.update(:buyer_id => current_user.id)
       RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
-    end 
-    redirect_to action: "index"
+    end
+    redirect_to :action => :index
   end
 
   def create
     current_user.update(:cellphone => params[:cellphone])
+    
     params[:book_id] = Book.where("title like ?", params[:title]).first.id
     params[:seller_id] = current_user.id
+    
     @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
-    render json: {:sucess => @textbook_transaction.save}
+    @textbook_transaction.save
+    
+    redirect_to :action => :index
   end
 
   def new
