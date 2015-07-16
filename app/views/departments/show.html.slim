@@ -37,62 +37,83 @@
           - if course.course_number >= separator
             br
             - separator = (course.course_number / 1000) * 1000 + 1000
-          .course-panel style="height:140px; background:white;"
-            .col-xs-4.name-block
+          .course-panel
+            .col-xs-4.name-block data-no-turbolink=""= link_to '/courses/' + course.id.to_s + '/professors'
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
               .row.course-title = "#{course.title}"
             .col-xs-7.details-block
-              h3 = ratings[:overall]
-              h3 = ratings[:difficulty]
-              h3 = percentages[:gpa].round(2)
-              h3 = course.last_taught_semester
-          #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
-            #course-panel.panel.panel-default
-              .panel-heading(id="heading-#{course.id}" role="tab")
-                .panel-title
-                  a.course-link.collapsed aria-controls="collapse-#{course.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{course.id}"                      
-                    / span.glyphicon.glyphicon-plus.pull-right 
-                    h4.class-title= "#{subdepartment.mnemonic} #{course.course_number} #{course.title}"                         
-              .panel-collapse.collapse(id="collapse-#{course.id}")                    
-                .panel-body
+              .row
+                .col-xs-2
                   .row
-                    .grades-row(id="grade-bar-#{course.id}")
-                  .col-md-7.course-data-box
-                    .row  
-                      .col-md-7.col-md-offset-2.class-name
-                        p= "#{subdepartment.mnemonic} #{course.course_number}"
-                    br
-                    .row                              
-                      .col-sm-2.col-md-offset-1
-                        .number-box
-                          .row.number
-                            p= ratings[:overall]
-                          .row
-                            p avg rating
-                      .col-sm-2.col-md-offset-1
-                        .number-box
-                          .row.number                             
-                            p= ratings[:difficulty]
-                          .row
-                            p avg difficulty
-                      .col-sm-2.col-md-offset-1
-                        .number-box
-                          .row.number                             
-                            p= percentages[:gpa].round(2)
-                          .row
-                            p avg gpa
-                  .col-md-4.review-box
-                    .row
-                      / .col-md-12
-                      /   - if review
-                      /     - if review.length >= 300
-                      /       p= review[0..300] + "..."                        
-                      /     - else 
-                      /       p= review[0..300]
-                      /   - else 
-                      /     p No reviews yet :(                   
-                    .row.review-box
-                      .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", '/courses/' + course.id.to_s + '/professors'
+                    h3.rating = ratings[:overall]
+                  .row.rating-subheader
+                    span Rating
+                .col-xs-2
+                  .row
+                    h3.rating = ratings[:difficulty]
+                  .row.rating-subheader
+                    span Difficulty
+                .col-xs-2
+                  .row
+                    h3.rating = percentages[:gpa].round(2)
+                  .row.rating-subheader
+                    span GPA
+                .col-xs-6
+                  h3.semester = "Fall 2014"
+              / h3 = course.last_taught_semester
+              .row
+                - if course.description
+                  p.description = course.description
+                - else
+                  p.description = "No description available :("
+                // Have some check for size for whether to include ...
+          / #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
+          /   #course-panel.panel.panel-default
+          /     .panel-heading(id="heading-#{course.id}" role="tab")
+          /       .panel-title
+          /         a.course-link.collapsed aria-controls="collapse-#{course.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{course.id}"                      
+          /           / span.glyphicon.glyphicon-plus.pull-right 
+          /           h4.class-title= "#{subdepartment.mnemonic} #{course.course_number} #{course.title}"                         
+          /     .panel-collapse.collapse(id="collapse-#{course.id}")                    
+          /       .panel-body
+          /         .row
+          /           .grades-row(id="grade-bar-#{course.id}")
+          /         .col-md-7.course-data-box
+          /           .row  
+          /             .col-md-7.col-md-offset-2.class-name
+          /               p= "#{subdepartment.mnemonic} #{course.course_number}"
+          /           br
+          /           .row                              
+          /             .col-sm-2.col-md-offset-1
+          /               .number-box
+          /                 .row.number
+          /                   p= ratings[:overall]
+          /                 .row
+          /                   p avg rating
+          /             .col-sm-2.col-md-offset-1
+          /               .number-box
+          /                 .row.number                             
+          /                   p= ratings[:difficulty]
+          /                 .row
+          /                   p avg difficulty
+          /             .col-sm-2.col-md-offset-1
+          /               .number-box
+          /                 .row.number                             
+          /                   p= percentages[:gpa].round(2)
+          /                 .row
+          /                   p avg gpa
+          /         .col-md-4.review-box
+          /           .row
+          /             / .col-md-12
+          /             /   - if review
+          /             /     - if review.length >= 300
+          /             /       p= review[0..300] + "..."                        
+          /             /     - else 
+          /             /       p= review[0..300]
+          /             /   - else 
+          /             /     p No reviews yet :(                   
+          /           .row.review-box
+          /             .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", '/courses/' + course.id.to_s + '/professors'
                 /- percentages = course.get_grade_percentages
                 /=percentages["total"].to_s
                 / =percentages
