@@ -1,6 +1,11 @@
-.col-md-6
-  .pull-left = image_tag @book.large_image_link, :class => 'img-rounded'
-.col-md-6
+= stylesheet_link_tag "books"
+
+.col-md-3
+  .pull-left = image_tag @book.large_image_link, :class => 'img-rounded', :id => 'cover'
+.col-md-9
+  .page-header
+    h2 = @book.title
+    h4 = @book.author
   br = @book.bookstore_new_price
   br = @book.bookstore_used_price
   br = @book.amazon_official_new_price
