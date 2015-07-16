@@ -31,6 +31,7 @@
 
 .details-block {
   margin: 10px 10px;
+  width: 62%;
 }
 
 .course-name {
@@ -46,6 +47,7 @@
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-bottom: 1px solid #efefef;
 }
 
 .course-title {
@@ -77,6 +79,7 @@
 .description {
   font-size: 12px;
   overflow:hidden;
+  margin-bottom: 10px;
 }
 
 .dept-block {
@@ -108,7 +111,6 @@
 }
 
 .course-panel {
-  margin-bottom: 3px;
 
 }
 
