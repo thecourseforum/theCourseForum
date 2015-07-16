@@ -25,20 +25,20 @@
         .course-panel
           .col-xs-4.name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
             .row.prof-title= "#{professor.first_name} #{professor.last_name}"
-            .row.last-taught = "Fall 2012"
+            / .row.last-taught = "Fall 2012"
           .col-xs-7.details-block
             .row
-              .col-xs-1.info
+              .col-xs-2.info
                 .row
                   h3.rating = ratings[:overall]
                 .row.rating-subheader
                   span Rating
-              .col-xs-1.info
+              .col-xs-2.info
                 .row
                   h3.rating = ratings[:difficulty]
                 .row.rating-subheader
                   span Difficulty
-              .col-xs-1.info
+              .col-xs-2.info
                 .row
                   - if percentages[:gpa].round(2).nan?
                     h3.rating = "--"
@@ -46,14 +46,17 @@
                     h3.rating = percentages[:gpa].round(2)
                 .row.rating-subheader
                   span GPA
-              .col-xs-9.review-col
-                - if review
-                  - if review.length >= 260
-                    p.review= review[0..260] + "..."                     
-                  - else 
-                    p.review= review[0..260]
+              .col-xs-6
+                h3.semester = "Fall 2012"
+                / h3.semester = course.last_taught_semester
+            .row.review-col
+              - if review
+                - if review.length >= 260
+                  p.review= review[0..260] + "..."                     
                 - else 
-                  p No reviews yet :(
+                  p.review= review[0..260]
+              - else 
+                p.review No reviews yet :(
             / h3 = course.last_taught_semester
             / .row
             /   - if course.description
