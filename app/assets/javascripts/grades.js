@@ -115,7 +115,7 @@ $(function() {
         // If displaying graphs for each course,
         if (IDs[0] != 0) {
             console.log("here??");
-            Build the data for the stacked bar graph
+            // Build the data for the stacked bar graph
             var stackedGraphDataSeries = [];
             for (m = overallLetters.length - 1; m >= 0; m--) {
                 stackedGraphData = {};
@@ -148,7 +148,7 @@ $(function() {
             }
 
 
-            Create the chart
+            // Create the chart
             $('#grade-bar-' + IDs[i]).highcharts({
                 chart: {
                     type: 'bar',
