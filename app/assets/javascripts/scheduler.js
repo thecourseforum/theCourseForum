@@ -711,10 +711,7 @@ $(document).ready(function() {
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
-		checkbox.parent().css('height', content.parent().height());
-		checkbox.parent().css('width', content.parent().width() - 170);
-		checkbox.css('margin-left', checkbox.parent().width() / 2 - 10);
-		checkbox.css('margin-top', checkbox.parent().height() / 2 - 5);
+		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
 		content.click();
 	}
 
