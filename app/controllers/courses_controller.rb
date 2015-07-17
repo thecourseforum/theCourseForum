@@ -73,7 +73,13 @@ class CoursesController < ApplicationController
 
   def show_professors
     @course = Course.find(params[:id])
-    @professors = @course.professors_list
+
+    if params[:all]
+      @professors = @course.professors_list
+    else
+      current_semester = Semester.find_by(:season => 'Fall', :year => 2015)
+      @professors = @course.sections.where(:semester_id => current_semester.id).flat_map(&:professors).uniq
+    end
 
     @professors_semester = {}
     @course.sections.each do |section|
