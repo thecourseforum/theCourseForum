@@ -213,7 +213,7 @@ $(function() {
         else {
             console.log("or here??");
             // Create the chart
-            $('.col-xs-6.course-grades').highcharts({
+            $('.course-grades').highcharts({
                 chart: {
                     type: 'pie',                    
                     height: 380
