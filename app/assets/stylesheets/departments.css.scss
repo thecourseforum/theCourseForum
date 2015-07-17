@@ -1,5 +1,4 @@
 @import "variables";
-
 /* INDEX */
 
 #department-courses {
@@ -29,7 +28,7 @@
 }
 
 .info-header {
-  border-bottom: 1px solid #dfdfdf;
+  // border-bottom: 1px solid #dfdfdf;
   margin-top: -5px;
 }
 
@@ -39,7 +38,7 @@
 }
 
 .course-name {
-  margin-top: 20px;
+  margin-top: 14px;
   padding: 0px 10px;
   font-size: 30px;
   // font-family: "OpenSans";
@@ -47,7 +46,8 @@
 }
 
 .course-panel {
-  height: 116px;
+  height: auto;
+  // height: 116px;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
@@ -126,7 +126,7 @@
 
 .dept-block {
   height: 46px;
-  background-color: $orange;
+  //background-color: $orange;
   width: 46px;
   float: left;
   margin: -10px -15px;
@@ -138,6 +138,7 @@
 .school-title {
   margin-bottom: 0;
   margin-left: 46px;
+  color: white;
 }
 
 .course-block {
@@ -196,6 +197,14 @@
   }
 }
 
+.school-panel-title {
+    margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+  padding: 15px 20px;
+  background-color: $light-blue;
+}
 
 /* SHOW */
 

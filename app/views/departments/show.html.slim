@@ -47,7 +47,7 @@
                   .course-icon=image_tag("icons/overall.png", size: "20")
                   .rating-container
                     .row.rating-subheader
-                      span Rating
+                      span RATING
                     .row.course-rating-row
                       - if ratings[:overall] == "--"
                         h4.rating-empty = "--"
@@ -57,7 +57,7 @@
                   .course-icon=image_tag("icons/difficulty.png", size: "20")
                   .rating-container
                     .row.rating-subheader
-                      span Difficulty
+                      span DIFFICULTY
                     .row.course-rating-row
                       - if ratings[:difficulty] == "--"
                         h4.rating-empty = "--"
@@ -75,7 +75,7 @@
                         h4.course-rating = percentages[:gpa].round(2)
                 .col-xs-6
                   div style="float:right;"
-                    .row
+                    .row style="float:right;"
                       span.semester-subheader Last Taught
                     .row
                       h4.semester = course.last_taught_semester
@@ -87,8 +87,8 @@
               .row
                 - if course.description
                   p.description = course.description
-                - else
-                  p.description = "No description available :("
+                / - else
+                /   p.description = "No description available :("
                 // Have some check for size for whether to include ...
           / #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
           /   #course-panel.panel.panel-default

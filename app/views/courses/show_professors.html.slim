@@ -21,7 +21,7 @@
         - percentages = @course.get_grade_percentages(professor.id)
         = content_tag "div", id: "percentages-#{professor.id}", data: {percents: percentages} do end
         - ratings = @course.get_review_ratings(professor.id)
-        - review = @course.get_top_review(professor.id)
+        / - review = @course.get_top_review(professor.id)
         .prof-panel
           .col-xs-4.prof-name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
             .row.prof-title= "#{professor.first_name} #{professor.last_name}"
@@ -59,7 +59,7 @@
                         h4.course-rating = percentages[:gpa].round(2)
                 .col-xs-6
                   div style="float:right;"
-                    .row
+                    .row style="float:right;"
                       span.semester-subheader Last Taught
                     .row
                       h4.semester = @professors_semester[professor.id]

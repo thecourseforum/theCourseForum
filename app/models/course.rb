@@ -58,15 +58,15 @@ class Course < ActiveRecord::Base
 	end
   end
 
-  def get_top_review(prof_id = -1)
-    if prof_id != -1
-      review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
-    else 
-      review = Review.where(:course_id => self.id).where.not(:comment => '').last
-    end
-    review ? review.comment : nil
-    # review.comment
-  end
+  # def get_top_review(prof_id = -1)
+  #   if prof_id != -1
+  #     review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
+  #   else 
+  #     review = Review.where(:course_id => self.id).where.not(:comment => '').last
+  #   end
+  #   review ? review.comment : nil
+  #   # review.comment
+  # end
 
   def get_review_ratings(prof_id = -1)    
       @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)

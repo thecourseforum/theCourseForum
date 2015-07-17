@@ -242,7 +242,7 @@
     .row
       - if @reviews_with_comments.count > 1
         = will_paginate @reviews 
-  .container-fluid
+  .container-fluid#review-container
     -# adds top line
     - @reviews.each do |r|
       .single-review
