@@ -1,3 +1,5 @@
+// Used to switch between current semester and all courses
+// Also used to switch between current semester and all professors when viewing a single course
 function ready() {
 	$(window.location.search != '' ? '#all' : '#current').parent().addClass('active');
 

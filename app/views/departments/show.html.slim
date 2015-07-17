@@ -44,35 +44,35 @@
             .col-xs-8.details-block
               .row.info-header
                 .col-xs-2
-                  .icon=image_tag("icons/overall.png", size: "20")
+                  .course-icon=image_tag("icons/overall.png", size: "20")
                   .rating-container
                     .row.rating-subheader
                       span Rating
-                    .row.rating-row
+                    .row.course-rating-row
                       - if ratings[:overall] == "--"
                         h4.rating-empty = "--"
                       - else
-                        h4.rating = ratings[:overall]
+                        h4.course-rating = ratings[:overall]
                 .col-xs-2
-                  .icon=image_tag("icons/difficulty.png", size: "20")
+                  .course-icon=image_tag("icons/difficulty.png", size: "20")
                   .rating-container
                     .row.rating-subheader
                       span Difficulty
-                    .row.rating-row
+                    .row.course-rating-row
                       - if ratings[:difficulty] == "--"
                         h4.rating-empty = "--"
                       - else 
-                        h4.rating = ratings[:difficulty]
+                        h4.course-rating = ratings[:difficulty]
                 .col-xs-2
-                  .icon=image_tag("icons/chart.png", size: "20")
+                  .course-icon=image_tag("icons/chart.png", size: "20")
                   .rating-container
                     .row.rating-subheader
                       span GPA
-                    .row.rating-row
+                    .row.course-rating-row
                       - if percentages[:gpa].round(2).nan?
                         h4.rating-empty = "--"
                       - else
-                        h4.rating = percentages[:gpa].round(2)
+                        h4.course-rating = percentages[:gpa].round(2)
                 .col-xs-6
                   div style="float:right;"
                     .row
