@@ -34,6 +34,26 @@ body {
   padding-right: 30px;
 }
 
+.prof-panel {
+  height: 80px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-bottom: 1px solid #bfbfbf;
+}
+
+.prof-name-block {
+  background-color: $light-blue;
+  border-radius: 5px;
+  height: 70px;
+  margin: 5px 5px;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+  }
+}
+
 .prof-block {
   height: 46px;
   background-color: $orange;
@@ -53,7 +73,7 @@ body {
   // font-family: "OpenSans";
 }
 .prof-title {
-  margin-top: 40px;
+  margin-top: 14px;
   padding: 0px 10px;
   font-size: 30px;
   // font-family: "OpenSans";
@@ -64,6 +84,14 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   // width: 12%;
+}
+
+.prof-info {
+  position: relative;
+  top: 30%;
+  -webkit-transform: translateY(30%);
+  -ms-transform: translateY(30%);
+  transform: translateY(30%);
 }
 
 .review-col {
