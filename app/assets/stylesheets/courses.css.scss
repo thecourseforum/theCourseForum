@@ -53,23 +53,6 @@ $lightgray: #cccccc;
   float: right;
 }
 
-.comment {
-  margin-bottom: 40px;
-}
-
-.comment-container {
-  border-left: 1px solid #bbb;
-  min-height: 100%;
-  display: inline-block;
-  // float: right;
-  width: 90%;
-  padding-right: 30px;
-  min-height: 117px;
-  position: relative;
-  padding-left: 20px;
-  margin: 0px
-}
-
 .book-image {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -191,11 +174,16 @@ img {
   box-shadow: 0px 1px 2px 0px #B8B8B8;
 }
 
+.course-grades-container {
+  padding-left: 0px;
+  padding-right: 5px;
+}
+
 .course-grades {
   // margin-left:5px;
   height: 390px;
   padding-left: 0px;
-  padding-right: 10px;
+  padding-right: 0px;
   background-color: white;
   // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
@@ -423,6 +411,23 @@ p {
   margin-top: 10px;
   margin-right: 20px;
   width: 40px;
+}
+
+.comment {
+  margin-bottom: 40px;
+}
+
+.comment-container {
+  border-left: 1px solid #bbb;
+  min-height: 100%;
+  display: inline-block;
+  // float: right;
+  width: 90%;
+  padding-right: 30px;
+  min-height: 117px;
+  position: relative;
+  padding-left: 20px;
+  margin: 0px
 }
 
 .time {

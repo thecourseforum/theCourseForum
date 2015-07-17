@@ -213,10 +213,16 @@ $(function() {
         else {
             console.log("or here??");
             // Create the chart
-            $('.col-xs-6.course-grades').highcharts({
+            $('.course-grades').highcharts({
                 chart: {
+                    spacingLeft: 0,
                     type: 'pie',                    
-                    height: 380
+                    height: 380,
+                    events: {
+                       load: function() {
+                           $(window).resize();
+                    },
+                }
                 },
                 title: {
                     verticalAlign: 'middle',

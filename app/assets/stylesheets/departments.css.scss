@@ -24,8 +24,8 @@
 .name-block {
   background-color: $light-blue;
   border-radius: 5px;
-  height: 120px;
-  margin: 10px 10px;
+  height: 106px;
+  margin: 5px 5px;
   cursor: pointer;
 
   a {
@@ -33,8 +33,13 @@
   }
 }
 
+.info-header {
+  border-bottom: 1px solid #dfdfdf;
+  margin-top: -5px;
+}
+
 .details-block {
-  margin: 10px 10px;
+  margin: 5px 10px;
   width: 62%;
 }
 
@@ -47,11 +52,11 @@
 }
 
 .course-panel {
-  height: 140px;
+  height: 116px;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #bfbfbf;
 }
 
 .course-title {
@@ -60,31 +65,68 @@
   // font-family: "OpenSans";
 }
 
+.semester-subheader {
+  line-height:10px;
+  font-size: 12px;
+  color: #bfbfbf;
+}
+
 .semester {
-  margin-top: 10px;
-  float:right;
+  // margin-top: px;
+  float: right;
+  margin-top: -2px;
+  margin-bottom: 0px;
+}
+
+.icon {
+  float:left;
+  width: 30px;
+  margin-top:12px;
+}
+
+.rating-container {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.rating-row {
+  margin-top: -3px;
 }
 
 .rating, .rating-subheader {
-  text-align: center;
+  text-align: left;
+  display: inline-block;
+  width: 60%;
+  line-height:10px;
 }
 
 .rating {
   padding-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
   margin-bottom: 0px;
+}
+
+.rating-empty {
+  padding-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 6px;
 }
 
 .rating-subheader {
   padding-top: 0px;
   margin-top: 0px;
   font-size: 12px;
+  color: #bfbfbf;
 }
 
 .description {
   font-size: 12px;
   overflow:hidden;
   margin-bottom: 10px;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 
 .dept-block {
