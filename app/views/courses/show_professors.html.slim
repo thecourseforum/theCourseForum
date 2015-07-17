@@ -14,7 +14,7 @@
 /   br
 /   .tab-content
 /     #dept-courses.tab-pane.fade.in.active role="tabpanel"
-.container-fluid
+.container-fluid#browsing-content
   #accordion                              
       = content_tag "div", id: "IDs", data: {ids: @professor_ids} do end
       - @professors.each do |professor|

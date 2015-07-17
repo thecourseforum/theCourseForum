@@ -12,7 +12,7 @@
 /   /     a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
 /   /! Tab panes
 /   br
-.container-fluid#departments-content
+.container-fluid#browsing-content
   #accordion
     = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
     - @subdepartments_with_sections.each do |subdepartment|
