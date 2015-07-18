@@ -19,6 +19,26 @@ $(document).ready(function () {
 
 	display(booksData);
 
+	$('#follow').click(function () {
+		var book_id = $(this).attr('data');
+		$.ajax({
+			url: '/books/follow',
+			dataType: 'json',
+			type: 'POST',
+			data: {
+				book_id: book_id
+			},
+			success: function (data) {
+				console.log($('#follow').text());
+				if (data.status == "unfollowed") {
+					$('#follow').text('Follow');
+				} else {
+					$('#follow').text('Unfollow');
+				}
+			}
+		});
+	});
+
 	// Post modal
 	$('#post-listing').click(function() {
 		$('#post-listing-modal').modal();

@@ -1,25 +1,5 @@
 $(document).ready(function() {
 
-	$('#follow').click(function () {
-		var book_id = $(this).attr('data');
-		$.ajax({
-			url: '/books/follow',
-			dataType: 'json',
-			type: 'POST',
-			data: {
-				book_id: book_id
-			},
-			success: function (data) {
-				console.log($('#follow').text());
-				if (data.status == "unfollowed") {
-					$('#follow').text('Follow');
-				} else {
-					$('#follow').text('Unfollow');
-				}
-			}
-		});
-	});
-
 	$('#course-mnemonics').autocomplete({
 		source: function(request, response) {
 			if (request.term.split(',').pop().trim().length > 1) {
