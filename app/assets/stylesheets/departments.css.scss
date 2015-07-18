@@ -42,18 +42,28 @@
 .name-block {
   background-color: $light-blue;
   border-radius: 5px;
-  height: 106px;
+  //height: 106px;
   margin: 5px 5px;
   cursor: pointer;
+  @include flexbox();
 
   a {
     text-decoration: none;
+    @include flexbox();
+    flex-flow: column;
+    justify-content: center;
   }
 }
 
 .info-header {
   // border-bottom: 1px solid #dfdfdf;
-  margin-top: -5px;
+  @include flexbox();
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+
+  margin-right: 5px;
+  margin-top: -1px;
 }
 
 .details-block {
@@ -62,7 +72,7 @@
 }
 
 .course-name {
-  margin-top: 14px;
+  // margin-top: 14px;
   padding: 0px 10px;
   font-size: 30px;
   // font-family: "OpenSans";
@@ -71,7 +81,7 @@
 
 .course-panel {
   @include flexbox();
-  align-items: center;
+  align-items: stretch;
   height: auto;
   // height: 116px;
   background: white;
@@ -97,6 +107,11 @@
   float: right;
   margin-top: -2px;
   margin-bottom: 0px;
+}
+
+.rating-block {
+  @include flexbox();
+
 }
 
 .course-icon {

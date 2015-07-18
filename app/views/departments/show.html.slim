@@ -42,8 +42,8 @@
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
               .row.course-title = "#{course.title}"
             .col-xs-8.details-block
-              .row.info-header
-                .col-xs-2
+              .info-header
+                .rating-block
                   .course-icon=image_tag("icons/overall.png", size: "20")
                   .rating-container
                     .row.rating-subheader
@@ -53,7 +53,7 @@
                         h4.rating-empty = "--"
                       - else
                         h4.course-rating = ratings[:overall]
-                .col-xs-2
+                .rating-block
                   .course-icon=image_tag("icons/difficulty.png", size: "20")
                   .rating-container
                     .row.rating-subheader
@@ -63,7 +63,7 @@
                         h4.rating-empty = "--"
                       - else 
                         h4.course-rating = ratings[:difficulty]
-                .col-xs-2
+                .rating-block
                   .course-icon=image_tag("icons/chart.png", size: "20")
                   .rating-container
                     .row.rating-subheader

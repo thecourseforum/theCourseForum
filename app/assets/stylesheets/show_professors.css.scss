@@ -15,6 +15,30 @@ body {
   border: 1px solid #bbb;
 }
 
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
 
 .number-box {
   text-align: center;
@@ -35,17 +59,19 @@ body {
 }
 
 .prof-panel {
-  height: 80px;
+  height: auto;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   border-bottom: 1px solid #bfbfbf;
+  @include flexbox();
+  justify-content: center;
 }
 
 .prof-name-block {
   background-color: $light-blue;
   border-radius: 5px;
-  height: 70px;
+  height: auto;
   margin: 5px 5px;
   cursor: pointer;
 
@@ -73,7 +99,7 @@ body {
   // font-family: "OpenSans";
 }
 .prof-title {
-  margin-top: 14px;
+  //margin-top: 14px;
   padding: 0px 10px;
   font-size: 30px;
   // font-family: "OpenSans";
@@ -87,11 +113,11 @@ body {
 }
 
 .prof-info {
-  position: relative;
-  top: 30%;
-  -webkit-transform: translateY(30%);
-  -ms-transform: translateY(30%);
-  transform: translateY(30%);
+  // position: relative;
+  // top: 30%;
+  // -webkit-transform: translateY(30%);
+  // -ms-transform: translateY(30%);
+  // transform: translateY(30%);
 }
 
 .review-col {
