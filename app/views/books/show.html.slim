@@ -3,6 +3,20 @@
 
 .col-md-3
   = image_tag @book.large_image_link, :class => 'img-rounded', :id => 'cover'
+  table.table
+    thead
+      tr
+        th
+        th
+    tbody
+      - if @book.sections.length != 0
+        - @book.sections.each do |section|
+          tr
+            td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, course_path(section.course)
+            td.text-center = section.semester.season + " " + section.semester.year.to_s
+      - else
+        tr
+          td.text-center colspan="2" Not used in any courses
 .col-md-9
   .page-header
     button#follow.btn.btn-lg data="#{@book.id}" = current_user.books.include?(@book) ? "Unfollow" : "Follow" 
@@ -21,16 +35,28 @@
       h4 = @book.amazon_affiliate_link ? (link_to "Amazon Merchant", @book.amazon_affiliate_link) : "Amazon"
       h5 = "New: " + (@book.amazon_merchant_new_price ? "$" + @book.amazon_merchant_new_price.to_s : "N/A")
       h5 = "Used: " + (@book.amazon_merchant_used_price ? "$" + @book.amazon_merchant_used_price.to_s : "N/A")
-.col-md-12
-  .col-md-3.nopadding
-    h2 = @book.sections ? () : ("Not listed in any courses")
-    table.table
+  .col-md-12.nopadding
+    hr
+    table.table.table-striped
       thead
         tr
-          th
-          th
-      tbody
-        - @book.sections.each do |section|
+          th.text-hide claim
+          th Price
+          th Condition
+          th Notes
+          th End Date
+      tbody#books
+        - if @book.textbook_transactions.length != 0
+          - @book.textbook_transactions.each do |tt|
+            tr
+              td
+                input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
+              td = "$" + tt.price.to_s
+              td = tt.condition
+              td = tt.notes
+              td = (tt.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")
+        - else
           tr
-            td = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, course_path(section.course)
-            td = section.semester.season + " " + section.semester.year.to_s
+            td.text-center colspan="5" No current sales
+.col-md-12.nopadding
+  .col-md-3

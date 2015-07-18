@@ -87,11 +87,17 @@ $(document).ready(function () {
 
 	$('#book-titles').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
-		display(
-			booksData.filter(function (book) {
-				return book.title.toLowerCase().includes(query);
-			})
-		);
+		if (query == '') {
+			display(booksData);
+		} else {
+			display(
+				booksData.filter(function (book) {
+					return book.title.toLowerCase().includes(query);
+				}).sort( function (a, b) {
+					return a.title.length - b.title.length;
+				})
+			);
+		}
 	});
 
 	function display (books) {
