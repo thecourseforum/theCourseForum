@@ -4,10 +4,12 @@
 $(document).ready(function () {
 
 	var claim_id,
-		books = [];
+		booksData = [],
+		booksToShow,
+		bookList;
 
 	$.each($('.book-info'), function () {
-		books.push({
+		booksData.push({
 			id: $(this).attr('id'),
 			title: $(this).attr('title'),
 			image: $(this).attr('image')
@@ -15,9 +17,7 @@ $(document).ready(function () {
 		$(this).remove();
 	});
 
-	console.log(books[0].id);
-
-	display(books);
+	display(booksData);
 
 	// Post modal
 	$('#post-listing').click(function() {
@@ -105,24 +105,25 @@ $(document).ready(function () {
 
 	$('#book-titles').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
-		
+		$('#more-books').show();
 		display(
-			books.filter(function (book) {
+			booksData.filter(function (book) {
 				return book.title.toLowerCase().includes(query);
 			})
 		);
 	});
 
 	function display (books) {
-		var bookList = $('#book-list'),
-			emptyBook = $('.a-book.hidden'),
-			booksToShow = books.slice(0, 30);
-
+		var emptyBook = $('.a-book.hidden');
+		
+		bookList = $('#book-list');
+		offset = 18;
+		booksToShow = books;
 		bookList.empty();
 
 		bookList.append(emptyBook);
 
-		$.each(booksToShow, function (index, book) {
+		$.each(booksToShow.slice(0, 18), function (index, book) {
 			var block = $('.a-book.hidden').clone().removeClass('hidden'),
 				img = block.find('#cover-thumb'),
 				title = block.find('#title-thumb');
@@ -135,5 +136,30 @@ $(document).ready(function () {
 		});
 	}
 
+	function appendBooks () {
+		if (booksToShow.length >= offset) {
+			$.each(booksToShow.slice(offset, offset+12), function (index, book) {
+				var block = $('.a-book.hidden').clone().removeClass('hidden'),
+					img = block.find('#cover-thumb'),
+					title = block.find('#title-thumb');
+
+				img.attr('src', book.image);
+				title.text(book.title);
+				title.attr('href', '/books/' + book.id);
+
+				bookList.append(block);
+			});
+			offset += 12;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	$('#more-books').click(function () {
+		if (!appendBooks()) {
+			$(this).hide();
+		} 
+	})
 
 });

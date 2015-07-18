@@ -24,6 +24,8 @@ ul.nav.nav-pills
       img.img-rounded#cover-thumb src=""
     .col-md-9
       a#title-thumb href=""
+.col-md-12
+  button#more-books.btn.btn-lg More Books
 
 - @books.each do |book|
   .book-info image="#{book.small_image_link}" title="#{book.title}" id="#{book.id}"
