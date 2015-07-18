@@ -1,5 +1,5 @@
-= javascript_include_tag "books"
-= stylesheet_link_tag "books"
+= javascript_include_tag "textbook_transactions"
+= stylesheet_link_tag "textbook_transactions"
 
 .col-md-3
   = image_tag @book.large_image_link, :class => 'img-rounded', :id => 'cover'
@@ -13,15 +13,16 @@
         - @book.sections.each do |section|
           tr
             td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, course_path(section.course)
-            td.text-center = section.semester.season + " " + section.semester.year.to_s
+            td.text-center.nodecoration = section.semester.season + " " + section.semester.year.to_s
       - else
         tr
-          td.text-center colspan="2" Not used in any courses
+          td.text-center.nodecoration colspan="2" Not used in any courses
 .col-md-9
   .page-header
-    button#follow.btn.btn-lg data="#{@book.id}" = current_user.books.include?(@book) ? "Unfollow" : "Follow" 
-    h1 = @book.title
-    h3 = @book.author
+    button#follow.btn.btn-lg type="button" data="#{@book.id}" = current_user.books.include?(@book) ? "Unfollow" : "Follow"
+    button#sell-yours.btn.btn-lg type="button" Sell yours    
+    h1#book-title = @book.title
+    h3#book-author = @book.author
   #prices
     .col-md-4
       h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
@@ -37,7 +38,7 @@
       h5 = "Used: " + (@book.amazon_merchant_used_price ? "$" + @book.amazon_merchant_used_price.to_s : "N/A")
   .col-md-12.nopadding
     hr
-    table.table.table-striped
+    table.table.table-striped#student-postings
       thead
         tr
           th.text-hide claim
@@ -51,12 +52,10 @@
             tr
               td
                 input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
-              td = "$" + tt.price.to_s
-              td = tt.condition
-              td = tt.notes
-              td = (tt.created_at + 3.days).localtime.strftime("%m/%d/%y %I:%M %p")
+              td.nodecoration = "$" + tt.price.to_s
+              td.nodecoration = tt.condition
+              td.nodecoration = tt.notes
+              td.nodecoration = (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
         - else
           tr
-            td.text-center colspan="5" No current sales
-.col-md-12.nopadding
-  .col-md-3
+            td.text-center.nodecoration colspan="5" No current sales

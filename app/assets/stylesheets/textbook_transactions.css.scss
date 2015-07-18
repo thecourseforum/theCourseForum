@@ -72,10 +72,50 @@
 	transition: background-color 1.5s ease;
 }
 
+
 #more-books {
 	display: block;
 	border: 2px solid #15214B;
 	border-radius: 500px;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+#follow, #sell-yours {
+	float: right;
+	text-align: center;
+	background-color: #D75626;
+	color: white;
+	border-radius: 2px;
+	margin: 3px; 
+}
+
+#prices {
+	display: inline;
+	position: relative;
+
+	li {
+		display: inline;
+		float: left;
+	}
+
+}
+
+#cover {
+	max-width: 100%;
+	height: auto;
+	border: 5px solid #0D3268;
+	margin-top: 10px;
+}
+
+#student-postings {
+	margin-top: 20px;
+}
+
+.nopadding {
+	padding: 0 !important;
+}
+.nodecoration {
+	text-decoration: none !important;
+	cursor: auto !important;
 }

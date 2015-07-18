@@ -24,6 +24,11 @@ $(document).ready(function () {
 		$('#post-listing-modal').modal();
 	});
 
+	$('#sell-yours').click(function() {
+		$('#post-listing-modal').modal();
+		$('#book-title-post').val($('#book-title').text().trim());
+	});
+
 	$('#submit-listing').click(function() {
 		$.ajax({
 			url: '/textbook_transactions',
