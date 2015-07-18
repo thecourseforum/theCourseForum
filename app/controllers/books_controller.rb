@@ -6,6 +6,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @textbook_transactions = @book.textbook_transactions.active
   end
 
   def courses

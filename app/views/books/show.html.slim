@@ -47,8 +47,8 @@
           th Notes
           th End Date
       tbody#books
-        - if @book.textbook_transactions.length != 0
-          - @book.textbook_transactions.each do |tt|
+        - if @textbook_transactions.length != 0
+          - @textbook_transactions.each do |tt|
             tr
               td
                 input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
