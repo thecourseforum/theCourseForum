@@ -18,12 +18,12 @@ ul.nav.nav-pills
   #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
-.col-md-4.hidden
-
 #book-list
-  - @books[0..20].each do |book|
-    .col-md-4
-      .col-md-3
-        = image_tag book.small_image_link, :class => 'img-rounded'
-      .col-md-9.title-thumb
-        = link_to book.title, :controller => :books, :action => :show, :id => book.id
+  .col-md-4.a-book.hidden
+    .col-md-3
+      img.img-rounded#cover-thumb src=""
+    .col-md-9
+      a#title-thumb href=""
+
+- @books.each do |book|
+  .book-info image="#{book.small_image_link}" title="#{book.title}" id="#{book.id}"

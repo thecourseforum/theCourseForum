@@ -3,7 +3,21 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready(function () {
 
-	var claim_id;
+	var claim_id,
+		books = [];
+
+	$.each($('.book-info'), function () {
+		books.push({
+			id: $(this).attr('id'),
+			title: $(this).attr('title'),
+			image: $(this).attr('image')
+		})
+		$(this).remove();
+	});
+
+	console.log(books[0].id);
+
+	display(books);
 
 	// Post modal
 	$('#post-listing').click(function() {
@@ -91,12 +105,35 @@ $(document).ready(function () {
 
 	$('#book-titles').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
-		$('#book-list').first().children().css("display", "none");
-		$('#book-list').first().children().filter(function (index) {
-			// console.log($(this).text().includes(query));
-			return $(this).text().toLowerCase().includes(query);
-		}).slice(0, 30).css("display", "inline");
+		
+		display(
+			books.filter(function (book) {
+				return book.title.toLowerCase().includes(query);
+			})
+		);
 	});
+
+	function display (books) {
+		var bookList = $('#book-list'),
+			emptyBook = $('.a-book.hidden'),
+			booksToShow = books.slice(0, 30);
+
+		bookList.empty();
+
+		bookList.append(emptyBook);
+
+		$.each(booksToShow, function (index, book) {
+			var block = $('.a-book.hidden').clone().removeClass('hidden'),
+				img = block.find('#cover-thumb'),
+				title = block.find('#title-thumb');
+
+			img.attr('src', book.image);
+			title.text(book.title);
+			title.attr('href', '/books/' + book.id);
+
+			bookList.append(block);
+		});
+	}
 
 
 });
