@@ -32,6 +32,7 @@ class TextbookTransactionsController < ApplicationController
     if current_user.cellphone
       transaction = TextbookTransaction.find(params[:format])
       transaction.update(:buyer_id => current_user.id)
+      transaction.update(:sold_at => Time.now)
       RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
     end
     redirect_to :action => :index

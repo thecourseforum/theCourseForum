@@ -26,16 +26,16 @@
   #prices
     .col-md-4
       h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
-      h5 = "New: " + (@book.bookstore_new_price ? "$" + @book.bookstore_new_price.to_s : "N/A")
-      h5 = "Used: " + (@book.bookstore_used_price ? "$" + @book.bookstore_used_price.to_s : "N/A")
+      h5 = "New: " + (@book.bookstore_new_price ? "$" + sprintf('%.2f', @book.bookstore_new_price) : "N/A")
+      h5 = "Used: " + (@book.bookstore_used_price ? "$" + sprintf('%.2f', @book.bookstore_used_price) : "N/A")
     .col-md-4
       h4 = @book.amazon_affiliate_link ? (link_to "Amazon Official", @book.amazon_affiliate_link) : "Amazon"
-      h5 = "New: " + (@book.amazon_official_new_price ? "$" + @book.amazon_official_new_price.to_s : "N/A")
-      h5 = "Used: " + (@book.amazon_official_used_price ? "$" + @book.amazon_official_used_price.to_s : "N/A")
+      h5 = "New: " + (@book.amazon_official_new_price ? "$" + sprintf('%.2f', @book.amazon_official_new_price) : "N/A")
+      h5 = "Used: " + (@book.amazon_official_used_price ? "$" + sprintf('%.2f', @book.amazon_official_used_price) : "N/A")
     .col-md-4
       h4 = @book.amazon_affiliate_link ? (link_to "Amazon Merchant", @book.amazon_affiliate_link) : "Amazon"
-      h5 = "New: " + (@book.amazon_merchant_new_price ? "$" + @book.amazon_merchant_new_price.to_s : "N/A")
-      h5 = "Used: " + (@book.amazon_merchant_used_price ? "$" + @book.amazon_merchant_used_price.to_s : "N/A")
+      h5 = "New: " + (@book.amazon_merchant_new_price ? "$" + sprintf('%.2f', @book.amazon_merchant_new_price) : "N/A")
+      h5 = "Used: " + (@book.amazon_merchant_used_price ? "$" + sprintf('%.2f', @book.amazon_merchant_used_price) : "N/A")
   .col-md-12.nopadding
     hr
     table.table.table-striped#student-postings
@@ -58,4 +58,4 @@
               td.nodecoration = (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
         - else
           tr
-            td.text-center.nodecoration colspan="5" No current sales
+            td.text-center.nodecoration colspan="5" No current listings
