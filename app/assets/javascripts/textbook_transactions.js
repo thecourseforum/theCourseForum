@@ -79,33 +79,14 @@ $(document).ready(function () {
 		minLength: 2
 	});
 
-	// Search bar autocomplete
-	// $('#book-titles').autocomplete({
-	// 	source: function(request, response) {
-	// 		$.ajax({
-	// 			url: '/textbook_transactions/search_book_titles',
-	// 			dataType: 'json',
-	// 			type: 'GET',
-	// 			data: {
-	// 				query: request.term
-	// 			},
-	// 			success: function(data) {
-	// 				response($.map(data[0], function(item) {
-	// 					return {
-	// 						label: item.title,
-	// 						value: item.title,
-	// 						course_id: item.course_id
-	// 					}
-	// 				}));
-	// 			}
-	// 		});
-	// 	},
-	// 	minLength: 2
-	// });
+	$('#more-books').click(function () {
+		if (!appendBooks()) {
+			$(this).hide();
+		} 
+	})
 
 	$('#book-titles').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
-		$('#more-books').show();
 		display(
 			booksData.filter(function (book) {
 				return book.title.toLowerCase().includes(query);
@@ -134,6 +115,12 @@ $(document).ready(function () {
 
 			bookList.append(block);
 		});
+
+		if (booksToShow.length <= 18) {
+			$('#more-books').hide();
+		} else {	
+			$('#more-books').show();
+		}
 	}
 
 	function appendBooks () {
@@ -156,10 +143,29 @@ $(document).ready(function () {
 		}
 	}
 
-	$('#more-books').click(function () {
-		if (!appendBooks()) {
-			$(this).hide();
-		} 
-	})
 
+
+	// Search bar autocomplete
+	// $('#book-titles').autocomplete({
+	// 	source: function(request, response) {
+	// 		$.ajax({
+	// 			url: '/textbook_transactions/search_book_titles',
+	// 			dataType: 'json',
+	// 			type: 'GET',
+	// 			data: {
+	// 				query: request.term
+	// 			},
+	// 			success: function(data) {
+	// 				response($.map(data[0], function(item) {
+	// 					return {
+	// 						label: item.title,
+	// 						value: item.title,
+	// 						course_id: item.course_id
+	// 					}
+	// 				}));
+	// 			}
+	// 		});
+	// 	},
+	// 	minLength: 2
+	// });
 });
