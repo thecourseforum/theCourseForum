@@ -6,22 +6,25 @@
 	display: inline;
 	position: relative;
 	list-style-type: none;
-}
 
-#above-search-bar ul {
-	margin-top: 10px;
-	padding-right: 0px;
-	-webkit-padding-start: 0px;
-	height: 30px;
-}
-#above-search-bar li {
-	display: inline;
-}
+	ul {
+		margin-top: 10px;
+		padding-right: 0px;
+		-webkit-padding-start: 0px;
+		height: 30px;
+	}
 
-#above-search-bar li label{
-	position: absolute;
-	top: 10px;
-	margin-bottom: 0px;
+	li {
+		display: inline;
+
+		label {
+			position: absolute;
+			top: 10px;
+			margin-bottom: 0px;
+		}
+
+	}
+
 }
 
 #post-listing {
@@ -67,8 +70,4 @@
 	margin-bottom: 10px;
 	padding: 3px;
 	transition: background-color 1.5s ease;
-}
-
-.title-thumb {
-	overflow: hidden;
 }

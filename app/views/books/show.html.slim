@@ -1,12 +1,19 @@
+= javascript_include_tag "books"
 = stylesheet_link_tag "books"
 
 .col-md-3
   .pull-left = image_tag @book.large_image_link, :class => 'img-rounded', :id => 'cover'
 .col-md-9
   .page-header
-    h2 = @book.title
-    h4 = @book.author
-  br = @book.bookstore_new_price
-  br = @book.bookstore_used_price
-  br = @book.amazon_official_new_price
-  br = @book.amazon_official_used_price
+    button#follow.btn.btn-lg data="#{@book.id}" = current_user.books.include?(@book) ? "Unfollow" : "Follow" 
+    h1 = @book.title
+    h3 = @book.author
+  #prices
+    .col-md-6
+      h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
+      h5 = "New: " + (@book.bookstore_new_price ? "$" + @book.bookstore_new_price.to_s : "N/A")
+      h5 = "Used: " + (@book.bookstore_used_price ? "$" + @book.bookstore_used_price.to_s : "N/A")
+    .col-md-6
+      h4 = @book.amazon_affiliate_link ? (link_to "Amazon", @book.amazon_affiliate_link) : "Amazon"
+      h5 = "New: " + (@book.amazon_official_new_price ? "$" + @book.amazon_official_new_price.to_s : "N/A")
+      h5 = "Used: " + (@book.amazon_official_used_price ? "$" + @book.amazon_official_used_price.to_s : "N/A")

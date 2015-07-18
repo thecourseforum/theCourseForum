@@ -43,7 +43,7 @@ TheCourseForum::Application.routes.draw do
 
   resources :books, :only => [:index, :show]
   get '/books/courses' => 'books#courses'
-
+  post '/books/follow' => 'books#follow'
 
   # Autocomplete for books feature
   resources :books, :only => [] do

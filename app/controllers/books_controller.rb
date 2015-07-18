@@ -53,4 +53,20 @@ class BooksController < ApplicationController
     render :json => [prefix,results]
   end
 
+  def follow
+    @book = Book.find(params[:book_id])
+
+    if current_user.books.include?(@book)
+      current_user.books.delete(@book)
+      render :json => {
+        status: "unfollowed"
+      }
+    else
+      current_user.books.append(@book)
+      render :json => {
+        status: "followed"
+      }
+    end
+  end
+
 end

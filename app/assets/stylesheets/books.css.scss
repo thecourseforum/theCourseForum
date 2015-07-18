@@ -11,4 +11,24 @@ td:hover {
 	max-width: 100%;
 	height: auto;
 	border: 5px solid #0D3268;
+	margin-top: 10px;
+}
+
+#follow {
+	float: right;
+	text-align: center;
+	background-color: #D75626;
+	color: white;
+	border-radius: 2px; 
+}
+
+#prices {
+	display: inline;
+	position: relative;
+
+	li {
+		display: inline;
+		float: left;
+	}
+
 }
