@@ -32,6 +32,7 @@
 //= require nprogress-ajax
 //= require highcharts
 //= require highcharts/highcharts-more
+//= require js.cookie
 
 var ready = function() {
 

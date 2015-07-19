@@ -114,3 +114,5 @@ gem 'icalendar'
 
 # for new gradewheel or any other charing needed.
 gem "highcharts-rails", "~> 3.0.0"
+
+gem 'js-cookie-rails'
