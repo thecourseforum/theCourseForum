@@ -11,7 +11,7 @@ puts 'Wiping book_requirements...'
 
 semester_id = Semester.find_by(:season => 'Fall', :year => 2015)
 
-Semester.includes(:sections => :book_requirements).find_by(semester_id).sections.flat_map(&:book_requirements).map(&:delete)
+Semester.includes(:sections => :book_requirements).find(semester_id).sections.flat_map(&:book_requirements).map(&:delete)
 
 headers = {
 	:Referer => "http://www.uvabookstores.com/uvatext/",

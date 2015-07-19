@@ -52,6 +52,8 @@ books.each_with_index do |batch, index|
 			puts "Retrying #{index + 1} query"
 			puts e
 			items = nil
+			# Prevent 503 errors
+			sleep(0.5)
 		end
 	end
 
@@ -145,7 +147,9 @@ books.each_with_index do |batch, index|
 	end
 
 	# Prevent 503 errors
-	sleep(0.2)
+	# Throttling is based on requests per second
+	# 	Current limit is 1 per-second
+	sleep(0.5)
 end
 
 log.close
