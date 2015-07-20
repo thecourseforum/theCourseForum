@@ -113,22 +113,27 @@ $(document).ready(function() {
 		calendarCourses = [],
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
-		schedules = [];
+		schedules = [],
+		courses = [];
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
 	// Documentation for these options are found in fullCalendar docs online
-	courses = Cookies.get('courses');
-	results = Cookies.get('results');
-	if (!!courses){
-		if (!! JSON.parse(courses))
-			displayResult(JSON.parse(courses));
-	}
-	if (!!results){
-		if (!! JSON.parse(results))
-			searchResults = JSON.parse(results);
-	}
-		
+	var courseCookie = Cookies.get('courses');
+	var results = Cookies.get('results');
+	if (!!courseCookie)
+		var coursesParsed = JSON.parse(courseCookie);
+		if (!! coursesParsed)
+			courses = coursesParsed;
+			for (var i = 0; i<coursesParsed.length; i++)
+				displayResult(coursesParsed[i], false);
+				console.log(coursesParsed)
+
+	if (!!results)
+		var resultsParsed = JSON.parse(results);
+		if (!! resultsParsed)
+			searchResults = resultsParsed;
+			
 	$('#schedule').fullCalendar({
 		// Default view for the calendar is agendaWeek, which shows a single week
 		defaultView: 'agendaWeek',
@@ -524,8 +529,9 @@ $(document).ready(function() {
 							'laboratories': []
 						};
 						// Calls utility function for showing the course (HTML)
-						displayResult(response);
-						Cookies.set('courses', JSON.stringify(response));
+						displayResult(response, true);
+						courses.push(response);
+						Cookies.set('courses', JSON.stringify(courses));
 						Cookies.set('results', JSON.stringify(searchResults));
 					}
 				},
@@ -587,7 +593,7 @@ $(document).ready(function() {
 		$('#credits').text(total + " credits");
 	}
 
-	function displayResult(result) {
+	function displayResult(result, enableModal) {
 		var resultBox = $('.course-result.hidden').clone().removeClass('hidden'),
 			content = resultBox.children('#content'),
 			checkbox = resultBox.children('#checkbox').children(':checkbox');
@@ -709,7 +715,6 @@ $(document).ready(function() {
 			}
 			$('#course-modal').modal();
 		});
-
 		content.children('.course-mnemonic').text(result.course_mnemonic);
 		content.children('.course-title').text(result.title);
 
@@ -723,7 +728,8 @@ $(document).ready(function() {
 		checkbox.change();
 		$('#results-box').append(resultBox);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
-		content.click();
+		if (enableModal)
+			content.click();
 	}
 
 	function addClass(course) {
