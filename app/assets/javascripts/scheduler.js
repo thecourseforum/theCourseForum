@@ -119,29 +119,29 @@ $(document).ready(function() {
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
 	// Documentation for these options are found in fullCalendar docs online
-	var courseCookie = localStorage.getItem('courses');
-	var results = localStorage.getItem('results');
-	if (!! courseCookie)
+	var courseJSON = localStorage.getItem('courses');
+	var resultsJSON = localStorage.getItem('results');
+	if (!!courseJSON)
 		try {
-			var coursesParsed = JSON.parse(courseCookie);
-		} catch (err){
+			var coursesParsed = JSON.parse(courseJSON);
+		} catch (err) {
 			localStorage.removeItem('courses')
 		}
-		if (!! coursesParsed)
-			courses = coursesParsed;
-			for (var key in coursesParsed)
-				if (courses.hasOwnProperty(key))
-					displayResult(courses[key], false);
+	if (!!coursesParsed)
+		courses = coursesParsed;
+	for (var key in coursesParsed)
+		if (courses.hasOwnProperty(key))
+			displayResult(courses[key], false);
 
-	if (!! results)
+	if (!!resultsJSON)
 		try {
-			var resultsParsed = JSON.parse(results);
-		} catch (err){
+			var resultsParsed = JSON.parse(resultsJSON);
+		} catch (err) {
 			localStorage.removeItem('response')
 		}
-		if (!! resultsParsed)
-			searchResults = resultsParsed;
-			
+	if (!!resultsParsed)
+		searchResults = resultsParsed;
+
 	$('#schedule').fullCalendar({
 		// Default view for the calendar is agendaWeek, which shows a single week
 		defaultView: 'agendaWeek',
@@ -734,8 +734,12 @@ $(document).ready(function() {
 		checkbox.attr('checked', true);
 
 		checkbox.change(function() {
-			// searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
-			updateCreditCount();
+			try {
+				searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
+				updateCreditCount();
+			} catch (err){
+				console.log(err, result.id)
+			}
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
