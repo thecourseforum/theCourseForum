@@ -114,7 +114,7 @@ $(document).ready(function() {
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [],
-		courses = [];
+		courses = {};
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
@@ -125,8 +125,9 @@ $(document).ready(function() {
 		var coursesParsed = JSON.parse(courseCookie);
 		if (!! coursesParsed)
 			courses = coursesParsed;
-			for (var i = 0; i<coursesParsed.length; i++)
-				displayResult(coursesParsed[i], false);
+			for (var key in coursesParsed)
+				if (courses.hasOwnProperty(key))
+					displayResult(courses[key], false);
 				console.log(coursesParsed)
 
 	if (!!results)
@@ -334,6 +335,7 @@ $(document).ready(function() {
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
 
+		Cookies.set('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
 	});
@@ -530,7 +532,8 @@ $(document).ready(function() {
 						};
 						// Calls utility function for showing the course (HTML)
 						displayResult(response, true);
-						courses.push(response);
+						courses[response.id] = response;
+						console.log(JSON.stringify(courses));			
 						Cookies.set('courses', JSON.stringify(courses));
 						Cookies.set('results', JSON.stringify(searchResults));
 					}
@@ -606,6 +609,8 @@ $(document).ready(function() {
 
 		content.children('.remove').click(function() {
 			delete searchResults[result.id];
+			delete courses[result.id]
+			Cookies.set('courses', courses)
 			updateCreditCount();
 			$(this).parent().parent().remove();
 		});
