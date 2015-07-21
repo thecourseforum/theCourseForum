@@ -38,7 +38,7 @@
         .col-md-6.course-stats
           .row.ratings-stats
             .col-xs-4.overall-col
-              .row.rating-row
+              .rating-row
                 .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
               h5.rating-title Rating
             .col-xs-8.stats-col
@@ -81,7 +81,7 @@
 
           .row.workload-stats
             .col-xs-4.overall-col
-              .row.rating-row
+              .rating-row
                 - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
                 - total = total.to_f.round(1)
                 / - if total.to_f < 9.99
@@ -141,37 +141,63 @@
             - book_sets.each do |status, book_set|
               - book_set.each do |book|
                 .item
-                  .col-xs-4
-                    .book-image=image_tag("#{book.large_image_link}", size: "140x180")
-                  .col-xs-8
+                  .book-image-container
+                    - if book.large_image_link
+                      .book-image=image_tag("#{book.large_image_link}", size: "140x180")
+                    - else
+                      .no-book-image = image_tag("", size: "140x180")
+                  .book-description
                     / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
                     - if book.amazon_affiliate_link
                       h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
                     - else
                       h4.title = book.title
                     p.author ="by #{book.author}"
-                    - if book.bookstore_prices.count > 0
-                      .row.bookstore
-                        p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
-                    .row.amazon-info
-                      - check = false
-                      .col-xs-3
-                        - if book.amazon_official_prices.count > 0
-                          - check = true
-                          .row
-                            .requirement-cost-condition = link_to "#{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
-                          .row
-                            .condition New
-                      .col-xs-3
-                        - if book.amazon_merchant_prices.count > 0
-                          - check = true
-                          .row
-                            .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
-                          .row
-                            .condition Used  
-                      .col-xs-6
-                        - if check
-                          div.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "80x40"), book.amazon_affiliate_link, :target => '_blank'
+                    .book-prices
+                      - if book.bookstore_prices.count > 0
+                        .bookstore-info
+                          - bookstore_check = false
+                          .col-xs-3
+                            - if book.bookstore_new_price
+                              - bookstore_check = true
+                              .row
+                                .requirement-cost-condition
+                                  = "#{number_to_currency(book.bookstore_new_price)}"
+                              .row
+                                .condition New
+                          .col-xs-3
+                            - if book.bookstore_used_price
+                              -bookstore_check = true
+                              .row
+                                .requirement-cost-condition
+                                  = "#{number_to_currency(book.bookstore_used_price)}"
+                              .row
+                                .condition Used
+                          .col-xs-6
+                            - if bookstore_check
+                              .bookstore = "Bookstore"
+                      / - if book.bookstore_prices.count > 0
+                      /   .row.bookstore
+                      /     p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
+                      .amazon-info
+                        - check = false
+                        .col-xs-3
+                          - if book.amazon_official_prices.count > 0
+                            - check = true
+                            .row
+                              .requirement-cost-condition = link_to "#{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                            .row
+                              .condition New
+                        .col-xs-3
+                          - if book.amazon_merchant_prices.count > 0
+                            - check = true
+                            .row
+                              .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                            .row
+                              .condition Used  
+                        .col-xs-6
+                          - if check
+                            btn.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "80x40"), book.amazon_affiliate_link, :target => '_blank'
 
           
 

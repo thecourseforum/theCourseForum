@@ -8,6 +8,30 @@ h1 {
   font-family: "HelveticaNeue-Medium";
 }
 
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
 #courses-main {
   padding-left: 0px;
   padding-right: 0px;
@@ -54,6 +78,10 @@ $lightgray: #cccccc;
   display: block;
   margin-left: auto;
   margin-right: auto
+}
+
+.no-book-image {
+  background-color: #eee;
 }
 
 img {
@@ -112,9 +140,9 @@ img {
   padding-right: 5px;
 }
 
-.rating-row, .rating {
-  height:100px;
-}
+// .rating-row, .rating {
+//   height:100px;
+// }
 
 .pagination {
   font-size: 1.3vw;
@@ -134,8 +162,9 @@ img {
 }
 
 .rating {
-  font-size: 78px;
-  font-size: 4.5vw;
+  // font-size: 78px;
+  // font-size: 4.5vw;
+  font-size: 4.5rem;
   font-family: 'HelveticaNeue-Medium';
   color: rgb(215, 86, 38);
   text-align: center;
@@ -143,9 +172,9 @@ img {
   /*margin-top: 40px;*/
 /*  display: inline-block;*/
 /*  vertical-align: 30%;*/
-  bottom: 50%;
-  position: absolute;
-  width: 95%;
+  // bottom: 50%;
+  // position: absolute;
+  // width: 95%;
 }
 
 .ratings-stats, .workload-stats {
@@ -218,8 +247,8 @@ img {
 
 .rating-title {
   color: $blue;
-  position: relative;
-  bottom: -10%;
+  // position: relative;
+  // bottom: -10%;
   text-align:center;
 }
 
@@ -263,11 +292,16 @@ p {
   margin-left: auto;
   margin-right: auto;
   border: 1px #bbb solid;
+  transition: background-color 0.2s ease;
+}
+
+.amazon:hover {
+  background-color: #eee;
 }
 
 .amazon-info {
-  position: absolute;
-  bottom: -90%;
+  // position: absolute;
+  // bottom: -90%;
 }
 .requirement-cost-condition {
   color: $blue;
@@ -281,8 +315,11 @@ p {
 }
 
 .bookstore {
-  margin-bottom: 5px
+  margin-top: 6px;
+  margin-bottom: 5px;
+  height: 40px;
 }
+
 .condition {
   font-size: 10px;
   margin-bottom: 2px;
@@ -320,7 +357,24 @@ p {
 
 .single-review {
   padding: 10px 0;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #dedede;
+  transition: background-color 0.2s ease;
+}
+
+// .single-review:hover {
+//   background-color: #eee;
+// }
+
+.book-image-container {
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.book-description {
+  margin-left: 10px;
+  width: calc(100% - 160px);
+  margin-right: 10px;
 }
 
 .upvote {
@@ -356,6 +410,10 @@ p {
   margin-top: 5px;
   height:180px;
   border-right: #bbb 1px solid;
+  @include flexbox();
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .item {
@@ -364,8 +422,17 @@ p {
   //border: 1px solid #979797;
   background-color: white;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
+  // @include flexbox();
+  display: flex !important;
+  justify-content: flex-start;
 }
 
+.book-prices {
+  @include flexbox();
+  flex-flow: column;
+  justify-content: center;
+  height: calc(100% - 60px);
+}
 
 .icon {
   font-size: 8px;

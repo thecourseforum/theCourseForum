@@ -73,7 +73,7 @@ body {
   border-radius: 3px;
   height: auto;
   margin: 5px 5px;
-  margin-left: 0px;
+  // margin-left: -5px;
   cursor: pointer;
   min-height: 60px;
   @include flexbox();
