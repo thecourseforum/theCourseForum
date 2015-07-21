@@ -312,6 +312,8 @@ p {
 }
 
 .upvote {
+  font-size:12px;
+  text-align: center;
   width: 50px;
   height: 50px;
   padding: 0px 0px;
@@ -321,6 +323,8 @@ p {
 }
 
 .downvote {
+  font-size:12px;
+  text-align: center;
   opacity: 0.4;
   width: 50px;
   height: 50px;
@@ -457,6 +461,10 @@ p {
   background: #6D8BC2;
   height:13px;
   width:0px;
+}
+
+.btn.active {
+  opacity: 1.0;
 }
 
 
