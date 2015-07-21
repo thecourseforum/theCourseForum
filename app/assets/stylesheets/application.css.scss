@@ -39,11 +39,19 @@ $nprogress-height: 4.5px;
 @import "nprogress";
 @import "nprogress-bootstrap";
 
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+
 //rest of variables
 @mixin ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@font-face {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
@@ -87,7 +95,8 @@ html, body {
 }
 
 body {
-  font-family: "Futura", sans-serif;
+  font-family: "Lato", sans-serif;
+  // font-family: "Futura", sans-serif;
   background-color: $blue;
   overflow: hidden;
   font-size: $regular-font-size;
@@ -177,6 +186,11 @@ section#main {
 select {
   @extend .form-control;
   border-radius: 0px;
+}
+
+#browsing-content {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 #alert, #notice {

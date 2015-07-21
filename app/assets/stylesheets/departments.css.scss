@@ -1,5 +1,4 @@
 @import "variables";
-
 /* INDEX */
 
 #department-courses {
@@ -11,11 +10,6 @@
   margin-bottom: 0;
 }
 
-#departments-content {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
 // #content-container {
 //   background-color: transparent;
 //   box-shadow: none;
@@ -24,8 +18,8 @@
 .name-block {
   background-color: $light-blue;
   border-radius: 5px;
-  height: 120px;
-  margin: 10px 10px;
+  height: 106px;
+  margin: 5px 5px;
   cursor: pointer;
 
   a {
@@ -33,13 +27,18 @@
   }
 }
 
+.info-header {
+  // border-bottom: 1px solid #dfdfdf;
+  margin-top: -5px;
+}
+
 .details-block {
-  margin: 10px 10px;
+  margin: 5px 10px;
   width: 62%;
 }
 
 .course-name {
-  margin-top: 20px;
+  margin-top: 14px;
   padding: 0px 10px;
   font-size: 30px;
   // font-family: "OpenSans";
@@ -47,11 +46,12 @@
 }
 
 .course-panel {
-  height: 140px;
+  height: auto;
+  // height: 116px;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #bfbfbf;
 }
 
 .course-title {
@@ -60,36 +60,73 @@
   // font-family: "OpenSans";
 }
 
+.semester-subheader {
+  line-height:10px;
+  font-size: 12px;
+  color: #bfbfbf;
+}
+
 .semester {
-  margin-top: 10px;
-  float:right;
-}
-
-.rating, .rating-subheader {
-  text-align: center;
-}
-
-.rating {
-  padding-bottom: 0px;
+  // margin-top: px;
+  float: right;
+  margin-top: -2px;
   margin-bottom: 0px;
+}
+
+.course-icon {
+  float:left;
+  width: 30px;
+  margin-top:12px;
+}
+
+.rating-container {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.course-rating-row {
+  margin-top: -3px;
+}
+
+.course-rating, .rating-subheader {
+  text-align: left;
+  display: inline-block;
+  width: 60%;
+  line-height:10px;
+}
+
+.course-rating {
+  padding-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+}
+
+.rating-empty {
+  padding-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 6px;
 }
 
 .rating-subheader {
   padding-top: 0px;
   margin-top: 0px;
   font-size: 12px;
+  color: #bfbfbf;
 }
 
 .description {
   font-size: 12px;
   overflow:hidden;
   margin-bottom: 10px;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 
 .dept-block {
   height: 46px;
-  background-color: $orange;
+  //background-color: $orange;
   width: 46px;
   float: left;
   margin: -10px -15px;
@@ -101,6 +138,7 @@
 .school-title {
   margin-bottom: 0;
   margin-left: 46px;
+  color: white;
 }
 
 .course-block {
@@ -159,6 +197,14 @@
   }
 }
 
+.school-panel-title {
+    margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+  padding: 15px 20px;
+  background-color: $light-blue;
+}
 
 /* SHOW */
 
@@ -173,3 +219,12 @@
 .bli {
   font-weight: bold;
 }
+
+
+// #content-container {
+//   background-color: #eee !important;
+//   box-shadow: none !important;
+//   padding-top: 0px !important;
+//   padding-left: 0px;
+//   padding-right: 0px;
+// }

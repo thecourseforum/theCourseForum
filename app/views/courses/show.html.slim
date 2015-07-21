@@ -33,9 +33,9 @@
     /   .col-xs-6
     /     .orange-title Cumulative Grades
     / br
-    .container-fluid
+    .container-fluid#browsing-content
       .row.course-breakdown
-        .col-xs-6.course-stats
+        .col-md-6.course-stats
           .row.ratings-stats
             .col-xs-4.overall-col
               .row.rating-row
@@ -127,7 +127,7 @@
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
 
-        .col-xs-6.course-grades
+        .col-md-6.course-grades
 
     br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
@@ -242,7 +242,7 @@
     .row
       - if @reviews_with_comments.count > 1
         = will_paginate @reviews 
-  .container-fluid
+  .container-fluid#review-container
     -# adds top line
     - @reviews.each do |r|
       .single-review

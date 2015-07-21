@@ -12,7 +12,7 @@
 /   /     a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
 /   /! Tab panes
 /   br
-.container-fluid#departments-content
+.container-fluid#browsing-content
   #accordion
     = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
     - @subdepartments_with_sections.each do |subdepartment|
@@ -41,34 +41,54 @@
             .col-xs-4.name-block data-no-turbolink=""= link_to '/courses/' + course.id.to_s + '/professors'
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
               .row.course-title = "#{course.title}"
-            .col-xs-7.details-block
-              .row
+            .col-xs-8.details-block
+              .row.info-header
                 .col-xs-2
-                  .row
-                    h3.rating = ratings[:overall]
-                  .row.rating-subheader
-                    span Rating
+                  .course-icon=image_tag("icons/overall.png", size: "20")
+                  .rating-container
+                    .row.rating-subheader
+                      span RATING
+                    .row.course-rating-row
+                      - if ratings[:overall] == "--"
+                        h4.rating-empty = "--"
+                      - else
+                        h4.course-rating = ratings[:overall]
                 .col-xs-2
-                  .row
-                    h3.rating = ratings[:difficulty]
-                  .row.rating-subheader
-                    span Difficulty
+                  .course-icon=image_tag("icons/difficulty.png", size: "20")
+                  .rating-container
+                    .row.rating-subheader
+                      span DIFFICULTY
+                    .row.course-rating-row
+                      - if ratings[:difficulty] == "--"
+                        h4.rating-empty = "--"
+                      - else 
+                        h4.course-rating = ratings[:difficulty]
                 .col-xs-2
-                  .row
-                    - if percentages[:gpa].round(2).nan?
-                      h3.rating = "--"
-                    - else
-                      h3.rating = percentages[:gpa].round(2)
-                  .row.rating-subheader
-                    span GPA
+                  .course-icon=image_tag("icons/chart.png", size: "20")
+                  .rating-container
+                    .row.rating-subheader
+                      span GPA
+                    .row.course-rating-row
+                      - if percentages[:gpa].round(2).nan?
+                        h4.rating-empty = "--"
+                      - else
+                        h4.course-rating = percentages[:gpa].round(2)
                 .col-xs-6
-                  h3.semester = course.last_taught_semester
+                  div style="float:right;"
+                    .row style="float:right;"
+                      span.semester-subheader Last Taught
+                    .row
+                      h4.semester = course.last_taught_semester
+                  / .row.semester-subheader
+                  /   .semester Last Taught
+                  / .row.semester-subheader
+                  /   .semester = course.last_taught_semester
               / h3 = course.last_taught_semester
               .row
                 - if course.description
                   p.description = course.description
-                - else
-                  p.description = "No description available :("
+                / - else
+                /   p.description = "No description available :("
                 // Have some check for size for whether to include ...
           / #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
           /   #course-panel.panel.panel-default
