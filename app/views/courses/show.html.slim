@@ -145,7 +145,7 @@
                     - if book.large_image_link
                       .book-image=image_tag("#{book.large_image_link}", size: "140x180")
                     - else
-                      .no-book-image = image_tag("", size: "140x180")
+                      .no-book-image = image_tag("icons/no_book.png", size: "140x180")
                   .book-description
                     / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
                     - if book.amazon_affiliate_link
