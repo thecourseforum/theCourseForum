@@ -119,19 +119,26 @@ $(document).ready(function() {
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
 	// Documentation for these options are found in fullCalendar docs online
-	var courseCookie = Cookies.get('courses');
-	var results = Cookies.get('results');
-	if (!!courseCookie)
-		var coursesParsed = JSON.parse(courseCookie);
+	var courseCookie = localStorage.getItem('courses');
+	var results = localStorage.getItem('results');
+	if (!! courseCookie)
+		try {
+			var coursesParsed = JSON.parse(courseCookie);
+		} catch (err){
+			localStorage.removeItem('courses')
+		}
 		if (!! coursesParsed)
 			courses = coursesParsed;
 			for (var key in coursesParsed)
 				if (courses.hasOwnProperty(key))
 					displayResult(courses[key], false);
-				console.log(coursesParsed)
 
-	if (!!results)
-		var resultsParsed = JSON.parse(results);
+	if (!! results)
+		try {
+			var resultsParsed = JSON.parse(results);
+		} catch (err){
+			localStorage.removeItem('response')
+		}
 		if (!! resultsParsed)
 			searchResults = resultsParsed;
 			
@@ -335,7 +342,7 @@ $(document).ready(function() {
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
 
-		Cookies.set('results', JSON.stringify(searchResults));
+		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
 	});
@@ -533,9 +540,8 @@ $(document).ready(function() {
 						// Calls utility function for showing the course (HTML)
 						displayResult(response, true);
 						courses[response.id] = response;
-						console.log(JSON.stringify(courses));			
-						Cookies.set('courses', JSON.stringify(courses));
-						Cookies.set('results', JSON.stringify(searchResults));
+						localStorage.setItem('courses', JSON.stringify(courses));
+						localStorage.setItem('results', JSON.stringify(searchResults));
 					}
 				},
 				error: function(response) {
@@ -610,7 +616,8 @@ $(document).ready(function() {
 		content.children('.remove').click(function() {
 			delete searchResults[result.id];
 			delete courses[result.id]
-			Cookies.set('courses', courses)
+			localStorage.setItem('results', searchResults)
+			localStorage.setItem('courses', courses)
 			updateCreditCount();
 			$(this).parent().parent().remove();
 		});
