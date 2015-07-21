@@ -227,11 +227,11 @@ img {
 }
 
 #save-course .btn.btn-primary {
-  width: 150px;
+  // width: 150px;
   height: 40px;
-  float: center;
+  // float: center;
   font-size: 20px;
-  margin-right: 30px;
+  // margin-right: 30px;
 }
 
 .row {
@@ -318,6 +318,7 @@ p {
   margin-top: 6px;
   margin-bottom: 5px;
   height: 40px;
+  text-align: center;
 }
 
 .condition {
@@ -361,9 +362,9 @@ p {
   transition: background-color 0.2s ease;
 }
 
-// .single-review:hover {
-//   background-color: #eee;
-// }
+.single-review:hover {
+  background-color: #F1F6FB;
+}
 
 .book-image-container {
   margin-left: 10px;

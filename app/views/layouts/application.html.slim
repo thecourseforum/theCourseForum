@@ -26,7 +26,8 @@ html
               h1.page-title= yield(:page_heading)
             - if controller.controller_name == "courses" && controller.action_name == "show"
               .col-xs-2#save-course
-                .btn.btn-primary#save-course Save Course
+                .row
+                  .btn.btn-primary#save-course Save Course
             - if controller.controller_name == "departments" && controller.action_name == "show"
               .col-xs-2#filter
                 .row
