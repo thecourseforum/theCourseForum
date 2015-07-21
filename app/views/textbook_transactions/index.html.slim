@@ -18,35 +18,36 @@ ul.nav.nav-pills
   #mnemonics = search_field_tag "book-titles", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
-table.table.table-striped
+table.table.table-striped#listing-list
   thead
     tr
-      th.text-hide claim
-      th Price
-      th Title
-      th Course(s)
-      th Author
-      th Condition
-      th Notes
-      th End Date
-  tbody#books
-    tr.book.hidden
-      td#claim
+      th.text-hide#claim claim
+      th#price Price
+      th#courses Course(s)
+      th#title Title
+      th#author Author
+      th#condition Condition
+      th#notes Notes
+      th#end-date End Date
+  tbody
+    tr.hidden
+      td
         input.claim.btn.btn-default type="submit" value="Claim" id=""
-      td#price
-      td#course
-      td#title
-      td#author
-      td#condition
-      td#end-date
-      td#claim
+      td
+      td
+      td
+      td
+      td
+      td
+      td
+    .text-center = will_paginate @textbook_transactions
     - @textbook_transactions.each do |tt|
       tr
         td
           input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
         td.nodecoration = "$" + tt.price.to_s
+        td#courses = tt.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
         td = link_to tt.book.title, book_path(tt.book)
-        td = tt.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
         td.nodecoration = tt.book.author
         td.nodecoration = tt.condition
         td.nodecoration = tt.notes
