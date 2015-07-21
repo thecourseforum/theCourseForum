@@ -70,13 +70,20 @@ body {
 
 .prof-name-block {
   background-color: $light-blue;
-  border-radius: 5px;
+  border-radius: 3px;
   height: auto;
   margin: 5px 5px;
+  margin-left: 0px;
   cursor: pointer;
+  min-height: 60px;
+  @include flexbox();
 
   a {
     text-decoration: none;
+    @include flexbox();
+    flex-flow: column;
+    justify-content: center;
+    @include flex(1 100%);
   }
 }
 
@@ -92,12 +99,37 @@ body {
   margin-top: -10px;
   margin-left: -15px;
 }
+
+.prof-info-header {
+  // border-bottom: 1px solid #dfdfdf;
+  @include flexbox();
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  margin-left: -15px;
+  margin-right: 5px;
+  margin-top: -1px;
+  width: 100%;
+}
+
+.prof-details-block {
+  margin: 5px 10px;
+  width: 62%;
+  padding-right: 0px;
+  @include flexbox();
+}
+
+
+
+
+
 .last-taught {
   margin-bottom: 5px;
   color: white;
   padding: 0px 10px;
   // font-family: "OpenSans";
 }
+
 .prof-title {
   //margin-top: 14px;
   padding: 0px 10px;
