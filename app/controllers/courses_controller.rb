@@ -98,19 +98,20 @@ class CoursesController < ApplicationController
   end
 
   def get_reviews
-    # on professor or all professors
+    # one professor or all professors
     prof_param = params[:professor_id] ? params[:professor_id] : 0..Float::INFINITY  
 
-    # # reviews for the course/section, from the start index and 
-    # all_reviews = Review.where(:course_id => params[:course_id], :professor_id => prof_param, :id => params[:start_index].to_i..Float::INFINITY).limit(params[:amount]).order(:id)
-
-    all_reviews = Review.where(:course_id => params[:course_id], :professor_id => prof_param)
+    if params[:professor_id]
+      all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id])
+    else
+      all_reviews = Review.where(:course_id => params[:course_id])
+    end
 
     reviews_voted_up = current_user.votes.where(:vote => 1).pluck(:voteable_id)
     reviews_voted_down = current_user.votes.where(:vote => 0).pluck(:voteable_id)
 
     @sort_type = params[:sort_type]
-    pr @sort_type
+    pr @sort_type 
     if @sort_type != nil
     case @sort_type
         when "recent"

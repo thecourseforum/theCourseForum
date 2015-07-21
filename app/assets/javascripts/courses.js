@@ -11,7 +11,7 @@ ready = function() {
     	}
 	});
 
-	var params, search, startIndex, amount, enableInfiniteScroll = false;
+	var params, search, startIndex, amount, enableInfiniteScroll = true;
 	var reviews;
 	// load 10 reviews at a time
 	amount = 10;
@@ -50,10 +50,9 @@ ready = function() {
 				if (response.length > 1) {
 					reviews = response
 					appendReviews();
-				}				
-				
-				else 
+				} else {
 					enableInfiniteScroll = false;
+				}
 			},
 			error: function(response) {
 				console.log("error");
