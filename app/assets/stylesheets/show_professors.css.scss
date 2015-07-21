@@ -133,7 +133,7 @@ body {
 .prof-title {
   //margin-top: 14px;
   padding: 0px 10px;
-  font-size: 30px;
+  font-size: 2.5rem;
   // font-family: "OpenSans";
   color: white;
 }
@@ -175,6 +175,6 @@ body {
   background-color: #eee !important;
   box-shadow: none !important;
   padding-top: 0px !important;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }

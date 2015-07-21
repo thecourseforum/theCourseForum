@@ -42,30 +42,34 @@ ready = function() {
 		},1000);
 	});
 
-	$('.carousel').slick({
-        infinite: true,
-  		slidesToShow: 2,
-  		slidesToScroll: 2,
-  		dots: true,
-  		responsive: [
-		    {
-		      breakpoint: 1200,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    // {
-		    //   breakpoint: 00,
-		    //   settings: {
-		    //     slidesToShow: 1,
-		    //     slidesToScroll: 1
-		    //   }
-		    // },
-		    ],
-     });
+	try {
+		$('.carousel').slick({
+	        infinite: true,
+	  		slidesToShow: 2,
+	  		slidesToScroll: 2,
+	  		dots: true,
+	  		responsive: [
+			    {
+			      breakpoint: 1200,
+			      settings: {
+			        slidesToShow: 1,
+			        slidesToScroll: 1,
+			        infinite: true,
+			        dots: true
+			      }
+			    },
+			    // {
+			    //   breakpoint: 00,
+			    //   settings: {
+			    //     slidesToShow: 1,
+			    //     slidesToScroll: 1
+			    //   }
+			    // },
+			    ],
+	     });
+	} catch(error) {
+		console.log(error);
+	}
 
 
 	$("#courses-sidebar").css("height", $("#courses-main").height());

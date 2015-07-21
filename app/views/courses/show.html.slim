@@ -42,7 +42,7 @@
                 .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
               h5.rating-title Rating
             .col-xs-8.stats-col
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/professor.png", size: "20")
                   div.icon-text Professor
@@ -51,7 +51,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/happy.png", size: "20")
                   div.icon-text Fun
@@ -60,7 +60,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/difficulty.png", size: "20")
                   div.icon-text Difficulty
@@ -69,7 +69,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div.recommend=image_tag("icons/recommend.png", size: "20")
                   div.icon-text Recommend
@@ -90,7 +90,7 @@
             .col-xs-8.stats-col
               - #Calculate the max of the workload and add some amount to set the scale
               - scale = total
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/reading.png", size: "20")
                   div.icon-text Reading
@@ -99,7 +99,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/writing.png", size: "20")
                   div.icon-text Writing
@@ -108,7 +108,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/group.png", size: "20")
                   div.icon-text Group
@@ -117,7 +117,7 @@
                   .skillbar data-percent=percent
                     .skillbar-bar
                 .col-xs-2.stats-number= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
-              .row.stat-row
+              .stat-row
                 .col-xs-3.icon
                   div=image_tag("icons/other.png", size: "20")
                   div.icon-text Other
@@ -160,18 +160,18 @@
                           .col-xs-3
                             - if book.bookstore_new_price
                               - bookstore_check = true
-                              .row
+                              .row.no-margin-row
                                 .requirement-cost-condition
                                   = "#{number_to_currency(book.bookstore_new_price)}"
-                              .row
+                              .row.no-margin-row
                                 .condition New
                           .col-xs-3
                             - if book.bookstore_used_price
                               -bookstore_check = true
-                              .row
+                              .row.no-margin-row
                                 .requirement-cost-condition
                                   = "#{number_to_currency(book.bookstore_used_price)}"
-                              .row
+                              .row.no-margin-row
                                 .condition Used
                           .col-xs-6
                             - if bookstore_check
@@ -184,16 +184,16 @@
                         .col-xs-3
                           - if book.amazon_official_prices.count > 0
                             - check = true
-                            .row
+                            .row.no-margin-row
                               .requirement-cost-condition = link_to "#{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
-                            .row
+                            .row.no-margin-row
                               .condition New
                         .col-xs-3
                           - if book.amazon_merchant_prices.count > 0
                             - check = true
-                            .row
+                            .row.no-margin-row
                               .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
-                            .row
+                            .row.no-margin-row
                               .condition Used  
                         .col-xs-6
                           - if check
@@ -204,7 +204,7 @@
 
 
 / - if @total_review_count > 0
-.row
+.row.number-of-comments
   - if @total_review_count > 1
     h1
       - if @reviews_with_comments.count == 1
@@ -233,7 +233,7 @@
 /           = "0 Comments"
 .review-pane
   div.comment-header
-    .row
+    .row.rating-header-row
       .col-xs-4
         = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
       .col-xs-5
@@ -272,7 +272,7 @@
     -# adds top line
     - @reviews.each do |r|
       .single-review
-        .row
+        .row.comment-row
           .rating-number
             .row
               .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50") 
@@ -284,7 +284,7 @@
             .row
               .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")
           .comment-container
-            .row
+            .row.comment-row
               .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
 
             / = r.created_at.strftime("%Y-%m-%d")

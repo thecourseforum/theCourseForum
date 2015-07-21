@@ -234,10 +234,10 @@ img {
   // margin-right: 30px;
 }
 
-.row {
-  margin-left: 0px;
-  margin-right: 0px;
-}
+// .row {
+//   margin-left: 0px;
+//   margin-right: 0px;
+// }
 
 .comment-header {
   margin-top: 10px;
@@ -250,6 +250,11 @@ img {
   // position: relative;
   // bottom: -10%;
   text-align:center;
+}
+
+.rating-header-row, .number-of-comments, .comment-row, .description-row, .no-margin-row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .sortby-title {
@@ -291,13 +296,18 @@ p {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: 1px #bbb solid;
-  transition: background-color 0.2s ease;
+  img {
+    border: 1px #bbb solid;
+    transition: background-color 0.2s ease;
+  }
+  img:hover {
+    background-color: #eee;
+  }
 }
 
-.amazon:hover {
-  background-color: #eee;
-}
+// .amazon:hover {
+//   background-color: #eee;
+// }
 
 .amazon-info {
   // position: absolute;
@@ -463,6 +473,8 @@ p {
   padding-left: 0px;
   padding-right: 0px;
   padding-top:2px;
+  @include flexbox();
+  flex-flow: column;
 }
 
 .stats-row {
