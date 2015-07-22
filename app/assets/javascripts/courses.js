@@ -3,21 +3,18 @@ var ready;
 ready = function() {
 
 	$('#main-container').scroll(function() {
-    	if ( $('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-
-			if(enableInfiniteScroll)
+		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
+			if (enableInfiniteScroll) {
 				appendReviews();
-				// loadReviews();
-    	}
+			}
+		}
 	});
 
-	var params, search, startIndex, amount, enableInfiniteScroll = true;
+	var params, search, amount, enableInfiniteScroll = false;
 	var reviews;
+
 	// load 10 reviews at a time
 	amount = 10;
-	// start at 0
-	startIndex = 0;
-
 
 	if (window.location.search != '') {
 		search = window.location.search.substring(1);
@@ -27,47 +24,36 @@ ready = function() {
 		}
 	}
 
-	loadReviews = function(sortType) {		
-
+	function loadReviews(sortType) {
 		// get the params
-		courseId = window.location.pathname.substring(9);
+		var courseUrl = window.location.pathname.substring(1);
+		courseId = courseUrl.substring(courseUrl.search('/') + 1);
 		// default sort is recent
-		sortType = sortType ? sortType : "recent"
+		sortType = sortType ? sortType : "recent";
 
-		console.log(sortType)
-
-		$.ajax('/courses/get_reviews.json', {
-			method: "POST",
+		$.ajax('/courses/reviews.json', {
+			method: "GET",
 			data: {
 				course_id: courseId,
 				professor_id: params['p'],
 				sort_type: sortType,
-				start_index: startIndex,
-				amount: amount
 			},
 			success: function(response) {
-				console.log("response is", response)
 				if (response.length > 1) {
 					reviews = response
 					appendReviews();
+					enableInfiniteScroll = true;
 				} else {
 					enableInfiniteScroll = false;
 				}
-			},
-			error: function(response) {
-				console.log("error");
 			}
 		});
 
-	} 
+	}
 
-	loadReviews();
 
-	appendReviews = function() {
-
-		// disable infinite scrolling to prefent multiple ajax calls;
-		// enableInfiniteScroll = false;
-
+	function appendReviews() {
+		
 		// splice out the reviews to display
 		reviewsToAppend = reviews.splice(0, amount);
 		// display them
@@ -88,7 +74,7 @@ ready = function() {
 			reviewBox.find('.comment').text(review.comment);
 
 			//conditionally apply the active class to the vote buttons (based on vote attr)
-			if (review.vote_direction == "up") 
+			if (review.vote_direction == "up")
 				reviewBox.find('.upvote').addClass('active');
 			else if (review.vote_direction == "down")
 				reviewBox.find('.downvote').addClass('active');
@@ -106,37 +92,27 @@ ready = function() {
 			reviewBox.find('.created').text(review.created_at);
 			reviewBox.find('.taken').text(review.taken);
 
-			if(review.is_author) 
+			if (review.is_author)
 				reviewBox.find('.author').text("You wrote this!");
 
 			$('.reviews-box').append(reviewBox);
-    	
+
 		});
-		// reviews.splice(0, amount)
-		// startIndex = response[response.length-1].id;
-		// startIndex += response.length
-		// enableInfiniteScroll = true;
 	}
 
 	$('.courses-review-type-switcher').change(function() {
 
-		// reset the start index
-		// startIndex = 0;
-
 		// clear out the reviews (but keep the hidden template one)
 		reviews = [];
-		template =  $('.single-review.hidden');		
+		template = $('.single-review.hidden');
 		$('.reviews-box').empty().append(template)
-		
+
 		// set the sort type based on the selected value
 		var dropdownVal = $(this).val();
-		
+
 		//load and insert the reviews
-		enableInfiniteScroll = true;		
+		enableInfiniteScroll = true;
 		loadReviews(dropdownVal);
-
-
-		// make selection selected
 
 	});
 
@@ -161,42 +137,40 @@ ready = function() {
 	});
 
 
-	$('.skillbar').each(function(){
+	$('.skillbar').each(function() {
 		$(this).find('.skillbar-bar').animate({
-			width:$(this).attr('data-percent')
-		},1000);
+			width: $(this).attr('data-percent')
+		}, 1000);
 	});
 
 	$('.carousel').slick({
-        infinite: true,
-  		slidesToShow: 2,
-  		slidesToScroll: 2,
-  		dots: true,
-  		responsive: [
-		    {
-		      breakpoint: 1200,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    // {
-		    //   breakpoint: 00,
-		    //   settings: {
-		    //     slidesToShow: 1,
-		    //     slidesToScroll: 1
-		    //   }
-		    // },
-		    ],
-     });
+		infinite: true,
+		slidesToShow: 2,
+		slidesToScroll: 2,
+		dots: true,
+		responsive: [{
+				breakpoint: 1200,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: true
+				}
+			},
+			// {
+			//   breakpoint: 00,
+			//   settings: {
+			//     slidesToShow: 1,
+			//     slidesToScroll: 1
+			//   }
+			// },
+		],
+	});
 
 
 	$("#courses-sidebar").css("height", $("#courses-main").height());
 
 	voteUp = function() {
-		console.log("voting!!")
 		var review_id = this.id.match(/\d+/)[0];
 
 		if ($("#vote_up_" + review_id).css("opacity") == 1) {
@@ -228,10 +202,10 @@ ready = function() {
 					} else {
 						count = parseInt(count) + 1;
 					}
-					
-	       			$("#votes_" + review_id).text(count);
 
-					
+					$("#votes_" + review_id).text(count);
+
+
 				}
 			});
 		}
@@ -270,17 +244,15 @@ ready = function() {
 					} else {
 						count = parseInt(count) - 1;
 					}
-					
-	       			$("#votes_" + review_id).text(count);
-	       		}
+
+					$("#votes_" + review_id).text(count);
+				}
 			});
 		}
 	}
-
-
-};
+	loadReviews($('.courses-review-type-switcher').val());
+}
 
 $(document).ready(ready);
 
 $(document).on('page:load', ready);
-

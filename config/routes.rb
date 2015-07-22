@@ -20,6 +20,8 @@ TheCourseForum::Application.routes.draw do
 
   resources :professors, :only => [:index, :show]
 
+  get '/courses/reviews' => 'courses#reviews'
+  
   resources :courses, :only => [:show, :index, :show_professors]
 
   get '/scheduler' => 'scheduler#scheduler'
@@ -33,8 +35,6 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/schedules' => 'scheduler#index'
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
-
-  post '/courses/get_reviews' => 'courses#get_reviews'
 
   resources :bugs
 

@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
     @recommended_books  = @course.book_requirements_list("Recommended")
     @optional_books  = @course.book_requirements_list("Optional")
     @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
-    pr "analyzing url again"
+
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
     end
@@ -97,10 +97,9 @@ class CoursesController < ApplicationController
     end
   end
 
-  def get_reviews
-    # one professor or all professors
-    prof_param = params[:professor_id] ? params[:professor_id] : 0..Float::INFINITY  
+  def reviews
 
+    # one professor or all professors
     if params[:professor_id]
       all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id])
     else
@@ -111,30 +110,24 @@ class CoursesController < ApplicationController
     reviews_voted_down = current_user.votes.where(:vote => 0).pluck(:voteable_id)
 
     @sort_type = params[:sort_type]
-    pr @sort_type 
     if @sort_type != nil
-    case @sort_type
-        when "recent"
-          reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
-        when "helpful"
-          reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
-        when "highest"
-          reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}  
-        when "lowest"
-          reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}  
-        when "controversial"
-          reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
-        when "semester"
-          reviews_with_comments = all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}  
-        else
-          reviews_with_comments = all_reviews.where.not(:comment => "")        
-        end
+      case @sort_type
+          when "recent"
+            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
+          when "helpful"
+            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+          when "highest"
+            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}  
+          when "lowest"
+            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}  
+          when "controversial"
+            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+          when "semester"
+            reviews_with_comments = all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}  
+          else
+            reviews_with_comments = all_reviews.where.not(:comment => "")        
+          end
     end
-
-    # trim to fit the loading params
-    # reviews_with_comments = reviews_with_comments[params[:start_index].to_i .. params[:start_index].to_i + params[:amount].to_i]
-    
-
 
     respond_to do |format|
       format.json { 
