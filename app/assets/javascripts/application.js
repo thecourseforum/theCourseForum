@@ -32,7 +32,6 @@
 //= require nprogress-ajax
 //= require highcharts
 //= require highcharts/highcharts-more
-//= require js.cookie
 
 var ready = function() {
 	// Attatches navbar-toggle button to sidebar

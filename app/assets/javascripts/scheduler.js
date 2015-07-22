@@ -121,26 +121,17 @@ $(document).ready(function() {
 	// Documentation for these options are found in fullCalendar docs online
 	var courseJSON = localStorage.getItem('courses');
 	var resultsJSON = localStorage.getItem('results');
-	if (!!courseJSON)
-		try {
-			var coursesParsed = JSON.parse(courseJSON);
-		} catch (err) {
-			localStorage.removeItem('courses')
+	if (resultsJSON && courseJSON) {
+		var resultsParsed = JSON.parse(resultsJSON);
+		var coursesParsed = JSON.parse(courseJSON);
+		if (resultsParsed && coursesParsed) {
+			searchResults = resultsParsed;
+			courses = coursesParsed;
+			for (var key in courses) {
+				displayResult(courses[key], false);
+			}
 		}
-	if (!!coursesParsed)
-		courses = coursesParsed;
-	for (var key in coursesParsed)
-		if (courses.hasOwnProperty(key))
-			displayResult(courses[key], false);
-
-	if (!!resultsJSON)
-		try {
-			var resultsParsed = JSON.parse(resultsJSON);
-		} catch (err) {
-			localStorage.removeItem('response')
-		}
-	if (!!resultsParsed)
-		searchResults = resultsParsed;
+	}
 
 	$('#schedule').fullCalendar({
 		// Default view for the calendar is agendaWeek, which shows a single week
@@ -530,6 +521,7 @@ $(document).ready(function() {
 					if (!searchResults[response.id]) {
 						// Initialize this course in searchResults
 						// See above for sample searchResults representation
+						courses[response.id] = response;
 						searchResults[response.id] = {
 							'selected': true,
 							'units': response.units,
@@ -539,7 +531,7 @@ $(document).ready(function() {
 						};
 						// Calls utility function for showing the course (HTML)
 						displayResult(response, true);
-						courses[response.id] = response;
+
 						localStorage.setItem('courses', JSON.stringify(courses));
 						localStorage.setItem('results', JSON.stringify(searchResults));
 					}
@@ -616,8 +608,8 @@ $(document).ready(function() {
 		content.children('.remove').click(function() {
 			delete searchResults[result.id];
 			delete courses[result.id]
-			localStorage.setItem('results', searchResults)
-			localStorage.setItem('courses', courses)
+			localStorage.setItem('results', JSON.stringify(searchResults))
+			localStorage.setItem('courses', JSON.stringify(courses))
 			updateCreditCount();
 			$(this).parent().parent().remove();
 		});
@@ -732,20 +724,16 @@ $(document).ready(function() {
 
 		checkbox.attr('name', result.id);
 		checkbox.attr('checked', true);
-
 		checkbox.change(function() {
-			try {
-				searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
-				updateCreditCount();
-			} catch (err){
-				console.log(err, result.id)
-			}
+			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
+			updateCreditCount();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
-		if (enableModal)
+		if (enableModal) {
 			content.click();
+		}
 	}
 
 	function addClass(course) {
