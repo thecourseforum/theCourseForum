@@ -9,7 +9,7 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def books
-    @books = Book.all
+    @books = Book.order("RAND()")
   end
 
   def search_book_titles
@@ -29,13 +29,22 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def claim
-    if current_user.cellphone
-      transaction = TextbookTransaction.find(params[:format])
+    cell = params[:cellphone].strip
+    current_user.update(:cellphone => cell)
+
+    if cell.length == 10
+      transaction = TextbookTransaction.active.find(params[:format])
       transaction.update(:buyer_id => current_user.id)
       transaction.update(:sold_at => Time.now)
-      RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+      # RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+      render :json => {
+        status: "success"
+      }
+    else
+      render :json => {
+        status: "failure"
+      }
     end
-    redirect_to :action => :index
   end
 
   def create

@@ -52,8 +52,8 @@ $(document).ready(function () {
 		$.ajax({
 			url: '/textbook_transactions',
 			method: "POST",
-			data: $("#textbook_transaction").serialize(),
-			success: function(response) {
+			data: $("#post_textbook_transaction").serialize(),
+			success: function(data) {
 				location.reload();
 			}
 		});
@@ -70,9 +70,13 @@ $(document).ready(function () {
 		$.ajax({
 			url: '/textbook_transactions/claim.' + claim_id,
 			method: "POST",
-			data: $("#textbook_transaction").serialize(),
-			success: function(response) {
-				location.reload();
+			data: $("#claim_textbook_transaction").serialize(),
+			success: function(data) {
+				if (data.status == "success") {
+					location.reload();
+				} else {
+					alert("Error: Bad phone number.\nEnter 10 digits");
+				}
 			}
 		});
 		$('#claim-listing-modal').modal('hide');

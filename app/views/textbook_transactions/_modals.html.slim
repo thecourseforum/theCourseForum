@@ -4,7 +4,7 @@
         .modal-header
           h3 Post a Listing!
         .modal-body
-          form#textbook_transaction
+          form#post_textbook_transaction
             .form-group
               label Book Title
               input#book-title-post.form-control placeholder="Enter title" name="title"
@@ -34,7 +34,7 @@
         .modal-header
           h3 Are you sure?
         .modal-body
-          form#textbook_transaction
+          form#claim_textbook_transaction
             .form-group
                 label Cellphone #
                 input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')

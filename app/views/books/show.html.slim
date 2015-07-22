@@ -2,7 +2,7 @@
 = stylesheet_link_tag "textbook_transactions"
 
 .col-md-3
-  .text-center = image_tag @book.large_image_link, :class => 'img-rounded', :id => 'cover'
+  .text-center = image_tag (@book.large_image_link ? @book.large_image_link : "/assets/icons/no_book.png"), :class => 'img-rounded', :id => 'cover'
   table.table
     thead
       tr

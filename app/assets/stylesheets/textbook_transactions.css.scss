@@ -2,31 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#above-search-bar {
-	display: inline;
-	position: relative;
-	list-style-type: none;
-
-	ul {
-		margin-top: 10px;
-		padding-right: 0px;
-		-webkit-padding-start: 0px;
-		height: 30px;
-	}
-
-	li {
-		display: inline;
-
-		label {
-			position: absolute;
-			top: 10px;
-			margin-bottom: 0px;
-		}
-
-	}
-
-}
-
 #post-listing {
 	float: right;
 	right: 0px;
@@ -37,12 +12,16 @@
 	border-radius: 2px; 
 }
 
-#dollar {
-	padding-right: 0;
-}
+#post-listing-modal {
 
-#price-input {
-	padding-left: 0;
+	#dollar {
+		padding-right: 0;
+	}
+
+	#price-input {
+		padding-left: 0;
+	}
+
 }
 
 .ui-autocomplete {
@@ -58,6 +37,10 @@
 
 .nav-pills > li {
     background-color: #eeeeee;
+}
+
+#titles-form {
+
 }
 
 .claim {
@@ -77,14 +60,40 @@
 
 }
 
-#book-list > div:hover {
-	background-color: #c1e1ec;
-}
-#book-list > div {
-	border-radius: 5px;
-	margin-bottom: 10px;
-	padding: 3px;
-	transition: background-color 0.5s ease;
+#book-list {
+
+	div:hover {
+		background-color: #c1e1ec;
+	}
+	
+	div {
+		border-radius: 5px;
+		margin-bottom: 10px;
+		padding: 3px;
+		transition: background-color 0.5s ease;
+	}
+
+	.a-book {
+		height: 82px;
+		overflow: hidden;
+	}
+
+	#cover-thumb-container {
+		max-width: 50px;
+		float: left;
+		margin-right: 5px;
+		
+		#cover-thumb {
+			// max-width: 50px;
+			max-height: 60px;
+		}
+
+	}
+
+	#title-thumb-container {
+		margin-left: 5px;
+	}
+
 }
 
 
