@@ -34,8 +34,8 @@
     /     .orange-title Cumulative Grades
     / br
     .container-fluid#browsing-content
-      .row.course-breakdown
-        .col-md-6.course-stats
+      .course-breakdown
+        .course-stats
           .row.ratings-stats
             .col-xs-4.overall-col
               .rating-row
@@ -127,7 +127,7 @@
                     .skillbar-bar
                 .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
 
-        .col-md-6.course-grades
+        .course-grades
 
     br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}

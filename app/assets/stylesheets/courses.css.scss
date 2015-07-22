@@ -143,6 +143,8 @@ img {
 .course-stats {
   padding-left: 0px;
   padding-right: 5px;
+  @include flex(1);
+  min-width: 49%;
 }
 
 // .rating-row, .rating {
@@ -195,8 +197,12 @@ img {
 }
 
 .course-breakdown {
-  margin-right: 0px;
-  margin-left: 0px;
+  // margin-right: 0px;
+  // margin-left: 0px;
+  @include flexbox();
+  flex-wrap: wrap;
+  justify-content: space-between;
+
 }
 
 .orange-title {
@@ -224,6 +230,8 @@ img {
   // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   // width: 49.0%
+  @include flex(1);
+  min-width: 49%;
 }
 
 #review-container {
@@ -582,10 +590,17 @@ p {
 }
 
 @media (max-width: 840px) {
-    .comment {
+  .comment {
     font-size: 12px;
   }
+  .course-grades, .course-stats {
+    min-width: 100%;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
+
 
 
 /* http://codepen.io/CreativeJuiz/pen/BiHzp */
