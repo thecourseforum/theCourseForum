@@ -2,7 +2,7 @@
 = stylesheet_link_tag "textbook_transactions"
 
 .col-md-3
-  .text-center = image_tag (@book.large_image_link ? @book.large_image_link : "/assets/icons/no_book.png"), :class => 'img-rounded', :id => 'cover'
+  .text-center = image_tag @book[:image], :class => 'img-rounded', :id => 'cover'
   table.table
     thead
       tr
@@ -20,23 +20,23 @@
           td.text-center.nodecoration colspan="2" Not used in any courses
 .col-md-9
   .page-header
-    button#follow.btn.btn-lg type="button" data="#{@book.id}" = current_user.books.include?(@book) ? "Unfollow" : "Follow"
+    button#follow.btn.btn-lg type="button" data="#{@book[:book].id}" = current_user.books.include?(@book[:book]) ? "Unfollow" : "Follow"
     button#sell-yours.btn.btn-lg type="button" Sell yours    
-    h1#book-title = @book.title
-    h3#book-author = @book.author
+    h1#book-title = @book[:book].title
+    h3#book-author = @book[:book].author
   #prices
     .col-md-4
       h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
-      h5 = "New: " + (@book.bookstore_new_price ? "$" + sprintf('%.2f', @book.bookstore_new_price) : "N/A")
-      h5 = "Used: " + (@book.bookstore_used_price ? "$" + sprintf('%.2f', @book.bookstore_used_price) : "N/A")
+      h5 = "New: " + @book[:new_bookstore]
+      h5 = "Used: " + @book[:used_bookstore]
     .col-md-4
-      h4 = @book.amazon_affiliate_link ? (link_to "Amazon Official", @book.amazon_affiliate_link) : "Amazon"
-      h5 = "New: " + (@book.amazon_official_new_price ? "$" + sprintf('%.2f', @book.amazon_official_new_price) : "N/A")
-      h5 = "Used: " + (@book.amazon_official_used_price ? "$" + sprintf('%.2f', @book.amazon_official_used_price) : "N/A")
+      h4 = link_to "Amazon Official", @book[:amazon_affiliate_link]
+      h5 = "New: " + @book[:new_official_amazon]
+      h5 = "Used: " + @book[:used_official_amazon]
     .col-md-4
-      h4 = @book.amazon_affiliate_link ? (link_to "Amazon Merchant", @book.amazon_affiliate_link) : "Amazon"
-      h5 = "New: " + (@book.amazon_merchant_new_price ? "$" + sprintf('%.2f', @book.amazon_merchant_new_price) : "N/A")
-      h5 = "Used: " + (@book.amazon_merchant_used_price ? "$" + sprintf('%.2f', @book.amazon_merchant_used_price) : "N/A")
+      h4 = link_to "Amazon Merchant", @book[:amazon_affiliate_link]
+      h5 = "New: " + @book[:new_merchant_amazon]
+      h5 = "Used: " + @book[:used_merchant_amazon]
   .col-md-12.nopadding
     hr
     table.table.table-striped#student-postings
