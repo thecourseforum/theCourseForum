@@ -293,22 +293,23 @@
             /     = "#{r.semester.season} #{r.semester.year}"
             / br
             .row.stats-row
-              .review-overall= r.overall
+              .review-stats
+                .review-overall= r.overall
 
-              .icon-and-text
-                div.rating-icon= image_tag("icons/professor.png", size: "20")
-                div.rating-icon= r.professor_rating.to_i
-            
-              .icon-and-text
-                div.rating-icon= image_tag("icons/happy.png", size: "20")
-                div.rating-icon= r.enjoyability
+                .icon-and-text
+                  div.rating-icon= image_tag("icons/professor.png", size: "20")
+                  div.rating-icon= r.professor_rating.to_i
+              
+                .icon-and-text
+                  div.rating-icon= image_tag("icons/happy.png", size: "20")
+                  div.rating-icon= r.enjoyability
 
-              .icon-and-text
-                div.rating-icon= image_tag("icons/difficulty.png", size: "20")
-                div.rating-icon = r.difficulty
-              .icon-and-text
-                div.rating-icon= image_tag("icons/recommend.png", size: "20")
-                div.rating-icon = r.recommend
+                .icon-and-text
+                  div.rating-icon= image_tag("icons/difficulty.png", size: "20")
+                  div.rating-icon = r.difficulty
+                .icon-and-text
+                  div.rating-icon= image_tag("icons/recommend.png", size: "20")
+                  div.rating-icon = r.recommend
               .time
                 - if r.semester_id
                   .taken= "#{r.semester.season} #{r.semester.year}"

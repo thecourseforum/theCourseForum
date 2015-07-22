@@ -49,6 +49,12 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
+  font-family: 'Lato-Thin', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -235,5 +241,6 @@ select {
 
 .page-title {
   margin-top: 0px;
-  margin-bottom: 31px;
+  margin-bottom: 30px;
+  font-weight: 300;
 }

@@ -5,7 +5,8 @@ body {
 }
 
 h1 {
-  font-family: "HelveticaNeue-Medium";
+  // font-family: "HelveticaNeue-Medium";
+  font-weight: 300;
 }
 
 @mixin flexbox() {
@@ -59,17 +60,21 @@ $lightgray: #cccccc;
   font-size:12px;
   text-align: center;
   // padding-top: 14px;
-  width: 10%;
+  width: 80px;
   float: left;
 }
 
 .review-stats {
-  padding-left: 20px;
-  padding-right: 20px;
-  font-size:12px;
-  text-align: center;
-  padding-top: 14px;
-  float: right;
+  // padding-left: 20px;
+  // padding-right: 20px;
+  // font-size:12px;
+  // text-align: center;
+  // padding-top: 14px;
+  // float: right;
+  font-weight: 300;
+  @include flex(1 88%);
+  @include flexbox();
+  flex-wrap: wrap;
 }
 
 .book-image, .no-book-image {
@@ -164,7 +169,7 @@ img {
 .rating {
   // font-size: 78px;
   // font-size: 4.5vw;
-  font-size: 4.5rem;
+  font-size: 5.0rem;
   font-family: 'HelveticaNeue-Medium';
   color: rgb(215, 86, 38);
   text-align: center;
@@ -255,6 +260,10 @@ img {
 .rating-header-row, .number-of-comments, .comment-row, .description-row, .no-margin-row {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+.comment-row {
+  @include flexbox();
 }
 
 .sortby-title {
@@ -460,7 +469,7 @@ p {
 .icon-and-text {
   float:left;
   overflow: hidden;
-  margin-left: 5px;
+  // margin-left: 5px;
   margin-right: 5px;
   margin-top: 13px;
 }
@@ -472,17 +481,19 @@ p {
 .stats-col {
   padding-left: 0px;
   padding-right: 0px;
-  padding-top:2px;
+  padding-top: 2px;
   @include flexbox();
   flex-flow: column;
 }
 
 .stats-row {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: 0 20px;
+  // position: absolute;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
+  margin: 0 10px;
+  @include flexbox();
+  justify-content: space-between;
 }
 
 .upvotes {
@@ -496,12 +507,12 @@ p {
   color: rgb(215, 86, 38);
   float: left;
   margin-top: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
   width: 40px;
 }
 
 .comment {
-  margin-bottom: 40px;
+  font-size: 14px;
 }
 
 .comment-container {
@@ -509,18 +520,31 @@ p {
   min-height: 100%;
   display: inline-block;
   // float: right;
-  width: 90%;
-  padding-right: 30px;
+  width: calc(100% - 60px);
+  padding-right: 20px;
   min-height: 117px;
   position: relative;
   padding-left: 20px;
-  margin: 0px
+  margin: 0px;
+  @include flexbox();
+  flex-flow: column;
+  justify-content: space-between;
+
+  .stats-row {
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 100%;
+  }
+
 }
 
 .time {
   float:right;
   font-size: small;
-  text-align: center;
+  text-align: right;
+  align-self: flex-end;
+  font-weight: 300;
+  @include flex(2 30%);
 }
 
 .skillbar {
@@ -549,6 +573,18 @@ p {
   background: #6D8BC2;
   height:13px;
   width:0px;
+}
+
+@media (max-width: 500px) {
+  .rating {
+    font-size: 3.0rem;
+  }
+}
+
+@media (max-width: 840px) {
+    .comment {
+    font-size: 12px;
+  }
 }
 
 
