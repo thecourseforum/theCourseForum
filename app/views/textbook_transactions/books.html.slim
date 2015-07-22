@@ -8,24 +8,21 @@ ul.nav.nav-pills
     a href="/textbook_transactions" Listings
   li.active role="presentation" 
     a href="/textbook_transactions/books" Books
+  button#post-listing.btn.btn-lg Post a Listing!
 #titles-form.form-group.has-feedback
   #above-search-bar
-    ul
-      li
-        label.control-label for="search"  Search
-      li
-        button#post-listing.btn.btn-lg Post a Listing!
+    label.control-label for="search"  Search
   #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
 #book-list
   .col-md-4.a-book.hidden
     .col-md-3
-      img.img-rounded#cover-thumb src=""
+      img#cover-thumb.text-center src=""
     .col-md-9
       a#title-thumb href=""
 .col-md-12
   button#more-books.btn.btn-lg More Books
 
 - @books.each do |book|
-  .book-info image="#{book.small_image_link}" title="#{book.title}" id="#{book.id}"
+  .book-info image="#{book.small_image_link ? book.small_image_link : "/app/assets/images/icons/no_book.png"}" title="#{book.title}" id="#{book.id}"

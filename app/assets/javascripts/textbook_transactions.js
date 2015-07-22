@@ -29,7 +29,6 @@ $(document).ready(function () {
 				book_id: book_id
 			},
 			success: function (data) {
-				console.log($('#follow').text());
 				if (data.status == "unfollowed") {
 					$('#follow').text('Follow');
 				} else {

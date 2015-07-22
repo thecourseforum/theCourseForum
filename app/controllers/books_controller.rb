@@ -6,6 +6,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @sections = Section.find(@book.sections.pluck(:id, :course_id).uniq(&:second).map(&:first))
     @textbook_transactions = @book.textbook_transactions.active
   end
 

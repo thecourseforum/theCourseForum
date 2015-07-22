@@ -9,10 +9,11 @@
         th
         th
     tbody
-      - if @book.sections.length != 0
-        - @book.sections.each do |section|
+      - if @sections.length != 0
+        / - @book.sections.uniq(&:course).each do |section|
+        - @sections.each do |section|
           tr
-            td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, course_path(section.course)
+            td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, "#{course_path(section.course)}?p=#{section.professors.first.id}"
             td.text-center.nodecoration = section.semester.season + " " + section.semester.year.to_s
       - else
         tr

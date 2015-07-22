@@ -8,13 +8,10 @@ ul.nav.nav-pills
     a href="/textbook_transactions" Listings
   li role="presentation" 
     a href="/textbook_transactions/books" Books
+  button#post-listing.btn.btn-lg Post a Listing!
 #mnemonics-form.form-group.has-feedback
   #above-search-bar
-    ul
-      li
-        label.control-label for="search"  Search
-      li
-        button#post-listing.btn.btn-lg Post a Listing!
+    label.control-label for="search"  Search
   #mnemonics = search_field_tag "book-titles", nil, :class => 'form-control', :"aria-describedby" => "mnemonic-status", :placeholder => "Enter a Book Title ex. Little Women"
   #glyph.span.glyphicon.form-control-feedback aria-hidden="true"
 
