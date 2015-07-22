@@ -43,11 +43,11 @@ table.table.table-striped#listing-list
     - @textbook_transactions.each do |tt|
       tr
         td
-          input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
-        td.nodecoration = "$" + tt.price.to_s
-        td#courses = tt.book.sections.map(&:course).uniq.map{|course| course.subdepartment.mnemonic + " " + course.course_number.to_s}.join(", ")
-        td = link_to tt.book.title, book_path(tt.book)
-        td.nodecoration = tt.book.author
-        td.nodecoration = tt.condition
-        td.nodecoration = tt.notes
-        td.nodecoration = (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+          input.claim.btn.btn-default type="submit" value="Claim" id="#{tt[:id]}"
+        td.nodecoration = "$" + tt[:price]
+        td#courses = tt[:courses]
+        td = link_to tt[:title], book_path(tt[:book])
+        td.nodecoration = tt[:author]
+        td.nodecoration = tt[:condition]
+        td.nodecoration = tt[:notes]
+        td.nodecoration = tt[:end_date]

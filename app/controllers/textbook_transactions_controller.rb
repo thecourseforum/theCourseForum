@@ -1,7 +1,19 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.paginate(:page => params[:page], :per_page=> 15)
+    @textbook_transactions = TextbookTransaction.active.map do |tt|
+      {
+        :id => tt.id,
+        :price => tt.price.to_s,
+        :courses => tt.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
+        :title => tt.book.title,
+        :book => tt.book,
+        :author => tt.book.author,
+        :condition => tt.condition,
+        :notes => tt.notes,
+        :end_date => (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+      }
+    end.paginate(:page => params[:page], :per_page=> 15)
   end
 
   def listings
@@ -9,7 +21,13 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def books
-    @books = Book.order("RAND()")
+    @books = Book.order("RAND()").map do |book|
+      {
+        :image => (book.small_image_link ? book.small_image_link : "/assets/icons/no_book.png"),
+        :title => book.title,
+        :id => book.id
+      }
+    end
   end
 
   def search_book_titles

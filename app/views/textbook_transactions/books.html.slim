@@ -26,5 +26,6 @@ hr
 .col-sm-12
   button#more-books.btn.btn-lg More Books
 
+/ = @books.first
 - @books.each do |book|
-  .book-info image="#{book.small_image_link ? book.small_image_link : "/assets/icons/no_book.png"}" title="#{book.title}" id="#{book.id}"
+  .book-info image="#{book[:image]}" title="#{book[:title]}" id="#{book[:id]}"
