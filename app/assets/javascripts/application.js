@@ -34,7 +34,6 @@
 //= require highcharts/highcharts-more
 
 var ready = function() {
-
 	// Attatches navbar-toggle button to sidebar
 	$('.navbar-toggle').click(function() {
 		$('aside').toggle('slide', {
@@ -216,6 +215,5 @@ var ready = function() {
 	});
 
 };
-
 $(document).ready(ready);
 $(document).on('page:load', ready);
