@@ -39,6 +39,21 @@ body {
   order: $val;
 }
 
+@mixin flex-flow($val) {
+  -webkit-flex-flow: $val;
+  flex-flow: $val;
+}
+
+@mixin justify-content($val) {
+  -webkit-justify-content: $val;
+  justify-content: $val;
+}
+
+@mixin align-items($val) {
+  -webkit-align-items: $val;
+  align-items: $val;
+}
+
 
 .number-box {
   text-align: center;
@@ -81,8 +96,8 @@ body {
   a {
     text-decoration: none;
     @include flexbox();
-    flex-flow: column;
-    justify-content: center;
+    @include flex-flow(column);
+    @include justify-content(center);
     @include flex(1 100%);
   }
 }
@@ -103,23 +118,36 @@ body {
 .prof-info-header {
   // border-bottom: 1px solid #dfdfdf;
   @include flexbox();
-  align-items: center;
-  justify-content: space-between;
-  flex-flow: row wrap;
-  margin-left: -15px;
-  margin-right: 5px;
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
+  // margin-left: -15px;
+  //margin-right: 5px;
   margin-top: -1px;
-  width: 100%;
+  // width: 80%;
   font-weight: 300;
+
+  .rating-block {
+    margin-right: 26px;
+  }
+
 }
 
 .prof-details-block {
   margin: 5px 10px;
   width: 62%;
   padding-right: 0px;
+  padding-left: 0px;
   @include flexbox();
-}
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
 
+  .time {
+    margin-right: 20px;
+    margin-top: -4px;
+  }
+}
 
 
 

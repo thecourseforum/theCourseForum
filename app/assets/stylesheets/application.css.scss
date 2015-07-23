@@ -179,6 +179,10 @@ section#main {
       // padding-left: 0px;
       // padding-right: 0px;
     }
+
+    @media only screen and (max-width: 520px) {
+      padding: 20px 20px;
+    }
   }
 }
 
@@ -201,6 +205,10 @@ select {
 #browsing-content {
   padding-left: 0px;
   padding-right: 0px;
+
+  #departments {
+    margin-top: -20px;
+  }
 }
 
 #alert, #notice {

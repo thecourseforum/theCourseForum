@@ -57,12 +57,12 @@
                         h4.rating-empty = "--"
                       - else
                         h4.course-rating = percentages[:gpa].round(2)
-                .col-xs-6
-                  div style="float:right;"
-                    .row style="float:right;"
-                      span.semester-subheader LAST TAUGHT
-                    .row
-                      h4.semester = @professors_semester[professor.id]
+            .time
+              div style="float:right;"
+                .row style="float:right;"
+                  span.semester-subheader LAST TAUGHT
+                .row
+                  h4.semester = @professors_semester[professor.id]
             / .row
             /   .col-xs-2.info
             /     .row

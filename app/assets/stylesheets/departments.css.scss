@@ -39,6 +39,21 @@
   order: $val;
 }
 
+@mixin flex-flow($val) {
+  -webkit-flex-flow: $val;
+  flex-flow: $val;
+}
+
+@mixin justify-content($val) {
+  -webkit-justify-content: $val;
+  justify-content: $val;
+}
+
+@mixin align-items($val) {
+  -webkit-align-items: $val;
+  align-items: $val;
+}
+
 .name-block {
   background-color: $light-blue;
   border-radius: 3px;
@@ -50,8 +65,8 @@
   a {
     text-decoration: none;
     @include flexbox();
-    flex-flow: column;
-    justify-content: center;
+    @include flex-flow(column);
+    @include justify-content(center);
     @include flex(1 100%);
   }
 }
@@ -59,13 +74,31 @@
 .info-header {
   // border-bottom: 1px solid #dfdfdf;
   @include flexbox();
-  align-items: center;
-  justify-content: space-between;
-  flex-flow: row wrap;
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
   margin-left: -15px;
   margin-right: 5px;
   margin-top: -1px;
   font-weight: 300;
+}
+
+.prof-info-header {
+  // border-bottom: 1px solid #dfdfdf;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row);
+  // margin-left: -15px;
+  //margin-right: 5px;
+  margin-top: -1px;
+  // width: 80%;
+  font-weight: 300;
+
+  .rating-block {
+    margin-right: 26px;
+  }
+
 }
 
 .details-block {
@@ -89,7 +122,7 @@
 
 .course-panel {
   @include flexbox();
-  align-items: stretch;
+  @include align-items(stretch);
   height: auto;
   // height: 116px;
   background: white;
@@ -106,6 +139,14 @@
   padding-bottom: 5px;
   letter-spacing: .2px;
   // font-family: "OpenSans";
+}
+
+.subdepartment {
+  font-weight: 300;
+  font-size: 36px;
+  margin-bottom: 10px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .semester-subheader {
@@ -128,6 +169,7 @@
 
 .semester-block {
   padding-right: 0px;
+  margin-top: -2px;
 }
 
 .course-icon {

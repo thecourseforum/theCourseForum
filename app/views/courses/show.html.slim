@@ -239,7 +239,7 @@
       .col-xs-5
         div style="float:right"
       .col-xs-3
-        select.courses-review-type-switcher style="font-size:13px;float:right;"
+        select.dropdown.courses-review-type-switcher style="font-size:13px;float:right;"
           / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
           / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
