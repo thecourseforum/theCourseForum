@@ -100,9 +100,26 @@
 #more-books {
 	display: block;
 	border: 2px solid #15214B;
-	border-radius: 500px;
+	border-radius: 10px;
+	background-color: white;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+#more-books:hover {
+	background-color: #468AC2;
+}
+#more-listings {
+	display: block;
+	border: 2px solid #15214B;
+	border-radius: 10px;
+	background-color: white;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#more-listings:hover {
+	background-color: #468AC2;
 }
 
 #follow, #sell-yours {

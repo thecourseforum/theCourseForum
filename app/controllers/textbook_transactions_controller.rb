@@ -50,7 +50,7 @@ class TextbookTransactionsController < ApplicationController
       transaction = TextbookTransaction.active.find(params[:format])
       transaction.update(:buyer_id => current_user.id)
       transaction.update(:sold_at => Time.now)
-      # RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+      RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
       render :json => {
         status: "success"
       }
