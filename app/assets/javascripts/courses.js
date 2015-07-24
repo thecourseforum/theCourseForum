@@ -50,7 +50,7 @@ ready = function() {
 	  		dots: true,
 	  		responsive: [
 			    {
-			      breakpoint: 1200,
+			      breakpoint: 1120,
 			      settings: {
 			        slidesToShow: 1,
 			        slidesToScroll: 1,
