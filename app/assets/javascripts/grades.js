@@ -211,18 +211,12 @@ $(function() {
         }
         // Otherwise build the gradewheel
         else {
-            console.log("or here??");
+            // console.log("or here??");
             // Create the chart
             $('.course-grades').highcharts({
                 chart: {
-                    spacingLeft: 0,
                     type: 'pie',                    
                     height: 380,
-                    events: {
-                       load: function() {
-                           $(window).resize();
-                    },
-                }
                 },
                 title: {
                     verticalAlign: 'middle',
