@@ -22,14 +22,14 @@ html
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header
-            .col-xs-10#course-name
+            .col-xs-9#course-name
               h1.page-title= yield(:page_heading)
             - if controller.controller_name == "courses" && controller.action_name == "show"
-              .col-xs-2#save-course
+              .col-xs-3#save-course
                 .row
                   .btn.btn-primary#save-course Save Course
             - if controller.controller_name == "departments" && controller.action_name == "show"
-              .col-xs-2#filter
+              .col-xs-3#filter
                 .row
                   .btn-group data-toggle="buttons"
                     label.btn.btn-primary
@@ -39,7 +39,7 @@ html
                       input#all autocomplete="off" name="options" type="radio"
                       | All
             - if controller.controller_name == "courses" && controller.action_name == "show_professors"
-              .col-xs-2#filter
+              .col-xs-3#filter
                 .row
                   .btn-group data-toggle="buttons"
                     label.btn.btn-primary
