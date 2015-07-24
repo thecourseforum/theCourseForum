@@ -16,6 +16,11 @@ function ready() {
 			// window.location.href = window.location.pathname + '?all=true';
 		}
 	});
+
+	$('#browsing-content').parent().css({
+        'box-shadow': 'none', 
+        'background-color': '#eee',
+    });
 }
 
 $(document).ready(ready);

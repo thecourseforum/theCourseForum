@@ -3,24 +3,24 @@
     .col-md-offset-1.col-md-6.hidden-sm.hidden-xs
       .row
         .col-xs-12
-          h1.welcome-header.brand style="margin-bottom:0px;" Welcome to theCourseForum
+          h1.welcome-header.brand style="margin-bottom:0px;margin-top:24px;" Welcome to theCourseForum
       .row
         .col-xs-12
           h3.catch-phrase connecting you to the courses you love
 
       .marketing style="font-size:20px;"
-        .row style="margin-top:13px;"
+        .row style="margin-top:20px;"
           .col-xs-2.text-right
-            = image_tag "icons/1_classprofessorthoughts_icon.png"
-          .col-xs-10 See what other students say about classes and professors
-        .row style="margin-top:17px;"
+            = image_tag("icons/speech_blurb.svg", size: "50")
+          .col-xs-10 style="margin-top:8px;" See what other students say about classes and professors
+        .row style="margin-top:20px;"
           .col-xs-2.text-right
-            = image_tag "icons/2_gradedistribution_icon.png"
-          .col-xs-10 Check out actual grade distributions from past semesters
-        .row style="margin-top:17px;"
+            = image_tag("icons/grade_slices.svg", size: "50")
+          .col-xs-10 style="margin-top:8px;" Check out actual grade distributions from past semesters
+        .row style="margin-top:20px;"
           .col-xs-2.text-right
-            = image_tag "icons/3_writeareview_icon.png"
-          .col-xs-10 Write reviews for courses you've taken.
+            = image_tag("icons/compose_review.svg", size: "50")
+          .col-xs-10 style="margin-top:8px;" Write reviews for courses you've taken.
     .col-md-4
       = form_for @user, url: user_session_path do |f|
         #panel-login.panel.panel-default

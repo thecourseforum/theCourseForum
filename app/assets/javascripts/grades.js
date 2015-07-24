@@ -114,7 +114,7 @@ $(function() {
 
         // If displaying graphs for each course,
         if (IDs[0] != 0) {
-            console.log("here??");
+            // console.log("here??");
             // Build the data for the stacked bar graph
             var stackedGraphDataSeries = [];
             for (m = overallLetters.length - 1; m >= 0; m--) {
@@ -149,80 +149,78 @@ $(function() {
 
 
             // Create the chart
-            $('#grade-bar-' + IDs[i]).highcharts({
-                chart: {
-                    type: 'bar',
-                    margin: 0
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    gridLineWidth: 0,
-                    enabled: true,
-                    lineWidth: -1,
-                    categories: [''],
-                    labels: {
-                        enabled: true
-                    },
-
-                },
-                yAxis: {
-                    enabled: true,
-                    gridLineWidth: 0,
-                    lineWidth: 0,
-                    min: 0,
-                    title: {
-                        text: '',
+            try {
+                $('#grade-bar-' + IDs[i]).highcharts({
+                    chart: {
+                        type: 'bar',
                         margin: 0
                     },
-                    labels: {
-                        enabled: true
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        gridLineWidth: 0,
+                        enabled: true,
+                        lineWidth: -1,
+                        categories: [''],
+                        labels: {
+                            enabled: true
+                        },
+
+                    },
+                    yAxis: {
+                        enabled: true,
+                        gridLineWidth: 0,
+                        lineWidth: 0,
+                        min: 0,
+                        title: {
+                            text: '',
+                            margin: 0
+                        },
+                        labels: {
+                            enabled: true
+                        }
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return this.y > 3 ? '' + this.y + '%' : this.series.name + ': ' + this.y + '%';
+                        }
+                    },
+                    credits: {
+                        enabled: false,
+                        position: {
+                            align: 'left',
+                            x: 10
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            stacking: 'percent',
+                            pointPadding: 0,
+                            groupPadding: 0
+                        }
+                    },
+                    series: stackedGraphDataSeries,
+                    exporting: {
+                        enabled: false
                     }
-                },
-                legend: {
-                    enabled: false,
-                },
-                tooltip: {
-                    formatter: function() {
-                        return this.y > 3 ? '' + this.y + '%' : this.series.name + ': ' + this.y + '%';
-                    }
-                },
-                credits: {
-                    enabled: false,
-                    position: {
-                        align: 'left',
-                        x: 10
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'percent',
-                        pointPadding: 0,
-                        groupPadding: 0
-                    }
-                },
-                series: stackedGraphDataSeries,
-                exporting: {
-                    enabled: false
-                }
-            });
-            $('.highcharts-axis').css('display', 'none');
+                });
+                $('.highcharts-axis').css('display', 'none');
+            } catch (error) {
+
+            }
         }
         // Otherwise build the gradewheel
         else {
-            console.log("or here??");
+            // console.log("or here??");
             // Create the chart
             $('.course-grades').highcharts({
                 chart: {
-                    spacingLeft: 0,
                     type: 'pie',                    
                     height: 380,
-                    events: {
-                       load: function() {
-                           $(window).resize();
-                    },
-                }
                 },
                 title: {
                     verticalAlign: 'middle',

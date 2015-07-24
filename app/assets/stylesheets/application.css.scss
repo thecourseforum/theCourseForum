@@ -49,6 +49,12 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
+  font-family: 'Lato-Thin', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -156,18 +162,26 @@ section#main {
       #filter .row {
         float: right;
       }
+
+      #save-course {
+        float: right;
+      }
     }
 
     #content-container {
-      box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.4), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.07);
+      box-shadow: 0px 1px 2px 0px #B8B8B8;
       background-color: white;
       padding-bottom: 20px;
       padding-top: 20px;
-      padding-left: 15px;
-      padding-right: 15px;
       max-width: $content-max-width;
       margin-left: auto;
       margin-right: auto;
+      // padding-left: 0px;
+      // padding-right: 0px;
+    }
+
+    @media only screen and (max-width: 520px) {
+      padding: 30px 30px;
     }
   }
 }
@@ -191,6 +205,10 @@ select {
 #browsing-content {
   padding-left: 0px;
   padding-right: 0px;
+
+  #departments {
+    margin-top: -20px;
+  }
 }
 
 #alert, #notice {
@@ -231,5 +249,6 @@ select {
 
 .page-title {
   margin-top: 0px;
-  margin-bottom: 31px;
+  margin-bottom: 30px;
+  font-weight: 300;
 }

@@ -1,47 +1,49 @@
 - content_for :title, "Browse By Department"
 - content_for :page_heading, "Browse By Department"
 
-.panel.panel-default
-  .school-panel-title
-    .dept-block
-      span.glyphicon.glyphicon-th-list
-    h3.school-title Arts &amp; Sciences Departments
-  .panel-body
-    .row.department-list
-      .col-sm-6
-        - @artDeps[0].each do |d|
-          .dept= link_to d.name, d
-      .col-sm-6
-        - @artDeps[1].each do |d|
-          .dept= link_to d.name, d
-br
-.panel.panel-default
-  .school-panel-title
-    .dept-block
-      span.glyphicon.glyphicon-cog
-    h3.school-title Engineering &amp; Applied Sciences
-  .panel-body
-    .row.department-list
-      .col-sm-6
-        - @engrDeps[0].each do |d|
-          .dept= link_to d.name, d
-      .col-sm-6
-        - @engrDeps[1].each do |d|
-          .dept= link_to d.name, d
-br
-.panel.panel-default
-  .school-panel-title
-    .dept-block
-      span.glyphicon.glyphicon-star
-    h3.school-title Others Schools at the University of Virginia
-  .panel-body
-    .row.department-list
-      .col-sm-6
-        - @otherSchools[0].each do |d|
-          .dept= link_to d.name, d
-      .col-sm-6
-        - @otherSchools[1].each do |d|
-          .dept= link_to d.name, d
+.container-fluid#browsing-content
+  #departments
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-th-list
+        h3.school-title Arts &amp; Sciences
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @artDeps[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @artDeps[1].each do |d|
+              .dept= link_to d.name, d
+    br
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-cog
+        h3.school-title Engineering &amp; Applied Sciences
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @engrDeps[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @engrDeps[1].each do |d|
+              .dept= link_to d.name, d
+    br
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-star
+        h3.school-title Others Schools at the University of Virginia
+      .panel-body
+        .row.department-list
+          .col-sm-6
+            - @otherSchools[0].each do |d|
+              .dept= link_to d.name, d
+          .col-sm-6
+            - @otherSchools[1].each do |d|
+              .dept= link_to d.name, d
 
 
 

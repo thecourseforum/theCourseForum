@@ -5,7 +5,32 @@ body {
 }
 
 h1 {
-  font-family: "HelveticaNeue-Medium";
+  // font-family: "HelveticaNeue-Medium";
+  font-weight: 300;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
 }
 
 #courses-main {
@@ -14,6 +39,7 @@ h1 {
 }
 
 $lightgray: #cccccc;
+$lightblue: #6D8BC2;
 
 #course-page, .review-pane {
   margin-left: auto;
@@ -35,25 +61,34 @@ $lightgray: #cccccc;
   font-size:12px;
   text-align: center;
   // padding-top: 14px;
-  width: 10%;
+  width: 80px;
   float: left;
 }
 
 .review-stats {
-  padding-left: 20px;
-  padding-right: 20px;
-  font-size:12px;
-  text-align: center;
-  padding-top: 14px;
-  float: right;
+  // padding-left: 20px;
+  // padding-right: 20px;
+  // font-size:12px;
+  // text-align: center;
+  // padding-top: 14px;
+  // float: right;
+  font-weight: 300;
+  @include flex(1 90%);
+  @include flexbox();
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
 }
 
-.book-image {
+.book-image, .no-book-image {
   margin-top: 4px;
   margin-bottom: 4px;
   display: block;
   margin-left: auto;
   margin-right: auto
+}
+
+.no-book-image {
+  background-color: #eee;
 }
 
 img {
@@ -110,11 +145,13 @@ img {
 .course-stats {
   padding-left: 0px;
   padding-right: 5px;
+  @include flex(1);
+  min-width: 49%;
 }
 
-.rating-row, .rating {
-  height:100px;
-}
+// .rating-row, .rating {
+//   height:100px;
+// }
 
 .pagination {
   font-size: 1.3vw;
@@ -134,8 +171,9 @@ img {
 }
 
 .rating {
-  font-size: 78px;
-  font-size: 4.5vw;
+  // font-size: 78px;
+  // font-size: 4.5vw;
+  font-size: 5.0rem;
   font-family: 'HelveticaNeue-Medium';
   color: rgb(215, 86, 38);
   text-align: center;
@@ -143,9 +181,9 @@ img {
   /*margin-top: 40px;*/
 /*  display: inline-block;*/
 /*  vertical-align: 30%;*/
-  bottom: 50%;
-  position: absolute;
-  width: 95%;
+  // bottom: 50%;
+  // position: absolute;
+  // width: 95%;
 }
 
 .ratings-stats, .workload-stats {
@@ -161,8 +199,14 @@ img {
 }
 
 .course-breakdown {
-  margin-right: 0px;
-  margin-left: 0px;
+  // margin-right: 0px;
+  // margin-left: 0px;
+  @include flexbox();
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+
 }
 
 .orange-title {
@@ -190,6 +234,8 @@ img {
   // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   // width: 49.0%
+  @include flex(1);
+  min-width: 49%;
 }
 
 #review-container {
@@ -198,11 +244,11 @@ img {
 }
 
 #save-course .btn.btn-primary {
-  width: 150px;
+  // width: 150px;
   height: 40px;
-  float: center;
+  // float: center;
   font-size: 20px;
-  margin-right: 30px;
+  // margin-right: 30px;
 }
 
 // .row {
@@ -218,9 +264,18 @@ img {
 
 .rating-title {
   color: $blue;
-  position: relative;
-  bottom: -10%;
+  // position: relative;
+  // bottom: -10%;
   text-align:center;
+}
+
+.rating-header-row, .number-of-comments, .comment-row, .description-row, .no-margin-row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.comment-row {
+  @include flexbox();
 }
 
 .sortby-title {
@@ -262,12 +317,22 @@ p {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: 1px #bbb solid;
+  img {
+    border: 1px #bbb solid;
+    transition: background-color 0.2s ease;
+  }
+  img:hover {
+    background-color: #eee;
+  }
 }
 
+// .amazon:hover {
+//   background-color: #eee;
+// }
+
 .amazon-info {
-  position: absolute;
-  bottom: -90%;
+  // position: absolute;
+  // bottom: -90%;
 }
 .requirement-cost-condition {
   color: $blue;
@@ -281,8 +346,12 @@ p {
 }
 
 .bookstore {
-  margin-bottom: 5px
+  margin-top: 6px;
+  margin-bottom: 5px;
+  height: 40px;
+  text-align: center;
 }
+
 .condition {
   font-size: 10px;
   margin-bottom: 2px;
@@ -320,7 +389,24 @@ p {
 
 .single-review {
   padding: 10px 0;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #dedede;
+  transition: background-color 0.2s ease;
+}
+
+.single-review:hover {
+  background-color: #F1F6FB;
+}
+
+.book-image-container {
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.book-description {
+  margin-left: 10px;
+  width: calc(100% - 160px);
+  margin-right: 10px;
 }
 
 .upvote {
@@ -356,16 +442,39 @@ p {
   margin-top: 5px;
   height:180px;
   border-right: #bbb 1px solid;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
 }
 
 .item {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
   //border: 1px solid #979797;
   background-color: white;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
+  // @include flexbox();
+  display: flex !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  display: -ms-flexbox !important;
+  display: -webkit-flex !important;
+  justify-content: flex-start;
+  -webkit-justify-content: flex-start;
 }
 
+.book-prices {
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  justify-content: center;
+  -webkit-justify-content: center;
+  height: calc(100% - 60px);
+}
 
 .icon {
   font-size: 8px;
@@ -382,7 +491,7 @@ p {
 .icon-and-text {
   float:left;
   overflow: hidden;
-  margin-left: 5px;
+  // margin-left: 5px;
   margin-right: 5px;
   margin-top: 13px;
 }
@@ -394,15 +503,21 @@ p {
 .stats-col {
   padding-left: 0px;
   padding-right: 0px;
-  padding-top:2px;
+  padding-top: 2px;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
 }
 
 .stats-row {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: 0 20px;
+  // position: absolute;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
+  margin: 0 10px;
+  @include flexbox();
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
 }
 
 .upvotes {
@@ -416,12 +531,12 @@ p {
   color: rgb(215, 86, 38);
   float: left;
   margin-top: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
   width: 40px;
 }
 
 .comment {
-  margin-bottom: 40px;
+  font-size: 14px;
 }
 
 .comment-container {
@@ -429,18 +544,33 @@ p {
   min-height: 100%;
   display: inline-block;
   // float: right;
-  width: 90%;
-  padding-right: 30px;
+  width: calc(100% - 60px);
+  padding-right: 20px;
   min-height: 117px;
   position: relative;
   padding-left: 20px;
-  margin: 0px
+  margin: 0px;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+
+  .stats-row {
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 100%;
+  }
+
 }
 
 .time {
   float:right;
-  font-size: small;
-  text-align: center;
+  font-size: 1.2rem;
+  text-align: right;
+  align-self: flex-end;
+  font-weight: 300;
+  @include flex(2 30%);
 }
 
 .skillbar {
@@ -466,10 +596,89 @@ p {
 
 .skillbar-bar {
   vertical-align: middle;
-  background: #6D8BC2;
+  background: $lightblue;
   height:13px;
   width:0px;
 }
+
+@media (max-width: 520px) {
+  .rating {
+    font-size: 3.0rem;
+  }
+  .time {
+    font-size: 0.8rem;
+  }
+  .rating-icon {
+    font-size: 1.0rem;
+    img {
+      height: 10px;
+      width: 10px;
+    }
+  }
+  .review-overall {
+    margin-right: 2px;
+    font-size: 1.4rem;
+    width: auto;
+  }
+
+  .btn img {
+    height: 25px;
+    width: 25px;
+  }
+  .rating-number {
+    width: 42px;
+  }
+  .comment-container {
+    padding-left: 10px;
+    padding-right: 6px;
+  }
+
+  .book-image, .no-book-image {
+    img {
+      height: 146px;
+      width: 108px;
+    }
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+  .author {
+    font-size: 1.2rem;
+  }
+  .amazon a img {
+    height: 30px;
+    width: 60px;
+  }
+
+  .requirement-cost-condition, .bookstore {
+    font-size: 1.0rem;
+  }
+  .amazon-info .col-xs-3, .bookstore-info .col-xs-3 {
+    padding-left: 0px;
+  }
+
+}
+
+@media (max-width: 920px) {
+  .comment {
+    font-size: 13px;
+  }
+  .course-grades, .course-stats {
+    min-width: 100%;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.slick-prev:before, .slick-next:before {
+  color: $blue;
+}
+
+.slick-dots {
+  bottom: -36px;
+}
+
 
 
 /* http://codepen.io/CreativeJuiz/pen/BiHzp */

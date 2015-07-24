@@ -25,29 +25,29 @@
         .prof-panel
           .col-xs-4.prof-name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
             .row.prof-title= "#{professor.first_name} #{professor.last_name}"
-          .col-xs-7.details-block
-            .row.prof-info
-                .col-xs-2
+          .col-xs-7.prof-details-block
+            .prof-info-header
+                .rating-block
                   .course-icon=image_tag("icons/overall.png", size: "20")
                   .rating-container
                     .row.rating-subheader
-                      span Rating
+                      span RATING
                     .row.course-rating-row
                       - if ratings[:overall] == "--"
                         h4.rating-empty = "--"
                       - else
                         h4.course-rating = ratings[:overall]
-                .col-xs-2
+                .rating-block
                   .course-icon=image_tag("icons/difficulty.png", size: "20")
                   .rating-container
                     .row.rating-subheader
-                      span Difficulty
+                      span DIFFICULTY
                     .row.course-rating-row
                       - if ratings[:difficulty] == "--"
                         h4.rating-empty = "--"
                       - else 
                         h4.course-rating = ratings[:difficulty]
-                .col-xs-2
+                .rating-block
                   .course-icon=image_tag("icons/chart.png", size: "20")
                   .rating-container
                     .row.rating-subheader
@@ -57,12 +57,12 @@
                         h4.rating-empty = "--"
                       - else
                         h4.course-rating = percentages[:gpa].round(2)
-                .col-xs-6
-                  div style="float:right;"
-                    .row style="float:right;"
-                      span.semester-subheader Last Taught
-                    .row
-                      h4.semester = @professors_semester[professor.id]
+            .time
+              div style="float:right;"
+                .row style="float:right;"
+                  span.semester-subheader LAST TAUGHT
+                .row
+                  h4.semester = @professors_semester[professor.id]
             / .row
             /   .col-xs-2.info
             /     .row
