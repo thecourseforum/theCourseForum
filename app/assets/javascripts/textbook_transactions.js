@@ -128,7 +128,7 @@ $(document).ready(function () {
 	$('#book-titles-listings').keyup(function (key) {
 		var query = $(this).val().toLowerCase();
 		if (query == '') {
-			displayListingss(listingsData);
+			displayListings(listingsData);
 		} else {
 			displayListings(
 				listingsData.filter(function (listing) {
@@ -170,21 +170,21 @@ $(document).ready(function () {
 					claim = line.find('.claim'),
 					price = line.find('.price'),
 					courses = line.find('.courses'),
-					title = line.find('.title'),
+					title = line.find('.title a'),
 					author = line.find('.author'),
 					condition = line.find('.condition'),
 					notes = line.find('.notes'),
 					end_date = line.find('.end_date');
 
-				claim.attr('', '');
-				price.attr('', '');
-				courses.attr('', '');
-				title.attr('', '');
-				link.attr('', '');
-				author.attr('', '');
-				condition.attr('', '');
-				notes.attr('', '');
-				end_date.attr('', '');
+				claim.attr('id', listing.id);
+				price.text(listing.price);
+				courses.text(listing.courses);
+				title.attr('href', listing.link);
+				title.text(listing.title);
+				author.text(listing.author);
+				condition.text(listing.condition);
+				notes.text(listing.notes);
+				end_date.text(listing.end_date);
 
 				listingList.append(line);
 			});
