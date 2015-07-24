@@ -1,11 +1,6 @@
 @import "variables";
 
-body {
-  // font-family: "OpenSans";
-}
-
 h1 {
-  // font-family: "HelveticaNeue-Medium";
   font-weight: 300;
 }
 
@@ -49,29 +44,19 @@ $lightblue: #6D8BC2;
 
 .stats-number {
   padding-left: 0px;
-  // padding-right: 5px;
   padding-top: 12px;
-  font-size: 12px;
+  font-size: $small-font-size;
   text-align: center;
 }
 
 .rating-number {
-  // padding-left: 0px;
-  // padding-right: 5px;
-  font-size:12px;
+  font-size: $small-font-size;
   text-align: center;
-  // padding-top: 14px;
   width: 80px;
   float: left;
 }
 
 .review-stats {
-  // padding-left: 20px;
-  // padding-right: 20px;
-  // font-size:12px;
-  // text-align: center;
-  // padding-top: 14px;
-  // float: right;
   font-weight: 300;
   @include flex(1 90%);
   @include flexbox();
@@ -129,11 +114,6 @@ img {
     outline: none;
     background: transparent;
 }
-/*.container-fluid {
-  padding-left: 0px;
-  padding-right: 0px;
-}*/
-
 
 #courses-sidebar {
   // 590px found to be the max height of #courses-main
@@ -148,10 +128,6 @@ img {
   @include flex(1 49%);
   min-width: 49%;
 }
-
-// .rating-row, .rating {
-//   height:100px;
-// }
 
 .pagination {
   font-size: 1.3vw;
@@ -171,26 +147,16 @@ img {
 }
 
 .rating {
-  // font-size: 78px;
-  // font-size: 4.5vw;
   font-size: 5.0rem;
   font-family: 'HelveticaNeue-Medium';
   color: rgb(215, 86, 38);
   text-align: center;
   height: 50px;
-  /*margin-top: 40px;*/
-/*  display: inline-block;*/
-/*  vertical-align: 30%;*/
-  // bottom: 50%;
-  // position: absolute;
-  // width: 95%;
 }
 
 .ratings-stats, .workload-stats {
   height:192.5px;
-  /* Rectangle 13 Copy: */
   background: #FFFFFF;
-  // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   padding-right: 5px;
   margin-bottom: 5px;
@@ -199,8 +165,6 @@ img {
 }
 
 .course-breakdown {
-  // margin-right: 0px;
-  // margin-left: 0px;
   @include flexbox();
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -216,7 +180,6 @@ img {
 .review-pane {
   margin-top: 10px;
   background: #FFFFFF;
-  // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
 }
 
@@ -226,9 +189,7 @@ img {
   padding-left: 0px;
   padding-right: 0px;
   background-color: white;
-  // border: 1px solid #979797;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
-  // width: 49.0%
   @include flex(1 49%);
   min-width: 49%;
 }
@@ -242,7 +203,7 @@ img {
   // width: 150px;
   height: 40px;
   // float: center;
-  font-size: 20px;
+  font-size: $save-course-font-size;
   // margin-right: 30px;
 }
 
@@ -259,8 +220,6 @@ img {
 
 .rating-title {
   color: $blue;
-  // position: relative;
-  // bottom: -10%;
   text-align:center;
 }
 
@@ -279,11 +238,7 @@ img {
 
 .title-row {
   margin-top: 0px;
-  // background-color: #FFFFFF;
   height: 190px;
-  /* Rectangle 13 Copy 2: */
-  // border: 1px solid #979797;
-  // box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.50);
   margin-right: -5px;
   margin-left: -5px;
   margin-bottom: 30px;
@@ -298,8 +253,7 @@ img {
 }
 
 p {
-  // font-family: 'OpenSans';
-  font-size: 14px;
+  font-size: $comment-font-size;
 }
 
 .author {
@@ -321,19 +275,9 @@ p {
   }
 }
 
-// .amazon:hover {
-//   background-color: #eee;
-// }
-
-.amazon-info {
-  // position: absolute;
-  // bottom: -90%;
-}
 .requirement-cost-condition {
   color: $blue;
-  /* $125.99: */
-  // font-family: HelveticaNeue-MediumItalic;
-  font-size: 16px;
+  font-size: $regular-font-size;
   font-weight: bold;
   color: #000000;
   line-height: 23px;
@@ -348,14 +292,11 @@ p {
 }
 
 .condition {
-  font-size: 10px;
+  font-size: $small-font-size;
   margin-bottom: 2px;
   margin-left: 16px;
 }
 
-.shit {
-  font-size: 8px;
-}
 .textbooks-row {
   border-bottom: 1px dotted black;
   padding-top: 8px;
@@ -431,7 +372,6 @@ p {
 }
 
 .overall-col {
-  /*//border-right-color: black;*/
   padding-right: 5px;
   padding-left: 5px;
   margin-top: 5px;
@@ -472,7 +412,7 @@ p {
 }
 
 .icon {
-  font-size: 8px;
+  font-size: $tiny-font-size;
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 5px;
@@ -505,10 +445,6 @@ p {
 }
 
 .stats-row {
-  // position: absolute;
-  // bottom: 0;
-  // right: 0;
-  // left: 0;
   margin: 0 10px;
   @include flexbox();
   justify-content: space-between;
@@ -517,12 +453,10 @@ p {
 
 .upvotes {
   text-align: center;
-  // font-family: "OpenSans";
 }
 
 .review-overall {
-  font-size:20px;
-  // font-family: 'OpenSans';
+  font-size: $comment-overall-rating-font-size;
   color: rgb(215, 86, 38);
   float: left;
   margin-top: 10px;
@@ -531,7 +465,7 @@ p {
 }
 
 .comment {
-  font-size: 14px;
+  font-size: $comment-font-size;
 }
 
 .comment-container {
@@ -656,7 +590,7 @@ p {
 
 @media (max-width: 920px) {
   .comment {
-    font-size: 13px;
+    font-size: $smaller-comment-font-size;
   }
   .course-grades, .course-stats {
     min-width: 100%;

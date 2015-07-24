@@ -6,10 +6,6 @@
   vertical-align: middle;
 }
 
-body {
-  // font-family: "OpenSans";
-}
-
 .panel-heading.prof-heading {
   background-color: white;
   border: 1px solid #bbb;
@@ -63,15 +59,6 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-.row.number {
-  font-size: 50px;
-}
-.class-name {
-  text-align: center;
-  font-size: 60px;
-  border-bottom: thin solid black;
-  padding-right: 30px;
-}
 
 .prof-panel {
   height: auto;
@@ -80,7 +67,6 @@ body {
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   border-bottom: 1px solid #bfbfbf;
   @include flexbox();
-  // justify-content: center;
 }
 
 .prof-name-block {
@@ -116,15 +102,11 @@ body {
 }
 
 .prof-info-header {
-  // border-bottom: 1px solid #dfdfdf;
   @include flexbox();
   @include align-items(center);
   @include justify-content(space-between);
   @include flex-flow(row wrap);
-  // margin-left: -15px;
-  //margin-right: 5px;
   margin-top: -1px;
-  // width: 80%;
   font-weight: 300;
 
   .rating-block {
@@ -153,14 +135,11 @@ body {
   margin-bottom: 5px;
   color: white;
   padding: 0px 10px;
-  // font-family: "OpenSans";
 }
 
 .prof-title {
-  //margin-top: 14px;
   padding: 0px 10px;
   font-size: 2.5rem;
-  // font-family: "OpenSans";
   color: white;
   font-weight: 300;
 }
@@ -168,7 +147,6 @@ body {
 .info {
   padding-left: 10px;
   padding-right: 10px;
-  // width: 12%;
 }
 
 .no-margin-row {
