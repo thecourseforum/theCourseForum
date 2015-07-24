@@ -14,10 +14,10 @@ hr
 
 #titles-form.form-group.has-feedback
   label.control-label for="search"  Search
-  #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => "Enter a Book Title ex. Little Women"
+  = search_field_tag "book-titles-listings", nil, :class => 'form-control', :placeholder => "Enter a Book Title ex. Little Women"
   .span.form-control-feedback
 
-table.table.table-striped#listing-list
+table.table.table-striped#listing-table
   thead
     tr
       th.text-hide#claim claim
@@ -28,26 +28,19 @@ table.table.table-striped#listing-list
       th#condition Condition
       th#notes Notes
       th#end-date End Date
-  tbody
-    tr.hidden
+  tbody#listing-list
+    tr.a-listing.hidden
       td
         input.claim.btn.btn-default type="submit" value="Claim" id=""
-      td
-      td
-      td
-      td
-      td
-      td
-      td
-    .text-center = will_paginate @textbook_transactions
-    - @textbook_transactions.each do |tt|
-      tr
-        td
-          input.claim.btn.btn-default type="submit" value="Claim" id="#{tt[:id]}"
-        td.nodecoration = "$" + tt[:price]
-        td#courses = tt[:courses]
-        td = link_to tt[:title], book_path(tt[:book])
-        td.nodecoration = tt[:author]
-        td.nodecoration = tt[:condition]
-        td.nodecoration = tt[:notes]
-        td.nodecoration = tt[:end_date]
+      td.nodecoration.price
+      td.courses
+      td.title
+      td.nodecoration.author
+      td.nodecoration.condition
+      td.nodecoration.notes
+      td.nodecoration.end_date
+.col-sm-12
+  button#more-listings.btn.btn-lg More Listings
+
+- @textbook_transactions.each do |tt|
+  .listing-info id="#{tt[:id]}" price="#{tt[:price]}" courses="#{tt[:courses]}" title="#{tt[:title]}" link="/books/#{tt[:book_id]}" author="#{tt[:author]}" condition="#{tt[:condition]}" notes="#{tt[:notes]}" end_date="#{tt[:end_date]}"

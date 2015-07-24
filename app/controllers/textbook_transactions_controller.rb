@@ -4,20 +4,16 @@ class TextbookTransactionsController < ApplicationController
     @textbook_transactions = TextbookTransaction.active.map do |tt|
       {
         :id => tt.id,
-        :price => tt.price.to_s,
+        :price => "$" + tt.price.to_s,
         :courses => tt.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
         :title => tt.book.title,
-        :book => tt.book,
+        :book_id => tt.book_id,
         :author => tt.book.author,
         :condition => tt.condition,
         :notes => tt.notes,
         :end_date => (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
       }
-    end.paginate(:page => params[:page], :per_page=> 15)
-  end
-
-  def listings
-    @textbook_transactions = TextbookTransaction.active
+    end
   end
 
   def books
@@ -68,7 +64,7 @@ class TextbookTransactionsController < ApplicationController
   def create
     current_user.update(:cellphone => params[:cellphone])
     
-    params[:book_id] = Book.where("title like ?", params[:title]).first.id
+    params[:book_id] = Book.where("title LIKE ?", params[:title]).first.id
     params[:seller_id] = current_user.id
     
     @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
