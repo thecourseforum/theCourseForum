@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="190px" height="163px" viewBox="0 0 190 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <path d="M40,104 L40,124.002589 C40,132.837715 47.1590693,140 55.9993143,140 L151.952381,140 L151.952381,140 L171,160 L171,140 L174.000686,140 C182.836863,140 190,132.828324 190,124.002589 L190,55.9974109 C190,47.1622848 182.840931,40 174.000686,40 L154,40 L154,88.0025891 C154,96.8377152 146.840931,104 138.000686,104 L40,104 L40,104 Z" id="Rectangle-1-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        <path d="M38.0238095,100 L134.000686,100 C142.840931,100 150,92.8377152 150,84.0025891 L150,15.9974109 C150,7.17167566 142.836863,0 134.000686,0 L15.9993143,0 C7.15906925,0 0,7.1622848 0,15.9974109 L0,84.0025891 C0,92.8283243 7.16313699,100 15.9993143,100 L18.5,100 L18.5,120.5 L38.0238095,100 Z" id="Rectangle-1-Copy-2" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    </g>
+</svg>
