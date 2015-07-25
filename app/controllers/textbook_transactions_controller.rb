@@ -66,11 +66,21 @@ class TextbookTransactionsController < ApplicationController
       params[:seller_id] = current_user.id
       
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
-      @textbook_transaction.save
+      if @textbook_transaction.save
+        render :json => {
+          status: "success"
+        }
+      else 
+        render :json => {
+          status: "Missing values"
+        }
+      end
     else
+      render :json => {
+        status: "Badly formatted phone number"
+      }
     end
     
-    redirect_to :action => :index
   end
 
   def new

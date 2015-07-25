@@ -87,7 +87,11 @@ $(document).ready(function () {
 			method: "POST",
 			data: $("#post_textbook_transaction").serialize() + "&book_id=" + $('#post-choose').attr('book_id'),
 			success: function(data) {
-				location.reload();
+				if (data.status == "success") {
+					location.reload();
+				} else {
+					alert('Error: ' + data.status);
+				}
 			}
 		});
 		$('#post-listing-modal').modal('hide');
