@@ -10,11 +10,6 @@
   margin-bottom: 0;
 }
 
-// #content-container {
-//   background-color: transparent;
-//   box-shadow: none;
-// }
-
 @mixin flexbox() {
   display: -webkit-box;
   display: -moz-box;
@@ -57,7 +52,6 @@
 .name-block {
   background-color: $light-blue;
   border-radius: 3px;
-  //height: 106px;
   margin: 5px 5px;
   cursor: pointer;
   @include flexbox();
@@ -72,7 +66,6 @@
 }
 
 .info-header {
-  // border-bottom: 1px solid #dfdfdf;
   @include flexbox();
   @include align-items(center);
   @include justify-content(space-between);
@@ -84,15 +77,11 @@
 }
 
 .prof-info-header {
-  // border-bottom: 1px solid #dfdfdf;
   @include flexbox();
   @include align-items(center);
   @include justify-content(space-between);
   @include flex-flow(row);
-  // margin-left: -15px;
-  //margin-right: 5px;
   margin-top: -1px;
-  // width: 80%;
   font-weight: 300;
 
   .rating-block {
@@ -107,10 +96,8 @@
 }
 
 .course-name {
-  // margin-top: 14px;
   padding: 0px 10px;
-  font-size: 30px;
-  // font-family: "OpenSans";
+  font-size: $course-font-size;
   color: white;
   font-weight: 300;
 }
@@ -124,7 +111,6 @@
   @include flexbox();
   @include align-items(stretch);
   height: auto;
-  // height: 116px;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
@@ -138,12 +124,11 @@
   padding: 0px 10px;
   padding-bottom: 5px;
   letter-spacing: .2px;
-  // font-family: "OpenSans";
 }
 
 .subdepartment {
   font-weight: 300;
-  font-size: 36px;
+  font-size: $title-font-size;
   margin-bottom: 10px;
   margin-left: -15px;
   margin-right: -15px;
@@ -151,12 +136,11 @@
 
 .semester-subheader {
   line-height:10px;
-  font-size: 10px;
+  font-size: $small-font-size;
   color: #bfbfbf;
 }
 
 .semester {
-  // margin-top: px;
   float: right;
   margin-top: -2px;
   margin-bottom: 0px;
@@ -212,12 +196,12 @@
 .rating-subheader {
   padding-top: 0px;
   margin-top: 0px;
-  font-size: 10px;
+  font-size: $small-font-size;
   color: #bfbfbf;
 }
 
 .description {
-  font-size: 12px;
+  font-size: $description-font-size;
   overflow:hidden;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -280,17 +264,6 @@
   vertical-align: middle;
 }
 
-.row.number {  
-  font-size: 50px;
-}
-
-.class-name {
-  text-align: center;
-  font-size: 60px;
-  border-bottom: thin solid black;
-  padding-right: 30px;
-}
-
 .review-box {
   padding-top: 20px;
   .btn > a {
@@ -301,7 +274,7 @@
 .school-panel-title {
     margin-top: 0;
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: $regular-font-size;
   color: inherit;
   padding: 15px 20px;
   background-color: $light-blue;
@@ -324,12 +297,3 @@
 .no-margin-left-row {
   margin-left: 0px;
 }
-
-
-// #content-container {
-//   background-color: #eee !important;
-//   box-shadow: none !important;
-//   padding-top: 0px !important;
-//   padding-left: 0px !important;
-//   padding-right: 0px !important;
-// }
