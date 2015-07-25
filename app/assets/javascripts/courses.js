@@ -74,12 +74,12 @@ ready = function() {
 
 			//conditionally apply the active class to the vote buttons (based on vote attr)
 			if (review.vote_direction == "up")
-				reviewBox.find('.upvote').addClass('active');
+				reviewBox.find('.upvote').addClass('vote-active');
 			else if (review.vote_direction == "down")
-				reviewBox.find('.downvote').addClass('active');
+				reviewBox.find('.downvote').addClass('vote-active');
 			else {
-				reviewBox.find('.upvote').removeClass('active');
-				reviewBox.find('.downvote').removeClass('active');
+				reviewBox.find('.upvote').removeClass('vote-active');
+				reviewBox.find('.downvote').removeClass('vote-active');
 			}
 
 			// set date taken and ratings						
@@ -185,7 +185,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) - 1;
 					$("#votes_" + review_id).text(count);
@@ -198,8 +198,8 @@ ready = function() {
 				success: function() {
 					var wasDownvoted = $("#vote_down_" + review_id).css("opacity") == 1;
 
-					$("#vote_up_" + review_id).css("opacity", "1");
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).addClass("vote-active");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {
@@ -226,7 +226,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) + 1;
 					$("#votes_" + review_id).text(count);
@@ -240,8 +240,8 @@ ready = function() {
 
 					var wasUpvoted = $("#vote_up_" + review_id).css("opacity") == 1;
 
-					$("#vote_down_" + review_id).css("opacity", "1");
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).addClass("vote-active");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {

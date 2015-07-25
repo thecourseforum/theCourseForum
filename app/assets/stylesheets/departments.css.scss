@@ -52,7 +52,7 @@
 .name-block {
   background-color: $light-blue;
   border-radius: 3px;
-  margin: 5px 5px;
+  margin: 2.5px 2.5px;
   cursor: pointer;
   @include flexbox();
 
@@ -100,6 +100,10 @@
   font-size: $course-font-size;
   color: white;
   font-weight: 300;
+}
+
+.course-rating, .semester-block {
+  color: #555;
 }
 
 .panel {

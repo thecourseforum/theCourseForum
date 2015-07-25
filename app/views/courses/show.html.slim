@@ -183,10 +183,9 @@
     .row.rating-header-row
       .col-xs-4
         = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
-      .col-xs-5
+      .col-xs-4
         div style="float:right"
-          | Sort by:
-      .col-xs-3
+      .col-xs-4
         select.courses-review-type-switcher style="font-size:13px;float:right;"
           option value='recent' selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           option value="helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"

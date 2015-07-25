@@ -33,9 +33,6 @@ h1 {
   padding-right: 0px;
 }
 
-$lightgray: #cccccc;
-$lightblue: #6D8BC2;
-
 #course-page, .review-pane {
   margin-left: auto;
   margin-right: auto;
@@ -69,7 +66,8 @@ $lightblue: #6D8BC2;
   margin-bottom: 4px;
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
+  box-shadow: 0px 0px 2px #000;
 }
 
 .no-book-image {
@@ -192,6 +190,7 @@ img {
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   @include flex(1 49%);
   min-width: 49%;
+  font-weight: 300;
 }
 
 #review-container {
@@ -345,7 +344,7 @@ p {
   margin-right: 10px;
 }
 
-.upvote {
+.upvote, .downvote {
   font-size:12px;
   text-align: center;
   width: 50px;
@@ -354,17 +353,18 @@ p {
   display: block;
   margin: auto;
   opacity: 0.4;
+
+}
+
+.vote-active {
+  opacity: 1.0;
+}
+
+.upvote {
+  
 }
 
 .downvote {
-  font-size:12px;
-  text-align: center;
-  opacity: 0.4;
-  width: 50px;
-  height: 50px;
-  padding: 0px 0px;
-  display: block;
-  margin: auto;
   -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
   -moz-transform: rotate(180deg);        /* FF */
   -o-transform: rotate(180deg);          /* Opera */
@@ -571,6 +571,7 @@ p {
     img {
       height: 146px;
       width: 108px;
+      box-shadow: 0px 0px 2px #000;
     }
   }
   .title {
@@ -583,7 +584,9 @@ p {
     height: 30px;
     width: 60px;
   }
-
+  .book-description {
+    width: calc(100% - 140px);
+  }
   .requirement-cost-condition, .bookstore {
     font-size: 1.0rem;
   }
