@@ -41,20 +41,28 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def claim
+    puts params
     cell = params[:cellphone].strip
     current_user.update(:cellphone => cell)
+    transaction = TextbookTransaction.active.find(params[:claim_id])
 
     if cell.length == 10
-      transaction = TextbookTransaction.active.find(params[:format])
-      transaction.update(:buyer_id => current_user.id)
-      transaction.update(:sold_at => Time.now)
-      RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
-      render :json => {
-        status: "success"
-      }
+      response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+      if JSON.parse(response)["success"]
+        puts 'hihihihihihihihihihi'
+        transaction.update(:buyer_id => current_user.id)
+        transaction.update(:sold_at => Time.now)
+        render :json => {
+          status: "success"
+        }
+      else 
+        render :json => {
+          status: "Internal error"
+        }
+      end
     else
       render :json => {
-        status: "failure"
+        status: "Badly formatted phone number"
       }
     end
   end

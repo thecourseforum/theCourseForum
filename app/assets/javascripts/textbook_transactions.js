@@ -100,18 +100,19 @@ $(document).ready(function () {
 	// Claim modal
 	$('.claim.btn').click(function() {
 		claim_id = $(this.id).selector;
+		console.log(claim_id);
 		$('#claim-listing-modal').modal();
 	});
 	$('#submit-claim').click(function() {
 		$.ajax({
-			url: '/textbook_transactions/claim.' + claim_id,
+			url: '/textbook_transactions/claim',
 			method: "POST",
-			data: $("#claim_textbook_transaction").serialize(),
+			data: $("#claim_textbook_transaction").serialize() + "&claim_id=" + claim_id,
 			success: function(data) {
 				if (data.status == "success") {
 					location.reload();
 				} else {
-					alert("Error: Bad phone number.\nEnter 10 digits");
+					alert('Error: ' + data.status);
 				}
 			}
 		});
