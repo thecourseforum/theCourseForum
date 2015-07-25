@@ -11,16 +11,31 @@ $(document).ready(function () {
 		booksToShow,
 		bookList;
 
-	// Load textbok data
-	$.each($('.book-info'), function () {
-		booksData.push({
-			id: $(this).attr('id'),
-			title: $(this).attr('title'),
-			image: $(this).attr('image')
-		});
-		$(this).remove();
+	// Load textbook data
+	$.ajax({
+		url: '/textbook_transactions/get_book_titles',
+		dataType: 'json',
+		type: 'GET',
+		success: function(data) {
+			$.each(data[0], function(item) {
+				booksData.push({
+					id: data[0][item].id,
+					title: data[0][item].title,
+					image: data[0][item].image
+				});
+			});
+			displayBooks(booksData);
+		}
 	});
-	displayBooks(booksData);
+	// $.each($('.book-info'), function () {
+	// 	booksData.push({
+	// 		id: $(this).attr('id'),
+	// 		title: $(this).attr('title'),
+	// 		image: $(this).attr('image')
+	// 	});
+	// 	$(this).remove();
+	// });
+	// displayBooks(booksData);
 
 	// Load listings data
 	$.each($('.listing-info'), function () {
@@ -70,7 +85,7 @@ $(document).ready(function () {
 		$.ajax({
 			url: '/textbook_transactions',
 			method: "POST",
-			data: $("#post_textbook_transaction").serialize(),
+			data: $("#post_textbook_transaction").serialize() + "&book_id=" + $('#post-choose').attr('book_id'),
 			success: function(data) {
 				location.reload();
 			}
@@ -102,26 +117,33 @@ $(document).ready(function () {
 	// Modal autocomplete
 	$('#book-title-post').autocomplete({
 		source: function(request, response) {
-			$.ajax({
-				url: '/textbook_transactions/search_book_titles',
-				dataType: 'json',
-				type: 'GET',
-				data: {
-					query: request.term
-				},
-				success: function(data) {
-					response($.map(data[0], function(item) {
-						return {
-							label: item.title,
-							value: item.title,
-							course_id: item.course_id
-						}
-					}));
+			console.log(request.term);
+			console.log(booksData.length);
+			response($.map(filterData(booksData, request.term), function(book) {
+				return {
+					label: book.title,
+					value: book.title,
+					image: book.image,
+					book_id: book.id
 				}
-			});
+			}));
 		},
-		minLength: 2
+		select: function(event, ui) {
+			console.log(ui.item);
+			$('#post-thumb').attr('src', ui.item.image);
+			$('#post-choose').attr('book_id', ui.item.book_id);
+			$('#post-choose').text(ui.item.value);
+			console.log("hihihihihihi");
+		}
 	});
+
+	function filterData (dataArray, query) {
+		return dataArray.filter(function (item) {
+			return item.title.toLowerCase().includes(query);
+		}).sort(function (a, b) {
+			return a.title.length - b.title.length;
+		});
+	}
 
 	
 	// Search Listings
@@ -130,14 +152,7 @@ $(document).ready(function () {
 		if (query == '') {
 			displayListings(listingsData);
 		} else {
-			displayListings(
-				listingsData.filter(function (listing) {
-					return listing.title.toLowerCase().includes(query);
-				}).sort( function (a, b) {
-					// Sort by ascending title length
-					return a.title.length - b.title.length;
-				})
-			);
+			displayListings(filterData(listingsData, query));
 		}
 	});
 	$('#more-listings').click(function () {
@@ -202,14 +217,7 @@ $(document).ready(function () {
 		if (query == '') {
 			displayBooks(booksData);
 		} else {
-			displayBooks(
-				booksData.filter(function (book) {
-					return book.title.toLowerCase().includes(query);
-				}).sort( function (a, b) {
-					// Sort by ascending title length
-					return a.title.length - b.title.length;
-				})
-			);
+			displayBooks(filterData(booksData, query));
 		}
 	});
 	$('#more-books').click(function () {

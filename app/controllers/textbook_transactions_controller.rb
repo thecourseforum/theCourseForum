@@ -26,18 +26,16 @@ class TextbookTransactionsController < ApplicationController
     end
   end
 
-  def search_book_titles
+  def get_book_titles
     query = params[:query]
 
-    results = []
-    results = Book.where("title LIKE ?", "%#{query}%").map do |book|
+    results = Book.order("RAND()").map do |book|
       {
-        :book_id => book.id,
-        :bookstore_used_price => book.bookstore_used_price,
-        :title => book.title
+        :id => book.id,
+        :title => book.title,
+        :image => (book.small_image_link ? book.small_image_link : "/assets/icons/no_book.png")
       }
     end
-    puts results
 
     render :json => [results]
   end
@@ -63,12 +61,14 @@ class TextbookTransactionsController < ApplicationController
 
   def create
     current_user.update(:cellphone => params[:cellphone])
-    
-    params[:book_id] = Book.where("title LIKE ?", params[:title]).first.id
-    params[:seller_id] = current_user.id
-    
-    @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
-    @textbook_transaction.save
+
+    if params[:cellphone].length == 10
+      params[:seller_id] = current_user.id
+      
+      @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
+      @textbook_transaction.save
+    else
+    end
     
     redirect_to :action => :index
   end
@@ -99,6 +99,6 @@ class TextbookTransactionsController < ApplicationController
         :notes => params[:notes],
         :book_id => params[:book_id]
       }
-      params.require(:textbook_transaction).permit(:title, :cellphone, :price, :condition, :notes, :book_id, :seller_id, :buyer_id)
+      params.require(:textbook_transaction).permit(:cellphone, :price, :condition, :notes, :book_id, :seller_id, :buyer_id)
     end
 end

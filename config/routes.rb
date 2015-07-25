@@ -56,7 +56,7 @@ TheCourseForum::Application.routes.draw do
   # Autocomplete for textbook titles
   resources :textbook_transactions, :only => [] do
     collection do
-      get :search_book_titles
+      get :get_book_titles
     end
   end
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'
