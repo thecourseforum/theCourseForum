@@ -127,3 +127,32 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+
+@media (max-width: 620px) {
+  .prof-panel {
+    @include flex-flow(column);
+    @include align-items(stretch);
+  }
+  .prof-info-header {
+    @include flex-flow(column);
+    @include align-items(center);
+    width: 100%;
+  }
+  .prof-info-header, .rating-block {
+    margin-right: 0px;
+  }
+  .semester-block {
+    margin-left: -15px;
+  }
+  .prof-name-block, .prof-details-block {
+    width: 98.7%;
+    padding-right: 15px;
+    @include justify-content(center);
+  }
+  #course-name, #filter {
+    width: 100%;
+  }
+  .page-title, #filter {
+    margin-bottom: 10px;
+  }
+}
