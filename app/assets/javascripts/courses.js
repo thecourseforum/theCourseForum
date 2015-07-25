@@ -35,7 +35,7 @@ ready = function() {
 			method: "GET",
 			data: {
 				course_id: courseId,
-				professor_id: params['p'],
+				professor_id: params ? params['p'] : undefined,
 				sort_type: sortType,
 			},
 			success: function(response) {
