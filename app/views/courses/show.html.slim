@@ -52,7 +52,7 @@
                   - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+                .col-xs-2.stats-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
           .row.workload-stats
             .col-xs-4.overall-col
               .rating-row
