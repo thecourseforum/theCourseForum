@@ -20,6 +20,8 @@ TheCourseForum::Application.routes.draw do
 
   resources :professors, :only => [:index, :show]
 
+  get '/courses/reviews' => 'courses#reviews'
+  
   resources :courses, :only => [:show, :index, :show_professors]
 
   get '/scheduler' => 'scheduler#scheduler'

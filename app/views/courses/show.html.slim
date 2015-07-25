@@ -1,38 +1,13 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
 
-= javascript_include_tag "courses"
 = javascript_include_tag "grades"
 
 
 = content_tag "div", id: "percentages-0", data: {percents: @course.get_grade_percentages(@prof_id)} do end
 = stylesheet_link_tag "courses"
 
-
-
 .row#course-page
-  / .col-xs-3#courses-sidebar
-  /   .row
-  /     .col-xs-12
-    /     input type="radio" name="professor-id" id="check-all" class="professor-checkbox" checked=""
-    /     label for="check-all" style="font-weight:normal"
-    /       span
-    /       | All Professors
-    / - @professors.each do |professor|
-    /   .row
-    /     .col-xs-12
-    /       input type="radio" name="professor-id" id="check-#{professor.id}" class="professor-checkbox"
-    /       label for="check-#{professor.id}" style="font-weight:normal"
-    /         span
-    /         = professor.separated_name
-
-
   .col-xs-12#courses-main
-    / .row
-    /   .col-xs-6
-    /     .orange-title =@professor  ? link_to(@professor.full_name, professor_path(@professor), class: "title") : "All Professor"
-    /   .col-xs-6
-    /     .orange-title Cumulative Grades
-    / br
     .container-fluid#browsing-content
       .course-breakdown
         .course-stats
@@ -40,7 +15,7 @@
             .col-xs-4.overall-col
               .rating-row
                 .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
-              h5.rating-title Rating
+              h5.rating-title Ratings
             .col-xs-8.stats-col
               .stat-row
                 .col-xs-3.icon
@@ -77,18 +52,15 @@
                   - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.stats-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
-
+                .col-xs-2.rating-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
           .row.workload-stats
             .col-xs-4.overall-col
               .rating-row
                 - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
                 - total = total.to_f.round(1)
-                / - if total.to_f < 9.99
                 .rating= total > 0 ? total : "--"
               h5.rating-title Workload
             .col-xs-8.stats-col
-              - #Calculate the max of the workload and add some amount to set the scale
               - scale = total
               .stat-row
                 .col-xs-3.icon
@@ -125,10 +97,8 @@
                   - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
-
+                .col-xs-2.rating-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
         .course-grades
-
     br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
     - if @books_count == 0    
@@ -176,9 +146,6 @@
                           .col-xs-6
                             - if bookstore_check
                               .bookstore = "Bookstore"
-                      / - if book.bookstore_prices.count > 0
-                      /   .row.bookstore
-                      /     p.requirement-cost-condition = "Bookstore - #{book.bookstore_new_price ? number_to_currency(book.bookstore_new_price) + ' New': ''} #{book.bookstore_used_price ? number_to_currency(book.bookstore_used_price) + ' Used' : ''}"
                       .amazon-info
                         - check = false
                         .col-xs-3
@@ -198,12 +165,6 @@
                         .col-xs-6
                           - if check
                             btn.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "80x40"), book.amazon_affiliate_link, :target => '_blank'
-
-          
-
-
-
-/ - if @total_review_count > 0
 .row.number-of-comments
   - if @total_review_count > 1
     h1
@@ -217,20 +178,6 @@
         = "1 Comment"
       - else
         = "0 Comments"
-/ .row
-/   - if @total_review_count > 0
-/     - if @total_review_count > 1
-/       .col-xs-7.orange-title
-/         - if @reviews_with_comments.count == 1
-/           = "#{@reviews_with_comments.count} Comment"
-/         - else
-/           = "#{@reviews_with_comments.count} Comments"
-/     - else
-/       .col-xs-5.orange-title
-/         - if @reviews_with_comments.count == 1
-/           = "1 Comment"
-/         - else
-/           = "0 Comments"
 .review-pane
   div.comment-header
     .row.rating-header-row
@@ -238,120 +185,47 @@
         = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
       .col-xs-5
         div style="float:right"
+          | Sort by:
       .col-xs-3
-        select.dropdown.courses-review-type-switcher style="font-size:13px;float:right;"
-          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="#{@sort_type == "new"}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="#{@sort_type == "helpful"}" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="#{@sort_type == "semester"}" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="#{@sort_type == "highest"}" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          / option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="#{@sort_type == "lowest"}" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-          - if @sort_type == "new"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          - else
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=new" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
-          - if @sort_type == "helpful"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" selected="selected" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          - else
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
-          - if @sort_type == "semester"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" selected="selected" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          - else
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
-          - if @sort_type == "highest"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" selected="selected" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          - else
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=highest" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
-          - if @sort_type == "lowest"
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" selected="selected" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-          - else
-            option value="#{@course.id}?p=#{@professor ? @professor.id : 'all'}&sort=lowest" style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
-    .row
-      - if @reviews_with_comments.count > 1
-        = will_paginate @reviews 
+        select.courses-review-type-switcher style="font-size:13px;float:right;"
+          option value='recent' selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          option value="helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          option value="semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          option value="highest" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          option value="lowest"   style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
   .container-fluid#review-container
-    -# adds top line
-    - @reviews.each do |r|
-      .single-review
+    .reviews-box
+      .single-review.hidden
         .row.comment-row
           .rating-number
             .row
-              .btn.upvote id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50") 
+              .btn.upvote id="vote_up_" = image_tag("icons/up.png", size: "50") 
             .row 
-              - if r.votes_count > 0
-                .upvotes id="votes_#{r.id}"= "#{r.votes_for - r.votes_against}"
-              - else
-                .upvotes id="votes_#{r.id}"= ""
+              .upvotes id="votes_"
             .row
-              .btn.downvote id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")
+              .btn.downvote id="vote_down_" = image_tag("icons/up.png", size: "50")
           .comment-container
             .row.comment-row
-              .comment= h(r.comment).gsub(/\n/, '<br/>').html_safe
-
-            / = r.created_at.strftime("%Y-%m-%d")
-            / - if r.semester_id
-            /   .taken
-            /     = "#{r.semester.season} #{r.semester.year}"
-            / br
+              .comment 
             .row.stats-row
-              .review-stats
-                .review-overall= r.overall
+              .review-overall
 
-                .icon-and-text
-                  div.rating-icon= image_tag("icons/professor.png", size: "20")
-                  div.rating-icon= r.professor_rating.to_i
-              
-                .icon-and-text
-                  div.rating-icon= image_tag("icons/happy.png", size: "20")
-                  div.rating-icon= r.enjoyability
-
-                .icon-and-text
-                  div.rating-icon= image_tag("icons/difficulty.png", size: "20")
-                  div.rating-icon = r.difficulty
-                .icon-and-text
-                  div.rating-icon= image_tag("icons/recommend.png", size: "20")
-                  div.rating-icon = r.recommend
-              .time
-                - if r.semester_id
-                  .taken= "#{r.semester.season} #{r.semester.year}"
-                  div = r.created_at.strftime("%Y-%m-%d")
-                - else
-                  div style="margin-top: 18px;" = r.created_at.strftime("%Y-%m-%d")
-                / - if r.semester_id
-                /   .taken= "#{r.semester.season} #{r.semester.year}"
-              - if current_user == r.user
-                .icon-and-text
-                  div.rating-icon style="color:#E25424;" = "You wrote this!"
-
-            / br
-            / br
-            / .row style="vertical-align:bottom;"
-            /   = r.created_at.strftime("%Y-%m-%d")
-            /   - if r.semester_id
-            /     .taken
-            /       = "#{r.semester.season} #{r.semester.year}"
-
+              .icon-and-text
+                div.rating-icon = image_tag("icons/professor.png", size: "20")
+                div.rating-icon.prof
             
-        / br
-        / .row
-        /   .col-xs-5.col-sm-7.score style="font-size:12px;margin-top: 2.5px;"
-        /     - if r.votes_count > 0
-        /       = "#{r.votes_for} out of #{r.votes_count} people found this helpful."
-        /   - if r.user != current_user
-        /     .col-xs-3 style="margin-top: 2.5px;"
-        /       .helpful-prompt style="font-size:12px;text-align:center;"
-        /         | Was this review helpful?
-        /     .col-xs-2.rating-number.col-sm-1
-        /       .btn.btn-primary.btn-xs id="vote_up_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_against?(r) ? 'opacity: 0.4;' : '')}"
-        /         | Yes
-        /     .col-xs-2.rating-number.col-sm-1
-        /       .btn.btn-primary.btn-xs id="vote_down_#{r.id}" style="#{'font-size:12px;text-align:center;' + (current_user.voted_for?(r) ? 'opacity: 0.4;' : '')}"
-        /         | No
-  = will_paginate @reviews
+              .icon-and-text
+                div.rating-icon = image_tag("icons/happy.png", size: "20")
+                div.rating-icon.enjoyability
 
-
-
-/ - else
-/   .row
-/     h1 No reviews :(
-/   / TODO Update this link dynamically when selecting professor.
-/   / = link_to "Be the first to write a review for this class!", new_review_path(:c => @course.id, :p => @professor.id), :class => "btn btn-primary"
+              .icon-and-text
+                div.rating-icon = image_tag("icons/difficulty.png", size: "20")
+                div.rating-icon.difficulty 
+              .icon-and-text
+                div.rating-icon = image_tag("icons/recommend.png", size: "20")
+                div.rating-icon.recommend  
+              .time
+                .created 
+                .taken
+              .icon-and-text
+                div.rating-icon.author style="color:#E25424;"

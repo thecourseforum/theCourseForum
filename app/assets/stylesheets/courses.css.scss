@@ -346,6 +346,8 @@ p {
 }
 
 .upvote {
+  font-size:12px;
+  text-align: center;
   width: 50px;
   height: 50px;
   padding: 0px 0px;
@@ -355,6 +357,8 @@ p {
 }
 
 .downvote {
+  font-size:12px;
+  text-align: center;
   opacity: 0.4;
   width: 50px;
   height: 50px;
@@ -609,45 +613,6 @@ p {
   bottom: -36px;
 }
 
-
-
-/* http://codepen.io/CreativeJuiz/pen/BiHzp */
-/* http://webdesign.tutsplus.com/tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953 */
-
-/*
-
-.professor-checkbox {
-  display: none;
+.btn.active {
+  opacity: 1.0;
 }
-
-.professor-checkbox + label {
-  cursor: pointer;
-}
-
-.professor-checkbox + label span {
-  display:inline-block;
-
-  width: 16px; 
-  height: 16px;
-  border: 1px solid #aaa;
-  background: #f8f8f8;
-  border-radius: 0px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
-  vertical-align: middle;
-  cursor: pointer;
-
-  margin-bottom: 4px;
-  margin-right: 4px;
-}
-
-.professor-checkbox:checked + label span:after {
-  position: absolute;
-  top: 2px;
-  content: '✔';
-  font-size: 20px;
-  color: $blue;
-  transition: all .2s;
-  line-height: 100%;
-}
-
-*/
