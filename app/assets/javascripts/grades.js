@@ -224,7 +224,7 @@ $(function() {
                     verticalAlign: 'middle',
                     text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" + (allCoursePercentages[i].total) + " students",
                     style: {
-                     fontFamily: 'OpenSans',
+                     fontFamily: 'Lato',
                      fontSize: '16px'
                     },
                     //aligns the title to center the two lines
