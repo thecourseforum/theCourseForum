@@ -88,8 +88,12 @@ ready = function() {
 			reviewBox.find('.enjoyability').text(review.enjoyability);
 			reviewBox.find('.difficulty').text(review.difficulty);
 			reviewBox.find('.recommend').text(review.recommend);
-			reviewBox.find('.created').text(review.created_at);
-			reviewBox.find('.taken').text(review.taken);
+			if (review.created_at) {
+				reviewBox.find('.created').text(review.created_at);
+			}
+			if (review.taken) {
+				reviewBox.find('.taken').text(review.taken);
+			}
 
 			if (review.is_author)
 				reviewBox.find('.author').text("You wrote this!");

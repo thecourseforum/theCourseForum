@@ -287,7 +287,7 @@ $(function() {
                         },
                         color: 'white',
                         style: {
-                         fontFamily: 'OpenSans',
+                         fontFamily: 'Lato',
                          fontSize: '16px'
                         },
                         distance: -31
