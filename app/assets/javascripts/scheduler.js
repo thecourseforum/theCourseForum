@@ -4,7 +4,7 @@
 // $ denotes jQuery - $(document) means we select the "document" or HTML page object
 // We attach an anonymous function to be executed when the page is "ready" - all DOM elements are loaded
 
-$(window).resize(function(){
+$(window).resize(function() {
 	$('#calendar').css('width', $('#search-bar').parent().css('width').split('p')[0] - $('#search-bar').css('width').split('p')[0] - 20);
 });
 
@@ -113,11 +113,26 @@ $(document).ready(function() {
 		calendarCourses = [],
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
-		schedules = [];
+		schedules = [],
+		courses = {};
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
 	// Documentation for these options are found in fullCalendar docs online
+	var courseJSON = localStorage.getItem('courses');
+	var resultsJSON = localStorage.getItem('results');
+	if (resultsJSON && courseJSON) {
+		var resultsParsed = JSON.parse(resultsJSON);
+		var coursesParsed = JSON.parse(courseJSON);
+		if (resultsParsed && coursesParsed) {
+			searchResults = resultsParsed;
+			courses = coursesParsed;
+			for (var key in courses) {
+				displayResult(courses[key], false);
+			}
+		}
+	}
+
 	$('#schedule').fullCalendar({
 		// Default view for the calendar is agendaWeek, which shows a single week
 		defaultView: 'agendaWeek',
@@ -143,7 +158,9 @@ $(document).ready(function() {
 
 		eventRender: function(event, element) {
 			console.log(event);
-			$(element).tooltip({title: "SIS ID: " + event.sis_id});
+			$(element).tooltip({
+				title: "SIS ID: " + event.sis_id
+			});
 		},
 
 		// New default date
@@ -204,7 +221,7 @@ $(document).ready(function() {
 	});
 
 	// Added search button functionality
-	$('#search-classes').click(function(){
+	$('#search-classes').click(function() {
 		courseSearch($('#class-search').val());
 	});
 
@@ -264,15 +281,15 @@ $(document).ready(function() {
 				return section['section_id'];
 			});
 			// Form the data object
-			var  data ={
-    			sections: JSON.stringify(section_ids)
+			var data = {
+				sections: JSON.stringify(section_ids)
 			};
 
 			// Put the array in the url and redirect with the .ics extension.
 			// The controller then sees .ics as a format and does the appropriate stuff
-			window.location.href = "/scheduler.ics?" + decodeURIComponent( $.param(data) );
+			window.location.href = "/scheduler.ics?" + decodeURIComponent($.param(data));
 		}
-	
+
 	});
 
 	// #save-selection exists in the Course - section selection modal
@@ -316,6 +333,7 @@ $(document).ready(function() {
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
 
+		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
 	});
@@ -391,7 +409,6 @@ $(document).ready(function() {
 				$('.schedules').empty();
 				$.each(response['results'], function(index, schedule) {
 					$('.schedules').append('<input type="checkbox" ' + false + ' name="' + schedule.id + '"> ' + schedule.name);
-
 					if (index != response['results'].length - 1) {
 						$('.schedules').append("<br/>");
 					}
@@ -399,7 +416,7 @@ $(document).ready(function() {
 
 				savedSchedules = response['results'];
 				if (response['results'].length > 0) {
-					$('#load-schedules-modal').modal();	
+					$('#load-schedules-modal').modal();
 				} else {
 					alert('No saved schedules!');
 				}
@@ -451,30 +468,28 @@ $(document).ready(function() {
 
 	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
-    	var $slider =  $('#schedule-slider');
-    	var maxTick =  $slider.slider("option", "max");
-    	var spacing =  100 / (maxTick);
+		var $slider = $('#schedule-slider');
+		var maxTick = $slider.slider("option", "max");
+		var spacing = 100 / (maxTick);
 
-    	$slider.find('.ui-slider-tick-mark').remove();
-    	if(maxTick < 30) {
-    		for (var i = 0; i < maxTick + 1; i++) {
-        		$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
-     		}
-     	}
-     	else {
-     		if((maxTick)/5 < 25) {
-     			for (var i = 0; i < maxTick- 5 + 1; i+=5) {
-        				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
-     			}
-     			$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
-     		}
-     		else {
-     			for (var i = 0; i < maxTick- 10 + 1; i+=10) {
-        				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
-     			}
-     			$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) +  '%').appendTo($slider); 
-     		}
-     	}
+		$slider.find('.ui-slider-tick-mark').remove();
+		if (maxTick < 30) {
+			for (var i = 0; i < maxTick + 1; i++) {
+				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) + '%').appendTo($slider);
+			}
+		} else {
+			if ((maxTick) / 5 < 25) {
+				for (var i = 0; i < maxTick - 5 + 1; i += 5) {
+					$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) + '%').appendTo($slider);
+				}
+				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) + '%').appendTo($slider);
+			} else {
+				for (var i = 0; i < maxTick - 10 + 1; i += 10) {
+					$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) + '%').appendTo($slider);
+				}
+				$('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * maxTick) + '%').appendTo($slider);
+			}
+		}
 	}
 
 	// Asks server for course information + sections based on search string
@@ -489,7 +504,7 @@ $(document).ready(function() {
 			// Split the course search string (i.e. CS 2150) into two portions, mnemonic and course_number
 			course = course.split(' ');
 			// If the user enters search string w/o a space, it accomodates for it.
-			if (course.length == 1){
+			if (course.length == 1) {
 				course = course[0].match(/([A-Za-z]+)([0-9]+)/);
 				course = new Array(course[1], course[2]);
 			}
@@ -506,6 +521,7 @@ $(document).ready(function() {
 					if (!searchResults[response.id]) {
 						// Initialize this course in searchResults
 						// See above for sample searchResults representation
+						courses[response.id] = response;
 						searchResults[response.id] = {
 							'selected': true,
 							'units': response.units,
@@ -514,7 +530,10 @@ $(document).ready(function() {
 							'laboratories': []
 						};
 						// Calls utility function for showing the course (HTML)
-						displayResult(response);
+						displayResult(response, true);
+
+						localStorage.setItem('courses', JSON.stringify(courses));
+						localStorage.setItem('results', JSON.stringify(searchResults));
 					}
 				},
 				error: function(response) {
@@ -575,7 +594,7 @@ $(document).ready(function() {
 		$('#credits').text(total + " credits");
 	}
 
-	function displayResult(result) {
+	function displayResult(result, enableModal) {
 		var resultBox = $('.course-result.hidden').clone().removeClass('hidden'),
 			content = resultBox.children('#content'),
 			checkbox = resultBox.children('#checkbox').children(':checkbox');
@@ -588,6 +607,9 @@ $(document).ready(function() {
 
 		content.children('.remove').click(function() {
 			delete searchResults[result.id];
+			delete courses[result.id]
+			localStorage.setItem('results', JSON.stringify(searchResults))
+			localStorage.setItem('courses', JSON.stringify(courses))
 			updateCreditCount();
 			$(this).parent().parent().remove();
 		});
@@ -697,25 +719,21 @@ $(document).ready(function() {
 			}
 			$('#course-modal').modal();
 		});
-
 		content.children('.course-mnemonic').text(result.course_mnemonic);
 		content.children('.course-title').text(result.title);
 
 		checkbox.attr('name', result.id);
 		checkbox.attr('checked', true);
-
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
-
 			updateCreditCount();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
-		checkbox.parent().css('height', content.parent().height());
-		checkbox.parent().css('width', content.parent().width() - 170);
-		checkbox.css('margin-left', checkbox.parent().width() / 2 - 10);
-		checkbox.css('margin-top', checkbox.parent().height() / 2 - 5);
-		content.click();
+		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
+		if (enableModal) {
+			content.click();
+		}
 	}
 
 	function addClass(course) {
