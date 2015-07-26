@@ -39,7 +39,7 @@ ready = function() {
 				sort_type: sortType,
 			},
 			success: function(response) {
-				if (response.length > 1) {
+				if (response.length >= 1) {
 					reviews = response
 					appendReviews();
 					enableInfiniteScroll = true;

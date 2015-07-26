@@ -1,5 +1,5 @@
-- if @count > 1
-  - first_subdepartment = (@subdepartments_with_sections.first).name
+- if (@count > 1)
+  - first_subdepartment = (@subdepartments_with_sections[0]).name
   - content_for :title, first_subdepartment
   - content_for :page_heading, first_subdepartment
 - else
@@ -9,6 +9,9 @@
 / = javascript_include_tag "grades"
 
 .container-fluid#browsing-content
+  / - @subdepartments_with_sections.each do |subd|
+  /   div = subd.name
+  / div = (@subdepartments_with_sections.first).name
   #departments
     = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
     - @subdepartments_with_sections.each do |subdepartment|
