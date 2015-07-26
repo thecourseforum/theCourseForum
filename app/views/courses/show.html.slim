@@ -97,7 +97,7 @@
                   - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
                   .skillbar data-percent=percent
                     .skillbar-bar
-                .col-xs-2.rating-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
+                .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
         .course-grades
     br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
@@ -183,10 +183,9 @@
     .row.rating-header-row
       .col-xs-4
         = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
-      .col-xs-5
+      .col-xs-4
         div style="float:right"
-          | Sort by:
-      .col-xs-3
+      .col-xs-4
         select.courses-review-type-switcher style="font-size:13px;float:right;"
           option value='recent' selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
           option value="helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
@@ -208,24 +207,22 @@
             .row.comment-row
               .comment 
             .row.stats-row
-              .review-overall
-
-              .icon-and-text
-                div.rating-icon = image_tag("icons/professor.png", size: "20")
-                div.rating-icon.prof
-            
-              .icon-and-text
-                div.rating-icon = image_tag("icons/happy.png", size: "20")
-                div.rating-icon.enjoyability
-
-              .icon-and-text
-                div.rating-icon = image_tag("icons/difficulty.png", size: "20")
-                div.rating-icon.difficulty 
-              .icon-and-text
-                div.rating-icon = image_tag("icons/recommend.png", size: "20")
-                div.rating-icon.recommend  
+              .review-stats
+                .review-overall
+                .icon-and-text
+                  div.rating-icon = image_tag("icons/professor.png", size: "20")
+                  div.rating-icon.prof
+                .icon-and-text
+                  div.rating-icon = image_tag("icons/happy.png", size: "20")
+                  div.rating-icon.enjoyability
+                .icon-and-text
+                  div.rating-icon = image_tag("icons/difficulty.png", size: "20")
+                  div.rating-icon.difficulty 
+                .icon-and-text
+                  div.rating-icon = image_tag("icons/recommend.png", size: "20")
+                  div.rating-icon.recommend  
+                .icon-and-text
+                  div.rating-icon.review-author style="color:#E25424;"
               .time
-                .created 
                 .taken
-              .icon-and-text
-                div.rating-icon.author style="color:#E25424;"
+                .created 
