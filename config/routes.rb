@@ -1,3 +1,4 @@
+
 TheCourseForum::Application.routes.draw do
   root :to => 'welcome#index'
 
@@ -42,15 +43,27 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments, :only => [:show]
 
-  resources :books, :only => [:index]
+  resources :books, :only => [:index, :show]
   get '/books/courses' => 'books#courses'
+  post '/books/follow' => 'books#follow'
 
+  # Autocomplete for books feature
   resources :books, :only => [] do
     collection do
       get :search_subdepartment
     end
   end
  
+  resources :textbook_transactions, :only => [:index, :create]
+  # Autocomplete for textbook titles
+  resources :textbook_transactions, :only => [] do
+    collection do
+      get :get_book_titles
+    end
+  end
+  post '/textbook_transactions/claim' => 'textbook_transactions#claim'
+  get '/textbook_transactions/books' => 'textbook_transactions#books'
+
   resources :search, :only => [] do
     collection do
       get :search

@@ -50,7 +50,10 @@ books.each_with_index do |batch, index|
 			items = client.item_lookup(:query => query).to_h["ItemLookupResponse"]["Items"]
 		rescue Exception => e
 			puts "Retrying #{index + 1} query"
+			puts e
 			items = nil
+			# Prevent 503 errors
+			sleep(0.5)
 		end
 	end
 
@@ -142,6 +145,11 @@ books.each_with_index do |batch, index|
 			:amazon_affiliate_link => link
 		)
 	end
+
+	# Prevent 503 errors
+	# Throttling is based on requests per second
+	# 	Current limit is 1 per-second
+	sleep(0.5)
 end
 
 log.close

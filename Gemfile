@@ -109,6 +109,7 @@ gem 'd3_rails'
 
 gem 'gon'
 gem 'rest-client'
+
 gem 'figaro'
 
 # for calendar exports

@@ -1,0 +1,62 @@
+= javascript_include_tag "textbook_transactions"
+= stylesheet_link_tag "textbook_transactions"
+
+.col-md-3
+  .text-center = image_tag @book[:image], :class => 'img-rounded', :id => 'cover'
+  table.table
+    thead
+      tr
+        th
+        th
+    tbody
+      - if @sections.length != 0
+        / - @book.sections.uniq(&:course).each do |section|
+        - @sections.each do |section|
+          tr
+            td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, "#{course_path(section.course)}?p=#{section.professors.first.id}"
+            td.text-center.nodecoration = section.semester.season + " " + section.semester.year.to_s
+      - else
+        tr
+          td.text-center.nodecoration colspan="2" Not used in any courses
+.col-md-9
+  .page-header
+    button#follow.btn.btn-lg type="button" data="#{@book[:book].id}" = current_user.books.include?(@book[:book]) ? "Unfollow" : "Follow"
+    button#sell-yours.btn.btn-lg type="button" Sell yours    
+    h1#book-title = @book[:book].title
+    h3#book-author = @book[:book].author
+  #prices
+    .col-md-4
+      h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
+      h5 = "New: " + @book[:new_bookstore]
+      h5 = "Used: " + @book[:used_bookstore]
+    .col-md-4
+      h4 = link_to "Amazon Official", @book[:amazon_affiliate_link]
+      h5 = "New: " + @book[:new_official_amazon]
+      h5 = "Used: " + @book[:used_official_amazon]
+    .col-md-4
+      h4 = link_to "Amazon Merchant", @book[:amazon_affiliate_link]
+      h5 = "New: " + @book[:new_merchant_amazon]
+      h5 = "Used: " + @book[:used_merchant_amazon]
+  .col-md-12.nopadding
+    hr
+    table.table.table-striped#student-postings
+      thead
+        tr
+          th.text-hide claim
+          th Price
+          th Condition
+          th Notes
+          th End Date
+      tbody#books
+        - if @textbook_transactions.length != 0
+          - @textbook_transactions.each do |tt|
+            tr
+              td
+                input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
+              td.nodecoration = "$" + tt.price.to_s
+              td.nodecoration = tt.condition
+              td.nodecoration = tt.notes
+              td.nodecoration = (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+        - else
+          tr
+            td.text-center.nodecoration colspan="5" No current listings

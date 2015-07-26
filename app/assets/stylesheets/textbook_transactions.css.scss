@@ -1,0 +1,178 @@
+// Place all the styles related to the textbook_transactions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#post-listing {
+	float: right;
+	right: 0px;
+	text-align: center;
+	top: -15px;
+	background-color: #D75626;
+	color: white;
+	border-radius: 2px; 
+}
+
+#post-listing-modal {
+
+	#post-thumb {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+		height: 60px;
+		width: 40px;
+		background-color: gray;
+		border: 2px solid #0D3268;
+	}
+
+	#post-choose {
+		text-align: center;
+		// margin-right: auto;
+		// margin-left: auto;
+	}
+
+	#dollar {
+		padding-right: 0;
+	}
+
+	#price-input {
+		padding-left: 0;
+	}
+
+}
+
+.ui-autocomplete {
+	z-index: 2147483647;
+	list-style: none;
+}
+
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus {
+    background-color: #D75626;
+}
+
+.nav-pills > li {
+    background-color: #eeeeee;
+}
+
+#titles-form {
+
+}
+
+.claim {
+	border-radius: 5px;
+	border: 1px solid #D75626;
+}
+
+.claim:hover {
+	background-color: #e38867;
+}
+
+#listing-table {
+	
+	#end-date {
+		min-width: 100px;
+	}
+
+}
+
+#book-list {
+
+	div:hover {
+		background-color: #c1e1ec;
+	}
+	
+	div {
+		border-radius: 5px;
+		margin-bottom: 10px;
+		padding: 3px;
+		transition: background-color 0.5s ease;
+	}
+
+	.a-book {
+		height: 82px;
+		overflow: hidden;
+	}
+
+	#cover-thumb-container {
+		max-width: 50px;
+		float: left;
+		margin-right: 5px;
+		
+		#cover-thumb {
+			max-width: 50px;
+			max-height: 60px;
+		}
+
+	}
+
+	#title-thumb-container {
+		margin-left: 5px;
+	}
+
+}
+
+
+#more-books {
+	display: block;
+	border: 2px solid #15214B;
+	border-radius: 10px;
+	background-color: white;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#more-books:hover {
+	background-color: #468AC2;
+}
+#more-listings {
+	display: block;
+	border: 2px solid #15214B;
+	border-radius: 10px;
+	background-color: white;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#more-listings:hover {
+	background-color: #468AC2;
+}
+
+#follow, #sell-yours {
+	float: right;
+	text-align: center;
+	background-color: #D75626;
+	color: white;
+	border-radius: 2px;
+	margin: 3px; 
+}
+
+#prices {
+	display: inline;
+	position: relative;
+
+	li {
+		display: inline;
+		float: left;
+	}
+
+}
+
+#cover {
+	max-width: 100%;
+	height: auto;
+	border: 5px solid #0D3268;
+	margin-top: 10px;
+}
+
+#student-postings {
+	margin-top: 20px;
+}
+
+.nopadding {
+	padding: 0 !important;
+}
+.nodecoration {
+	text-decoration: none !important;
+	cursor: auto !important;
+}

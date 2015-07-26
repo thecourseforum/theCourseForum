@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714174932) do
+
+ActiveRecord::Schema.define(version: 20150401202146) do
 
   create_table "book_requirements", id: false, force: true do |t|
     t.integer "section_id", null: false
@@ -60,7 +61,8 @@ ActiveRecord::Schema.define(version: 20150714174932) do
 
   create_table "courses", force: true do |t|
     t.string   "title"
-    t.decimal  "course_number",           precision: 4, scale: 0, default: 0
+    t.text     "description"
+    t.decimal  "course_number",    precision: 4, scale: 0, default: 0
     t.integer  "subdepartment_id"
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
@@ -296,8 +298,20 @@ ActiveRecord::Schema.define(version: 20150714174932) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "textbook_transactions", force: true do |t|
+    t.integer  "seller_id"
+    t.integer  "buyer_id"
+    t.integer  "book_id",    null: false
+    t.integer  "price",      null: false
+    t.string   "condition",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "sold_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email"
+    t.integer  "cellphone"
     t.string   "old_password"
     t.integer  "student_id"
     t.integer  "professor_id"
