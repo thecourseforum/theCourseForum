@@ -14,16 +14,10 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.ui.touch-punch
+//= require jquery.slick
 //= require turbolinks
 //= require bootstrap
 //= require d3
-// require new_wheel
-//= require header
-//= require courses
-//= require departments
-//= require contact_us
-//= require sign_up
-//= require reviews
 //= require moment
 //= require fullcalendar
 //= require jqcloud
@@ -33,7 +27,14 @@
 //= require nprogress-ajax
 //= require highcharts
 //= require highcharts/highcharts-more
-//= require jquery.slick
+// require new_wheel
+//= require header
+//= require courses
+//= require departments
+//= require contact_us
+//= require sign_up
+//= require reviews
+
 
 var ready = function() {
 	// Attatches navbar-toggle button to sidebar

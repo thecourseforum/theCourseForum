@@ -39,7 +39,7 @@ ready = function() {
 				sort_type: sortType,
 			},
 			success: function(response) {
-				if (response.length > 1) {
+				if (response.length >= 1) {
 					reviews = response
 					appendReviews();
 					enableInfiniteScroll = true;
@@ -74,12 +74,12 @@ ready = function() {
 
 			//conditionally apply the active class to the vote buttons (based on vote attr)
 			if (review.vote_direction == "up")
-				reviewBox.find('.upvote').addClass('active');
+				reviewBox.find('.upvote').addClass('vote-active');
 			else if (review.vote_direction == "down")
-				reviewBox.find('.downvote').addClass('active');
+				reviewBox.find('.downvote').addClass('vote-active');
 			else {
-				reviewBox.find('.upvote').removeClass('active');
-				reviewBox.find('.downvote').removeClass('active');
+				reviewBox.find('.upvote').removeClass('vote-active');
+				reviewBox.find('.downvote').removeClass('vote-active');
 			}
 
 			// set date taken and ratings						
@@ -88,11 +88,15 @@ ready = function() {
 			reviewBox.find('.enjoyability').text(review.enjoyability);
 			reviewBox.find('.difficulty').text(review.difficulty);
 			reviewBox.find('.recommend').text(review.recommend);
-			reviewBox.find('.created').text(review.created_at);
-			reviewBox.find('.taken').text(review.taken);
+			if (review.created_at) {
+				reviewBox.find('.created').text(review.created_at);
+			}
+			if (review.taken) {
+				reviewBox.find('.taken').text(review.taken);
+			}
 
 			if (review.is_author)
-				reviewBox.find('.author').text("You wrote this!");
+				reviewBox.find('.review-author').text("You wrote this!");
 
 			console.log('appended');
 			$('.reviews-box').append(reviewBox);
@@ -181,7 +185,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) - 1;
 					$("#votes_" + review_id).text(count);
@@ -194,8 +198,8 @@ ready = function() {
 				success: function() {
 					var wasDownvoted = $("#vote_down_" + review_id).css("opacity") == 1;
 
-					$("#vote_up_" + review_id).css("opacity", "1");
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).addClass("vote-active");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {
@@ -222,7 +226,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) + 1;
 					$("#votes_" + review_id).text(count);
@@ -236,8 +240,8 @@ ready = function() {
 
 					var wasUpvoted = $("#vote_up_" + review_id).css("opacity") == 1;
 
-					$("#vote_down_" + review_id).css("opacity", "1");
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).addClass("vote-active");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {
