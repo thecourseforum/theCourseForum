@@ -9,6 +9,9 @@ class Review < ActiveRecord::Base
   
   # validates :comment, presence: true
 
+  after_create :update_stats
+  after_destroy :update_stats
+
   validates_presence_of :student_id, :professor_rating, 
     :enjoyability, :difficulty, :recommend, :course_id, :professor_id
 
@@ -23,6 +26,10 @@ class Review < ActiveRecord::Base
   # Get overall review rating from subcategories
   def overall
     ((professor_rating + enjoyability + recommend) / 3).round(2)
+  end
+
+  def update_stats
+    course.stats.each(&:update_review_stats)
   end
 
 end
