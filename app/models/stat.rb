@@ -19,7 +19,6 @@ class Stat < ActiveRecord::Base
     else
       reviews = course.reviews
     end
-    puts id
     if reviews.count > 0
       update(
         :difficulty => reviews.pluck(:difficulty).instance_eval { sum / size.to_f },
@@ -28,7 +27,39 @@ class Stat < ActiveRecord::Base
     end
   end
 
-  def self.update_review_stats
-    self.all.each(&:update_review_stats)
+  def update_stats
+    update_review_stats
+    update_gpa
   end
+
+  def self.update_review_stats
+    initial_time = Time.now
+    stats = self.all
+    stats.each_with_index do |stat, index|
+      puts "#{(index / stats.size.to_f * 100).round(2)}%"
+      stat.update_review_stats
+    end
+    puts "Completed in #{Time.now - initial_time} seconds"
+  end
+
+  def self.update_gpa
+    initial_time = Time.now
+    stats = self.all
+    stats.each_with_index do |stat, index|
+      puts "#{(index / stats.size.to_f * 100).round(2)}%"
+      stat.update_gpa
+    end
+    puts "Completed in #{Time.now - initial_time} seconds"
+  end
+
+  def self.update_all
+    initial_time = Time.now
+    stats = self.all
+    stats.each_with_index do |stat, index|
+      puts "#{(index / stats.size.to_f * 100).round(2)}%"
+      stat.update_stats
+    end
+    puts "Completed in #{Time.now - initial_time} seconds"
+  end
+
 end

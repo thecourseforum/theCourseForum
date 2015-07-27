@@ -13,7 +13,7 @@ class SectionProfessor < ActiveRecord::Base
   end
 
   def destroy_course_professor_stats
-    unless section.course.professors.include?(professor)
+    if section.course and !section.course.professors.include?(professor)
       Stat.find_by(:course_id => section.course.id, :professor_id => professor.id).destroy
     end
   end
