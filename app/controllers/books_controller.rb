@@ -9,7 +9,7 @@ class BooksController < ApplicationController
     @book = {
       :book => book,
       :image => (book.large_image_link ? book.large_image_link : "/assets/icons/no_book.png"),
-      :affiliate_link => (book.amazon_affiliate_link ? book.amazon_affiliate_link : "#"),
+      :link => (book.amazon_affiliate_link ? book.amazon_affiliate_link : "#"),
       :new_bookstore => (book.bookstore_new_price ? "$" + sprintf('%.2f', book.bookstore_new_price) : "N/A"),
       :used_bookstore => (book.bookstore_used_price ? "$" + sprintf('%.2f', book.bookstore_used_price) : "N/A"),
       :new_official_amazon => (book.amazon_official_new_price ? "$" + sprintf('%.2f', book.amazon_official_new_price) : "N/A"),

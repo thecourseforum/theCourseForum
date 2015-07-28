@@ -26,18 +26,21 @@
     h1#book-title = @book[:book].title
     h3#book-author = @book[:book].author
   #prices
-    .col-md-4
-      h4 = link_to "UVA Bookstore", "http://www.uvabookstores.com/uvatext/"
-      h5 = "New: " + @book[:new_bookstore]
-      h5 = "Used: " + @book[:used_bookstore]
-    .col-md-4
-      h4 = link_to "Amazon Official", @book[:amazon_affiliate_link]
-      h5 = "New: " + @book[:new_official_amazon]
-      h5 = "Used: " + @book[:used_official_amazon]
-    .col-md-4
-      h4 = link_to "Amazon Merchant", @book[:amazon_affiliate_link]
-      h5 = "New: " + @book[:new_merchant_amazon]
-      h5 = "Used: " + @book[:used_merchant_amazon]
+    a#link-block href="http://www.uvabookstores.com/uvatext/"
+      .col-sm-4
+        h4 UVA Bookstore
+        h5 = "New: " + @book[:new_bookstore]
+        h5 = "Used: " + @book[:used_bookstore]
+    a#link-block href="#{@book[:link]}"
+      .col-sm-4
+        h4 Amazon Official
+        h5 = "New: " + @book[:new_official_amazon]
+        h5 = "Used: " + @book[:used_official_amazon]
+    a#link-block href="#{@book[:link]}"
+      .col-sm-4
+        h4 Amazon Merchant
+        h5 = "New: " + @book[:new_merchant_amazon]
+        h5 = "Used: " + @book[:used_merchant_amazon]
   .col-md-12.nopadding
     hr
     table.table.table-striped#student-postings
