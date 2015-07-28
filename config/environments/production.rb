@@ -90,7 +90,7 @@ TheCourseForum::Application.configure do
       :domain => "gmail.com",
       :authentication => :login,
       :user_name => ENV["EMAIL_USERNAME"],
-      :password => ENV["EMAIL_PASSWORD"],
+      :password => ENV["EMAIL_PASSWORD"]
   }
   
 end

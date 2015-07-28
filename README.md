@@ -30,3 +30,8 @@ The rails app can be deployed in any fashion, there is no special deployment req
 
 ###Want to get involved? 
 Don't hesitate to contact us whether or not that you are at the University of Virginia! We love to talk about our app and we love to discuss everything that we do! Shoot us an email at info@thecourseforum.com
+<<<<<<< HEAD
+=======
+
+TESTING PHASE TESTING PHASE
+>>>>>>> master
