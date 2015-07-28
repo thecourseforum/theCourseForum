@@ -1,5 +1,7 @@
 = javascript_include_tag "textbook_transactions"
 = stylesheet_link_tag "textbook_transactions"
+#small-image-link.hidden = @book[:book].small_image_link
+#book-id.hidden = @book[:book].id
 
 .col-md-3
   .text-center = image_tag @book[:image], :class => 'img-rounded', :id => 'cover'
@@ -49,14 +51,14 @@
           th End Date
       tbody#books
         - if @textbook_transactions.length != 0
-          - @textbook_transactions.each do |tt|
+          - @textbook_transactions.each do |transaction|
             tr
               td
-                input.claim.btn.btn-default type="submit" value="Claim" id="#{tt.id}"
-              td.nodecoration = "$" + tt.price.to_s
-              td.nodecoration = tt.condition
-              td.nodecoration = tt.notes
-              td.nodecoration = (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+                input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction.id}"
+              td.nodecoration = "$" + transaction.price.to_s
+              td.nodecoration = transaction.condition
+              td.nodecoration = transaction.notes
+              td.nodecoration = (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
         - else
           tr
             td.text-center.nodecoration colspan="5" No current listings

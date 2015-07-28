@@ -79,7 +79,14 @@ $(document).ready(function () {
 	});
 	$('#sell-yours').click(function() {
 		$('#post-listing-modal').modal();
-		$('#book-title-post').val($('#book-title').text().trim());
+
+		$('#search-label').remove();
+		$('#book-title-post').remove();
+
+
+		$('#post-thumb').attr('src', $('#small-image-link').text());
+		$('#post-choose').attr('book_id', $('#book-link').text());
+		$('#post-choose').text($('#book-title').text().trim());
 	});
 	$('#submit-listing').click(function() {
 		$.ajax({
@@ -100,7 +107,6 @@ $(document).ready(function () {
 	// Claim modal
 	$('.claim.btn').click(function() {
 		claim_id = $(this.id).selector;
-		console.log(claim_id);
 		$('#claim-listing-modal').modal();
 	});
 	$('#submit-claim').click(function() {
@@ -122,8 +128,6 @@ $(document).ready(function () {
 	// Modal autocomplete
 	$('#book-title-post').autocomplete({
 		source: function(request, response) {
-			console.log(request.term);
-			console.log(booksData.length);
 			response($.map(filterData(booksData, request.term), function(book) {
 				return {
 					label: book.title,
@@ -134,11 +138,9 @@ $(document).ready(function () {
 			}));
 		},
 		select: function(event, ui) {
-			console.log(ui.item);
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
 			$('#post-choose').text(ui.item.value);
-			console.log("hihihihihihi");
 		}
 	});
 
@@ -255,8 +257,6 @@ $(document).ready(function () {
 					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
 					title = block.find('#title-thumb');
-
-				console.log("HIDSHIFSDHFSDIHF");
 
 				img.attr('src', book.image);
 				title.text(book.title);
