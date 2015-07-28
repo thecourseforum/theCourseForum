@@ -231,7 +231,7 @@ $(document).ready(function () {
 		} 
 	});
 	function displayBooks (books) {
-		var emptyBook = $('.a-book.hidden');
+		var emptyBook = $('#link-block.hidden');
 		
 		bookList = $('#book-list');
 		offset = 0;
@@ -251,15 +251,18 @@ $(document).ready(function () {
 	function appendBooks () {
 		if (booksToShow.length >= offset) {
 			$.each(booksToShow.slice(offset, offset+18), function (index, book) {
-				var block = $('.a-book.hidden').clone().removeClass('hidden'),
+				var link = $('#link-block.hidden').clone().removeClass('hidden'),
+					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
 					title = block.find('#title-thumb');
 
+				console.log("HIDSHIFSDHFSDIHF");
+
 				img.attr('src', book.image);
 				title.text(book.title);
-				title.attr('href', '/books/' + book.id);
+				link.attr('href', '/books/' + book.id);
 
-				bookList.append(block);
+				bookList.append(link);
 			});
 			offset += 18;
 			return true;

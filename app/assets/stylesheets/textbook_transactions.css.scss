@@ -78,7 +78,7 @@
 
 #book-list {
 
-	div:hover {
+	.a-book:hover {
 		background-color: #c1e1ec;
 	}
 	
@@ -89,26 +89,32 @@
 		transition: background-color 0.5s ease;
 	}
 
+	#link-block {
+		display: block;
+	}
+
 	.a-book {
 		height: 82px;
 		overflow: hidden;
-	}
+	
 
-	#cover-thumb-container {
-		max-width: 50px;
-		float: left;
-		margin-right: 5px;
-		
-		#cover-thumb {
+		#cover-thumb-container {
 			max-width: 50px;
-			max-height: 60px;
+			float: left;
+			margin-right: 5px;
+			
+			#cover-thumb {
+				max-width: 50px;
+				max-height: 60px;
+			}
+
 		}
 
+		#title-thumb-container {
+			margin-left: 5px;
+		}
 	}
 
-	#title-thumb-container {
-		margin-left: 5px;
-	}
 
 }
 
