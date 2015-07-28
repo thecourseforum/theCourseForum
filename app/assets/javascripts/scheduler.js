@@ -458,6 +458,7 @@ $(document).ready(function() {
 	$('#schedule-slider').slider({
 		step: 1,
 		min: 0,
+		max: 0,
 		value: 0,
 		animate: 'fast',
 

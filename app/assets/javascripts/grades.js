@@ -112,123 +112,33 @@ $(function() {
             }
         }
 
-        // If displaying graphs for each course,
-        if (IDs[0] != 0) {
-            // Build the data for the stacked bar graph
-            var stackedGraphDataSeries = [];
-            for (m = overallLetters.length - 1; m >= 0; m--) {
-                stackedGraphData = {};
-                stackedGraphData.name = overallLetters[m].name;
-                stackedGraphData.data = [overallLetters[m].y];
-                stackedGraphData.color = overallLetters[m].color;
-                stackedGraphData.y = overallLetters[m].y;
-
-                stackedGraphData.dataLabels = {
-                        enabled: true,
-                        inside: true,
-                        color: 'white',
-                        formatter: function() {
-                            return this.y > 3 ? this.series.name : null;
-                        },
-                        style: {
-                            fontFamily: 'Futura',
-                            fontSize: '16px'
-                        }
-                    }
-                    // {
-                    //     formatter: function () {
-                    //             return this.y > 5 ? this.point.name : null;
-                    //             // display only if larger than 1
-                    //             // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
-                    //     }
-                    // }
-                stackedGraphDataSeries.push(stackedGraphData);
-
-            }
-
-
-            // Create the chart
-            try {
-                $('#grade-bar-' + IDs[i]).highcharts({
-                    chart: {
-                        type: 'bar',
-                        margin: 0
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        gridLineWidth: 0,
-                        enabled: true,
-                        lineWidth: -1,
-                        categories: [''],
-                        labels: {
-                            enabled: true
-                        },
-
-                    },
-                    yAxis: {
-                        enabled: true,
-                        gridLineWidth: 0,
-                        lineWidth: 0,
-                        min: 0,
-                        title: {
-                            text: '',
-                            margin: 0
-                        },
-                        labels: {
-                            enabled: true
-                        }
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            return this.y > 3 ? '' + this.y + '%' : this.series.name + ': ' + this.y + '%';
-                        }
-                    },
-                    credits: {
-                        enabled: false,
-                        position: {
-                            align: 'left',
-                            x: 10
-                        }
-                    },
-                    plotOptions: {
-                        series: {
-                            stacking: 'percent',
-                            pointPadding: 0,
-                            groupPadding: 0
-                        }
-                    },
-                    series: stackedGraphDataSeries,
-                    exporting: {
-                        enabled: false
-                    }
-                });
-                $('.highcharts-axis').css('display', 'none');
-            } catch (error) {
-
-            }
-        }
-        // Otherwise build the gradewheel
-        else {
+        // // Otherwise build the gradewheel
+        if (allCoursePercentages[i].gpa) {
             // Create the chart
             $('.course-grades').highcharts({
                 chart: {
                     type: 'pie',                    
-                    height: 380,
+                    height: 390,
                 },
                 title: {
                     verticalAlign: 'middle',
-                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" + (allCoursePercentages[i].total) + " students",
+                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA",
                     style: {
                      fontFamily: 'Lato',
-                     fontSize: '16px'
+                     fontSize: '26px'
                     },
                     //aligns the title to center the two lines
                     y: 1
+                },
+                subtitle: {
+                    verticalAlign: 'middle',
+                    text: (allCoursePercentages[i].total) + " students",
+                    style: {
+                        fontFamily: 'HelveticaNeue-Medium',
+                        fontSize: '16px',
+                        marginTop: '10px',
+                    },
+                    y: 20,
                 },
                 yAxis: {
                     title: {
@@ -292,14 +202,62 @@ $(function() {
                         },
                         distance: -31
 
+                    }                                            
+                }
+                ]
+            });
+
+        } else {
+             $('.course-grades').highcharts({
+                chart: {
+                    type: 'pie',                    
+                    height: 390,
+                },
+                colors: ['#90A6CF'],
+                title: {
+                    verticalAlign: 'middle',
+                    text: 'We have no grades' + '<br>' + ':(',
+                    style: {
+                     fontFamily: 'HelveticaNeue-Medium',
+                     fontSize: '16px'
+                    },
+                    //aligns the title to center the two lines
+                    y: 1
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        shadow: false,
+                        center: ['50%', '50%']
+                    }
+                },
+                tooltip: false,
+                credits: false,
+                series: [
+                {
+                    name: '',
+                    data: [
+                    {name: ":(", y: 100.00},
+                    ],
+                    size: '100%',
+                    innerSize: '60%',
+                    dataLabels: {
+                        formatter: function () {
+                            return null;
+                        },
+                        color: 'white',
+                        style: {
+                         fontFamily: 'Lato',
+                         fontSize: '16px'
+                        },
+                        distance: -31
+
                     }                  
-                    // dataLabels: {
-                    //     formatter: function () {
-                    //         return this.y > 5 ? this.point.name : null;
-                    //         // display only if larger than 1
-                    //         // return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
-                    //     }
-                    // },                             
+                         
                 }
                 ]
             });

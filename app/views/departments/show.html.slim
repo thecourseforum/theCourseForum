@@ -1,5 +1,5 @@
-- if (@count > 1)
-  - first_subdepartment = (@subdepartments_with_sections[0]).name
+- if (@department.subdepartments.size > 1)
+  - first_subdepartment = @department.subdepartments[0].name
   - content_for :title, first_subdepartment
   - content_for :page_heading, first_subdepartment
 - else
@@ -9,67 +9,56 @@
 / = javascript_include_tag "grades"
 
 .container-fluid#browsing-content
-  / - @subdepartments_with_sections.each do |subd|
-  /   div = subd.name
-  / div = (@subdepartments_with_sections.first).name
   #departments
-    = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
-    - @subdepartments_with_sections.each do |subdepartment|
-      - if (@count > 1 && subdepartment.name != first_subdepartment)
+    - @department.subdepartments.each do |subdepartment|
+      - if (@department.subdepartments.size > 1 && subdepartment.name != first_subdepartment)
         br
         .subdepartment = subdepartment.name
       #department-courses
-        - flag = true
-        - separator = 1000
-        - numCourses = @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.count
-        - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each_with_index do |course, index|
-          / - separator = course.course_number.round(-3)
-          - ratings = course.get_review_ratings
-          - percentages = course.get_grade_percentages
-          = content_tag "div", id: "percentages-#{course.id}", data: {percents: percentages} do end
-          - if flag
-            - separator = (course.course_number / 1000) * 1000 + 1000
-            - flag = false
-          - if course.course_number >= separator && @count == 1
-            br
-            - separator = (course.course_number / 1000) * 1000 + 1000
-          .course-panel
-            .col-xs-4.name-block data-no-turbolink=""= link_to '/courses/' + course.id.to_s + '/professors'
+        - courses = subdepartment.courses.sort_by(&:course_number)
+        - separator = courses.first.course_number / 1000
+        - courses.each do |course|
+          - current = course.last_taught_semester.to_s == 'Fall 2015'
+          - if course.course_number / 1000 > separator
+            br class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+            - separator = course.course_number / 1000
+          .course-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+            .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course.id.to_s + '/professors'
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
               .row.course-title = "#{course.title}"
             .col-xs-8.details-block
               .info-header
                 .prof-info-header
                   .rating-block
-                    .course-icon=image_tag("icons/overall.png", size: "20")
+                    .course-icon = image_tag("icons/overall.png", size: "20")
                     .rating-container
                       .row.rating-subheader
                         span RATING
                       .row.course-rating-row
-                        - if ratings[:overall] == "--"
-                          h4.rating-empty = "--"
+                        - if course.overall_stats.rating
+                          h4.course-rating = course.overall_stats.rating.round(2)
                         - else
-                          h4.course-rating = ratings[:overall]
+                          h4.rating-empty = "--"
                   .rating-block
-                    .course-icon=image_tag("icons/difficulty.png", size: "20")
+                    .course-icon = image_tag("icons/difficulty.png", size: "20")
                     .rating-container
                       .row.rating-subheader
                         span DIFFICULTY
                       .row.course-rating-row
-                        - if ratings[:difficulty] == "--"
+                        - if course.overall_stats.difficulty
+                          h4.course-rating = course.overall_stats.difficulty.round(2)
+                        - else
                           h4.rating-empty = "--"
-                        - else 
-                          h4.course-rating = ratings[:difficulty]
                   .rating-block
-                    .course-icon=image_tag("icons/chart.png", size: "20")
+                    .course-icon = image_tag("icons/chart.png", size: "20")
                     .rating-container
                       .row.rating-subheader
                         span GPA
                       .row.course-rating-row
-                        - if percentages[:gpa].round(2).nan?
-                          h4.rating-empty = "--"
+                        - if course.overall_stats.gpa
+                          h4.course-rating = course.overall_stats.gpa.round(2)
                         - else
-                          h4.course-rating = percentages[:gpa].round(2)
+                          h4.rating-empty = "--"
                 .semester-block
                   div style="float:right;"
                     .row.no-margin-left-row style="float:right;"
