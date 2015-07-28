@@ -89,18 +89,32 @@ $(document).ready(function () {
 		$('#post-choose').text($('#book-title').text().trim());
 	});
 	$('#submit-listing').click(function() {
-		$.ajax({
-			url: '/textbook_transactions',
-			method: "POST",
-			data: $("#post_textbook_transaction").serialize() + "&book_id=" + $('#post-choose').attr('book_id'),
-			success: function(data) {
-				if (data.status == "success") {
-					location.reload();
-				} else {
-					alert('Error: ' + data.status);
+		if ($('#post-choose').text().trim() == 'Choose a book') {
+			alert("Please choose a book to sell");
+			return false;			
+		} else if (!$('#cell-input-field').val()) {
+			alert("Please enter a cell phone number");
+			return false;
+		} else if (!$('#price-input-field').val()) {
+			alert("Please enter a price");
+			return false;
+		} else if (!$('#condition-input-field').val()) {
+			alert("Please select a condition");
+			return false;
+		} else {
+			$.ajax({
+				url: '/textbook_transactions',
+				method: "POST",
+				data: $("#post_textbook_transaction").serialize() + "&book_id=" + $('#post-choose').attr('book_id'),
+				success: function(data) {
+					if (data.status == "success") {
+						location.reload();
+					} else {
+						alert('Error: ' + data.status);
+					}
 				}
-			}
-		});
+			});
+		}
 		$('#post-listing-modal').modal('hide');
 	});
 

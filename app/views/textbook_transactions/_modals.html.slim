@@ -13,16 +13,16 @@
               p.help-block
             .form-group
               label Cellphone #
-              input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
+              input#cell-input-field.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
             .form-group
               label Price
               ul.list-inline
                 li#dollar $
                 li#price-input
-                  input.form-control rows="3" name="price" placeholder="23"
+                  input#price-input-field.form-control rows="3" name="price" placeholder="23"
             .form-group
               label Condition
-              input.form-control rows="3" name="condition"
+              input#condition-input-field.form-control rows="3" name="condition"
             .form-group
               label Notes
               textarea.form-control rows="3" name="notes"
