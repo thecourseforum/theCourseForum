@@ -1,5 +1,4 @@
 class TextbookTransaction < ActiveRecord::Base
-	default_scope { order('created_at DESC') }
 
 	belongs_to :seller, :class_name => 'User', :foreign_key => 'seller_id'
 	belongs_to :buyer, :class_name => 'User', :foreign_key => 'buyer_id'
@@ -10,5 +9,9 @@ class TextbookTransaction < ActiveRecord::Base
 
 	def self.active
 		TextbookTransaction.includes(book: {sections: :course}).where("created_at > ?",(Time.now - 3.days)).where("buyer_id is NULL")
+	end
+
+	def active?
+		# TODO
 	end
 end

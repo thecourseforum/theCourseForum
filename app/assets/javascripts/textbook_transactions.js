@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 	// Load textbook data
 	$.ajax({
-		url: '/textbook_transactions/get_book_titles',
+		url: '/textbook_transactions/book_titles',
 		dataType: 'json',
 		type: 'GET',
 		success: function(data) {

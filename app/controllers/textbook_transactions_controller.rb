@@ -1,17 +1,17 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.map do |tt|
+    @textbook_transactions = TextbookTransaction.active.map do |transaction|
       {
-        :id => tt.id,
-        :price => "$" + tt.price.to_s,
-        :courses => tt.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
-        :title => tt.book.title,
-        :book_id => tt.book_id,
-        :author => tt.book.author,
-        :condition => tt.condition,
-        :notes => tt.notes,
-        :end_date => (tt.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+        :id => transaction.id,
+        :price => "$" + transaction.price.to_s,
+        :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
+        :title => transaction.book.title,
+        :book_id => transaction.book_id,
+        :author => transaction.book.author,
+        :condition => transaction.condition,
+        :notes => transaction.notes,
+        :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
       }
     end
   end
@@ -26,7 +26,7 @@ class TextbookTransactionsController < ApplicationController
     end
   end
 
-  def get_book_titles
+  def book_titles
     query = params[:query]
 
     results = Book.order("RAND()").map do |book|
@@ -41,20 +41,24 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def claim
-    puts params
     cell = params[:cellphone].strip
     current_user.update(:cellphone => cell)
-    transaction = TextbookTransaction.active.find(params[:claim_id])
+    transaction = TextbookTransaction.find(params[:claim_id])
 
     if cell.length == 10
-      response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
-      if JSON.parse(response)["success"]
-        puts 'hihihihihihihihihihi'
-        transaction.update(:buyer_id => current_user.id)
-        transaction.update(:sold_at => Time.now)
-        render :json => {
-          status: "success"
-        }
+      if transaction.active?
+        response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+        if JSON.parse(response)["success"]
+          transaction.update(:buyer_id => current_user.id)
+          transaction.update(:sold_at => Time.now)
+          render :json => {
+            status: "success"
+          }
+        else
+          render :json => {
+            status: "Sorry! Already Claimed"
+          }
+        end
       else 
         render :json => {
           status: "Internal error"

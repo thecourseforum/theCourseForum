@@ -75,7 +75,7 @@ class BooksController < ApplicationController
         status: "unfollowed"
       }
     else
-      current_user.books.append(@book)
+      current_user.books << @book
       render :json => {
         status: "followed"
       }
