@@ -37,6 +37,9 @@
   // margin-left: -5px;
   cursor: pointer;
   min-height: 60px;
+  &:hover {
+    background-color: $dark-blue;
+  }
   @include flexbox();
 
   a {
