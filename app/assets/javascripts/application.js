@@ -35,10 +35,9 @@
 //= require sign_up
 //= require reviews
 
-
-var toggleSpeed = 125;
-
 var ready = function() {
+	var toggleSpeed = 125;
+
 	// Attatches navbar-toggle button to sidebar
 	$('.navbar-toggle').click(function() {
 		$('aside').toggle('slide', {
@@ -52,172 +51,172 @@ var ready = function() {
 	});
 
 	$(document).mousedown(function(e) {
-			// if click outside of sidebar, and window length is less than 850px, retract sidebar.
-			if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target) && $(".navbar-toggle").has(e.target).length === 0) {
-				$("aside").hide('slide', toggleSpeed);
-			}
+		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
+		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target) && $(".navbar-toggle").has(e.target).length === 0) {
+			$("aside").hide('slide', toggleSpeed);
+		}
 	});
 
-// retracts sidebar if esc key is pressed
-$(document).keydown(function(e) {
-	if (e.which === 27 && $(window).width() < 850) {
-		$("aside").hide('slide', toggleSpeed);
-	}
-});
-
-$("#close-notice, #close-alert").click(function() {
-	$(this).parent().slideUp();
-});
-
-$("#search-query").focus(function() {
-	if ($("#search-query").val() == "") {
-		$(".nav-row").each(function() {
-			if (!($(this).hasClass("search-row"))) {
-				$(this).slideUp();
-			}
-		});
-
-		$(".submit-row").slideDown();
-	}
-});
-
-$("#search-query").blur(function() {
-	if ($("#search-query").val() == "") {
-		$(".nav-row").each(function() {
-			$(this).slideDown();
-		});
-
-		$(".submit-row").slideUp();
-	}
-});
-
-$("#word-cloud-switch").bootstrapSwitch({
-	size: 'small',
-	onColor: 'primary',
-	onSwitchChange: function(event, state) {
-		if (state) {
-			$.ajax({
-				url: '/word_cloud_on/',
-				type: 'POST'
-			});
-			$("#doge-switch").bootstrapSwitch('disabled', false);
-		} else {
-			$.ajax({
-				url: '/word_cloud_off/',
-				type: 'POST'
-			});
-			$("#doge-switch").bootstrapSwitch('state', false, true);
-			$("#doge-switch").bootstrapSwitch('disabled', true);
+	// retracts sidebar if esc key is pressed
+	$(document).keydown(function(e) {
+		if (e.which === 27 && $(window).width() < 850) {
+			$("aside").hide('slide', toggleSpeed);
 		}
-	}
-});
+	});
 
-$("#doge-switch").bootstrapSwitch({
-	size: 'small',
-	onColor: 'primary',
-	onText: 'wow',
-	onSwitchChange: function(event, state) {
-		if (state) {
-			$.ajax({
-				url: '/doge_on/',
-				type: 'POST'
-			});
-		} else {
-			$.ajax({
-				url: '/doge_off/',
-				type: 'POST'
-			});
-		}
-	}
-});
+	$("#close-notice, #close-alert").click(function() {
+		$(this).parent().slideUp();
+	});
 
-$('.professor_link').bind('ajax:success', function(xhr, data, status) {
-	var target = $(this).data('update-target');
-	alert(target);
-	$('#' + target).html(data);
-	$('#' + target).toggle();
-});
-
-$('#search-query').autocomplete({
-	source: function(request, response) {
-		$.ajax({
-			url: '/search/search_subdepartment',
-			dataType: 'json',
-			type: 'GET',
-			data: {
-				query: request.term
-			},
-			success: function(data) {
-				response($.map(data, function(item) {
-					return {
-						label: item.mnemonic_number + " " + item.title,
-						value: item.mnemonic_number,
-						course_id: item.course_id
-					}
-				}));
-			}
-		});
-	},
-	minLength: 2,
-	select: function(event, ui) {
-		window.location = "/courses/" + ui.item.course_id;
-		return false;
-	}
-});
-
-
-var prof_ajax = $.ajax();
-
-$("#prof_name").bind("change", function() {
-	$("#prof_list").empty();
-	var value = $(this).find(":selected").val();
-	if (value == "") {
-		return;
-	}
-	prof_ajax.abort();
-	prof_ajax = $.ajax({
-		url: '/professors/',
-		dataType: 'json',
-		type: 'GET',
-		success: function(data) {
-			$.each(data, function() {
-				if (this.last_name[0] == value) {
-					$('#prof_list').append($("<a/>", {
-						href: "/professors/" + this.id,
-						text: this.last_name + ", " + this.first_name
-					}));
-					$('#prof_list').append($("<br/>", {}));
+	$("#search-query").focus(function() {
+		if ($("#search-query").val() == "") {
+			$(".nav-row").each(function() {
+				if (!($(this).hasClass("search-row"))) {
+					$(this).slideUp();
 				}
 			});
+
+			$(".submit-row").slideDown();
 		}
 	});
-});
 
-jQuery.ajaxSetup({
-	beforeSend: function() {
-		$('#loading').fadeIn();
-		$("#second_letter").show();
+	$("#search-query").blur(function() {
+		if ($("#search-query").val() == "") {
+			$(".nav-row").each(function() {
+				$(this).slideDown();
+			});
 
-	},
-	complete: function() {
-		$('#loading').hide();
-	},
-	success: function() {}
-});
+			$(".submit-row").slideUp();
+		}
+	});
+
+	$("#word-cloud-switch").bootstrapSwitch({
+		size: 'small',
+		onColor: 'primary',
+		onSwitchChange: function(event, state) {
+			if (state) {
+				$.ajax({
+					url: '/word_cloud_on/',
+					type: 'POST'
+				});
+				$("#doge-switch").bootstrapSwitch('disabled', false);
+			} else {
+				$.ajax({
+					url: '/word_cloud_off/',
+					type: 'POST'
+				});
+				$("#doge-switch").bootstrapSwitch('state', false, true);
+				$("#doge-switch").bootstrapSwitch('disabled', true);
+			}
+		}
+	});
+
+	$("#doge-switch").bootstrapSwitch({
+		size: 'small',
+		onColor: 'primary',
+		onText: 'wow',
+		onSwitchChange: function(event, state) {
+			if (state) {
+				$.ajax({
+					url: '/doge_on/',
+					type: 'POST'
+				});
+			} else {
+				$.ajax({
+					url: '/doge_off/',
+					type: 'POST'
+				});
+			}
+		}
+	});
+
+	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
+		var target = $(this).data('update-target');
+		alert(target);
+		$('#' + target).html(data);
+		$('#' + target).toggle();
+	});
+
+	$('#search-query').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/search/search_subdepartment',
+				dataType: 'json',
+				type: 'GET',
+				data: {
+					query: request.term
+				},
+				success: function(data) {
+					response($.map(data, function(item) {
+						return {
+							label: item.mnemonic_number + " " + item.title,
+							value: item.mnemonic_number,
+							course_id: item.course_id
+						}
+					}));
+				}
+			});
+		},
+		minLength: 2,
+		select: function(event, ui) {
+			window.location = "/courses/" + ui.item.course_id;
+			return false;
+		}
+	});
 
 
-var input = [],
-	konami = "38,38,40,40,37,39,37,39,66,65";
+	var prof_ajax = $.ajax();
 
-//The following function sets a timer that checks for user input. You can change the variation in how long the user has to input by changing the number in ‘setTimeout.’ In this case, it’s set for 500 milliseconds or ½ second.
-$(document).keyup(function(e) {
-	input.push(e.keyCode);
-	if (input.toString().indexOf(konami) >= 0) {
-		$(document).unbind('keydown', arguments.callee);
-		alert('What did Alan the plate say to the other plate? Dinners on me.');
-		input = [];
-	}
-});
+	$("#prof_name").bind("change", function() {
+		$("#prof_list").empty();
+		var value = $(this).find(":selected").val();
+		if (value == "") {
+			return;
+		}
+		prof_ajax.abort();
+		prof_ajax = $.ajax({
+			url: '/professors/',
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				$.each(data, function() {
+					if (this.last_name[0] == value) {
+						$('#prof_list').append($("<a/>", {
+							href: "/professors/" + this.id,
+							text: this.last_name + ", " + this.first_name
+						}));
+						$('#prof_list').append($("<br/>", {}));
+					}
+				});
+			}
+		});
+	});
+
+	jQuery.ajaxSetup({
+		beforeSend: function() {
+			$('#loading').fadeIn();
+			$("#second_letter").show();
+
+		},
+		complete: function() {
+			$('#loading').hide();
+		},
+		success: function() {}
+	});
+
+
+	var input = [],
+		konami = "38,38,40,40,37,39,37,39,66,65";
+
+	//The following function sets a timer that checks for user input. You can change the variation in how long the user has to input by changing the number in ‘setTimeout.’ In this case, it’s set for 500 milliseconds or ½ second.
+	$(document).keyup(function(e) {
+		input.push(e.keyCode);
+		if (input.toString().indexOf(konami) >= 0) {
+			$(document).unbind('keydown', arguments.callee);
+			alert('What did Alan the plate say to the other plate? Dinners on me.');
+			input = [];
+		}
+	});
 
 };
 $(document).ready(ready);

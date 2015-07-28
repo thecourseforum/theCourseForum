@@ -47,5 +47,8 @@
 @media (max-width:$screen-sm) {
   .navbar-default .navbar-brand{
     background-color: #fff;
+    &:hover {
+      background-color: #fff;
+    }
   }
 }
