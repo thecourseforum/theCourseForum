@@ -72,14 +72,8 @@ class CoursesController < ApplicationController
 
 
   def show_professors
-    @course = Course.find(params[:id])
-
-    if params[:all]
-      @professors = @course.professors_list
-    else
-      current_semester = Semester.find_by(:season => 'Fall', :year => 2015)
-      @professors = @course.sections.where(:semester_id => current_semester.id).flat_map(&:professors).uniq
-    end
+    @course = Course.includes(:stats => :professor, :sections => [:professors, :semester]).find(params[:id])
+    @professors = @course.professors.uniq.sort_by(&:last_name)
 
     @professors_semester = {}
     @course.sections.each do |section|
@@ -91,15 +85,12 @@ class CoursesController < ApplicationController
         end
       end
     end
-    @professor_ids = @professors.collect(&:id)
     respond_to do |format|
       format.html # show_professors.html.slim
     end
   end
 
   def reviews
-
-    # one professor or all professors
     if params[:professor_id]
       all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id])
     else

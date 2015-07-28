@@ -2,12 +2,15 @@
 $orange: #D75626;
 $blue: #15214B;
 $light-blue: #5972A0;
+$lightgray: #cccccc;
+$lightblue: #6D8BC2;
 
 // element sizes
 $sidebar-width: 250px;
 $sidebar-left-margin: 25px;
 $sidebar-left-tabbed: 20px;
 $sidebar-icon-padding: 11px;
+$screen-sm: 850px;
 
 // variables to ovverride bootstrap
 $navbar-height: 60px;
@@ -34,3 +37,43 @@ $title-font-size: 36px;
 
 
 $content-max-width: 1186px;
+
+// flexbox mixins
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
+@mixin flex-flow($val) {
+  -webkit-flex-flow: $val;
+  flex-flow: $val;
+}
+
+@mixin justify-content($val) {
+  -webkit-justify-content: $val;
+  justify-content: $val;
+}
+
+@mixin align-items($val) {
+  -webkit-align-items: $val;
+  align-items: $val;
+}

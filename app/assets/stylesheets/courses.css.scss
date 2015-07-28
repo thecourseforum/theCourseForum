@@ -4,37 +4,10 @@ h1 {
   font-weight: 300;
 }
 
-@mixin flexbox() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-
-@mixin flex($values) {
-  -webkit-box-flex: $values;
-  -moz-box-flex:  $values;
-  -webkit-flex:  $values;
-  -ms-flex:  $values;
-  flex:  $values;
-}
-
-@mixin order($val) {
-  -webkit-box-ordinal-group: $val;  
-  -moz-box-ordinal-group: $val;     
-  -ms-flex-order: $val;     
-  -webkit-order: $val;  
-  order: $val;
-}
-
 #courses-main {
   padding-left: 0px;
   padding-right: 0px;
 }
-
-$lightgray: #cccccc;
-$lightblue: #6D8BC2;
 
 #course-page, .review-pane {
   margin-left: auto;
@@ -69,7 +42,8 @@ $lightblue: #6D8BC2;
   margin-bottom: 4px;
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
+  box-shadow: 0px 0px 2px #000;
 }
 
 .no-book-image {
@@ -129,23 +103,6 @@ img {
   min-width: 49%;
 }
 
-.pagination {
-  font-size: 1.3vw;
-  display: block;
-  text-align: center;
-  margin: 10px 0;
-  // .previous_page { border: 1px solid $blue; }
-  .previous_page.disabled { opacity: 0.4;}
-  .current { color: #E25424; font-weight: bold; font-style:normal;}
-  // .next_page { border: 1px solid $blue;}
-  .next_page.disabled { opacity: 0.4;}
-  // a {
-  //   border:1px solid $blue;
-  //   width: 36px;
-
-  // }
-}
-
 .rating {
   font-size: 5.0rem;
   font-family: 'HelveticaNeue-Medium';
@@ -192,6 +149,7 @@ img {
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   @include flex(1 49%);
   min-width: 49%;
+  font-weight: 300;
 }
 
 #review-container {
@@ -345,7 +303,7 @@ p {
   margin-right: 10px;
 }
 
-.upvote {
+.upvote, .downvote {
   font-size:12px;
   text-align: center;
   width: 50px;
@@ -354,17 +312,18 @@ p {
   display: block;
   margin: auto;
   opacity: 0.4;
+
+}
+
+.vote-active {
+  opacity: 1.0;
+}
+
+.upvote {
+
 }
 
 .downvote {
-  font-size:12px;
-  text-align: center;
-  opacity: 0.4;
-  width: 50px;
-  height: 50px;
-  padding: 0px 0px;
-  display: block;
-  margin: auto;
   -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
   -moz-transform: rotate(180deg);        /* FF */
   -o-transform: rotate(180deg);          /* Opera */
@@ -457,6 +416,7 @@ p {
 
 .upvotes {
   text-align: center;
+  font-size: $description-font-size;
 }
 
 .review-overall {
@@ -534,6 +494,18 @@ p {
   width:0px;
 }
 
+.courses-review-type-switcher {
+  max-width: 160px;
+}
+
+// .no-grades {
+//   img {
+//     height: 100%;
+//     width: 100%;
+//   }
+//   // height: 100%;
+// }
+
 @media (max-width: 520px) {
   .rating {
     font-size: 3.0rem;
@@ -570,19 +542,22 @@ p {
     img {
       height: 146px;
       width: 108px;
+      box-shadow: 0px 0px 2px #000;
     }
   }
   .title {
     font-size: 1.4rem;
   }
-  .author {
+  .review-author {
     font-size: 1.2rem;
   }
   .amazon a img {
     height: 30px;
     width: 60px;
   }
-
+  .book-description {
+    width: calc(100% - 140px);
+  }
   .requirement-cost-condition, .bookstore {
     font-size: 1.0rem;
   }

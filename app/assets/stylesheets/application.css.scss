@@ -14,6 +14,8 @@
  *= require jquery-ui/slider
  *= require jqcloud
  *= require fullcalendar
+ *= require slick
+ *= require slick-theme
  *= require bootstrap_overrides
  *= require header
  *= require footer
@@ -23,8 +25,6 @@
  *= require reviews
  *= require scheduler
  *= require books
- *= require slick
- *= require slick-theme
  */
 
 $screen-sm: 850px;
@@ -75,22 +75,8 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
-  font-family: 'OpenSans';
-  src: asset-url('OpenSans-Regular.ttf') format('truetype');
-  font-weight:normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Rockwell";
   src: asset-url('rockwell.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Futura";
-  src: asset-url('FuturaLT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -102,7 +88,6 @@ html, body {
 
 body {
   font-family: "Lato", sans-serif;
-  // font-family: "Futura", sans-serif;
   background-color: $blue;
   overflow: hidden;
   font-size: $regular-font-size;
