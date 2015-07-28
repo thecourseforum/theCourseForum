@@ -122,13 +122,23 @@ $(function() {
                 },
                 title: {
                     verticalAlign: 'middle',
-                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA<br/>" + (allCoursePercentages[i].total) + " students",
+                    text: (allCoursePercentages[i].gpa).toFixed(2) + " GPA",
                     style: {
                      fontFamily: 'Lato',
-                     fontSize: '16px'
+                     fontSize: '26px'
                     },
                     //aligns the title to center the two lines
                     y: 1
+                },
+                subtitle: {
+                    verticalAlign: 'middle',
+                    text: (allCoursePercentages[i].total) + " students",
+                    style: {
+                        fontFamily: 'HelveticaNeue-Medium',
+                        fontSize: '16px',
+                        marginTop: '10px',
+                    },
+                    y: 20,
                 },
                 yAxis: {
                     title: {
@@ -208,7 +218,7 @@ $(function() {
                     verticalAlign: 'middle',
                     text: 'We have no grades' + '<br>' + ':(',
                     style: {
-                     fontFamily: 'Lato',
+                     fontFamily: 'HelveticaNeue-Medium',
                      fontSize: '16px'
                     },
                     //aligns the title to center the two lines
