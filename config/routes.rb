@@ -43,9 +43,9 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments, :only => [:show]
 
-  resources :books, :only => [:index, :show]
   get '/books/courses' => 'books#courses'
   post '/books/follow' => 'books#follow'
+  resources :books, :only => [:index, :show]
 
   # Autocomplete for books feature
   resources :books, :only => [] do
@@ -54,15 +54,10 @@ TheCourseForum::Application.routes.draw do
     end
   end
  
-  resources :textbook_transactions, :only => [:index, :create]
-  # Autocomplete for textbook titles
-  resources :textbook_transactions, :only => [] do
-    collection do
-      get :book_titles
-    end
-  end
-  post '/textbook_transactions/claim' => 'textbook_transactions#claim'
   get '/textbook_transactions/books' => 'textbook_transactions#books'
+  get '/textbook_transactions/listings' => 'textbook_transactions#listings'
+  post '/textbook_transactions/claim' => 'textbook_transactions#claim'
+  resources :textbook_transactions, :only => [:index, :create]
 
   resources :search, :only => [] do
     collection do

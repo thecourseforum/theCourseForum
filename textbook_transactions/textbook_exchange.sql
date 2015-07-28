@@ -2,7 +2,7 @@
 
 CREATE TABLE `textbook_transactions` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`seller_id` int(11) DEFAULT NULL,
+	`seller_id` int(11) NOT NULL,
 	`buyer_id` int(11) DEFAULT NULL,
 	`book_id` int(11) NOT NULL,
 	`price` int(11) NOT NULL,
@@ -11,7 +11,10 @@ CREATE TABLE `textbook_transactions` (
 	`created_at` datetime NOT NUll,
 	`updated_at` datetime NOT NUll,
 	`sold_at` datetime DEFAULT NULL,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	KEY `index_textbook_transactions_on_seller_id_and_buyer_id` (`seller_id`, `buyer_id`) USING BTREE,
+	KEY `index_textbook_transactions_on_seller_id` (`seller_id`) USING BTREE,
+	KEY `index_textbook_transactions_on_buyer_id` (`buyer_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `books_users` (

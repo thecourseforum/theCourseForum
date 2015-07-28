@@ -17,7 +17,7 @@ class BooksController < ApplicationController
       :new_merchant_amazon => (book.amazon_merchant_new_price ? "$" + sprintf('%.2f', book.amazon_merchant_new_price) : "N/A"),
       :used_merchant_amazon => (book.amazon_merchant_used_price ? "$" + sprintf('%.2f', book.amazon_merchant_used_price) : "N/A")
     }
-    @sections = Section.find(book.sections.pluck(:id, :course_id).uniq(&:second).map(&:first))
+    @sections = Section.find(book.sections.order(:semester_id).pluck(:id, :course_id).uniq(&:second).map(&:first))
     @textbook_transactions = book.textbook_transactions.active
   end
 

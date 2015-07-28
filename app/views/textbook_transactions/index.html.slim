@@ -1,7 +1,7 @@
 = javascript_include_tag "textbook_transactions"
 = stylesheet_link_tag "textbook_transactions"
 
-- content_for :page_heading, "Textbook Listings"
+- content_for :page_heading, "Textbooks"
 
 ul.nav.nav-pills
   li.active role="presentation" 
@@ -14,7 +14,7 @@ hr
 
 #titles-form.form-group.has-feedback
   label.control-label for="search"  Search
-  = search_field_tag "book-titles-listings", nil, :class => 'form-control', :placeholder => "Enter a Book Title ex. Little Women"
+  = search_field_tag "listing-titles", nil, :class => 'form-control', :placeholder => "Loading...", :disabled => ''
   .span.form-control-feedback
 
 table.table.table-striped#listing-table
@@ -26,7 +26,6 @@ table.table.table-striped#listing-table
       th#title Title
       th#author Author
       th#condition Condition
-      th#notes Notes
       th#end-date End Date
   tbody#listing-list
     tr.a-listing.hidden
@@ -38,10 +37,19 @@ table.table.table-striped#listing-table
         a href=""
       td.nodecoration.author
       td.nodecoration.condition
-      td.nodecoration.notes
       td.nodecoration.end_date
-.col-sm-12
-  button#more-listings.btn.btn-lg More Listings
+    - @textbook_transactions.each do |transaction|
+      tr.a-listing
+        td
+          input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction[:id]}"
+        td.nodecoration.price = transaction[:price]
+        td.courses = transaction[:courses]
+        td.title 
+          a href="/books/#{transaction[:book_id]}" = transaction[:title]
+        td.nodecoration.author = transaction[:author]
+        td.nodecoration.condition = transaction[:condition]
+        td.nodecoration.end_date = transaction[:end_date]
 
-- @textbook_transactions.each do |tt|
-  .listing-info id="#{tt[:id]}" price="#{tt[:price]}" courses="#{tt[:courses]}" title="#{tt[:title]}" link="/books/#{tt[:book_id]}" author="#{tt[:author]}" condition="#{tt[:condition]}" notes="#{tt[:notes]}" end_date="#{tt[:end_date]}"
+/ - @textbook_transactions.each do |tt|
+/   .listing-info id="#{tt[:id]}" price="#{tt[:price]}" courses="#{tt[:courses]}" title="#{tt[:title]}" link="/books/#{tt[:book_id]}" author="#{tt[:author]}" condition="#{tt[:condition]}" notes="#{tt[:notes]}" end_date="#{tt[:end_date]}"
+/     

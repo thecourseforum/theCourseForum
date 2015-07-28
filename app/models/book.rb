@@ -2,7 +2,8 @@ class Book < ActiveRecord::Base
 	has_many :sections, :through => :book_requirements
 	has_many :book_requirements
 
-	has_many :textbook_transactions
+	has_many :textbook_transactions, :dependent => :destroy
+	has_many :active_listings, -> { where updated_at: (Time.now - 3.days)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction
 
 	has_and_belongs_to_many :users
 

@@ -1,7 +1,7 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.map do |transaction|
+    @textbook_transactions = TextbookTransaction.active.order(:updated_at).includes(:book => {:sections => {:course => :subdepartment}}).limit(18).map do |transaction|
       {
         :id => transaction.id,
         :price => "$" + transaction.price.to_s,
@@ -10,34 +10,37 @@ class TextbookTransactionsController < ApplicationController
         :book_id => transaction.book_id,
         :author => transaction.book.author,
         :condition => transaction.condition,
-        :notes => transaction.notes,
+        :notes => transaction.notes ? transaction.notes : "",
         :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
       }
     end
   end
 
-  def books
-    @books = Book.order("RAND()").map do |book|
+  def listings
+    @textbook_transactions = TextbookTransaction.active.order(:updated_at).includes(:book => {:sections => {:course => :subdepartment}}).map do |transaction|
       {
-        :image => (book.small_image_link ? book.small_image_link : "/assets/icons/no_book.png"),
-        :title => book.title,
-        :id => book.id
+        :id => transaction.id,
+        :price => "$" + transaction.price.to_s,
+        :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
+        :title => transaction.book.title,
+        :book_id => transaction.book_id,
+        :author => transaction.book.author,
+        :condition => transaction.condition,
+        :notes => transaction.notes ? transaction.notes : "",
+        :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
       }
     end
+
+    render :json => @textbook_transactions
   end
 
-  def book_titles
-    query = params[:query]
+  def books
+    @books = Book.order("RAND()").pluck(:id, :title, :medium_image_link)
 
-    results = Book.order("RAND()").map do |book|
-      {
-        :id => book.id,
-        :title => book.title,
-        :image => (book.small_image_link ? book.small_image_link : "/assets/icons/no_book.png")
-      }
+    respond_to do |format|
+      format.html
+      format.json { render :json => @books }
     end
-
-    render :json => [results]
   end
 
   def claim
@@ -54,14 +57,14 @@ class TextbookTransactionsController < ApplicationController
           render :json => {
             status: "success"
           }
-        else
+        else 
           render :json => {
-            status: "Sorry! Already Claimed"
+            status: "Internal error"
           }
         end
-      else 
+      else
         render :json => {
-          status: "Internal error"
+          status: "Sorry! Already Claimed"
         }
       end
     else
@@ -93,21 +96,6 @@ class TextbookTransactionsController < ApplicationController
       }
     end
     
-  end
-
-  def new
-  end
-
-  def edit
-  end
-
-  def show
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   private

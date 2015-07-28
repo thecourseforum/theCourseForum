@@ -31,7 +31,4 @@ TheCourseForum::Application.configure do
   config.action_mailer.delivery_method = :smtp
   #change to correct email settings
   config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
-
-  # Ignore pending migrations
-  config.active_record.migration_error = false#:page_load
 end
