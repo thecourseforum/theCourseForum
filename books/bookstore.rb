@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-ActiveRecord::Base.logger.level = 1
+# ActiveRecord::Base.logger.level = 1
 
 log = File.open("#{Rails.root.to_s}/books/bookstore_#{Time.now.strftime("%Y.%m.%d-%H:%M")}.log", 'w')
 

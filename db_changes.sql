@@ -5,13 +5,15 @@
 # populate books, book_requirements, stats
 
 CREATE TABLE stats AS 
-  (SELECT sections.course_id, 
+  SELECT sections.course_id, 
           section_professors.professor_id 
    FROM   sections 
           JOIN section_professors 
             ON section_professors.section_id = sections.id 
    GROUP  BY course_id, 
-             professor_id);
+             professor_id
+   UNION SELECT courses.id as course_id, NULL as professor_id 
+   FROM courses;
 
 ALTER TABLE stats ADD id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
 
