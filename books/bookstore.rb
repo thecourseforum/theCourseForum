@@ -4,6 +4,9 @@ ActiveRecord::Base.logger.level = 1
 
 log = File.open("#{Rails.root.to_s}/books/bookstore_#{Time.now.strftime("%Y.%m.%d-%H:%M")}.log", 'w')
 
+# Monitor logging in real-time w/ tail -f
+log.sync = true
+
 initial_time = Time.now
 
 
@@ -47,73 +50,86 @@ departments.each do |xml_department|
 
 		puts "Parsing #{mnemonic} #{course_number}"
 
-		sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=92", headers)).sections.section
-		sections = [sections] if sections.class == Nokogiri::XML::Element
-		sections.each do |xml_section|
+		xml_sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=92", headers)).sections.section
+		xml_sections = [xml_sections] if xml_sections.class == Nokogiri::XML::Element
+		xml_sections.each do |xml_section|
 			section_number = xml_section['name']
 			section_id = xml_section['id']
+			instructor_last_name = xml_section['instructor'].split(',').first
+			prof_ids = Professor.where(:last_name => instructor_last_name).pluck(:id)
 
-			section = course.sections.find_by(:section_number => section_number, :semester_id => semester_id)
+			if section_number == "ALL"
+				section_ids = course.sections.joins(:professors).where(:semester_id => semester_id, :professors => {:id => prof_ids}).distinct.pluck(:id)
+			else
+				section_ids = course.sections.where(:section_number => section_number, :semester_id => semester_id).distinct.pluck(:id)
+			end
 
-			unless section
+			unless section_ids
 				log.puts "No Section: #{mnemonic} #{course_number} #{section_number}"
 				next
 			end
 
-			Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}", headers)).css('.book.course-required').each_with_index do |book_info, index|
-				# new_price = nil
-				# new_data = book_info.css(".tr-radio-sku")[0]
-				# unless new_data.css('input').first["disabled"]
-				# 	new_price = new_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
-				# 	new_
-				# end
-				# used_price = nil
-				# used_data = book_info.css(".tr-radio-sku")[1]
-				# unless used_data.css('input').first["disabled"]
-				# 	used_price = used_data.css(".price").text.gsub(/[^\d\.]/, '').to_f
-				# end
+			books_raw = Nokogiri::HTML(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=section&section=#{section_id}", headers))
 
+			books_raw = books_raw.css('.book.course-required') + books_raw.css('.course-pick.one') + books_raw.css('.book.course-recommended') + books_raw.css('.book.course-optional')
+
+			books_raw.each_with_index do |book_info, index|
 				new_price = book_info.css(".book-price-list").text.delete("$").to_f
 				new_price = nil if new_price == 0
 				used_price = book_info.css(".price").css("label").text.delete("$").to_f
 				used_price = nil if used_price == 0
 
 				isbn = book_info.css('.isbn').text
+				title = book_info.css('.book-title').text
+				author = book_info.css('.book-author').text
+				# SPLITTING BY BLANK SPACE - IS NOT SPACE. ASCII CODE IS 160, NOT 32!!!!!!
+				publisher = book_info.css('.book-publisher').text.split(' ').last
+				edition = book_info.css('.book-edition').text.split(' ').last
+				binding = book_info.css('.book-binding').text.split(' ').last
 
 				isbn = isbn == '' ? nil : isbn
 
-				book = isbn ? Book.find_by(:isbn => isbn) : nil
+				if isbn
+					book = Book.find_by(:isbn => isbn)
+				else
+					# Stop duplicates, ex. "No Text - See Professor"
+					book = Book.find_by(:title => title)
+				end
 
 				if book
 					book.update(
-						:title => book_info.css('.book-title').text,
-						:author => book_info.css('.book-author').text,
-						# SPLITTING BY BLANK SPACE - IS NOT SPACE. ASCII CODE IS 160, NOT 32!!!!!!
-						:publisher => book_info.css('.book-publisher').text.split(' ').last,
-						:edition => book_info.css('.book-edition').text.split(' ').last,
-						:binding => book_info.css('.book-binding').text.split(' ').last,	
+						:title => title,
+						:author => author,
+						:publisher => publisher,
+						:edition => edition,
+						:binding => binding,
 						:bookstore_new_price => new_price,
 						:bookstore_used_price => used_price
 					)
 				else
 					book = Book.create(
-						:title => book_info.css('.book-title').text,
-						:author => book_info.css('.book-author').text,
-						# SPLITTING BY BLANK SPACE - IS NOT SPACE. ASCII CODE IS 160, NOT 32!!!!!!
-						:publisher => book_info.css('.book-publisher').text.split(' ').last,
-						:edition => book_info.css('.book-edition').text.split(' ').last,
-						:binding => book_info.css('.book-binding').text.split(' ').last,
+						:title => title,
+						:author => author,
+						:publisher => publisher,
+						:edition => edition,
+						:binding => binding,
 						:isbn => isbn,
 						:bookstore_new_price => new_price,
 						:bookstore_used_price => used_price
 					)
 				end
 
-				BookRequirement.create(
-					:book_id => book.id,
-					:section_id => section.id,
-					:status => book_info.css('.book-req').text
-				)
+				section_ids.each do |section_id|
+					begin
+						BookRequirement.create(
+							:book_id => book.id,
+							:section_id => section_id,
+							:status => book_info.css('.book-req').text
+						)
+					rescue Exception => e
+						log.puts "Error while creating book_requirement: " + e.class.to_s
+					end
+				end
 			end
 		end
 	end
