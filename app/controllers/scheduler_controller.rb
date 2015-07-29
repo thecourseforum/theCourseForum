@@ -86,6 +86,14 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
+  def unsave_course
+    subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
+    course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
+    current_user.courses.delete(course) if course
+
+    render :nothing => true
+  end
+
   # Clears the current users's saved courses (not used)
   def clear_courses
     current_user.courses = []
