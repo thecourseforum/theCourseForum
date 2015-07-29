@@ -22,7 +22,7 @@ nav.navbar.navbar-default
         - if current_user
           li
             a#user-account data-toggle="dropdown" 
-              = current_user.first_name.upcase
+              = current_user.first_name
               span.caret
             ul.dropdown-menu aria-labelledby="user-account" role="menu" 
               li 

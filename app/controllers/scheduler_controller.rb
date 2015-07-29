@@ -81,17 +81,9 @@ class SchedulerController < ApplicationController
   def save_course
     subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
     course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-    if current_user.courses.include?(course)
-      current_user.courses.delete(course)
-      render :json => {
-        saved: "False"
-      }
-    else 
-      current_user.courses << course
-      render :json => {
-        saved: "True"
-      }
-    end
+    current_user.courses << course unless current_user.courses.include? course
+
+    render :nothing => true
   end
 
   # Clears the current users's saved courses (not used)
