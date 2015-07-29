@@ -4,9 +4,9 @@
 - content_for :page_heading, "Textbook Listings"
 
 ul.nav.nav-pills
-  li role="presentation" 
+  li#listing_nav role="presentation" 
     a href="/textbook_transactions" Listings
-  li.active role="presentation" 
+  li#book_nav.active role="presentation" 
     a href="/textbook_transactions/books" Books
   button#post-listing.btn.btn-lg Post a Listing!
 
@@ -18,8 +18,8 @@ hr
   .span.form-control-feedback
 
 #book-list
-  a#link-block.hidden href=""
-    .col-sm-4.a-book
+  a.link-block.hidden href=""
+    .a-book
       #cover-thumb-container
         img#cover-thumb.text-center.float-left src=""
       #title-thumb-container

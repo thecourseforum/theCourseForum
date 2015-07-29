@@ -12,39 +12,6 @@
 	border-radius: 2px; 
 }
 
-#post-listing-modal {
-
-	#post-thumb {
-		display: block;
-		margin-right: auto;
-		margin-left: auto;
-		height: 70px;
-		width: auto;
-		background-color: gray;
-		border: 2px solid #0D3268;
-	}
-
-	#post-choose {
-		text-align: center;
-		// margin-right: auto;
-		// margin-left: auto;
-	}
-
-	#dollar {
-		padding-right: 0;
-	}
-
-	#price-input {
-		padding-left: 0;
-	}
-
-}
-
-.ui-autocomplete {
-	z-index: 2147483647;
-	list-style: none;
-}
-
 .nav-pills > li.active > a, 
 .nav-pills > li.active > a:hover, 
 .nav-pills > li.active > a:focus {
@@ -72,6 +39,106 @@
 
 }
 
+@media (min-width: 1400px) {
+	.a-book {
+		width: 25%;
+	}
+}
+@media (max-width: 1400px) and (min-width: 1100px) {
+	.a-book {
+		width: 33%;
+	}
+}
+@media (max-width: 1100px) and (min-width: 500px) {
+	.a-book {
+		width: 50%;
+	}
+}
+@media (max-width: 760px) {
+	#end-date {
+		display: none;
+	}
+	.end_date {
+		display: none;
+	}
+}
+@media (max-width: 660px) {
+	#author {
+		display: none;
+	}
+	.author {
+		display: none;
+	}
+}
+@media (min-width: 570px) {
+	.book-price-col {
+		width: 33%;
+	}
+}
+@media (max-width: 570px) {
+	#condition {
+		display: none;
+	}
+	.condition {
+		display: none;
+	}
+	.book-price-col {
+		width: 100%;
+		text-align: center;
+	}
+
+}
+@media (max-width: 500px) {
+	.a-book {
+		width: 100%;
+	}
+}
+@media (min-width: 450px) {
+	#follow, #sell-yours {
+		margin: 3px;
+	}
+}
+@media (max-width: 450px) {
+	#post-listing {
+		width: 100%;
+		margin-top: 20px;
+	}
+	#sections_table {
+		margin-bottom: -20px;
+	}
+	#follow {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	#sell-yours {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#listing_nav {
+		width: 54.5%;
+		a {
+			text-align: center;
+		}
+	}
+	#book_nav {
+		width: 44.5%;
+		a {
+			text-align: center;
+		}
+	}
+	#courses {
+		display: none;
+	}
+	.courses {
+		display: none;
+	}
+}
+@media (max-width: 320px) {
+	.table > tbody > tr > td {
+		padding: 4px;
+	}
+}
+
 #book-list {
 
 	.a-book:hover {
@@ -85,14 +152,12 @@
 		transition: background-color 0.5s ease;
 	}
 
-	#link-block {
-		display: block;
-	}
 
 	.a-book {
 		height: 82px;
+		float: left;
 		overflow: hidden;
-	
+
 
 		#cover-thumb-container {
 			max-width: 50px;
@@ -146,12 +211,20 @@
 	background-color: #D75626;
 	color: white;
 	border-radius: 2px;
-	margin: 3px; 
 }
 
 #prices {
 	display: inline;
 	position: relative;
+
+	.book-price-col {
+		z-index: 2000;
+		position: relative;
+		min-height: 1px;
+		padding-left: 15px;
+		padding-right: 15px;
+		float: left;
+	}
 
 	li {
 		display: inline;
@@ -171,10 +244,46 @@
 	margin-top: 20px;
 }
 
+#post-listing-modal {
+
+	#post-thumb {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+		height: 70px;
+		width: auto;
+		background-color: gray;
+		border: 2px solid #0D3268;
+	}
+
+	#post-choose {
+		text-align: center;
+		// margin-right: auto;
+		// margin-left: auto;
+	}
+
+	#dollar {
+		padding-right: 0;
+	}
+
+	#price-input {
+		padding-left: 0;
+	}
+
+}
+
+.ui-autocomplete {
+	z-index: 2147483647;
+	list-style: none;
+}
 .nopadding {
 	padding: 0 !important;
 }
 .nodecoration {
 	text-decoration: none !important;
 	cursor: auto !important;
+}
+.link-block {
+	display: block;
+	z-index: 1000;
 }

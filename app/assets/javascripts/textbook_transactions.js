@@ -258,7 +258,7 @@ $(document).ready(function () {
 	}
 	function appendBooks () {
 		if (booksToShow.length >= offset) {
-			$.each(booksToShow.slice(offset, offset+18), function (index, book) {
+			$.each(booksToShow.slice(offset, offset+24), function (index, book) {
 				var link = $('#link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
@@ -272,7 +272,7 @@ $(document).ready(function () {
 
 				bookList.append(link);
 			});
-			offset += 18;
+			offset += 24;
 			return true;
 		} else {
 			return false;

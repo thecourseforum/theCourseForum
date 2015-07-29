@@ -5,7 +5,7 @@
 
 .col-md-3
   .text-center = image_tag @book[:image], :class => 'img-rounded', :id => 'cover'
-  table.table
+  table.table#sections_table
     thead
       tr
         th
@@ -26,18 +26,18 @@
     h1#book-title = @book[:book].title
     h3#book-author = @book[:book].author
   #prices
-    a#link-block href="http://www.uvabookstores.com/uvatext/"
-      .col-sm-4
+    a.link-block href="http://www.uvabookstores.com/uvatext/"
+      .book-price-col
         h4 UVA Bookstore
         h5 = "New: " + @book[:new_bookstore]
         h5 = "Used: " + @book[:used_bookstore]
-    a#link-block href="#{@book[:link]}"
-      .col-sm-4
+    a.link-block href="#{@book[:link]}"
+      .book-price-col
         h4 Amazon Official
         h5 = "New: " + @book[:new_official_amazon]
         h5 = "Used: " + @book[:used_official_amazon]
-    a#link-block href="#{@book[:link]}"
-      .col-sm-4
+    a.link-block href="#{@book[:link]}"
+      .book-price-col
         h4 Amazon Merchant
         h5 = "New: " + @book[:new_merchant_amazon]
         h5 = "Used: " + @book[:used_merchant_amazon]
@@ -46,21 +46,21 @@
     table.table.table-striped#student-postings
       thead
         tr
-          th.text-hide claim
-          th Price
-          th Condition
-          th Notes
-          th End Date
+          th.text-hide#claim claim
+          th#price Price
+          th#condition Condition
+          th#notes Notes
+          th#end-date End Date
       tbody#books
         - if @textbook_transactions.length != 0
           - @textbook_transactions.each do |transaction|
             tr
               td
                 input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction.id}"
-              td.nodecoration = "$" + transaction.price.to_s
-              td.nodecoration = transaction.condition
-              td.nodecoration = transaction.notes
-              td.nodecoration = (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+              td.nodecoration.price = "$" + transaction.price.to_s
+              td.nodecoration.condition = transaction.condition
+              td.nodecoration.notes = transaction.notes
+              td.nodecoration.end_date = (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
         - else
           tr
             td.text-center.nodecoration colspan="5" No current listings

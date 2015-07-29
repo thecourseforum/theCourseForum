@@ -22,6 +22,7 @@ class TextbookTransactionsController < ApplicationController
         :id => transaction.id,
         :price => "$" + transaction.price.to_s,
         :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
+        :link => "/books/#{transaction.book.id}",
         :title => transaction.book.title,
         :book_id => transaction.book_id,
         :author => transaction.book.author,
