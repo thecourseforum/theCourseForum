@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /books/*.log
+/lou
 /tmp
 /config/database.yml
 /config/initializers/secret_token.rb
