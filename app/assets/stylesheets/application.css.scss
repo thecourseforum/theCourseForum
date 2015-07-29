@@ -139,9 +139,14 @@ section#main {
       margin-right: auto;
       padding-left: 0px;
       padding-right: 0px;
+      margin-bottom: 30px;
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
 
       #course-name {
         padding-left: 0px;
+        @include flex(1);
       }
 
       #filter .row {
@@ -234,6 +239,6 @@ select {
 
 .page-title {
   margin-top: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   font-weight: 300;
 }

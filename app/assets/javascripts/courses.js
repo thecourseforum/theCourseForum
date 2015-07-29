@@ -98,7 +98,6 @@ ready = function() {
 			if (review.is_author)
 				reviewBox.find('.review-author').text("You wrote this!");
 
-			console.log('appended');
 			$('.reviews-box').append(reviewBox);
 
 		});
