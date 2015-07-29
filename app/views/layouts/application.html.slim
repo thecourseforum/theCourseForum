@@ -27,7 +27,10 @@ html
             - if controller.controller_name == "courses" && controller.action_name == "show"
               .col-xs-3#save-course
                 .row
-                  .btn.btn-primary#save-course Save Course
+                  - if current_user.courses.include? @course
+                    .btn.btn-primary#save-course-button.active data-toggle="button" aria-pressed="true" Unsave
+                  - else
+                    .btn.btn-primary#save-course-button data-toggle="button" aria-pressed="false" Save Course
             - if controller.controller_name == "departments" && controller.action_name == "show"
               .col-xs-3#filter
                 .row
