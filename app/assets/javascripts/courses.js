@@ -98,7 +98,6 @@ ready = function() {
 			if (review.is_author)
 				reviewBox.find('.review-author').text("You wrote this!");
 
-			console.log('appended');
 			$('.reviews-box').append(reviewBox);
 
 		});
@@ -131,11 +130,12 @@ ready = function() {
 				mnemonic: course_name[0],
 				course_number: course_name[1]
 			},
-			success: function(response) {
-				alert('Course saved for scheduler!');
-			},
-			failure: function(response) {
-				alert('Could not load corresponding course!');
+			success: function (data) {
+				if (data.saved === "True") {
+					$('#save-course').html('<div class=\"btn btn-primary\" id=\"save-course\"> Unsave Course </div>');
+				} else {
+					$('#save-course').html('<div class="btn btn-primary" id="save-course"> Save Course </div>');
+				}
 			}
 		});
 	});
