@@ -36,6 +36,7 @@ $(document).ready(function () {
 			success: function(data) {
 				booksData = data;
 				displayBooks(booksData);
+				console.log('HIIHIHIHI');
 			}
 		});
 		bookScrollEnabled = true;
@@ -245,7 +246,7 @@ $(document).ready(function () {
 		bookScrollEnabled = true;
 	});
 	function displayBooks (books) {
-		var emptyBook = $('#link-block.hidden');
+		var emptyBook = $('.link-block.hidden');
 		
 		bookList = $('#book-list');
 		offset = 0;
@@ -259,7 +260,7 @@ $(document).ready(function () {
 	function appendBooks () {
 		if (booksToShow.length >= offset) {
 			$.each(booksToShow.slice(offset, offset+24), function (index, book) {
-				var link = $('#link-block.hidden').clone().removeClass('hidden'),
+				var link = $('.link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
 					title = block.find('#title-thumb');

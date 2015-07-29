@@ -4,22 +4,18 @@
 
 # populate books, book_requirements, stats
 
-CREATE TABLE stats AS 
-  SELECT sections.course_id, 
-          section_professors.professor_id 
-   FROM   sections 
-          JOIN section_professors 
-            ON section_professors.section_id = sections.id 
-   GROUP  BY course_id, 
-             professor_id
-   UNION SELECT courses.id as course_id, NULL as professor_id 
-   FROM courses;
-
-ALTER TABLE stats ADD id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
-
-ALTER TABLE stats ADD COLUMN rating double;
-ALTER TABLE stats ADD COLUMN difficulty double;
-ALTER TABLE stats ADD COLUMN gpa double;
+CREATE TABLE `stats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `course_id` int(11) DEFAULT NULL,
+  `professor_id` int(11) DEFAULT NULL,
+  `rating` double DEFAULT NULL,
+  `difficulty` double DEFAULT NULL,
+  `gpa` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_stats_on_course_id_and_professor_id` (`course_id`,`professor_id`) USING BTREE,
+  KEY `index_stats_on_course_id` (`course_id`) USING BTREE,
+  KEY `index_stats_on_professor_id` (`professor_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `book_requirements` (
   `section_id` int(11) NOT NULL,
@@ -127,4 +123,5 @@ CREATE TABLE `schedules_sections` (
 DROP TABLE `section_users`;
 
 ALTER TABLE courses 
-ADD COLUMN description text AFTER title;
+ADD COLUMN description text AFTER title,
+ADD COLUMN last_taught_semester_id int(11) DEFAULT NULL;
