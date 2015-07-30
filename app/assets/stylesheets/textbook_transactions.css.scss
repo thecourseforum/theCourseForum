@@ -84,7 +84,7 @@
 	}
 	.book-price-col {
 		width: 100%;
-		text-align: center;
+		// text-align: right;
 	}
 
 }
@@ -217,6 +217,10 @@
 	display: inline;
 	position: relative;
 
+	h5 {
+		text-align: left;
+	}
+
 	.book-price-col {
 		z-index: 2000;
 		position: relative;
@@ -251,7 +255,7 @@
 		margin-right: auto;
 		margin-left: auto;
 		height: 70px;
-		width: auto;
+		max-width: 70px;
 		background-color: gray;
 		border: 2px solid #0D3268;
 	}

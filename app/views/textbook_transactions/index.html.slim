@@ -32,7 +32,7 @@ table.table.table-striped#listing-table
       td
         input.claim.btn.btn-default type="submit" value="Claim" id=""
       td.nodecoration.price
-      td.courses
+      td.nodecoration.courses
       td.title
         a href=""
       td.nodecoration.author
@@ -43,7 +43,7 @@ table.table.table-striped#listing-table
         td
           input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction[:id]}"
         td.nodecoration.price = transaction[:price]
-        td.courses = transaction[:courses]
+        td.nodecoration.courses = transaction[:courses]
         td.title 
           a href="/books/#{transaction[:book_id]}" = transaction[:title]
         td.nodecoration.author = transaction[:author]

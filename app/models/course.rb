@@ -54,13 +54,8 @@ class Course < ActiveRecord::Base
   end
 
   def self.update_last_taught_semester
-    Course.includes(:sections).load.each do |course|
-      number = course.sections.map(&:semester).uniq.compact.map(&:number).sort.last
-      if number
-        course.update(:last_taught_semester_id => Semester.find_by(:number => number).id)
-      else
-        puts "No sections with semesters for course ID: #{course.id}"
-      end
+    ActiveRecord::Base.connection.execute("SELECT courses.id, max(sections.semester_id) from courses join sections ON courses.id=sections.course_id group by courses.id;").each do |pair|
+      Course.find(pair.first).update(:last_taught_semester_id => pair.second)
     end
   end
 

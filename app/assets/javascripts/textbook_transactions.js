@@ -36,7 +36,6 @@ $(document).ready(function () {
 			success: function(data) {
 				booksData = data;
 				displayBooks(booksData);
-				console.log('HIIHIHIHI');
 			}
 		});
 		bookScrollEnabled = true;
