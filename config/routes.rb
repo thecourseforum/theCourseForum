@@ -44,16 +44,16 @@ TheCourseForum::Application.routes.draw do
 
   resources :subdepartments, :only => [:show]
 
-  get '/books/courses' => 'books#courses'
-  post '/books/follow' => 'books#follow'
-  resources :books, :only => [:index, :show]
-
   # Autocomplete for books feature
   resources :books, :only => [] do
     collection do
       get :search_subdepartment
     end
   end
+
+  get '/books/courses' => 'books#courses'
+  post '/books/follow' => 'books#follow'
+  resources :books, :only => [:index, :show]
  
   get '/textbook_transactions/books' => 'textbook_transactions#books'
   get '/textbook_transactions/listings' => 'textbook_transactions#listings'

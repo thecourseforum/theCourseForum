@@ -84,13 +84,36 @@ $(document).ready(function () {
 		$('#post-listing-modal').modal();
 
 		$('#search-label').remove();
-		$('#book-title-post').remove();
-
+		$('#book-input-field').remove();
 
 		$('#post-thumb').attr('src', $('#small-image-link').text());
 		$('#post-choose').attr('book_id', $('#book-link').text());
 		$('#post-choose').text($('#book-title').text().trim());
 	});
+	$('#submit-listing').hover(function() {
+		// Check if book choosen
+		if (!$('#post-choose').attr('book_id')) {
+
+		}
+		// Check cell phone
+		if ($('#cell-input-field').val()) {
+			flagValidInput($('#cell-input-field'));
+		} else {
+			flagInvalidInput($('#cell-input-field'));
+		}
+		// Check prifce
+		if ($('#price-input-field').val()) {
+			flagValidInput($('#price-input-field'));
+		} else {
+			flagInvalidInput($('#price-input-field'));
+		}
+		// Check condition
+		if ($('#condition-input-field').val()) {
+			flagValidInput($('#condition-input-field'));
+		} else {
+			flagInvalidInput($('#condition-input-field'));
+		}		
+	})
 	$('#submit-listing').click(function() {
 		if ($('#post-choose').text().trim() == 'Choose a book') {
 			alert("Please choose a book to sell");
@@ -121,6 +144,15 @@ $(document).ready(function () {
 		$('#post-listing-modal').modal('hide');
 	});
 
+	function flagInvalidInput(element) {
+		element.css('box-shadow', '0 0 5px #a94442');
+		element.css('border', '1px solid #a94442');
+	}
+	function flagValidInput(element) {
+		element.css('box-shadow', '0 0 5px #3c763d');
+		element.css('border', '1px solid #3c763d');
+	}
+	
 	// Claim modal
 	$(document).on('click', '.claim', function() {
 		claim_id = $(this.id).selector;
@@ -143,7 +175,7 @@ $(document).ready(function () {
 	});
 
 	// Modal autocomplete
-	$('#book-title-post').autocomplete({
+	$('#book-input-field').autocomplete({
 		source: function(request, response) {
 			response($.map(filterData(booksData, request.term), function(book) {
 				return {

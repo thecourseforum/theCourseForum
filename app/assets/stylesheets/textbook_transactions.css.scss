@@ -266,6 +266,10 @@
 		// margin-left: auto;
 	}
 
+	#book-input-field, #cell-input-field, #price-input-field, #condition-input-field {
+		// @include unsatisfied-field-highlight(#a94442);
+	}
+
 	#dollar {
 		padding-right: 0;
 	}

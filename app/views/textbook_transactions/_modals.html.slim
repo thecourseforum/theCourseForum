@@ -5,11 +5,11 @@
           h3 Post a Listing
         .modal-body
           img#post-thumb src=""
-          h4#post-choose Choose a book
+          h4#post-choose 
           form#post_textbook_transaction
             .form-group
               label#search-label Search Books
-              input#book-title-post.form-control placeholder="Enter title" name="title"
+              input#book-input-field.form-control placeholder="Enter title" name="title"
               p.help-block
             .form-group
               label Cellphone #
@@ -22,7 +22,13 @@
                   input#price-input-field.form-control rows="3" name="price" placeholder="23"
             .form-group
               label Condition
-              input#condition-input-field.form-control rows="3" name="condition"
+              select#condition-input-field
+                option
+                option value="new" New
+                option value="good" Good
+                option value="worn" Worn
+                option value="usable" Usable
+              / input#condition-input-field.form-control rows="2" name="condition"
             .form-group
               label Notes
               textarea.form-control rows="3" name="notes"

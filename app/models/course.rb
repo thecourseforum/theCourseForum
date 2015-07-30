@@ -54,6 +54,7 @@ class Course < ActiveRecord::Base
   end
 
   def self.update_last_taught_semester
+    # Max(semester_id) works because Fall 2009 w/ id 25 (the largest) has 0 sections
     ActiveRecord::Base.connection.execute("SELECT courses.id, max(sections.semester_id) from courses join sections ON courses.id=sections.course_id group by courses.id;").each do |pair|
       Course.find(pair.first).update(:last_taught_semester_id => pair.second)
     end
