@@ -41,17 +41,17 @@
 
 @media (min-width: 1400px) {
 	.a-book {
-		width: 25%;
+		width: 24%;
 	}
 }
 @media (max-width: 1400px) and (min-width: 1100px) {
 	.a-book {
-		width: 33%;
+		width: 31.91%;
 	}
 }
 @media (max-width: 1100px) and (min-width: 500px) {
 	.a-book {
-		width: 50%;
+		width: 47.47%;
 	}
 }
 @media (max-width: 760px) {
@@ -155,14 +155,21 @@
 
 	.a-book {
 		height: 82px;
+		padding: 11px;
+		margin: 5px;
 		float: left;
 		overflow: hidden;
+		box-shadow: 0 0 5px #c1e1ec;
+		border: 1px solid #c1e1ec;
 
 
 		#cover-thumb-container {
 			max-width: 50px;
 			float: left;
-			margin-right: 5px;
+			margin-right: 11px;
+			margin-bottom: 0;
+			padding: 0;
+    		height: 100%;
 			
 			#cover-thumb {
 				max-width: 50px;
@@ -172,7 +179,14 @@
 		}
 
 		#title-thumb-container {
-			margin-left: 5px;
+			margin: 0;
+			padding: 0;
+
+			#title-thumb {
+				margin: 0;
+				padding: 0;
+			}
+
 		}
 	}
 
@@ -266,10 +280,6 @@
 		// margin-left: auto;
 	}
 
-	#book-input-field, #cell-input-field, #price-input-field, #condition-input-field {
-		// @include unsatisfied-field-highlight(#a94442);
-	}
-
 	#dollar {
 		padding-right: 0;
 	}
@@ -282,6 +292,7 @@
 
 .ui-autocomplete {
 	z-index: 2147483647;
+	padding-left: 12px;
 	list-style: none;
 }
 .nopadding {

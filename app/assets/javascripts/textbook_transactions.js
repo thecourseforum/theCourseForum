@@ -92,8 +92,10 @@ $(document).ready(function () {
 	});
 	$('#submit-listing').hover(function() {
 		// Check if book choosen
-		if (!$('#post-choose').attr('book_id')) {
-
+		if ($('#post-choose').attr('book_id')) {
+			flagValidInput($('#book-input-field'));
+		} else {
+			flagInvalidInput($('#book-input-field'));
 		}
 		// Check cell phone
 		if ($('#cell-input-field').val()) {
@@ -186,7 +188,14 @@ $(document).ready(function () {
 				}
 			}));
 		},
+		focus: function(event, ui){
+			$('#post-thumb').removeAttr('hide');
+			$('#post-thumb').attr('src', ui.item.image);
+			$('#post-choose').attr('book_id', ui.item.book_id);
+			$('#post-choose').text(ui.item.value);
+		},
 		select: function(event, ui) {
+			$('#post-thumb').removeAttr('hide');
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
 			$('#post-choose').text(ui.item.value);
@@ -195,7 +204,7 @@ $(document).ready(function () {
 
 	function filterData (dataArray, query) {
 		return dataArray.filter(function (item) {
-			return item[1].toLowerCase().includes(query);
+			return item[1].toLowerCase().includes(query.toLowerCase());
 		}).sort(function (a, b) {
 			return a[1].length - b[1].length;
 		});
@@ -203,7 +212,7 @@ $(document).ready(function () {
 	
 	function filterListingData (dataArray, query) {
 		return dataArray.filter(function (item) {
-			return item.title.toLowerCase().includes(query);
+			return item.title.toLowerCase().includes(query.toLowerCase());
 		}).sort(function (a, b) {
 			return a.title.length - b.title.length;
 		});
