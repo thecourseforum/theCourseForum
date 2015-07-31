@@ -98,7 +98,6 @@ ready = function() {
 			if (review.is_author)
 				reviewBox.find('.review-author').text("You wrote this!");
 
-			console.log('appended');
 			$('.reviews-box').append(reviewBox);
 
 		});
@@ -120,24 +119,44 @@ ready = function() {
 
 	});
 
-	$('#save-course').click(function() {
+	$('#save-course-button').click(function() {
 		var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		course_name = course_name.split(' - ');
 		course_name = course_name[0].split(' ');
 
-		$.ajax('/scheduler/course', {
+		if ($('#save-course-button').text().trim() == 'Unsave') {
+			$('#save-course-button').text("Save Course");
+			
+			$.ajax('/scheduler/unsave_course', {
 			method: "POST",
 			data: {
 				mnemonic: course_name[0],
 				course_number: course_name[1]
 			},
 			success: function(response) {
-				alert('Course saved for scheduler!');
+				// alert('Course saved for scheduler!');
 			},
 			failure: function(response) {
-				alert('Could not load corresponding course!');
+				console.log('Could not load corresponding course!');
 			}
 		});
+		} else {
+			$('#save-course-button').text("Unsave");
+			$.ajax('/scheduler/course', {
+			method: "POST",
+			data: {
+				mnemonic: course_name[0],
+				course_number: course_name[1]
+			},
+			success: function(response) {
+				// alert('Course saved for scheduler!');
+			},
+			failure: function(response) {
+				console.log('Could not load corresponding course!');
+			}
+		});
+		}
+
 	});
 
 

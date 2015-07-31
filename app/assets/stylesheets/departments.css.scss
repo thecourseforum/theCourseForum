@@ -287,9 +287,13 @@
     width: 98.7%;
     padding-right: 15px;
   }
-  #course-name, #filter {
-    width: 100%;
+  #header {
+    @include flex-flow(column);
+    margin-bottom: 0px !important;
   }
+  // #course-name, #filter {
+  //   width: 100%;
+  // }
   .page-title, #filter, #save-course{
     margin-bottom: 10px;
   }
