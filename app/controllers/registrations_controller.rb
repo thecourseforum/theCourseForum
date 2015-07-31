@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   skip_before_action :check_info, :only => [:student_sign_up, :professor_sign_up]
+  before_filter :configure_permitted_parameters
 
   def new
     redirect_to root_path
@@ -116,6 +117,7 @@ class RegistrationsController < Devise::RegistrationsController
           end
         end
       end
+
       @student.save
     end
 
@@ -150,4 +152,9 @@ class RegistrationsController < Devise::RegistrationsController
         :first_name, :last_name)
   end
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update).push(:first_name, :last_name)
+  end
 end
