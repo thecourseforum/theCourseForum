@@ -201,6 +201,14 @@ $(document).ready(function() {
 		$('#clear-courses').slideDown();
 	});
 
+	$('#clear-courses').click(function() {
+		$.ajax('scheduler/courses', {
+			method: 'DELETE'
+		});
+		$('#saved-courses').empty();
+		$('#saved-courses').append('<option>-- Select Course --</option>');
+	});
+
 	$('#class-search').autocomplete({
 		source: function(request, response) {
 			$.ajax('/scheduler/search', {
