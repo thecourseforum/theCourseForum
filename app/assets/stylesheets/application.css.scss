@@ -46,10 +46,18 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
-  font-family: 'Lato', sans-serif;
-   src: asset-url('Lato-Regular.ttf') format('truetype');
-  font-weight: 400;
+  font-family: 'Lato';
   font-style: normal;
+  font-weight: 300;
+  src: asset-url('Lato-Light.ttf') format('woff2');
+}
+
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: asset-url('Lato-Regular.ttf') format('woff2');
 }
 
 @font-face {
