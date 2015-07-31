@@ -16,12 +16,9 @@
         .subdepartment = subdepartment.name
       #department-courses
         - courses = subdepartment.courses.sort_by(&:course_number)
-        - separator = courses.first.course_number / 1000
+        - separator = 0
         - courses.each do |course|
           - current = course.last_taught_semester.to_s == 'Fall 2015'
-          - if course.course_number / 1000 > separator
-            br class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
-            - separator = course.course_number / 1000
           .course-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
             .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course.id.to_s + '/professors'
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
@@ -68,3 +65,6 @@
               .row
                 - if course.description
                   p.description = course.description
+          - if course.course_number / 1000 > separator
+            br class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+            - separator = course.course_number / 1000
