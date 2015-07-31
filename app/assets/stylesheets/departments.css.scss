@@ -283,6 +283,9 @@
   .name-block, .details-block {
     width: 98.7%;
     padding-right: 15px;
+    a {
+      @include align-items(center);
+    }
   }
   #header {
     @include flex-flow(column);
