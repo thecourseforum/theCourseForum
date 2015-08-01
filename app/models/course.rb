@@ -107,27 +107,28 @@ class Course < ActiveRecord::Base
   def get_grade_percentages(prof_id = -1)
     # these keys will correspond to the the grade's attributes (count_a, count_aminus, etc)
     percentages = {
-      a: 0,
-      aminus: 0,
-      aplus: 0,
-      b: 0,
-      bminus: 0,
-      bplus: 0,
-      cplus: 0,
-      c: 0,
-      cminus: 0,
-      cplus: 0,
-      d: 0,
-      dminus: 0,
-      dplus: 0,
-      drop: 0,
-      f: 0,
-      other: 0,
-      wd: 0,
+      a: nil,
+      aminus: nil,
+      aplus: nil,
+      b: nil,
+      bminus: nil,
+      bplus: nil,
+      cplus: nil,
+      c: nil,
+      cminus: nil,
+      cplus: nil,
+      d: nil,
+      dminus: nil,
+      dplus: nil,
+      drop: nil,
+      f: nil,
+      other: nil,
+      wd: nil,
       date: 0,
       gpa: 0,
       total: 0
     }
+
 
     # Gets the grades for the course or for the professor's sections
     if prof_id != -1      
@@ -135,7 +136,6 @@ class Course < ActiveRecord::Base
     else      
       @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", self.id])
     end
-
     # keep track of the total number of students (for calculating the percentage)
     running_total = 0
 
@@ -146,18 +146,23 @@ class Course < ActiveRecord::Base
         grade.attributes.sort.each do |attr_name, attr_value|
           grade_count_array << attr_value
         end
-
         # For each key value in the percentages hash
         # its index corresponds to the index of the grade_count_array
         percentages.each_with_index do |(key,value),index| 
-
-          if (index != 16 && index != 17) #don't average the date time, and calculate average gpa differently so skip that
+          if (index != 16 && index != 17 && index != 18) #don't average the date time, and calculate average gpa and total differently so skip that
             # if that value is nil, (the first iteration) then simply divide the count by the total number of grades to get the percentage
             if (percentages[key] == nil)
-              percentages[key] = grade_count_array[index] / grade.total                      
+              percentages[key] = grade_count_array[index] / grade.total.to_f unless grade.total == 0
             # otherwise, multiply the percentage by the previous total, add the count, and divide by the new total to get the new percentage
             else 
-              percentages[key] = ((percentages[key] * running_total) + grade_count_array[index].to_f) / (running_total + grade.total).to_f
+              # handle the case where the previous semesters grades were 0
+              if (running_total == 0 || running_total == nil)
+                percentages[key] = grade_count_array[index] / grade.total unless grade.total == 0 
+              else
+                percentages[key] = ((percentages[key] * running_total) + grade_count_array[index].to_f) / (running_total + grade.total).to_f 
+
+              end
+
             end
           # average the gpa by just summing it now, and dividing later (has nothing to do with number of students)
           elsif (index == 17)
