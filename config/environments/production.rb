@@ -27,7 +27,7 @@ TheCourseForum::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.precompile += ['es5-shim.min.js']
 
   # Generate digests for assets URLs.
@@ -80,7 +80,7 @@ TheCourseForum::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   #SMTP
-  config.action_mailer.default_url_options = {:host => 'thecourseforum.com'}
+  config.action_mailer.default_url_options = {:host => 'beta.thecourseforum.com'}
   # config.action_mailer.delivery_method = :sendmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -90,7 +90,7 @@ TheCourseForum::Application.configure do
       :domain => "gmail.com",
       :authentication => :login,
       :user_name => ENV["EMAIL_USERNAME"],
-      :password => ENV["EMAIL_PASSWORD"],
+      :password => ENV["EMAIL_PASSWORD"]
   }
   
 end
