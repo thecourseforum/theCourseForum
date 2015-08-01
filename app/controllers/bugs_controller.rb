@@ -15,7 +15,9 @@ class BugsController < ApplicationController
   # POST /bugs
   def create
     @bug = Bug.new(bug_params)
-    render json: {:success => @bug.save}
+    result = @bug.save
+    ContactUsMailer.feedback(:id => @bug.id, :description => @bug.description).deliver
+    render json: {:success => result}
   end
 
   # DELETE /bugs/1
