@@ -1,5 +1,5 @@
-- if (@department.subdepartments.size > 1)
-  - first_subdepartment = @department.subdepartments[0].name
+- if (@subdepartments.size > 1)
+  - first_subdepartment = @subdepartments[0].name
   - content_for :title, first_subdepartment
   - content_for :page_heading, first_subdepartment
 - else
@@ -10,61 +10,61 @@
 
 .container-fluid#browsing-content
   #departments
-    - @department.subdepartments.each do |subdepartment|
-      - if (@department.subdepartments.size > 1 && subdepartment.name != first_subdepartment)
-        br
-        .subdepartment = subdepartment.name
+    - @subdepartments.each_with_index do |subdepartment, subdepartment_index|
+      - if subdepartment != @subdepartments[0] and @subdepartments.size > 1
+        br class="#{subdepartment.courses.select { |course| course.last_taught_semester == @current_semester }.size != 0 ? 'current' : 'all'}" style="display: #{subdepartment.courses.select { |course| course.last_taught_semester == @current_semester }.size != 0 ? 'flex' : 'none'};"
+      - if @subdepartments.size != 1 and subdepartment != @subdepartments[0]
+        .subdepartment class="#{subdepartment.courses.select { |course| course.last_taught_semester == @current_semester }.size != 0 ? 'current' : 'all'}" style="display: #{subdepartment.courses.select { |course| course.last_taught_semester == @current_semester }.size != 0 ? 'flex' : 'none'};" = subdepartment.name
       #department-courses
         - courses = subdepartment.courses.sort_by(&:course_number)
-        - separator = 0
-        - courses.each do |course|
-          - current = course.last_taught_semester.to_s == 'Fall 2015'
-          .course-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
-            .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course.id.to_s + '/professors'
-              .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
-              .row.course-title = "#{course.title}"
-            .col-xs-8.details-block
-              .info-header
-                .prof-info-header
-                  .rating-block
-                    .course-icon = image_tag("icons/overall.png", size: "20")
-                    .rating-container
-                      .row.rating-subheader
-                        span RATING
-                      .row.course-rating-row
-                        - if course.overall_stats.rating
-                          h4.course-rating = course.overall_stats.rating.round(2)
-                        - else
-                          h4.rating-empty = "--"
-                  .rating-block
-                    .course-icon = image_tag("icons/difficulty.png", size: "20")
-                    .rating-container
-                      .row.rating-subheader
-                        span DIFFICULTY
-                      .row.course-rating-row
-                        - if course.overall_stats.difficulty
-                          h4.course-rating = course.overall_stats.difficulty.round(2)
-                        - else
-                          h4.rating-empty = "--"
-                  .rating-block
-                    .course-icon = image_tag("icons/chart.png", size: "20")
-                    .rating-container
-                      .row.rating-subheader
-                        span GPA
-                      .row.course-rating-row
-                        - if course.overall_stats.gpa
-                          h4.course-rating = course.overall_stats.gpa.round(2)
-                        - else
-                          h4.rating-empty = "--"
-                .semester-block
-                  div style="float:right;"
-                    .row.no-margin-left-row style="float:right;"
-                      span.semester-subheader LAST TAUGHT
-                    .row.no-margin-left-row
-                      h4.semester = course.last_taught_semester
-              .row
-                - if course.description
-                  p.description = course.description
-          - if course.course_number / 1000 > separator
-            br class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
-            - separator = course.course_number / 1000
+        - @groups[subdepartment_index].each_with_index do |group, group_index|
+          - group.each do |course|
+            - current = @current_courses.include?(course)
+            .course-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+              .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course.id.to_s + '/professors'
+                .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
+                .row.course-title = "#{course.title}"
+              .col-xs-8.details-block
+                .info-header
+                  .prof-info-header
+                    .rating-block
+                      .course-icon = image_tag("icons/overall.png", size: "20")
+                      .rating-container
+                        .row.rating-subheader
+                          span RATING
+                        .row.course-rating-row
+                          - if course.overall_stats.rating
+                            h4.course-rating = course.overall_stats.rating.round(2)
+                          - else
+                            h4.rating-empty = "--"
+                    .rating-block
+                      .course-icon = image_tag("icons/difficulty.png", size: "20")
+                      .rating-container
+                        .row.rating-subheader
+                          span DIFFICULTY
+                        .row.course-rating-row
+                          - if course.overall_stats.difficulty
+                            h4.course-rating = course.overall_stats.difficulty.round(2)
+                          - else
+                            h4.rating-empty = "--"
+                    .rating-block
+                      .course-icon = image_tag("icons/chart.png", size: "20")
+                      .rating-container
+                        .row.rating-subheader
+                          span GPA
+                        .row.course-rating-row
+                          - if course.overall_stats.gpa
+                            h4.course-rating = course.overall_stats.gpa.round(2)
+                          - else
+                            h4.rating-empty = "--"
+                  .semester-block
+                    div style="float:right;"
+                      .row.no-margin-left-row style="float:right;"
+                        span.semester-subheader LAST TAUGHT
+                      .row.no-margin-left-row
+                        h4.semester = course.last_taught_semester
+                .row
+                  - if course.description
+                    p.description = course.description
+          - if group != @groups[subdepartment_index][-1]
+            br class="#{group.flatten.select { |course| course.last_taught_semester == @current_semester}.length != 0 ? 'current' : 'all'}" style="display: #{group.flatten.select { |course| course.last_taught_semester == @current_semester}.length != 0 ? 'flex' : 'none'};"
