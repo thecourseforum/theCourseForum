@@ -14,11 +14,11 @@ nav.navbar.navbar-default#header-navbar
     #navbar-header.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right.hidden-xs
         li
-          a#report-bug CONTACT US
+          a#report-bug FEEDBACK
         li
-          a href="#{about_path}" ABOUT US
+          a href="#{about_path}" ABOUT
         li
-          a href="http://blog.thecourseforum.com" target="_blank" VAULT
+          a href="http://blog.thecourseforum.com" target="_blank" BLOG
         - if current_user
           li
             a#user-account data-toggle="dropdown" 
@@ -29,8 +29,8 @@ nav.navbar.navbar-default#header-navbar
                 a href="#{my_reviews_path}" My Reviews
               li 
                 a href="#{edit_user_registration_path}" My Account
-              li 
-                a href="#{user_settings_path}" Settings
+              / li 
+              /   a href="#{user_settings_path}" Settings
               li.divider
               li role="presentation" 
                 a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"

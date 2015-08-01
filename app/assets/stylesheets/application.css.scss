@@ -26,7 +26,6 @@
  *= require scheduler
  *= require books
  */
-
 $screen-sm: 850px;
 
 @import "variables";
@@ -39,8 +38,6 @@ $nprogress-height: 4.5px;
 @import "nprogress";
 @import "nprogress-bootstrap";
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
-
 //rest of variables
 @mixin ellipsis {
   text-overflow: ellipsis;
@@ -49,15 +46,18 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
-  font-family: 'Lato-Thin', sans-serif;
-  font-weight: 300;
+  font-family: 'Lato';
   font-style: normal;
+  font-weight: 300;
+  src: asset-url('Lato-Light.ttf') format('woff2');
 }
 
+/* latin */
 @font-face {
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-family: 'Lato';
   font-style: normal;
+  font-weight: 400;
+  src: asset-url('Lato-Regular.ttf') format('woff2');
 }
 
 @font-face {
@@ -169,10 +169,6 @@ section#main {
       padding-bottom: 20px;
       padding-top: 20px;
       max-width: $content-max-width;
-      margin-left: auto;
-      margin-right: auto;
-      // padding-left: 0px;
-      // padding-right: 0px;
     }
 
     @media only screen and (max-width: 520px) {
@@ -247,3 +243,30 @@ select {
   margin-bottom: 0px;
   font-weight: 300;
 }
+
+@media (max-width: $screen-sm) {
+    .navbar-default .navbar-brand {
+      background-color: #fff;
+    }
+    #logo {
+      margin-left: -30px;
+    }
+}
+
+.navbar-toggle {
+  @media only screen and (min-device-width: $screen-xs){
+    position: absolute;
+    left: 210px;
+  }
+  border: none;
+  height: $navbar-height;;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  .navbar-default &:hover, .navbar-default &:focus{
+    background-color: inherit;
+    .icon-bar {
+      background-color: $blue;
+    }
+  }
+}
+

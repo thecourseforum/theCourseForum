@@ -13,6 +13,9 @@
   color: white;
   text-align: center;
   background-color: #F1F6FB;
+  &:hover {
+    background-color: #DFE2F5;
+  }
 
   h1 {
     margin-top: ($navbar-height - 39px) / 2;
@@ -41,8 +44,11 @@
   cursor: pointer;
 }
 
-@media (max-width: $screen-sm) {
-    .navbar-default .navbar-brand {
+@media (max-width:$screen-sm) {
+  .navbar-default .navbar-brand{
+    background-color: #fff;
+    &:hover {
       background-color: #fff;
     }
+  }
 }

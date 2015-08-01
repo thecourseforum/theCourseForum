@@ -59,7 +59,7 @@
                 - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
                 - total = total.to_f.round(1)
                 .rating= total > 0 ? total : "--"
-              h5.rating-title Workload
+              h5.rating-title Hrs/Week
             .col-xs-8.stats-col
               - scale = total
               .stat-row

@@ -1,5 +1,11 @@
 @import "variables";
 
+@media only screen and (max-device-width: 480px){
+    #scheduler {
+      display: none;
+    }
+}
+
 #nav-footer {
   left: auto;
   right: auto;

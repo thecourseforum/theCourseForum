@@ -37,6 +37,9 @@
   // margin-left: -5px;
   cursor: pointer;
   min-height: 60px;
+  &:hover {
+    background-color: $dark-blue;
+  }
   @include flexbox();
 
   a {
@@ -129,6 +132,9 @@
 }
 
 @media (max-width: 620px) {
+  .page-title {
+    text-align: center;
+  }
   .prof-panel {
     @include flex-flow(column);
     @include align-items(stretch);
@@ -148,6 +154,9 @@
     width: 98.7%;
     padding-right: 15px;
     @include justify-content(center);
+    a {
+      @include align-items(center);
+    }
   }
   .page-title, #filter {
     margin-bottom: 10px;

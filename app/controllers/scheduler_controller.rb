@@ -94,7 +94,7 @@ class SchedulerController < ApplicationController
     render :nothing => true
   end
 
-  # Clears the current users's saved courses (not used)
+  # Clears the current users's saved courses
   def clear_courses
     current_user.courses = []
 

@@ -18,12 +18,10 @@ h1 {
 .stats-number {
   padding-left: 0px;
   padding-top: 12px;
-  font-size: $small-font-size;
   text-align: center;
 }
 
 .rating-number {
-  font-size: $small-font-size;
   text-align: center;
   width: 80px;
   float: left;
@@ -392,6 +390,7 @@ p {
 
 .icon-text {
   text-align: center;
+  font-size: $icon-font-size;
 }
 
 .stats-col {
@@ -486,7 +485,7 @@ p {
 
 .skillbar-bar {
   vertical-align: middle;
-  background: $lightblue;
+  background: $light-blue;
   height:13px;
   width:0px;
 }

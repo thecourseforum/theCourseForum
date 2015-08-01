@@ -15,6 +15,9 @@
   border-radius: 3px;
   margin: 2.5px 2.5px;
   cursor: pointer;
+  &:hover{
+    background-color: $dark-blue;
+  }
   @include flexbox();
 
   a {
@@ -283,6 +286,9 @@
   .name-block, .details-block {
     width: 98.7%;
     padding-right: 15px;
+    a {
+      @include align-items(center);
+    }
   }
   #header {
     @include flex-flow(column);
