@@ -85,7 +85,14 @@ class CoursesController < ApplicationController
         end
       end
     end
-    @professors = @professors.sort_by{ |professor| -(@professors_semester[professor.id].number)}
+    @professors = @professors.sort_by do |professor|
+      semester = @professors_semester[professor.id]
+      if semester
+        -semester.number
+      else
+        0
+      end
+    end
     respond_to do |format|
       format.html # show_professors.html.slim
     end
