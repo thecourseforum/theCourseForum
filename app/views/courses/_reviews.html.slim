@@ -26,14 +26,13 @@
             .icon-and-text
               div.rating-icon = image_tag("icons/recommend.png", size: "20")
               div.rating-icon.recommend = review.recommend
-            .icon-and-text
-              div.rating-icon.review-author style="color:#E25424;" 
+            - if current_user == review.user
+              .icon-and-text
+                div.rating-icon style="color:#E25424;" = "You wrote this!"
           .time
             - if review.semester_id
               .taken= "#{review.semester.season} #{review.semester.year}"
               div = review.created_at.strftime("%Y-%m-%d")
             - else
               div style="margin-top: 18px;" = review.created_at.strftime("%Y-%m-%d")          
-            - if current_user == review.user
-              .icon-and-text
-              div.rating-icon style="color:#E25424;" = "You wrote this!"
+           
