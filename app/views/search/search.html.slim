@@ -14,15 +14,19 @@
         strong Professor
       .col-xs-7
         strong Title
-  - @result.each do |r|
-    .row
-      .col-xs-12
-        a href="/courses/#{r[:course_id]}?p=#{r[:professor_id]}" data-no-turbolink=""
-          .row
-            .col-xs-2
-              = "#{r[:mnemonic_number]}"
-            .col-xs-3 
-              = "#{r[:full_name]}"
-            .col-xs-7
-              = "#{r[:title]}"
+  - @result.chunk{|x| x[:course]}.each do |course_group|
+    / .description = course_group.first.description
+    - course_group.last.each do |r|
+      - course = r[:course]
+      .row
+        .col-xs-12
+          a href="/courses/#{r[:course_id]}?p=#{r[:professor_id]}" data-no-turbolink=""
+            .row
+              .col-xs-2
+                = "#{r[:mnemonic_number]}"
+              .col-xs-3 
+                = "#{r[:full_name]}"
+              .col-xs-7
+                = "#{r[:title]}"
+    br
   = will_paginate @result

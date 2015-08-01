@@ -44,10 +44,13 @@ class Course < ActiveRecord::Base
     return Hash[sections.map{|section| [section.course_id, true]}]
   end
 
-  def self.find_by_mnemonic_number(mnemonic, number)
+  def self.find_by_mnemonic_number(mnemonic_number)
+    mnemonic, number = *mnemonic_number.split(' ')
     subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
     if subdepartment
-      subdepartment.courses.find_by(:course_number => number)
+      subdepartment.courses.find do |course|
+        course.course_number == number.to_i
+      end
     else
       nil
     end

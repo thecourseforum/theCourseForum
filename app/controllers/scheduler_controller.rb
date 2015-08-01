@@ -79,17 +79,15 @@ class SchedulerController < ApplicationController
 
   # Given a mnemonic and course number, add the matching course to the current user's courses (not used)
   def save_course
-    subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
-    course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-    current_user.courses << course unless current_user.courses.include? course
+    course = Course.find_by_mnemonic_number("#{params[:mnemonic]} #{params[:course_number]}")
+    current_user.courses << course if course and !current_user.courses.include?(course)
 
     render :nothing => true
   end
 
   def unsave_course
-    subdept = Subdepartment.find_by(:mnemonic => params[:mnemonic])
-    course = Course.find_by(:subdepartment_id => subdept.id, :course_number => params[:course_number]) if subdept
-    current_user.courses.delete(course) if course
+    course = Course.find_by_mnemonic_number("#{params[:mnemonic]} #{params[:course_number]}")
+    current_user.courses.delete(course) if course and current_user.courses.include?(course)
 
     render :nothing => true
   end
