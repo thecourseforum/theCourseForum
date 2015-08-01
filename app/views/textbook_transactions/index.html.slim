@@ -41,7 +41,7 @@ table.table.table-striped#listing-table
     - @textbook_transactions.each do |transaction|
       tr.a-listing
         td
-          input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction[:id]}"
+          input.claim.btn.btn-default disabled='true' type="submit" value="Claim" id="#{transaction[:id]}"
         td.nodecoration.price = transaction[:price]
         td.nodecoration.courses = transaction[:courses]
         td.title 
@@ -49,7 +49,3 @@ table.table.table-striped#listing-table
         td.nodecoration.author = transaction[:author]
         td.nodecoration.condition = transaction[:condition]
         td.nodecoration.end_date = transaction[:end_date]
-
-/ - @textbook_transactions.each do |tt|
-/   .listing-info id="#{tt[:id]}" price="#{tt[:price]}" courses="#{tt[:courses]}" title="#{tt[:title]}" link="/books/#{tt[:book_id]}" author="#{tt[:author]}" condition="#{tt[:condition]}" notes="#{tt[:notes]}" end_date="#{tt[:end_date]}"
-/     

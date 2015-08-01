@@ -3,8 +3,7 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready(function () {
 
-	var claim_id,
-		listingsData = [],
+	var listingsData = [],
 		listingsToShow,
 		listingList,
 		listingScrollEnabled = false,
@@ -34,6 +33,8 @@ $(document).ready(function () {
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
+				// data is an array of arrays
+				// ex. data[0] #=> [id, title, small_image_link]
 				booksData = data;
 				displayBooks(booksData);
 			}
@@ -145,7 +146,6 @@ $(document).ready(function () {
 		}
 		$('#post-listing-modal').modal('hide');
 	});
-
 	function flagInvalidInput(element) {
 		element.css('box-shadow', '0 0 5px #a94442');
 		element.css('border', '1px solid #a94442');
@@ -157,24 +157,49 @@ $(document).ready(function () {
 	
 	// Claim modal
 	$(document).on('click', '.claim', function() {
-		claim_id = $(this.id).selector;
+		var claim_id = $(this).attr('id'),
+			listing = findListing(claim_id);
+			// book_image = $(this).attr('book_image'),
+			// listing_element = $(this).parent().parent(),
+			// price = listing_element.find('.price').text(),
+			// courses = listing_element.find('.courses').text(),
+			// title = listing_element.find('.title a').text(),
+			// author = listing_element.find('.author').text(),
+			// condition = listing_element.find('.condition').text(),
+			// end_date = listing_element.find('.end_date').text();
+
+		$('#claim_cover').attr('src', listing.book_image);
+		$('#claim_title').text(listing.title);
+		$('#claim_author').text(listing.author);
+		$('#claim_courses').text(listing.courses);
+		$('#claim_condition').text(listing.condition);
+		$('#claim_notes').text(listing.notes);
+		$('#claim_end_date').text(listing.end_date);
+		$('#claim_price').text(listing.price);
+
 		$('#claim-listing-modal').modal();
-	});
-	$('#submit-claim').click(function() {
-		$.ajax({
-			url: '/textbook_transactions/claim',
-			method: "POST",
-			data: $("#claim_textbook_transaction").serialize() + "&claim_id=" + claim_id,
-			success: function(data) {
-				if (data.status == "success") {
-					location.reload();
-				} else {
-					alert('Error: ' + data.status);
+		
+		$('#submit-claim').click(function() {
+			$.ajax({
+				url: '/textbook_transactions/claim',
+				method: "POST",
+				data: $("#claim_textbook_transaction").serialize() + "&claim_id=" + claim_id,
+				success: function(data) {
+					if (data.status == "success") {
+						location.reload();
+					} else {
+						alert('Error: ' + data.status);
+					}
 				}
-			}
+			});
+			$('#claim-listing-modal').modal('hide');
 		});
-		$('#claim-listing-modal').modal('hide');
 	});
+	function findListing(id) {
+		return listingsData.filter(function (item) {
+			return item.id == id;
+		})[0];
+	}
 
 	// Modal autocomplete
 	$('#book-input-field').autocomplete({
@@ -256,6 +281,7 @@ $(document).ready(function () {
 					end_date = line.find('.end_date');
 
 				claim.attr('id', listing.id);
+				claim.attr('book_image', listing.book_image);
 				price.text(listing.price);
 				courses.text(listing.courses);
 				title.attr('href', listing.link);
@@ -298,7 +324,7 @@ $(document).ready(function () {
 		appendBooks();
 	}
 	function appendBooks () {
-		if (booksToShow.length >= offset) {
+		if (booksToShow || booksToShow.length >= offset) {
 			$.each(booksToShow.slice(offset, offset+24), function (index, book) {
 				var link = $('.link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),

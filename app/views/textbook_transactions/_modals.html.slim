@@ -28,7 +28,6 @@
                 option value="good" Good
                 option value="worn" Worn
                 option value="usable" Usable
-              / input#condition-input-field.form-control rows="2" name="condition"
             .form-group
               label Notes
               textarea.form-control rows="3" name="notes"
@@ -40,12 +39,29 @@
   .modal-dialog
       .modal-content
         .modal-header
-          h3 Claim Listing
+          #book-info-container
+            img#claim_cover src='/assets/icons/no_book.png'
+            #claim_title_author
+              #claim_title 
+              #claim_author 
+              #claim_courses 
+          hr
+          #condition-container
+            label Condition: 
+            dd#claim_condition 
+          #notes-container
+            label Notes: 
+            dd#claim_notes 
+          #end-date-container
+            label End Date: 
+            dd#claim_end_date 
         .modal-body
+          #price-container
+            h1#claim_price 
           form#claim_textbook_transaction
             .form-group
                 label Cellphone #
                 input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
-            button.btn.btn-primary#submit-claim type="button" Submit
+            button.btn.btn-primary#submit-claim type="button" Claim

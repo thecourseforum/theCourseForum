@@ -23,7 +23,7 @@
 }
 
 .claim {
-	border-radius: 5px;
+	border-radius: 2px;
 	border: 1px solid #D75626;
 }
 
@@ -146,7 +146,7 @@
 	}
 	
 	div {
-		border-radius: 5px;
+		border-radius: 2px;
 		margin-bottom: 10px;
 		padding: 3px;
 		transition: background-color 0.5s ease;
@@ -159,7 +159,7 @@
 		margin: 5px;
 		float: left;
 		overflow: hidden;
-		box-shadow: 0 0 5px #c1e1ec;
+		box-shadow: 0 0 2px #c1e1ec;
 		border: 1px solid #c1e1ec;
 
 
@@ -252,9 +252,9 @@
 }
 
 #cover {
+	box-shadow: 0 0 5px 2px #0D3268;
 	max-width: 100%;
 	height: auto;
-	border: 5px solid #0D3268;
 	margin-top: 10px;
 }
 
@@ -288,6 +288,71 @@
 		padding-left: 0;
 	}
 
+}
+
+#claim-listing-modal {
+
+	#book-info-container {
+		overflow: auto;
+		img {
+			float: left;
+			margin-right: 20px;
+		}
+		#claim_title_author {
+			float: left;
+			max-width: 50%;
+			#claim_title {
+				font-size: 1.5em;
+			}
+			#claim_author {
+				font-size: 1.2em;
+			}
+			#claim_courses {
+				margin-top: 30px;
+			}
+		}
+	}
+	#price-container {
+		#claim_price {
+			text-align: center;
+		}
+	}
+	#condition-container {
+		overflow: auto;
+		label {
+			width: 80px;
+		}
+		dd {
+			width: calc(100% - 80px);
+		}
+		* {
+			float: left;
+		}
+	}
+	#notes-container {
+		overflow: auto;
+		label {
+			width: 50px;
+		}
+		dd {
+			width: calc(100% - 50px);
+		}
+		* {
+			float: left;
+		}
+	}
+	#end-date-container {
+		overflow: auto;
+		label {
+			width: 80px;
+		}
+		dd {
+			width: calc(100% - 80px);
+		}
+		* {
+			float: left;
+		}
+	}
 }
 
 .ui-autocomplete {
