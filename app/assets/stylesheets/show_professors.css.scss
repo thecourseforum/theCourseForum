@@ -6,15 +6,10 @@
   vertical-align: middle;
 }
 
-body {
-  // font-family: "OpenSans";
-}
-
 .panel-heading.prof-heading {
   background-color: white;
   border: 1px solid #bbb;
 }
-
 
 .number-box {
   text-align: center;
@@ -24,14 +19,36 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-.row.number {
-  font-size: 50px;
+
+.prof-panel {
+  height: auto;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-bottom: 1px solid #bfbfbf;
+  @include flexbox();
 }
-.class-name {
-  text-align: center;
-  font-size: 60px;
-  border-bottom: thin solid black;
-  padding-right: 30px;
+
+.prof-name-block {
+  background-color: $light-blue;
+  border-radius: 3px;
+  height: auto;
+  margin: 2.5px 2.5px;
+  // margin-left: -5px;
+  cursor: pointer;
+  min-height: 60px;
+  &:hover {
+    background-color: $dark-blue;
+  }
+  @include flexbox();
+
+  a {
+    text-decoration: none;
+    @include flexbox();
+    @include flex-flow(column);
+    @include justify-content(center);
+    @include flex(1 100%);
+  }
 }
 
 .prof-block {
@@ -46,49 +63,102 @@ body {
   margin-top: -10px;
   margin-left: -15px;
 }
+
+.prof-info-header {
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
+  margin-top: -1px;
+  font-weight: 300;
+
+  .rating-block {
+    margin-right: 26px;
+  }
+
+}
+
+.prof-details-block {
+  margin: 5px 10px;
+  width: 62%;
+  padding-right: 0px;
+  padding-left: 0px;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
+
+  .time {
+    margin-right: 20px;
+    margin-top: -4px;
+    color: #555;
+  }
+}
+
 .last-taught {
   margin-bottom: 5px;
   color: white;
   padding: 0px 10px;
-  // font-family: "OpenSans";
 }
+
 .prof-title {
-  margin-top: 40px;
   padding: 0px 10px;
-  font-size: 30px;
-  // font-family: "OpenSans";
+  font-size: 2.5rem;
   color: white;
+  font-weight: 300;
 }
 
 .info {
   padding-left: 10px;
   padding-right: 10px;
-  // width: 12%;
 }
 
-.review-col {
-  // width: 62%;
-
-}
-.rating {
-
+.no-margin-row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-.rating-subheader {
-
-
-}
 
 .review {
   margin-top: 10px;
 }
 
-
-
 #content-container {
   background-color: #eee !important;
   box-shadow: none !important;
   padding-top: 0px !important;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+@media (max-width: 620px) {
+  .page-title {
+    text-align: center;
+  }
+  .prof-panel {
+    @include flex-flow(column);
+    @include align-items(stretch);
+  }
+  .prof-info-header {
+    @include flex-flow(column);
+    @include align-items(center);
+    width: 100%;
+  }
+  .prof-info-header, .rating-block {
+    margin-right: 0px;
+  }
+  .semester-block {
+    margin-left: -15px;
+  }
+  .prof-name-block, .prof-details-block {
+    width: 98.7%;
+    padding-right: 15px;
+    @include justify-content(center);
+    a {
+      @include align-items(center);
+    }
+  }
+  .page-title, #filter {
+    margin-bottom: 10px;
+  }
 }

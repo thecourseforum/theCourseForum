@@ -30,6 +30,7 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/generate_schedules' => 'scheduler#generate_schedules'
   get '/scheduler/schedules' => 'scheduler#show_schedules'
   post '/scheduler/course' => 'scheduler#save_course'
+  post '/scheduler/unsave_course' => 'scheduler#unsave_course'
   post '/scheduler/schedules' => 'scheduler#save_schedule'
   delete '/scheduler/schedules' => 'scheduler#destroy'
   get '/scheduler/schedules' => 'scheduler#index'

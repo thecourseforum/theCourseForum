@@ -1,5 +1,11 @@
 @import "variables";
 
+@media only screen and (max-device-width: 480px){
+    #scheduler {
+      display: none;
+    }
+}
+
 #nav-footer {
   left: auto;
   right: auto;
@@ -37,6 +43,7 @@
   color: white;
   list-style-type: none;
   margin-top: 8px;
+  font-weight: 300;
 
   .nav-row {
     font-size: $sidebar-font-size;

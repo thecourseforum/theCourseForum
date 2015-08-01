@@ -35,11 +35,11 @@ ready = function() {
 			method: "GET",
 			data: {
 				course_id: courseId,
-				professor_id: params['p'],
+				professor_id: params ? params['p'] : undefined,
 				sort_type: sortType,
 			},
 			success: function(response) {
-				if (response.length > 1) {
+				if (response.length >= 1) {
 					reviews = response
 					appendReviews();
 					enableInfiniteScroll = true;
@@ -53,7 +53,6 @@ ready = function() {
 
 
 	function appendReviews() {
-		
 		// splice out the reviews to display
 		reviewsToAppend = reviews.splice(0, amount);
 		// display them
@@ -75,12 +74,12 @@ ready = function() {
 
 			//conditionally apply the active class to the vote buttons (based on vote attr)
 			if (review.vote_direction == "up")
-				reviewBox.find('.upvote').addClass('active');
+				reviewBox.find('.upvote').addClass('vote-active');
 			else if (review.vote_direction == "down")
-				reviewBox.find('.downvote').addClass('active');
+				reviewBox.find('.downvote').addClass('vote-active');
 			else {
-				reviewBox.find('.upvote').removeClass('active');
-				reviewBox.find('.downvote').removeClass('active');
+				reviewBox.find('.upvote').removeClass('vote-active');
+				reviewBox.find('.downvote').removeClass('vote-active');
 			}
 
 			// set date taken and ratings						
@@ -89,11 +88,15 @@ ready = function() {
 			reviewBox.find('.enjoyability').text(review.enjoyability);
 			reviewBox.find('.difficulty').text(review.difficulty);
 			reviewBox.find('.recommend').text(review.recommend);
-			reviewBox.find('.created').text(review.created_at);
-			reviewBox.find('.taken').text(review.taken);
+			if (review.created_at) {
+				reviewBox.find('.created').text(review.created_at);
+			}
+			if (review.taken) {
+				reviewBox.find('.taken').text(review.taken);
+			}
 
 			if (review.is_author)
-				reviewBox.find('.author').text("You wrote this!");
+				reviewBox.find('.review-author').text("You wrote this!");
 
 			$('.reviews-box').append(reviewBox);
 
@@ -116,24 +119,44 @@ ready = function() {
 
 	});
 
-	$('#save-course').click(function() {
+	$('#save-course-button').click(function() {
 		var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		course_name = course_name.split(' - ');
 		course_name = course_name[0].split(' ');
 
-		$.ajax('/scheduler/course', {
+		if ($('#save-course-button').text().trim() == 'Unsave') {
+			$('#save-course-button').text("Save Course");
+			
+			$.ajax('/scheduler/unsave_course', {
 			method: "POST",
 			data: {
 				mnemonic: course_name[0],
 				course_number: course_name[1]
 			},
 			success: function(response) {
-				alert('Course saved for scheduler!');
+				// alert('Course saved for scheduler!');
 			},
 			failure: function(response) {
-				alert('Could not load corresponding course!');
+				console.log('Could not load corresponding course!');
 			}
 		});
+		} else {
+			$('#save-course-button').text("Unsave");
+			$.ajax('/scheduler/course', {
+			method: "POST",
+			data: {
+				mnemonic: course_name[0],
+				course_number: course_name[1]
+			},
+			success: function(response) {
+				// alert('Course saved for scheduler!');
+			},
+			failure: function(response) {
+				console.log('Could not load corresponding course!');
+			}
+		});
+		}
+
 	});
 
 
@@ -143,30 +166,33 @@ ready = function() {
 		}, 1000);
 	});
 
-	$('.carousel').slick({
-		infinite: true,
-		slidesToShow: 2,
-		slidesToScroll: 2,
-		dots: true,
-		responsive: [{
-				breakpoint: 1200,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-					infinite: true,
-					dots: true
-				}
-			},
-			// {
-			//   breakpoint: 00,
-			//   settings: {
-			//     slidesToShow: 1,
-			//     slidesToScroll: 1
-			//   }
-			// },
-		],
-	});
-
+	try {
+		$('.carousel').slick({
+			infinite: true,
+			slidesToShow: 2,
+			slidesToScroll: 2,
+			dots: true,
+			responsive: [{
+					breakpoint: 1120,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						infinite: true,
+						dots: true
+					}
+				},
+				// {
+				//   breakpoint: 00,
+				//   settings: {
+				//     slidesToShow: 1,
+				//     slidesToScroll: 1
+				//   }
+				// },
+			],
+		});
+	} catch (error) {
+		console.log(error);
+	}
 
 	$("#courses-sidebar").css("height", $("#courses-main").height());
 
@@ -178,7 +204,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) - 1;
 					$("#votes_" + review_id).text(count);
@@ -191,8 +217,8 @@ ready = function() {
 				success: function() {
 					var wasDownvoted = $("#vote_down_" + review_id).css("opacity") == 1;
 
-					$("#vote_up_" + review_id).css("opacity", "1");
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_up_" + review_id).addClass("vote-active");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {
@@ -219,7 +245,7 @@ ready = function() {
 				url: '/unvote/' + review_id,
 				type: 'POST',
 				success: function() {
-					$("#vote_down_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).removeClass("vote-active");
 					var count = $("#votes_" + review_id).text().trim();
 					count = parseInt(count) + 1;
 					$("#votes_" + review_id).text(count);
@@ -233,8 +259,8 @@ ready = function() {
 
 					var wasUpvoted = $("#vote_up_" + review_id).css("opacity") == 1;
 
-					$("#vote_down_" + review_id).css("opacity", "1");
-					$("#vote_up_" + review_id).css("opacity", "0.4");
+					$("#vote_down_" + review_id).addClass("vote-active");
+					$("#vote_up_" + review_id).removeClass("vote-active");
 
 					var count = $("#votes_" + review_id).text().trim();
 					if (count == "") {

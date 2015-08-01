@@ -22,31 +22,32 @@ html
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header
-            .col-xs-10#course-name
+            #course-name
               h1.page-title= yield(:page_heading)
             - if controller.controller_name == "courses" && controller.action_name == "show"
-              .col-xs-2#save-course
-                .btn.btn-primary#save-course Save Course
+              #save-course
+                - if current_user.courses.include? @course
+                  .btn.btn-primary#save-course-button.active data-toggle="button" aria-pressed="true" Unsave
+                - else
+                  .btn.btn-primary#save-course-button data-toggle="button" aria-pressed="false" Save Course
             - if controller.controller_name == "departments" && controller.action_name == "show"
-              .col-xs-2#filter
-                .row
-                  .btn-group data-toggle="buttons"
-                    label.btn.btn-primary
-                      input#current autocomplete="off" name="options" type="radio"
-                      | Fall 2015
-                    label.btn.btn-primary
-                      input#all autocomplete="off" name="options" type="radio"
-                      | All
+              #filter
+                .btn-group data-toggle="buttons"
+                  label.btn.btn-primary.active
+                    input#current autocomplete="off" name="options" type="radio"
+                    | Fall 2015
+                  label.btn.btn-primary
+                    input#all autocomplete="off" name="options" type="radio"
+                    | All
             - if controller.controller_name == "courses" && controller.action_name == "show_professors"
-              .col-xs-2#filter
-                .row
-                  .btn-group data-toggle="buttons"
-                    label.btn.btn-primary
-                      input#current autocomplete="off" name="options" type="radio"
-                      | Fall 2015
-                    label.btn.btn-primary
-                      input#all autocomplete="off" name="options" type="radio"
-                      | All
+              #filter
+                .btn-group data-toggle="buttons"
+                  label.btn.btn-primary.active
+                    input#current.active autocomplete="off" name="options" type="radio"
+                    | Fall 2015
+                  label.btn.btn-primary
+                    input#all autocomplete="off" name="options" type="radio"
+                    | All
 
           .container-fluid#content-container
             = yield

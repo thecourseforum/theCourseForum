@@ -14,16 +14,10 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.ui.touch-punch
+//= require jquery.slick
 //= require turbolinks
 //= require bootstrap
 //= require d3
-// require new_wheel
-//= require header
-//= require courses
-//= require departments
-//= require contact_us
-//= require sign_up
-//= require reviews
 //= require moment
 //= require fullcalendar
 //= require jqcloud
@@ -33,33 +27,40 @@
 //= require nprogress-ajax
 //= require highcharts
 //= require highcharts/highcharts-more
-//= require jquery.slick
+// require new_wheel
+//= require header
+//= require courses
+//= require departments
+//= require contact_us
+//= require sign_up
+//= require reviews
 
 var ready = function() {
+	var toggleSpeed = 125;
 
 	// Attatches navbar-toggle button to sidebar
 	$('.navbar-toggle').click(function() {
 		$('aside').toggle('slide', {
 			direction: 'left'
-		}, "fast");
+		}, toggleSpeed);
 	});
 
 	// expands user-account options in sidebar on click
 	$("a#user-account").click(function() {
-		$(".col-secondary").toggle("fast");
+		$(".col-secondary").toggle(toggleSpeed);
 	});
 
 	$(document).mousedown(function(e) {
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
-		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target)) {
-			$("aside").hide('slide', "fast");
+		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target) && $(".navbar-toggle").has(e.target).length === 0) {
+			$("aside").hide('slide', toggleSpeed);
 		}
 	});
 
 	// retracts sidebar if esc key is pressed
 	$(document).keydown(function(e) {
 		if (e.which === 27 && $(window).width() < 850) {
-			$("aside").hide('slide', 'fast');
+			$("aside").hide('slide', toggleSpeed);
 		}
 	});
 
@@ -218,6 +219,5 @@ var ready = function() {
 	});
 
 };
-
 $(document).ready(ready);
 $(document).on('page:load', ready);

@@ -14,6 +14,8 @@
  *= require jquery-ui/slider
  *= require jqcloud
  *= require fullcalendar
+ *= require slick
+ *= require slick-theme
  *= require bootstrap_overrides
  *= require header
  *= require footer
@@ -23,10 +25,7 @@
  *= require reviews
  *= require scheduler
  *= require books
- *= require slick
- *= require slick-theme
  */
-
 $screen-sm: 850px;
 
 @import "variables";
@@ -47,6 +46,21 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: asset-url('Lato-Light.ttf') format('woff2');
+}
+
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: asset-url('Lato-Regular.ttf') format('woff2');
+}
+
+@font-face {
   font-family: 'comic-sans';
   src: asset-url('comic.ttf') format('truetype');
   font-weight: normal;
@@ -61,22 +75,8 @@ $nprogress-height: 4.5px;
 }
 
 @font-face {
-  font-family: 'OpenSans';
-  src: asset-url('OpenSans-Regular.ttf') format('truetype');
-  font-weight:normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Rockwell";
   src: asset-url('rockwell.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Futura";
-  src: asset-url('FuturaLT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -87,7 +87,7 @@ html, body {
 }
 
 body {
-  font-family: "Futura", sans-serif;
+  font-family: "Lato", sans-serif;
   background-color: $blue;
   overflow: hidden;
   font-size: $regular-font-size;
@@ -103,9 +103,14 @@ aside {
     display: none;
     background-color: $blue;
     position: relative;
-    z-index: 1;
+    z-index: 4;
     height: 100%
   }
+}
+
+#header-navbar {
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 1;
 }
 
 section#main {
@@ -139,26 +144,35 @@ section#main {
       margin-right: auto;
       padding-left: 0px;
       padding-right: 0px;
+      margin-bottom: 30px;
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
 
       #course-name {
         padding-left: 0px;
+        @include flex(1);
       }
 
       #filter .row {
         float: right;
       }
+
+      #save-course-button {
+        float: right;
+      }
     }
 
     #content-container {
-      box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.4), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.07);
+      box-shadow: 0px 1px 2px 0px #B8B8B8;
       background-color: white;
       padding-bottom: 20px;
-      //padding-top: 20px;
+      padding-top: 20px;
       max-width: $content-max-width;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 0px;
-      padding-right: 0px;
+    }
+
+    @media only screen and (max-width: 520px) {
+      padding: 30px 30px;
     }
   }
 }
@@ -182,6 +196,10 @@ select {
 #browsing-content {
   padding-left: 0px;
   padding-right: 0px;
+
+  #departments {
+    margin-top: -20px;
+  }
 }
 
 #alert, #notice {
@@ -222,5 +240,33 @@ select {
 
 .page-title {
   margin-top: 0px;
-  margin-bottom: 31px;
+  margin-bottom: 0px;
+  font-weight: 300;
 }
+
+@media (max-width: $screen-sm) {
+    .navbar-default .navbar-brand {
+      background-color: #fff;
+    }
+    #logo {
+      margin-left: -30px;
+    }
+}
+
+.navbar-toggle {
+  @media only screen and (min-device-width: $screen-xs){
+    position: absolute;
+    left: 210px;
+  }
+  border: none;
+  height: $navbar-height;;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  .navbar-default &:hover, .navbar-default &:focus{
+    background-color: inherit;
+    .icon-bar {
+      background-color: $blue;
+    }
+  }
+}
+

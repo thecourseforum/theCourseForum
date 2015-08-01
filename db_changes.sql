@@ -2,19 +2,22 @@
 
 # SQL changes from master to beta
 
-# In summary
-#   Added:
-#     book_requirements,
-#     books,
-#     bugs,
-#     calendar_sections,
-#     courses_users,
-#     professor_salary,
-#     schedules_sections
-#   Altered: 
-#     professors
-#   Dropped: 
-#     section_users
+# populate books, book_requirements, stats
+
+CREATE TABLE stats AS 
+  (SELECT sections.course_id, 
+          section_professors.professor_id 
+   FROM   sections 
+          JOIN section_professors 
+            ON section_professors.section_id = sections.id 
+   GROUP  BY course_id, 
+             professor_id);
+
+ALTER TABLE stats ADD id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+ALTER TABLE stats ADD COLUMN rating double;
+ALTER TABLE stats ADD COLUMN difficulty double;
+ALTER TABLE stats ADD COLUMN gpa double;
 
 CREATE TABLE `book_requirements` (
   `section_id` int(11) NOT NULL,

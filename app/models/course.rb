@@ -4,6 +4,10 @@ class Course < ActiveRecord::Base
 
   has_many :sections
   has_many :reviews
+  has_one :overall_stats, -> { where professor_id: nil }, :dependent => :destroy, :class_name => Stat
+
+  has_many :stats, :dependent => :destroy
+
   has_many :books, -> { uniq }, :through => :sections
   has_many :book_requirements, :through => :sections
 
@@ -13,8 +17,11 @@ class Course < ActiveRecord::Base
   has_many :semesters, :through => :sections
   has_many :professors, :through => :sections
   has_many :departments, through: :subdepartment
+  has_many :grades, :through => :sections
 
   validates_presence_of :title, :course_number, :subdepartment
+
+  after_create :create_overall_stats
 
   def professors_list
     self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
@@ -37,7 +44,6 @@ class Course < ActiveRecord::Base
     return Hash[sections.map{|section| [section.course_id, true]}]
   end
 
-
   def self.find_by_mnemonic_number(mnemonic, number)
     subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
     if subdepartment
@@ -54,19 +60,19 @@ class Course < ActiveRecord::Base
         course.update(:last_taught_semester_id => Semester.find_by(:number => number).id)
       else
         puts "No sections with semesters for course ID: #{course.id}"
-	  end
-	end
+      end
+    end
   end
 
-  def get_top_review(prof_id = -1)
-    if prof_id != -1
-      review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
-    else 
-      review = Review.where(:course_id => self.id).where.not(:comment => '').last
-    end
-    review ? review.comment : nil
-    # review.comment
-  end
+  # def get_top_review(prof_id = -1)
+  #   if prof_id != -1
+  #     review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
+  #   else 
+  #     review = Review.where(:course_id => self.id).where.not(:comment => '').last
+  #   end
+  #   review ? review.comment : nil
+  #   # review.comment
+  # end
 
   def get_review_ratings(prof_id = -1)    
       @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)
@@ -172,6 +178,10 @@ class Course < ActiveRecord::Base
       percentages[:total] = running_total
       #return
       percentages
+  end
+
+  def create_overall_stats
+    Stat.create(:course_id => id)
   end
 
 end

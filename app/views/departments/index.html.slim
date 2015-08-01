@@ -1,15 +1,13 @@
 - content_for :title, "Browse By Department"
 - content_for :page_heading, "Browse By Department"
 
-#department-accordion.panel-group aria-multiselectable="true" role="tablist" 
-  .panel.panel-default
-    #headingOne.panel-heading role="tab" 
-      .panel-title
-        a.school-link.collapsed aria-controls="collapseOne" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseOne" 
-          .dept-block
-            span.glyphicon.glyphicon-th-list
-          h3.school-title Arts &amp; Sciences Departments
-    #collapseOne.panel-collapse.collapse aria-labelledby="headingOne" role="tabpanel" 
+.container-fluid#browsing-content
+  #departments
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-th-list
+        h3.school-title Arts &amp; Sciences
       .panel-body
         .row.department-list
           .col-sm-6
@@ -18,14 +16,12 @@
           .col-sm-6
             - @artDeps[1].each do |d|
               .dept= link_to d.name, d
-  .panel.panel-default
-    #headingTwo.panel-heading role="tab" 
-      h4.panel-title
-        a.school-link.collapsed aria-controls="collapseTwo" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseTwo" 
-          .dept-block
-            span.glyphicon.glyphicon-cog
-          h3.school-title Engineering &amp; Applied Sciences
-    #collapseTwo.panel-collapse.collapse aria-labelledby="headingTwo" role="tabpanel" 
+    br
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-cog
+        h3.school-title Engineering &amp; Applied Sciences
       .panel-body
         .row.department-list
           .col-sm-6
@@ -34,14 +30,12 @@
           .col-sm-6
             - @engrDeps[1].each do |d|
               .dept= link_to d.name, d
-  .panel.panel-default
-    #headingThree.panel-heading role="tab" 
-      h4.panel-title
-        a.school-link.collapsed aria-controls="collapseThree" aria-expanded="false" data-parent="#department-accordion" data-toggle="collapse" href="#collapseThree" 
-          .dept-block
-            span.glyphicon.glyphicon-star
-          h3.school-title Others Schools at the University of Virginia
-    #collapseThree.panel-collapse.collapse aria-labelledby="headingThree" role="tabpanel" 
+    br
+    .panel.panel-default
+      .school-panel-title
+        .dept-block
+          span.glyphicon.glyphicon-star
+        h3.school-title Others Schools at the University of Virginia
       .panel-body
         .row.department-list
           .col-sm-6
@@ -50,3 +44,4 @@
           .col-sm-6
             - @otherSchools[1].each do |d|
               .dept= link_to d.name, d
+              

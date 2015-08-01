@@ -1,5 +1,4 @@
 @import "variables";
-
 /* INDEX */
 
 #department-courses {
@@ -11,26 +10,48 @@
   margin-bottom: 0;
 }
 
-// #content-container {
-//   background-color: transparent;
-//   box-shadow: none;
-// }
-
 .name-block {
   background-color: $light-blue;
-  border-radius: 5px;
-  height: 106px;
-  margin: 5px 5px;
+  border-radius: 3px;
+  margin: 2.5px 2.5px;
   cursor: pointer;
+  &:hover{
+    background-color: $dark-blue;
+  }
+  @include flexbox();
 
   a {
     text-decoration: none;
+    @include flexbox();
+    @include flex-flow(column);
+    @include justify-content(center);
+    @include flex(1 100%);
   }
 }
 
 .info-header {
-  border-bottom: 1px solid #dfdfdf;
-  margin-top: -5px;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row wrap);
+  margin-left: -15px;
+  margin-right: 5px;
+  margin-top: -1px;
+  font-weight: 300;
+}
+
+.prof-info-header {
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  @include flex-flow(row);
+  margin-top: -1px;
+  font-weight: 300;
+
+  .rating-block {
+    margin-right: 26px;
+  }
+
 }
 
 .details-block {
@@ -39,38 +60,68 @@
 }
 
 .course-name {
-  margin-top: 20px;
   padding: 0px 10px;
-  font-size: 30px;
-  // font-family: "OpenSans";
+  font-size: $course-font-size;
   color: white;
+  font-weight: 300;
+}
+
+.course-rating, .semester-block {
+  color: #555;
+}
+
+.panel {
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .course-panel {
-  height: 116px;
+  @include flexbox();
+  @include align-items(stretch);
+  height: auto;
   background: white;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px #B8B8B8;
   border-bottom: 1px solid #bfbfbf;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .course-title {
   color: white;
   padding: 0px 10px;
-  // font-family: "OpenSans";
+  padding-bottom: 5px;
+  letter-spacing: .2px;
+}
+
+.subdepartment {
+  font-weight: 300;
+  font-size: $title-font-size;
+  margin-bottom: 10px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .semester-subheader {
   line-height:10px;
-  font-size: 12px;
+  font-size: $small-font-size;
   color: #bfbfbf;
 }
 
 .semester {
-  // margin-top: px;
   float: right;
   margin-top: -2px;
   margin-bottom: 0px;
+}
+
+.rating-block {
+  @include flexbox();
+  margin-right: 14px;
+}
+
+.semester-block {
+  padding-right: 0px;
+  margin-top: -2px;
 }
 
 .course-icon {
@@ -113,20 +164,21 @@
 .rating-subheader {
   padding-top: 0px;
   margin-top: 0px;
-  font-size: 12px;
+  font-size: $small-font-size;
   color: #bfbfbf;
 }
 
 .description {
-  font-size: 12px;
+  font-size: $description-font-size;
   overflow:hidden;
   margin-bottom: 10px;
-  margin-top: 2px;
+  margin-top: 10px;
+  font-weight: 300;
 }
 
 .dept-block {
   height: 46px;
-  background-color: $orange;
+  //background-color: $orange;
   width: 46px;
   float: left;
   margin: -10px -15px;
@@ -138,6 +190,8 @@
 .school-title {
   margin-bottom: 0;
   margin-left: 46px;
+  color: white;
+  font-weight: 300;
 }
 
 .course-block {
@@ -178,17 +232,6 @@
   vertical-align: middle;
 }
 
-.row.number {  
-  font-size: 50px;
-}
-
-.class-name {
-  text-align: center;
-  font-size: 60px;
-  border-bottom: thin solid black;
-  padding-right: 30px;
-}
-
 .review-box {
   padding-top: 20px;
   .btn > a {
@@ -196,6 +239,14 @@
   }
 }
 
+.school-panel-title {
+    margin-top: 0;
+  margin-bottom: 0;
+  font-size: $regular-font-size;
+  color: inherit;
+  padding: 15px 20px;
+  background-color: $light-blue;
+}
 
 /* SHOW */
 
@@ -209,4 +260,47 @@
 
 .bli {
   font-weight: bold;
+}
+
+.no-margin-left-row {
+  margin-left: 0px;
+}
+
+
+@media (max-width: 620px) {
+  .course-panel {
+    @include flex-flow(column);
+    @include align-items(stretch);
+  }
+  .info-header {
+    @include flex-flow(column);
+    @include align-items(center);
+    margin-right: 0px;
+  }
+  .prof-info-header, .rating-block {
+    margin-right: 0px;
+  }
+  .semester-block {
+    margin-left: -15px;
+  }
+  .name-block, .details-block {
+    width: 98.7%;
+    padding-right: 15px;
+    a {
+      @include align-items(center);
+    }
+  }
+  #header {
+    @include flex-flow(column);
+    margin-bottom: 0px !important;
+  }
+  // #course-name, #filter {
+  //   width: 100%;
+  // }
+  .page-title, #filter, #save-course{
+    margin-bottom: 10px;
+  }
+  .description { 
+    padding-right: 20px;
+  }
 }

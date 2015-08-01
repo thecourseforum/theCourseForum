@@ -9,9 +9,13 @@
 .navbar-default .navbar-brand {
   padding: 0;
   width: $sidebar-width;
-  background-color: $orange;
+  //background-color: $orange;
   color: white;
   text-align: center;
+  background-color: #F1F6FB;
+  &:hover {
+    background-color: #DFE2F5;
+  }
 
   h1 {
     margin-top: ($navbar-height - 39px) / 2;
@@ -20,7 +24,7 @@
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  background-color: $orange;
+  // background-color: $orange;
   color: white;
 }
 
@@ -33,8 +37,18 @@
 .navbar-default .navbar-nav > li > a {
   color: $blue;
   font-size: $subtitle-font-size;
+  font-weight: 300;
 }
 
 #report-bug:hover {
   cursor: pointer;
+}
+
+@media (max-width:$screen-sm) {
+  .navbar-default .navbar-brand{
+    background-color: #fff;
+    &:hover {
+      background-color: #fff;
+    }
+  }
 }

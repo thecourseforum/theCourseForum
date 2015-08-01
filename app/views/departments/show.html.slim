@@ -1,152 +1,70 @@
-- content_for :title, @department.name
-- content_for :page_heading, @department.name
+- if (@department.subdepartments.size > 1)
+  - first_subdepartment = @department.subdepartments[0].name
+  - content_for :title, first_subdepartment
+  - content_for :page_heading, first_subdepartment
+- else
+  - content_for :title, @department.name
+  - content_for :page_heading, @department.name
 
-= javascript_include_tag "grades"
+/ = javascript_include_tag "grades"
 
-/ div#dept-list role="tabpanel" 
-/   /! Nav tabs
-/   / ul#dept-tabs.nav.nav-tabs role="tablist" 
-/   /   li.active role="presentation" 
-/   /     a aria-controls="home" data-toggle="tab" href="#dept-courses" role="tab" Courses
-/   /   li role="presentation" 
-/   /     a aria-controls="profile" data-toggle="tab" href="#dept-professors" role="tab" Professors
-/   /! Tab panes
-/   br
 .container-fluid#browsing-content
-  #accordion
-    = content_tag "div", id: "IDs", data: {ids: @courses_with_sections_ids} do end
-    - @subdepartments_with_sections.each do |subdepartment|
-      - if (@count > 1)
+  #departments
+    - @department.subdepartments.each do |subdepartment|
+      - if (@department.subdepartments.size > 1 && subdepartment.name != first_subdepartment)
         br
-        h2= subdepartment.name
-      ul#department-courses
-        - flag = true
-        - separator = 1000
-        - numCourses = @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.count
-        / = content_tag "div", id: "numCourses-#{subdepartment.id}", data: {count: numCourses} do end
-        - @courses_with_sections.select{|c| c.subdepartment_id == subdepartment.id}.sort_by{|c| c.course_number}.each_with_index do |course, index|
-          / - separator = course.course_number.round(-3)
-          - ratings = course.get_review_ratings
-          - percentages = course.get_grade_percentages
-          / - review = course.get_top_review
-          = content_tag "div", id: "percentages-#{course.id}", data: {percents: percentages} do end
-          / = content_tag :div, class: "temp_information", data: {temp: @temp} 
-          - if flag
-            - separator = (course.course_number / 1000) * 1000 + 1000
-            - flag = false
-          - if course.course_number >= separator
-            br
-            - separator = (course.course_number / 1000) * 1000 + 1000
-          .course-panel
-            .col-xs-4.name-block data-no-turbolink=""= link_to '/courses/' + course.id.to_s + '/professors'
+        .subdepartment = subdepartment.name
+      #department-courses
+        - courses = subdepartment.courses.sort_by(&:course_number)
+        - separator = 0
+        - courses.each do |course|
+          - current = course.last_taught_semester.to_s == 'Fall 2015'
+          .course-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+            .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course.id.to_s + '/professors'
               .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
               .row.course-title = "#{course.title}"
             .col-xs-8.details-block
-              .row.info-header
-                .col-xs-2
-                  .course-icon=image_tag("icons/overall.png", size: "20")
-                  .rating-container
-                    .row.rating-subheader
-                      span Rating
-                    .row.course-rating-row
-                      - if ratings[:overall] == "--"
-                        h4.rating-empty = "--"
-                      - else
-                        h4.course-rating = ratings[:overall]
-                .col-xs-2
-                  .course-icon=image_tag("icons/difficulty.png", size: "20")
-                  .rating-container
-                    .row.rating-subheader
-                      span Difficulty
-                    .row.course-rating-row
-                      - if ratings[:difficulty] == "--"
-                        h4.rating-empty = "--"
-                      - else 
-                        h4.course-rating = ratings[:difficulty]
-                .col-xs-2
-                  .course-icon=image_tag("icons/chart.png", size: "20")
-                  .rating-container
-                    .row.rating-subheader
-                      span GPA
-                    .row.course-rating-row
-                      - if percentages[:gpa].round(2).nan?
-                        h4.rating-empty = "--"
-                      - else
-                        h4.course-rating = percentages[:gpa].round(2)
-                .col-xs-6
+              .info-header
+                .prof-info-header
+                  .rating-block
+                    .course-icon = image_tag("icons/overall.png", size: "20")
+                    .rating-container
+                      .row.rating-subheader
+                        span RATING
+                      .row.course-rating-row
+                        - if course.overall_stats.rating
+                          h4.course-rating = course.overall_stats.rating.round(2)
+                        - else
+                          h4.rating-empty = "--"
+                  .rating-block
+                    .course-icon = image_tag("icons/difficulty.png", size: "20")
+                    .rating-container
+                      .row.rating-subheader
+                        span DIFFICULTY
+                      .row.course-rating-row
+                        - if course.overall_stats.difficulty
+                          h4.course-rating = course.overall_stats.difficulty.round(2)
+                        - else
+                          h4.rating-empty = "--"
+                  .rating-block
+                    .course-icon = image_tag("icons/chart.png", size: "20")
+                    .rating-container
+                      .row.rating-subheader
+                        span GPA
+                      .row.course-rating-row
+                        - if course.overall_stats.gpa
+                          h4.course-rating = course.overall_stats.gpa.round(2)
+                        - else
+                          h4.rating-empty = "--"
+                .semester-block
                   div style="float:right;"
-                    .row
-                      span.semester-subheader Last Taught
-                    .row
+                    .row.no-margin-left-row style="float:right;"
+                      span.semester-subheader LAST TAUGHT
+                    .row.no-margin-left-row
                       h4.semester = course.last_taught_semester
-                  / .row.semester-subheader
-                  /   .semester Last Taught
-                  / .row.semester-subheader
-                  /   .semester = course.last_taught_semester
-              / h3 = course.last_taught_semester
               .row
                 - if course.description
                   p.description = course.description
-                - else
-                  p.description = "No description available :("
-                // Have some check for size for whether to include ...
-          / #department-accordion.panel-group aria-multiselectable="true" role="tablist" 
-          /   #course-panel.panel.panel-default
-          /     .panel-heading(id="heading-#{course.id}" role="tab")
-          /       .panel-title
-          /         a.course-link.collapsed aria-controls="collapse-#{course.id}" aria-expanded="false"  data-toggle="collapse" href="#collapse-#{course.id}"                      
-          /           / span.glyphicon.glyphicon-plus.pull-right 
-          /           h4.class-title= "#{subdepartment.mnemonic} #{course.course_number} #{course.title}"                         
-          /     .panel-collapse.collapse(id="collapse-#{course.id}")                    
-          /       .panel-body
-          /         .row
-          /           .grades-row(id="grade-bar-#{course.id}")
-          /         .col-md-7.course-data-box
-          /           .row  
-          /             .col-md-7.col-md-offset-2.class-name
-          /               p= "#{subdepartment.mnemonic} #{course.course_number}"
-          /           br
-          /           .row                              
-          /             .col-sm-2.col-md-offset-1
-          /               .number-box
-          /                 .row.number
-          /                   p= ratings[:overall]
-          /                 .row
-          /                   p avg rating
-          /             .col-sm-2.col-md-offset-1
-          /               .number-box
-          /                 .row.number                             
-          /                   p= ratings[:difficulty]
-          /                 .row
-          /                   p avg difficulty
-          /             .col-sm-2.col-md-offset-1
-          /               .number-box
-          /                 .row.number                             
-          /                   p= percentages[:gpa].round(2)
-          /                 .row
-          /                   p avg gpa
-          /         .col-md-4.review-box
-          /           .row
-          /             / .col-md-12
-          /             /   - if review
-          /             /     - if review.length >= 300
-          /             /       p= review[0..300] + "..."                        
-          /             /     - else 
-          /             /       p= review[0..300]
-          /             /   - else 
-          /             /     p No reviews yet :(                   
-          /           .row.review-box
-          /             .btn.btn-primary.col-md-offset-5 data-no-turbolink=""= link_to "Browse Professors", '/courses/' + course.id.to_s + '/professors'
-                /- percentages = course.get_grade_percentages
-                /=percentages["total"].to_s
-                / =percentages
-                /=" a plus is #{percentages["total"]} percent"
-                / .panel-group#accordion 
-                /   .panel.panel-default
-                /     h4.panel-title
-                /       a text
-                / - if @offered[course.id]                 
-                /   .bli data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
-                / - else
-                /   li data-no-turbolink=""= link_to "#{subdepartment.mnemonic} #{course.course_number}" + " " + course.title, course
-    
+          - if course.course_number / 1000 > separator
+            br class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+            - separator = course.course_number / 1000

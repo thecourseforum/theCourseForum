@@ -11,33 +11,35 @@
   .row
     .col-xs-12
       .orange-title What class are you reviewing?
+      
+  br
 
   - if @subdept_id
     .row
       .col-md-12
         .row
           .col-md-4 align="center" id="departments" 
-            = f.label 'Department (prefix):'
+            / = f.label 'Department (prefix):'
             = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}, @subdept_id), :include_blank => true, :class => "form-control"
           .col-md-4 align="center" id="courses" 
-            = f.label 'Course:'
+            / = f.label 'Course:'
             = select_tag :course_select, options_for_select(@courses.map{|c| [@mnemonic + " #{c.course_number}", c.id]}, @course_id), :include_blank => true
           .col-md-4 align="center" id="professors" 
-            = f.label 'Professor:'
+            / = f.label 'Professor:'
             = select_tag :prof_select, options_for_select(@professors.map{|p| ["#{p.last_name}, #{p.first_name}", p.id]}, @prof_id), :include_blank => true
   - else
     .row
       .col-md-12
         .row
           .col-md-4 align="center" id="departments" 
-            = f.label 'Department (prefix):'
+            / = f.label 'Department (prefix):'
             = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), prompt: "Department (prefix)", class: "form-control"
           .col-md-4 align="center" id="courses" 
-            = f.label 'Course:'
+            / = f.label 'Course:'
             select name="course_select" id="course_select" class="form-control" disabled="true"
               option Course
           .col-md-4 align="center" id="professors" 
-            = f.label 'Professor:'
+            / = f.label 'Professor:'
             select name="prof_select" id="prof_select" class="form-control" disabled="true"
               option Professor
             
