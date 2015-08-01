@@ -4,13 +4,11 @@ ready = function() {
 
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-			if (enableInfiniteScroll) {
-				appendReviews();
-			}
+			appendReviews();
 		}
 	});
 
-	var params, search, amount, enableInfiniteScroll = false;
+	var params, search, amount, lastIndex;
 	var reviews;
 
 	// load 10 reviews at a time
@@ -31,7 +29,7 @@ ready = function() {
 		// default sort is recent
 		sortType = sortType ? sortType : "recent";
 
-		$.ajax('/courses/reviews.json', {
+		$.ajax('/courses/reviews', {
 			method: "GET",
 			data: {
 				course_id: courseId,
@@ -39,13 +37,10 @@ ready = function() {
 				sort_type: sortType,
 			},
 			success: function(response) {
-				if (response.length >= 1) {
-					reviews = response
-					appendReviews();
-					enableInfiniteScroll = true;
-				} else {
-					enableInfiniteScroll = false;
-				}
+				$('.reviews-box').append(response);
+				$('[id^="vote_up_"]').click(voteUp);
+				$('[id^="vote_down_"]').click(voteDown);
+				appendReviews();
 			}
 		});
 
@@ -53,53 +48,14 @@ ready = function() {
 
 
 	function appendReviews() {
-		// splice out the reviews to display
-		reviewsToAppend = reviews.splice(0, amount);
-		// display them
-		reviewsToAppend.forEach(function(review) {
-
-			var reviewBox = $('.single-review.hidden').clone().removeClass('hidden');
-
-			// set upvote id and onclick function
-			reviewBox.find('.upvote').attr("id", "vote_up_" + review.id)
-			reviewBox.find('.upvote').click(voteUp);
-			// same for downvote
-			reviewBox.find('.downvote').attr("id", "vote_down_" + review.id)
-			reviewBox.find('.downvote').click(voteDown);
-			// set net votes
-			reviewBox.find('.upvotes').attr("id", "votes_" + review.id)
-			reviewBox.find('.upvotes').text(review.net_votes);
-			// set review comment
-			reviewBox.find('.comment').text(review.comment);
-
-			//conditionally apply the active class to the vote buttons (based on vote attr)
-			if (review.vote_direction == "up")
-				reviewBox.find('.upvote').addClass('vote-active');
-			else if (review.vote_direction == "down")
-				reviewBox.find('.downvote').addClass('vote-active');
-			else {
-				reviewBox.find('.upvote').removeClass('vote-active');
-				reviewBox.find('.downvote').removeClass('vote-active');
+		var index = 0;
+		$('.reviews-box').children('.hidden').each(function(review) {
+			if (index <= amount) {
+				index++;
+				($(this).removeClass('hidden'));
+			} else {
+				return;
 			}
-
-			// set date taken and ratings						
-			reviewBox.find('.review-overall').text(review.overall);
-			reviewBox.find('.prof').text(parseInt(review.professor_rating));
-			reviewBox.find('.enjoyability').text(review.enjoyability);
-			reviewBox.find('.difficulty').text(review.difficulty);
-			reviewBox.find('.recommend').text(review.recommend);
-			if (review.created_at) {
-				reviewBox.find('.created').text(review.created_at);
-			}
-			if (review.taken) {
-				reviewBox.find('.taken').text(review.taken);
-			}
-
-			if (review.is_author)
-				reviewBox.find('.review-author').text("You wrote this!");
-
-			$('.reviews-box').append(reviewBox);
-
 		});
 	}
 
@@ -107,14 +63,11 @@ ready = function() {
 
 		// clear out the reviews (but keep the hidden template one)
 		reviews = [];
-		template = $('.single-review.hidden');
-		$('.reviews-box').empty().append(template)
-
+		$('.reviews-box').empty();
 		// set the sort type based on the selected value
 		var dropdownVal = $(this).val();
 
 		//load and insert the reviews
-		enableInfiniteScroll = true;
 		loadReviews(dropdownVal);
 
 	});
@@ -126,35 +79,35 @@ ready = function() {
 
 		if ($('#save-course-button').text().trim() == 'Unsave') {
 			$('#save-course-button').text("Save Course");
-			
+
 			$.ajax('/scheduler/unsave_course', {
-			method: "POST",
-			data: {
-				mnemonic: course_name[0],
-				course_number: course_name[1]
-			},
-			success: function(response) {
-				// alert('Course saved for scheduler!');
-			},
-			failure: function(response) {
-				console.log('Could not load corresponding course!');
-			}
-		});
+				method: "POST",
+				data: {
+					mnemonic: course_name[0],
+					course_number: course_name[1]
+				},
+				success: function(response) {
+					// alert('Course saved for scheduler!');
+				},
+				failure: function(response) {
+					console.log('Could not load corresponding course!');
+				}
+			});
 		} else {
 			$('#save-course-button').text("Unsave");
 			$.ajax('/scheduler/course', {
-			method: "POST",
-			data: {
-				mnemonic: course_name[0],
-				course_number: course_name[1]
-			},
-			success: function(response) {
-				// alert('Course saved for scheduler!');
-			},
-			failure: function(response) {
-				console.log('Could not load corresponding course!');
-			}
-		});
+				method: "POST",
+				data: {
+					mnemonic: course_name[0],
+					course_number: course_name[1]
+				},
+				success: function(response) {
+					// alert('Course saved for scheduler!');
+				},
+				failure: function(response) {
+					console.log('Could not load corresponding course!');
+				}
+			});
 		}
 
 	});

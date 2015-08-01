@@ -211,12 +211,21 @@ $(document).ready(function() {
 
 	$('#class-search').autocomplete({
 		source: function(request, response) {
-			$.ajax('/scheduler/search', {
+			$.ajax({
+				url: '/search/search_subdepartment',
+				dataType: 'json',
+				type: 'GET',
 				data: {
-					term: request.term
+					query: request.term
 				},
 				success: function(data) {
-					response(data.results);
+					response($.map(data, function(item) {
+						return {
+							label: item.mnemonic_number + " " + item.title,
+							value: item.mnemonic_number,
+							course_id: item.course_id
+						}
+					}));
 				}
 			});
 		},
