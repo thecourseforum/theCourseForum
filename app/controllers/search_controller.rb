@@ -144,7 +144,7 @@ class SearchController < ApplicationController
 
 
   def search_mnemonic_numbers(mnemonic, number)
-    course = Course.find_by_mnemonic_number(mnemonic, number)
+    course = Course.find_by_mnemonic_number("#{mnemonic} #{number}")
     if course
       @results += course.professors.map do |professor|
         {
