@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   
   def show
-    @course = Course.find(params[:id])
+    @course = Course.includes(:sections, :grades, :professors).find(params[:id])
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]

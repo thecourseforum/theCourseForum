@@ -3,7 +3,7 @@
 = javascript_include_tag "grades"
 
 
-= content_tag "div", id: "percentages-0", data: {percents: @course.get_grade_percentages(@prof_id)} do end
+= content_tag "div", id: "percentages", data: {percents: @course.get_grade_percentages(@prof_id)} do end
 = stylesheet_link_tag "courses"
 
 .row#course-page
