@@ -14,7 +14,7 @@
       - if @sections.length != 0
         - @sections.each do |section|
           tr
-            td.text-center = link_to section.course.subdepartment.mnemonic + " " +  section.course.course_number.to_s, "#{course_path(section.course)}?p=#{section.professors.first.id}"
+            td.text-center = link_to section.course.mnemonic_number, "#{course_path(section.course)}?p=#{section.professors.first.id}"
             td.text-center.nodecoration = section.semester.to_s
       - else
         tr
