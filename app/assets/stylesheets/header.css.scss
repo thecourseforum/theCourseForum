@@ -12,10 +12,6 @@
   //background-color: $orange;
   color: white;
   text-align: center;
-  background-color: #F1F6FB;
-  &:hover {
-    background-color: #DFE2F5;
-  }
 
   h1 {
     margin-top: ($navbar-height - 39px) / 2;
@@ -23,17 +19,16 @@
   }
 }
 
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  // background-color: $orange;
-  color: white;
-}
-
 .white-brand {
   background-color: #fff;
 }
 
 .blue-brand {
-  background-color: #DFE2F5;
+  background-color: #F1F6FB;
+}
+
+.blue-brand:hover {
+  background-color: #DFE2F5 !important;
 }
 
 #logo {
