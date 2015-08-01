@@ -27,6 +27,18 @@ class DepartmentsController < ApplicationController
   def show
     @department = Department.includes(:subdepartments => [:courses => [:overall_stats, :last_taught_semester]]).find(params[:id])
 
+    @subdepartments = @department.subdepartments.sort_by(&:mnemonic)
+
+    @groups = @subdepartments.map do |subdepartment|
+      subdepartment.courses.sort_by(&:course_number).chunk do |course|
+        course.course_number / 1000
+      end.map(&:last)
+    end
+
+    @current_semester = Semester.find_by(:year => 2015, :season => 'Fall')
+
+    @current_courses = @department.courses.where(:last_taught_semester => @current_semester)
+
     respond_to do |format|
       format.html # show.html.erb
     end

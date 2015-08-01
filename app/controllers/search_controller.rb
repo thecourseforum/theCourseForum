@@ -73,7 +73,8 @@ class SearchController < ApplicationController
             :professor_id => professor.id,
             :mnemonic_number => course.mnemonic_number,
             :full_name => professor.full_name,
-            :title => course.title   
+            :title => course.title,
+            :course => course 
           }
         end
       end
@@ -88,7 +89,9 @@ class SearchController < ApplicationController
           :professor_id => professor.id,
           :mnemonic_number => course.mnemonic_number,
           :full_name => professor.full_name,
-          :title => course.title
+          :title => course.title,
+          :course => course
+
         }
       end.uniq
     end.flatten
@@ -102,7 +105,8 @@ class SearchController < ApplicationController
           :professor_id => professor.id,
           :mnemonic_number => course.mnemonic_number,
           :full_name => professor.full_name,
-          :title => course.title
+          :title => course.title,
+          :course => course
         }
       end
     end.flatten
@@ -116,7 +120,8 @@ class SearchController < ApplicationController
           :professor_id => professor.id,
           :mnemonic_number => course.mnemonic_number,
           :full_name => professor.full_name,
-          :title => course.title
+          :title => course.title,
+          :course => course
         }
       end
     end.flatten
@@ -130,7 +135,8 @@ class SearchController < ApplicationController
           :professor_id => professor.id,
           :mnemonic_number => course.mnemonic_number,
           :full_name => professor.full_name,
-          :title => course.title
+          :title => course.title,
+          :course => course
         }
       end.uniq
     end.flatten
@@ -138,7 +144,7 @@ class SearchController < ApplicationController
 
 
   def search_mnemonic_numbers(mnemonic, number)
-    course = Course.find_by_mnemonic_number(mnemonic, number)
+    course = Course.find_by_mnemonic_number("#{mnemonic} #{number}")
     if course
       @results += course.professors.map do |professor|
         {
@@ -146,7 +152,8 @@ class SearchController < ApplicationController
           :professor_id => professor.id,
           :mnemonic_number => course.mnemonic_number,
           :full_name => professor.full_name,
-          :title => course.title
+          :title => course.title,
+          :course => course
         }
       end.uniq
     end
