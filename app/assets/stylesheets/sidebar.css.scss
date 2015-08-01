@@ -56,6 +56,23 @@
       padding-bottom: 18px;
       border-bottom: 1px solid rgba(255,255,255,0.5);
 
+      .beta:hover {
+        background-color: white;
+      }
+      .beta {
+        color: black;
+        font-size: 10px;
+        text-align: center;
+        position: relative;
+        float: right;
+        margin-right: 25%;
+        margin-top: 6px;
+        margin-left: auto;
+        background-color: $orange;
+        border-radius: 3px;
+        padding: 0px 5px;
+      }
+
       a {
         margin-left: $sidebar-left-margin;
         color: rgba(255,255,255,0.5);
