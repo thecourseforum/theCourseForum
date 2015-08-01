@@ -157,7 +157,6 @@ $(document).ready(function() {
 
 
 		eventRender: function(event, element) {
-			console.log(event);
 			$(element).tooltip({
 				title: "SIS ID: " + event.sis_id
 			});
@@ -211,12 +210,21 @@ $(document).ready(function() {
 
 	$('#class-search').autocomplete({
 		source: function(request, response) {
-			$.ajax('/scheduler/search', {
+			$.ajax({
+				url: '/search/search_subdepartment',
+				dataType: 'json',
+				type: 'GET',
 				data: {
-					term: request.term
+					query: request.term
 				},
 				success: function(data) {
-					response(data.results);
+					response($.map(data, function(item) {
+						return {
+							label: item.mnemonic_number + " " + item.title,
+							value: item.mnemonic_number,
+							course_id: item.course_id
+						}
+					}));
 				}
 			});
 		},
@@ -306,7 +314,8 @@ $(document).ready(function() {
 		// Initialize placeholder arrays for lectures, discussions, and laboratories
 		var lecture_ids = [],
 			discussion_ids = [],
-			laboratory_ids = [];
+			laboratory_ids = [],
+			seminar_ids = [];
 
 		// For all checked elements under the lectures heading (checkbox is checked)
 		$('.lectures').children(':checked').each(function(index, element) {
@@ -332,6 +341,14 @@ $(document).ready(function() {
 			}
 		});
 
+		// For all checked elements under the lectures heading (checkbox is checked)
+		$('.seminars').children(':checked').each(function(index, element) {
+			// The name of the checkbox (HTML attribute) is the section_id
+			if (element.name != '0') {
+				seminar_ids.push(parseInt(element.name));
+			}
+		});
+
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
 		searchResults[$('#course-title').attr('course_id')]['lectures'] = lecture_ids;
 
@@ -340,6 +357,9 @@ $(document).ready(function() {
 
 		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
 		searchResults[$('#course-title').attr('course_id')]['laboratories'] = laboratory_ids;
+
+		// Set the corresponding key and value pairs for searchResults, the internal representation of selected sections
+		searchResults[$('#course-title').attr('course_id')]['seminars'] = seminar_ids;
 
 		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
@@ -536,7 +556,8 @@ $(document).ready(function() {
 							'units': response.units,
 							'lectures': [],
 							'discussions': [],
-							'laboratories': []
+							'seminars': [],
+							'laboratories': [],
 						};
 						// Calls utility function for showing the course (HTML)
 						displayResult(response, true);
@@ -559,6 +580,7 @@ $(document).ready(function() {
 	function searchSchedules(extras) {
 		var sections = [],
 			params = extras ? extras : {};
+
 		$.each(searchResults, function(course_id, data) {
 			if (data['selected']) {
 				if (data['lectures'].length > 0) {
@@ -569,6 +591,9 @@ $(document).ready(function() {
 				}
 				if (data['laboratories'].length > 0) {
 					sections.push(data['laboratories'])
+				}
+				if (data['seminars'].length > 0) {
+					sections.push(data['seminars'])
 				}
 			}
 		});
@@ -630,6 +655,7 @@ $(document).ready(function() {
 			$('.lectures').empty();
 			$('.discussions').empty();
 			$('.laboratories').empty();
+			$('.seminars').empty();
 
 			//Updated way of restoring checks to checkboxes
 			//matched against array from above
@@ -725,6 +751,36 @@ $(document).ready(function() {
 				}
 			} else {
 				$("#laboratory-header").hide();
+			}
+			if (result.seminars.length > 0) {
+				$("#seminar-header").show();
+				$('.seminars').append('<input type="checkbox" name="0" class="select-seminars"> ');
+				$('.seminars').append('Select all <br/>');
+				$('.select-seminars').click(function() {
+					$(this).parent().children('input[type=checkbox]').each(function() {
+						$(this).prop('checked', $('.select-seminars').prop('checked'));
+					});
+				});
+				for (var i = 0; i < result.seminars.length; i++) {
+					isChecked = "";
+					if (sectionSelected(result.seminars[i].section_id, result.id, 'seminars')) {
+						isChecked = "checked";
+					}
+					$('.seminars').append('<input type="checkbox" ' + isChecked + ' name="' + result.seminars[i].section_id + '"> ');
+
+					// if (searchResults[result.id]['seminars'] && searchResults[result.id]['seminars'].indexOf(result.seminars[i].section_id) != -1) {
+					// 	$('.seminars').append('<input type="checkbox" checked name="' + result.seminars[i].section_id + '"> ');
+					// } else {
+					// 	$('.seminars').append('<input type="checkbox" name="' + result.seminars[i].section_id + '"> ');
+					// }
+					$('.seminars').append(Utils.formatTimeStrings(result.seminars[i]));
+					$('.seminars').append(", " + result.seminars[i].professor);
+					if (i != result.seminars.length - 1) {
+						$('.seminars').append("<br/>");
+					}
+				}
+			} else {
+				$("#seminar-header").hide();
 			}
 			$('#course-modal').modal();
 		});

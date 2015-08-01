@@ -71,6 +71,8 @@ class SchedulerController < ApplicationController
         :discussions => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Discussion').includes(:day_times, :locations, :professors)),
         #gets the sections of the course that are for the current semester and are labs
         :laboratories => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Laboratory').includes(:day_times, :locations, :professors)),
+        #gets the sections of the course that are for the current semester and are labs
+        :seminars => rsections_to_jssections(course.sections.where(:semester_id => semester.id, :section_type => 'Seminar').includes(:day_times, :locations, :professors)),
         # Returns units of course
         :units => course.units
       }) and return

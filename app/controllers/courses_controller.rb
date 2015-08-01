@@ -85,7 +85,14 @@ class CoursesController < ApplicationController
         end
       end
     end
-    @professors = @professors.sort_by{ |professor| -(@professors_semester[professor.id].number)}
+    @professors = @professors.sort_by do |professor|
+      semester = @professors_semester[professor.id]
+      if semester
+        -semester.number
+      else
+        0
+      end
+    end
     respond_to do |format|
       format.html # show_professors.html.slim
     end
@@ -98,62 +105,32 @@ class CoursesController < ApplicationController
       all_reviews = Review.where(:course_id => params[:course_id])
     end
 
-    reviews_voted_up = current_user.votes.where(:vote => 1).pluck(:voteable_id)
-    reviews_voted_down = current_user.votes.where(:vote => 0).pluck(:voteable_id)
+    @reviews_voted_up = current_user.votes.where(:vote => 1).pluck(:voteable_id)
+    @reviews_voted_down = current_user.votes.where(:vote => 0).pluck(:voteable_id)
 
     @sort_type = params[:sort_type]
     if @sort_type != nil
       case @sort_type
           when "recent"
-            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
           when "helpful"
-            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
           when "highest"
-            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}  
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
           when "lowest"
-            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}  
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
           when "controversial"
-            reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
           when "semester"
-            reviews_with_comments = all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}  
+            @reviews_with_comments = all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}
           else
-            reviews_with_comments = all_reviews.where.not(:comment => "")        
+            @reviews_with_comments = all_reviews.where.not(:comment => "")
           end
     end
 
-    respond_to do |format|
-      format.json { 
-        render json:
-            reviews_with_comments.map { |review|
-
-              # set current user's vote direction and net votes
-              if reviews_voted_up.include?(review.id)
-                vote = "up"
-              elsif reviews_voted_down.include?(review.id)
-                vote = "down"
-              else
-                vote = "not_voted"
-              end
-              net_votes = review.votes_for - review.votes_against
-            
-              # set semester taken
-              if review.semester 
-                taken = review.semester.season.to_s + ' ' + review.semester.year.to_s
-              end
-              
-              # set whether the current user wrote it
-              if current_user == review.user
-                is_author = true
-              end
-
-              review.as_json.merge(:vote_direction => vote, :net_votes => net_votes, 
-                :overall => review.overall, :created_at => review.created_at.strftime("%Y-%m-%d"),
-                :taken => taken, :is_author => is_author)
-            }         
-      }
-    end
+    render partial: 'reviews', locals: { reviews_with_comments: @reviews_voted_up, reviews: @reviews_voted_up, reviews_voted_down: @reviews_voted_down }, layout: false
     
-  end 
+  end
 
   private
 

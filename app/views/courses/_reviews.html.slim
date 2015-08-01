@@ -1,0 +1,38 @@
+- @reviews_with_comments.each do |review|
+  .single-review.hidden
+    .row.comment-row
+      .rating-number
+        .row
+          .btn.upvote id="vote_up_#{review.id}" style="#{(@reviews_voted_up.include?(review.id) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")             
+        .row 
+          .upvotes id="votes_#{review.id}" ="#{(review.votes_for - review.votes_against).to_i}"
+        .row
+          .btn.downvote id="vote_down_#{review.id}" style="#{(@reviews_voted_down.include?(review.id) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")
+      .comment-container
+        .row.comment-row
+          .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
+        .row.stats-row
+          .review-stats 
+            .review-overall = review.overall
+            .icon-and-text
+              div.rating-icon = image_tag("icons/professor.png", size: "20")
+              div.rating-icon.prof = review.professor_rating.to_i
+            .icon-and-text
+              div.rating-icon = image_tag("icons/happy.png", size: "20")
+              div.rating-icon.enjoyability = review.enjoyability
+            .icon-and-text
+              div.rating-icon = image_tag("icons/difficulty.png", size: "20")
+              div.rating-icon.difficulty  = review.difficulty
+            .icon-and-text
+              div.rating-icon = image_tag("icons/recommend.png", size: "20")
+              div.rating-icon.recommend = review.recommend
+            - if current_user == review.user
+              .icon-and-text
+                div.rating-icon style="color:#E25424;" = "You wrote this!"
+          .time
+            - if review.semester_id
+              .taken= "#{review.semester.season} #{review.semester.year}"
+              div = review.created_at.strftime("%Y-%m-%d")
+            - else
+              div style="margin-top: 18px;" = review.created_at.strftime("%Y-%m-%d")          
+           

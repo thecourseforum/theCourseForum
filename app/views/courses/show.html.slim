@@ -195,35 +195,3 @@
           option value="lowest"   style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
   .container-fluid#review-container
     .reviews-box
-      .single-review.hidden
-        .row.comment-row
-          .rating-number
-            .row
-              .btn.upvote id="vote_up_" = image_tag("icons/up.png", size: "50") 
-            .row 
-              .upvotes id="votes_"
-            .row
-              .btn.downvote id="vote_down_" = image_tag("icons/up.png", size: "50")
-          .comment-container
-            .row.comment-row
-              .comment 
-            .row.stats-row
-              .review-stats
-                .review-overall
-                .icon-and-text
-                  div.rating-icon = image_tag("icons/professor.png", size: "20")
-                  div.rating-icon.prof
-                .icon-and-text
-                  div.rating-icon = image_tag("icons/happy.png", size: "20")
-                  div.rating-icon.enjoyability
-                .icon-and-text
-                  div.rating-icon = image_tag("icons/difficulty.png", size: "20")
-                  div.rating-icon.difficulty 
-                .icon-and-text
-                  div.rating-icon = image_tag("icons/recommend.png", size: "20")
-                  div.rating-icon.recommend  
-                .icon-and-text
-                  div.rating-icon.review-author style="color:#E25424;"
-              .time
-                .taken
-                .created 

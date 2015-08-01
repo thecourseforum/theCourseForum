@@ -1,5 +1,8 @@
 class BugsController < ApplicationController
-  before_action :set_bug, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :authenticate_user!, only: :create
+  before_action :set_bug, only: [ :show, :destroy ]
+
+  before_action :verify_permission, only: [ :index, :show, :destroy ]
 
   # GET /bugs
   def index
@@ -12,7 +15,9 @@ class BugsController < ApplicationController
   # POST /bugs
   def create
     @bug = Bug.new(bug_params)
-    render json: {:success => @bug.save}
+    result = @bug.save
+    ContactUsMailer.feedback(:id => @bug.id, :description => @bug.description).deliver
+    render json: {:success => result}
   end
 
   # DELETE /bugs/1
@@ -38,5 +43,11 @@ class BugsController < ApplicationController
         :email => params[:email]
       }
       params.require(:bug).permit(:url, :description, :email)
+    end
+
+    def verify_permission
+      if !current_user or !%w(aw3as@virginia.edu kra8ff@virginia.edu mah3xy@virginia.edu mjs5gw@virginia.edu lph5s@virginia.edu).include?(current_user.email)
+        head :unauthorized and return
+      end
     end
 end

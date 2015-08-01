@@ -45,6 +45,17 @@
   margin-top: 8px;
   font-weight: 300;
 
+  #scheduler {
+    .beta {
+      margin-right: 25%;
+    }
+  }
+  #textbook-exchange {
+    .beta {
+      margin-right: -5%;
+    }        
+  }
+
   .nav-row {
     font-size: $sidebar-font-size;
     height: 100%;
@@ -57,6 +68,23 @@
       border-bottom: 1px solid rgba(255,255,255,0.5);
       position: relative;
 
+      .beta:hover {
+        background-color: white;
+      }
+      .beta {
+        color: black;
+        font-size: 10px;
+        text-align: center;
+        position: relative;
+        float: right;
+        margin-top: 6px;
+        margin-left: auto;
+        background-color: $orange;
+        border-radius: 3px;
+        padding: 0px 5px;
+      }
+
+
       a {
         margin-left: $sidebar-left-margin;
         color: rgba(255,255,255,0.5);
@@ -68,17 +96,6 @@
 
       a:hover {
         color: rgba(255,255,255,1.0);
-      }
-
-      .beta {
-        color: rgba(255,227,76,0.5); 
-        text-align: center;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-right: auto;
-        margin-left: auto;
       }
 
       .col-secondary{
