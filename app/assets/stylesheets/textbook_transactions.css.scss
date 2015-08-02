@@ -312,6 +312,12 @@
 			}
 		}
 	}
+	.info {
+		float: right;
+	}
+	label {
+		float: left;
+	}
 	#price-container {
 		#claim_price {
 			text-align: center;
@@ -319,30 +325,12 @@
 	}
 	#condition-container {
 		overflow: auto;
-		label {
-			float: left;
-		}
-		a {
-			float: right;
-		}
 	}
 	#notes-container {
 		overflow: auto;
-		label {
-			float: left;
-		}
-		a {
-			float: right;
-		}
 	}
 	#end-date-container {
 		overflow: auto;
-		label {
-			float: left;
-		}
-		a {
-			float: right;
-		}
 	}
 }
 

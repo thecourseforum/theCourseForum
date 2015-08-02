@@ -117,7 +117,7 @@ $(document).ready(function () {
 					cellphone: cell,
 					price: price,
 					condition: condition,
-					notes: notes
+					notes: notes.trim()
 				},
 				success: function(data) {
 					location.reload();
@@ -205,7 +205,8 @@ $(document).ready(function () {
 
 		$('#claim-listing-modal').modal();
 		
-		$('#submit-claim').click(function() {
+		$('#submit-claim').on('click', function() {
+			$(this).off('click');
 			$.ajax({
 				url: '/textbook_transactions/claim',
 				method: "POST",

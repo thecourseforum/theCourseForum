@@ -29,7 +29,7 @@ class TextbookTransactionsController < ApplicationController
         :book_image => transaction.book.medium_image_link,
         :author => transaction.book.author,
         :condition => transaction.condition,
-        :notes => transaction.notes ? transaction.notes : "",
+        :notes => transaction.notes ? transaction.notes : "none",
         :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
       }
     end
@@ -50,19 +50,32 @@ class TextbookTransactionsController < ApplicationController
     cell = params[:cellphone].strip
     current_user.update(:cellphone => cell)
     transaction = TextbookTransaction.find(params[:claim_id])
-
+    body = "\"#{transaction.book.title}\" ($#{transaction.price})\nhas been claimed!\nBuyer's Contact info: #{current_user.cellphone}"
+    
     if cell.length == 10
       if transaction.active?
-        # response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
-        if JSON.parse(response)["success"]
+        @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+
+        begin
+          @client.account.messages.create(
+              :from => ENV['TWILIO_NUMBER'],
+              :to => transaction.seller.cellphone,
+              :body => body
+          )
+        rescue Twilio::REST::RequestError => e
+          error = e.message
+        end
+        
+        if error
+          render status: 400, :json => {
+            message: error
+          }
+        else
           transaction.update(:buyer_id => current_user.id)
           transaction.update(:sold_at => Time.now)
-          render status: 202
-        else 
-          render status: 500, :json => {
-            message: "Internal error"
-          }
+          render status: 202, :json => {}
         end
+
       else
         render status: 410, :json => {
           message: "Sorry! Already Claimed"
@@ -70,10 +83,11 @@ class TextbookTransactionsController < ApplicationController
       end
     else
       render status: 400, :json => {
-        message: "Badly formatted phone number"
+        message: "Bad phone number"
       }
     end
   end
+
 
   def create
     current_user.update(:cellphone => params[:cellphone])
@@ -83,7 +97,7 @@ class TextbookTransactionsController < ApplicationController
       
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
       if @textbook_transaction.save
-        render status: 201
+        render status: 201, :json => {}
       else 
         render status: 400, :json => {
           message: "Missing values"
@@ -104,9 +118,10 @@ class TextbookTransactionsController < ApplicationController
         :book_id => params[:book_id],
         :price => params[:price].to_i,
         :condition => params[:condition],
-        :notes => params[:notes],
+        :notes => (not params[:notes].strip.empty?) ? params[:notes] : nil,
         :seller_id => params[:seller_id]
       }
       params.require(:textbook_transaction).permit(:book_id, :cellphone, :price, :condition, :notes, :seller_id)
     end
+    
 end
