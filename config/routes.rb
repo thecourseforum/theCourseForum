@@ -54,7 +54,11 @@ TheCourseForum::Application.routes.draw do
   get '/books/courses' => 'books#courses'
   post '/books/follow' => 'books#follow'
   resources :books, :only => [:index, :show]
- 
+  
+  get 'my_listings', :to => 'textbook_transactions#show', :as => 'my_listings'
+  post '/textbook_transactions/withdraw' => 'textbook_transactions#withdraw'
+  post '/textbook_transactions/renew' => 'textbook_transactions#renew'
+  post '/textbook_transactions/report' => 'textbook_transactions#report'
   get '/textbook_transactions/books' => 'textbook_transactions#books'
   get '/textbook_transactions/listings' => 'textbook_transactions#listings'
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'

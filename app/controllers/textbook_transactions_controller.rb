@@ -111,6 +111,40 @@ class TextbookTransactionsController < ApplicationController
     
   end
 
+  def show
+    @count = 0
+    @listings_by_type = {
+      active: current_user.active_listings,
+      expired: current_user.expired_listings,
+      sold: current_user.sold_listings
+    }
+    @glyphicon_classes = {
+      active: "glyphicon glyphicon-remove",
+      expired: "glyphicon glyphicon-repeat",
+      sold: "glyphicon glyphicon-flag"
+    }
+    @actions = {
+      active: "withdraw",
+      expired: "renew",
+      sold: "report"
+    }
+    @listings_by_type.each_value do |listings|
+      @count += listings.count
+    end
+
+    @claimed = current_user.claims
+
+  end
+
+  def withdraw
+  end
+
+  def renew
+  end
+
+  def report
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def textbook_transaction_params

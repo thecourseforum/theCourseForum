@@ -10,7 +10,8 @@ $(document).ready(function () {
 		booksData = [],
 		booksToShow,
 		bookList,
-		isBookPage = false;
+		isBookPage = false,
+		isMyListingPage = false;
 
 	const default_book_cover = '/assets/icons/no_book.png'
 
@@ -19,6 +20,10 @@ $(document).ready(function () {
 	}
 	if ($('#book-titles').length) {
 		isBookPage = true;
+	}
+	if ($('#my-listing-table').length) {
+		isMyListingPage = true;
+		
 	}
 
 	// Infinite Scroll

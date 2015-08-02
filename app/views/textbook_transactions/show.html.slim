@@ -1,0 +1,41 @@
+= javascript_include_tag "textbook_transactions"
+= stylesheet_link_tag "textbook_transactions"
+
+- content_for :title, "My Listings"
+- content_for :page_heading, "My Listings"
+
+- if @count > 0
+  table.table.table-striped#my-listing-table
+    thead
+      tr
+        th#price Price
+        th#title Title
+        th#condition Condition
+        th#last-posted Last Posted
+        th#my-listing-options
+    tbody#listing-list
+    - @listings_by_type.each do |type, listings|
+      - if listings.count == 0
+        tr
+          td.text-center.nodecoration.my-listing-label colspan="5" = "No #{type.capitalize} listings"
+      - else
+        tr
+          td.text-center.nodecoration.my-listing-label colspan="5" = "#{type.capitalize} listings"
+        - listings.each do |listing|
+          tr.a-listing
+            td.nodecoration.price = "$" + listing.price.to_s
+            td.title 
+              a href="/books/#{listing.book_id}" = listing.book.title
+            td.nodecoration.condition = listing.condition
+            td.nodecoration = listing.updated_at.localtime.strftime("%b %d, %I:%M %p")
+            td
+              a id="#{listing.id}" action="#{@actions[type]}"
+                span class="#{@glyphicon_classes[type]}"
+
+- if @count == 0
+  .row
+    .col-xs-12
+      | You haven't posted any listings yet
+  .row
+    .col-xs-12
+      = link_to "Post one now!", textbook_transactions_path, :class => "btn btn-primary"

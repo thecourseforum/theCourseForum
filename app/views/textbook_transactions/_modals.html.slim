@@ -12,9 +12,6 @@
               input#book-input-field.form-control placeholder="Enter title" name="title"
               p.help-block
             .form-group
-              label Cellphone #
-              input#cell-input-field.form-control placeholder="9241235555" name="cellphone" value=(current_user ? current_user.cellphone : '')
-            .form-group
               label Price
               ul.list-inline
                 li#dollar $
@@ -31,6 +28,9 @@
             .form-group
               label Notes
               textarea#note-input-field.form-control rows="3" name="notes"
+            .form-group
+              label Cellphone #
+              input#cell-input-field.form-control placeholder="9241235555" name="cellphone" value=(current_user ? current_user.cellphone : '')
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
             button.btn.btn-primary#submit-listing type="button" Submit

@@ -32,11 +32,24 @@
 }
 
 #listing-table {
-	
 	#end-date {
 		min-width: 100px;
 	}
+}
 
+#my-listing-table {
+	#last-posted {
+		min-width: 150px;
+	}
+	.my-listing-label {
+		background-color: #6C8AC1;
+		color: white;
+	}
+	.title {
+		max-width: 400px;
+		max-height: 65px;
+		overflow: ellipsis;
+	}
 }
 
 @media (min-width: 1400px) {
