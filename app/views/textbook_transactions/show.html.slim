@@ -18,8 +18,8 @@
           tr
             th = @theaders[type][0]
             th = @theaders[type][1]
-            th = @theaders[type][2]
-            th = @theaders[type][3]
+            th#condition = @theaders[type][2]
+            th#end-date = @theaders[type][3]
             th = @theaders[type][4]
         - listings.each do |listing|
           tr.a-listing
@@ -27,7 +27,7 @@
             td.title 
               a href="/books/#{listing.book_id}" = listing.book.title
             td.nodecoration.condition = listing.condition
-            td.nodecoration = listing.send(@date[type]).localtime.send(*@date_action[type]).strftime("%b %d, %I:%M %p")
+            td.nodecoration.end_date = listing.send(@date[type]).localtime.send(*@date_action[type]).strftime("%b %d, %I:%M %p")
             td
               a id="#{listing.id}" action="#{@actions[type]}"
                 span class="#{@glyphicon_classes[type]}"

@@ -119,9 +119,9 @@ class TextbookTransactionsController < ApplicationController
       sold: current_user.sold_listings
     }
     @theaders = {
-      active: ["Price", "Title", "Condition", "Expire Date", "Withdraw"],
-      expired: ["Price", "Title", "Condition", "Expire Date", "Renew"],
-      sold: ["Price", "Title", "Condition", "Sell Date", "Report"]
+      active: ["Price", "Title", "Condition", "Expire Date", "Remove"],
+      expired: ["Price", "Title", "Condition", "Expired Date", "Renew"],
+      sold: ["Price", "Title", "Condition", "Sold Date", "Report"]
     }
     @date = {
       active: :updated_at,
