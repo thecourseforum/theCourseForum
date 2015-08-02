@@ -3,7 +3,7 @@
     .row.comment-row
       .rating-number
         .row
-          .btn.upvote id="vote_up_#{review.id}" style="#{(@reviews_voted_up.include?(review.id) ? 'opacity: 1.0;' : '')}" = image_tag("icons/up.png", size: "50")             
+          .btn.upvote id="vote_up_#{review.id}" class="#{(@reviews_voted_up.include?(review.id) ? 'vote-active' : '')}" = image_tag("icons/up.png", size: "50")
         .row 
           .upvotes id="votes_#{review.id}" ="#{(review.votes_for - review.votes_against).to_i}"
         .row
