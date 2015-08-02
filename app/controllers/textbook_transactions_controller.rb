@@ -1,7 +1,7 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.order(:updated_at).includes(:book => {:sections => {:course => :subdepartment}}).limit(18).map do |transaction|
+    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).limit(18).map do |transaction|
       {
         :id => transaction.id,
         :price => "$" + transaction.price.to_s,
@@ -18,7 +18,7 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def listings
-    @textbook_transactions = TextbookTransaction.active.order(:updated_at).includes(:book => {:sections => {:course => :subdepartment}}).map do |transaction|
+    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).map do |transaction|
       {
         :id => transaction.id,
         :price => "$" + transaction.price.to_s,
@@ -86,16 +86,18 @@ class TextbookTransactionsController < ApplicationController
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
       if @textbook_transaction.save
         render :json => {
-          status: "success"
+          status: 201
         }
       else 
         render :json => {
-          status: "Missing values"
+          status: 400,
+          message: "Missing values"
         }
       end
     else
       render :json => {
-        status: "Badly formatted phone number"
+        status: 400,
+        message: "Badly formatted phone number"
       }
     end
     
@@ -105,13 +107,12 @@ class TextbookTransactionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def textbook_transaction_params
       params[:textbook_transaction] = {
-        :seller_id => params[:seller_id],
-        :buyer_id => params[:buyer_id],
-        :price => params[:price],
+        :book_id => params[:book_id],
+        :price => params[:price].to_i,
         :condition => params[:condition],
         :notes => params[:notes],
-        :book_id => params[:book_id]
+        :seller_id => params[:seller_id]
       }
-      params.require(:textbook_transaction).permit(:cellphone, :price, :condition, :notes, :book_id, :seller_id, :buyer_id)
+      params.require(:textbook_transaction).permit(:book_id, :cellphone, :price, :condition, :notes, :seller_id)
     end
 end

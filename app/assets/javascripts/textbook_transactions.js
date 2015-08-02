@@ -92,60 +92,87 @@ $(document).ready(function () {
 		$('#post-choose').text($('#book-title').text().trim());
 	});
 	$('#submit-listing').hover(function() {
-		// Check if book choosen
-		if ($('#post-choose').attr('book_id')) {
-			flagValidInput($('#book-input-field'));
-		} else {
-			flagInvalidInput($('#book-input-field'));
-		}
-		// Check cell phone
-		if ($('#cell-input-field').val()) {
-			flagValidInput($('#cell-input-field'));
-		} else {
-			flagInvalidInput($('#cell-input-field'));
-		}
-		// Check prifce
-		if ($('#price-input-field').val()) {
-			flagValidInput($('#price-input-field'));
-		} else {
-			flagInvalidInput($('#price-input-field'));
-		}
-		// Check condition
-		if ($('#condition-input-field').val()) {
-			flagValidInput($('#condition-input-field'));
-		} else {
-			flagInvalidInput($('#condition-input-field'));
-		}		
-	})
+		validateListing();
+	});
 	$('#submit-listing').click(function() {
-		if ($('#post-choose').text().trim() == 'Choose a book') {
-			alert("Please choose a book to sell");
-			return false;			
-		} else if (!$('#cell-input-field').val()) {
-			alert("Please enter a cell phone number");
-			return false;
-		} else if (!$('#price-input-field').val()) {
-			alert("Please enter a price");
-			return false;
-		} else if (!$('#condition-input-field').val()) {
-			alert("Please select a condition");
-			return false;
-		} else {
+		var book_id = $('#post-choose').attr('book_id'),
+			cell = validateCell($('#cell-input-field').val()),
+			price = $('#price-input-field').val().trim(),
+			condition = $('#condition-input-field').val(),
+			notes = $('#note-input-field').val();
+
+		if (validateListing()) {
 			$.ajax({
 				url: '/textbook_transactions',
 				method: "POST",
-				data: $("#post_textbook_transaction").serialize() + "&book_id=" + $('#post-choose').attr('book_id'),
+				data: {
+					book_id: book_id,
+					cellphone: cell,
+					price: price,
+					condition: condition,
+					notes: notes
+				},
 				success: function(data) {
-					if (data.status == "success") {
-						location.reload();
-					} else {
-						alert('Error: ' + data.status);
-					}
+					location.reload();
+				},
+				error: function(data) {
+					alert('Error: ' + data.message);
 				}
 			});
+			$('#post-listing-modal').modal('hide');
 		}
-		$('#post-listing-modal').modal('hide');
+
 	});
+	function validateListing() {
+		var book_id = $('#post-choose').attr('book_id'),
+			cell = validateCell($('#cell-input-field').val()),
+			price = validatePrice($('#price-input-field').val()),
+			condition = $('#condition-input-field').val(),
+			notes = $('#note-input-field').val(),
+			isValid = true;
+
+		// Check if book choosen
+		if (book_id) {
+			flagValidInput($('#book-input-field'));
+		} else {
+			flagInvalidInput($('#book-input-field'));
+			isValid = false;
+		}
+		// Check cell phone
+		if (cell) {
+			flagValidInput($('#cell-input-field'));
+		} else {
+			flagInvalidInput($('#cell-input-field'));
+			isValid = false;
+		}
+		// Check price
+		if (price) {
+			flagValidInput($('#price-input-field'));
+		} else {
+			flagInvalidInput($('#price-input-field'));
+			isValid = false;
+		}
+		// Check condition
+		if (condition) {
+			flagValidInput($('#condition-input-field'));
+		} else {
+			flagInvalidInput($('#condition-input-field'));
+			isValid = false;
+		}
+		return isValid;
+	}
+	function validateCell(input) {
+		input = input.replace(/[^0-9]/g, '');
+		if (input.length == 10) {
+			return input;
+		} else {
+			return '';
+		}
+	}
+	function validatePrice(input) {
+		input = input.replace(/[^0-9]/g, '');
+		return input;	
+	}
 	function flagInvalidInput(element) {
 		element.css('box-shadow', '0 0 5px #a94442');
 		element.css('border', '1px solid #a94442');
@@ -208,7 +235,7 @@ $(document).ready(function () {
 				return {
 					book_id: book[0],
 					label: book[1],
-					value: book[1],
+					value: request.term,
 					image: book[2]
 				}
 			}));
@@ -217,13 +244,13 @@ $(document).ready(function () {
 			$('#post-thumb').removeAttr('hide');
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
-			$('#post-choose').text(ui.item.value);
+			$('#post-choose').text(ui.item.label);
 		},
 		select: function(event, ui) {
 			$('#post-thumb').removeAttr('hide');
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
-			$('#post-choose').text(ui.item.value);
+			$('#post-choose').text(ui.item.label);
 		}
 	});
 
