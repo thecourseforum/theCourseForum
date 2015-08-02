@@ -6,22 +6,29 @@ $(document).ready(function () {
 	var listingsData = [],
 		listingsToShow,
 		listingList,
-		listingScrollEnabled = false,
+		isListingPage = false,
 		booksData = [],
 		booksToShow,
 		bookList,
-		bookScrollEnabled = false;
+		isBookPage = false;
 
 	const default_book_cover = '/assets/icons/no_book.png'
+
+	if ($('#listing-titles').length) {
+		isListingPage = true;
+	}
+	if ($('#book-titles').length) {
+		isBookPage = true;
+	}
 
 	// Infinite Scroll
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-			if (bookScrollEnabled) {
-				bookScrollEnabled = appendBooks();
+			if (isBookPage) {
+				window.setTimeout(appendBooks, 500);
 			}
-			if (listingScrollEnabled) {
-				listingScrollEnabled = appendListings();
+			if (isListingPage) {
+				window.setTimeout(appendListings, 500);
 			}
 		}
 	});
@@ -36,10 +43,11 @@ $(document).ready(function () {
 				// data is an array of arrays
 				// ex. data[0] #=> [id, title, small_image_link]
 				booksData = data;
-				displayBooks(booksData);
+				if (isBookPage) {
+					displayBooks(booksData);
+				}
 			}
 		});
-		bookScrollEnabled = true;
 	}
 
 	// Load listings data
@@ -55,7 +63,6 @@ $(document).ready(function () {
 				displayListings(listingsData);
 			}
 		});
-		listingScrollEnabled = true;
 	}
 
 	$('#follow').click(function () {
@@ -219,7 +226,7 @@ $(document).ready(function () {
 		})[0];
 	}
 
-	// Modal autocomplete
+	// Post Modal autocomplete
 	$('#book-input-field').autocomplete({
 		source: function(request, response) {
 			response($.map(filterData(booksData, request.term), function(book) {
@@ -269,8 +276,6 @@ $(document).ready(function () {
 		} else {
 			displayListings(filterListingData(listingsData, query));
 		}
-
-		listingScrollEnabled = true;
 	});
 
 	function displayListings (listings) {
@@ -287,7 +292,7 @@ $(document).ready(function () {
 
 	}
 	function appendListings () {
-		if (listingsToShow.length >= offset) {
+		if (listingsToShow && listingsToShow.length >= offset) {
 			$.each(listingsToShow.slice(offset, offset+18), function (index, listing) {
 				var line = $('.a-listing.hidden').clone().removeClass('hidden'),
 					claim = line.find('.claim'),
@@ -326,8 +331,6 @@ $(document).ready(function () {
 		} else {
 			displayBooks(filterData(booksData, query));
 		}
-
-		bookScrollEnabled = true;
 	});
 	function displayBooks (books) {
 		var emptyBook = $('.link-block.hidden');
@@ -342,7 +345,7 @@ $(document).ready(function () {
 		appendBooks();
 	}
 	function appendBooks () {
-		if (booksToShow || booksToShow.length >= offset) {
+		if (booksToShow && booksToShow.length >= offset) {
 			$.each(booksToShow.slice(offset, offset+24), function (index, book) {
 				var link = $('.link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),

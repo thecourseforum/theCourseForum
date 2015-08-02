@@ -320,37 +320,28 @@
 	#condition-container {
 		overflow: auto;
 		label {
-			width: 80px;
-		}
-		dd {
-			width: calc(100% - 80px);
-		}
-		* {
 			float: left;
+		}
+		a {
+			float: right;
 		}
 	}
 	#notes-container {
 		overflow: auto;
 		label {
-			width: 50px;
-		}
-		dd {
-			width: calc(100% - 50px);
-		}
-		* {
 			float: left;
+		}
+		a {
+			float: right;
 		}
 	}
 	#end-date-container {
 		overflow: auto;
 		label {
-			width: 80px;
-		}
-		dd {
-			width: calc(100% - 80px);
-		}
-		* {
 			float: left;
+		}
+		a {
+			float: right;
 		}
 	}
 }
