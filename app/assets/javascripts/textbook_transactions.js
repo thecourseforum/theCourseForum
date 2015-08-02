@@ -23,7 +23,24 @@ $(document).ready(function () {
 	}
 	if ($('#my-listing-table').length) {
 		isMyListingPage = true;
-		
+		$(document).on('click', '.action', function() {
+			var actionName = $(this).attr('action'),
+				listing_id = $(this).attr('id');
+			console.log(listing_id);
+
+			$.ajax({
+				url: '/textbook_transactions/' + actionName,
+				dataType: 'json',
+				type: 'POST',
+				success: function(data) {
+
+				},
+				error: function(data) {
+
+				}
+			});
+
+		});
 	}
 
 	// Infinite Scroll
