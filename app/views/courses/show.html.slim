@@ -1,4 +1,8 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
+- if @professor
+  - content_for :course_professor, "#{@professor.full_name}"
+- else
+  -content_for :course_professor, "All Professors"
 
 = javascript_include_tag "grades"
 
