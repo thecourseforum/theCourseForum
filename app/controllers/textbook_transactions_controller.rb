@@ -118,6 +118,21 @@ class TextbookTransactionsController < ApplicationController
       expired: current_user.expired_listings,
       sold: current_user.sold_listings
     }
+    @theaders = {
+      active: ["Price", "Title", "Condition", "Expire Date", "Withdraw"],
+      expired: ["Price", "Title", "Condition", "Expire Date", "Renew"],
+      sold: ["Price", "Title", "Condition", "Sell Date", "Report"]
+    }
+    @date = {
+      active: :updated_at,
+      expired: :updated_at,
+      sold: :sold_at
+    }
+    @date_action = {
+      active: ["+", 3.days],
+      expired: ["+", 3.days],
+      sold: [:to_datetime]
+    }
     @glyphicon_classes = {
       active: "glyphicon glyphicon-remove",
       expired: "glyphicon glyphicon-repeat",
