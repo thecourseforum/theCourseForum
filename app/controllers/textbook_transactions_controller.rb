@@ -53,26 +53,24 @@ class TextbookTransactionsController < ApplicationController
 
     if cell.length == 10
       if transaction.active?
-        response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
+        # response = RestClient.post 'http://textbelt.com/text', :number => transaction.seller.cellphone, :message => "Your posting for \"#{transaction.book.title}\" has been claimed!\nContact info: #{current_user.cellphone}"
         if JSON.parse(response)["success"]
           transaction.update(:buyer_id => current_user.id)
           transaction.update(:sold_at => Time.now)
-          render :json => {
-            status: "success"
-          }
+          render status: 202
         else 
-          render :json => {
-            status: "Internal error"
+          render status: 500, :json => {
+            message: "Internal error"
           }
         end
       else
-        render :json => {
-          status: "Sorry! Already Claimed"
+        render status: 410, :json => {
+          message: "Sorry! Already Claimed"
         }
       end
     else
-      render :json => {
-        status: "Badly formatted phone number"
+      render status: 400, :json => {
+        message: "Badly formatted phone number"
       }
     end
   end
@@ -85,18 +83,14 @@ class TextbookTransactionsController < ApplicationController
       
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
       if @textbook_transaction.save
-        render :json => {
-          status: 201
-        }
+        render status: 201
       else 
-        render :json => {
-          status: 400,
+        render status: 400, :json => {
           message: "Missing values"
         }
       end
     else
-      render :json => {
-        status: 400,
+      render status: 400, :json => {
         message: "Badly formatted phone number"
       }
     end

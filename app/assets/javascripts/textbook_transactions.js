@@ -115,8 +115,8 @@ $(document).ready(function () {
 				success: function(data) {
 					location.reload();
 				},
-				error: function(data) {
-					alert('Error: ' + data.message);
+				error: function (data) {	
+					alert('Error: ' + JSON.parse(data.responseText).message);
 				}
 			});
 			$('#post-listing-modal').modal('hide');
@@ -186,14 +186,6 @@ $(document).ready(function () {
 	$(document).on('click', '.claim', function() {
 		var claim_id = $(this).attr('id'),
 			listing = findListing(claim_id);
-			// book_image = $(this).attr('book_image'),
-			// listing_element = $(this).parent().parent(),
-			// price = listing_element.find('.price').text(),
-			// courses = listing_element.find('.courses').text(),
-			// title = listing_element.find('.title a').text(),
-			// author = listing_element.find('.author').text(),
-			// condition = listing_element.find('.condition').text(),
-			// end_date = listing_element.find('.end_date').text();
 
 		$('#claim_cover').attr('src', listing.book_image);
 		$('#claim_title').text(listing.title);
@@ -212,11 +204,10 @@ $(document).ready(function () {
 				method: "POST",
 				data: $("#claim_textbook_transaction").serialize() + "&claim_id=" + claim_id,
 				success: function(data) {
-					if (data.status == "success") {
-						location.reload();
-					} else {
-						alert('Error: ' + data.status);
-					}
+					location.reload();
+				},
+				error: function (data) {	
+					alert('Error: ' + JSON.parse(data.responseText).message);
 				}
 			});
 			$('#claim-listing-modal').modal('hide');
