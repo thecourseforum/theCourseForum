@@ -13,12 +13,14 @@
 table.table
   thead
     tr
+      th ID
       th URL
       th Description
       th Created At
   tbody
     - @bugs.each do |bug|
       tr
+        td = bug.id
         td = bug.url
         td = bug.description
         td = bug.created_at
