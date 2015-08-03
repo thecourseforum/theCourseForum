@@ -12,7 +12,7 @@ class TextbookTransactionsController < ApplicationController
         :author => transaction.book.author,
         :condition => transaction.condition,
         :notes => transaction.notes ? transaction.notes : "",
-        :end_date => (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
+        :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
       }
     end
   end
@@ -30,7 +30,7 @@ class TextbookTransactionsController < ApplicationController
         :author => transaction.book.author,
         :condition => transaction.condition,
         :notes => transaction.notes ? transaction.notes : "none",
-        :end_date => (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
+        :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
       }
     end
 

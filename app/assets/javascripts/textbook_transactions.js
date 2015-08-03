@@ -38,7 +38,7 @@ $(document).ready(function () {
 					listing_id: listing_id
 				},
 				success: function(data) {
-					location.reload();
+					actionName == "report" ? alert("Reported") : location.reload();
 				},
 				error: function(data) {
 					alert("Something went wrong :(");
