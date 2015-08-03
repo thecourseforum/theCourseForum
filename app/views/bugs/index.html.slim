@@ -23,7 +23,7 @@ table.table
         td = bug.id
         td = bug.url
         td = bug.description
-        td = bug.created_at
+        td = bug.created_at.localtime.strftime("%b %d, %I:%M %p")
         td = link_to 'Show', bug
         td = link_to 'Destroy', bug, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
