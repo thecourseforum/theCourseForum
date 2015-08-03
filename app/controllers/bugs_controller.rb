@@ -48,9 +48,10 @@ class BugsController < ApplicationController
       params[:bug] = {
         :url => params[:url],
         :description => params[:description],
-        :email => params[:email]
+        :email => params[:email],
+        :archived => false
       }
-      params.require(:bug).permit(:url, :description, :email)
+      params.require(:bug).permit(:url, :description, :email, :archived)
     end
 
     def verify_permission
