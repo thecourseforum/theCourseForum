@@ -120,16 +120,23 @@ class Course < ActiveRecord::Base
     end
 
     total = @grades.map(&:total).sum
+
     percentages = Hash[Grade.mapping.map do |stat|
       percentage = @grades.map do |grade|
         grade.send("count_#{stat}".to_sym)
-      end.sum.to_f / total
+      end.map(&:to_f).sum.to_f / total
       [stat, percentage]
     end]
 
-    percentages[:gpa] = stats.find do |stat|
-      stat.professor_id == professor.id
-    end.gpa
+    if prof_id != -1
+      percentages[:gpa] = stats.find do |stat|
+        stat.professor_id == professor.id
+      end.gpa
+    else
+      percentages[:gpa] = stats.find do |stat|
+        stat.course_id == id and !stat.professor_id
+      end.gpa
+    end
 
     percentages[:total] = total
     percentages
