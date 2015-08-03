@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150401202146) do
     t.string   "url"
     t.text     "description"
     t.string   "email"
+    t.boolean  "archived"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150401202146) do
   create_table "courses", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.decimal  "course_number",    precision: 4, scale: 0, default: 0
+    t.decimal  "course_number",           precision: 4, scale: 0, default: 0
     t.integer  "subdepartment_id"
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
@@ -87,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150401202146) do
     t.datetime "updated_at"
   end
 
-  create_table "day_times_sections", id: false, force: true do |t|
+  create_table "day_times_sections", force: true do |t|
     t.integer "day_time_id"
     t.integer "section_id"
     t.integer "location_id"
@@ -273,6 +274,18 @@ ActiveRecord::Schema.define(version: 20150401202146) do
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
+
+  create_table "stats", force: true do |t|
+    t.integer "course_id"
+    t.integer "professor_id"
+    t.float   "rating"
+    t.float   "difficulty"
+    t.float   "gpa"
+  end
+
+  add_index "stats", ["course_id", "professor_id"], name: "index_stats_on_course_id_and_professor_id", unique: true, using: :btree
+  add_index "stats", ["course_id"], name: "index_stats_on_course_id", using: :btree
+  add_index "stats", ["professor_id"], name: "index_stats_on_professor_id", using: :btree
 
   create_table "student_majors", force: true do |t|
     t.integer  "student_id"
