@@ -9,8 +9,9 @@
     tbody#listing-list
     - @listings_by_type.each do |type, listings|
       - if listings.count == 0
-        tr
-          td.text-center.nodecoration.my-listing-label colspan="5" = "No #{type.capitalize} listings"
+        thead
+          tr
+            td.text-center.nodecoration.my-listing-label colspan="5" = "No #{type.capitalize} listings"
       - else
         thead
           tr

@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :schedules, dependent: :destroy
 
   # relationships for textbook listings
-  has_many :active_listings, -> { where updated_at: (Time.now - 3.days)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
-  has_many :expired_listings, -> { where updated_at: Time.new(2000)..(Time.now - 3.days), buyer_id: nil}, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
+  has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
+  has_many :inactive_listings, -> { where updated_at: Time.new(2000)..(Time.now - TextbookTransaction.duration), buyer_id: nil}, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
   has_many :sold_listings, -> { where.not buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
   has_many :claims, :class_name => TextbookTransaction, :foreign_key => 'buyer_id'
 

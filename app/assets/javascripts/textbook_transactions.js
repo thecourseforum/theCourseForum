@@ -21,6 +21,8 @@ $(document).ready(function () {
 	if ($('#book-titles').length) {
 		isBookPage = true;
 	}
+
+	// MyListings page, actions (remove, renew, report)
 	if ($('#my-listing-table').length) {
 		isMyListingPage = true;
 		$(document).on('click', '.action', function() {
@@ -32,11 +34,14 @@ $(document).ready(function () {
 				url: '/textbook_transactions/' + actionName,
 				dataType: 'json',
 				type: 'POST',
+				data: {
+					listing_id: listing_id
+				},
 				success: function(data) {
-
+					location.reload();
 				},
 				error: function(data) {
-
+					alert("Something went wrong :(");
 				}
 			});
 
@@ -257,7 +262,7 @@ $(document).ready(function () {
 					book_id: book[0],
 					label: book[1],
 					value: request.term,
-					image: book[2]
+					image: book[2] ? book[2] : default_book_cover
 				}
 			}));
 		},

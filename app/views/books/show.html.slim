@@ -60,7 +60,7 @@
               td.nodecoration.price = "$" + transaction.price.to_s
               td.nodecoration.condition = transaction.condition
               td.nodecoration.notes = transaction.notes
-              td.nodecoration.end_date = (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+              td.nodecoration.end_date = (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
         - else
           tr
             td.text-center.nodecoration colspan="5" No current listings

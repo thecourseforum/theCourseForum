@@ -12,7 +12,7 @@ class TextbookTransactionsController < ApplicationController
         :author => transaction.book.author,
         :condition => transaction.condition,
         :notes => transaction.notes ? transaction.notes : "",
-        :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+        :end_date => (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
       }
     end
   end
@@ -30,7 +30,7 @@ class TextbookTransactionsController < ApplicationController
         :author => transaction.book.author,
         :condition => transaction.condition,
         :notes => transaction.notes ? transaction.notes : "none",
-        :end_date => (transaction.created_at + 3.days).localtime.strftime("%b %d, %I:%M %p")
+        :end_date => (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
       }
     end
 
@@ -54,15 +54,15 @@ class TextbookTransactionsController < ApplicationController
     
     if cell.length == 10
       if transaction.active?
-        @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 
         begin
+          @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
           @client.account.messages.create(
               :from => ENV['TWILIO_NUMBER'],
               :to => transaction.seller.cellphone,
               :body => body
           )
-        rescue Twilio::REST::RequestError => e
+        rescue (ArgumentError || Twilio::REST::RequestError) => e
           error = e.message
         end
         
@@ -115,32 +115,32 @@ class TextbookTransactionsController < ApplicationController
     @count = 0
     @listings_by_type = {
       active: current_user.active_listings,
-      expired: current_user.expired_listings,
+      inactive: current_user.inactive_listings,
       sold: current_user.sold_listings
     }
     @theaders = {
       active: ["Price", "Title", "Condition", "Expire Date", "Remove"],
-      expired: ["Price", "Title", "Condition", "Expired Date", "Renew"],
+      inactive: ["Price", "Title", "Condition", "Expired Date", "Renew"],
       sold: ["Price", "Title", "Condition", "Sold Date", "Report"]
     }
     @date = {
       active: :updated_at,
-      expired: :updated_at,
+      inactive: :updated_at,
       sold: :sold_at
     }
     @date_action = {
-      active: ["+", 3.days],
-      expired: ["+", 3.days],
+      active: ["+", TextbookTransaction.duration],
+      inactive: ["+", TextbookTransaction.duration],
       sold: [:to_datetime]
     }
     @glyphicon_classes = {
       active: "glyphicon glyphicon-remove",
-      expired: "glyphicon glyphicon-repeat",
+      inactive: "glyphicon glyphicon-repeat",
       sold: "glyphicon glyphicon-flag"
     }
     @actions = {
       active: "withdraw",
-      expired: "renew",
+      inactive: "renew",
       sold: "report"
     }
     @listings_by_type.each_value do |listings|
@@ -152,12 +152,25 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def withdraw
+    @listing = TextbookTransaction.find(params[:listing_id])
+    @listing.update(:updated_at => Time.now - TextbookTransaction.duration - 5.seconds)
+
+    render head: 200, :json => {}
   end
 
   def renew
+    @listing = TextbookTransaction.find(params[:listing_id])
+    @listing.update(:updated_at => Time.now)
+
+    render head: 200, :json => {}
   end
 
   def report
+    @listing = TextbookTransaction.find(params[:listing_id])
+
+    #TODO possibilities: mailer, reported column in table, generate bug, etc.
+    
+    render head: 200, :json => {}
   end
 
   private
