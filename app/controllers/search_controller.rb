@@ -11,7 +11,7 @@ class SearchController < ApplicationController
     @results = []
     strings = params[:query].split(' ')
 
-    if @query.length != 0
+    if @query.length > 1
       timing = Time.now
       if strings.length == 2 and strings[0].length < 5 and strings[1].length == 4
         search_mnemonic_numbers(*strings)
