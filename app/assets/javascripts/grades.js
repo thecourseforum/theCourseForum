@@ -3,79 +3,79 @@ $(function() {
     var raw = $('#percentages').data().percents,
 
         baseColors = {
-            a: '#223165',
-            b: '#15214B',
-            c: '#0F1932',
+            a: '#4D5F9A',
+            b: '#344377',
+            c: '#15214B',
             d: '#EE5F35',
             f: '#D75626',
             drop: '#C14927',
-            withdraw: '#5A6D8E',
-            other: '#5A6D8E'
+            withdraw: '#C14927',
+            other: '#9f9f9f'
         },
 
         labelColors = {
             'aplus': {
-                color: Highcharts.Color(baseColors['a']).brighten(0.3).get(),
+                color: Highcharts.Color(baseColors['a']).brighten(0.03).get(),
                 text: 'A+'
             },
             'a': {
-                color: Highcharts.Color(baseColors['a']).brighten(0.2).get(),
+                color: Highcharts.Color(baseColors['a']).brighten(0.025).get(),
                 text: 'A'
             },
             'aminus': {
-                color: Highcharts.Color(baseColors['a']).brighten(0.1).get(),
+                color: Highcharts.Color(baseColors['a']).brighten(0.02).get(),
                 text: 'A-'
             },
             'bplus': {
-                color: Highcharts.Color(baseColors['b']).brighten(0.3).get(),
+                color: Highcharts.Color(baseColors['b']).brighten(0.01).get(),
                 text: 'B+'
             },
             'b': {
-                color: Highcharts.Color(baseColors['b']).brighten(0.2).get(),
+                color: Highcharts.Color(baseColors['b']).brighten(0.005).get(),
                 text: 'B'
             },
             'bminus': {
-                color: Highcharts.Color(baseColors['b']).brighten(0.1).get(),
+                color: Highcharts.Color(baseColors['b']).get(),
                 text: 'B-'
             },
             'cplus': {
-                color: Highcharts.Color(baseColors['c']).brighten(0.3).get(),
+                color: Highcharts.Color(baseColors['c']).brighten(0.01).get(),
                 text: 'C+'
             },
             'c': {
-                color: Highcharts.Color(baseColors['c']).brighten(0.2).get(),
+                color: Highcharts.Color(baseColors['c']).brighten(0.005).get(),
                 text: 'C'
             },
             'cminus': {
-                color: Highcharts.Color(baseColors['c']).brighten(0.1).get(),
+                color: Highcharts.Color(baseColors['c']).get(),
                 text: 'C-'
             },
             'dplus': {
-                color: Highcharts.Color(baseColors['d']).brighten(0.3).get(),
+                color: Highcharts.Color(baseColors['d']).brighten(0.01).get(),
                 text: 'D+'
             },
             'd': {
-                color: Highcharts.Color(baseColors['d']).brighten(0.2).get(),
+                color: Highcharts.Color(baseColors['d']).brighten(0.005).get(),
                 text: 'D'
             },
             'dminus': {
-                color: Highcharts.Color(baseColors['d']).brighten(0.1).get(),
+                color: Highcharts.Color(baseColors['d']).get(),
                 text: 'D-'
             },
             'f': {
-                color: Highcharts.Color(baseColors['f']),
+                color: Highcharts.Color(baseColors['f']).get(),
                 text: 'F'
             },
             'drop': {
-                color: Highcharts.Color(baseColors['drop']),
+                color: Highcharts.Color(baseColors['drop']).get(),
                 text: 'Drop'
             },
             'withdraw': {
-                color: Highcharts.Color(baseColors['withdraw']),
+                color: Highcharts.Color(baseColors['withdraw']).get(),
                 text: 'Withdraw'
             },
             'other': {
-                color: Highcharts.Color(baseColors['other']),
+                color: Highcharts.Color(baseColors['other']).get(),
                 text: 'Other'
             }
         }

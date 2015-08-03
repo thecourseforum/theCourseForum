@@ -168,7 +168,7 @@ ready = function() {
 				url: '/vote_up/' + review_id,
 				type: 'POST',
 				success: function() {
-					var wasDownvoted = $("#vote_down_" + review_id).css("opacity") == 1;
+					var wasDownvoted = $("#vote_down_" + review_id).hasClass("vote-active");
 
 					$("#vote_up_" + review_id).addClass("vote-active");
 					$("#vote_down_" + review_id).removeClass("vote-active");
@@ -210,8 +210,7 @@ ready = function() {
 				type: 'POST',
 				success: function() {
 
-					var wasUpvoted = $("#vote_up_" + review_id).css("opacity") == 1;
-
+					var wasUpvoted = $("#vote_up_" + review_id).hasClass("vote-active");
 					$("#vote_down_" + review_id).addClass("vote-active");
 					$("#vote_up_" + review_id).removeClass("vote-active");
 

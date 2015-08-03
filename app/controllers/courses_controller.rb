@@ -124,7 +124,7 @@ class CoursesController < ApplicationController
           when "recent"
             @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
           when "helpful"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-(r.votes_for-r.votes_against), -r.created_at.to_i]}
           when "highest"
             @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
           when "lowest"
