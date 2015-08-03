@@ -1,19 +1,29 @@
 class CoursesController < ApplicationController
   
   def show
-    @course = Course.includes(:sections, :grades, :professors).find(params[:id])
+    @course = Course.find(params[:id])
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
 
-    @books_count = @course.books.uniq.count
-    @required_books  = @course.book_requirements_list("Required")
-    @recommended_books  = @course.book_requirements_list("Recommended")
-    @optional_books  = @course.book_requirements_list("Optional")
-    @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
 
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
+
+      @section_ids = SectionProfessor.where(:section_id => @course.sections.pluck(:id)).where(:professor_id => params[:p]).flat_map(&:section_id)
+      @book_requirements = BookRequirement.where(:section_id => @section_ids)
+
+      @books_count = @book_requirements.count != 0 ? @book_requirements.map(&:book).uniq.count : 0
+      @required_books  = @book_requirements.where(:status => "Required").count != 0 ? @book_requirements.where(:status => "Required").map(&:book).uniq : []
+      @recommended_books  = @book_requirements.where(:status => "Recommended").count != 0 ? @book_requirements.where(:status => "Recommended").map(&:book).uniq : []
+      @optional_books  = @book_requirements.where(:status => "Optional").count != 0 ? @book_requirements.where(:status => "Optional").map(&:book).uniq : []
+      @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
+    else
+      @books_count = @course.books.uniq.count
+      @required_books  = @course.book_requirements_list("Required")
+      @recommended_books  = @course.book_requirements_list("Recommended")
+      @optional_books  = @course.book_requirements_list("Optional")
+      @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books      
     end
 
     @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id).includes(:votes) : Review.where(:course_id => @course.id).includes(:votes)
