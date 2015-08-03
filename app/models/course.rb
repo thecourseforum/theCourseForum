@@ -107,10 +107,10 @@ class Course < ActiveRecord::Base
 
 
   # Returns the percentage of A's, B's, C's etc and GPA for the course (1 section or multiple sections)
-  def get_grade_percentages(prof_id = -1)
-    if prof_id != -1
+  def get_grade_percentages(professor_id)
+    if professor_id != -1
       professor = professors.find do |professor|
-        professor.id == prof_id
+        professor.id == professor_id
       end
       @grades = grades.select do |grade|
         grade.section.professors.map(&:id).include?(professor.id)

@@ -1,11 +1,13 @@
 class CoursesController < ApplicationController
   
   def show
+    unless params[:p]
+      redirect_to :action => "show_professors" and return
+    end
     @course = Course.includes(:grades => [:section => :professors]).find(params[:id])
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
-
 
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
@@ -50,26 +52,6 @@ class CoursesController < ApplicationController
     end
 
     @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
-
-
-    if @professor      
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
-      @prof_id = @professor.id
-    else
-      @prof_id = -1
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
-    end
-    
-    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
-
-    #used to pass grades to the donut chart
-    gon.grades = @grades
-    gon.semester = 0
-
-    @colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
-    @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
-
-    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
 
     @rev_ratings = get_review_ratings
     @rev_emphasizes = get_review_emphasizes

@@ -6,7 +6,15 @@ class BugsController < ApplicationController
 
   # GET /bugs
   def index
-    @bugs = Bug.all.order(:created_at).reverse
+    params[:type] ||= 'active'
+    case params[:type]
+    when 'active'
+      @bugs = Bug.all.where(:archived => false).order(:created_at).reverse
+    when 'archived'
+      @bugs = Bug.all.where(:archived => true).order(:created_at).reverse
+    when 'all'
+      @bugs = Bug.all.order(:created_at).reverse
+    end
   end
 
   def show
@@ -22,7 +30,7 @@ class BugsController < ApplicationController
 
   # DELETE /bugs/1
   def destroy
-    @bug.destroy
+    @bug.update(:archived => true)
     respond_to do |format|
       format.html { redirect_to bugs_url }
       format.json { head :no_content }
@@ -40,9 +48,10 @@ class BugsController < ApplicationController
       params[:bug] = {
         :url => params[:url],
         :description => params[:description],
-        :email => params[:email]
+        :email => params[:email],
+        :archived => false
       }
-      params.require(:bug).permit(:url, :description, :email)
+      params.require(:bug).permit(:url, :description, :email, :archived)
     end
 
     def verify_permission
