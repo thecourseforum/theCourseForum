@@ -28,22 +28,25 @@ $(document).ready(function () {
 		$(document).on('click', '.action', function() {
 			var actionName = $(this).attr('action'),
 				listing_id = $(this).attr('id');
-			console.log(listing_id);
 
-			$.ajax({
-				url: '/textbook_transactions/' + actionName,
-				dataType: 'json',
-				type: 'POST',
-				data: {
-					listing_id: listing_id
-				},
-				success: function(data) {
-					actionName == "report" ? alert("Reported") : location.reload();
-				},
-				error: function(data) {
-					alert("Something went wrong :(");
-				}
-			});
+			if (actionName == "report") {
+				$('#report-bug-modal').modal();
+			} else {
+				$.ajax({
+					url: '/textbook_transactions/' + actionName,
+					dataType: 'json',
+					type: 'POST',
+					data: {
+						listing_id: listing_id
+					},
+					success: function(data) {
+						location.reload();
+					},
+					error: function(data) {
+						alert("Something went wrong :(");
+					}
+				});
+			}
 
 		});
 	}
