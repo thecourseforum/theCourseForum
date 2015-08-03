@@ -6,7 +6,7 @@ class BugsController < ApplicationController
 
   # GET /bugs
   def index
-    @bugs = Bug.all
+    @bugs = Bug.all.order(:created_at).reverse
   end
 
   def show
