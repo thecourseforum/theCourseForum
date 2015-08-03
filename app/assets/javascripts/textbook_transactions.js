@@ -86,7 +86,7 @@ $(document).ready(function () {
 			success: function(data) {
 				listingsData = data;
 				$('#listing-titles').removeAttr('disabled');
-				$('#listing-titles').attr('placeholder','Enter a Book Title ex. Little Women');
+				$('#listing-titles').attr('placeholder','e.g. Little Women or ECON 2010');
 				displayListings(listingsData);
 			}
 		});
@@ -307,7 +307,7 @@ $(document).ready(function () {
 	
 	function filterListingData (dataArray, query) {
 		return dataArray.filter(function (item) {
-			return item.title.toLowerCase().includes(query.toLowerCase());
+			return item.title.toLowerCase().includes(query.toLowerCase()) || item.courses.toLowerCase().includes(query.toLowerCase());
 		}).sort(function (a, b) {
 			return a.title.length - b.title.length;
 		});
