@@ -128,7 +128,7 @@ class Course < ActiveRecord::Base
       [stat, percentage]
     end]
 
-    if prof_id != -1
+    if professor
       percentages[:gpa] = stats.find do |stat|
         stat.professor_id == professor.id
       end.gpa
