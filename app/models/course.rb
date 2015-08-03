@@ -133,9 +133,7 @@ class Course < ActiveRecord::Base
         stat.professor_id == professor.id
       end.gpa
     else
-      percentages[:gpa] = stats.find do |stat|
-        stat.course_id == id and !stat.professor_id
-      end.gpa
+      percentages[:gpa] = overall_stats.gpa
     end
 
     percentages[:total] = total
