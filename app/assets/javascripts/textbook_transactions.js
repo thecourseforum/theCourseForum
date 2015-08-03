@@ -125,9 +125,10 @@ $(document).ready(function () {
 		$('#post-choose').attr('book_id', $('#book-link').text());
 		$('#post-choose').text($('#book-title').text().trim());
 	});
-	$('#submit-listing').hover(function() {
-		validateListing();
-	});
+	$('#book-input-field').change(validateListing);
+	$('#price-input-field').change(validateListing);
+	$('#condition-input-field').change(validateListing);
+	$('#cell-input-field').change(validateListing);
 	$('#submit-listing').click(function() {
 		var book_id = $('#post-choose').attr('book_id'),
 			cell = validateCell($('#cell-input-field').val()),
@@ -208,12 +209,28 @@ $(document).ready(function () {
 		return input;	
 	}
 	function flagInvalidInput(element) {
-		element.css('box-shadow', '0 0 5px #a94442');
-		element.css('border', '1px solid #a94442');
+		element.css('-webkit-transition', 'box-shadow 1s ease, border 1s ease');
+		element.css('transition', 'box-shadow 1s ease, border 1s ease');
+
+		element.css('box-shadow', '0 0 5px #c26564');
+		element.css('border', '1px solid #c26564');
+
+		setTimeout(function() {
+			element.css('box-shadow', '');
+			element.css('border', '');
+		}, 1000);
 	}
 	function flagValidInput(element) {
-		element.css('box-shadow', '0 0 5px #3c763d');
-		element.css('border', '1px solid #3c763d');
+		element.css('-webkit-transition', 'box-shadow 1s ease, border 1s ease');
+		element.css('transition', 'box-shadow 1s ease, border 1s ease');
+
+		element.css('box-shadow', '0 0 5px #7ebd7f');
+		element.css('border', '1px solid #7ebd7f');
+
+		setTimeout(function() {
+			element.css('box-shadow', '');
+			element.css('border', '');
+		}, 1000);
 	}
 	
 	// Claim modal

@@ -1,9 +1,11 @@
 // Place all the styles related to the textbook_transactions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
 
-#post-listing {
+#post-listing, #my-listings {
 	float: right;
+	margin-left: 5px;
 	right: 0px;
 	text-align: center;
 	top: -15px;
@@ -38,6 +40,8 @@
 }
 
 #my-listing-table {
+	border-bottom: 2px solid #e8e8e8;
+
 	.my_listing_date {
 		min-width: 110px;
 	}
@@ -46,7 +50,10 @@
 		color: white;
 	}
 }
-
+#my-listing-separator {
+	border: 2px solid gray;
+	margin: 40px 1%;
+}
 @media (min-width: 1400px) {
 	.a-book {
 		width: 24%;
@@ -107,9 +114,11 @@
 	}
 }
 @media (max-width: 450px) {
-	#post-listing {
+	#post-listing, #my-listings {
+		float: none;
 		width: 100%;
-		margin-top: 20px;
+		margin-top: 10px;
+		margin-left: 0;
 	}
 	#sections_table {
 		margin-bottom: -20px;
