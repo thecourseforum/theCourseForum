@@ -9,7 +9,7 @@
 	right: 0px;
 	text-align: center;
 	top: -15px;
-	background-color: #D75626;
+	background-color: $light-blue;
 	color: white;
 	border-radius: 2px; 
 }
@@ -18,7 +18,7 @@
 .nav-pills > li.active > a, 
 .nav-pills > li.active > a:hover, 
 .nav-pills > li.active > a:focus {
-    background-color: #D75626;
+    background-color: $light-blue;
 }
 
 .nav-pills > li {
@@ -27,11 +27,16 @@
 
 .claim {
 	border-radius: 2px;
-	border: 1px solid #D75626;
+	border: 1px solid $dark-blue;
 }
 
 .claim:hover {
-	background-color: #e38867;
+	background-color: $light-blue;
+}
+
+#submit-claim, #submit-listing {
+	background-color: $light-blue;
+	border-radius: 2px;
 }
 
 #listing-table {
@@ -212,35 +217,10 @@
 }
 
 
-#more-books {
-	display: block;
-	border: 2px solid #15214B;
-	border-radius: 10px;
-	background-color: white;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-#more-books:hover {
-	background-color: #468AC2;
-}
-#more-listings {
-	display: block;
-	border: 2px solid #15214B;
-	border-radius: 10px;
-	background-color: white;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-#more-listings:hover {
-	background-color: #468AC2;
-}
-
 #follow, #sell-yours {
 	float: right;
 	text-align: center;
-	background-color: #D75626;
+	background-color: $light-blue;
 	color: white;
 	border-radius: 2px;
 }
@@ -288,8 +268,9 @@
 		margin-left: auto;
 		height: 70px;
 		max-width: 70px;
-		background-color: gray;
-		border: 2px solid #0D3268;
+		background-color: $dark-blue;
+		box-shadow: 0 0 2px #c1e1ec;
+		border: 1px solid #c1e1ec;
 	}
 
 	#post-choose {

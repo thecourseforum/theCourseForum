@@ -297,6 +297,7 @@ $(document).ready(function () {
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
 			$('#post-choose').text(ui.item.label);
+			$('#book-input-field').value = '';
 		}
 	});
 
