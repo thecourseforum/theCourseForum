@@ -17,7 +17,7 @@ class ProfessorsController < ApplicationController
     @professor = Professor.find(params[:id])
     @courses = @professor.courses_list.sort_by{|c| [c.subdepartment.mnemonic, c.course_number]}
     @total_reviews = 0
-    @avg_rating = 0;
+    @avg_rating = 0
 
     @courses.each do |c|
       @all_reviews = @professor ? Review.where(:course_id => c.id, :professor_id => @professor.id) : Review.where(:course_id => c.id)
@@ -28,7 +28,9 @@ class ProfessorsController < ApplicationController
       @all_reviews = @professor ? Review.where(:course_id => c.id, :professor_id => @professor.id) : Review.where(:course_id => c.id)
       @avg_rating_hash = get_review_ratings
       @avg_rating += @avg_rating_hash / @total_reviews
-    end      
+    end
+    
+    @course_groups = @courses.chunk{|course| course.subdepartment}
 
     @avg_rating = @avg_rating.round(2)
 
