@@ -28,7 +28,11 @@ class Course < ActiveRecord::Base
   end
 
   def mnemonic_number
-    @mnemonic_number ||= "#{subdepartment.mnemonic} #{course_number}"
+    if subdepartment_id != 224
+      @mnemonic_number ||= "#{subdepartment.mnemonic} #{course_number}"
+    else
+      "N/A"
+    end
   end
 
   def book_requirements_list(status)

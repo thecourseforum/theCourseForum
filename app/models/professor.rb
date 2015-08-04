@@ -18,6 +18,14 @@ class Professor < ActiveRecord::Base
     self.first_name + " " + self.last_name
   end
 
+  def email
+    if self.email_alias
+      self.email_alias + "@virginia.edu"
+    else
+      ""
+    end
+  end
+
   def separated_name
     
     if self.first_name == "Staff" || self.first_name == "staff"

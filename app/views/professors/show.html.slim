@@ -1,13 +1,13 @@
 - content_for :page_heading, "#{@professor.full_name}"
 
-.col-xs-1
+.col-xs-2
 	.avg-rating style="height: 90px; width: 90px; background-color: #D75626; color: #FFFFFF; text-align: center; padding-top: 10px;"
 		h1 = "#{@avg_rating}"
 		p Avg. Rating
-.col-xs-11
-	= "#{@professor.classification}, #{@professor[:department]}"
+.col-xs-10
+	= "#{@professor.classification} #{@professor[:department]}"
 	br
-	=link_to(@professor.primary_email,"mailto:#{@professor.primary_email}")
+	= link_to @professor.email, "mailto:#{@professor.email}"
 	br
 	= "#{@professor.office_phone}"
 	br
