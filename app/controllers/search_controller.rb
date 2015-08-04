@@ -9,10 +9,11 @@ class SearchController < ApplicationController
     # @result_temp = @search["response"]["docs"]
     # @result = @result_temp.paginate(:page => params[:page], :per_page=> 20)
     @results = []
+    @departments = []
+    @courses = []
     strings = params[:query].split(' ')
 
     if @query.length > 1
-      timing = Time.now
       if strings.length == 2 and strings[0].length < 5 and strings[1].length == 4
         search_mnemonic_numbers(*strings)
       elsif strings.length == 1
@@ -39,7 +40,12 @@ class SearchController < ApplicationController
     @result = @results.paginate(:page => params[:page], :per_page => 20)
     respond_to do |format|
       format.html
-      format.json {render json: @result}
+      format.json {render json: {
+        result: @result,
+        courses: @courses,
+        departments: @departments
+      }
+    }
     end
   end
 
@@ -67,36 +73,24 @@ class SearchController < ApplicationController
   private
 
   def search_mnemonic(query)
-    @results += Subdepartment.where("mnemonic LIKE ?", "%#{query}%").includes(:courses => :professors).map do |subdepartment|
-      subdepartment.courses.map do |course|
-        course.professors.uniq.map do |professor|
+    @departments += Subdepartment.where("mnemonic LIKE ?", "%#{query}%").map do |subdepartment|
+      subdepartment.departments.map do |department|
           {
-            :course_id => course.id,
-            :professor_id => professor.id,
-            :mnemonic_number => course.mnemonic_number,
-            :full_name => professor.full_name,
-            :title => course.title,
-            :course => course 
+            :department_id => department.id,
+            :name => department.name
           }
-        end
       end
     end.flatten
   end
 
   def search_titles(query)
-    @results += Course.where("title LIKE ?", "%#{query}%").includes(:professors, :subdepartment).map do |course|
-      course.professors.map do |professor|
-        {
-          :course_id => course.id,
-          :professor_id => professor.id,
-          :mnemonic_number => course.mnemonic_number,
-          :full_name => professor.full_name,
-          :title => course.title,
-          :course => course
-
-        }
-      end.uniq
-    end.flatten
+    @courses += Course.where("title LIKE ?", "%#{query}%").map do |course|
+      {
+        :course_id => course.id,
+        :mnemonic_number => course.mnemonic_number,
+        :title => course.title
+      }
+    end
   end
 
   def search_professors(query)
@@ -130,34 +124,24 @@ class SearchController < ApplicationController
   end
 
   def search_numbers(number)
-     @results += Course.where("course_number LIKE ?", "%#{number}%").includes(:professors, :subdepartment).map do |course|
-      course.professors.map do |professor|
-        {
-          :course_id => course.id,
-          :professor_id => professor.id,
-          :mnemonic_number => course.mnemonic_number,
-          :full_name => professor.full_name,
-          :title => course.title,
-          :course => course
-        }
-      end.uniq
-    end.flatten
+    @courses += Course.where("course_number LIKE ?", "%#{number}%").map do |course|
+      {
+        :course_id => course.id,
+        :mnemonic_number => course.mnemonic_number,
+        :title => course.title
+      }
+    end
   end
 
 
   def search_mnemonic_numbers(mnemonic, number)
     course = Course.find_by_mnemonic_number("#{mnemonic} #{number}")
     if course
-      @results += course.professors.map do |professor|
-        {
-          :course_id => course.id,
-          :professor_id => professor.id,
-          :mnemonic_number => course.mnemonic_number,
-          :full_name => professor.full_name,
-          :title => course.title,
-          :course => course
-        }
-      end.uniq
+      @courses += [{
+        :course_id => course.id,
+        :mnemonic_number => course.mnemonic_number,
+        :title => course.title
+      }]
     end
   end
 
