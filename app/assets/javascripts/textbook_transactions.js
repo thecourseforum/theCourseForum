@@ -125,7 +125,7 @@ $(document).ready(function () {
 		$('#book-input-field').remove();
 
 		$('#post-thumb').attr('src', $('#small-image-link').text());
-		$('#post-choose').attr('book_id', $('#book-link').text());
+		$('#post-choose').attr('book_id', $('#book-id').text());
 		$('#post-choose').text($('#book-title').text().trim());
 	});
 	$('#book-input-field').change(validateListing);
