@@ -23,10 +23,19 @@ html
           - if content_for?(:page_heading)
           .row#header
             #course-name
-              h1.page-title= yield(:page_heading)
+              - if content_for?(:course_link)
+                a.title-link href="#{yield(:course_link)}"
+                  h1.page-title= yield(:page_heading)
+              - else                
+                h1.page-title= yield(:page_heading)
               - if content_for?(:course_professor)
-                #professor-name
-                  h3.page-title = yield(:course_professor)
+                - if content_for?(:professor_link)
+                  a.title-link href="#{yield(:professor_link)}"
+                    #professor-name
+                      h3.page-title = yield(:course_professor)
+                - else
+                  #professor-name
+                    h3.page-title = yield(:course_professor)                
             - if controller.controller_name == "courses" && controller.action_name == "show"
               #save-course
                 - if current_user.courses.include? @course

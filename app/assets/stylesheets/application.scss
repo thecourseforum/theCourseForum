@@ -244,6 +244,9 @@ select {
   margin-bottom: 0px;
   font-weight: 300;
 }
+.title-link:hover {
+  text-decoration: none;
+}
 
 @media (max-width: $screen-sm) {
     .navbar-default .navbar-brand {

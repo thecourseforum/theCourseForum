@@ -2,6 +2,7 @@
 
 - content_for :page_heading, "#{@professor.full_name}"
 
+
 #professor-header
   #avg-rating
     h1 = "#{@avg_rating}"
@@ -16,10 +17,13 @@ hr
 
 #professor-courses style="padding: 15px;"
   - @course_groups.each do |subdepartment_chunk|
-    h3 = subdepartment_chunk.first.name
+    h2.subdepartment-name = subdepartment_chunk.first.name
     - subdepartment_chunk.second.each do |course|
-      .row
-        .col-sm-2 = link_to course[:course].mnemonic_number, course_path(course[:course].id, :p => @professor.id)
-        .col-sm-6 = course[:course].title
-        .col-sm-4 = course[:semester].to_s
+      .col-sm-12
+        .col-sm-2
+          a href="/courses/#{course[:course].id}?p=#{@professor.id}" = course[:course].mnemonic_number
+        .col-sm-6
+          i
+            a href="/courses/#{course[:course].id}?p=#{@professor.id}" = course[:course].title
+        .col-sm-4.professor-semester = course[:semester].year.to_s + " " + course[:semester].season
     hr
