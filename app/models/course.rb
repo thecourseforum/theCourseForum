@@ -107,80 +107,38 @@ class Course < ActiveRecord::Base
 
 
   # Returns the percentage of A's, B's, C's etc and GPA for the course (1 section or multiple sections)
-  def get_grade_percentages(prof_id = -1)
-    # these keys will correspond to the the grade's attributes (count_a, count_aminus, etc)
-    percentages = {
-      a: nil,
-      aminus: nil,
-      aplus: nil,
-      b: nil,
-      bminus: nil,
-      bplus: nil,
-      cplus: nil,
-      c: nil,
-      cminus: nil,
-      cplus: nil,
-      d: nil,
-      dminus: nil,
-      dplus: nil,
-      drop: nil,
-      f: nil,
-      other: nil,
-      wd: nil,
-      date: 0,
-      gpa: 0,
-      total: 0
-    }
-
-
-    # Gets the grades for the course or for the professor's sections
-    if prof_id != -1      
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", self.id, prof_id])
-    else      
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", self.id])
-    end
-    # keep track of the total number of students (for calculating the percentage)
-    running_total = 0
-
-    # For each grade returned (section with the number of a's, b's, etc)
-    @grades.each do |grade|
-        # map those attributes to an array
-        grade_count_array = []
-        grade.attributes.sort.each do |attr_name, attr_value|
-          grade_count_array << attr_value
-        end
-        # For each key value in the percentages hash
-        # its index corresponds to the index of the grade_count_array
-        percentages.each_with_index do |(key,value),index| 
-          if (index != 16 && index != 17 && index != 18) #don't average the date time, and calculate average gpa and total differently so skip that
-            # if that value is nil, (the first iteration) then simply divide the count by the total number of grades to get the percentage
-            if (percentages[key] == nil)
-              percentages[key] = grade_count_array[index] / grade.total.to_f unless grade.total == 0
-            # otherwise, multiply the percentage by the previous total, add the count, and divide by the new total to get the new percentage
-            else 
-              # handle the case where the previous semesters grades were 0
-              if (running_total == 0 || running_total == nil)
-                percentages[key] = grade_count_array[index] / grade.total unless grade.total == 0 
-              else
-                percentages[key] = ((percentages[key] * running_total) + grade_count_array[index].to_f) / (running_total + grade.total).to_f 
-
-              end
-
-            end
-          # average the gpa by just summing it now, and dividing later (has nothing to do with number of students)
-          elsif (index == 17)
-            percentages[key]+= grade_count_array[index].to_f
-          end
-        end
-        #increment of the total number of students
-        running_total += grade.total
+  def get_grade_percentages(professor_id)
+    if professor_id != -1
+      professor = professors.find do |professor|
+        professor.id == professor_id
       end
-      #average the gpa
-      percentages[:gpa] = (percentages[:gpa].to_f)/(@grades.length().to_f)
-      #store the total number of students
-      percentages[:total] = running_total
-      #return
-      percentages
+      @grades = grades.select do |grade|
+        grade.section.professors.map(&:id).include?(professor.id)
+      end
+    else
+      @grades = grades
+    end
+
+    total = @grades.map(&:total).sum
+
+    percentages = Hash[Grade.mapping.map do |stat|
+      percentage = @grades.map do |grade|
+        grade.send("count_#{stat}".to_sym)
+      end.map(&:to_f).sum.to_f / total
+      [stat, percentage]
+    end]
+
+    if professor
+      percentages[:gpa] = stats.find do |stat|
+        stat.professor_id == professor.id
+      end.gpa
+    else
+      percentages[:gpa] = overall_stats.gpa
+    end
+
+    percentages[:total] = total
+    percentages
+
   end
 
   def create_overall_stats

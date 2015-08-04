@@ -5,7 +5,7 @@ class Grade < ActiveRecord::Base
   after_create :update_stats
   after_destroy :update_stats
 
-  def self.mapping
+  def self.gpa_mapping
     {
       aplus: 4.0,
       a: 4.0,
@@ -23,8 +23,12 @@ class Grade < ActiveRecord::Base
     }
   end
 
+  def self.mapping
+    %w(aplus a aminus bplus b bminus cplus c cminus dplus d dminus f drop withdraw other)
+  end
+
   def average
-    counts = Grade.mapping.map { |letter, value|
+    counts = Grade.gpa_mapping.map { |letter, value|
       send("count_#{letter}".to_sym).times.map do
         value
       end

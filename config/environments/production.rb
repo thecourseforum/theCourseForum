@@ -80,7 +80,7 @@ TheCourseForum::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   #SMTP
-  config.action_mailer.default_url_options = {:host => 'beta.thecourseforum.com'}
+  config.action_mailer.default_url_options = {:host => 'thecourseforum.com'}
   # config.action_mailer.delivery_method = :sendmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

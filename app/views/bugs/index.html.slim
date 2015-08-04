@@ -1,16 +1,29 @@
-h1 Listing bugs
+.row
+  .col-xs-7
+    h2 = "Listing Bugs - #{params[:type]}"
+  .col-xs-5
+    .row.pull-right
+      .col-xs-4
+        a.btn.btn-primary href="/bugs?type=active" Active
+      .col-xs-4
+        a.btn.btn-primary href="/bugs?type=archived" Archived
+      .col-xs-4
+        a.btn.btn-primary href="/bugs?type=all" All
 
 table.table
   thead
     tr
+      th ID
       th URL
       th Description
+      th Created At
   tbody
     - @bugs.each do |bug|
       tr
+        td = bug.id
         td = bug.url
         td = bug.description
+        td = bug.created_at.localtime.strftime("%b %-e, %-l:%M %p")
         td = link_to 'Show', bug
-        td = link_to 'Destroy', bug, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+        td = link_to 'Archive', bug, data: {:confirm => 'Are you sure?'}, :method => :delete
 br

@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   
   def search
     # @search_url_suffix = "/course_search?q="
-    @query = params[:query]
+    @query = params[:query].strip
     # @query_url = URI::escape(ENV["SEARCH_URL"] + @search_url_suffix + params[:query])
     # @search = JSON.parse RestClient.get @query_url
 
@@ -11,27 +11,29 @@ class SearchController < ApplicationController
     @results = []
     strings = params[:query].split(' ')
 
-    timing = Time.now
-    if strings.length == 2 and strings[0].length < 5 and strings[1].length == 4
-      search_mnemonic_numbers(*strings)
-    elsif strings.length == 1
-      if strings[0].to_i.to_s == strings[0]
-        search_numbers(strings[0])
-      elsif strings[0].length < 5
-        search_mnemonic(strings[0])
-        if strings[0].length > 2
+    if @query.length > 1
+      timing = Time.now
+      if strings.length == 2 and strings[0].length < 5 and strings[1].length == 4
+        search_mnemonic_numbers(*strings)
+      elsif strings.length == 1
+        if strings[0].to_i.to_s == strings[0]
+          search_numbers(strings[0])
+        elsif strings[0].length < 5
+          search_mnemonic(strings[0])
+          if strings[0].length > 2
+            search_titles(strings[0])
+            search_professors(strings[0])
+          end
+        else
           search_titles(strings[0])
           search_professors(strings[0])
         end
+      elsif strings.length == 2
+        search_professors_full_name(strings[0], strings[1])
+        search_titles(params[:query])
       else
-        search_titles(strings[0])
-        search_professors(strings[0])
+        search_titles(params[:query])
       end
-    elsif strings.length == 2
-      search_professors_full_name(strings[0], strings[1])
-      search_titles(params[:query])
-    else
-      search_titles(params[:query])
     end
   
     @result = @results.paginate(:page => params[:page], :per_page => 20)

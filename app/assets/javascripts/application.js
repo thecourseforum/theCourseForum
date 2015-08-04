@@ -159,7 +159,7 @@ var ready = function() {
 		},
 		minLength: 2,
 		select: function(event, ui) {
-			window.location = "/courses/" + ui.item.course_id;
+			window.location = "/courses/" + ui.item.course_id + '?p=all';
 			return false;
 		}
 	});

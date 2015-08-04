@@ -1,19 +1,31 @@
 class CoursesController < ApplicationController
   
   def show
-    @course = Course.find(params[:id])
+    unless params[:p]
+      redirect_to :action => "show_professors" and return
+    end
+    @course = Course.includes(:grades => [:section => :professors]).find(params[:id])
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
 
-    @books_count = @course.books.uniq.count
-    @required_books  = @course.book_requirements_list("Required")
-    @recommended_books  = @course.book_requirements_list("Recommended")
-    @optional_books  = @course.book_requirements_list("Optional")
-    @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
-
     if params[:p] and params[:p] != 'all' and @course.professors.uniq.map(&:id).include?(params[:p].to_i)
       @professor = Professor.find(params[:p])
+
+      @section_ids = SectionProfessor.where(:section_id => @course.sections.pluck(:id)).where(:professor_id => params[:p]).flat_map(&:section_id)
+      @book_requirements = BookRequirement.where(:section_id => @section_ids)
+
+      @books_count = @book_requirements.count != 0 ? @book_requirements.map(&:book).uniq.count : 0
+      @required_books  = @book_requirements.where(:status => "Required").count != 0 ? @book_requirements.where(:status => "Required").map(&:book).uniq : []
+      @recommended_books  = @book_requirements.where(:status => "Recommended").count != 0 ? @book_requirements.where(:status => "Recommended").map(&:book).uniq : []
+      @optional_books  = @book_requirements.where(:status => "Optional").count != 0 ? @book_requirements.where(:status => "Optional").map(&:book).uniq : []
+      @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books
+    else
+      @books_count = @course.books.uniq.count
+      @required_books  = @course.book_requirements_list("Required")
+      @recommended_books  = @course.book_requirements_list("Recommended")
+      @optional_books  = @course.book_requirements_list("Optional")
+      @other_books = @course.books.uniq - @required_books - @recommended_books - @optional_books      
     end
 
     @all_reviews = @professor ? Review.where(:course_id => @course.id, :professor_id => @professor.id).includes(:votes) : Review.where(:course_id => @course.id).includes(:votes)
@@ -40,26 +52,6 @@ class CoursesController < ApplicationController
     end
 
     @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
-
-
-    if @professor      
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id JOIN section_professors e ON c.id=e.section_id JOIN professors f ON e.professor_id=f.id WHERE a.id=? AND f.id=?", @course.id, @professor.id])
-      @prof_id = @professor.id
-    else
-      @prof_id = -1
-      @grades = Grade.find_by_sql(["SELECT d.* FROM courses a JOIN sections c ON a.id=c.course_id JOIN grades d ON c.id=d.section_id WHERE a.id=?", @course.id])
-    end
-    
-    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
-
-    #used to pass grades to the donut chart
-    gon.grades = @grades
-    gon.semester = 0
-
-    @colors = ['#223165', '#15214B', '#0F1932', '#EE5F35', '#D75626', '#C14927','#5A6D8E','#9F9F9F']
-    @letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+/C/C-', 'Other']
-
-    @semesters = Semester.where(id: @grades.map{|g| g.section.semester_id}).sort_by{|s| s.number}
 
     @rev_ratings = get_review_ratings
     @rev_emphasizes = get_review_emphasizes
@@ -114,7 +106,7 @@ class CoursesController < ApplicationController
           when "recent"
             @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
           when "helpful"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
+            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-(r.votes_for-r.votes_against), -r.created_at.to_i]}
           when "highest"
             @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
           when "lowest"
@@ -220,10 +212,3 @@ class CoursesController < ApplicationController
     
 
 end
-
-# last_four_years = current_user.settings(:last_four_years).professors
-
-    # if last_four_years
-    #   semesters_ids = Semester.where("year > ?", (Time.now.-4.years).year).pluck(:id)
-    #   @professors = Professor.where(id: SectionProfessor.where(section_id: @course.sections.where(semester_id: semesters_ids).pluck(:id)).pluck(:professor_id))
-    # else
