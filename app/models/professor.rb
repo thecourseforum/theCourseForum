@@ -11,7 +11,7 @@ class Professor < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
 
   def courses_list
-    return self.courses.uniq{ |p| p.id }.sort_by{|p| p.subdepartment.mnemonic}
+    return self.courses.includes(:subdepartment).uniq{ |course| course.id }.sort_by{|course| course.subdepartment.mnemonic}
   end
 
   def full_name

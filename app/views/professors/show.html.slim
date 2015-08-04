@@ -1,21 +1,25 @@
+= stylesheet_link_tag "professor"
+
 - content_for :page_heading, "#{@professor.full_name}"
 
-.col-sm-2
-  .avg-rating style="height: 90px; width: 90px; background-color: #D75626; color: #FFFFFF; text-align: center; padding-top: 10px;"
+#professor-header
+  #avg-rating
     h1 = "#{@avg_rating}"
     p Avg. Rating
-.col-sm-10
-  = "#{@professor.classification} #{@professor[:department]}"
-  br
-  = link_to @professor.email, "mailto:#{@professor.email}"
-  br
-  = "#{@professor.office_phone}"
-  br
-  = "Office: #{@professor.office_address}" if @professor.office_address
-hr style="border: solid 1px black; margin-top: 100px;"
-ul.professor-courses style="list-style-type: none; padding: 15px;"
-  - @course_groups.each do |courses|
-    h3 = courses.first.name
-    - courses.second.each do |course|
-      li = link_to "#{course.mnemonic_number} #{course.title}", course_path(course.id, :p => @professor.id)
-    br
+  #avg-difficulty
+    h1 = "#{@avg_difficulty}"
+    p Avg. Difficulty
+  #professor-contact
+    a#professor-email href="mailto:#{@professor.email}" = @professor.email
+
+hr
+
+#professor-courses style="padding: 15px;"
+  - @course_groups.each do |subdepartment_chunk|
+    h3 = subdepartment_chunk.first.name
+    - subdepartment_chunk.second.each do |course|
+      .row
+        .col-sm-2 = link_to course[:course].mnemonic_number, course_path(course[:course].id, :p => @professor.id)
+        .col-sm-6 = course[:course].title
+        .col-sm-4 = course[:semester].to_s
+    hr
