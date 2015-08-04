@@ -91,7 +91,7 @@ class CoursesController < ApplicationController
   end
 
   def reviews
-    if params[:professor_id]
+    if params[:professor_id] and params[:professor_id] != "all"
       all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id])
     else
       all_reviews = Review.where(:course_id => params[:course_id])
