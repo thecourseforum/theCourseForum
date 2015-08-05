@@ -37,7 +37,7 @@ class TextbookTransactionsController < ApplicationController
       {
         :id => textbook_transaction_sections.first[0],
         :price => "$" + textbook_transaction_sections.first[1].to_s,
-        :courses => textbook_transaction_sections.map(&:third).join(", "),
+        :courses => textbook_transaction_sections.map(&:third).uniq.join(", "),
         :link => "/books/#{textbook_transaction_sections.first[3].to_s}",
         :title => textbook_transaction_sections.first[4],
         :book_id => textbook_transaction_sections.first[3],
@@ -60,7 +60,7 @@ class TextbookTransactionsController < ApplicationController
         :id => book_sections.first[0],
         :title => book_sections.first[1],
         :medium_image_link => book_sections.first[2],
-        :mnemonic_numbers => book_sections.map(&:fourth).join(", ")
+        :mnemonic_numbers => book_sections.map(&:fourth).uniq.join(", ")
       }
     end
 

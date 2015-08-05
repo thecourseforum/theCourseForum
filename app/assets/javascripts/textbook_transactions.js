@@ -402,12 +402,14 @@ $(document).ready(function () {
 					title = block.find('#title-thumb');
 
 				link.attr('href', '/books/' + book.id);
+				link.attr('title', 'Used in ' + book.mnemonic_numbers);
 				title.text(book.title);
 
 				book.medium_image_link = book.medium_image_link ? book.medium_image_link : default_book_cover
 				img.attr('src', book.medium_image_link);
 
 				bookList.append(link);
+
 			});
 			offset += 24;
 			return true;
