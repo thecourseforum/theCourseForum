@@ -89,6 +89,8 @@ $(document).ready(function () {
 			success: function(data) {
 				$('#listing-titles').removeAttr('disabled');
 				$('#listing-titles').attr('placeholder','e.g. Little Women or ECON 2010');
+				// console.log(data);
+				// console.log(data.length);
 				listingsData = data;
 				displayListings(listingsData);
 			}
