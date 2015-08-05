@@ -209,6 +209,7 @@ $(document).ready(function() {
 	});
 
 	$('#class-search').autocomplete({
+		minLength: 2,
 		source: function(request, response) {
 			$.ajax({
 				url: '/scheduler/search',
@@ -230,8 +231,7 @@ $(document).ready(function() {
 		},
 		select: function(event, ui) {
 			courseSearch(ui.item.label);
-		},
-		minLength: 2
+		}
 	});
 
 	// Added search button functionality
