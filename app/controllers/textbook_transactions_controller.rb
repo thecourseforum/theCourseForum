@@ -18,7 +18,11 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def listings
-    @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).group("textbook_transactions.id").pluck(:id, :price, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
+    if params[:book_id]
+      @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).group("textbook_transactions.id").where(:book_id => params[:book_id]).pluck(:id, :price, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
+    else
+      @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).group("textbook_transactions.id").pluck(:id, :price, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
+    end
     # Returns arrays of format as follows
     # 0: transaction_id
     # 1: price

@@ -89,10 +89,22 @@ $(document).ready(function () {
 			success: function(data) {
 				$('#listing-titles').removeAttr('disabled');
 				$('#listing-titles').attr('placeholder','e.g. Little Women or ECON 2010');
-				// console.log(data);
-				// console.log(data.length);
 				listingsData = data;
 				displayListings(listingsData);
+			}
+		});
+	}
+
+	// Book show page - Load relevant listings data
+	if ($('#follow').length) {
+		var id = $('#book-id').text().trim();
+
+		$.ajax({
+			url: '/textbook_transactions/listings' + "?book_id=" + id,
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				listingsData = data;
 			}
 		});
 	}
@@ -127,7 +139,7 @@ $(document).ready(function () {
 		$('#book-input-field').remove();
 
 		$('#post-thumb').attr('src', $('#small-image-link').text());
-		$('#post-choose').attr('book_id', $('#book-id').text());
+		$('#post-choose').attr('book_id', $('#book-id').text().trim());
 		$('#post-choose').text($('#book-title').text().trim());
 	});
 	$('#book-input-field').change(validateListing);
