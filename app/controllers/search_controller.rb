@@ -17,7 +17,7 @@ class SearchController < ApplicationController
       if strings.length == 2 and strings[0].length < 5 and strings[1].length == 4
         search_mnemonic_numbers(*strings)
       elsif strings.length == 1
-        if strings[0].to_i.to_s == strings[0]
+        if !!/\A\d+\z/.match(strings[0])
           search_numbers(strings[0])
         elsif strings[0].length < 5
           search_mnemonic(strings[0])
