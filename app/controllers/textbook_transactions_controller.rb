@@ -56,7 +56,8 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def books
-    @books = Book.includes(:sections => {:course => :subdepartment}).group("books.id").pluck(:id, :title, :medium_image_link, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")')
+    # use references(:users) to make activerecord happy
+    @books = Book.includes(:users, :sections => {:course => :subdepartment}).group("books.id").order("RAND()").order("COUNT(users.id) DESC").references(:users).pluck(:id, :title, :medium_image_link, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', 'COUNT(users.id)')
     
     # Format into json style
     @books = @books.map do |book|
@@ -64,7 +65,8 @@ class TextbookTransactionsController < ApplicationController
         :id => book[0],
         :title => book[1],
         :medium_image_link => book[2],
-        :mnemonic_numbers => book[3]
+        :mnemonic_numbers => book[3],
+        :followers => book[4]
       }
     end
 
