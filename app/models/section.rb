@@ -7,6 +7,8 @@ class Section < ActiveRecord::Base
   has_many :day_times_sections, :dependent => :destroy
   has_many :book_requirements, :dependent => :destroy
 
+  has_many :textbook_transactions
+
   has_and_belongs_to_many :schedules
 
   has_many :professors, :through => :section_professors

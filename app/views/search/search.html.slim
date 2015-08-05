@@ -2,6 +2,37 @@
 - content_for :page_heading, "#{@query} - Search Results"
 
 .search
+  .row
+    - if @departments.count > 0
+      .col-xs-2
+        strong Course
+      .col-xs-3
+        strong Professor
+      .col-xs-7
+        strong Title
+  - @departments.each do |department|
+    .row
+      .col-xs-12
+        a href="/departments/#{department[:department_id]}" data-no-turbolink=""
+          .row
+            .col-xs-2
+              = "#{department[:name]}"
+
+  .row
+    - if @courses.count > 0
+        .col-xs-2
+          strong Course
+        .col-xs-3
+          strong Professor
+        .col-xs-7
+          strong Title
+    - @courses.each do |course|
+      .row
+        .col-xs-12
+          a href="/courses/#{course[:course_id]}/professors" data-no-turbolink=""
+            .col-xs-12
+              = "#{course[:mnemonic_number]} - #{course[:title]}"
+         
   = will_paginate @result
   .row
     - if @result.size < 1
