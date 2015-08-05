@@ -5,9 +5,9 @@
 
 ul.nav.nav-pills
   li#listing_nav role="presentation" 
-    a href="/textbook_transactions" All Listings
+    a href="/textbooks/listings" All Listings
   li#book_nav.active role="presentation" 
-    a href="/textbook_transactions/books" Books
+    a href="/textbooks" Books
   a#my-listings.btn.btn-lg href="/my_listings" role="button" My Listings
   button#post-listing.btn.btn-lg Post!
 
@@ -15,7 +15,7 @@ hr
 
 #titles-form.form-group.has-feedback
   label.control-label for="search"  Search
-  #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => "e.g. Little Women"
+  #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => "e.g. Little Women or ECON 2010"
   .span.form-control-feedback
 
 #book-list

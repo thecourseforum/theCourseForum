@@ -8,7 +8,7 @@ class TextbookTransaction < ActiveRecord::Base
 	validates_presence_of :seller_id, :price, :condition, :book_id
 
 	def self.active
-		TextbookTransaction.where("updated_at > ? AND buyer_id IS NULL", (Time.now - TextbookTransaction.duration))
+		TextbookTransaction.where("textbook_transactions.updated_at > ? AND textbook_transactions.buyer_id IS NULL", (Time.now - TextbookTransaction.duration))
 	end
 
 	def self.duration

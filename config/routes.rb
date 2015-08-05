@@ -55,14 +55,15 @@ TheCourseForum::Application.routes.draw do
   post '/books/follow' => 'books#follow'
   resources :books, :only => [:index, :show]
   
+  resources :textbook_transactions, :only => [:create]
   get 'my_listings', :to => 'textbook_transactions#show', :as => 'my_listings'
   post '/textbook_transactions/withdraw' => 'textbook_transactions#withdraw'
   post '/textbook_transactions/renew' => 'textbook_transactions#renew'
   post '/textbook_transactions/report' => 'textbook_transactions#report'
-  get '/textbook_transactions/books' => 'textbook_transactions#books'
   get '/textbook_transactions/listings' => 'textbook_transactions#listings'
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'
-  resources :textbook_transactions, :only => [:index, :create]
+  get '/textbooks' => 'textbook_transactions#books'
+  get '/textbooks/listings' => 'textbook_transactions#index'
 
   resources :search, :only => [] do
     collection do

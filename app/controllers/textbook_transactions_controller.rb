@@ -18,27 +18,51 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def listings
-    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).map do |transaction|
+    @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).pluck(:id, :price, 'CONCAT_WS(" ", mnemonic, course_number)', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
+
+    # Returns arrays of format as follows
+    # 0: transaction_id
+    # 1: price
+    # 2: courses
+    # 3: book_id
+    # 4: book title
+    # 5: medium image link
+    # 6: author
+    # 7: condition
+    # 8: notes
+    # 9: transaction updated at
+
+    # Chunk by id
+    @textbook_transactions = @textbook_transactions.chunk(&:first).map(&:second).map do |textbook_transaction_sections|
       {
-        :id => transaction.id,
-        :price => "$" + transaction.price.to_s,
-        :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
-        :link => "/books/#{transaction.book.id}",
-        :title => transaction.book.title,
-        :book_id => transaction.book_id,
-        :book_image => transaction.book.medium_image_link,
-        :author => transaction.book.author,
-        :condition => transaction.condition,
-        :notes => transaction.notes ? transaction.notes : "none",
-        :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
+        :id => textbook_transaction_sections.first[0],
+        :price => "$" + textbook_transaction_sections.first[1].to_s,
+        :courses => textbook_transaction_sections.map(&:third).join(", "),
+        :link => "/books/#{textbook_transaction_sections.first[3].to_s}",
+        :title => textbook_transaction_sections.first[4],
+        :book_id => textbook_transaction_sections.first[3],
+        :book_image => textbook_transaction_sections.first[5],
+        :author => textbook_transaction_sections.first[6],
+        :condition => textbook_transaction_sections.first[7],
+        :notes => textbook_transaction_sections.first[8] ? textbook_transaction_sections.first[8] : "none",
+        :end_date => (textbook_transaction_sections.first[9] + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
       }
     end
-
+    
     render :json => @textbook_transactions
   end
 
   def books
-    @books = Book.order("RAND()").pluck(:id, :title, :medium_image_link)
+    @books = Book.includes(:sections => {:course => :subdepartment}).pluck(:id, :title, :medium_image_link, 'CONCAT_WS(" ", mnemonic, course_number)')
+    # Chunk by id
+    @books = @books.chunk(&:first).map(&:second).map do |book_sections|
+      {
+        :id => book_sections.first[0],
+        :title => book_sections.first[1],
+        :medium_image_link => book_sections.first[2],
+        :mnemonic_numbers => book_sections.map(&:fourth).join(", ")
+      }
+    end
 
     respond_to do |format|
       format.html

@@ -66,12 +66,12 @@ $(document).ready(function () {
 	// Load textbook data
 	if ($('#post-listing').length) {
 		$.ajax({
-			url: '/textbook_transactions/books',
+			url: '/textbooks',
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
-				// data is an array of arrays
-				// ex. data[0] #=> [id, title, small_image_link]
+				// data is an array of objects
+				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers
 				booksData = data;
 				if (isBookPage) {
 					displayBooks(booksData);
@@ -87,9 +87,9 @@ $(document).ready(function () {
 			dataType: 'json',
 			type: 'GET',
 			success: function(data) {
-				listingsData = data;
 				$('#listing-titles').removeAttr('disabled');
 				$('#listing-titles').attr('placeholder','e.g. Little Women or ECON 2010');
+				listingsData = data;
 				displayListings(listingsData);
 			}
 		});
@@ -277,12 +277,12 @@ $(document).ready(function () {
 	// Post Modal autocomplete
 	$('#book-input-field').autocomplete({
 		source: function(request, response) {
-			response($.map(filterData(booksData, request.term), function(book) {
+			response($.map(filterBookData(booksData, request.term), function(book) {
 				return {
-					book_id: book[0],
-					label: book[1],
+					book_id: book.id,
+					label: book.title,
 					value: request.term,
-					image: book[2] ? book[2] : default_book_cover
+					image: book.medium_image_link ? book.medium_image_link : default_book_cover
 				}
 			}));
 		},
@@ -301,11 +301,11 @@ $(document).ready(function () {
 		}
 	});
 
-	function filterData (dataArray, query) {
+	function filterBookData (dataArray, query) {
 		return dataArray.filter(function (item) {
-			return item[1].toLowerCase().includes(query.toLowerCase());
+			return item.title.toLowerCase().includes(query.toLowerCase()) || item.mnemonic_numbers.toLowerCase().includes(query.toLowerCase());
 		}).sort(function (a, b) {
-			return a[1].length - b[1].length;
+			return a.title.length - b.title.length;
 		});
 	}
 	
@@ -378,7 +378,7 @@ $(document).ready(function () {
 		if (query == '') {
 			displayBooks(booksData);
 		} else {
-			displayBooks(filterData(booksData, query));
+			displayBooks(filterBookData(booksData, query));
 		}
 	});
 	function displayBooks (books) {
@@ -401,11 +401,11 @@ $(document).ready(function () {
 					img = block.find('#cover-thumb'),
 					title = block.find('#title-thumb');
 
-				link.attr('href', '/books/' + book[0]);
-				title.text(book[1]);
+				link.attr('href', '/books/' + book.id);
+				title.text(book.title);
 
-				book[2] = book[2] ? book[2] : default_book_cover
-				img.attr('src', book[2]);
+				book.medium_image_link = book.medium_image_link ? book.medium_image_link : default_book_cover
+				img.attr('src', book.medium_image_link);
 
 				bookList.append(link);
 			});
