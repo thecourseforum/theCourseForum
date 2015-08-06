@@ -17,7 +17,14 @@ client.configure(
 	:associate_tag => config[:associate_tag]
 )
 
-books = Book.where.not(:isbn => nil).where(:asin => nil)
+puts "Update? y/n"
+is_update = gets.chomp
+
+if is_update == 'y'
+	books = Book.where.not(:isbn => nil)
+else
+	books = Book.where.not(:isbn => nil).where(:asin => nil)
+end
 
 puts "How many books? #{books.count} total"
 limit = gets.chomp.to_i

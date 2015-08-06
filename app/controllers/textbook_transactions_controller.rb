@@ -42,8 +42,8 @@ class TextbookTransactionsController < ApplicationController
         :price => "$" + textbook_transaction[1].to_s,
         :courses => textbook_transaction[2],
         :link => "/books/#{textbook_transaction[3].to_s}",
-        :title => textbook_transaction[4],
         :book_id => textbook_transaction[3],
+        :title => textbook_transaction[4],
         :book_image => textbook_transaction[5],
         :author => textbook_transaction[6],
         :condition => textbook_transaction[7],
@@ -56,18 +56,14 @@ class TextbookTransactionsController < ApplicationController
   end
 
   def books
-    # use references(:users) to make activerecord happy
-    @books = Book.includes(:users, :sections => {:course => :subdepartment}).group("books.id").order("RAND()").order("COUNT(users.id) DESC").references(:users).pluck(:id, :title, :medium_image_link, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', 'COUNT(users.id)')
-    
-    # Format into json style
-    @books = @books.map do |book|
-      {
-        :id => book[0],
-        :title => book[1],
-        :medium_image_link => book[2],
-        :mnemonic_numbers => book[3],
-        :followers => book[4]
-      }
+    if request.format.to_s.include?('json')
+      # use references(:users) to make activerecord happy
+      @books = Book.includes(:users, :sections => {:course => :subdepartment}).group("books.id").order("RAND()").order("COUNT(users.id) DESC").references(:users).pluck(:id, :title, :medium_image_link, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', 'COUNT(users.id)')
+      
+      # Format into json
+      @books = @books.map do |book|
+        Hash[[:id, :title, :medium_image_link, :mnemonic_numbers, :followers].zip(book)]
+      end
     end
 
     respond_to do |format|
