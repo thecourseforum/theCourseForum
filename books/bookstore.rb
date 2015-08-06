@@ -23,32 +23,17 @@ headers = {
 departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92', headers)).departments.department
 departments = [departments] if departments.class == Nokogiri::XML::Element
 
-# Split up into pieces
-thread_count = 15
-partitions = {
-	:heavy => [],
-	:heavy2 => []
-}
-threads = {}
-
-thread_count.times do |i|
-	partitions[i] = []
-end
+departments_queue = Queue.new
+threads = []
 
 departments.each_with_index do |department, index|
-	abrev = department['abrev']
-	if abrev == 'SPAN' || abrev == 'PPOL' || abrev == 'ANTH'
-		partitions[:heavy] << department
-	elsif abrev == 'STAT' || abrev == 'COMM'
-		partitions[:heavy2] << department
-	else
-		partitions[(index % thread_count)] << department
-	end
+	departments_queue << department
 end
 
-partitions.each do |key, group|
-	threads[key] = Thread.new(group) do |departments|
-		departments.each do |xml_department|
+15.times do |index|
+	threads[index] = Thread.new do
+		while not departments_queue.empty?
+			xml_department = departments_queue.pop
 			mnemonic = xml_department['abrev']
 			department_id = xml_department['id']
 
@@ -160,13 +145,10 @@ partitions.each do |key, group|
 				end
 			end
 		end
-		log.puts "Thread #{key} has finished"
 	end
 end
 
-
-# wait for threads to finish work
-threads.each do |key, thread|
+threads.each do |thread|
 	thread.join
 end
 
