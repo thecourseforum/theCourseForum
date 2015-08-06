@@ -76,7 +76,8 @@ class TextbookTransactionsController < ApplicationController
     cell = params[:cellphone].strip
     current_user.update(:cellphone => cell)
     transaction = TextbookTransaction.find(params[:claim_id])
-    body = "\"#{transaction.book.title}\" ($#{transaction.price})\nhas been claimed!\nBuyer's Contact info: #{current_user.cellphone}"
+    buyer_contact = (current_user.cellphone ? current_user.cellphone : current_user.email)
+    body = "\"#{transaction.book.title}\" ($#{transaction.price})\nhas been claimed!\nBuyer's Contact info: #{buyer_contact}"
     
     if cell.length == 10
       if transaction.active?
@@ -93,9 +94,11 @@ class TextbookTransactionsController < ApplicationController
         end
         
         if error
-          render status: 400, :json => {
-            message: error
-          }
+
+          # If texting doesn't work, use email to notify seller
+          TextbookMailer.notify_of_claim(:seller => transaction.seller, :buyer_contact => buyer_contact, :transaction => transaction).deliver
+          
+          render status: 202, :json => {}
         else
           transaction.update(:buyer_id => current_user.id)
           transaction.update(:sold_at => Time.now)
@@ -116,6 +119,9 @@ class TextbookTransactionsController < ApplicationController
 
 
   def create
+    book = Book.find(params[:book_id])
+    emails = book.users.pluck(:email)
+
     current_user.update(:cellphone => params[:cellphone])
 
     if params[:cellphone].length == 10
@@ -123,6 +129,10 @@ class TextbookTransactionsController < ApplicationController
       
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
       if @textbook_transaction.save
+
+        # Notify followers of the book that has been claimed
+        TextbookMailer.notify_of_post(:emails => emails, :transaction => @textbook_transaction).deliver
+        
         render status: 201, :json => {}
       else 
         render status: 400, :json => {

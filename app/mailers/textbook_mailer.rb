@@ -2,13 +2,27 @@ class TextbookMailer < ActionMailer::Base
   default from: "textbooks@thecourseforum.com"
 
   def notify_of_post(arguments = {})
+	@listing = arguments[:transaction]
+	
+	emails = arguments[:emails]
 
-    mail(to: '', from: '', subject: '')
+	book_title = @listing.book.title
+	price = @listing.price
+
+    mail(bcc: emails, subject: "New Listing: #{book_title} ($#{price})")
   end
 
   def notify_of_claim(arguments = {})
+  	@seller = arguments[:seller]
+	@buyer_contact = arguments[:buyer_contact]
     
-    mail(to: '', from: '', subject: '')
+    transaction = arguments[:transaction]
+    
+    email = @seller.email
+    book_title = transaction.book.title
+    price = transaction.price
+
+    mail(to: email, subject: "Posting Claimed: #{book_title} ($#{price})")
   end
 
 end
