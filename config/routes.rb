@@ -63,7 +63,7 @@ TheCourseForum::Application.routes.draw do
   get '/textbook_transactions/listings' => 'textbook_transactions#listings'
   post '/textbook_transactions/claim' => 'textbook_transactions#claim'
   get '/textbooks' => 'textbook_transactions#books'
-  get '/textbooks/listings' => 'textbook_transactions#index'
+  get '/textbooks/listings' => 'textbook_transactions#index', :as => 'listings'
 
   resources :search, :only => [] do
     collection do
