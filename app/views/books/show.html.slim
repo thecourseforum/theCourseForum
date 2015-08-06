@@ -25,6 +25,9 @@
     button#sell-yours.btn.btn-lg type="button" Sell
     h1#book-title = @book[:book].title
     h3#book-author = @book[:book].author
+    #followers
+      span Followers:
+      p = @book[:book].users.count
   #prices
     a.link-block href="http://www.uvabookstores.com/uvatext/"
       .book-price-col

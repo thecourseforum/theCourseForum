@@ -129,6 +129,9 @@
 	#sections_table {
 		margin-bottom: -20px;
 	}
+	#followers {
+		width: 100%;
+	}
 	#follow {
 		width: 100%;
 		margin-bottom: 10px;
@@ -223,6 +226,20 @@
 	background-color: $light-blue;
 	color: white;
 	border-radius: 2px;
+}
+
+#followers {
+	height: 20px;
+	
+	span {
+		float: left;
+	}
+
+	p {
+		float: left;
+		text-align: center;
+		width: 30px;
+	}
 }
 
 #prices {

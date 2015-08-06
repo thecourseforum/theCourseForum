@@ -88,7 +88,7 @@ $(document).ready(function () {
 			type: 'GET',
 			success: function(data) {
 				$('#listing-titles').removeAttr('disabled');
-				$('#listing-titles').attr('placeholder','e.g. Little Women or ECON 2010');
+				$('#listing-titles').attr('placeholder','e.g. ECON 2010 or Fatal Equilibrium');
 				listingsData = data;
 				displayListings(listingsData);
 			}
@@ -120,8 +120,10 @@ $(document).ready(function () {
 			},
 			success: function (data) {
 				if (data.status == "unfollowed") {
+					$('#followers p').text(parseInt($('#followers p').text()) - 1);
 					$('#follow').text('Follow');
 				} else {
+					$('#followers p').text(parseInt($('#followers p').text()) + 1);
 					$('#follow').text('Unfollow');
 				}
 			}
