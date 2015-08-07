@@ -89,22 +89,16 @@ class TextbookTransactionsController < ApplicationController
               :to => transaction.seller.cellphone,
               :body => body
           )
-        rescue (ArgumentError || Twilio::REST::RequestError) => e
+        rescue ArgumentError, Twilio::REST::RequestError => e
           error = e.message
-        end
-        
-        if error
-
           # If texting doesn't work, use email to notify seller
           TextbookMailer.notify_of_claim(:seller => transaction.seller, :buyer_contact => buyer_contact, :transaction => transaction).deliver
-          
-          render status: 202, :json => {}
-        else
           transaction.update(:buyer_id => current_user.id)
           transaction.update(:sold_at => Time.now)
-          render status: 202, :json => {}
         end
-
+        
+        render status: 202, :json => {}
+      
       else
         render status: 410, :json => {
           message: "Sorry! Already Claimed"
@@ -129,9 +123,11 @@ class TextbookTransactionsController < ApplicationController
       
       @textbook_transaction = TextbookTransaction.new(textbook_transaction_params)
       if @textbook_transaction.save
-
+        
         # Notify followers of the book that has been claimed
-        TextbookMailer.notify_of_post(:emails => emails, :transaction => @textbook_transaction).deliver
+        if emails.size > 0
+          TextbookMailer.notify_of_post(:emails => emails, :transaction => @textbook_transaction).deliver
+        end
         
         render status: 201, :json => {}
       else 

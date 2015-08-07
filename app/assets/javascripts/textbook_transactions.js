@@ -1,16 +1,16 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
-$(document).ready(function () {
+var ready = function() {
 
-	var listingsData = [],
+	var listingsData,
 		listingsToShow,
 		listingList,
 		isListingPage = false,
-		booksData = [],
+		booksData,
 		booksToShow,
 		bookList,
-		isBookPage = false,
+		isBooksPage = false,
 		isMyListingPage = false;
 
 	const default_book_cover = '/assets/icons/no_book.png'
@@ -19,7 +19,7 @@ $(document).ready(function () {
 		isListingPage = true;
 	}
 	if ($('#book-titles').length) {
-		isBookPage = true;
+		isBooksPage = true;
 	}
 
 	// MyListings page, actions (remove, renew, report)
@@ -54,7 +54,7 @@ $(document).ready(function () {
 	// Infinite Scroll
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-			if (isBookPage) {
+			if (isBooksPage) {
 				window.setTimeout(appendBooks, 500);
 			}
 			if (isListingPage) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
 				// data is an array of objects
 				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers
 				booksData = data;
-				if (isBookPage) {
+				if (isBooksPage) {
 					displayBooks(booksData);
 				}
 			}
@@ -253,7 +253,8 @@ $(document).ready(function () {
 	}
 	
 	// Claim modal
-	$(document).on('click', '.claim', function() {
+	$(document).on('click', '.claim', function(event) {
+		event.stopImmediatePropagation();
 		var claim_id = $(this).attr('id'),
 			listing = findListing(claim_id);
 
@@ -433,5 +434,7 @@ $(document).ready(function () {
 			return false;
 		}
 	}
+}
 
-});
+$(document).ready(ready);
+$(document).on('page:load', ready);
