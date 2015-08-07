@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "variables";
 
+
+
 #post-listing, #my-listings {
 	float: right;
 	margin-left: 5px;
@@ -168,7 +170,7 @@
 #book-list {
 
 	.a-book:hover {
-		background-color: #c1e1ec;
+		background-color: $uva-library-blue;
 	}
 	
 	div {
@@ -180,13 +182,12 @@
 
 
 	.a-book {
+		border: 1px solid $uva-library-blue;
 		height: 82px;
 		padding: 11px;
 		margin: 5px;
 		float: left;
 		overflow: hidden;
-		box-shadow: 0 0 2px #c1e1ec;
-		border: 1px solid #c1e1ec;
 
 
 		#cover-thumb-container {
@@ -198,6 +199,7 @@
     		height: 100%;
 			
 			#cover-thumb {
+				@include book-cover-border($light-blue);
 				max-width: 50px;
 				max-height: 60px;
 			}
@@ -267,7 +269,7 @@
 }
 
 #cover {
-	box-shadow: 0 0 5px 2px #0D3268;
+	box-shadow: 0 0 5px 2px $dark-blue;
 	max-width: 100%;
 	height: auto;
 	margin-top: 10px;
@@ -278,39 +280,39 @@
 }
 
 #post-listing-modal {
-
-	#post-thumb {
-		display: block;
-		margin-right: auto;
-		margin-left: auto;
-		height: 70px;
-		max-width: 70px;
-		background-color: $dark-blue;
-		box-shadow: 0 0 2px #c1e1ec;
-		border: 1px solid #c1e1ec;
-	}
-
-	#post-choose {
+	#post-book-data {
+		min-height: 235px;
+		width: 100%;
 		text-align: center;
-		// margin-right: auto;
-		// margin-left: auto;
+		#post-thumb {
+			@include book-cover-border($uva-library-blue);
+			background-color: $light-blue;
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			height: 180px;
+			width: 150px;
+		}
+		#post-choose {
+			display: inline-block;
+			padding: 6px 12px;
+			margin-right: auto;
+			margin-left: auto;
+		}
 	}
-
 	#dollar {
 		padding-right: 0;
 	}
-
 	#price-input {
 		padding-left: 0;
 	}
-
 }
 
 #claim-listing-modal {
-
 	#book-info-container {
 		overflow: auto;
 		img {
+			@include book-cover-border($uva-library-blue);
 			float: left;
 			margin-right: 20px;
 		}

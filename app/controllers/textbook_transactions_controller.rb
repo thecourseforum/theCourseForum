@@ -44,7 +44,7 @@ class TextbookTransactionsController < ApplicationController
         :link => "/books/#{textbook_transaction[3].to_s}",
         :book_id => textbook_transaction[3],
         :title => textbook_transaction[4],
-        :book_image => textbook_transaction[5],
+        :book_image => textbook_transaction[5] ? textbook_transaction[5] : Book.no_image_link,
         :author => textbook_transaction[6],
         :condition => textbook_transaction[7],
         :notes => textbook_transaction[8] ? textbook_transaction[8] : "none",

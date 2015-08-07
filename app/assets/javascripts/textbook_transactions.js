@@ -178,28 +178,24 @@ var ready = function() {
 
 		// Check if book choosen
 		if (book_id) {
-			flagValidInput($('#book-input-field'));
 		} else {
-			flagInvalidInput($('#book-input-field'));
+			flagInvalidInput($('#post-choose'));
 			isValid = false;
 		}
 		// Check cell phone
 		if (cell) {
-			flagValidInput($('#cell-input-field'));
 		} else {
 			flagInvalidInput($('#cell-input-field'));
 			isValid = false;
 		}
 		// Check price
 		if (price) {
-			flagValidInput($('#price-input-field'));
 		} else {
 			flagInvalidInput($('#price-input-field'));
 			isValid = false;
 		}
 		// Check condition
 		if (condition) {
-			flagValidInput($('#condition-input-field'));
 		} else {
 			flagInvalidInput($('#condition-input-field'));
 			isValid = false;
@@ -224,18 +220,6 @@ var ready = function() {
 
 		element.css('box-shadow', '0 0 5px #c26564');
 		element.css('border', '1px solid #c26564');
-
-		setTimeout(function() {
-			element.css('box-shadow', '');
-			element.css('border', '');
-		}, 1000);
-	}
-	function flagValidInput(element) {
-		element.css('-webkit-transition', 'box-shadow 1s ease, border 1s ease');
-		element.css('transition', 'box-shadow 1s ease, border 1s ease');
-
-		element.css('box-shadow', '0 0 5px #7ebd7f');
-		element.css('border', '1px solid #7ebd7f');
 
 		setTimeout(function() {
 			element.css('box-shadow', '');
@@ -297,17 +281,18 @@ var ready = function() {
 			}));
 		},
 		focus: function(event, ui){
-			$('#post-thumb').removeAttr('hide');
+			$('#post-thumb').css('height', 'auto');
+			$('#post-thumb').css('width', 'auto');
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
 			$('#post-choose').text(ui.item.label);
 		},
 		select: function(event, ui) {
-			$('#post-thumb').removeAttr('hide');
+			$('#post-thumb').css('height', 'auto');
+			$('#post-thumb').css('width', 'auto');
 			$('#post-thumb').attr('src', ui.item.image);
 			$('#post-choose').attr('book_id', ui.item.book_id);
 			$('#post-choose').text(ui.item.label);
-			$('#book-input-field').value = '';
 		}
 	});
 

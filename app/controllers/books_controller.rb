@@ -1,10 +1,6 @@
 class BooksController < ApplicationController
   skip_before_filter :authenticate_user!
 
-  def self.no_image_link
-    "/assets/icons/no_book.png"
-  end
-
   def index
   end
 

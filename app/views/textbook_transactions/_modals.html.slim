@@ -4,8 +4,9 @@
         .modal-header
           h3 Post a Listing
         .modal-body
-          img#post-thumb src=""
-          h4#post-choose Choose a Book
+          #post-book-data
+            img#post-thumb
+            h4#post-choose Choose a Book
           form#post_textbook_transaction
             .form-group
               label#search-label Search
@@ -40,7 +41,7 @@
       .modal-content
         .modal-header
           #book-info-container
-            img#claim_cover src="#{Book.no_image_link}"
+            img#claim_cover
             #claim_title_author
               #claim_title 
               #claim_author 
