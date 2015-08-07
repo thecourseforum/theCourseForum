@@ -1,6 +1,10 @@
 class BooksController < ApplicationController
   skip_before_filter :authenticate_user!
 
+  def self.no_image_link
+    "/assets/icons/no_book.png"
+  end
+
   def index
   end
 
@@ -8,7 +12,7 @@ class BooksController < ApplicationController
     book = Book.find(params[:id])
     @book = {
       :book => book,
-      :image => (book.large_image_link ? book.large_image_link : "/assets/icons/no_book.png"),
+      :image => (book.large_image_link ? book.large_image_link : Book.no_image_link),
       :link => (book.amazon_affiliate_link ? book.amazon_affiliate_link : "#"),
       :new_bookstore => (book.bookstore_new_price ? "$" + sprintf('%.2f', book.bookstore_new_price) : "N/A"),
       :used_bookstore => (book.bookstore_used_price ? "$" + sprintf('%.2f', book.bookstore_used_price) : "N/A"),

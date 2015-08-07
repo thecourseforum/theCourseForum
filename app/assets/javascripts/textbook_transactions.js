@@ -1,30 +1,21 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
+
+var listingsData = [],
+	booksData = [];
+
 var ready = function() {
 
-	var listingsData,
-		listingsToShow,
+	var listingsToShow,
 		listingList,
-		isListingPage = false,
-		booksData,
 		booksToShow,
-		bookList,
-		isBooksPage = false,
-		isMyListingPage = false;
+		bookList;
 
 	const default_book_cover = '/assets/icons/no_book.png'
 
-	if ($('#listing-titles').length) {
-		isListingPage = true;
-	}
-	if ($('#book-titles').length) {
-		isBooksPage = true;
-	}
-
 	// MyListings page, actions (remove, renew, report)
 	if ($('#my-listing-table').length) {
-		isMyListingPage = true;
 		$(document).on('click', '.action', function() {
 			var actionName = $(this).attr('action'),
 				listing_id = $(this).attr('id');
@@ -54,10 +45,10 @@ var ready = function() {
 	// Infinite Scroll
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-			if (isBooksPage) {
+			if ($('#book-titles').length) {
 				window.setTimeout(appendBooks, 500);
 			}
-			if (isListingPage) {
+			if ($('#listing-titles').length) {
 				window.setTimeout(appendListings, 500);
 			}
 		}
@@ -73,7 +64,7 @@ var ready = function() {
 				// data is an array of objects
 				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers
 				booksData = data;
-				if (isBooksPage) {
+				if ($('#book-titles').length) {
 					displayBooks(booksData);
 				}
 			}
@@ -254,9 +245,11 @@ var ready = function() {
 	
 	// Claim modal
 	$(document).on('click', '.claim', function(event) {
-		event.stopImmediatePropagation();
 		var claim_id = $(this).attr('id'),
 			listing = findListing(claim_id);
+		
+		// Prevent multiple firings
+		event.stopImmediatePropagation();
 
 		$('#claim_cover').attr('src', listing.book_image);
 		$('#claim_title').text(listing.title);
