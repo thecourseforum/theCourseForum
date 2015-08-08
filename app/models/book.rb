@@ -7,10 +7,9 @@ class Book < ActiveRecord::Base
 
 	has_and_belongs_to_many :users
 
-  def self.no_image_link
-    "/assets/icons/no_book.png"
-  end
-
+	def self.no_image_link
+		"/assets/icons/no_book.png"
+	end
 
 	def bookstore_prices
 		prices = []
