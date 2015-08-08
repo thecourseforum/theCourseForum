@@ -131,6 +131,9 @@ var ready = function() {
 		$('#search-label').remove();
 		$('#book-input-field').remove();
 
+		$('#post-thumb').css('height', 'auto');
+		$('#post-thumb').css('width', 'auto');
+
 		$('#post-thumb').attr('src', $('#small-image-link').text());
 		$('#post-choose').attr('book_id', $('#book-id').text().trim());
 		$('#post-choose').text($('#book-title').text().trim());

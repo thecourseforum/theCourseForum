@@ -1,39 +1,43 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).limit(18).map do |transaction|
-      {
-        :id => transaction.id,
-        :price => "$" + transaction.price.to_s,
-        :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
-        :title => transaction.book.title,
-        :book_id => transaction.book_id,
-        :book_image => transaction.book.small_image_link,
-        :author => transaction.book.author,
-        :condition => transaction.condition,
-        :notes => transaction.notes ? transaction.notes : "",
-        :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
-      }
+    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').
+      includes(:book => {:sections => {:course => :subdepartment}}).
+      limit(18).map do |transaction|
+        {
+          :id => transaction.id,
+          :price => "$" + transaction.price.to_s,
+          :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
+          :title => transaction.book.title.tr('*', ''),
+          :book_id => transaction.book_id,
+          :book_image => transaction.book.small_image_link,
+          :author => transaction.book.author,
+          :condition => transaction.condition,
+          :notes => transaction.notes ? transaction.notes : "",
+          :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
+        }
     end
   end
 
   def listings
-    if params[:book_id]
-      @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).group("textbook_transactions.id").where(:book_id => params[:book_id]).pluck(:id, :price, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
-    else
-      @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').includes(:book => {:sections => {:course => :subdepartment}}).group("textbook_transactions.id").pluck(:id, :price, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', :book_id, "books.title", :medium_image_link, :author, :condition, :notes, "textbook_transactions.updated_at")
-    end
-    # Returns arrays of format as follows
-    # 0: transaction_id
-    # 1: price
-    # 2: courses
-    # 3: book_id
-    # 4: book title
-    # 5: medium image link
-    # 6: author
-    # 7: condition
-    # 8: notes
-    # 9: transaction updated at
+    where_clause = params[:book_id] ? {:book_id => params[:book_id]} : {}
+
+    @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').
+      includes(:book => {:sections => {:course => :subdepartment}}).
+      group("textbook_transactions.id").
+      where(where_clause).
+      pluck(
+        :id,
+        :price,
+        'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
+        :book_id,
+        "books.title",
+        :medium_image_link,
+        :author,
+        :condition,
+        :notes,
+        "textbook_transactions.updated_at"
+      )
 
     # Format into json style
     @textbook_transactions = @textbook_transactions.map do |textbook_transaction|
@@ -43,7 +47,7 @@ class TextbookTransactionsController < ApplicationController
         :courses => textbook_transaction[2],
         :link => "/books/#{textbook_transaction[3].to_s}",
         :book_id => textbook_transaction[3],
-        :title => textbook_transaction[4],
+        :title => textbook_transaction[4].tr('*', ''),
         :book_image => textbook_transaction[5] ? textbook_transaction[5] : Book.no_image_link,
         :author => textbook_transaction[6],
         :condition => textbook_transaction[7],
@@ -58,12 +62,29 @@ class TextbookTransactionsController < ApplicationController
   def books
     if request.format.to_s.include?('json')
       # use references(:users) to make activerecord happy
-      @books = Book.includes(:users, :sections => {:course => :subdepartment}).group("books.id").order("RAND()").order("COUNT(users.id) DESC").references(:users).pluck(:id, :title, :medium_image_link, 'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")', 'COUNT(users.id)')
+      @books = Book.includes(:users, :sections => {:course => :subdepartment}).
+        group("books.id").
+        order("RAND()").
+        order("COUNT(users.id) DESC").references(:users).
+        pluck(
+          :id,
+          :title,
+          :medium_image_link,
+          'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
+          'COUNT(users.id)'
+        )
       
       # Format into json
       @books = @books.map do |book|
-        Hash[[:id, :title, :medium_image_link, :mnemonic_numbers, :followers].zip(book)]
+        {
+          :id => book[0],
+          :title => book[1].tr('*', ''),
+          :medium_image_link => book[2],
+          :mnemonic_numbers => book[3],
+          :followers => book[4]
+        }
       end
+
     end
 
     respond_to do |format|

@@ -1,6 +1,6 @@
 = stylesheet_link_tag "textbook_transactions"
 
-#small-image-link.hidden = @book[:book].small_image_link
+#small-image-link.hidden = @book[:book].medium_image_link ? @book[:book].medium_image_link : Book.no_image_link
 #book-id.hidden = @book[:book].id
 
 .col-md-3
