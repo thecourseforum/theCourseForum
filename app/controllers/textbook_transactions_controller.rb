@@ -48,16 +48,18 @@ class TextbookTransactionsController < ApplicationController
   def books
     if request.format.to_s.include?('json')
       # use references(:users) to make activerecord happy
-      @books = Book.includes(:users, :sections => {:course => :subdepartment}).
+      @books = Book.includes(:users, :textbook_transactions, :sections => {:course => :subdepartment}).
         group("books.id").
         order("RAND()").
-        order("COUNT(users.id) DESC").references(:users).
+        order("COUNT(DISTINCT textbook_transactions.id) DESC").references(:textbook_transactions).
+        order("COUNT(DISTINCT users.id) DESC").references(:users).
         pluck(
           :id,
           :title,
           :medium_image_link,
           'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-          'COUNT(users.id)'
+          'COUNT(DISTINCT users.id)',
+          "COUNT(DISTINCT textbook_transactions.id)"
         )
       
       # Format into json
@@ -67,7 +69,8 @@ class TextbookTransactionsController < ApplicationController
           :title => book[1].tr('*', ''),
           :medium_image_link => book[2],
           :mnemonic_numbers => book[3],
-          :followers => book[4]
+          :follower_count => book[4],
+          :listing_count => book[5]
         }
       end
 
@@ -88,6 +91,8 @@ class TextbookTransactionsController < ApplicationController
     
     if cell.length == 10
       if transaction.active?
+        transaction.update(:buyer_id => current_user.id)
+        transaction.update(:sold_at => Time.now)
 
         begin
           @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
@@ -100,8 +105,6 @@ class TextbookTransactionsController < ApplicationController
           error = e.message
           # If texting doesn't work, use email to notify seller
           TextbookMailer.notify_of_claim(:seller => transaction.seller, :buyer_contact => buyer_contact, :transaction => transaction).deliver
-          transaction.update(:buyer_id => current_user.id)
-          transaction.update(:sold_at => Time.now)
         end
         
         render status: 202, :json => {}

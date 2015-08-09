@@ -62,7 +62,7 @@ var ready = function() {
 			type: 'GET',
 			success: function(data) {
 				// data is an array of objects
-				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers
+				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers, follower_count, listing_count
 				booksData = data;
 				if ($('#book-titles').length) {
 					displayBooks(booksData);
@@ -400,12 +400,16 @@ var ready = function() {
 				var link = $('.link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
-					title = block.find('#title-thumb');
+					title = block.find('#title-thumb'),
+					courses_text = book.mnemonic_numbers != '' ? 'Used in ' + book.mnemonic_numbers + "\n" : '';
 
 				link.attr('href', '/books/' + book.id);
-				link.attr('title', 'Used in ' + book.mnemonic_numbers + "\nFollowers: " + book.followers);
-				title.text(book.title);
+				link.attr('title', 
+					courses_text + 
+					"Followers: " + book.follower_count
+					);
 
+				title.text(book.title);
 				book.medium_image_link = book.medium_image_link ? book.medium_image_link : default_book_cover
 				img.attr('src', book.medium_image_link);
 
