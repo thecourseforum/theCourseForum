@@ -26,7 +26,7 @@ table.table.table-striped#listing-table
       th#author Author
       th#condition Condition
       th#end-date End Date
-  - if @textbook_transactions.count > 0
+  - if @count > 0
     tbody#listing-list
       tr.a-listing.hidden
         td
@@ -37,16 +37,8 @@ table.table.table-striped#listing-table
         td.nodecoration.author
         td.nodecoration.condition
         td.nodecoration.end_date
-      - @textbook_transactions.each do |transaction|
-        tr.a-listing
-          td
-            input.claim.btn.btn-default disabled='true' type="submit" value="Claim" id="#{transaction[:id]}"
-          td.nodecoration.price = transaction[:price]
-          td.title title="#{transaction[:courses]}"
-            a href="/books/#{transaction[:book_id]}" = transaction[:title]
-          td.nodecoration.author = transaction[:author]
-          td.nodecoration.condition = transaction[:condition]
-          td.nodecoration.end_date = transaction[:end_date]
+      tr
+        td.text-center colspan="6" = "Loading #{@count} listings..."
   - else
     tbody
       tr

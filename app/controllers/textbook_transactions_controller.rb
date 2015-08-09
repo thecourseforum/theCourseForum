@@ -1,31 +1,17 @@
 class TextbookTransactionsController < ApplicationController
 
   def index
-    @textbook_transactions = TextbookTransaction.active.order('updated_at DESC').
-      includes(:book => {:sections => {:course => :subdepartment}}).
-      limit(18).map do |transaction|
-        {
-          :id => transaction.id,
-          :price => "$" + transaction.price.to_s,
-          :courses => transaction.book.sections.map(&:course).uniq.map(&:mnemonic_number).join(", "),
-          :title => transaction.book.title.tr('*', ''),
-          :book_id => transaction.book_id,
-          :book_image => transaction.book.small_image_link,
-          :author => transaction.book.author,
-          :condition => transaction.condition,
-          :notes => transaction.notes ? transaction.notes : "",
-          :end_date => (transaction.updated_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
-        }
-    end
+    @count = TextbookTransaction.active.count
   end
 
   def listings
     where_clause = params[:book_id] ? {:book_id => params[:book_id]} : {}
 
-    @textbook_transactions = TextbookTransaction.active.order('textbook_transactions.updated_at DESC').
+    @textbook_transactions = TextbookTransaction.active.
       includes(:book => {:sections => {:course => :subdepartment}}).
       group("textbook_transactions.id").
       where(where_clause).
+      order('textbook_transactions.updated_at DESC').
       pluck(
         :id,
         :price,

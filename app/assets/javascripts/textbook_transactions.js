@@ -351,9 +351,12 @@ var ready = function() {
 
 				claim.attr('id', listing.id);
 				claim.attr('book_image', listing.book_image);
+				
 				price.text(listing.price);
-				title.attr('href', listing.link);
+				
 				title.text(listing.title);
+				title.attr('href', listing.link);
+				
 				author.text(listing.author);
 				condition.text(listing.condition);
 				end_date.text(listing.end_date);
