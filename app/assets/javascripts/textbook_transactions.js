@@ -344,7 +344,6 @@ var ready = function() {
 				var line = $('.a-listing.hidden').clone().removeClass('hidden'),
 					claim = line.find('.claim'),
 					price = line.find('.price'),
-					courses = line.find('.courses'),
 					title = line.find('.title a'),
 					author = line.find('.author'),
 					condition = line.find('.condition'),
@@ -353,12 +352,13 @@ var ready = function() {
 				claim.attr('id', listing.id);
 				claim.attr('book_image', listing.book_image);
 				price.text(listing.price);
-				courses.text(listing.courses);
 				title.attr('href', listing.link);
 				title.text(listing.title);
 				author.text(listing.author);
 				condition.text(listing.condition);
 				end_date.text(listing.end_date);
+
+				line.attr('title', "Used in : " + listing.courses + "\nNotes: " + listing.notes);
 
 				listingList.append(line);
 			});
