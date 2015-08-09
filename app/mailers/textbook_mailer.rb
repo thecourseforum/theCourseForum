@@ -14,7 +14,7 @@ class TextbookMailer < ActionMailer::Base
 
   def notify_of_claim(arguments = {})
   	@seller = arguments[:seller]
-	@buyer_contact = arguments[:buyer_contact]
+    @buyer_contact = arguments[:buyer_contact]
     
     transaction = arguments[:transaction]
     

@@ -62,7 +62,7 @@ var ready = function() {
 			type: 'GET',
 			success: function(data) {
 				// data is an array of objects
-				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers, follower_count, listing_count
+				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers, follower_count
 				booksData = data;
 				if ($('#book-titles').length) {
 					displayBooks(booksData);

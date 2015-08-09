@@ -48,18 +48,15 @@ class TextbookTransactionsController < ApplicationController
   def books
     if request.format.to_s.include?('json')
       # use references(:users) to make activerecord happy
-      @books = Book.includes(:users, :textbook_transactions, :sections => {:course => :subdepartment}).
+      @books = Book.includes(:users, :sections => {:course => :subdepartment}).
         group("books.id").
-        order("RAND()").
-        order("COUNT(DISTINCT textbook_transactions.id) DESC").references(:textbook_transactions).
-        order("COUNT(DISTINCT users.id) DESC").references(:users).
+        order("follower_count DESC, RAND()").
         pluck(
           :id,
           :title,
           :medium_image_link,
           'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-          'COUNT(DISTINCT users.id)',
-          "COUNT(DISTINCT textbook_transactions.id)"
+          'COUNT(DISTINCT users.id) AS follower_count'
         )
       
       # Format into json
@@ -69,8 +66,7 @@ class TextbookTransactionsController < ApplicationController
           :title => book[1].tr('*', ''),
           :medium_image_link => book[2],
           :mnemonic_numbers => book[3],
-          :follower_count => book[4],
-          :listing_count => book[5]
+          :follower_count => book[4]
         }
       end
 
