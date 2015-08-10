@@ -37,11 +37,11 @@ class SchedulerController < ApplicationController
   def search
     @query = params[:query].strip.split(' ')
     courses = []
-    if @query.length != 1 and !!/\A\d+\z/.match(query[1])
+    if @query.length != 1 and !!/\A\d+\z/.match(@query[1])
       courses += Course.includes(:subdepartment).current.where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
     end
     
-    if !!/\A\d+\z/.match(query[0])
+    if !!/\A\d+\z/.match(@query[0])
       courses += Course.includes(:subdepartment).current.where('course_number LIKE ?', "%#{@query[0]}%")
     end
 

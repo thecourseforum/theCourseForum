@@ -220,7 +220,7 @@ $(document).ready(function() {
 					response($.map(data.results, function(item) {
 						return {
 							label: item,
-							value: request.term
+							value: item
 						};
 					}));
 				}
