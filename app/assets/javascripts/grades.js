@@ -95,8 +95,6 @@ $(function() {
     data.pop();
     data.pop();
 
-    console.log(data);
-
     // // Otherwise build the gradewheel
     if (raw.gpa) {
         // Create the chart

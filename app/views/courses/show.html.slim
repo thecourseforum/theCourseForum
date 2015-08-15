@@ -1,6 +1,9 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
+- content_for :course_link, "/courses/#{@course.id}/professors"
+
 - if @professor
   - content_for :course_professor, "#{@professor.full_name}"
+  - content_for :professor_link, "/professors/#{@professor.id}"
 - else
   -content_for :course_professor, "All Professors"
 

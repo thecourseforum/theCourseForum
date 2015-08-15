@@ -35,12 +35,22 @@ class SchedulerController < ApplicationController
   end
 
   def search
-    courses = Course.where('title LIKE ?', "%#{params[:term]}%")
-    courses += Section.where('topic LIKE ?', "%#{params[:term]}%").map(&:course).uniq
+    @query = params[:query].strip.split(' ')
+    courses = []
+    if @query.length != 1 and !!/\A\d+\z/.match(@query[1])
+      courses += Course.includes(:subdepartment).current.where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
+    end
+    
+    if !!/\A\d+\z/.match(@query[0])
+      courses += Course.includes(:subdepartment).current.where('course_number LIKE ?', "%#{@query[0]}%")
+    end
+
+    courses += Course.includes(:subdepartment).current.where('title LIKE ?', "%#{@query[0]}%")
+    courses += Section.includes(:course => :subdepartment).where('topic LIKE ? AND semester_id = ?', "%#{@query[0]}%", 24).map(&:course).uniq
     render :json => {
       :success => true,
       :results => courses.map do |course|
-        "#{course.subdepartment.mnemonic} #{course.course_number} - #{course.title}"
+        "#{course.mnemonic_number} - #{course.title}"
       end
     }
   end
@@ -364,9 +374,5 @@ class SchedulerController < ApplicationController
       
       return events
   end
-
- 
-  
-
 
 end  
