@@ -2,6 +2,15 @@ class Book < ActiveRecord::Base
 	has_many :sections, :through => :book_requirements
 	has_many :book_requirements
 
+	has_many :textbook_transactions, :dependent => :destroy
+	has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction
+
+	has_and_belongs_to_many :users
+
+	def self.no_image_link
+		"/assets/icons/no_book.png"
+	end
+
 	def bookstore_prices
 		prices = []
 		prices << {

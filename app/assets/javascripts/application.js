@@ -34,6 +34,7 @@
 //= require contact_us
 //= require sign_up
 //= require reviews
+//= require textbook_transactions
 
 var ready = function() {
 	var toggleSpeed = 125;
