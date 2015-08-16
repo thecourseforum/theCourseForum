@@ -1,22 +1,29 @@
+= stylesheet_link_tag "professor"
+
 - content_for :page_heading, "#{@professor.full_name}"
 
-.col-xs-1
-	.avg-rating style="height: 90px; width: 90px; background-color: #D75626; color: #FFFFFF; text-align: center; padding-top: 10px;"
-		h1 = "#{@avg_rating}"
-		p Avg. Rating
-.col-xs-11
-	= "#{@professor.classification}, #{@professor[:department]}"
-	br
-	=link_to(@professor.primary_email,"mailto:#{@professor.primary_email}")
-	br
-	= "#{@professor.office_phone}"
-	br
-	= "Office: #{@professor.office_address}"
-hr style="border: solid 1px black; margin-top: 100px;"
-ul.professor-courses style="list-style-type: none; padding: 15px;"
-  - mnemonic = @courses.first.subdepartment.mnemonic
-  - @courses.each do |c|
-    - if c.subdepartment.mnemonic != mnemonic
-      - mnemonic = c.subdepartment.mnemonic
-      br
-    li= link_to "#{c.mnemonic_number} #{c.title}", course_path(c.id, :p => @professor.id)
+
+#professor-header
+  #avg-rating
+    h1 = "#{@avg_rating}"
+    p Avg. Rating
+  #avg-difficulty
+    h1 = "#{@avg_difficulty}"
+    p Avg. Difficulty
+  #professor-contact
+    a#professor-email href="mailto:#{@professor.email}" = @professor.email
+
+hr
+
+#professor-courses style="padding: 15px;"
+  - @course_groups.each do |subdepartment_chunk|
+    h2.subdepartment-name = subdepartment_chunk.first.name
+    - subdepartment_chunk.second.each do |course|
+      .col-sm-12
+        .col-sm-2
+          a href="/courses/#{course[:course].id}?p=#{@professor.id}" = course[:course].mnemonic_number
+        .col-sm-6
+          i
+            a href="/courses/#{course[:course].id}?p=#{@professor.id}" = course[:course].title
+        .col-sm-4.professor-semester = course[:semester].year.to_s + " " + course[:semester].season
+    hr.col-sm-12
