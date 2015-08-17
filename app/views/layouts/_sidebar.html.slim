@@ -39,7 +39,7 @@
       .col-wrapper
           a#user-account
             i.glyphicon.glyphicon-user 
-            = current_user.first_name
+            = current_user.first_name if current_user
             span.caret
           .col-secondary
             a href="/my_reviews"
