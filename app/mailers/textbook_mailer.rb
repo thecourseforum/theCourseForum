@@ -1,5 +1,5 @@
 class TextbookMailer < ActionMailer::Base
-  default from: "textbooks@thecourseforum.com"
+  default from: "support@thecourseforum.com"
 
   def notify_of_post(arguments = {})
 	@listing = arguments[:transaction]

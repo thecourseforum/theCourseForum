@@ -87,23 +87,37 @@ class TextbookTransactionsController < ApplicationController
     
     if cell.length == 10
       if transaction.active?
+        response = RestClient.post(
+          'http://textbelt.com/text', 
+          :number => transaction.seller.cellphone, 
+          :message => body
+        )
+
+        if JSON.parse(response)["success"]
+        else 
+          TextbookMailer.notify_of_claim(
+            :seller => transaction.seller, 
+            :buyer_contact => buyer_contact, 
+            :transaction => transaction
+          ).deliver
+        end
+        render status: 202, :json => {}
+        
         transaction.update(:buyer_id => current_user.id)
         transaction.update(:sold_at => Time.now)
 
-        begin
-          @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-          @client.account.messages.create(
-              :from => ENV['TWILIO_NUMBER'],
-              :to => transaction.seller.cellphone,
-              :body => body
-          )
-        rescue ArgumentError, Twilio::REST::RequestError => e
-          error = e.message
-          # If texting doesn't work, use email to notify seller
-          TextbookMailer.notify_of_claim(:seller => transaction.seller, :buyer_contact => buyer_contact, :transaction => transaction).deliver
-        end
-        
-        render status: 202, :json => {}
+        # begin
+        #   @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+        #   @client.account.messages.create(
+        #       :from => ENV['TWILIO_NUMBER'],
+        #       :to => transaction.seller.cellphone,
+        #       :body => body
+        #   )
+        # rescue ArgumentError, Twilio::REST::RequestError => e
+        #   error = e.message
+        #   # If texting doesn't work, use email to notify seller
+        #   TextbookMailer.notify_of_claim(:seller => transaction.seller, :buyer_contact => buyer_contact, :transaction => transaction).deliver
+        # end
       
       else
         render status: 410, :json => {
