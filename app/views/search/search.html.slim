@@ -2,7 +2,6 @@
 - content_for :page_heading, "Search Results \"#{@query}\""
 
 .search
-<<<<<<< HEAD
   .row
     - if @departments.count > 0
       .col-xs-2
@@ -51,37 +50,6 @@
     - course_group.last.each do |r|
       - course = r[:course]
       .row
-=======
-  - if @count < 1
-    .col-xs-12
-      = "No results for #{@query} :("
-  - else
-    - if @departments.count > 0
-      h2 = pluralize(@departments.count, "Department")
-      - @departments.each do |department|
-        .row
-          a href="/departments/#{department[:id]}" data-no-turbolink=""
-            .col-xs-12
-              = "#{department[:name]}"
-      hr
-
-    .row
-      - if @courses.count > 0
-        .col-xs-12
-          h2 = pluralize(@courses.count, "Course")
-        - @courses.each do |course|
-          .row
-            .col-xs-12
-              a href="/courses/#{course[:id]}/professors" data-no-turbolink=""
-                .col-xs-3
-                  = "#{course[:mnemonic_number]}"
-                .col-xs-9
-                  = "#{course[:title]}"
-        hr
-
-    .row
-      - if @professors.count > 0
->>>>>>> 1498bed4034608e0483375cc760c29d63a69da5b
         .col-xs-12
           h2 = pluralize(@professors.count, "Professor")
         - @professors.each do |professor|
