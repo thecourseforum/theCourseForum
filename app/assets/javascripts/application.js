@@ -38,8 +38,8 @@
 var ready = function() {
 	var toggleSpeed = 125;
 
-	// Attatches navbar-toggle button to sidebar
-	$('.navbar-toggle').click(function() {
+	// Attatches button to sidebar
+	$('.lines-button').click(function() {
 		$('aside').toggle('slide', {
 			direction: 'left'
 		}, toggleSpeed);
@@ -52,7 +52,7 @@ var ready = function() {
 
 	$(document).mousedown(function(e) {
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
-		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".navbar-toggle").is(e.target) && $(".navbar-toggle").has(e.target).length === 0) {
+		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".lines-button").is(e.target) && $(".lines-button").has(e.target).length === 0) {
 			$("aside").hide('slide', toggleSpeed);
 		}
 	});

@@ -254,20 +254,92 @@ select {
     }
 }
 
-.navbar-toggle {
+$transition-dur: .2s;
+$button-size: 22px;
+@mixin line {
+  display: inline-block;
+  width: $button-size;
+  height: 2px;
+  background-color: $gray;
+  border-radius: 2px; 
+  transition: $transition-dur;
+}
+
+.lines {
+  @include line;
+  position: relative; 
+
+  &:before, &:after {
+   @include line;
+    position: absolute;
+    left:0;
+    content: '';
+    -webkit-transform-origin: $button-size/14 center;
+    transform-origin: $button-size/14 center;
+  }
+  &:before { 
+    top: 6px; 
+  }
+  &:after { 
+    top: -6px; 
+  }
+}
+
+.lines-button{
   @media only screen and (min-device-width: $screen-xs){
     position: absolute;
     left: 210px;
   }
   border: none;
-  height: $navbar-height;;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  .navbar-default &:hover, .navbar-default &:focus{
-    background-color: inherit;
-    .icon-bar {
+  height: 55px;
+  width: 42px;
+  padding-bottom: 9px;
+  background-color: transparent;
+  &:focus{
+    outline: 0;
+  }
+  &:hover{
+    .lines:before, .lines:after, .lines{
       background-color: $blue;
     }
   }
 }
 
+
+//three-lines to x method 2
+.lines-button{
+  .lines{
+    transition: background $transition-dur $transition-dur ease;
+
+    &:before, &:after{
+      //set transform origin
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+      transition: top $transition-dur $transition-dur ease, -webkit-transform $transition-dur ease;
+      transition: top $transition-dur $transition-dur ease, transform $transition-dur ease;
+    }
+  }
+}
+
+.lines-button.closed{
+  .lines {
+
+    transition: background $transition-dur 0s ease;
+    background: transparent;
+
+    &:before, &:after{
+      transition: top $transition-dur ease, -webkit-transform $transition-dur $transition-dur ease;//delay the formation of the x till the minus is formed  
+      transition: top $transition-dur ease, transform $transition-dur $transition-dur ease;//delay the formation of the x till the minus is formed  
+      top:0;
+      width: $button-size;
+    }
+    &:before{
+      -webkit-transform: rotate3d(0,0,1,45deg); 
+              transform: rotate3d(0,0,1,45deg); 
+    }
+    &:after{
+      -webkit-transform: rotate3d(0,0,1,-45deg); 
+              transform: rotate3d(0,0,1,-45deg); 
+    }
+  }
+}
