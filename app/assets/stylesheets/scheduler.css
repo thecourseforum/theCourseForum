@@ -43,6 +43,12 @@ body.modal-open {
 	text-align: center;
 }
 
+#gpa {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
 #credits {
 	margin-top: 5px;
 	text-align: center;

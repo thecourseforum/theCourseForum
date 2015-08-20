@@ -110,7 +110,10 @@ class SchedulerController < ApplicationController
 
   def show_schedules
     render :json => {:success => true, :results => current_user.schedules.map { |schedule|
-      schedule.as_json.merge(:sections => rsections_to_jssections(schedule.sections))
+      schedule.as_json.merge(
+        :sections => rsections_to_jssections(schedule.sections),
+        :gpa => schedule.gpa
+      )
     }}
   end
 
@@ -156,9 +159,14 @@ class SchedulerController < ApplicationController
     end.compact
 
     valid_schedules.map!.with_index do |schedule, index|
+      gpa = schedule.map do |section|
+        section = Section.find(section[:section_id])
+        Stat.find_by(:course => section.course, :professor => section.professors.first).gpa
+      end.compact.instance_eval { sum / size.to_f }
       {
         name: "Schedule \##{index + 1}",
-        sections: schedule
+        sections: schedule,
+        gpa: gpa
       }
     end
     render :json => valid_schedules and return
