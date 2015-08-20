@@ -159,14 +159,10 @@ class SchedulerController < ApplicationController
     end.compact
 
     valid_schedules.map!.with_index do |schedule, index|
-      gpa = schedule.map do |section|
-        section = Section.find(section[:section_id])
-        Stat.find_by(:course => section.course, :professor => section.professors.first).gpa
-      end.compact.instance_eval { sum / size.to_f }
       {
         name: "Schedule \##{index + 1}",
         sections: schedule,
-        gpa: gpa
+        gpa: Schedule.gpa(schedule)
       }
     end
     render :json => valid_schedules and return

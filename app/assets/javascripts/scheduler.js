@@ -836,7 +836,7 @@ $(document).ready(function() {
 			}
 		}
 		$('#schedule-name').text(name + ' / ' + schedules.length);
-		$('#gpa').text(schedule.gpa.toFixed(2));
+		$('#gpa').text("GPA: " + schedule.gpa.toFixed(2));
 	}
 
 	// checks if  section has been saved so that it can be marked as checked
