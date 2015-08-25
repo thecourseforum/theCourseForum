@@ -1,8 +1,4 @@
 var ready = function() {
-		
-	$('div').click(function(){
-		console.log(this.className);
-	});
 	$('#report-bug').click(function() {
 		$('#report-bug-modal').modal();
 		$('input[name="url"]').val(window.location);
@@ -18,17 +14,6 @@ var ready = function() {
 			}
 		});
 		$('#report-bug-modal').modal('hide');
-	});
-	var open = false;
-	$('.lines-button').click(function(){
-		if (!open){
-			this.classList.add('closed');
-			open = true;
-		}
-		else {
-			this.classList.remove('closed');
-			open = false;
-		}
 	});
 }
 

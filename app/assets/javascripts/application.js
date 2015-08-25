@@ -36,14 +36,40 @@
 //= require reviews
 
 var ready = function() {
-	var toggleSpeed = 125;
+	var toggleSpeed = 200;
 
+	var open = false;
+	function toggleButton(thisObj){
+		if (!open){
+			thisObj.classList.add('closed');
+			open = true;
+		}
+		else {
+			thisObj.classList.remove('closed');
+			open = false;
+		}
+	};
 	// Attatches button to sidebar
 	$('.lines-button').click(function() {
 		$('aside').toggle('slide', {
 			direction: 'left'
 		}, toggleSpeed);
+		toggleButton(this);
 	});
+
+	// this function is used in order to prevent the middle line
+	// from 'lagging' behind the color change for the top and bottom
+	// buttons
+
+	$('.lines-button').hover(function() {
+		$('.lines')[0].classList.add('notransition')
+		$('.lines-button').click(function(){
+			$('.lines')[0].classList.remove('notransition')
+		});
+	}, function() {
+		$('.lines')[0].classList.remove('notransition')
+	});
+
 
 	// expands user-account options in sidebar on click
 	$("a#user-account").click(function() {
@@ -54,6 +80,9 @@ var ready = function() {
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
 		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".lines-button").is(e.target) && $(".lines-button").has(e.target).length === 0) {
 			$("aside").hide('slide', toggleSpeed);
+			if (open == true){
+				toggleButton($('.lines-button')[0]);
+			}
 		}
 	});
 
@@ -61,6 +90,9 @@ var ready = function() {
 	$(document).keydown(function(e) {
 		if (e.which === 27 && $(window).width() < 850) {
 			$("aside").hide('slide', toggleSpeed);
+			if (open == true){
+				toggleButton($('.lines-button')[0]);
+			}
 		}
 	});
 
