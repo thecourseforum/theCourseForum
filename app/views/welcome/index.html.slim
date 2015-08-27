@@ -21,7 +21,7 @@
           .col-xs-2.text-right
             = image_tag("icons/compose_review.svg", size: "50")
           .col-xs-10 style="margin-top:8px;" Write reviews for courses you've taken.
-    .col-md-4#forms
+    .col-md-4
       = form_for @user, url: user_session_path do |f|
         #panel-login.panel.panel-default
           .panel-body

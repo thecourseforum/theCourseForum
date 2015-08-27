@@ -8,7 +8,7 @@ var ready = function() {
 		$.ajax('/bugs', {
 			method: "POST",
 			data: $('#bug').serialize(),
-			success: function(nresponse) {
+			success: function(response) {
 				$('textarea[name="description"]').val('');
 				alert("Thanks for your feedback!");
 			}
