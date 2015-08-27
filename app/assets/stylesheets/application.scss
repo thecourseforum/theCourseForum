@@ -257,13 +257,13 @@ select {
 
 // code below handles transition navbar button transition from hamburger to x
 $transition-dur: .2s;
-// same as native bootstrap button-size
-$button-size: 22px;
+// same as native bootstrap button-width
+$button-width: 22px;
 
 // line element. Mixin so that it can be reused
 @mixin line {
   display: inline-block;
-  width: $button-size;
+  width: $button-width;
   height: 2px;
   background-color: $gray;
   border-radius: 2px; 
@@ -306,7 +306,7 @@ $button-size: 22px;
   // set height to length of navbar and width 
   // to bootstrap default
   border: none;
-  height: 60px;
+  height: $navbar-height;
   width: 42px;
   padding-bottom: 9px;
   background-color: transparent;
@@ -347,7 +347,7 @@ $button-size: 22px;
       transition: top $transition-dur ease, -webkit-transform $transition-dur $transition-dur ease; //delay the formation of the x till the minus is formed  
       transition: top $transition-dur ease, transform $transition-dur $transition-dur ease; //delay the formation of the x till the minus is formed  
       top:0;
-      width: $button-size;
+      width: $button-width;
     }
 
     // rotate before and after to create the x
