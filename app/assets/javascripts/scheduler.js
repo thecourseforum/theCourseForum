@@ -151,7 +151,7 @@ $(document).ready(function() {
 			agendaWeek: 'yyyy'
 		},
 		// Sets height of the plugin calendar
-		contentHeight: 610,
+		contentHeight: 450,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 
@@ -191,11 +191,13 @@ $(document).ready(function() {
 
 	$('#class-search').focus(function() {
 		$('#saved-courses').slideUp();
+		$('#saved-courses-header').slideUp();	
 		$('#clear-courses').slideUp();
 	});
 
 	$('#class-search').blur(function() {
-		$('#search-classes').removeClass('loading');
+		// $('#search-classes').removeClass('loading');
+		$('#saved-courses-header').slideDown();	
 		$('#saved-courses').slideDown();
 		$('#clear-courses').slideDown();
 	});
@@ -376,6 +378,8 @@ $(document).ready(function() {
 			$('#save-schedule-modal').modal();
 			// Autofill with name
 			$('#name').val(schedule['name']);
+		} else {
+			alert("Please generate a schedule first.\n Use the search bar on the right to add courses.\m Then just hit 'Generate'");
 		}
 	});
 
@@ -537,7 +541,7 @@ $(document).ready(function() {
 				course = course[0].match(/([A-Za-z]+)([0-9]+)/);
 				course = new Array(course[1], course[2]);
 			}
-			$('#search-classes').addClass('loading');
+			// $('#search-classes').addClass('loading');
 			$.ajax('scheduler/search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
@@ -835,8 +839,13 @@ $(document).ready(function() {
 				addClass(schedule['sections'][i]);
 			}
 		}
-		$('#schedule-name').text(name + ' / ' + schedules.length);
-		$('#gpa').text("GPA: " + schedule.gpa.toFixed(2));
+		if (schedules.length > 1) {
+			$('#schedule-name').text(name + ' / ' + schedules.length);
+		} else {
+			$('schedule-name').text(name);
+		}
+
+		$('#gpa').text("Average GPA: " + schedule.gpa.toFixed(2));
 	}
 
 	// checks if  section has been saved so that it can be marked as checked

@@ -22,6 +22,7 @@ body.modal-open {
 	margin-top: 12px;
 	margin-bottom: 8px;
 	margin-right: 10px;
+	margin-left: 25px;
 	background-image:url(icons/sliderback.png);
 	outline:none; 
 	border-bottom:none;
@@ -35,12 +36,6 @@ body.modal-open {
 	max-height: 300px;
 	overflow-y: auto;
 	overflow-x: hidden;
-}
-
-#schedule-name {
-	margin-top: 8px;
-	margin-bottom: 8px;
-	text-align: center;
 }
 
 #gpa {
@@ -84,11 +79,6 @@ body.modal-open {
 	width: 100%;
 }
 
-#class-search {
-	width: 100%;
-	margin-bottom: 4px;
-}
-
 #results-title {
 	margin-top: 8px;
 }
@@ -96,7 +86,7 @@ body.modal-open {
 #results-box {
 	border-radius: 6px;
 	border: 0px solid gray;
-	min-height: 400px;
+	min-height: 200px;
 	background-color: #F5F5F5;
 }
 
@@ -200,3 +190,7 @@ body.modal-open {
 	-webkit-animation-name: colours;
 	-webkit-animation-timing-function: ease;
 }​
+
+#course-title {
+	text-align: center;
+}
