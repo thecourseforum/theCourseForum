@@ -196,7 +196,6 @@ $(document).ready(function() {
 	});
 
 	$('#class-search').blur(function() {
-		// $('#search-classes').removeClass('loading');
 		$('#saved-courses-header').slideDown();	
 		$('#saved-courses').slideDown();
 		$('#clear-courses').slideDown();
@@ -546,7 +545,6 @@ $(document).ready(function() {
 				course = course[0].match(/([A-Za-z]+)([0-9]+)/);
 				course = new Array(course[1], course[2]);
 			}
-			// $('#search-classes').addClass('loading');
 			$.ajax('scheduler/search_course', {
 				// mnemonic - "CS"
 				// course_number - "2150"
@@ -579,7 +577,6 @@ $(document).ready(function() {
 					alert("Improper search!");
 				},
 				complete: function() {
-					$('#search-classes').removeClass('loading');
 				}
 			});
 		}
@@ -850,7 +847,7 @@ $(document).ready(function() {
 			$('schedule-name').text(name);
 		}
 
-		$('#gpa').text("Average GPA: " + schedule.gpa.toFixed(2));
+		$('#gpa').text("Estimated GPA: " + schedule.gpa.toFixed(2));
 	}
 
 	// checks if  section has been saved so that it can be marked as checked
