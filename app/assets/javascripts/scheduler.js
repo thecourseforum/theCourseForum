@@ -575,8 +575,6 @@ $(document).ready(function() {
 				},
 				error: function(response) {
 					alert("Improper search!");
-				},
-				complete: function() {
 				}
 			});
 		}
@@ -844,7 +842,7 @@ $(document).ready(function() {
 		if (schedules.length > 1) {
 			$('#schedule-name').text(name + ' / ' + schedules.length);
 		} else {
-			$('schedule-name').text(name);
+			$('#schedule-name').text(name);
 		}
 
 		$('#gpa').text("Estimated GPA: " + schedule.gpa.toFixed(2));
