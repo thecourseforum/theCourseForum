@@ -87,6 +87,11 @@ class CoursesController < ApplicationController
     end
     respond_to do |format|
       format.html # show_professors.html.slim
+      format.json do
+        render :json => {
+          :professors_list => @professors
+        }
+      end
     end
   end
 
