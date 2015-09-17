@@ -8,3 +8,7 @@ Feature: Sign up for tCF
 
 	Scenario: page should be found
 		Then I should see the Email and Password text fields
+
+	Scenario: should not sign up without parameters
+		When I signup without parameters
+		Then I should see notice: 'Invalid parameters'

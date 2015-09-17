@@ -8,6 +8,12 @@ Given /^the user$/ do
   end
 end
 
+Given /^a user is logged in$/ do
+  step 'the user'
+  step 'the homepage'
+  step "I login ui with 'aw3as@virginia.edu' 'password'"
+end
+
 When /^I login ui with '([^"]*)' '([^"]*)'/ do |user, password|
   within ('form[action="/users/sign_in"]') do
     fill_in('user_email', :with => user)
