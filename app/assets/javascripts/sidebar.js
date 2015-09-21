@@ -115,46 +115,6 @@ var ready = function() {
 			return false;
 		}
 	});
-
-
-	var prof_ajax = $.ajax();
-
-	$("#prof_name").bind("change", function() {
-		$("#prof_list").empty();
-		var value = $(this).find(":selected").val();
-		if (value == "") {
-			return;
-		}
-		prof_ajax.abort();
-		prof_ajax = $.ajax({
-			url: '/professors/',
-			dataType: 'json',
-			type: 'GET',
-			success: function(data) {
-				$.each(data, function() {
-					if (this.last_name[0] == value) {
-						$('#prof_list').append($("<a/>", {
-							href: "/professors/" + this.id,
-							text: this.last_name + ", " + this.first_name
-						}));
-						$('#prof_list').append($("<br/>", {}));
-					}
-				});
-			}
-		});
-	});
-
-	jQuery.ajaxSetup({
-		beforeSend: function() {
-			$('#loading').fadeIn();
-			$("#second_letter").show();
-
-		},
-		complete: function() {
-			$('#loading').hide();
-		},
-		success: function() {}
-	});
 }
 $(document).ready(ready);
 $(document).on('page:load', ready);
