@@ -1,5 +1,4 @@
 var ready = function() {
-
 	$('#report-bug').click(function() {
 		$('#report-bug-modal').modal();
 		$('input[name="url"]').val(window.location);

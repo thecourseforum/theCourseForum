@@ -39,8 +39,8 @@
 
 - else
   .row
-    .col-xs-12
-      You haven't written any reviews yet! :(
+    .col-xs-12#review-label
+      | You haven't written any reviews yet!
   .row
     .col-xs-12
       = link_to "Write one now!", new_review_path, :class => "btn btn-primary"
