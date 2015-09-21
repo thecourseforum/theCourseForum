@@ -22,6 +22,7 @@ body.modal-open {
 	margin-top: 12px;
 	margin-bottom: 8px;
 	margin-right: 10px;
+	margin-left: 25px;
 	background-image:url(icons/sliderback.png);
 	outline:none; 
 	border-bottom:none;
@@ -37,10 +38,14 @@ body.modal-open {
 	overflow-x: hidden;
 }
 
-#schedule-name {
+#gpa {
 	margin-top: 8px;
 	margin-bottom: 8px;
 	text-align: center;
+}
+
+#gpa-col {
+	padding-left: 0px;
 }
 
 #credits {
@@ -74,11 +79,6 @@ body.modal-open {
 	width: 100%;
 }
 
-#class-search {
-	width: 100%;
-	margin-bottom: 4px;
-}
-
 #results-title {
 	margin-top: 8px;
 }
@@ -86,7 +86,7 @@ body.modal-open {
 #results-box {
 	border-radius: 6px;
 	border: 0px solid gray;
-	min-height: 400px;
+	min-height: 200px;
 	background-color: #F5F5F5;
 }
 
@@ -184,9 +184,23 @@ body.modal-open {
 	100% {background-color: #15214B;}
 }
 
-.loading {
-	-webkit-animation-duration: 1s;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-name: colours;
-	-webkit-animation-timing-function: ease;
-}​
+#course-title {
+	text-align: center;
+}
+
+#scheduler-buttons > button {
+	border: 1px solid LightGray;
+	background-color: #eeeeee;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+
+#scheduler-buttons > button:hover {
+	background-color: LightGray;
+}
+
+#how-to {
+	border: 1px solid LightGray;
+	border-radius: 5px;
+}
