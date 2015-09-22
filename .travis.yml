@@ -16,15 +16,5 @@ before_script:
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
-  - mysql -e 'create database thecourseforum_test'
-
-# Ignore redesign branch for now
-branches:
-  except:
-    - redesign-3.0
-
-# Set up test database, and then run the tests.
-script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake db:create
   - bundle exec rake db:test:prepare
-  - xvfb-run bundle exec rspec spec/

@@ -1,4 +1,5 @@
 FactoryGirl.define do
+
   factory :user do
     email 'aw3as@virginia.edu'
     first_name 'Alan'
