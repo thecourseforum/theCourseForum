@@ -10,9 +10,9 @@ var ready = function() {
 	});
 
 	$('#browsing-content').parent().css({
-        'box-shadow': 'none', 
-        'background-color': '#eee',
-    });
+		'box-shadow': 'none',
+		'background-color': '#eee',
+	});
 }
 
 $(document).ready(ready);
