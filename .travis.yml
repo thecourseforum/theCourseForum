@@ -17,4 +17,5 @@ before_script:
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - RAILS_ENV=test bundle exec rake db:create
+  - "export DISPLAY=:99.0"
   - bundle exec rake db:test:prepare
