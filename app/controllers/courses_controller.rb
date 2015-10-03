@@ -1,4 +1,5 @@
 class CoursesController < ApplicationController
+  skip_before_action :authenticate_user!, :only => :show, :if => amazon_public_site?
   
   def show
     unless params[:p]
@@ -131,6 +132,19 @@ class CoursesController < ApplicationController
 
   private
 
+  def amazon_public_site?
+    Course.find_by_mnemonic_number([
+      "ECON 2010",
+      "ASTR 1210",
+      "ECON 3010",
+      "CHEM 2410"
+    ]).map(&:id).include?(params[:id]) and Professor.find_by_name([
+      "Kenneth Elzinga",
+      "Edward Murphy",
+      "William Johnson",
+      "Laura Serbulea"
+    ]).map(&:id).include?(params[:p])
+  end
 
     # Get aggregated course ratings
     # @todo this could be cleaner
