@@ -2,6 +2,18 @@ class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, if: -> { amazon_public_site? and ['show', 'reviews'].include?(action_name)}
   
   def show
+    if !current_user and !params[:p] and amazon_public_site?
+      case params[:id]
+      when '1642'
+        params[:p] = 702
+      when '1646'
+        params[:p] = 4474
+      when '570'
+        params[:p] = 231
+      when '1027'
+        params[:p] = 4106
+      end
+    end
     unless params[:p]
       redirect_to :action => "show_professors" and return
     end
@@ -134,8 +146,7 @@ class CoursesController < ApplicationController
 
   def amazon_public_site?
     course = params[:id] || params[:course_id]
-    professor = params[:p] || params[:professor_id]
-    [1642, 1646, 570, 1027].include?(course.to_i) and [702, 4474, 231, 4106].include?(professor.to_i)
+    [1642, 1646, 570, 1027].include?(course.to_i)
   end
 
     # Get aggregated course ratings
