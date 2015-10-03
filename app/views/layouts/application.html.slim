@@ -14,7 +14,7 @@ html
 
   body
     = render 'layouts/header'
-    - if current_user || (controller.controller_name == "books" && controller.action_name == "index")
+    - if current_user || (controller.controller_name == "courses" && controller.action_name == "show")
       aside
         = render 'layouts/sidebar'
       section#main
@@ -29,7 +29,7 @@ html
                   h3.page-title = yield(:course_professor)
             - if controller.controller_name == "courses" && controller.action_name == "show"
               #save-course
-                - if current_user.courses.include? @course
+                - if current_user and current_user.courses.include? @course
                   .btn.btn-primary#save-course-button.active data-toggle="button" aria-pressed="true" Unsave
                 - else
                   .btn.btn-primary#save-course-button data-toggle="button" aria-pressed="false" Save Course

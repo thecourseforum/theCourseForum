@@ -25,14 +25,10 @@ class Professor < ActiveRecord::Base
       end.compact
     end
     first, last = *name.split(' ')
-    professor = self.where(:first_name => first).select do |professor|
+    self.where(:first_name => first).find do |professor|
       professor.last_name == last
     end
-    if !professor || professor.empty?
-      nil
-    else
-      professor
-    end
+
   end
 
   def separated_name
