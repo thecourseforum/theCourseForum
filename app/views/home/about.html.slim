@@ -3,45 +3,41 @@
 = stylesheet_link_tag "about"
 
 .container-fluid#about-container
-  h1 About theCourseForum
+  h1#title theCourseForum
 
-  p
+  h4#subtitle connecting you to the courses you love.
+
+  p#about
     | theCourseForum is a product of the UVa community and the students that manage the site where UVa students can share their experiences about the classes they've taken. We aim to make the task of choosing your classes as easy as possible by providing distributions of past grades for the classes along with reviews of the classes by your fellow students. It's all run by students, for students, in order to make your academic experience at UVa the best it can be. Students themselves have the ability to leave an impact on the community by writing reviews and sharing their academic experience.  
 
-  h2 theCourseForum: What is it good for?
+  img src="http://2013.igem.org/wiki/images/7/7e/Banner-uva.jpg"
 
-  p
-    | Anyone with a UVa email can make their own account. Once logged in, you can browse classes or professors to pick your schedule. Find out which teacher fails a quarter of his or her class, which class will change the way you think but will demolish your weekends, and which teacher needs to take a public speaking lesson (hint: it's a lot). And while you're at it, 
-    b 
-      | submit your own reviews:
-    |  Let others know about that teacher that made you cry into your keyboard at 2 am on a Saturday morning while your friends were out partying, praise that professor that taught you a Comm degree might not be right for you. As long as you're constructive and honest, you're contributing to the community and adding your legacy, and we appreciate that. I mean, it's that whole community of trust.
+  .row
+    .col-xs-6
 
-  h2 How did this wondrous beast come to fruition?
+      h4#subabout Beginnings
 
-  p
-     | In Fall 2005, UVa students Jeff Bordogna and Alan Webb recognized a need for an online community to help students share their class experiences, and thus developed the first version of theCourseForum. Over time, this simple tool grew and prospered as more and more students found it despite our extraordinarily minute marketing budget. The site has now become a fixture of the UVA course signup season to the extent that over 80% of students use the site every year. Starting in 2012, a small elite team of skilled individuals worked to redesign the site to bring it into the modern age. After a long year of work, the new site was released, and it continues to be managed by UVa students. 
+      p
+        | In Fall 2005, UVa students Jeff Bordogna and Alan Webb recognized a need for an online community to help students share their class experiences, and thus developed the first version of theCourseForum. Over time, this simple tool grew and prospered as more and more students found it despite our extraordinarily minute marketing budget. The site has now become a fixture of the UVA course signup season to the extent that over 80% of students use the site every year. Starting in 2012, a small elite team of skilled individuals worked to redesign the site to bring it into the modern age. After a long year of work, the new site was released, and it continues to be managed by UVa students.
+    .col-xs-6
 
-  h2 This site is so cool, what can I do for it?
+      h4#subabout What can you do?
 
-  p
-    | The biggest thing you can do: 
-    b 
-      | submit reviews.
-    |  While the framework of the site is spectacular, what really makes theCourseForum is the reviews submitted by students. If that isn't enough, our team is always looking for more people interested in website design and more efficient use of our data. If that's for you, contact us at 
-    = mail_to "support@thecourseforum.com", nil
-    |  experience not required.
+      p
+        | The biggest thing you can do: 
+        b 
+          | submit reviews.
+        |  While the framework of the site is spectacular, what really makes theCourseForum is the reviews submitted by students. If that isn't enough, our team is always looking for more people interested in website design and more efficient use of our data. If that's for you, contact us at 
+        = mail_to "support@thecourseforum.com", nil
+        |  experience not required.
 
-  h2 Thanks Amazon for the book prices!
+      h4 Thanks Amazon!
 
-  p theCourseForum is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to amazon.
+      p theCourseForum is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to amazon.
 
 .container-fluid#us-container
   .header
-    h4#subhead: a href="#web-data" WEB/DATA
-    h4#subhead: a href="#biz" BUSINESS
-    h2#subhead: b theCrew
-    h4#subhead: a href="#graphics" GRAPHICS
-    h4#subhead: a href="#alumni" ALUMNI
+    h2#team Meet the Team
   h3#web-data WEB/DATA TEAM
   ul#grid
     li#columns2
