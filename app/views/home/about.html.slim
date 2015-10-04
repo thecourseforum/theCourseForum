@@ -1,6 +1,8 @@
 - content_for :title, "About"
 
 = stylesheet_link_tag "about"
+= javascript_include_tag "about"
+
 
 .container-fluid#about-container
   h1#title theCourseForum
@@ -10,7 +12,7 @@
   p#about
     | theCourseForum is a product of the UVa community and the students that manage the site where UVa students can share their experiences about the classes they've taken. We aim to make the task of choosing your classes as easy as possible by providing distributions of past grades for the classes along with reviews of the classes by your fellow students. It's all run by students, for students, in order to make your academic experience at UVa the best it can be. Students themselves have the ability to leave an impact on the community by writing reviews and sharing their academic experience.  
 
-  img src="http://2013.igem.org/wiki/images/7/7e/Banner-uva.jpg"
+  img#banner src="http://2013.igem.org/wiki/images/7/7e/Banner-uva.jpg"
 
   .row
     .col-xs-6
@@ -31,83 +33,162 @@
         = mail_to "support@thecourseforum.com", nil
         |  experience not required.
 
-      h4 Thanks Amazon!
+      h4#thanks Thanks Amazon!
 
       p theCourseForum is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to amazon.
 
 .container-fluid#us-container
   .header
-    h2#team Meet the Team
+    h2#team theTeam
   h3#web-data WEB/DATA TEAM
   ul#grid
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      span#hover Class of 2018 
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
-  h3#biz BUSINESS TEAM
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
+  h3#wbiz BUSINESS TEAM
   ul#grid
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
   h3#graphics GRAPHICS TEAM
   ul#grid
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
   h3#alumni ALUMNI
   ul#grid
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5 Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
     li#columns2
-      img src="https://placeimg.com/200/220/animals"/
-      h2 Name
-      h5   Title/Team
+      .indivblock
+        img src="https://placeimg.com/200/220/animals"/
+        .ustext
+          h4#us  Name
+          h5 Title/Team
+        .ushover
+          img src="https://placeimg.com/200/220/animals"/
+          h4#us  Fun Fact!
