@@ -18,6 +18,19 @@ class Professor < ActiveRecord::Base
     self.first_name + " " + self.last_name
   end
 
+  def self.find_by_name(name)
+    if name.class == Array
+      return name.map do |element|
+        self.find_by_name(element)
+      end.compact
+    end
+    first, last = *name.split(' ')
+    self.where(:first_name => first).find do |professor|
+      professor.last_name == last
+    end
+
+  end
+
   def separated_name
     
     if self.first_name == "Staff" || self.first_name == "staff"

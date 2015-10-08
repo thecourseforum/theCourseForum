@@ -43,7 +43,7 @@
   color: white;
   list-style-type: none;
   margin-top: 8px;
-  font-weight: 300;
+  font-weight: 400;
 
   .nav-row {
     font-size: $sidebar-font-size;
@@ -65,9 +65,8 @@
         text-align: center;
         position: relative;
         float: right;
-        margin-right: 25%;
         margin-top: 6px;
-        margin-left: auto;
+        margin-right: 50px;
         background-color: $orange;
         border-radius: 3px;
         padding: 0px 5px;

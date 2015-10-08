@@ -34,3 +34,14 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar-brand > img {
   display: inline;
 }
+
+// vertically aligns headers in modals
+.modal-header > h3, h4 {
+  margin-bottom: 0px;
+}
+
+// horizontally aligns panels in modals
+.modal-body > .panel-group > .panel {
+  margin-right: 20px;
+  margin-left: 20px;
+}

@@ -2,7 +2,7 @@
   .modal-dialog
     .modal-content
       .modal-header
-        h4 Save Schedule
+        h3 Save your schedule so you can come back to it
       .modal-body
         .form-group
           label.control-label for="name"  Name:
@@ -14,7 +14,7 @@
   .modal-dialog
     .modal-content
       .modal-header
-        h4 Load Schedules
+        h3 Check any saved schedules you'd like to load
       .modal-body
         .schedules
       .modal-footer
@@ -24,8 +24,11 @@
   .modal-dialog
     .modal-content
       .modal-header
-        h4#course-title
+        h3 Check any sections you can take            
       .modal-body
+        h4.well#course-title      
+        br
+        / h4 Check any sections you can take!        
         h4#lecture-header Lectures
         .lectures
         h4#discussion-header Discussions
@@ -58,3 +61,47 @@
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
             button.btn.btn-primary#generate-with-options type="button"  Generate
+#how-to-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h3 How to use the Scheduler Generator
+      .modal-body    
+        .panel-group#accordion
+          .panel.panel-default
+            .panel-heading
+                h4.panel-title
+                  a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" Adding Courses             
+            #collapseOne.panel-collapse.collapse.in
+              .panel-body
+                ul
+                  li There are 2 ways to get courses into the schduler.
+                  ol
+                    li Using the search bar on the right. Search for a course you're thinking of taking. You will then be prompted to choose the sections you can take. These sections will be used to generate your possible options.
+                    li When browsing through the rest of theCourseForum. If you find a course you want to take, simply click the "Save Course" button. This course will then appear in your saved courses when you visit the scheduler.
+          .panel.panel-default
+            .panel-heading
+                h4.panel-title
+                  a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" Generating Schedules                
+            #collapseTwo.panel-collapse.collapse
+                .panel-body
+                  ul
+                    li Once you've added the courses you want, clicking the generate button will construct all possible combinations of the sections you've selected. 
+                    li If this is overwhelming, you can try "Generate with Options" which will attempt to narrow down your possible schedules based on your preferences.
+                    li You can view all the generated schedules using the blue slider. Drag the handle, or click it and use your arrow keys to see the possible permutations. 
+          .panel.panel-default
+            .panel-heading
+                h4.panel-title
+                  a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" Managing Schedules
+            #collapseThree.panel-collapse.collapse
+                .panel-body                
+                  ul
+                    li When you find a schedule you particularly like, you can save it with the "Save" button so that you can revist it later.
+                    li You can revisit your saved schedules with the "Load" button.
+                    li Once you have finalized a schedule. You can use the "Export" button to download your schedule as an .ics file.          
+                    a href="https://support.google.com/calendar/answer/37118?hl=en" 
+                      li For instructions on how to import this into Google Calendar, see here          
+                    a href="https://support.apple.com/kb/PH11524?locale=en_US" 
+                      li For instructions on how to import this into iCal see here.
+      .modal-footer
+        button.btn.btn-primary data-dismiss="modal" type="button"  Got it!

@@ -245,29 +245,3 @@ select {
   font-weight: 300;
 }
 
-@media (max-width: $screen-sm) {
-    .navbar-default .navbar-brand {
-      background-color: #fff;
-    }
-    #logo {
-      margin-left: -30px;
-    }
-}
-
-.navbar-toggle {
-  @media only screen and (min-device-width: $screen-xs){
-    position: absolute;
-    left: 210px;
-  }
-  border: none;
-  height: $navbar-height;;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  .navbar-default &:hover, .navbar-default &:focus{
-    background-color: inherit;
-    .icon-bar {
-      background-color: $blue;
-    }
-  }
-}
-
