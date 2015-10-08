@@ -13,4 +13,10 @@ When /^I write a review/ do
   page.execute_script("$('.enjoyability-slider').slider('value', 2)")
   page.execute_script("$('.difficulty-slider').slider('value', 3)")
   page.execute_script("$('.recommend-slider').slider('value', 4)")
+  fill_in('review_comment', :with => "Test Review")
+  fill_in('readingfield', :with => "1")
+  fill_in('writingfield', :with => "1")
+  fill_in('homeworkfield', :with => "1")
+  fill_in('groupfield', :with => "1")
+  click_button("Submit Review")
 end
