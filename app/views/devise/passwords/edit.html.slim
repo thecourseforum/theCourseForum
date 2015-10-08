@@ -1,0 +1,26 @@
+.row
+  .col-xs-12.text-center
+    h1.text-white Change your password
+.row
+  .col-xs-4.col-xs-offset-4
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-xs-12.text-center
+            = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+              = devise_error_messages!
+              .row
+                 .col-xs-12
+                  = f.hidden_field :reset_password_token
+              .row
+                .col-xs-12
+                  = f.password_field :password, :autofocus => true, placeholder: "New Password", class: "form-control"
+              .row.form-row
+                .col-xs-12
+                  = f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control"
+              .row.form-row
+                .col-xs-12
+                  = f.submit "Change my password", class: "form-control btn btn-primary"
+.row
+  .col-xs-12.text-center
+    = render "devise/shared/links"
