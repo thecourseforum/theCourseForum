@@ -46,6 +46,20 @@ ready = function() {
 
 	}
 
+	function loadProfessors(profName) {
+		var courseUrl = window.location.pathname.substring(1);
+		courseId = courseUrl.substring(courseUrl.search('/') + 1);
+
+		$.ajax('/courses/professors', {
+				method: "GET",
+				data: {
+					course_id: courseId,
+					professor_id: params ? params['p'] : undefined,
+
+				}
+		});
+	}
+
 
 	function appendReviews() {
 		var index = 0;
@@ -70,6 +84,11 @@ ready = function() {
 		//load and insert the reviews
 		loadReviews(dropdownVal);
 
+	});
+
+	$('.professors-switcher').change(function() {
+		var professorChoice = $(this).val();
+		loadProfessors(professorChoice);
 	});
 
 	$('#save-course-button').click(function() {
