@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'resolv-replace'
 
 ActiveRecord::Base.logger.level = 1
 

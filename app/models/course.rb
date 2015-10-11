@@ -54,6 +54,11 @@ class Course < ActiveRecord::Base
   end
 
   def self.find_by_mnemonic_number(mnemonic_number)
+    if mnemonic_number.class == Array
+      return mnemonic_number.map do |mnemonic|
+        self.find_by_mnemonic_number(mnemonic)
+      end
+    end
     mnemonic, number = *mnemonic_number.split(' ')
     subdepartment = Subdepartment.includes(:courses).find_by(:mnemonic => mnemonic)
     if subdepartment
