@@ -6,32 +6,40 @@
   #calendar.col-xs-9
     .row
       .col-md-3
-        .btn.btn-primary#save-schedule-dialog Save Schedule
-      .col-md-3
-        .btn.btn-primary#load-schedules Load Schedule
-      .col-md-3
-        .btn.btn-primary#export-schedule Export Schedule
-      .col-md-3
-        .btn.btn-primary#clear-schedules Clear Saved
+        h4#schedule-name Untitled Schedule
+      .col-md-6.pull-right
+        .btn-group.pull-right#scheduler-buttons role="group"
+          button.btn.btn-default#save-schedule-dialog
+            span Save 
+            .glyphicon.glyphicon-floppy-disk 
+          button.btn.btn-default#load-schedules
+            span Load 
+            .glyphicon.glyphicon-open
+          button.btn.btn-default#export-schedule 
+            span Export to iCal 
+            .glyphicon.glyphicon-calendar 
     .row#slider
-      .col-md-2
-        #schedule-name Schedule Name
-      .col-md-10
+      .col-md-9
         #schedule-slider
+      #gpa-col.col-md-3
+        #gpa Estimated GPA: 0.00
     #schedule
   #search-bar.col-xs-3
-    h2 Class Search
-    input#class-search name="class-search" type="text" placeholder="ex. ECON 2010 or Biology"
-    .btn.btn-primary.glyphicon.glyphicon-search#search-classes
+    h4 Search for a course
+    .input-group
+      input.form-control#class-search name="class-search" type="text" placeholder="ex. ECON 2010 or Biology"
+      span.input-group-addon
+        .btn.btn-xs.glyphicon.glyphicon-search#search-classes
+    h4#saved-courses-header Or choose one you saved
     select#saved-courses
-      option -- Select Course --
       - current_user.courses.each do |course|
         option= "#{course.subdepartment.mnemonic} #{course.course_number}"
       | end
-
-    .btn.btn-primary#clear-courses Clear Saved Courses
-    h5#results-title Courses
+    - if current_user.courses.size > 0
+      .btn.btn-primary#clear-courses Clear Saved Courses
+    h5#results-title Courses to use
     #results-box
+    br
     .row.row-no-padding#search-footer
       .col-md-5
         #credits 0 credits

@@ -38,8 +38,8 @@
     .col-xs-12
       .col-wrapper
           a#user-account
-            i.glyphicon.glyphicon-user 
-            = current_user.first_name
+            i.glyphicon.glyphicon-user
+            = current_user.first_name if current_user
             span.caret
           .col-secondary
             a href="/my_reviews"
@@ -47,7 +47,7 @@
               | My Reviews
           .col-secondary
             a href="/users/edit"
-              i.glyphicon.glyphicon-wrench 
+              i.glyphicon.glyphicon-wrench
               | My Account
           .col-secondary
             a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
@@ -60,4 +60,6 @@
     = " | "
     a href="#{terms_path}" Terms
     = " | "
-    | theCourseForum © 2014
+    | theCourseForum © 2015
+    br
+    a href="http://blog.thecourseforum.com/" v3.0.1

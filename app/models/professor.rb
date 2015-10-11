@@ -28,6 +28,16 @@ class Professor < ActiveRecord::Base
     else
       ""
     end
+  def self.find_by_name(name)
+    if name.class == Array
+      return name.map do |element|
+        self.find_by_name(element)
+      end.compact
+    end
+    first, last = *name.split(' ')
+    self.where(:first_name => first).find do |professor|
+      professor.last_name == last
+    end
   end
 
   def separated_name
@@ -39,5 +49,4 @@ class Professor < ActiveRecord::Base
     end
   end
     
-
 end

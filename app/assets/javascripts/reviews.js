@@ -68,7 +68,7 @@ ready = function() {
 			$("#prof_select").empty();
 			var value = $(this).find(":selected").val();
 			$.ajax({
-				url: '/courses/' + value,
+				url: '/courses/' + value + '.json',
 				dataType: 'json',
 				type: 'GET',
 				success: function(data) {
