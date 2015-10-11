@@ -1,6 +1,19 @@
 class CoursesController < ApplicationController
+  skip_before_action :authenticate_user!, if: -> { amazon_public_site? and ['show', 'reviews'].include?(action_name)}
   
   def show
+    if !current_user and !params[:p] and amazon_public_site?
+      case params[:id]
+      when '1642'
+        params[:p] = 702
+      when '1646'
+        params[:p] = 4474
+      when '570'
+        params[:p] = 231
+      when '1027'
+        params[:p] = 4106
+      end
+    end
     unless params[:p]
       redirect_to :action => "show_professors" and return
     end
@@ -102,8 +115,8 @@ class CoursesController < ApplicationController
       all_reviews = Review.where(:course_id => params[:course_id])
     end
 
-    @reviews_voted_up = current_user.votes.where(:vote => 1).pluck(:voteable_id)
-    @reviews_voted_down = current_user.votes.where(:vote => 0).pluck(:voteable_id)
+    @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
+    @reviews_voted_down = current_user ? current_user.votes.where(:vote => 0).pluck(:voteable_id) : []
 
     @sort_type = params[:sort_type]
     if @sort_type != nil
@@ -131,6 +144,10 @@ class CoursesController < ApplicationController
 
   private
 
+  def amazon_public_site?
+    course = params[:id] || params[:course_id]
+    [1642, 1646, 570, 1027].include?(course.to_i)
+  end
 
     # Get aggregated course ratings
     # @todo this could be cleaner
