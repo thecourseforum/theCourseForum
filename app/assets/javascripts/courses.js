@@ -46,19 +46,7 @@ ready = function() {
 
 	}
 
-	function loadProfessors(profName) {
-		var courseUrl = window.location.pathname.substring(1);
-		courseId = courseUrl.substring(courseUrl.search('/') + 1);
 
-		$.ajax('/courses/professors', {
-				method: "GET",
-				data: {
-					course_id: courseId,
-					professor_id: params ? params['p'] : undefined,
-
-				}
-		});
-	}
 
 
 	function appendReviews() {
@@ -87,8 +75,9 @@ ready = function() {
 	});
 
 	$('.professors-switcher').change(function() {
-		var professorChoice = $(this).val();
-		loadProfessors(professorChoice);
+		var professorId = $(this).val();
+		var newProfURL = window.location.pathname + "?p=" + professorId;
+		Turbolinks.visit(newProfURL);
 	});
 
 	$('#save-course-button').click(function() {
