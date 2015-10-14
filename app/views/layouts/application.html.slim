@@ -51,6 +51,16 @@ html
                   label.btn.btn-primary
                     input#all autocomplete="off" name="options" type="radio"
                     | All
+                .btn-group#prof-sort data-toggle="buttons"
+                  label.btn.btn-primary.active#rating
+                    input#rating-sort autocomplete="off" name="options" type="radio" 
+                    | Rating
+                  label.btn.btn-primary#difficulty
+                    input#difficulty-sort autocomplete="off" name="options" type="radio"
+                    | Difficulty
+                  label.btn.btn-primary#gpa
+                    input#gpa-sort autocomplete="off" name="options" type="radio"
+                    | GPA            
             - if controller.controller_name == "scheduler"
                .btn-group.pull-right role="group"
                 button.btn.btn-default#how-to

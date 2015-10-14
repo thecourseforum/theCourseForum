@@ -2,6 +2,91 @@ var ready;
 
 ready = function() {
 
+	function sortProfessors(selector, attrName) {
+
+		return $($(selector).toArray().sort(function(a, b) {	
+
+			// Get stat to sort by (rating, difficulty, gpa)
+			var aVal = parseFloat($(a).find(attrName).text()),
+    			bVal = parseFloat($(b).find(attrName).text());            
+    		var retVal = bVal - aVal;
+
+	   		// Handle no stat
+	   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
+	   			return 1;
+	   		} else if (isNaN(bVal) && !isNaN(aVal)) {
+	   			return -1;
+	   		} else if (isNaN(bVal) && isNaN(aVal)) {
+	   			retVal = 0;
+	   		}
+		    
+	    	// Sort difficulty ascending
+	    	if (attrName == ".course-difficulty") {
+	    		retVal = retVal * -1;
+	    	}
+
+	    	// Handle tie
+	    	if (retVal == 0) {
+	    		var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];   
+
+	    		for(var i = 0; i < otherSortOptions.length; i++) {
+	    			// Get another stat
+	    			if(attrName != otherSortOptions[i]) {		    			
+	    				var aVal = parseFloat($(a).find(otherSortOptions[i]).text()),
+    						bVal = parseFloat($(b).find(otherSortOptions[i]).text());            
+    					var retVal = bVal - aVal;
+
+    					// Handle no stat
+				   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
+				   			return 1;
+				   		} else if (isNaN(bVal) && !isNaN(aVal)) {
+				   			return -1;
+				   		} else if (isNaN(bVal) && isNaN(aVal)) {
+				   			retVal = 0;
+				   		}
+			   			// stop if found a tie breaker
+		    			if (retVal != 0) {
+		        			break;	
+		        		}
+		        		// if three-way tie
+		        		if (i == 2 && retVal == 0) {
+		        			return 0;
+		        		}
+	        		}
+	        	}      		
+	    	}
+
+	    	return retVal;
+
+		}));
+	}	
+	
+
+	// Sort professors by stats
+	$('#prof-sort').change(function() {		
+
+		// id of stat to sort by		
+		var sortString = ".course-" + $(this).find('.active')[0].id;
+		// class of which panels are displayed (current semester or all)
+		var selectorString = $("#all").parent().hasClass("active") ? ".prof-panel.all" : ".prof-panel.current";
+		// how many panels there are (to know when to trigger the next animation)
+		var numPanels = $(selectorString).length;
+		var slidPanels = 0;		
+		// sorted list of professors
+		var profList = sortProfessors($(".prof-panel"), sortString);					
+		// slide up all the panels. then, on complete, add the sorted ones and slide down what is needed.
+		$(selectorString).slideUp(350, function() {			
+			slidPanels++;
+			if(slidPanels == numPanels) {
+				$(".prof-panel-container").empty();
+				$(".prof-panel-container").append(profList);
+				$(selectorString).slideDown(350);
+			}			
+		});			
+	});
+
+
+
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
 			appendReviews();
