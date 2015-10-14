@@ -28,6 +28,8 @@ class Professor < ActiveRecord::Base
     else
       ""
     end
+  end
+
   def self.find_by_name(name)
     if name.class == Array
       return name.map do |element|
