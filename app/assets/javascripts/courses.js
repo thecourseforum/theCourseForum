@@ -4,26 +4,10 @@ ready = function() {
 
 	function sortProfessors(selector, attrName) {
 
-		return $($(selector).toArray().sort(function(elementA, elementB) {	
+		return $($(selector).toArray().sort(function(professorA, professorB) {	
 
-			// Get stat to sort by (rating, difficulty, gpa)
-			var aVal = parseFloat($(elementA).find(attrName).text()),
-    			bVal = parseFloat($(elementB).find(attrName).text()),
-    			retVal = bVal - aVal;
-
-	   		// Handle no stat
-	   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
-	   			return 1;
-	   		} else if (isNaN(bVal) && !isNaN(aVal)) {
-	   			return -1;
-	   		} else if (isNaN(bVal) && isNaN(aVal)) {
-	   			retVal = 0;
-	   		}
-		    
-	    	// Sort difficulty ascending
-	    	if (attrName == ".course-difficulty") {
-	    		retVal = retVal * -1;
-	    	}
+			// Compare two professors by a given stat
+	  		retVal = compareProfessors(professorA, professorB, attrName);
 
 	    	// Handle tie
 	    	if (retVal == 0) {
@@ -32,23 +16,15 @@ ready = function() {
 	    		for(var i = 0; i < otherSortOptions.length; i++) {
 	    			// Get another stat
 	    			if(attrName != otherSortOptions[i]) {		    			
-	    				var aVal = parseFloat($(elementA).find(otherSortOptions[i]).text()),
-    						bVal = parseFloat($(elementB).find(otherSortOptions[i]).text());            
-    						retVal = bVal - aVal;
 
-    					// Handle no stat
-				   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
-				   			return 1;
-				   		} else if (isNaN(bVal) && !isNaN(aVal)) {
-				   			return -1;
-				   		} else if (isNaN(bVal) && isNaN(aVal)) {
-				   			retVal = 0;
-				   		}
+	    				// Compare by that stat
+	    				retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
+
 			   			// stop if found a tie breaker
 		    			if (retVal != 0) {
 		        			break;	
 		        		}
-		        		// if three-way tie
+		        		// if three-way tie, return 0
 		        		if (i == 2 && retVal == 0) {
 		        			return 0;
 		        		}
@@ -60,6 +36,30 @@ ready = function() {
 
 		}));
 	}	
+
+	// Compares two professor panel elements by a given stat (id)
+	function compareProfessors(professorA, professorB, stat) {
+		// Get stat to sort by (rating, difficulty, gpa)
+		var aVal = parseFloat($(professorA).find(stat).text()),
+			bVal = parseFloat($(professorB).find(stat).text()),
+			retVal = bVal - aVal;
+
+   		// Handle no stat
+   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
+   			return 1;
+   		} else if (isNaN(bVal) && !isNaN(aVal)) {
+   			return -1;
+   		} else if (isNaN(bVal) && isNaN(aVal)) {
+   			retVal = 0;
+   		}
+	    
+    	// Sort difficulty ascending
+    	if (stat == ".course-difficulty") {
+    		retVal = retVal * -1;
+    	}
+
+    	return retVal;
+	}
 	
 
 	// Sort professors by stats
