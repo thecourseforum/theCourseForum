@@ -4,12 +4,12 @@ ready = function() {
 
 	function sortProfessors(selector, attrName) {
 
-		return $($(selector).toArray().sort(function(a, b) {	
+		return $($(selector).toArray().sort(function(elementA, elementB) {	
 
 			// Get stat to sort by (rating, difficulty, gpa)
-			var aVal = parseFloat($(a).find(attrName).text()),
-    			bVal = parseFloat($(b).find(attrName).text());            
-    		var retVal = bVal - aVal;
+			var aVal = parseFloat($(elementA).find(attrName).text()),
+    			bVal = parseFloat($(elementB).find(attrName).text()),
+    			retVal = bVal - aVal;
 
 	   		// Handle no stat
 	   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
@@ -32,9 +32,9 @@ ready = function() {
 	    		for(var i = 0; i < otherSortOptions.length; i++) {
 	    			// Get another stat
 	    			if(attrName != otherSortOptions[i]) {		    			
-	    				var aVal = parseFloat($(a).find(otherSortOptions[i]).text()),
-    						bVal = parseFloat($(b).find(otherSortOptions[i]).text());            
-    					var retVal = bVal - aVal;
+	    				var aVal = parseFloat($(elementA).find(otherSortOptions[i]).text()),
+    						bVal = parseFloat($(elementB).find(otherSortOptions[i]).text());            
+    						retVal = bVal - aVal;
 
     					// Handle no stat
 				   		if (isNaN(aVal) && !isNaN(bVal)) { 	   			
@@ -66,23 +66,30 @@ ready = function() {
 	$('#prof-sort').change(function() {		
 
 		// id of stat to sort by		
-		var sortString = ".course-" + $(this).find('.active')[0].id;
+		var sortString = ".course-" + $(this).find('.active')[0].id,
 		// class of which panels are displayed (current semester or all)
-		var selectorString = $("#all").parent().hasClass("active") ? ".prof-panel.all" : ".prof-panel.current";
+			selectorString = $("#all").parent().hasClass("active") ? ".prof-panel.all" : ".prof-panel.current",
 		// how many panels there are (to know when to trigger the next animation)
-		var numPanels = $(selectorString).length;
-		var slidPanels = 0;		
+			numPanels = $(selectorString).length,
+			slidPanels = 0,
 		// sorted list of professors
-		var profList = sortProfessors($(".prof-panel"), sortString);					
-		// slide up all the panels. then, on complete, add the sorted ones and slide down what is needed.
-		$(selectorString).slideUp(350, function() {			
-			slidPanels++;
-			if(slidPanels == numPanels) {
-				$(".prof-panel-container").empty();
-				$(".prof-panel-container").append(profList);
-				$(selectorString).slideDown(350);
-			}			
-		});			
+			profList = sortProfessors($(".prof-panel"), sortString);					
+		// if the number of panels displayed is small enough to have smooth animations, animate the change
+		if (numPanels < 50) {
+			// slide up all the panels. then, on complete, add the sorted ones and slide down what is needed.
+			$(selectorString).slideUp(350, function() {			
+				slidPanels++;
+				if(slidPanels == numPanels) {
+					$(".prof-panel-container").empty();
+					$(".prof-panel-container").append(profList);
+					$(selectorString).slideDown(350);
+				}			
+			});			
+		} else {
+			// else just pop on the sorted list
+			$(".prof-panel-container").empty();
+			$(".prof-panel-container").append(profList);
+		}
 	});
 
 
