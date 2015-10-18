@@ -4,13 +4,13 @@
 /- else
 /  -content_for :course_professor, "All Professors"
 
-
-select.professors-switcher
-  - if @professor
-    option value="#{@professor.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{@professor.full_name}"
-  - @professors.sort_by{|prof| prof.last_name}.each do |p|
-      - if p != @professor
-        option value= "#{p.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{p.full_name}"
+.col-xs-4
+  select.professors-switcher
+    - if @professor
+      option id="professor-option" value="#{@professor.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{@professor.full_name}"
+    - @professors.sort_by{|prof| prof.last_name}.each do |p|
+        - if p != @professor
+          option value= "#{p.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{p.full_name}"
 
 
 
