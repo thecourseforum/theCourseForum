@@ -89,31 +89,31 @@ class Course < ActiveRecord::Base
   # end
 
   def get_review_ratings(prof_id = -1)    
-      @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)
+    @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)
 
-      ratings = {
-        prof: 0,
-        enjoy: 0,
-        difficulty: 0,
-        recommend: 0
-      }
+    ratings = {
+      prof: 0,
+      enjoy: 0,
+      difficulty: 0,
+      recommend: 0
+    }
 
-      @all_reviews.each do |r|
-        ratings[:prof] += r.professor_rating
-        ratings[:enjoy] += r.enjoyability
-        ratings[:difficulty] += r.difficulty
-        ratings[:recommend] += r.recommend
+    @all_reviews.each do |r|
+      ratings[:prof] += r.professor_rating
+      ratings[:enjoy] += r.enjoyability
+      ratings[:difficulty] += r.difficulty
+      ratings[:recommend] += r.recommend
+    end
+
+    ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
+
+    ratings.each do |k, v|
+      if @all_reviews.count.to_f > 0
+        ratings[k] = (v / @all_reviews.count.to_f).round(2)
+      else
+        ratings[k] = "--"
       end
-
-      ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
-
-      ratings.each do |k, v|
-        if @all_reviews.count.to_f > 0
-          ratings[k] = (v / @all_reviews.count.to_f).round(2)
-        else
-          ratings[k] = "--"
-        end
-      end
+    end
   end
 
 
