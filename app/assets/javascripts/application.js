@@ -37,6 +37,8 @@
 //= require textbook_transactions
 //= require sidebar
 
+NProgress.configure({ showSpinner: false });
+
 var ready = function() {
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
