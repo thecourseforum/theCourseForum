@@ -21,7 +21,8 @@
           td.text-center.nodecoration colspan="2" Not used in any courses
 .col-md-9
   .page-header
-    button#follow.btn.btn-lg type="button" data="#{@book[:book].id}" = current_user.books.include?(@book[:book]) ? "Unfollow" : "Follow"
+    span title="Receive an email when someone posts a sale"
+      button#follow.btn.btn-lg type="button" data="#{@book[:book].id}" = current_user.books.include?(@book[:book]) ? "Unfollow" : "Follow"
     button#sell-yours.btn.btn-lg type="button" Sell
     h1#book-title = @book[:book].title
     h3#book-author = @book[:book].author

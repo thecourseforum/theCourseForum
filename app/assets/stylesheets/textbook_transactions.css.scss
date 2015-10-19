@@ -276,7 +276,7 @@
 #post-listing-modal {
 	#post-book-data {
 		min-height: 235px;
-		width: 100%;
+		// width: 100%;
 		text-align: center;
 		#post-thumb {
 			@include book-cover-border($uva-library-blue);

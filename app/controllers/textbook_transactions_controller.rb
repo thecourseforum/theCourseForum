@@ -200,6 +200,7 @@ class TextbookTransactionsController < ApplicationController
     end
 
     @claimed = current_user.claims
+    @followed = current_user.books
 
   end
 
