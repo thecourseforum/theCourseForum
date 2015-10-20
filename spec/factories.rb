@@ -63,6 +63,9 @@ FactoryGirl.define do
     units 3
     association :course
     association :semester
+    after(:create) do |section|
+      section.course.update(:last_taught_semester => Semester.first)
+    end
   end
 
   factory :section_professor do
