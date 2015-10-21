@@ -52,13 +52,13 @@ FactoryGirl.define do
   end
 
   factory :semester do
-    number 1158
-    season 'Fall'
-    year 2015
+    number 1162
+    season 'Spring'
+    year 2016
   end
 
   factory :section do
-    sis_class_number 16936
+    sis_class_number 17471
     section_number 1
     units 3
     association :course
