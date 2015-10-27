@@ -1,5 +1,11 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
+# Tell TravisCI to use container-based testing (faster)
+sudo: false
+
+# Tell TravisCI to cache bundle installs
+cache: bundler
+
 # Language to use is Ruby
 language: ruby
 
