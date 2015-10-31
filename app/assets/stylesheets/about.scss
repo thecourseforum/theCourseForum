@@ -82,6 +82,7 @@ h4#us {
 .aboutrow {
 	//list-style-type: none;
 	//font-size: 0px;
+	//display: inline-block;
 	text-align: left;
 	padding-left:0px;
 	padding-right:0px;
@@ -165,11 +166,7 @@ h5#major {
 	width: 22.5%;
 }
 
-.block:after {
-	width:100%;
-}
-
-img {
+.block img {
 	max-width: 100%;
 	height: auto;
 	margin: 0 0 10px;
@@ -196,4 +193,11 @@ img {
 	//-moz-box-sizing: border-box;
 	//-webkit-box-sizing: border-box;
 	//width: 200px;
+}
+
+@media screen and (max-width: 992px) { //two columns
+	.block {
+		class: '.col-md-6';
+		width: 45%;
+	}
 }
