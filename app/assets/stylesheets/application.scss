@@ -182,12 +182,14 @@ section#main {
   margin-top: 20px;
   margin-bottom: 50px; // height of footer
   //color: white;
-  #about, #terms, #privacy {
-    a {
-      color: white;
-    }
-  }
 }
+
+#terms, #privacy {
+  color:white;
+  a {
+    color:white;
+  }
+  }
 
 select {
   @extend .form-control;
