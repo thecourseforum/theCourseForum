@@ -2,7 +2,7 @@ var ready;
 
 ready = function() {
 
-	$('.indivblock').hover(function() {
+	$('.block').hover(function() {
 	        //$(this).find('.usmain').fadeOut(50);
 	        $(this).find('.ushover').fadeIn();
 	    }, function() {

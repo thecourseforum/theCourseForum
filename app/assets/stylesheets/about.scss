@@ -42,10 +42,12 @@ h4#subtitle {
 
 p#about {
 	padding-top:5px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 img#banner {
-	padding-top: 5px;
+	//padding-top: 5px;
 	padding-bottom: 5px;
 	margin:auto;
 	width:90%;
@@ -57,11 +59,13 @@ p {
 
 h4#subabout {
 	padding-top: 5px;
+	padding-bottom: 5px;
 	//padding-bottom: 5px;
 	color: $blue;
 }
 
 h4#thanks {
+	padding-bottom: 5px;
 	color: $blue;
 }
 
@@ -71,16 +75,19 @@ h4#us {
 
 .ustext {
 	text-align: center;
+	width: 100%;
+	height: 100%;
 }
 
-ul#grid {
-	list-style-type: none;
-	font-size: 0px;
+.aboutrow {
+	//list-style-type: none;
+	//font-size: 0px;
+	text-align: left;
 	padding-left:0px;
 	padding-right:0px;
 	margin-left:0px;
 	margin-right:0px;
-	
+	clear: both;
 	//width:100%;
 	//margin-left: -5.5%;
 }
@@ -130,8 +137,20 @@ h5#major {
 	display: inline;
 }
 
-ul#grid li {
-	display: inline-block;
+.block h2 {
+	text-align: center;
+	margin: 0 0 5px;
+}
+
+.block h3 {
+	text-align:center;
+	font-size: .9em;
+	line-height: 1.5em;
+	color: black;
+	margin: 0 0 5px;
+}
+
+.block {
 	padding: 10px;
 	margin: 0 0 2.0% 2.0%;
 	background: #fff;
@@ -143,33 +162,17 @@ ul#grid li {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+	width: 22.5%;
 }
 
-ul#grid li img {
+.block:after {
+	width:100%;
+}
+
+img {
 	max-width: 100%;
 	height: auto;
 	margin: 0 0 10px;
-}
-
-ul#grid li h2 {
-	text-align: center;
-	margin: 0 0 5px;
-}
-
-ul#grid li h3 {
-	text-align:center;
-	font-size: .9em;
-	line-height: 1.5em;
-	color: black;
-	margin: 0 0 5px;
-}
-
-li#columns2 {
-	width: 22.2%
-}
-
-.indivblock {
-	position: relative;
 }
 
 .ushover {
@@ -177,8 +180,20 @@ li#columns2 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
+	//width: 100%;
 	height: 100%;
+	width: 100;
 	z-index: 10;
-	background-color: white;
+	padding: 9px;
+	//margin: 0 0 2.0% 2.0%;
+	background: #fff;
+	border: 1px solid #ddd;
+	//font-size:16px;
+	//font-size: 1rem;
+	//vertical-align: top;
+	//box-shadow: 0 0 5px #ddd;
+	//box-sizing: border-box;
+	//-moz-box-sizing: border-box;
+	//-webkit-box-sizing: border-box;
+	//width: 200px;
 }
