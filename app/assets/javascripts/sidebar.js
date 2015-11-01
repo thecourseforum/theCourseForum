@@ -110,7 +110,7 @@ var ready = function() {
 		},
 		minLength: 2,
 		select: function(event, ui) {
-			window.location = "/courses/" + ui.item.course_id + '?p=all';
+			window.location = "/courses/" + ui.item.course_id + '/professors';
 			return false;
 		}
 	});
