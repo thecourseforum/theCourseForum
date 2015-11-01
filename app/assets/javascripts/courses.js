@@ -46,9 +46,6 @@ ready = function() {
 
 	}
 
-
-
-
 	function appendReviews() {
 		var index = 0;
 		$('.reviews-box').children('.hidden').each(function(review) {
@@ -75,9 +72,7 @@ ready = function() {
 	});
 
 	$('.professors-switcher').change(function() {
-		var professorId = $(this).val();
-		var newProfURL = window.location.pathname + "?p=" + professorId;
-		Turbolinks.visit(newProfURL);
+		Turbolinks.visit(window.location.pathname + "?p=" + $(this).val());
 	});
 
 	$('#save-course-button').click(function() {

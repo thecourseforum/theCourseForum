@@ -1,14 +1,8 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
-/- if @professor
-/  - content_for :course_professor, "#{@professor.full_name}"
-/- else
-/  -content_for :course_professor, "All Professors"
 
 = javascript_include_tag "grades"
 = content_tag "div", id: "percentages", data: {percents: @course.get_grade_percentages(@professor ? @professor.id : -1)} do end
 = stylesheet_link_tag "courses"
-
-
 
 .row#course-page
   .col-xs-12#courses-main
