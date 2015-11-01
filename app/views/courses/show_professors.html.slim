@@ -7,7 +7,7 @@
 
 .container-fluid#browsing-content
   - @professors.each do |professor|
-    - current = @professors_semester[professor.id].to_s == 'Fall 2015'
+    - current = @professors_semester[professor.id].to_s == 'Spring 2016'
     - stats = @course.stats.select { |stat| stat.professor == professor}.first
     .prof-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
       .col-xs-4.prof-name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"

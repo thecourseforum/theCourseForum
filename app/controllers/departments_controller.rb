@@ -35,7 +35,7 @@ class DepartmentsController < ApplicationController
       end.map(&:last)
     end
 
-    @current_semester = Semester.find_by(:year => 2015, :season => 'Fall')
+    @current_semester = Semester.find_by(:year => 2016, :season => 'Spring')
 
     @current_courses = @department.courses.where(:last_taught_semester => @current_semester)
 
