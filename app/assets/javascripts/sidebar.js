@@ -103,7 +103,7 @@ var ready = function() {
 						return {
 							label: item.mnemonic_number + " " + item.title,
 							value: item.mnemonic_number,
-							course_id: item.course_id
+							course_id: item.id
 						}
 					}));
 				}
