@@ -24,9 +24,13 @@ html
           .row#header
             #course-name
               h1.page-title= yield(:page_heading)
-              - if content_for?(:course_professor)
-                #professor-name
-                  h3.page-title = yield(:course_professor)
+              - if controller.controller_name == "courses" && controller.action_name == "show"
+                select.professors-switcher
+                  - if @professor
+                    option id="professor-option" value="#{@professor.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{@professor.separated_name}"
+                  - @professors.sort_by{|prof| prof.last_name}.each do |p|
+                      - if p != @professor
+                        option value= "#{p.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{p.separated_name}"
             - if controller.controller_name == "courses" && controller.action_name == "show"
               #save-course
                 - if current_user and current_user.courses.include? @course

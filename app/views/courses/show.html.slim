@@ -4,19 +4,6 @@
 /- else
 /  -content_for :course_professor, "All Professors"
 
-.col-xs-4
-  select.professors-switcher
-    - if @professor
-      option id="professor-option" value="#{@professor.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{@professor.full_name}"
-    - @professors.sort_by{|prof| prof.last_name}.each do |p|
-        - if p != @professor
-          option value= "#{p.id}" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "#{p.full_name}"
-
-
-
-
-
-
 = javascript_include_tag "grades"
 = content_tag "div", id: "percentages", data: {percents: @course.get_grade_percentages(@professor ? @professor.id : -1)} do end
 = stylesheet_link_tag "courses"
