@@ -50,7 +50,10 @@ class SchedulerController < ApplicationController
     render :json => {
       :success => true,
       :results => courses.map do |course|
-        "#{course.mnemonic_number} - #{course.title}"
+        {
+          :label => "#{course.mnemonic_number} - #{course.title}",
+          :course_id => course.id
+        }
       end
     }
   end

@@ -220,8 +220,8 @@ $(document).ready(function() {
 				success: function(data) {
 					response($.map(data.results, function(item) {
 						return {
-							label: item,
-							value: item
+							label: item.label,
+							value: item.label
 						};
 					}));
 				}

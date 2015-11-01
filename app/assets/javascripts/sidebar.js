@@ -92,18 +92,17 @@ var ready = function() {
 	$('#search-query').autocomplete({
 		source: function(request, response) {
 			$.ajax({
-				url: '/search/search_subdepartment',
+				url: '/scheduler/search',
 				dataType: 'json',
 				type: 'GET',
 				data: {
 					query: request.term
 				},
 				success: function(data) {
-					response($.map(data, function(item) {
+					response($.map(data.results, function(item) {
 						return {
-							label: item.mnemonic_number + " " + item.title,
-							value: item.mnemonic_number,
-							course_id: item.id
+							label: item.label,
+							course_id: item.course_id
 						}
 					}));
 				}
