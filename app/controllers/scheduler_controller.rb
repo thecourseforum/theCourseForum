@@ -37,19 +37,34 @@ class SchedulerController < ApplicationController
   def search
     @query = params[:query].strip.split(' ')
     courses = []
+    params[:type] ||= 'current'
     if @query.length != 1 and !!/\A\d+\z/.match(@query[1])
-      courses += Course.includes(:subdepartment).current.where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
+      if params[:type] == 'current'
+        courses += Course.includes(:subdepartment).current.where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
+      else
+        courses += Course.includes(:subdepartment).where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
+      end
     end
     
     if !!/\A\d+\z/.match(@query[0])
-      courses += Course.includes(:subdepartment).current.where('course_number LIKE ?', "%#{@query[0]}%")
+      if params[:type] == 'current'
+        courses += Course.includes(:subdepartment).current.where('course_number LIKE ?', "%#{@query[0]}%")
+      else
+        courses += Course.includes(:subdepartment).where('course_number LIKE ?', "%#{@query[0]}%")
+      end
     end
 
-    courses += Course.includes(:subdepartment).current.where('title LIKE ?', "%#{@query[0]}%")
-    courses += Section.includes(:course => :subdepartment).where('topic LIKE ? AND semester_id = ?', "%#{@query[0]}%", 24).map(&:course).uniq
+    if params[:type] == 'current'
+      courses += Course.includes(:subdepartment).current.where('title LIKE ?', "%#{@query[0]}%")
+      courses += Section.includes(:course => :subdepartment).where('topic LIKE ? AND semester_id = ?', "%#{@query[0]}%", 27).map(&:course).uniq
+    else
+      courses += Course.includes(:subdepartment).where('title LIKE ?', "%#{@query[0]}%")
+      courses += Section.includes(:course => :subdepartment).where('topic LIKE ?', "%#{@query[0]}%").map(&:course).uniq
+    end
+
     render :json => {
       :success => true,
-      :results => courses.map do |course|
+      :results => courses.uniq.map do |course|
         {
           :label => "#{course.mnemonic_number} - #{course.title}",
           :course_id => course.id

@@ -96,7 +96,8 @@ var ready = function() {
 				dataType: 'json',
 				type: 'GET',
 				data: {
-					query: request.term
+					query: request.term,
+					type: 'all'
 				},
 				success: function(data) {
 					response($.map(data.results, function(item) {
