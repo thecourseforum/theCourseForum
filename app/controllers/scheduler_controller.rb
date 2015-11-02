@@ -2,6 +2,9 @@ class SchedulerController < ApplicationController
 
   require 'icalendar/tzinfo'
 
+  def error
+  end
+
 	def manual
     # calls export_ics if .ics is appended to the url (otherwise no special action)
     respond_to do |format|
