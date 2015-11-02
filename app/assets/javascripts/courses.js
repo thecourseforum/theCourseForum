@@ -148,6 +148,36 @@ ready = function() {
 
 	$("#courses-sidebar").css("height", $("#courses-main").height());
 
+	var professorFilter = "";
+	$(document).keydown(function(e) {
+		if ($('#professors-switcher').hasClass('open')) {
+			$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+				$(li).removeClass('hidden');
+			});
+			if (e.keyCode == 27) {
+				professorFilter = "";
+			} else if (e.keyCode == 8) {
+				e.preventDefault();
+				professorFilter = professorFilter.substring(0, professorFilter.length - 1);
+			} else {
+				professorFilter += String.fromCharCode(e.keyCode).toLowerCase();
+			}
+			$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+				var label = $(li).text().trim().toLowerCase();
+				if (label.indexOf(professorFilter) != 0) {
+					$(li).addClass('hidden');
+				}
+			});
+		}
+	});
+
+	$('#professors-switcher').on('hide.bs.dropdown', function() {
+		professorFilter = "";
+		$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+			$(li).removeClass('hidden');
+		});
+	});
+
 	voteUp = function() {
 		var review_id = this.id.match(/\d+/)[0];
 
