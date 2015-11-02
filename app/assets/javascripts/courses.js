@@ -71,10 +71,6 @@ ready = function() {
 
 	});
 
-	$('.professors-switcher').change(function() {
-		Turbolinks.visit(window.location.pathname + "?p=" + $(this).val());
-	});
-
 	$('#save-course-button').click(function() {
 		var course_name = $('#course-name').text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		course_name = course_name.split(' - ');

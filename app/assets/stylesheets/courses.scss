@@ -496,16 +496,10 @@ p {
   max-width: 160px;
 }
 
-.professors-switcher {
+#professors-switcher {
+  cursor: pointer;
   font-size: 24px;
-  border: 0px;
-  outline: 0px;
-  width: auto;
-  background-color: #EEE;
-  border-color: #EEE;
-  box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075);
   font-weight: 300;
-  margin-left: -7px;
 }
 
 // .no-grades {
