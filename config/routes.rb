@@ -58,7 +58,6 @@ TheCourseForum::Application.routes.draw do
   resources :search, :only => [] do
     collection do
       get :search
-      get :search_subdepartment
     end
   end
 

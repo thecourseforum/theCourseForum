@@ -23,12 +23,21 @@ class Course < ActiveRecord::Base
 
   after_create :create_overall_stats
 
+  def self.current
+    semester_id = Semester.find_by(:year => 2016, :season => 'Spring').id
+    Course.where(:last_taught_semester_id => semester_id)
+  end
+
   def professors_list
     self.professors.uniq{ |p| p.id }.sort_by{|p| p.last_name}
   end
 
   def mnemonic_number
-    @mnemonic_number ||= "#{subdepartment.mnemonic} #{course_number}"
+    if subdepartment
+      @mnemonic_number ||= "#{subdepartment.mnemonic} #{course_number}"
+    else
+      "N/A"
+    end
   end
 
   def book_requirements_list(status)
