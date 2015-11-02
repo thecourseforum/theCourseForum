@@ -74,11 +74,11 @@ html
                   label.btn.btn-primary#gpa
                     input#gpa-sort autocomplete="off" name="options" type="radio"
                     | GPA            
-            / - if controller.controller_name == "scheduler"
-            /    .btn-group.pull-right role="group"
-            /     button.btn.btn-default#how-to
-            /       span Confused? How to use
-            /       .glyphicon.glyphicon-info-sign            
+            - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
+               .btn-group.pull-right role="group"
+                button.btn.btn-default#how-to
+                  span Confused? How to use
+                  .glyphicon.glyphicon-info-sign
           .container-fluid#content-container
             = yield
       -# Necessary for rendering scheduler modals correctly      
