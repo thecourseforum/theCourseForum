@@ -25,8 +25,8 @@ TheCourseForum::Application.routes.draw do
   resources :courses, :only => [:show, :index, :show_professors]
 
   # temporary error page until scheduler is fixed
-  get '/scheduler' => 'scheduler#error'
-  # get '/scheduler' => 'scheduler#scheduler'
+  get '/scheduler/error' => 'scheduler#error'
+  get '/scheduler' => 'scheduler#scheduler'
   get '/scheduler/search' => 'scheduler#search'
   get '/scheduler/search_course' => 'scheduler#search_course'
   get '/scheduler/generate_schedules' => 'scheduler#generate_schedules'
