@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'resolv-replace'
 
 ActiveRecord::Base.logger.level = 1
 
@@ -12,7 +13,7 @@ initial_time = Time.now
 
 puts 'Wiping book_requirements...'
 
-semester_id = Semester.find_by(:season => 'Fall', :year => 2015).id
+semester_id = Semester.find_by(:season => 'Spring', :year => 2016).id
 
 ActiveRecord::Base.connection.execute("DELETE br.* FROM book_requirements AS br JOIN sections AS s ON s.id=br.section_id WHERE s.semester_id=#{semester_id}")
 

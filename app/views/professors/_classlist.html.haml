@@ -1,6 +1,0 @@
-%ul
-  - if course_professors.size > 0
-    - course_professors.each do |c|
-      %li= link_to (c.course.subdepartment.mnemonic + " " + c.course.course_number.to_s), c
-  - else
-    %li There are no reviews for this professor.

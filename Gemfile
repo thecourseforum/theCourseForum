@@ -28,6 +28,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Need rb-readline for rbenv (server)
+gem 'rb-readline'
+
 # Devise for User Authentication
 gem 'devise', '~> 3.2.4'
 
