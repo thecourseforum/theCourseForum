@@ -39,13 +39,18 @@
       .btn.btn-primary#clear-courses Clear Saved Courses
     h5#results-title Courses to use
     #results-box
-    br
+    br    
     .row.row-no-padding#search-footer
       .col-md-5
         #credits 0 credits
-      .col-md-7
-        .btn.btn-primary#generate-schedules Generate
-    .btn.btn-primary#generate-options Generate with Options
+      .col-md-5.pull-right
+        .btn-group#scheduler-buttons
+          button.btn.btn-default#generate-options Options        
+    br    
+    .row.row-no-padding
+      .col-md-10.col-md-offset-2
+        .btn-group#scheduler-buttons  
+          button.btn.btn-default#generate-schedules Generate Schedules            
 
   .course-result.hidden
     #content

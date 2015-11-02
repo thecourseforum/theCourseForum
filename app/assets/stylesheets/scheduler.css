@@ -113,10 +113,6 @@ body.modal-open {
 	float: right;
 }
 
-#generate-options {
-	margin-top: 6px;
-}
-
 .course-result #content:hover {
 	background-color: #ac4318;
 	border-color: #8d3713;
@@ -188,7 +184,7 @@ body.modal-open {
 	text-align: center;
 }
 
-#scheduler-buttons > button {
+#scheduler-buttons button {
 	border: 1px solid LightGray;
 	background-color: #eeeeee;
 	border-radius: 5px;
@@ -196,7 +192,7 @@ body.modal-open {
 }
 
 
-#scheduler-buttons > button:hover {
+#scheduler-buttons button:hover {
 	background-color: LightGray;
 }
 
