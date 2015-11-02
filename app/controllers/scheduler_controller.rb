@@ -2,6 +2,9 @@ class SchedulerController < ApplicationController
 
   require 'icalendar/tzinfo'
 
+  def error
+  end
+
 	def manual
     # calls export_ics if .ics is appended to the url (otherwise no special action)
     respond_to do |format|
@@ -87,7 +90,7 @@ class SchedulerController < ApplicationController
       # return an error if no such course was found
       render :nothing => true, :status => 404 and return unless course
 
-      semester = Semester.find_by(:year => 2015, :season => 'Fall')
+      semester = Semester.find_by(:year => 2016, :season => 'Spring')
       # Breaks up the course's sections by type, converting them to javascript sections,
       # and wraps the result in json
       render :json => course.as_json.merge({
@@ -344,7 +347,7 @@ class SchedulerController < ApplicationController
       events = [] #array to hold all the days in a section (MWF are 3 separate events that repeat weekly)
       tzid = "America/New_York" # time zone
 
-      firstMondayOfClasses = 24 # classes start tuesday August 25, 2015 
+      firstMondayOfClasses = 25 # classes start tuesday August 25, 2015
       # loop through each day of the section
      
 
@@ -369,8 +372,8 @@ class SchedulerController < ApplicationController
         endingMinutes = endTimeString.slice(endTimeString.size-2, 2)
 
         # Construct DateTime objects using the above values (and hardcoded august)
-        event_start = DateTime.new(2015, 8, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be something otherwise it doesn't add? (weird af)
-        event_end = DateTime.new(2015, 8, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
+        event_start = DateTime.new(2016, 1, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be something otherwise it doesn't add? (weird af)
+        event_end = DateTime.new(2016, 1, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
 
         # assign this to event's start and end fields along with the timezone
         event.dtstart = Icalendar::Values::DateTime.new event_start, 'tzid' => tzid
@@ -380,7 +383,7 @@ class SchedulerController < ApplicationController
         event.summary = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
         event.description = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
         event.location = section.locations.first.location
-        event.rrule = "FREQ=WEEKLY;UNTIL=20151208T000000Z" #repeats once a week until hardcoded course end date (could do COUNT= if num occurences is known)
+        event.rrule = "FREQ=WEEKLY;UNTIL=20160503T000000Z" #repeats once a week until hardcoded course end date (could do COUNT= if num occurences is known)
 
         #other unused fields
         #event.klass
