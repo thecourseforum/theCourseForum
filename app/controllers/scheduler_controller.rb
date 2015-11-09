@@ -22,8 +22,15 @@ class SchedulerController < ApplicationController
   end
 
   def destroy
-    current_user.schedules = []
-    render :nothing => true
+    if (params[:schedule_ids])      
+      current_user.schedules.delete_if { |s| params[:schedule_ids].include?(s.id) }
+      schedules = Schedule.find(params[:schedule_ids])
+      schedules.each(&:destroy)
+      render :json => current_user.schedules and return
+    else 
+      current_user.schedules = []
+      render :nothing => true
+    end
   end
 
   def course

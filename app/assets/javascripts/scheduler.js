@@ -486,7 +486,26 @@ $(document).ready(function() {
 			method: 'DELETE',
 			success: function() {
 				savedSchedules = [];
-				alert('Saved schedules cleared!');
+				alert('Saved schedules cleared!');				
+			}
+		});
+	});
+
+	$('#delete-selected-schedules').click(function() {
+		var selectedScheduleIds = [];
+		$('.schedules').children(':checked').each(function(index, checkbox) {
+				selectedScheduleIds.push(parseInt(checkbox.name));
+			});		
+		console.log(selectedScheduleIds);
+		$.ajax('scheduler/schedules', {
+			method: 'DELETE',
+			data: {
+				schedule_ids: selectedScheduleIds
+			},
+			success: function(response) {				
+				savedSchedules = response;
+				alert('Selected schedules deleted!');
+				$('#load-schedules-modal').modal('hide');
 			}
 		});
 	});
