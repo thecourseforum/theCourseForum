@@ -63,11 +63,23 @@ FactoryGirl.define do
     units 3
     association :course
     association :semester
+    
+    factory :second_section do
+      sis_class_number 16937
+      section_number 2
+    end
+
   end
 
   factory :section_professor do
     association :section
     association :professor
+
+    factory :second_section_professor do
+      association :second_section
+    end
+
+
   end
 
   factory :course do
@@ -75,4 +87,6 @@ FactoryGirl.define do
     course_number 2150
     association :subdepartment
   end
+
+
 end
