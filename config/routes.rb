@@ -25,6 +25,8 @@ TheCourseForum::Application.routes.draw do
   
   resources :courses, :only => [:show, :index, :show_professors]
 
+  # temporary error page until scheduler is fixed
+  get '/scheduler/error' => 'scheduler#error'
   get '/scheduler' => 'scheduler#scheduler'
   get '/scheduler/search' => 'scheduler#search'
   get '/scheduler/search_course' => 'scheduler#search_course'
@@ -37,6 +39,7 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/schedules' => 'scheduler#index'
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
+
 
   resources :bugs
 
@@ -68,7 +71,6 @@ TheCourseForum::Application.routes.draw do
   resources :search, :only => [] do
     collection do
       get :search
-      get :search_subdepartment
     end
   end
 

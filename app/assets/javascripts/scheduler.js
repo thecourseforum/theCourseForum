@@ -220,8 +220,8 @@ $(document).ready(function() {
 				success: function(data) {
 					response($.map(data.results, function(item) {
 						return {
-							label: item,
-							value: item
+							label: item.label,
+							value: item.label
 						};
 					}));
 				}
@@ -842,8 +842,6 @@ $(document).ready(function() {
 		} else {
 			$('#schedule-name').text(name);
 		}
-
-		$('#gpa').text("Estimated GPA: " + schedule.gpa.toFixed(2));
 	}
 
 	// checks if  section has been saved so that it can be marked as checked

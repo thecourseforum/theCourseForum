@@ -52,17 +52,20 @@ FactoryGirl.define do
   end
 
   factory :semester do
-    number 1158
-    season 'Fall'
-    year 2015
+    number 1162
+    season 'Spring'
+    year 2016
   end
 
   factory :section do
-    sis_class_number 16936
+    sis_class_number 17471
     section_number 1
     units 3
     association :course
     association :semester
+    after(:create) do |section|
+      section.course.update(:last_taught_semester => Semester.first)
+    end
   end
 
   factory :section_professor do

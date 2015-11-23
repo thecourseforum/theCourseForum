@@ -23,19 +23,23 @@ html
           - if content_for?(:page_heading)
           .row#header
             #course-name
-              - if content_for?(:course_link)
-                a.title-link href="#{yield(:course_link)}"
-                  h1.page-title= yield(:page_heading)
-              - else                
-                h1.page-title= yield(:page_heading)
-              - if content_for?(:course_professor)
-                - if content_for?(:professor_link)
-                  a.title-link href="#{yield(:professor_link)}"
-                    #professor-name
-                      h3.page-title = yield(:course_professor)
-                - else
-                  #professor-name
-                    h3.page-title = yield(:course_professor)                
+              h1.page-title= yield(:page_heading)
+              - if controller.controller_name == "courses" && controller.action_name == "show"
+                #professors-switcher.dropdown
+                  .dropdown-toggle data-toggle="dropdown" type="button"
+                    = @professor ? "#{@professor.separated_name} " : "All Professors "
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a href="/courses/#{@course.id}?p=all" All Professors
+                    - last_letter = "a"
+                    - @professors.sort_by{ |prof| prof.last_name}.each do |professor|
+                      - if professor != @professor
+                        - if professor.last_name[0] != last_letter
+                          li.divider
+                          - last_letter = professor.last_name[0]
+                        li
+                          a href="/courses/#{@course.id}?p=#{professor.id}" = professor.separated_name
             - if controller.controller_name == "courses" && controller.action_name == "show"
               #save-course
                 - if current_user and current_user.courses.include? @course
@@ -47,7 +51,7 @@ html
                 .btn-group data-toggle="buttons"
                   label.btn.btn-primary.active
                     input#current autocomplete="off" name="options" type="radio"
-                    | Fall 2015
+                    | Spring 2016
                   label.btn.btn-primary
                     input#all autocomplete="off" name="options" type="radio"
                     | All
@@ -56,15 +60,25 @@ html
                 .btn-group data-toggle="buttons"
                   label.btn.btn-primary.active
                     input#current.active autocomplete="off" name="options" type="radio"
-                    | Fall 2015
+                    | Spring 2016
                   label.btn.btn-primary
                     input#all autocomplete="off" name="options" type="radio"
                     | All
-            - if controller.controller_name == "scheduler"
+                .btn-group#prof-sort data-toggle="buttons"
+                  label.btn.btn-primary.active#rating
+                    input#rating-sort autocomplete="off" name="options" type="radio" 
+                    | Rating
+                  label.btn.btn-primary#difficulty
+                    input#difficulty-sort autocomplete="off" name="options" type="radio"
+                    | Difficulty
+                  label.btn.btn-primary#gpa
+                    input#gpa-sort autocomplete="off" name="options" type="radio"
+                    | GPA            
+            - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
                .btn-group.pull-right role="group"
                 button.btn.btn-default#how-to
                   span Confused? How to use
-                  .glyphicon.glyphicon-info-sign            
+                  .glyphicon.glyphicon-info-sign
           .container-fluid#content-container
             = yield
       -# Necessary for rendering scheduler modals correctly      
