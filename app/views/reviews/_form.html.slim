@@ -3,7 +3,7 @@
     #error-explaination
       h2
         = pluralize(@review.errors.count, "error")
-        = "prohibited this review from being saved:"
+        = " prohibited this review from being saved:"
       ul
         - @review.errors.full_messages.each do |msg|
           li
@@ -165,28 +165,28 @@
           span
             |  Reading:
         .col-xs-8
-          = f.number_field :amount_reading, :id => "readingfield", :value => (@review.amount_reading > 0 ? @review.amount_reading.to_i : ""), :min => 0, class: "form-control"
+          = f.number_field :amount_reading, :id => "readingfield", :value => ( (@review.amount_reading? and @review.amount_reading > 0) ? @review.amount_reading.to_i : 0), :min => 0, class: "form-control"
       .row.average-stat
         .col-xs-4
           span.glyphicon.glyphicon-edit
           span
             |  Writing:
         .col-xs-8
-          = f.number_field :amount_writing, :id => "writingfield", :value => (@review.amount_writing > 0 ? @review.amount_writing.to_i : ""), :min => 0, class: "form-control"
+          = f.number_field :amount_writing, :id => "writingfield", :value => ( (@review.amount_writing? and @review.amount_writing > 0) ? @review.amount_writing.to_i : 0), :min => 0, class: "form-control"
       .row.average-stat
         .col-xs-4
           span.glyphicon.glyphicon-user
           span
             |  Groupwork:
         .col-xs-8
-          = f.number_field :amount_group, :id => "groupfield", :value => (@review.amount_group > 0 ? @review.amount_group.to_i : ""), :min => 0, class: "form-control"
+          = f.number_field :amount_group, :id => "groupfield", :value => ( (@review.amount_group? and @review.amount_group > 0) ? @review.amount_group.to_i : 0), :min => 0, class: "form-control"
       .row.average-stat
         .col-xs-4
           span.glyphicon.glyphicon-file
           span
             |  Homework:
         .col-xs-8
-          = f.number_field :amount_homework, :id => "homeworkfield", :value => (@review.amount_homework > 0 ? @review.amount_homework.to_i : ""), :min => 0, class: "form-control"
+          = f.number_field :amount_homework, :id => "homeworkfield", :value => ( (@review.amount_homework? and @review.amount_homework > 0) ? @review.amount_homework.to_i : 0), :min => 0, class: "form-control"
 
   hr
 
