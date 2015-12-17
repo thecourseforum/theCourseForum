@@ -6,17 +6,7 @@ class BooksController < ApplicationController
 
   def show
     book = Book.find(params[:id])
-    @book = {
-      :book => book,
-      :image => (book.large_image_link ? book.large_image_link : Book.no_image_link),
-      :link => (book.amazon_affiliate_link ? book.amazon_affiliate_link : "#"),
-      :new_bookstore => (book.bookstore_new_price ? "$" + sprintf('%.2f', book.bookstore_new_price) : "N/A"),
-      :used_bookstore => (book.bookstore_used_price ? "$" + sprintf('%.2f', book.bookstore_used_price) : "N/A"),
-      :new_official_amazon => (book.amazon_official_new_price ? "$" + sprintf('%.2f', book.amazon_official_new_price) : "N/A"),
-      :used_official_amazon => (book.amazon_official_used_price ? "$" + sprintf('%.2f', book.amazon_official_used_price) : "N/A"),
-      :new_merchant_amazon => (book.amazon_merchant_new_price ? "$" + sprintf('%.2f', book.amazon_merchant_new_price) : "N/A"),
-      :used_merchant_amazon => (book.amazon_merchant_used_price ? "$" + sprintf('%.2f', book.amazon_merchant_used_price) : "N/A")
-    }
+    @book = book.format
     @sections = Section.find(book.sections.order(:semester_id).pluck(:id, :course_id).uniq(&:second).map(&:first))
     @textbook_transactions = book.textbook_transactions.active
   end

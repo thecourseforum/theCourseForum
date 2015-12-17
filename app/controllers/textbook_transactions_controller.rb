@@ -7,69 +7,14 @@ class TextbookTransactionsController < ApplicationController
   def listings
     where_clause = params[:book_id] ? {:book_id => params[:book_id]} : {}
 
-    @textbook_transactions = TextbookTransaction.active.
-      includes(:book => {:sections => {:course => :subdepartment}}).
-      group("textbook_transactions.id").
-      where(where_clause).
-      order('textbook_transactions.updated_at DESC').
-      pluck(
-        :id,
-        :price,
-        'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-        :book_id,
-        "books.title",
-        :medium_image_link,
-        :author,
-        :condition,
-        :notes,
-        "textbook_transactions.updated_at"
-      )
-
-    # Format into json style
-    @textbook_transactions = @textbook_transactions.map do |textbook_transaction|
-      {
-        :id => textbook_transaction[0],
-        :price => "$" + textbook_transaction[1].to_s,
-        :courses => textbook_transaction[2],
-        :link => "/books/#{textbook_transaction[3].to_s}",
-        :book_id => textbook_transaction[3],
-        :title => textbook_transaction[4].tr('*', ''),
-        :book_image => textbook_transaction[5] ? textbook_transaction[5] : Book.no_image_link,
-        :author => textbook_transaction[6],
-        :condition => textbook_transaction[7],
-        :notes => textbook_transaction[8] ? textbook_transaction[8] : "none",
-        :end_date => (textbook_transaction[9] + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
-      }
-    end
+    @textbook_transactions = TextbookTransaction.as_json(where_clause)
     
     render :json => @textbook_transactions
   end
 
   def books
     if request.format.to_s.include?('json')
-      # use references(:users) to make activerecord happy
-      @books = Book.includes(:users, :sections => {:course => :subdepartment}).
-        group("books.id").
-        order("follower_count DESC, RAND()").
-        pluck(
-          :id,
-          :title,
-          :medium_image_link,
-          'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-          'COUNT(DISTINCT users.id) AS follower_count'
-        )
-      
-      # Format into json
-      @books = @books.map do |book|
-        {
-          :id => book[0],
-          :title => book[1].tr('*', ''),
-          :medium_image_link => book[2],
-          :mnemonic_numbers => book[3],
-          :follower_count => book[4]
-        }
-      end
-
+      @books = Book.as_json
     end
 
     respond_to do |format|
@@ -93,8 +38,7 @@ class TextbookTransactionsController < ApplicationController
           :message => body
         )
 
-        if JSON.parse(response)["success"]
-        else 
+        if not JSON.parse(response)["success"]
           TextbookMailer.notify_of_claim(
             :seller => transaction.seller, 
             :buyer_contact => buyer_contact, 
@@ -222,6 +166,7 @@ class TextbookTransactionsController < ApplicationController
     @listing = TextbookTransaction.find(params[:listing_id])
 
     #TODO possibilities: mailer, reported column in table, generate bug, etc.
+    # handled in javascript for now
     
     render head: 200, :json => {}
   end
