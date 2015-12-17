@@ -21,7 +21,7 @@ headers = {
 	:Referer => "http://www.uvabookstores.com/uvatext/",
 }
 
-departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=92', headers)).departments.department
+departments = Nokogiri::Slop(RestClient.get('http://uvabookstores.com/uvatext/textbooks_xml.asp?control=campus&campus=77&term=108', headers)).departments.department
 departments = [departments] if departments.class == Nokogiri::XML::Element
 
 departments_queue = Queue.new
@@ -31,6 +31,11 @@ departments.each_with_index do |department, index|
 	departments_queue << department
 end
 
+# Preload all subdepartments and courses & professors
+subdepartments = Subdepartment.includes(:courses).load
+professors = Professor.all
+books = Book.all
+
 15.times do |index|
 	threads[index] = Thread.new do
 		while not departments_queue.empty?
@@ -38,7 +43,7 @@ end
 			mnemonic = xml_department['abrev']
 			department_id = xml_department['id']
 
-			subdepartment = Subdepartment.find_by(:mnemonic => mnemonic)
+			subdepartment = subdepartments.find_by(:mnemonic => mnemonic)
 
 			unless subdepartment
 				log.puts "No Subdepartment: #{mnemonic}"
@@ -47,7 +52,7 @@ end
 
 			puts "Parsing #{mnemonic}"
 
-			courses = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=department&dept=#{department_id}&term=92", headers)).courses.course
+			courses = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=department&dept=#{department_id}&term=108", headers)).courses.course
 			courses = [courses] if courses.class == Nokogiri::XML::Element
 			courses.each do |xml_course|
 				course_number = xml_course['name']
@@ -62,13 +67,13 @@ end
 
 				puts "Parsing #{mnemonic} #{course_number}"
 
-				xml_sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=92", headers)).sections.section
+				xml_sections = Nokogiri::Slop(RestClient.get("http://uvabookstores.com/uvatext/textbooks_xml.asp?control=course&course=#{course_id}&term=108", headers)).sections.section
 				xml_sections = [xml_sections] if xml_sections.class == Nokogiri::XML::Element
 				xml_sections.each do |xml_section|
 					section_number = xml_section['name']
 					section_id = xml_section['id']
 					instructor_last_name = xml_section['instructor'].split(',').first
-					prof_ids = Professor.where(:last_name => instructor_last_name).pluck(:id)
+					prof_ids = professors.where(:last_name => instructor_last_name).pluck(:id)
 
 					if section_number == "ALL"
 						section_ids = course.sections.joins(:professors).where(:semester_id => semester_id, :professors => {:id => prof_ids}).distinct.pluck(:id)
@@ -102,10 +107,10 @@ end
 						isbn = isbn == '' ? nil : isbn
 
 						if isbn
-							book = Book.find_by(:isbn => isbn)
+							book = books.find_by(:isbn => isbn)
 						else
 							# Stop duplicates, ex. "No Text - See Professor"
-							book = Book.find_by(:title => title)
+							book = books.find_by(:title => title)
 						end
 
 						if book
@@ -119,16 +124,20 @@ end
 								:bookstore_used_price => used_price
 							)
 						else
-							book = Book.create(
-								:title => title,
-								:author => author,
-								:publisher => publisher,
-								:edition => edition,
-								:binding => binding,
-								:isbn => isbn,
-								:bookstore_new_price => new_price,
-								:bookstore_used_price => used_price
-							)
+							begin
+								book = Book.create(
+									:title => title,
+									:author => author,
+									:publisher => publisher,
+									:edition => edition,
+									:binding => binding,
+									:isbn => isbn,
+									:bookstore_new_price => new_price,
+									:bookstore_used_price => used_price
+								)
+							rescue Exception => e
+								log.puts "Error while creating book: " + e.class.to_s
+							end
 						end
 
 						section_ids.each do |section_id|
