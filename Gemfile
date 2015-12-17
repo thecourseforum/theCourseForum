@@ -120,6 +120,3 @@ gem 'icalendar'
 
 # for new gradewheel or any other charing needed.
 gem "highcharts-rails", "~> 3.0.0"
-
-# for listing claim notifications
-gem "twilio-ruby"
