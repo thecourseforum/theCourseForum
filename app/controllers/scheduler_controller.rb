@@ -212,7 +212,7 @@ class SchedulerController < ApplicationController
         )
       end : nil
     end.compact
-    valid_schedules.map!.with_index do |schedule, index|
+    valid_schedules = valid_schedules.each_with_index.map do |schedule, index|
       {
         name: "Schedule \##{index + 1}",
         sections: schedule
