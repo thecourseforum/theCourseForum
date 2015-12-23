@@ -206,7 +206,7 @@ class SchedulerController < ApplicationController
           schedule << section
         end
       end
-      sections.count == schedule.count ? rsections_to_jssections(schedule).map.with_index do |jssection, i|
+      sections.count == schedule.count ? rsections_to_jssections(schedule).each_with_index.map do |jssection, i|
         jssection.merge(
           :title => schedule[i].course.mnemonic_number
         )
