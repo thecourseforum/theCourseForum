@@ -15,7 +15,7 @@ env:
 
 # Use Ruby 2.0.0
 rvm:
-  - 2.0.0
+  - 2.2.3
 
 notifications:
   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3

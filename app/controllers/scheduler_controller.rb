@@ -206,18 +206,18 @@ class SchedulerController < ApplicationController
           schedule << section
         end
       end
-      sections.count == schedule.count ? rsections_to_jssections(schedule).each_with_index.map do |jssection, i|
+      sections.count == schedule.count ? rsections_to_jssections(schedule).each_with_index.map { |jssection, i|
         jssection.merge(
           :title => schedule[i].course.mnemonic_number
         )
-      end : nil
+      } : nil
     end.compact
-    valid_schedules = valid_schedules.each_with_index.map do |schedule, index|
+    valid_schedules = valid_schedules.each_with_index.map { |schedule, index|
       {
         name: "Schedule \##{index + 1}",
         sections: schedule
       }
-    end
+    }
     render :json => valid_schedules and return
   end
 
