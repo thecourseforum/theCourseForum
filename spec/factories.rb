@@ -20,7 +20,7 @@ FactoryGirl.define do
       unless major
         major = create :major
       end
-      student.majors << major
+      student.student_majors.create(:major => major)
     end
   end
 

@@ -90,6 +90,9 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Database Cleaner to clear test databases
   gem 'database_cleaner'
+
+  gem 'minitest'
+  gem 'test-unit'
 end
 
 gem 'nprogress-rails'
