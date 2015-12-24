@@ -2,19 +2,19 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.2.4'
 
 # Use mysql as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.20'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # Use Skylight for Rails monitoring
 gem 'skylight'
@@ -28,17 +28,14 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
 # Need rb-readline for rbenv (server)
 gem 'rb-readline'
 
 # Devise for User Authentication
-gem 'devise', '~> 3.2.4'
+gem 'devise'
 
 # Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
-gem 'thumbs_up', '>=0.6.7'
+gem 'thumbs_up'
 
 # Word Cloud generator
 gem "jqcloud-rails", '~> 1.0'
