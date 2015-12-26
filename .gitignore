@@ -29,3 +29,8 @@
 # Ignore generated words.json file
 lib/words.json
 
+# Ignore compiled assets
+/public/assets
+
+# Ignore bundle
+/vendor/bundle
