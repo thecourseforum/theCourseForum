@@ -1,7 +1,3 @@
-Given /^the homepage$/ do
-  visit root_path
-end
-
 Given /^the user$/ do
   unless User.find_by(:email => 'aw3as@virginia.edu')
     FactoryGirl.create :student

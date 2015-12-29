@@ -13,9 +13,10 @@ Feature: Write a tCF Review
 
 	Scenario: should be able to write a review
 		When I write a review
-		Then I should see 'Comments'
-		And I should see 'Write Your Own Review!'
 		And I should see notice: 'Review was successfully created.'
+		And I click the link 'Aaron Bloomfield'
+		Then I should see 'Comment'
+		And I should see 'Test Review'
 
 	Scenario: should not be able to write a second review
 		When I write a review

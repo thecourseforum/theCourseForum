@@ -4,9 +4,8 @@ Feature: Go to about page
 	I want to be see the about page
 
 	Background:
-		Given a user is logged in				
+		Given a user is logged in
 
 	Scenario: should be able to navigate to the about page
 		When I click the link 'ABOUT'
 		Then I should see 'theCourseForum: What is it good for?'
-
