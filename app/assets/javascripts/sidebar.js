@@ -92,17 +92,17 @@ var ready = function() {
 	$('#search-query').autocomplete({
 		source: function(request, response) {
 			$.ajax({
-				url: '/search/search_subdepartment',
+				url: '/scheduler/search',
 				dataType: 'json',
 				type: 'GET',
 				data: {
-					query: request.term
+					query: request.term,
+					type: 'all'
 				},
 				success: function(data) {
-					response($.map(data, function(item) {
+					response($.map(data.results, function(item) {
 						return {
-							label: item.mnemonic_number + " " + item.title,
-							value: item.mnemonic_number,
+							label: item.label,
 							course_id: item.course_id
 						}
 					}));
@@ -111,7 +111,7 @@ var ready = function() {
 		},
 		minLength: 2,
 		select: function(event, ui) {
-			window.location = "/courses/" + ui.item.course_id + '?p=all';
+			window.location = "/courses/" + ui.item.course_id + '/professors';
 			return false;
 		}
 	});

@@ -1,5 +1,11 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
+# Tell TravisCI to use container-based testing (faster)
+sudo: false
+
+# Tell TravisCI to cache bundle installs
+cache: bundler
+
 # Language to use is Ruby
 language: ruby
 
@@ -9,7 +15,7 @@ env:
 
 # Use Ruby 2.0.0
 rvm:
-  - 2.0.0
+  - 2.2.3
 
 notifications:
   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
@@ -18,7 +24,6 @@ notifications:
 before_script:
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
-  - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - RAILS_ENV=test bundle exec rake db:create
   - export DISPLAY=:99.0
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16

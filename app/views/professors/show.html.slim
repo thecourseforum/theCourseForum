@@ -1,22 +1,74 @@
-- content_for :page_heading, "#{@professor.full_name}"
+= stylesheet_link_tag "professor"
 
-.col-xs-1
-	.avg-rating style="height: 90px; width: 90px; background-color: #D75626; color: #FFFFFF; text-align: center; padding-top: 10px;"
-		h1 = "#{@avg_rating}"
-		p Avg. Rating
-.col-xs-11
-	= "#{@professor.classification}, #{@professor[:department]}"
-	br
-	=link_to(@professor.primary_email,"mailto:#{@professor.primary_email}")
-	br
-	= "#{@professor.office_phone}"
-	br
-	= "Office: #{@professor.office_address}"
-hr style="border: solid 1px black; margin-top: 100px;"
-ul.professor-courses style="list-style-type: none; padding: 15px;"
-  - mnemonic = @courses.first.subdepartment.mnemonic
-  - @courses.each do |c|
-    - if c.subdepartment.mnemonic != mnemonic
-      - mnemonic = c.subdepartment.mnemonic
-      br
-    li= link_to "#{c.mnemonic_number} #{c.title}", course_path(c.id, :p => @professor.id)
+/ - content_for :page_heading, "#{@professor.full_name}"
+
+
+#professor-header
+  .col-md-4#professor-name
+    h1 = "#{@professor.full_name}"    
+    a#professor-email href="mailto:#{@professor.email}" = @professor.email 
+  #avg-rating.pull-right
+    h1 = "#{@avg_rating}"
+    p Avg. Rating
+  #avg-difficulty.pull-right
+    h1 = "#{@avg_difficulty}"
+    p Avg. Difficulty
+  #professor-contact
+    
+
+hr
+
+#professor-courses
+  - @course_groups.each do |subdepartment_chunk|
+    h3.subdepartment-name = subdepartment_chunk.first.name
+    - subdepartment_chunk.second.each do |course|
+      - stats = course[:course].stats.select { |stat| stat.professor == @professor}.first
+
+      .course-panel
+        .col-xs-4.name-block data-no-turbolink="" = link_to '/courses/' + course[:course].id.to_s + '?p=' + @professor.id.to_s
+          / .row.course-name = "#{subdepartment.mnemonic} #{course.course_number}"
+          .row.course-title = "#{course[:course].title}"
+        .col-xs-8.details-block
+          .info-header
+            .prof-info-header
+              .rating-block
+                .course-icon = image_tag("icons/overall.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span RATING
+                  .row.course-rating-row
+                    - if stats.rating
+                      h4.course-rating = stats.rating.round(2)
+                    - else
+                      h4.rating-empty = "--"
+              .rating-block
+                .course-icon = image_tag("icons/difficulty.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span DIFFICULTY
+                  .row.course-rating-row
+                    - if stats.difficulty
+                      h4.course-rating = stats.difficulty.round(2)
+                    - else
+                      h4.rating-empty = "--"
+              .rating-block
+                .course-icon = image_tag("icons/chart.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span GPA
+                  .row.course-rating-row
+                    - if stats.gpa
+                      h4.course-rating = stats.gpa.round(2)
+                    - else
+                      h4.rating-empty = "--"
+            .semester-block
+              div style="float:right;"
+                .row.no-margin-left-row style="float:right;"
+                  span.semester-subheader LAST TAUGHT
+                .row.no-margin-left-row
+                  h4.semester = course[:course].section_professors.where(:professor_id => @professor.id).map(&:section).map(&:semester).compact.sort_by(&:number).last
+          / .row
+          /   - if course[:course].description
+          /     p.description = course[:course].description
+    br
+

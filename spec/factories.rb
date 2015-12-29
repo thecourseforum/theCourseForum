@@ -20,7 +20,7 @@ FactoryGirl.define do
       unless major
         major = create :major
       end
-      student.majors << major
+      student.student_majors.create(:major => major)
     end
   end
 
@@ -52,13 +52,13 @@ FactoryGirl.define do
   end
 
   factory :semester do
-    number 1158
-    season 'Fall'
-    year 2015
+    number 1162
+    season 'Spring'
+    year 2016
   end
 
   factory :section do
-    sis_class_number 16936
+    sis_class_number 17471
     section_number 1
     units 3
     association :course
@@ -69,6 +69,9 @@ FactoryGirl.define do
       section_number 2
     end
 
+    after(:create) do |section|
+      section.course.update(:last_taught_semester => Semester.first)
+    end
   end
 
   factory :section_professor do
@@ -87,6 +90,4 @@ FactoryGirl.define do
     course_number 2150
     association :subdepartment
   end
-
-
 end

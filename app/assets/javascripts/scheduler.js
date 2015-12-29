@@ -210,21 +210,19 @@ $(document).ready(function() {
 	});
 
 	$('#class-search').autocomplete({
+		minLength: 2,
 		source: function(request, response) {
 			$.ajax({
-				url: '/search/search_subdepartment',
-				dataType: 'json',
-				type: 'GET',
+				url: '/scheduler/search',
 				data: {
 					query: request.term
 				},
 				success: function(data) {
-					response($.map(data, function(item) {
+					response($.map(data.results, function(item) {
 						return {
-							label: item.mnemonic_number + " " + item.title,
-							value: item.mnemonic_number,
-							course_id: item.course_id
-						}
+							label: item.label,
+							value: item.label
+						};
 					}));
 				}
 			});
@@ -233,7 +231,7 @@ $(document).ready(function() {
 			$('.ui-autocomplete').css('width', ($('#class-search').parent().width()));
 		},
 		select: function(event, ui) {
-			courseSearch(ui.item.value);
+			courseSearch(ui.item.label);
 		}
 	});
 
@@ -844,8 +842,6 @@ $(document).ready(function() {
 		} else {
 			$('#schedule-name').text(name);
 		}
-
-		$('#gpa').text("Estimated GPA: " + schedule.gpa.toFixed(2));
 	}
 
 	// checks if  section has been saved so that it can be marked as checked

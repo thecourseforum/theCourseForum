@@ -2,6 +2,98 @@ var ready;
 
 ready = function() {
 
+	function sortProfessors(selector, attrName) {
+
+		return $($(selector).toArray().sort(function(professorA, professorB) {
+
+			// Compare two professors by a given stat
+			retVal = compareProfessors(professorA, professorB, attrName);
+
+			// Handle tie
+			if (retVal == 0) {
+				var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];
+
+				for (var i = 0; i < otherSortOptions.length; i++) {
+					// Get another stat
+					if (attrName != otherSortOptions[i]) {
+
+						// Compare by that stat
+						retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
+
+						// stop if found a tie breaker
+						if (retVal != 0) {
+							break;
+						}
+						// if three-way tie, return 0
+						if (i == 2 && retVal == 0) {
+							return 0;
+						}
+					}
+				}
+			}
+
+			return retVal;
+
+		}));
+	}
+
+	// Compares two professor panel elements by a given stat (id)
+	function compareProfessors(professorA, professorB, stat) {
+		// Get stat to sort by (rating, difficulty, gpa)
+		var aVal = parseFloat($(professorA).find(stat).text()),
+			bVal = parseFloat($(professorB).find(stat).text()),
+			retVal = bVal - aVal;
+
+		// Handle no stat
+		if (isNaN(aVal) && !isNaN(bVal)) {
+			return 1;
+		} else if (isNaN(bVal) && !isNaN(aVal)) {
+			return -1;
+		} else if (isNaN(bVal) && isNaN(aVal)) {
+			retVal = 0;
+		}
+
+		// Sort difficulty ascending
+		if (stat == ".course-difficulty") {
+			retVal = retVal * -1;
+		}
+
+		return retVal;
+	}
+
+
+	// Sort professors by stats
+	$('#prof-sort').change(function() {
+
+		// id of stat to sort by		
+		var sortString = ".course-" + $(this).find('.active')[0].id,
+			// class of which panels are displayed (current semester or all)
+			selectorString = $("#all").parent().hasClass("active") ? ".prof-panel.all" : ".prof-panel.current",
+			// how many panels there are (to know when to trigger the next animation)
+			numPanels = $(selectorString).length,
+			slidPanels = 0,
+			// sorted list of professors
+			profList = sortProfessors($(".prof-panel"), sortString);
+		// if the number of panels displayed is small enough to have smooth animations, animate the change
+		if (numPanels < 50) {
+			// slide up all the panels. then, on complete, add the sorted ones and slide down what is needed.
+			$(selectorString).slideUp(350, function() {
+				slidPanels++;
+				if (slidPanels == numPanels) {
+					$(".prof-panel-container").empty();
+					$(".prof-panel-container").append(profList);
+					$(selectorString).slideDown(350);
+				}
+			});
+		} else {
+			// else just pop on the sorted list
+			$(".prof-panel-container").empty();
+			$(".prof-panel-container").append(profList);
+		}
+	});
+
+
+
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
 			appendReviews();
@@ -45,7 +137,6 @@ ready = function() {
 		});
 
 	}
-
 
 	function appendReviews() {
 		var index = 0;
@@ -148,6 +239,40 @@ ready = function() {
 	}
 
 	$("#courses-sidebar").css("height", $("#courses-main").height());
+
+	var professorFilter = "";
+	$(document).keydown(function(e) {
+		if ($('#professors-switcher').hasClass('open')) {
+			if (e.keyCode == 13) {
+				$($('#professors-switcher').children('ul').children('li:not(.hidden)')[0]).children('a')[0].click();
+			} else {
+				$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+					$(li).removeClass('hidden');
+				});
+				if (e.keyCode == 27) {
+					professorFilter = "";
+				} else if (e.keyCode == 8) {
+					e.preventDefault();
+					professorFilter = professorFilter.substring(0, professorFilter.length - 1);
+				} else {
+					professorFilter += String.fromCharCode(e.keyCode).toLowerCase();
+				}
+				$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+					var label = $(li).text().trim().toLowerCase();
+					if (label.indexOf(professorFilter) != 0) {
+						$(li).addClass('hidden');
+					}
+				});
+			}
+		}
+	});
+
+	$('#professors-switcher').on('hide.bs.dropdown', function() {
+		professorFilter = "";
+		$.each($('#professors-switcher').children('ul').children('li'), function(idx, li) {
+			$(li).removeClass('hidden');
+		});
+	});
 
 	voteUp = function() {
 		var review_id = this.id.match(/\d+/)[0];
