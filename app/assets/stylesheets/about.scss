@@ -73,12 +73,6 @@ h4#us {
 	text-align: center;
 }
 
-.ustext {
-	text-align: center;
-	width: 100%;
-	height: 100%;
-}
-
 .aboutrow {
 	//list-style-type: none;
 	//font-size: 0px;
@@ -162,35 +156,47 @@ h5#major {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	width: 22.5%;
+	overflow: hidden;
 }
 
 .block img {
+	position: relative;
+	z-index: 1;
 	max-width: 100%;
 	height: auto;
 	margin: 0 0 10px;
 }
 
-.ushover {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	//width: 100%;
+
+.ustext {
+	position: relative;
+	text-align: center;
+	width: 100%;
 	height: 100%;
-	width: 100;
-	z-index: 10;
-	padding: 9px;
-	//margin: 0 0 2.0% 2.0%;
-	background: #fff;
-	border: 1px solid #ddd;
-	//font-size:16px;
-	//font-size: 1rem;
-	//vertical-align: top;
-	//box-shadow: 0 0 5px #ddd;
-	//box-sizing: border-box;
-	//-moz-box-sizing: border-box;
-	//-webkit-box-sizing: border-box;
-	//width: 200px;
+	transition: all 0.5s ease;
+	z-index:0;
+	will-change: transform;
+}
+
+.ushover {
+	opacity: 0;
+	position: absolute;
+	bottom: -160px;
+	left: 0;
+	text-align: center;
+	width: 100%;
+	transition: all 0.5s ease;
+	will-change: transform;
+}
+
+.block:hover .ushover {
+	opacity: 100;
+	transform: translateY(-190px);
+}
+
+.block:hover .ustext {
+	opacity: 0;
+	transform: translateY(-200px);
 }
 
 @media screen and (max-width: 992px) { //two columns
