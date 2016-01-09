@@ -5,48 +5,49 @@
 = stylesheet_link_tag "show_professors"
 = stylesheet_link_tag "departments"
 
-.container-fluid#browsing-content
-  - @professors.each do |professor|
-    - current = @professors_semester[professor.id].to_s == 'Fall 2015'
-    - stats = @course.stats.select { |stat| stat.professor == professor}.first
-    .prof-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
-      .col-xs-4.prof-name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
-        .row.prof-title= "#{professor.first_name} #{professor.last_name}"
-      .col-xs-7.prof-details-block
-        .prof-info-header
-            .rating-block
-              .course-icon = image_tag("icons/overall.png", size: "20")
-              .rating-container
-                .row.rating-subheader
-                  span RATING
-                .row.course-rating-row
-                  - if stats.rating
-                    h4.course-rating = stats.rating.round(2)
-                  - else
-                    h4.rating-empty = "--"
-            .rating-block
-              .course-icon = image_tag("icons/difficulty.png", size: "20")
-              .rating-container
-                .row.rating-subheader
-                  span DIFFICULTY
-                .row.course-rating-row
-                  - if stats.difficulty
-                    h4.course-rating = stats.difficulty.round(2)
-                  - else
-                    h4.rating-empty = "--"
-            .rating-block
-              .course-icon = image_tag("icons/chart.png", size: "20")
-              .rating-container
-                .row.rating-subheader
-                  span GPA
-                .row.course-rating-row
-                  - if stats.gpa
-                    h4.course-rating = stats.gpa.round(2)
-                  - else
-                    h4.rating-empty = "--"
-        .time
-          div style="float:right;"
-            .row.no-margin-row style="float:right;"
-              span.semester-subheader LAST TAUGHT
-            .row.no-margin-row
-              h4.semester = @professors_semester[professor.id]
+.container-fluid#browsing-content  
+  .prof-panel-container
+    - @professors.each do |professor|
+      - current = @professors_semester[professor.id].to_s == 'Spring 2016'
+      - stats = @course.stats.select { |stat| stat.professor == professor}.first
+      .prof-panel class="#{current ? 'current' : 'all'}" style="display: #{current ? 'flex' : 'none'};"
+        .col-xs-4.prof-name-block data-no-turbolink=""= link_to "#{course_path(@course)}?p=#{professor.id}"
+          .row.prof-title= "#{professor.first_name} #{professor.last_name}"
+        .col-xs-7.prof-details-block
+          .prof-info-header
+              .rating-block
+                .course-icon = image_tag("icons/overall.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span RATING
+                  .row.course-rating-row
+                    - if stats.rating
+                      h4.course-rating = stats.rating.round(2)
+                    - else
+                      h4.rating-empty = "--"
+              .rating-block
+                .course-icon = image_tag("icons/difficulty.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span DIFFICULTY
+                  .row.course-rating-row
+                    - if stats.difficulty
+                      h4.course-difficulty = stats.difficulty.round(2)
+                    - else
+                      h4.rating-empty = "--"
+              .rating-block
+                .course-icon = image_tag("icons/chart.png", size: "20")
+                .rating-container
+                  .row.rating-subheader
+                    span GPA
+                  .row.course-rating-row
+                    - if stats.gpa
+                      h4.course-gpa = stats.gpa.round(2)
+                    - else
+                      h4.rating-empty = "--"
+          .time
+            div style="float:right;"
+              .row.no-margin-row style="float:right;"
+                span.semester-subheader LAST TAUGHT
+              .row.no-margin-row
+                h4.semester = @professors_semester[professor.id]

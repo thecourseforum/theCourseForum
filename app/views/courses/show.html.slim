@@ -1,12 +1,6 @@
 - content_for :page_heading, "#{@course.mnemonic_number} - #{@course.title}"
-- if @professor
-  - content_for :course_professor, "#{@professor.full_name}"
-- else
-  -content_for :course_professor, "All Professors"
 
 = javascript_include_tag "grades"
-
-
 = content_tag "div", id: "percentages", data: {percents: @course.get_grade_percentages(@professor ? @professor.id : -1)} do end
 = stylesheet_link_tag "courses"
 
@@ -106,7 +100,7 @@
           / .no-grades = image_tag "no-grades.png"
     br
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
-    - if @books_count == 0    
+    - if @books_count == 0
     - else
       h1 = "Textbooks"
       .row.title-row
@@ -124,7 +118,7 @@
                   .book-description
                     / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
                     - if book.amazon_affiliate_link
-                      h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title") 
+                      h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title")
                     - else
                       h4.title = book.title
                     p.author ="by #{book.author}"
@@ -166,7 +160,7 @@
                             .row.no-margin-row
                               .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
                             .row.no-margin-row
-                              .condition Used  
+                              .condition Used
                         .col-xs-6
                           - if check
                             btn.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "80x40"), book.amazon_affiliate_link, :target => '_blank'

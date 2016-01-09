@@ -1,11 +1,13 @@
-Given /^the link '([^"]*)'/ do |link|
-  visit link
+Given /^the user$/ do
+  unless User.find_by(:email => 'aw3as@virginia.edu')
+    FactoryGirl.create :student
+  end
 end
 
 Given /^a user is logged in$/ do
-  step "the link 'http://localhost:3000'"
+  step 'the user'
+  step 'the homepage'
   step "I login ui with 'aw3as@virginia.edu' 'password'"
-  step "I should see notice: 'Signed in successfully'"
 end
 
 When /^I login ui with '([^"]*)' '([^"]*)'/ do |user, password|
