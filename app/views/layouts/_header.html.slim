@@ -10,6 +10,18 @@ nav.navbar.navbar-default#header-navbar
         
     /! Collect the nav links, forms, and other content for toggling
     #navbar-header.collapse.navbar-collapse
+      //announcements
+      div.nav.navbar-nav.navbar-left.hidden-md class="#{current_user ? 'home' : 'login'}-announcements"
+        div overflow="auto"
+          p Welcome to theCourseForum.
+        div overflow="auto"
+          p Congrats on surviving the fall semester!
+          a href="/reviews/new" Write Reviews
+        div overflow="auto"
+          p Check out the faces behind tCF in the new About page.
+        div overflow="auto"
+          p Interested in the newest tCF redesign?
+          a target="_blank" href="http://blog.thecourseforum.com/thecourseforum-3-0/" Learn More
       ul.nav.navbar-nav.navbar-right.hidden-xs
         li
           a#report-bug FEEDBACK
