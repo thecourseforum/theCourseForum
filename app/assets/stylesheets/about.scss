@@ -37,23 +37,23 @@ h1#title {
 }
 
 h4#subtitle {
+	padding-top: 7px;
 	color: $orange;
 }
 
 p#about {
-	padding-top:5px;
+	padding-top:10px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
 
-img#banner {
-	//padding-top: 5px;
+#banner {
+	padding-top: 10px;
 	padding-bottom: 5px;
-	margin:auto;
-	width:90%;
 }
 
 p {
+	line-height: 1.5;
 	padding-bottom: 5px;
 }
 
@@ -71,12 +71,6 @@ h4#thanks {
 
 h4#us {
 	text-align: center;
-}
-
-.ustext {
-	text-align: center;
-	width: 100%;
-	height: 100%;
 }
 
 .aboutrow {
@@ -162,6 +156,7 @@ h5#major {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	width: 22.5%;
+	overflow: hidden;
 }
 
 .block img {
@@ -170,27 +165,36 @@ h5#major {
 	margin: 0 0 10px;
 }
 
-.ushover {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	//width: 100%;
+
+.ustext {
+	text-align: center;
+	width: 100%;
 	height: 100%;
-	width: 100;
-	z-index: 10;
-	padding: 9px;
-	//margin: 0 0 2.0% 2.0%;
-	background: #fff;
-	border: 1px solid #ddd;
-	//font-size:16px;
-	//font-size: 1rem;
-	//vertical-align: top;
-	//box-shadow: 0 0 5px #ddd;
-	//box-sizing: border-box;
-	//-moz-box-sizing: border-box;
-	//-webkit-box-sizing: border-box;
-	//width: 200px;
+	transition: all 0.5s ease;
+	will-change: transform;
+}
+
+.ushover {
+	opacity: 0;
+	position: absolute;
+	bottom: -160px;
+	left: 0;
+	text-align: center;
+	width: 100%;
+	transition: all 0.5s ease;
+	will-change: transform;
+}
+
+.block:hover .ushover {
+	opacity: 100;
+	-webkit-transform: translateY(-194px);
+	        transform: translateY(-194px);
+}
+
+.block:hover .ustext {
+	opacity: 0;
+	-webkit-transform: translateY(200px);
+	        transform: translateY(200px);
 }
 
 @media screen and (max-width: 992px) { //two columns
