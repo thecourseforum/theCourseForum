@@ -37,23 +37,23 @@ h1#title {
 }
 
 h4#subtitle {
+	padding-top: 7px;
 	color: $orange;
 }
 
 p#about {
-	padding-top:5px;
+	padding-top:10px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
 
-img#banner {
-	//padding-top: 5px;
+#banner {
+	padding-top: 10px;
 	padding-bottom: 5px;
-	margin:auto;
-	width:90%;
 }
 
 p {
+	line-height: 1.5;
 	padding-bottom: 5px;
 }
 

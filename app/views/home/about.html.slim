@@ -11,8 +11,9 @@
 
   p#about
     | theCourseForum is a product of the UVa community and the students that manage the site where UVa students can share their experiences about the classes they've taken. We aim to make the task of choosing your classes as easy as possible by providing distributions of past grades for the classes along with reviews of the classes by your fellow students. It's all run by students, for students, in order to make your academic experience at UVa the best it can be. Students themselves have the ability to leave an impact on the community by writing reviews and sharing their academic experience.  
-
-  img#banner=image_tag("about/banner_uva.jpg")
+  .row#banner
+    .col-xs-12
+      img#banner =image_tag("about/banner_uva.jpg", width: "100%", padding: "5 5 5 5")
 
   .row
     .col-xs-6
@@ -31,12 +32,13 @@
           | submit reviews.
         |  While the framework of the site is spectacular, what really makes theCourseForum is the reviews submitted by students. If that isn't enough, our team is always looking for more people interested in website designedn and more efficient use of our data. If that's for you, contact us at 
         = mail_to "support@thecourseforum.com", nil
-        |  experience not required.
+        | ; experience is not required.
 
       h4#thanks Thanks Amazon!
 
       p theCourseForum is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to amazon.
 
+//SMALLEST PICTURE TESTED THAT WORKS 399pixelsx532pixels
 .container-fluid#us-container
   .header
     h2#team Meet theTeam
@@ -189,7 +191,31 @@
       img =image_tag("about/jdao.png")
       .ustext
         h4#us Justin Dao
-        h5 Alumni
+        h5 Web | Alumni
       .ushover
         img =image_tag("about/jdao.png")
+        h4#class Class of 2015
+    .col-xs-3.text-center.block
+      img =image_tag("about/bwhitlow.png")
+      .ustext
+        h4#us Brian Whitlow
+        h5 Web | Alumni
+      .ushover
+        img =image_tag("about/bwhitlow.png")
+        h4#class Class of 2015
+    .col-xs-3.text-center.block
+      img =image_tag("about/aaberman.png")
+      .ustext
+        h4#us Alex Aberman
+        h5 Data | Alumni
+      .ushover
+        img =image_tag("about/aaberman.png")
+        h4#class Class of 2015
+    .col-xs-3.text-center.block
+      img =image_tag("about/sneel.png")
+      .ustext
+        h4#us Sara Neel
+        h5 Graphics | Alumni
+      .ushover
+        img =image_tag("about/sneel.png")
         h4#class Class of 2015
