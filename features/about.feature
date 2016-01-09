@@ -8,4 +8,4 @@ Feature: Go to about page
 
 	Scenario: should be able to navigate to the about page
 		When I click the link 'ABOUT'
-		Then I should see 'theCourseForum: What is it good for?'
+		Then I should see 'connecting you to the courses you love'
