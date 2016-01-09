@@ -38,22 +38,18 @@ h1#title {
 
 h4#subtitle {
 	padding-top: 7px;
+	padding-bottom: 10px;
 	color: $orange;
 }
 
 p#about {
-	padding-top:10px;
-	padding-bottom: 0px;
+	padding-bottom: 10px;
+	line-height: 1.5;
 	margin-bottom: 0px;
 }
 
 #banner {
 	padding-top: 10px;
-	padding-bottom: 5px;
-}
-
-p {
-	line-height: 1.5;
 	padding-bottom: 5px;
 }
 
@@ -76,7 +72,7 @@ h4#us {
 .aboutrow {
 	//list-style-type: none;
 	//font-size: 0px;
-	//display: inline-block;
+	//display: inline-about-block;
 	text-align: left;
 	padding-left:0px;
 	padding-right:0px;
@@ -104,7 +100,7 @@ h2#team {
 }
 
 #subhead { 
-	display:inline-block;
+	display:inline-about-block;
 	color: white;
 	width: 19%;
 	text-align:center;
@@ -130,12 +126,12 @@ h5#major {
 	display: inline;
 }
 
-.block h2 {
+.about-block h2 {
 	text-align: center;
 	margin: 0 0 5px;
 }
 
-.block h3 {
+.about-block h3 {
 	text-align:center;
 	font-size: .9em;
 	line-height: 1.5em;
@@ -143,7 +139,7 @@ h5#major {
 	margin: 0 0 5px;
 }
 
-.block {
+.about-block {
 	padding: 10px;
 	margin: 0 0 2.0% 2.0%;
 	background: #fff;
@@ -159,7 +155,7 @@ h5#major {
 	overflow: hidden;
 }
 
-.block img {
+.about-block img {
 	max-width: 100%;
 	height: auto;
 	margin: 0 0 10px;
@@ -185,20 +181,20 @@ h5#major {
 	will-change: transform;
 }
 
-.block:hover .ushover {
+.about-block:hover .ushover {
 	opacity: 100;
 	-webkit-transform: translateY(-194px);
 	        transform: translateY(-194px);
 }
 
-.block:hover .ustext {
+.about-block:hover .ustext {
 	opacity: 0;
 	-webkit-transform: translateY(200px);
 	        transform: translateY(200px);
 }
 
 @media screen and (max-width: 992px) { //two columns
-	.block {
+	.about-block {
 		class: '.col-md-6';
 		width: 45%;
 	}
