@@ -1,18 +1,12 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-// You can use CoffeeScript in this file: http://coffeescript.org/
-
-var listingsData = [],
-	booksData = [];
-
 var ready = function() {
 
-	var listingsToShow,
+	var listingsData = [],
+		booksData = [],
+		listingsToShow,
 		listingList,
 		booksToShow,
-		bookList;
-
-	const default_book_cover = '/assets/icons/no_book.png'
+		bookList,
+		default_book_cover = '/assets/icons/no_book.png';
 
 	// MyListings page, actions (remove, renew, report)
 	if ($('#my-listing-table').length) {
@@ -79,7 +73,7 @@ var ready = function() {
 			type: 'GET',
 			success: function(data) {
 				$('#listing-titles').removeAttr('disabled');
-				$('#listing-titles').attr('placeholder','e.g. ECON 2010 or Fatal Equilibrium');
+				$('#listing-titles').attr('placeholder', 'e.g. ECON 2010 or Fatal Equilibrium');
 				listingsData = data;
 				displayListings(listingsData);
 			}
@@ -100,7 +94,7 @@ var ready = function() {
 		});
 	}
 
-	$('#follow').click(function () {
+	$('#follow').click(function() {
 		var book_id = $(this).attr('data');
 		$.ajax({
 			url: '/books/follow',
@@ -109,7 +103,7 @@ var ready = function() {
 			data: {
 				book_id: book_id
 			},
-			success: function (data) {
+			success: function(data) {
 				if (data.status == "unfollowed") {
 					$('#followers p').text(parseInt($('#followers p').text()) - 1);
 					$('#follow').text('Follow');
@@ -163,7 +157,7 @@ var ready = function() {
 				success: function(data) {
 					location.reload();
 				},
-				error: function (data) {	
+				error: function(data) {
 					alert('Error: ' + JSON.parse(data.responseText).message);
 				}
 			});
@@ -171,6 +165,7 @@ var ready = function() {
 		}
 
 	});
+
 	function validateListing() {
 		var book_id = $('#post-choose').attr('book_id'),
 			cell = validateCell($('#cell-input-field').val()),
@@ -180,31 +175,28 @@ var ready = function() {
 			isValid = true;
 
 		// Check if book choosen
-		if (book_id) {
-		} else {
+		if (book_id) {} else {
 			flagInvalidInput($('#post-choose'));
 			isValid = false;
 		}
 		// Check cell phone
-		if (cell) {
-		} else {
+		if (cell) {} else {
 			flagInvalidInput($('#cell-input-field'));
 			isValid = false;
 		}
 		// Check price
-		if (price) {
-		} else {
+		if (price) {} else {
 			flagInvalidInput($('#price-input-field'));
 			isValid = false;
 		}
 		// Check condition
-		if (condition) {
-		} else {
+		if (condition) {} else {
 			flagInvalidInput($('#condition-input-field'));
 			isValid = false;
 		}
 		return isValid;
 	}
+
 	function validateCell(input) {
 		input = input.replace(/[^0-9]/g, '');
 		if (input.length == 10) {
@@ -213,10 +205,12 @@ var ready = function() {
 			return '';
 		}
 	}
+
 	function validatePrice(input) {
 		input = input.replace(/[^0-9]/g, '');
-		return input;	
+		return input;
 	}
+
 	function flagInvalidInput(element) {
 		element.css('-webkit-transition', 'box-shadow 1s ease, border 1s ease');
 		element.css('transition', 'box-shadow 1s ease, border 1s ease');
@@ -229,12 +223,12 @@ var ready = function() {
 			element.css('border', '');
 		}, 1000);
 	}
-	
+
 	// Claim modal
 	$(document).on('click', '.claim', function(event) {
 		var claim_id = $(this).attr('id'),
 			listing = findListing(claim_id);
-		
+
 		// Prevent multiple firings
 		event.stopImmediatePropagation();
 
@@ -248,7 +242,7 @@ var ready = function() {
 		$('#claim_price').text(listing.price);
 
 		$('#claim-listing-modal').modal();
-		
+
 		$('#submit-claim').on('click', function() {
 			$(this).off('click');
 			$.ajax({
@@ -258,15 +252,16 @@ var ready = function() {
 				success: function(data) {
 					location.reload();
 				},
-				error: function (data) {	
+				error: function(data) {
 					alert('Error: ' + JSON.parse(data.responseText).message);
 				}
 			});
 			$('#claim-listing-modal').modal('hide');
 		});
 	});
+
 	function findListing(id) {
-		return listingsData.filter(function (item) {
+		return listingsData.filter(function(item) {
 			return item.id == id;
 		})[0];
 	}
@@ -283,7 +278,7 @@ var ready = function() {
 				}
 			}));
 		},
-		focus: function(event, ui){
+		focus: function(event, ui) {
 			$('#post-thumb').css('height', 'auto');
 			$('#post-thumb').css('width', 'auto');
 			$('#post-thumb').attr('src', ui.item.image);
@@ -299,24 +294,24 @@ var ready = function() {
 		}
 	});
 
-	function filterBookData (dataArray, query) {
-		return dataArray.filter(function (item) {
+	function filterBookData(dataArray, query) {
+		return dataArray.filter(function(item) {
 			return item.title.toLowerCase().includes(query.toLowerCase()) || item.mnemonic_numbers.toLowerCase().includes(query.toLowerCase());
-		}).sort(function (a, b) {
+		}).sort(function(a, b) {
 			return a.title.length - b.title.length;
 		});
 	}
-	
-	function filterListingData (dataArray, query) {
-		return dataArray.filter(function (item) {
+
+	function filterListingData(dataArray, query) {
+		return dataArray.filter(function(item) {
 			return item.title.toLowerCase().includes(query.toLowerCase()) || item.courses.toLowerCase().includes(query.toLowerCase());
-		}).sort(function (a, b) {
+		}).sort(function(a, b) {
 			return a.title.length - b.title.length;
 		});
 	}
-	
+
 	// Search Listings
-	$('#listing-titles').keyup(function (key) {
+	$('#listing-titles').keyup(function(key) {
 		var query = $(this).val().toLowerCase();
 		if (query == '') {
 			displayListings(listingsData);
@@ -325,9 +320,9 @@ var ready = function() {
 		}
 	});
 
-	function displayListings (listings) {
+	function displayListings(listings) {
 		var emptyListing = $('.a-listing.hidden');
-		
+
 		listingList = $('#listing-list');
 		offset = 0;
 		listingsToShow = listings;
@@ -338,9 +333,10 @@ var ready = function() {
 		appendListings();
 
 	}
-	function appendListings () {
+
+	function appendListings() {
 		if (listingsToShow && listingsToShow.length >= offset) {
-			$.each(listingsToShow.slice(offset, offset+18), function (index, listing) {
+			$.each(listingsToShow.slice(offset, offset + 18), function(index, listing) {
 				var line = $('.a-listing.hidden').clone().removeClass('hidden'),
 					claim = line.find('.claim'),
 					price = line.find('.price'),
@@ -351,12 +347,12 @@ var ready = function() {
 
 				claim.attr('id', listing.id);
 				claim.attr('book_image', listing.book_image);
-				
+
 				price.text(listing.price);
-				
+
 				title.text(listing.title);
 				title.attr('href', listing.link);
-				
+
 				author.text(listing.author);
 				condition.text(listing.condition);
 				end_date.text(listing.end_date);
@@ -372,9 +368,9 @@ var ready = function() {
 		}
 	}
 
-	
+
 	// Search Textbooks
-	$('#book-titles').keyup(function (key) {
+	$('#book-titles').keyup(function(key) {
 		var query = $(this).val().toLowerCase();
 		if (query == '') {
 			displayBooks(booksData);
@@ -382,9 +378,10 @@ var ready = function() {
 			displayBooks(filterBookData(booksData, query));
 		}
 	});
-	function displayBooks (books) {
+
+	function displayBooks(books) {
 		var emptyBook = $('.link-block.hidden');
-		
+
 		bookList = $('#book-list');
 		offset = 0;
 		booksToShow = books;
@@ -394,9 +391,10 @@ var ready = function() {
 
 		appendBooks();
 	}
-	function appendBooks () {
+
+	function appendBooks() {
 		if (booksToShow && booksToShow.length >= offset) {
-			$.each(booksToShow.slice(offset, offset+24), function (index, book) {
+			$.each(booksToShow.slice(offset, offset + 24), function(index, book) {
 				var link = $('.link-block.hidden').clone().removeClass('hidden'),
 					block = link.find('.a-book'),
 					img = block.find('#cover-thumb'),
@@ -404,10 +402,10 @@ var ready = function() {
 					courses_text = book.mnemonic_numbers != '' ? 'Used in ' + book.mnemonic_numbers + "\n" : '';
 
 				link.attr('href', '/books/' + book.id);
-				link.attr('title', 
-					courses_text + 
+				link.attr('title',
+					courses_text +
 					"Followers: " + book.follower_count
-					);
+				);
 
 				title.text(book.title);
 				book.medium_image_link = book.medium_image_link ? book.medium_image_link : default_book_cover

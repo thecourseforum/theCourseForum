@@ -17,7 +17,7 @@
 //= require jquery.slick
 //= require turbolinks
 //= require bootstrap
-//= require d3
+//= require jquery.readyselector
 //= require moment
 //= require fullcalendar
 //= require jqcloud
