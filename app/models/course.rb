@@ -11,6 +11,8 @@ class Course < ActiveRecord::Base
   has_many :books, -> { uniq }, :through => :sections
   has_many :book_requirements, :through => :sections
 
+  has_many :textbook_transactions, :through => :books, :source => :active_listings
+
   has_and_belongs_to_many :users
 
   has_many :section_professors, :through => :sections

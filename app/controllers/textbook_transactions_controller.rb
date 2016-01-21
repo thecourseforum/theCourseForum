@@ -43,8 +43,9 @@ class TextbookTransactionsController < ApplicationController
             :seller => transaction.seller, 
             :buyer_contact => buyer_contact, 
             :transaction => transaction
-          ).deliver
+          ).deliver_now
         end
+
         render status: 202, :json => {}
         
         transaction.update(:buyer_id => current_user.id)

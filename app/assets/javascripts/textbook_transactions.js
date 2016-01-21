@@ -76,6 +76,14 @@ var ready = function() {
 				$('#listing-titles').attr('placeholder', 'e.g. ECON 2010 or Fatal Equilibrium');
 				listingsData = data;
 				displayListings(listingsData);
+
+				// Somehow not putting it in here will trigger book images not loading.. don't know why
+				setTimeout(function() {
+					if (window.location.search.indexOf("mnemonic=") != -1) {
+						$('#listing-titles').val(decodeURIComponent(window.location.search.split('=')[1]));
+						$('#listing-titles').keyup();
+					}
+				}, 0);
 			}
 		});
 	});
@@ -244,6 +252,10 @@ var ready = function() {
 		$('#claim-listing-modal').modal();
 
 		$('#submit-claim').on('click', function() {
+			if (!validateCell($('#claim-listing-modal [name=cellphone]').val())) {
+				flagInvalidInput($('#claim-listing-modal [name=cellphone]'));
+				return;
+			}
 			$(this).off('click');
 			$.ajax({
 				url: '/textbook_transactions/claim',
@@ -378,6 +390,19 @@ var ready = function() {
 			displayBooks(filterBookData(booksData, query));
 		}
 	});
+
+	$('#post-choose').click(function() {
+		drawFocusToBookSearch();
+	});
+
+	$('#post-thumb').click(function() {
+		drawFocusToBookSearch();
+	});
+
+	function drawFocusToBookSearch() {
+		$('#book-input-field').focus();
+		flagInvalidInput($('#book-input-field'));
+	}
 
 	function displayBooks(books) {
 		var emptyBook = $('.link-block.hidden');

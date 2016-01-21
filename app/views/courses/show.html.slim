@@ -102,9 +102,12 @@
     - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
     - if @books_count == 0
     - else
-      h1 = "Textbooks"
+      #textbook-header.row
+        .col-xs-6
+          h1 Textbooks
+        .col-xs-6.text-right
+          a.btn.btn-primary href="/textbooks/listings?mnemonic=#{@course.mnemonic_number}" = "#{pluralize(@course.textbook_transactions.count, 'listing')} for these books"
       .row.title-row
-        / h3 Textbooks
         .hr
           div.carousel
             - book_sets.each do |status, book_set|

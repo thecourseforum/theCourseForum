@@ -34,7 +34,7 @@
             .form-group
               label Cellphone #
               input#cell-input-field.form-control placeholder="9241235555" name="cellphone" value=(current_user ? current_user.cellphone : '')
-              p.help-block.text-center When someone "claims" (buys) your textbook, you will be connected via text to facilitate communication. Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
+              p.help-block.text-center When someone "claims" (buys) your textbook, you will be notified via text with the buyer's number to facilitate communication (we will fall-back to email if the text does not deliver). Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button" Cancel
             button.btn.btn-primary#submit-listing type="button" Submit
@@ -66,7 +66,7 @@
             .form-group
                 label Cellphone #
                 input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
-                p.help-block.text-center As soon as you hit "Claim", both you and the seller will be connected via text to facilitate communication. Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
+                p.help-block.text-center As soon as you hit "Claim", the seller will be notified via text with your number to facilitate communication (we will fall-back to email if the text does not deliver). Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button" Cancel
             button.btn.btn-primary#submit-claim type="button" Claim
