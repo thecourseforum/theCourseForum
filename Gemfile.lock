@@ -258,7 +258,7 @@ GEM
     skinny (0.2.3)
       eventmachine (~> 1.0.0)
       thin (~> 1.5.0)
-    skylight (0.10.1)
+    skylight (0.10.2)
       activesupport (>= 3.0.0)
     slim (3.0.6)
       temple (~> 0.7.3)
