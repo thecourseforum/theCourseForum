@@ -3,8 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "variables";
 
-
-
 #post-listing, #my-listings {
 	float: right;
 	margin-left: 5px;
@@ -44,6 +42,9 @@
 #listing-table {
 	#end-date {
 		min-width: 100px;
+	}
+	td {
+		vertical-align: middle;
 	}
 }
 
@@ -274,8 +275,12 @@
 }
 
 #post-listing-modal {
+	#listing-description {
+		margin-bottom: 5px;
+	}
+
 	#post-book-data {
-		min-height: 235px;
+		// min-height: 235px;
 		// width: 100%;
 		text-align: center;
 		#post-thumb {
@@ -343,6 +348,9 @@
 	}
 	#end-date-container {
 		overflow: auto;
+	}
+	button.btn-default {
+		border: 1px !important;
 	}
 }
 

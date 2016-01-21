@@ -1,12 +1,12 @@
-- content_for :page_heading, "Textbooks"
+- content_for :page_heading, "Textbook Lookup"
 
 ul.nav.nav-pills
-  li#listing_nav role="presentation" 
-    a href="/textbooks/listings" All Listings
   li#book_nav.active role="presentation" 
     a href="/textbooks" Books
+  li#listing_nav role="presentation"
+    a href="/textbooks/listings" = "All Listings (#{TextbookTransaction.count} books)"
   a#my-listings.btn.btn-lg href="/my_listings" role="button" My Listings
-  button#post-listing.btn.btn-lg Post!
+  button#post-listing.btn.btn-lg Sell
 
 hr
 
