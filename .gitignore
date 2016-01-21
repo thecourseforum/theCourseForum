@@ -16,7 +16,6 @@
 /books/*.log
 /tmp
 /config/database.yml
-/config/initializers/secret_token.rb
 
 # Ignore application configuration
 /config/application.yml
@@ -30,3 +29,8 @@
 # Ignore generated words.json file
 lib/words.json
 
+# Ignore compiled assets
+/public/assets
+
+# Ignore bundle
+/vendor/bundle

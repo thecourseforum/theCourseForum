@@ -1,5 +1,5 @@
-Beta:
-![build status](https://travis-ci.org/thecourseforum/theCourseForum.svg?branch=beta)
+Status:
+![build status](https://travis-ci.org/thecourseforum/theCourseForum.svg?branch=master)
 
 theCourseForum
 ==============

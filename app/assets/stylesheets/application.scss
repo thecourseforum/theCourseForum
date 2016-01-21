@@ -181,13 +181,15 @@ section#main {
 #welcome-container {
   margin-top: 20px;
   margin-bottom: 50px; // height of footer
-  color: white;
-  #about, #terms, #privacy {
-    a {
-      color: white;
-    }
-  }
+  //color: white;
 }
+
+#terms, #privacy {
+  color:white;
+  a {
+    color:white;
+  }
+  }
 
 select {
   @extend .form-control;
@@ -243,6 +245,12 @@ select {
   margin-top: 0px;
   margin-bottom: 0px;
   font-weight: 300;
+}
+
+.ui-autocomplete {
+  // z-index: 2147483647;
+  padding-left: 6px;
+  list-style: none;
 }
 
 #prof-sort {

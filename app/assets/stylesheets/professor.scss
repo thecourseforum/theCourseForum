@@ -1,3 +1,52 @@
 @import "variables";
 
+#professor-header {
+	display: block;
+	width: 100%;
+	height: 100px;
 
+	#avg-rating, #avg-difficulty {
+		padding: 10px;		
+		margin-right: 50px;
+		height: 100px; 
+		width: 162px;
+		float: left; 
+		background-color: $light-blue; 
+		color: white; 
+		text-align: center; 
+	}
+
+	#professor-name {
+		padding: 10px;		
+	}
+
+	#professor-email { 
+		color: $dark-blue; 
+		text-align: center; 
+	}
+
+	#professor-email:hover {
+		color: $orange;
+	}
+
+	#professor-contact {
+		float: right;
+	}
+	
+}
+
+.subdepartment-name {
+	padding-left:10px;
+	// margin-bottom: 20px;
+	// text-align: center;
+}
+.professor-semester {
+	margin-bottom: 10px;
+}
+
+#professor-courses {
+	.course-panel {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
