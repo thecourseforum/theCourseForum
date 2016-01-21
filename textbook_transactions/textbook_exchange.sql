@@ -14,7 +14,8 @@ CREATE TABLE `textbook_transactions` (
 	PRIMARY KEY (`id`),
 	KEY `index_textbook_transactions_on_seller_id_and_buyer_id` (`seller_id`, `buyer_id`) USING BTREE,
 	KEY `index_textbook_transactions_on_seller_id` (`seller_id`) USING BTREE,
-	KEY `index_textbook_transactions_on_buyer_id` (`buyer_id`) USING BTREE
+	KEY `index_textbook_transactions_on_buyer_id` (`buyer_id`) USING BTREE,
+	KEY `index_textbook_transactions_on_book_id` (`book_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `books_users` (

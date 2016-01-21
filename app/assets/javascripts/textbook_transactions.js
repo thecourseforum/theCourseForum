@@ -9,7 +9,7 @@ var ready = function() {
 		default_book_cover = '/assets/icons/no_book.png';
 
 	// MyListings page, actions (remove, renew, report)
-	if ($('#my-listing-table').length) {
+	$('#my-listing-table').ready(function() {
 		$(document).on('click', '.action', function() {
 			var actionName = $(this).attr('action'),
 				listing_id = $(this).attr('id');
@@ -34,22 +34,22 @@ var ready = function() {
 			}
 
 		});
-	}
+	});
 
 	// Infinite Scroll
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
-			if ($('#book-titles').length) {
+			$('#book-titles').ready(function() {
 				window.setTimeout(appendBooks, 500);
-			}
-			if ($('#listing-titles').length) {
+			});
+			$('#listing-titles').ready(function() {
 				window.setTimeout(appendListings, 500);
-			}
+			});
 		}
 	});
 
 	// Load textbook data
-	if ($('#post-listing').length) {
+	$('#post-listing').ready(function() {
 		$.ajax({
 			url: '/textbooks',
 			dataType: 'json',
@@ -58,15 +58,15 @@ var ready = function() {
 				// data is an array of objects
 				// Each object has the attributes: id, title, medium_image_link, mnemonic_numbers, follower_count
 				booksData = data;
-				if ($('#book-titles').length) {
+				$('#book-titles').ready(function() {
 					displayBooks(booksData);
-				}
+				});
 			}
 		});
-	}
+	});
 
 	// Load listings data
-	if ($('#listing-titles').length) {
+	$('#listing-titles').ready(function() {
 		$.ajax({
 			url: '/textbook_transactions/listings',
 			dataType: 'json',
@@ -78,10 +78,10 @@ var ready = function() {
 				displayListings(listingsData);
 			}
 		});
-	}
+	});
 
 	// Book show page - Load relevant listings data
-	if ($('#follow').length) {
+	$('#follow').ready(function() {
 		var id = $('#book-id').text().trim();
 
 		$.ajax({
@@ -92,7 +92,7 @@ var ready = function() {
 				listingsData = data;
 			}
 		});
-	}
+	});
 
 	$('#follow').click(function() {
 		var book_id = $(this).attr('data');
