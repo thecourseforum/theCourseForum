@@ -178,3 +178,40 @@ $button-width: 22px;
 .notransition {
     transition: none !important;
 }
+
+.login-announcements {
+  display: none;
+}
+
+.home-announcements > div { 
+    display: none;
+    max-height: $navbar-height;
+    max-width: 50%; 
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.home-announcements > div p {
+  float: left;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.home-announcements > div a {
+  float: right;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 100;
+  width: 120px;
+  height: 23px;
+  background: $light-blue;
+  color: white;
+  hover: white;
+  border-radius: 7px;
+}
