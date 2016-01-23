@@ -28,17 +28,17 @@
       span Followers:
       p = @book[:book].users.count
   #prices
-    a.link-block href="http://www.uvabookstores.com/uvatext/"
+    a.link-block href="http://www.uvabookstores.com/uvatext/" target="_blank"
       .book-price-col
         h4 UVA Bookstore
         h5 = "New: " + @book[:new_bookstore]
         h5 = "Used: " + @book[:used_bookstore]
-    a.link-block href="#{@book[:link]}"
+    a.link-block href="#{@book[:link]}" target="_blank"
       .book-price-col
         h4 Amazon Official
         h5 = "New: " + @book[:new_official_amazon]
         h5 = "Used: " + @book[:used_official_amazon]
-    a.link-block href="#{@book[:link]}"
+    a.link-block href="#{@book[:link]}" target="_blank"
       .book-price-col
         h4 Amazon Merchant
         h5 = "New: " + @book[:new_merchant_amazon]
