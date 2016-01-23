@@ -4,6 +4,13 @@ class BooksController < ApplicationController
   def index
   end
 
+  def show
+    book = Book.find(params[:id])
+    @book = book.format
+    @sections = Section.find(book.sections.order(:semester_id).pluck(:id, :course_id).uniq(&:second).map(&:first))
+    @textbook_transactions = book.textbook_transactions.active
+  end
+
   def courses
     mnemonics = JSON.parse(params[:mnemonics])
     courses = mnemonics.map do |mnemonic_number|
@@ -47,6 +54,22 @@ class BooksController < ApplicationController
     end
 
     render :json => [prefix,results]
+  end
+
+  def follow
+    @book = Book.find(params[:book_id])
+
+    if current_user.books.include?(@book)
+      current_user.books.delete(@book)
+      render :json => {
+        status: "unfollowed"
+      }
+    else
+      current_user.books << @book
+      render :json => {
+        status: "followed"
+      }
+    end
   end
 
 end

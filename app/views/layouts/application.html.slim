@@ -84,6 +84,9 @@ html
       -# Necessary for rendering scheduler modals correctly      
       - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
         = render 'scheduler/modals'
+      -# Necessary for rendering textbook_transaction modals correctly
+      - if controller.controller_name == "textbook_transactions" || controller.controller_name == "books"
+        = render 'textbook_transactions/modals'
     - else
       = render 'layouts/notice'
       .container-fluid#welcome-container

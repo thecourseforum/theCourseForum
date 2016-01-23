@@ -45,6 +45,17 @@
   margin-top: 8px;
   font-weight: 400;
 
+  #scheduler {
+    .beta {
+      margin-right: 25%;
+    }
+  }
+  #textbook-exchange {
+    .beta {
+      margin-right: 20%;
+    }        
+  }
+
   .nav-row {
     font-size: $sidebar-font-size;
     height: 100%;
@@ -55,6 +66,7 @@
       padding-top: 18px;
       padding-bottom: 18px;
       border-bottom: 1px solid rgba(255,255,255,0.5);
+      position: relative;
 
       .beta:hover {
         background-color: white;
@@ -71,6 +83,7 @@
         border-radius: 3px;
         padding: 0px 5px;
       }
+
 
       a {
         margin-left: $sidebar-left-margin;

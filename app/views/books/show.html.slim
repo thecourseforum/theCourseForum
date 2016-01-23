@@ -1,0 +1,68 @@
+#small-image-link.hidden = @book[:book].medium_image_link ? @book[:book].medium_image_link : Book.no_image_link
+#book-id.hidden = @book[:book].id
+
+.col-md-3
+  .text-center = image_tag @book[:image], :id => 'cover'
+  table.table#sections_table
+    thead
+      tr
+        th
+        th
+    tbody
+      - if @sections.length != 0
+        - @sections.each do |section|
+          tr
+            td.text-center = link_to section.course.mnemonic_number, "#{course_path(section.course)}?p=#{section.professors.first.id}"
+            td.text-center.nodecoration = section.semester.to_s
+      - else
+        tr
+          td.text-center.nodecoration colspan="2" Not used in any courses
+.col-md-9
+  .page-header
+    span title="Receive an email when someone posts a sale"
+      button#follow.btn.btn-lg type="button" data="#{@book[:book].id}" = current_user.books.include?(@book[:book]) ? "Unfollow" : "Follow"
+    button#sell-yours.btn.btn-lg type="button" Sell
+    h1#book-title = @book[:book].title
+    h3#book-author = @book[:book].author
+    #followers
+      span Followers:
+      p = @book[:book].users.count
+  #prices
+    a.link-block href="http://www.uvabookstores.com/uvatext/" target="_blank"
+      .book-price-col
+        h4 UVA Bookstore
+        h5 = "New: " + @book[:new_bookstore]
+        h5 = "Used: " + @book[:used_bookstore]
+    a.link-block href="#{@book[:link]}" target="_blank"
+      .book-price-col
+        h4 Amazon Official
+        h5 = "New: " + @book[:new_official_amazon]
+        h5 = "Used: " + @book[:used_official_amazon]
+    a.link-block href="#{@book[:link]}" target="_blank"
+      .book-price-col
+        h4 Amazon Merchant
+        h5 = "New: " + @book[:new_merchant_amazon]
+        h5 = "Used: " + @book[:used_merchant_amazon]
+  .col-md-12.nopadding
+    hr
+    table.table.table-striped#student-postings
+      thead
+        tr
+          th.text-hide#claim claim
+          th#price Price
+          th#condition Condition
+          th#notes Notes
+          th#end-date End Date
+      tbody#books
+        - if @textbook_transactions.length != 0
+          - @textbook_transactions.each do |transaction|
+            tr
+              td
+                input.claim.btn.btn-default type="submit" value="Claim" id="#{transaction.id}"
+              td.nodecoration.price = "$" + transaction.price.to_s
+              td.nodecoration.condition = transaction.condition
+              td.nodecoration.notes = transaction.notes
+              td.nodecoration.end_date = (transaction.created_at + TextbookTransaction.duration).localtime.strftime("%b %d, %I:%M %p")
+        - else
+          tr
+            td.text-center.nodecoration colspan="5" No current listings

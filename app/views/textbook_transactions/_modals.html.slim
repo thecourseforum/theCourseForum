@@ -1,0 +1,72 @@
+#post-listing-modal.modal.fade aria-hidden="true" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h3 Post a Listing (Sell Your Book)
+        .modal-body
+          #post-book-data
+            img#post-thumb
+            h4#post-choose Choose a Book
+          #listing-description.text-center
+            h4 = "Textbook Listings will be active (i.e. publicly listed) for #{TextbookTransaction.duration / 86400} days"
+          form#post_textbook_transaction
+            .form-group
+              label#search-label Search
+              input#book-input-field.form-control placeholder="enter title or course" name="title"
+              p.help-block
+            .form-group
+              label Price
+              ul.list-inline
+                li#dollar $
+                li#price-input
+                  input#price-input-field.form-control rows="3" name="price" placeholder="23"
+            .form-group
+              label Condition
+              select#condition-input-field
+                option
+                option value="New" New
+                option value="Good" Good
+                option value="Worn" Worn
+                option value="Usable" Usable
+            .form-group
+              label Notes
+              textarea#note-input-field.form-control rows="3" name="notes" placeholder="anything else you want to mention"
+            .form-group
+              label Cellphone #
+              input#cell-input-field.form-control placeholder="9241235555" name="cellphone" value=(current_user ? current_user.cellphone : '')
+              p.help-block.text-center When someone "claims" (buys) your textbook, you will be notified via text with the buyer's number to facilitate communication (we will fall-back to email if the text does not deliver). Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button" Cancel
+            button.btn.btn-primary#submit-listing type="button" Submit
+
+#claim-listing-modal.modal.fade aria-hidden="true" role="dialog" tabindex="-1"
+  .modal-dialog
+      .modal-content
+        .modal-header
+          #book-info-container
+            img#claim_cover
+            #claim_title_author
+              #claim_title 
+              #claim_author 
+              #claim_courses 
+          hr
+          #condition-container
+            label Condition
+            #claim_condition.info
+          #notes-container
+            label Notes
+            #claim_notes.info
+          #end-date-container
+            label End Date
+            #claim_end_date.info
+        .modal-body
+          #price-container
+            h1#claim_price 
+          form#claim_textbook_transaction
+            .form-group
+                label Cellphone #
+                input.form-control placeholder="" name="cellphone" value=(current_user ? current_user.cellphone : '')
+                p.help-block.text-center As soon as you hit "Claim", the seller will be notified via text with your number to facilitate communication (we will fall-back to email if the text does not deliver). Please report any wrong-doing or abuse to support@thecourseforum.com or via the Feedback button up top. Thank you!
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button" Cancel
+            button.btn.btn-primary#submit-claim type="button" Claim

@@ -14,7 +14,15 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :courses
   has_many :schedules, dependent: :destroy
 
-  #Provides citizenship and voter priveleges
+  # relationships for textbook listings
+  has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
+  has_many :inactive_listings, -> { where updated_at: Time.new(2000)..(Time.now - TextbookTransaction.duration), buyer_id: nil}, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
+  has_many :sold_listings, -> { where.not buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
+  has_many :claims, :class_name => TextbookTransaction, :foreign_key => 'buyer_id'
+
+  has_and_belongs_to_many :books
+
+  #Provides citizenship and voter privileges
   acts_as_voter
 
   # creates default settings

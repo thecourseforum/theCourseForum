@@ -1,0 +1,92 @@
+- content_for :title, "My Listings"
+- content_for :page_heading, "My Listings"
+
+- if @count > 0
+  table.table.table-striped#my-listing-table
+    tbody#listing-list
+    - @listings_by_type.each do |type, listings|
+      - if listings.count == 0
+        thead
+          tr
+            td.text-center.nodecoration.my-listing-label colspan="5" = "No #{type.capitalize} listings"
+      - else
+        thead
+          tr
+            td.text-center.nodecoration.my-listing-label colspan="5" = "#{type.capitalize} listings"
+          tr
+            th = @theaders[type][0]
+            th = @theaders[type][1]
+            th#condition = @theaders[type][2]
+            th#end-date = @theaders[type][3]
+            th = @theaders[type][4]
+        - listings.each do |listing|
+          tr.a-listing
+            td.nodecoration.price = "$" + listing.price.to_s
+            td.title 
+              a href="/books/#{listing.book_id}" = listing.book.title
+            td.nodecoration.condition = listing.condition
+            td.nodecoration.end_date = listing.send(@date[type]).localtime.send(*@date_action[type]).strftime("%b %d, %I:%M %p")
+            td
+              a.action id="#{listing.id}" action="#{@actions[type]}"
+                span class="#{@glyphicon_classes[type]}"
+- else
+  .row
+    .col-xs-12
+      | You haven't posted any listings
+  .row
+    .col-xs-12
+      = link_to "Post one now!", listings_path, :class => "btn btn-primary"
+
+hr#my-listing-separator
+
+- if @claimed.count > 0
+  table.table.table-striped#my-listing-table
+      tbody#listing-list
+        thead
+          tr
+            td.text-center.nodecoration.my-listing-label colspan="5" = "Claims"
+          tr
+            th Price
+            th Title
+            th#condition Condition
+            th#end-date Claim Date
+            th Report
+      - @claimed.each do |claim|
+          tr.a-listing
+            td.nodecoration.price = "$" + claim.price.to_s
+            td.title 
+              a href="/books/#{claim.book_id}" = claim.book.title
+            td.nodecoration.condition = claim.condition
+            td.nodecoration.end_date = claim.sold_at.localtime.strftime("%b %d, %I:%M %p")
+            td
+              a.action id="#{claim.id}" action="report"
+                span class="glyphicon glyphicon-flag"
+- else
+  .row
+    .col-xs-12
+      | You haven't made any claims
+  .row
+    .col-xs-12
+      = link_to "Find books", listings_path, :class => "btn btn-primary"
+
+hr#my-listing-separator
+
+- if @followed.count > 0
+    table.table.table-striped#my-listing-table
+      tbody#listing-list
+        thead
+          tr
+            td.text-center.nodecoration.my-listing-label colspan="5" = "Followed Books"
+          tr
+            th Title
+      - @followed.each do |book|
+          tr.a-listing
+            td.title 
+              a href="/books/#{book.id}" = book.title
+- else
+  .row
+    .col-xs-12
+      | You haven't followed any books
+  .row
+    .col-xs-12
+      = link_to "Find books", listings_path, :class => "btn btn-primary"

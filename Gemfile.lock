@@ -77,8 +77,6 @@ GEM
       mime-types (>= 1.16, < 3)
       nokogiri (~> 1.5)
       rails (>= 3, < 5)
-    d3_rails (3.5.11)
-      railties (>= 3.1.0)
     daemons (1.2.3)
     database_cleaner (1.5.1)
     devise (3.5.3)
@@ -328,7 +326,6 @@ DEPENDENCIES
   bootstrap-switch-rails (~> 3.0.0)
   coffee-rails
   cucumber-rails
-  d3_rails
   database_cleaner
   devise
   factory_girl_rails (~> 4.5.0)

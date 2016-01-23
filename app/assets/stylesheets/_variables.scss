@@ -3,6 +3,7 @@ $orange: #D75626;
 $blue: #15214B;
 $dark-blue: #445079;
 $light-blue: #6c8ac1;
+$uva-library-blue: #c1e1ec;
 $gray: #8C8A8A;
 
 // element sizes
@@ -77,4 +78,9 @@ $content-max-width: 1186px;
 @mixin align-items($val) {
   -webkit-align-items: $val;
   align-items: $val;
+}
+
+@mixin book-cover-border($val) {
+  box-shadow: 0 0 2px $val;
+  border: 1px solid $val;
 }

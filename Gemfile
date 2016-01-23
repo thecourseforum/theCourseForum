@@ -111,10 +111,10 @@ gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'jquery-slick-rails'
 
 gem 'touchpunch-rails'
-gem 'd3_rails'
 
 gem 'gon'
 gem 'rest-client'
+
 gem 'figaro'
 
 # for calendar exports

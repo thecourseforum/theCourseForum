@@ -1,0 +1,43 @@
+- content_for :page_heading, "Textbook Listings"
+
+ul.nav.nav-pills
+  li#book_nav role="presentation" 
+    a href="/textbooks" Books
+  li#listing_nav.active role="presentation"
+    a href="/textbooks/listings" = "All Listings (#{TextbookTransaction.active.count} books)"
+  a#my-listings.btn.btn-lg href="/my_listings" role="button" My Listings
+  button#post-listing.btn.btn-lg Sell
+  
+hr
+
+#titles-form.form-group.has-feedback
+  label.control-label for="search"  Search
+  = search_field_tag "listing-titles", nil, :class => 'form-control', :placeholder => "Loading...", :disabled => ''
+  .span.form-control-feedback
+
+table.table.table-striped#listing-table
+  thead
+    tr
+      th.text-hide#claim claim
+      th#price Price
+      th#title Title
+      th#author Author
+      th#condition Condition
+      th#end-date End Date
+  - if @count > 0
+    tbody#listing-list
+      tr.a-listing.hidden
+        td
+          input.claim.btn.btn-default type="submit" value="Claim" id=""
+        td.nodecoration.price
+        td.title
+          a href=""
+        td.nodecoration.author
+        td.nodecoration.condition
+        td.nodecoration.end_date
+      tr
+        td.text-center colspan="6" = "Loading #{@count} listings..."
+  - else
+    tbody
+      tr
+        td.text-center colspan="6" No listings posted

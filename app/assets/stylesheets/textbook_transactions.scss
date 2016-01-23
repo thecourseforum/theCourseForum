@@ -1,0 +1,378 @@
+// Place all the styles related to the textbook_transactions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
+
+#post-listing, #my-listings {
+	float: right;
+	margin-left: 5px;
+	right: 0px;
+	text-align: center;
+	top: -15px;
+	background-color: $light-blue;
+	color: white;
+	border-radius: 2px; 
+}
+
+
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus {
+    background-color: $light-blue;
+}
+
+.nav-pills > li {
+    background-color: #eeeeee;
+}
+
+.claim {
+	border-radius: 2px;
+	border: 1px solid $dark-blue;
+}
+
+.claim:hover {
+	background-color: $light-blue;
+}
+
+#submit-claim, #submit-listing {
+	background-color: $light-blue;
+	border-radius: 2px;
+}
+
+#listing-table {
+	#end-date {
+		min-width: 100px;
+	}
+	td {
+		vertical-align: middle;
+	}
+}
+
+#my-listing-table {
+	border-bottom: 2px solid #e8e8e8;
+
+	.my_listing_date {
+		min-width: 110px;
+	}
+	.my-listing-label {
+		background-color: #6C8AC1;
+		color: white;
+	}
+}
+#my-listing-separator {
+	border: 2px solid gray;
+	margin: 40px 1%;
+}
+@media (min-width: 1400px) {
+	.a-book {
+		width: 24%;
+	}
+}
+@media (max-width: 1400px) and (min-width: 1100px) {
+	.a-book {
+		width: 31.91%;
+	}
+}
+@media (max-width: 1100px) and (min-width: 500px) {
+	.a-book {
+		width: 47.47%;
+	}
+}
+@media (max-width: 760px) {
+	#end-date {
+		display: none;
+	}
+	.end_date {
+		display: none;
+	}
+}
+@media (max-width: 660px) {
+	#author {
+		display: none;
+	}
+	.author {
+		display: none;
+	}
+}
+@media (min-width: 570px) {
+	.book-price-col {
+		width: 33%;
+	}
+}
+@media (max-width: 570px) {
+	#condition {
+		display: none;
+	}
+	.condition {
+		display: none;
+	}
+	.book-price-col {
+		width: 100%;
+		// text-align: right;
+	}
+
+}
+@media (max-width: 500px) {
+	.a-book {
+		width: 100%;
+	}
+}
+@media (min-width: 450px) {
+	#follow, #sell-yours {
+		margin: 3px;
+	}
+}
+@media (max-width: 450px) {
+	#post-listing, #my-listings {
+		float: none;
+		width: 100%;
+		margin-top: 10px;
+		margin-left: 0;
+	}
+	#sections_table {
+		margin-bottom: -20px;
+	}
+	#followers {
+		width: 100%;
+	}
+	#follow {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	#sell-yours {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#listing_nav {
+		width: 54.5%;
+		a {
+			text-align: center;
+		}
+	}
+	#book_nav {
+		width: 44.5%;
+		a {
+			text-align: center;
+		}
+	}
+}
+@media (max-width: 320px) {
+	.table > tbody > tr > td {
+		padding: 4px;
+	}
+}
+
+#book-list {
+
+	.a-book:hover {
+		background-color: $uva-library-blue;
+	}
+	
+	div {
+		border-radius: 2px;
+		margin-bottom: 10px;
+		padding: 3px;
+		transition: background-color 0.5s ease;
+	}
+
+
+	.a-book {
+		border: 1px solid $uva-library-blue;
+		height: 82px;
+		padding: 11px;
+		margin: 5px;
+		float: left;
+		overflow: hidden;
+
+
+		#cover-thumb-container {
+			max-width: 50px;
+			float: left;
+			margin-right: 11px;
+			margin-bottom: 0;
+			padding: 0;
+    		height: 100%;
+			
+			#cover-thumb {
+				@include book-cover-border($light-blue);
+				max-width: 50px;
+				max-height: 60px;
+			}
+
+		}
+
+		#title-thumb-container {
+			margin: 0;
+			padding: 0;
+
+			#title-thumb {
+				margin: 0;
+				padding: 0;
+			}
+
+		}
+	}
+
+
+}
+
+
+#follow, #sell-yours {
+	float: right;
+	text-align: center;
+	background-color: $light-blue;
+	color: white;
+	border-radius: 2px;
+}
+
+#followers {
+	height: 20px;
+	
+	span {
+		float: left;
+	}
+
+	p {
+		float: left;
+		text-align: center;
+		width: 30px;
+	}
+}
+
+#prices {
+	display: inline;
+	position: relative;
+
+	h5 {
+		text-align: left;
+	}
+
+	.book-price-col {
+		z-index: 2000;
+		position: relative;
+		min-height: 1px;
+		padding-left: 15px;
+		padding-right: 15px;
+		float: left;
+	}
+
+	li {
+		display: inline;
+		float: left;
+	}
+
+}
+
+#cover {
+	box-shadow: 0 0 5px 2px $dark-blue;
+	max-width: 100%;
+	height: auto;
+	margin-top: 10px;
+}
+
+#student-postings {
+	margin-top: 20px;
+}
+
+#post-listing-modal {
+	#listing-description {
+		margin-bottom: 5px;
+	}
+
+	#post-book-data {
+		// min-height: 235px;
+		// width: 100%;
+		text-align: center;
+		#post-thumb {
+			@include book-cover-border($uva-library-blue);
+			background-color: $light-blue;
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			height: 180px;
+			width: 150px;
+		}
+		#post-choose {
+			display: inline-block;
+			padding: 6px 12px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+	}
+	#dollar {
+		padding-right: 0;
+	}
+	#price-input {
+		padding-left: 0;
+	}
+}
+
+#claim-listing-modal {
+	#book-info-container {
+		overflow: auto;
+		img {
+			@include book-cover-border($uva-library-blue);
+			float: left;
+			margin-right: 20px;
+		}
+		#claim_title_author {
+			float: left;
+			max-width: 50%;
+			#claim_title {
+				font-size: 1.5em;
+			}
+			#claim_author {
+				font-size: 1.2em;
+			}
+			#claim_courses {
+				margin-top: 30px;
+			}
+		}
+	}
+	.info {
+		float: right;
+	}
+	label {
+		float: left;
+	}
+	#price-container {
+		#claim_price {
+			text-align: center;
+		}
+	}
+	#condition-container {
+		overflow: auto;
+	}
+	#notes-container {
+		overflow: auto;
+	}
+	#end-date-container {
+		overflow: auto;
+	}
+	button.btn-default {
+		border: 1px !important;
+	}
+}
+
+.ui-autocomplete {
+	z-index: 2147483647;
+	padding-left: 12px;
+	list-style: none;
+}
+.nopadding {
+	padding: 0 !important;
+}
+.nodecoration {
+	text-decoration: none !important;
+	cursor: auto !important;
+}
+.link-block {
+	display: block;
+	z-index: 1000;
+}
+
+#books {
+	td {
+		vertical-align: middle;
+	}
+}

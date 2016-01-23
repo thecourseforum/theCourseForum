@@ -1,0 +1,24 @@
+- content_for :page_heading, "Textbook Lookup"
+
+ul.nav.nav-pills
+  li#book_nav.active role="presentation" 
+    a href="/textbooks" Books
+  li#listing_nav role="presentation"
+    a href="/textbooks/listings" = "All Listings (#{TextbookTransaction.active.count} books)"
+  a#my-listings.btn.btn-lg href="/my_listings" role="button" My Listings
+  button#post-listing.btn.btn-lg Sell
+
+hr
+
+#titles-form.form-group.has-feedback
+  label.control-label for="search"  Search
+  #titles = search_field_tag "book-titles", nil, :class => 'form-control', :placeholder => 'e.g. ECON 2010 or Fatal Equilibrium'
+  .span.form-control-feedback
+
+#book-list
+  a.link-block.hidden href=""
+    .a-book
+      #cover-thumb-container
+        img#cover-thumb.text-center.float-left src=""
+      #title-thumb-container
+        #title-thumb.float-left
