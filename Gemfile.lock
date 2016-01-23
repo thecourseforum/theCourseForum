@@ -135,6 +135,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    jwt (1.5.2)
     ledermann-rails-settings (2.4.0)
       activerecord (>= 3.1)
     libv8 (3.16.14.13)
@@ -299,6 +300,10 @@ GEM
       railties (>= 3.1)
     turbolinks (2.5.3)
       coffee-rails
+    twilio-ruby (4.2.1)
+      builder (>= 2.1.2)
+      jwt (~> 1.0)
+      multi_json (>= 1.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -363,6 +368,7 @@ DEPENDENCIES
   thumbs_up
   touchpunch-rails
   turbolinks
+  twilio-ruby (~> 4.2.1)
   uglifier
   vacuum
   will_paginate (>= 3.0.3)
