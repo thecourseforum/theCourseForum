@@ -26,27 +26,30 @@ class Book < ActiveRecord::Base
 	end
 
 	def self.as_json
-		# use references(:users) to make activerecord happy
-		raw = Book.includes(:users, :sections => {:course => :subdepartment}).
-			group("books.id").
-			order("follower_count DESC, RAND()").
-			pluck(
-				:id,
-				:title,
-				:medium_image_link,
-				'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-				'COUNT(DISTINCT users.id) AS follower_count'
-			)
+		# Cache results cause this query takes forever
+		Rails.cache.fetch("books", :expires_in => 10.minutes) do 
+			# use references(:users) to make activerecord happy
+			raw = Book.includes(:users, :sections => {:course => :subdepartment}).
+				group("books.id").
+				order("follower_count DESC, RAND()").
+				pluck(
+					:id,
+					:title,
+					:medium_image_link,
+					'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
+					'COUNT(DISTINCT users.id) AS follower_count'
+				)
 
-		# Format into json
-		raw.map do |book|
-			{
-				:id => book[0],
-				:title => book[1].tr('*', ''),
-				:medium_image_link => book[2],
-				:mnemonic_numbers => book[3],
-				:follower_count => book[4]
-			}
+			# Format into json
+			raw.map do |book|
+				{
+					:id => book[0],
+					:title => book[1].tr('*', ''),
+					:medium_image_link => book[2],
+					:mnemonic_numbers => book[3],
+					:follower_count => book[4]
+				}
+			end
 		end
 	end
 
