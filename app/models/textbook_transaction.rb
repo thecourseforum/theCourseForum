@@ -12,7 +12,7 @@ class TextbookTransaction < ActiveRecord::Base
 	end
 
 	def self.duration
-		3.days
+		14.days
 	end
 
 	def active?
