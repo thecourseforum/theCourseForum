@@ -25,9 +25,22 @@ class Book < ActiveRecord::Base
 		}
 	end
 
+	def self.cache_key
+		# Number of book-user relations (i.e. followers)
+		follow_count = ActiveRecord::Base.connection.execute("select count(*) from books_users").first.first
+		# Upated_at date for books table
+		books_updated_at = ActiveRecord::Base.connection.execute("show table status from thecourse_production like 'books'").reduce(:to_s)[11]
+		# Return key
+		"%d%s" % [follow_count, books_updated_at]
+	end
+
 	def self.as_json
-		# Cache results cause this query takes forever
-		Rails.cache.fetch("books", :expires_in => 10.minutes) do 
+		# clear cache if query is invalidated to avoid using too much mem, perhaps unnecessary
+		unless Rails.cache.exist?("books/#{cache_key}")
+			Rails.cache.clear
+		end
+		# Cache this query, it takes long time
+		Rails.cache.fetch("books/#{cache_key}") do 
 			# use references(:users) to make activerecord happy
 			raw = Book.includes(:users, :sections => {:course => :subdepartment}).
 				group("books.id").
