@@ -14,12 +14,12 @@ class TextbookTransactionsController < ApplicationController
 
   def books
     if request.format.to_s.include?('json')
-      @books = Book.as_json
+      @books = Book.get_all
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @books }
+      format.json { render :json => JSON.dump(@books) }
     end
   end
 

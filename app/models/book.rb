@@ -28,13 +28,13 @@ class Book < ActiveRecord::Base
 	def self.cache_key
 		# Number of book-user relations (i.e. followers)
 		follow_count = ActiveRecord::Base.connection.execute("select count(*) from books_users").first.first
-		# Upated_at date for books table
-		books_updated_at = ActiveRecord::Base.connection.execute("show table status from thecourse_production like 'books'").reduce(:to_s)[11]
+		# Last updated time for books table
+		books_updated_at = Book.maximum(:updated_at)
 		# Return key
 		"%d%s" % [follow_count, books_updated_at]
 	end
 
-	def self.as_json
+	def self.get_all
 		# clear cache if query is invalidated to avoid using too much mem, perhaps unnecessary
 		unless Rails.cache.exist?("books/#{cache_key}")
 			Rails.cache.clear
