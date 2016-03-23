@@ -47,6 +47,11 @@ class CoursesController < ApplicationController
     # @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
     @total_review_count = @all_reviews.count
 
+    add_breadcrumb 'Departments', departments_url
+    add_breadcrumb @subdepartment.name, department_path(@subdepartment.departments.first)
+    add_breadcrumb @course.title, "#{course_path(@course)}/professors"
+    add_breadcrumb @professor ? @professor.full_name : 'All Professors'
+
     if @sort_type != nil
       if @sort_type == "helpful"
         @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for, -r.created_at.to_i]}
@@ -78,6 +83,10 @@ class CoursesController < ApplicationController
 
   def show_professors
     @course = Course.includes(:stats => :professor, :sections => [:professors, :semester]).find(params[:id])
+    @subdepartment = @course.subdepartment
+    add_breadcrumb 'Departments', departments_url
+    add_breadcrumb @subdepartment.name, department_path(@subdepartment.departments.first)
+    add_breadcrumb @course.title
     @professors = @course.professors.uniq.sort_by(&:last_name)
 
     @professors_semester = {}
