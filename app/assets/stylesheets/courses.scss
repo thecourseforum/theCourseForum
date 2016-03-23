@@ -16,6 +16,7 @@ h1 {
 #course-page, .review-pane {
   margin-left: auto;
   margin-right: auto;
+  border-radius: 4px;
   // max-width: 926px;
 }
 
@@ -29,6 +30,7 @@ h1 {
   text-align: center;
   width: 80px;
   float: left;
+  margin-left: 18px;
 }
 
 .review-stats {
@@ -45,7 +47,7 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0px 0px 2px #000;
+  box-shadow: 0px 2px 10px #bfbfbf;
 }
 
 .no-book-image {
@@ -121,6 +123,7 @@ img {
   margin-bottom: 5px;
   margin-left: 0px;
   margin-right: 0px;
+  border-radius: 4px;
 }
 
 .course-breakdown {
@@ -152,6 +155,7 @@ img {
   @include flex(1 49%);
   min-width: 49%;
   font-weight: 300;
+  border-radius: 4px;
 }
 
 #review-container {
@@ -175,7 +179,7 @@ img {
 .comment-header {
   margin-top: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 2px solid #efefef;
 }
 
 .rating-title {
@@ -212,14 +216,15 @@ img {
 
 }
 
-p.author {
+p {
   font-size: $comment-font-size;
 }
 
 .author {
-  margin-top:5px;
+  margin-top: 5px;
+  padding-bottom: 5px;
   color: #E25424;
-  border-bottom: 1px #bbb solid
+  border-bottom: 2px #efefef solid
 }
 
 .amazon {
@@ -228,6 +233,7 @@ p.author {
   margin-right: auto;
   img {
     border: 1px #bbb solid;
+    border-radius: 4px;
     transition: background-color 0.2s ease;
   }
   img:hover {
@@ -254,7 +260,7 @@ p.author {
 .condition {
   font-size: $small-font-size;
   margin-bottom: 2px;
-  margin-left: 16px;
+  // margin-left: 16px;
 }
 
 .textbooks-row {
@@ -337,7 +343,7 @@ p.author {
   padding-left: 5px;
   margin-top: 5px;
   height:180px;
-  border-right: #bbb 1px solid;
+  border-right: #efefef 2px solid;
   @include flexbox();
   flex-flow: column;
   -webkit-flex-flow: column;
@@ -394,7 +400,7 @@ p.author {
 
 .icon-text {
   text-align: center;
-  font-size: $tiny-font-size;
+  font-size: $small-font-size;
 }
 
 .stats-col {
@@ -434,7 +440,6 @@ p.author {
 }
 
 .comment-container {
-  border-left: 1px solid #bbb;
   min-height: 100%;
   display: inline-block;
   // float: right;
@@ -550,7 +555,6 @@ p.author {
     img {
       height: 146px;
       width: 108px;
-      box-shadow: 0px 0px 2px #000;
     }
   }
   .title {
@@ -596,10 +600,10 @@ p.author {
   bottom: -36px;
 }
 
-.btn.active {
-  opacity: 1.0;
+.slick-slide {
+  border-radius: 4px;
 }
 
-#textbook-header .text-right {
-  padding-top: 5px;
+.btn.active {
+  opacity: 1.0;
 }
