@@ -19,6 +19,10 @@ html
         = render 'layouts/sidebar'
       section#main
         = render 'layouts/notice'
+        - if controller.controller_name == "courses" || (controller.controller_name == "departments" && controller.action_name == "show")
+          .breadcrumb-header
+            ol.breadcrumb
+              = render_breadcrumbs :tag => :li, :separator => "" 
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header

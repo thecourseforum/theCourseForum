@@ -46,6 +46,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap-switch-rails (3.0.2)
+    breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -329,6 +330,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   bootstrap-sass
   bootstrap-switch-rails (~> 3.0.0)
+  breadcrumbs_on_rails
   coffee-rails
   cucumber-rails
   database_cleaner
