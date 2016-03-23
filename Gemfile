@@ -125,6 +125,3 @@ gem 'icalendar'
 
 # for new gradewheel or any other charing needed.
 gem "highcharts-rails", "~> 3.0.0"
-
-# for breadcrumbs
-gem 'breadcrumbs_on_rails'
