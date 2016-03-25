@@ -16,17 +16,17 @@ The Organization itself is a group of students that contribute their time and ef
 ###Stack
 The code stack is current standard technologies. They were chosen specifically because they are standard, modern and incredibly ubiquitous technologies. 
 
-- Ruby 2.0.0
-- Rails 4.0.0
+- Ruby 2.2.3
+- Rails 4.2.4
 - MySQL
-- Bootstrap
-- Javascript
+- Bootstrap 3
+- Javascript (jQuery)
 
 ###Deployment
-The rails app can be deployed in any fashion, there is no special deployment requirements. Our server deployment uses Phusion Passenger AKA mod_rails on top of the Apache Webserver. For development, we switch between Passenger testing and rails internal webrick server. Internally, everything is vanilla including MySQL, Javascript, and Bootstrap 3.
+The rails app can be deployed in any fashion, there is no special deployment requirements. Our server deployment uses Phusion Passenger AKA mod_rails on top of the Apache Webserver. For development, we switch between Passenger testing and the thin development server. Internally, everything is vanilla including MySQL, Javascript, and Bootstrap 3.
 
 ###Singular Deployment Guide
-[Getting Started Guide](https://github.com/thecourseforum/theCourseForum/wiki/Getting-Started)
+[Getting Started Guide](https://github.com/thecourseforum/theCourseForum/wiki/Environment-Setup-and-Deployment)
 
 ###Want to get involved? 
 Don't hesitate to contact us whether or not that you are at the University of Virginia! We love to talk about our app and we love to discuss everything that we do! Shoot us an email at info@thecourseforum.com

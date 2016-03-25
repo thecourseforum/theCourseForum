@@ -225,6 +225,10 @@ select {
   }
 }
 
+#report-bug-modal {
+  padding-top: $navbar-height;
+}
+
 .brand {
   font-family: "Rockwell";
 }
@@ -282,4 +286,17 @@ select {
 
 #prof-sort {
   padding-left: 20px;
+}
+
+.breadcrumb-header {
+  background-color: #ffffff;
+  z-index: 1999999998;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.breadcrumb {
+  max-width: $content-max-width;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 0px;
 }
