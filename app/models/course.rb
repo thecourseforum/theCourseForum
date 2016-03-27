@@ -26,7 +26,7 @@ class Course < ActiveRecord::Base
   after_create :create_overall_stats
 
   def self.current
-    semester_id = Semester.find_by(:year => 2016, :season => 'Spring').id
+    semester_id = Semester.current.id
     Course.where(:last_taught_semester_id => semester_id)
   end
 

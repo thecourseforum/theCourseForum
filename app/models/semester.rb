@@ -4,6 +4,10 @@ class Semester < ActiveRecord::Base
 
   has_many :courses, :through => :sections
 
+  def self.current
+    Semester.find_by(:year => 2016, :season => 'Fall')
+  end
+
   def to_s
     "#{self.season} #{self.year}"
   end
