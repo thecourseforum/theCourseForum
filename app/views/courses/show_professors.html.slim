@@ -32,7 +32,7 @@
                     span DIFFICULTY
                   .row.course-rating-row
                     - if stats.difficulty
-                      h4.course-difficulty = stats.difficulty.round(2)
+                      h4.course-rating = stats.difficulty.round(2)
                     - else
                       h4.rating-empty = "--"
               .rating-block
@@ -42,7 +42,7 @@
                     span GPA
                   .row.course-rating-row
                     - if stats.gpa
-                      h4.course-gpa = stats.gpa.round(2)
+                      h4.course-rating = stats.gpa.round(2)
                     - else
                       h4.rating-empty = "--"
           .time

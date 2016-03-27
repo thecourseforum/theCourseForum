@@ -25,28 +25,44 @@ class Book < ActiveRecord::Base
 		}
 	end
 
-	def self.as_json
-		# use references(:users) to make activerecord happy
-		raw = Book.includes(:users, :sections => {:course => :subdepartment}).
-			group("books.id").
-			order("follower_count DESC, RAND()").
-			pluck(
-				:id,
-				:title,
-				:medium_image_link,
-				'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
-				'COUNT(DISTINCT users.id) AS follower_count'
-			)
+	def self.cache_key
+		# Number of book-user relations (i.e. followers)
+		follow_count = ActiveRecord::Base.connection.execute("select count(*) from books_users").first.first
+		# Last updated time for books table
+		books_updated_at = Book.maximum(:updated_at)
+		# Return key
+		"%d%s" % [follow_count, books_updated_at]
+	end
 
-		# Format into json
-		raw.map do |book|
-			{
-				:id => book[0],
-				:title => book[1].tr('*', ''),
-				:medium_image_link => book[2],
-				:mnemonic_numbers => book[3],
-				:follower_count => book[4]
-			}
+	def self.get_all
+		# clear cache if query is invalidated to avoid using too much mem, perhaps unnecessary
+		unless Rails.cache.exist?("books/#{cache_key}")
+			Rails.cache.clear
+		end
+		# Cache this query, it takes long time
+		Rails.cache.fetch("books/#{cache_key}") do 
+			# use references(:users) to make activerecord happy
+			raw = Book.includes(:users, :sections => {:course => :subdepartment}).
+				group("books.id").
+				order("follower_count DESC, RAND()").
+				pluck(
+					:id,
+					:title,
+					:medium_image_link,
+					'GROUP_CONCAT(DISTINCT CONCAT_WS(" ", mnemonic, course_number) SEPARATOR ", ")',
+					'COUNT(DISTINCT users.id) AS follower_count'
+				)
+
+			# Format into json
+			raw.map do |book|
+				{
+					:id => book[0],
+					:title => book[1].tr('*', ''),
+					:medium_image_link => book[2],
+					:mnemonic_numbers => book[3],
+					:follower_count => book[4]
+				}
+			end
 		end
 	end
 
