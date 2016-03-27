@@ -3,15 +3,14 @@ Given /^courses exist$/ do
     school = School.create(:name => 'School of Engineering & Applied Science')
     department = Department.create(:school => school, :name => 'Computer Science')
     subdepartment = Subdepartment.create(:name => 'Computer Science', :mnemonic => 'CS')
-    spring = Semester.create(:number => 1152, :season => 'Spring', :year => 2016)
-    fall = Semester.create(:number => 1158, :season => 'Fall', :year => 2015)
-    semester = Semester.create(:number => 1152, :season => 'Spring', :year => 2015)
+    lastest_semester = Semester.create(:number => 1168, :season => 'Fall', :year => 2016)
+    older_semester = Semester.create(:number => 1162, :season => 'Spring', :year => 2016)
     department.subdepartments << subdepartment
     course = Course.create(
       :title => 'Program and Data Representation',
       :course_number => 2150,
       :subdepartment => subdepartment,
-      :last_taught_semester => spring
+      :last_taught_semester => lastest_semester
     )
     
     bloomfield = Professor.create(:first_name => 'Aaron', :last_name => 'Bloomfield')
@@ -24,21 +23,21 @@ Given /^courses exist$/ do
       :section_number => 1,
       :units => 3,
       :course => course,
-      :semester => spring
+      :semester => lastest_semester
     )
     second_section = Section.create(
       :sis_class_number => 16937,
       :section_number => 2,
       :units => 3,
       :course => course,
-      :semester => spring
+      :semester => lastest_semester
     )
     third_section = Section.create(
       :sis_class_number => 16937,
       :section_number => 2,
       :units => 3,
       :course => course,
-      :semester => fall
+      :semester => older_semester
     )
     SectionProfessor.create(
       :section => first_section,
