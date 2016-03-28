@@ -90,7 +90,7 @@ class SchedulerController < ApplicationController
       # return an error if no such course was found
       render :nothing => true, :status => 404 and return unless course
 
-      semester = Semester.find_by(:year => 2016, :season => 'Spring')
+      semester = Semester.current
       # Breaks up the course's sections by type, converting them to javascript sections,
       # and wraps the result in json
       render :json => course.as_json.merge({
