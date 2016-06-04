@@ -20,8 +20,6 @@
 //= require jquery.readyselector
 //= require moment
 //= require fullcalendar
-//= require jqcloud
-//= require bootstrap-switch
 //= require nprogress
 //= require nprogress-turbolinks
 //= require nprogress-ajax
@@ -42,46 +40,6 @@ NProgress.configure({ showSpinner: false });
 var ready = function() {
 	$("#close-notice, #close-alert").click(function() {
 		$(this).parent().slideUp();
-	});
-
-	$("#word-cloud-switch").bootstrapSwitch({
-		size: 'small',
-		onColor: 'primary',
-		onSwitchChange: function(event, state) {
-			if (state) {
-				$.ajax({
-					url: '/word_cloud_on/',
-					type: 'POST'
-				});
-				$("#doge-switch").bootstrapSwitch('disabled', false);
-			} else {
-				$.ajax({
-					url: '/word_cloud_off/',
-					type: 'POST'
-				});
-				$("#doge-switch").bootstrapSwitch('state', false, true);
-				$("#doge-switch").bootstrapSwitch('disabled', true);
-			}
-		}
-	});
-
-	$("#doge-switch").bootstrapSwitch({
-		size: 'small',
-		onColor: 'primary',
-		onText: 'wow',
-		onSwitchChange: function(event, state) {
-			if (state) {
-				$.ajax({
-					url: '/doge_on/',
-					type: 'POST'
-				});
-			} else {
-				$.ajax({
-					url: '/doge_off/',
-					type: 'POST'
-				});
-			}
-		}
 	});
 
 	var input = [],
