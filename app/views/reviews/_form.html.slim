@@ -10,7 +10,7 @@
             = msg
   / .row
   /   .orange-title Review a Course
-      
+
   br
 
   - if @subdept_id
@@ -18,20 +18,20 @@
     .col-xs-5 align='right'
       | Course*
     / - if @subdept_id
-    /   .col-md-3 align="center" id="departments" 
+    /   .col-md-3 align="center" id="departments"
     /     / = f.label 'Department (prefix):'
     /     = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}, @subdept_id), :include_blank => true, :class => "form-control"
-    /   .col-md-4 align="center" id="courses" 
+    /   .col-md-4 align="center" id="courses"
     /     / = f.label 'Course:'
     /     = select_tag :course_select, options_for_select(@courses.map{|c| [@mnemonic + " #{c.course_number}", c.id]}, @course_id), :include_blank => true
-    /   .col-md-4 align="center" id="professors" 
+    /   .col-md-4 align="center" id="professors"
     /     / = f.label 'Professor:'
     /     = select_tag :prof_select, options_for_select(@professors.map{|p| ["#{p.last_name}, #{p.first_name}", p.id]}, @prof_id), :include_blank => true
     / - else
-    .col-md-2 align="center" id="departments" 
+    .col-md-2 align="center" id="departments"
       / = f.label 'Department (prefix):'
       = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), prompt: "Department (prefix)", class: "form-control"
-    .col-md-4 align="center" id="courses" 
+    .col-md-4 align="center" id="courses"
       / = f.label 'Course:'
       select name="course_select" id="course_select" class="form-control" disabled="true"
         option Course
@@ -41,7 +41,7 @@
   .row
     .col-xs-5 align='right'
       | Professor*
-    .col-md-4 align="center" id="professors" 
+    .col-md-4 align="center" id="professors"
       / = f.label 'Professor:'
       select name="prof_select" id="prof_select" class="form-control" disabled="true"
         option Professor
@@ -49,7 +49,7 @@
   / .row
   /   .col-xs-5 align='right'
   /     | Professor*
-  /   .col-md-4 align="center" id="professors" 
+  /   .col-md-4 align="center" id="professors"
   /     / = f.label 'Professor:'
   /     = select_tag :prof_select, options_for_select(@professors.map{|p| ["#{p.last_name}, #{p.first_name}", p.id]}, @prof_id), :include_blank => true
 
@@ -80,69 +80,68 @@
         .col-md-5 align='right'
           | Professor Rating
         .col-md-7
-              = select_tag :professor_rating, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true 
+              = f.select :professor_rating, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
       br
       .row
         .col-md-5 align='right'
           | Fun Factor
         .col-md-7
-            = select_tag :enjoyability, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true 
+            = f.select :enjoyability, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
       br
       .row
         .col-md-5 align='right'
           | Difficulty
         .col-md-7
-            = select_tag :difficulty, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true 
+            = f.select :difficulty, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
       br
       .row
         .col-md-5 align='right'
           | Recommendability
         .col-md-7
-            = select_tag :recommend, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true 
+            = f.select :recommend, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
+  hr
 
-      hr
+  .row
+    .col-md-12
       .row
-        .col-xs-8.col-xs-offset-4 align="center"  Avg. # Hours/Week
+        .col-md-5 align='right'
+          | Workload Breakdown:
       br
-      .row.average-stat
-        .col-xs-4
-          span.glyphicon.glyphicon-book
-          span
-            |  Reading:
-        .col-xs-8
-          = f.number_field :amount_reading, :id => "readingfield", :value => ( (@review.amount_reading? and @review.amount_reading > 0) ? @review.amount_reading.to_i : 0), :min => 0, class: "form-control"
-      .row.average-stat
-        .col-xs-4
-          span.glyphicon.glyphicon-edit
-          span
-            |  Writing:
-        .col-xs-8
-          = f.number_field :amount_writing, :id => "writingfield", :value => ( (@review.amount_writing? and @review.amount_writing > 0) ? @review.amount_writing.to_i : 0), :min => 0, class: "form-control"
-      .row.average-stat
-        .col-xs-4
-          span.glyphicon.glyphicon-user
-          span
-            |  Groupwork:
-        .col-xs-8
-          = f.number_field :amount_group, :id => "groupfield", :value => ( (@review.amount_group? and @review.amount_group > 0) ? @review.amount_group.to_i : 0), :min => 0, class: "form-control"
-      .row.average-stat
-        .col-xs-4
-          span.glyphicon.glyphicon-file
-          span
-            |  Homework:
-        .col-xs-8
-          = f.number_field :amount_homework, :id => "homeworkfield", :value => ( (@review.amount_homework? and @review.amount_homework > 0) ? @review.amount_homework.to_i : 0), :min => 0, class: "form-control"
-
-  br
+      .row
+        .col-md-5 align='right'
+          | Reading
+        .col-xs-7
+          .review__workload-field = f.number_field :amount_reading, :id => "readingfield", :value => ( (@review.amount_reading? and @review.amount_reading > 0) ? @review.amount_reading.to_i : 0), :min => 0, class: "form-control"
+          | hours / week
+      br
+      .row
+        .col-md-5 align='right'
+          | Writing
+        .col-xs-7
+           .review__workload-field = f.number_field :amount_writing, :id => "writingfield", :value => ( (@review.amount_writing? and @review.amount_writing > 0) ? @review.amount_writing.to_i : 0), :min => 0, class: "form-control"
+           | hours / week
+      br
+      .row
+        .col-md-5 align='right'
+          | Groupwork
+        .col-xs-7
+          .review__workload-field = f.number_field :amount_group, :id => "groupfield", :value => ( (@review.amount_group? and @review.amount_group > 0) ? @review.amount_group.to_i : 0), :min => 0, class: "form-control"
+          | hours / week
+      br
+      .row
+        .col-md-5 align='right'
+          | Homework
+        .col-xs-7
+          .review__workload-field = f.number_field :amount_homework, :id => "homeworkfield", :value => ( (@review.amount_homework? and @review.amount_homework > 0) ? @review.amount_homework.to_i : 0), :min => 0, class: "form-control"
+          | hours / week
+  hr
 
   .row
     .col-md-5 align='right'
       | Comments
     .col-md-7
       = f.text_area :comment, :placeholder=>"Share your thoughts here!", class: "form-control"
-  hr
+  br
 
-  
-
-  .actions align="center" 
+  .actions align="center"
     = f.submit 'Submit Review!', :class => "btn btn-primary", :id => "review-button"

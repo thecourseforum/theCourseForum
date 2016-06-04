@@ -177,5 +177,5 @@ private
       redirect_to my_reviews_path
     end
   end
-  
+
 end
