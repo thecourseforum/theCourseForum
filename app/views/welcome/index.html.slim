@@ -50,15 +50,26 @@
                 = f.text_field :first_name, placeholder: "First Name", class: "form-control"
               .col-xs-6
                 = f.text_field :last_name, placeholder: "Last Name", class: "form-control"
+            .row
+              .col-xs-6.form-error.first-name-error
+                p Please enter a first name.
+              .col-xs-6.form-error.last-name-error
+                p Please enter a last name.
             .row.form-row
               .col-xs-12
                 = f.email_field :email, placeholder: "UVa Email Address", class: "form-control"
+              .col-xs-12.form-error.email-error
+                p Please enter a valid UVa email.
             .row.form-row
               .col-xs-12
                 = f.password_field :password, placeholder: "Password (at least 8 characters)", class: "form-control"
+              .col-xs-12.form-error.password-error
+                p Please enter a valid password (at least 8 characters).
             .row.form-row
               .col-xs-12
                 = f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control"
+              .col-xs-12.form-error.password-confirm-error
+                p Confirmation does not match password.
             .row.form-row
               .col-xs-4.col-xs-offset-8
                 = f.submit "Sign Up!", class: "form-control btn btn-primary"

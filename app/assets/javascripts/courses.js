@@ -93,6 +93,12 @@ ready = function() {
 	});
 
 
+	// If this is not the section page (no grade wheel),
+	// then the rest of this code is not needed
+	if (!$('.course-grades').length) {
+		return
+	}
+
 
 	$('#main-container').scroll(function() {
 		if ($('#main-container').prop('scrollHeight') - $('#main-container').scrollTop() <= $('#main-container').height() + 100) {
@@ -353,6 +359,7 @@ ready = function() {
 			});
 		}
 	}
+
 	loadReviews($('.courses-review-type-switcher').val());
 }
 
