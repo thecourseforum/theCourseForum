@@ -9,10 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- * BS3-switch used for settings toggles. 
- *= require bootstrap3-switch
+ * BS3-switch used for settings toggles.
  *= require jquery-ui/slider
- *= require jqcloud
  *= require fullcalendar
  *= require slick
  *= require slick-theme
@@ -21,7 +19,7 @@
  *= require footer
  *= require sidebar
  *= require welcome
- *= require departments 
+ *= require departments
  *= require reviews
  *= require scheduler
  *= require books
@@ -126,13 +124,6 @@ section#main {
   @media only screen and (max-width: $screen-sm) {
     margin-left: 0;
   }
-  
-  // http://stackoverflow.com/questions/7198282/how-to-make-div-occupy-remaining-height
-  // bottom: 0;
-  // top: $navbar-height;
-  // right: 0;
-  // left: 0;
-  // position: absolute;
 
   #main-container {
     background-color: #EEE;

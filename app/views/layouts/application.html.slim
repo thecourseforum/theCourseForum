@@ -3,7 +3,6 @@ html
   head
     title= content_for?(:title) ? yield(:title) + " - theCourseForum" : "theCourseForum"
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
-    = include_gon
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "es5-shim.min"
     <!--[if gte IE 9]><!-->
@@ -22,7 +21,7 @@ html
         - if controller.controller_name == "courses" || (controller.controller_name == "departments" && controller.action_name == "show")
           .breadcrumb-header
             ol.breadcrumb
-              = render_breadcrumbs :tag => :li, :separator => "" 
+              = render_breadcrumbs :tag => :li, :separator => ""
         .container-fluid#main-container
           - if content_for?(:page_heading)
           .row#header
@@ -70,14 +69,14 @@ html
                     | All
                 .btn-group#prof-sort data-toggle="buttons"
                   label.btn.btn-primary.active#rating
-                    input#rating-sort autocomplete="off" name="options" type="radio" 
+                    input#rating-sort autocomplete="off" name="options" type="radio"
                     | Rating
                   label.btn.btn-primary#difficulty
                     input#difficulty-sort autocomplete="off" name="options" type="radio"
                     | Difficulty
                   label.btn.btn-primary#gpa
                     input#gpa-sort autocomplete="off" name="options" type="radio"
-                    | GPA            
+                    | GPA
             - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
                .btn-group.pull-right role="group"
                 button.btn.btn-default#how-to
@@ -85,7 +84,7 @@ html
                   .glyphicon.glyphicon-info-sign
           .container-fluid#content-container
             = yield
-      -# Necessary for rendering scheduler modals correctly      
+      -# Necessary for rendering scheduler modals correctly
       - if controller.controller_name == "scheduler" && controller.action_name == "scheduler"
         = render 'scheduler/modals'
       -# Necessary for rendering textbook_transaction modals correctly

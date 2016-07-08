@@ -7,20 +7,25 @@ gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.3.20'
 
-# Use SCSS for stylesheets
+# Use SCSS for stylesheets with bootstrap
 gem 'sass-rails'
+gem 'bootstrap-sass'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
+gem 'skylight'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', :platforms => :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+# Use JQuery UI
+gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'jquery-slick-rails'
+gem 'touchpunch-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -34,14 +39,8 @@ gem 'devise'
 # Add upvote/downvote functionality.  See https://github.com/bouchard/thumbs_up for more.
 gem 'thumbs_up'
 
-# Word Cloud generator
-gem "jqcloud-rails", '~> 1.0'
-
 # User Settings
 gem 'ledermann-rails-settings', '~> 2.2', :require => 'rails-settings'
-
-# bootstrap switch plug in
-gem "bootstrap-switch-rails", '~> 3.0.0'
 
 #Autocomplete used for the scheduler
 gem 'rails3-jquery-autocomplete'
@@ -83,7 +82,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
 
   gem 'cucumber-rails', :require => false
-  
+
   gem 'selenium-webdriver'
   # Database Cleaner to clear test databases
   gem 'database_cleaner'
@@ -93,8 +92,6 @@ group :development, :test do
 end
 
 gem 'nprogress-rails'
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -102,17 +99,9 @@ gem 'nprogress-rails'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass'
+
 gem 'will_paginate', '>=3.0.3'
 
-# Use JQuery UI
-gem 'jquery-ui-rails', '~> 5.0.0'
-
-gem 'jquery-slick-rails'
-
-gem 'touchpunch-rails'
-
-gem 'gon'
 gem 'rest-client'
 
 gem 'figaro'
