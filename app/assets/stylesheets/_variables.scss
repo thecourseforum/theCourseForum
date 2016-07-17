@@ -32,6 +32,7 @@ $regular-font-size: 16px;
 $sidebar-font-size: 16px;
 $save-course-font-size: 20px;
 $comment-overall-rating-font-size: 20px;
+$header-font-size: 20px;
 $tab-font-size: 21px;
 $menu-font-size: 21px;
 $subtitle-font-size: 24px; // ALL CAPS
@@ -69,6 +70,11 @@ $content-max-width: 1186px;
 @mixin flex-flow($val) {
   -webkit-flex-flow: $val;
   flex-flow: $val;
+}
+
+@mixin flex-direction($val) {
+  -webkit-flex-direction: $val;
+  flex-direction: $val;
 }
 
 @mixin justify-content($val) {

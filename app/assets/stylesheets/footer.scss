@@ -1,9 +1,12 @@
+@import "variables";
+
 footer, footer a {
   color: white;
 }
 
 footer {
-  background-color: inherit;
+  background-color: $blue;
+  padding: 10px 0;
   height: 50px;
   min-height: 50px;
   max-height: 50px;

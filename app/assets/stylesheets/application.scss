@@ -44,6 +44,12 @@ $nprogress-height: 4.5px;
   overflow: hidden;
 }
 
+
+
+/*------------------------------------*\
+  #FONTS
+\*------------------------------------*/
+
 @font-face {
   font-family: 'Lato';
   font-style: normal;
@@ -51,19 +57,11 @@ $nprogress-height: 4.5px;
   src: asset-url('Lato-Light.ttf') format('woff2');
 }
 
-/* latin */
 @font-face {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
   src: asset-url('Lato-Regular.ttf') format('woff2');
-}
-
-@font-face {
-  font-family: 'comic-sans';
-  src: asset-url('comic.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 @font-face {
@@ -80,24 +78,32 @@ $nprogress-height: 4.5px;
   font-style: normal;
 }
 
-html, body {
+
+
+/*------------------------------------*\
+  #MAIN
+\*------------------------------------*/
+html {
   height: 100%;
-  width: 100%;
 }
 
 body {
   font-family: "Lato", sans-serif;
-  background-color: $blue;
-  overflow: scroll;
-  // overflow: hidden;
+  background-color: #fff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  min-height: 100%;
   font-size: $regular-font-size;
 }
 
 aside {
-  width: $sidebar-width !important;
-  float: left;
+  position: fixed;
+  height: 100%;
+  width: $sidebar-width;
+  overflow-y: auto;
+  background-color: $blue;
   @media only screen and (min-width: $screen-sm-min) {
-    display: block!important;
+    display: block;
   }
   @media only screen and (max-width: $screen-sm) {
     display: none;
@@ -108,26 +114,31 @@ aside {
   }
 }
 
+aside, section, .welcome-container {
+  padding-top: $navbar-height + 1px;
+}
+
 #header-navbar {
   border-bottom: 1px solid #e8e8e8;
   z-index: 1;
 }
 
 section#main {
-  margin-left: $sidebar-width;
-  position: fixed;
-  top: $navbar-height;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  @include flexbox();
+  @include flex-direction(column);
+  height: 100%;
+  min-height: 100vh;
+  padding-left: $sidebar-width;
 
   @media only screen and (max-width: $screen-sm) {
     margin-left: 0;
   }
 
   #main-container {
+    flex: 1 1 auto;
     background-color: #EEE;
     height: 100%;
+    margin: auto 0;
     overflow: auto;
     padding: 40px 50px;
 
@@ -170,18 +181,31 @@ section#main {
   }
 }
 
-#welcome-container {
-  margin-top: 20px;
-  margin-bottom: 50px; // height of footer
-  //color: white;
+.welcome-container {
+  min-height: 100%;
+  height: 100%;
+  min-height: 100vh;
+  margin-bottom: -50px;
+  padding-top: $navbar-height + 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 50px;
+  background-color: $blue;
+
+  #terms, #privacy {
+    color: white;
+
+    a {
+      color:white;
+    }
+  }
 }
 
-#terms, #privacy {
-  color:white;
-  a {
-    color:white;
-  }
-  }
+.welcome-notice {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+}
 
 select {
   @extend .form-control;
@@ -199,7 +223,6 @@ select {
 
 #alert, #notice {
   color: white;
-  float: center;
   text-align: center;
   background-color: $orange;
   padding: 5px 0;
