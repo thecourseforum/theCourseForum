@@ -64,9 +64,9 @@
     - if @semester_season
       .col-xs-7
         .row
-          .col-xs-3
+          .col-xs-4
             = select_tag :semester_season, options_for_select(["Fall", "January", "Spring", "Summer"], @semester_season), :include_blank => true, class: "form-control"
-          .col-xs-2
+          .col-xs-3
             = select_tag :semester_year, options_for_select(@years, @semester_year), :include_blank => true, class: "form-control"
     - else
       .col-xs-7
@@ -83,25 +83,26 @@
         .col-md-5 align='right'
           | Professor Rating
         .col-md-7
-              = f.select :professor_rating, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
+          = f.select :professor_rating, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]], selected = (@review.professor_rating.to_i == 0)? 3 : @review.professor_rating.to_i), :include_blank => false
       br
       .row
         .col-md-5 align='right'
           | Fun Factor
         .col-md-7
-            = f.select :enjoyability, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
+          = f.select :enjoyability, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]], selected = (@review.enjoyability == 0)? 3 : @review.enjoyability), :include_blank => false
       br
       .row
         .col-md-5 align='right'
           | Difficulty
         .col-md-7
-            = f.select :difficulty, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
+          = f.select :difficulty, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]], selected = (@review.difficulty == 0)? 3 : @review.difficulty), :include_blank => false
       br
       .row
         .col-md-5 align='right'
           | Recommendability
         .col-md-7
-            = f.select :recommend, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]), :include_blank => true
+          = f.select :recommend, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]], selected = (@review.recommend == 0)? 3 : @review.recommend), :include_blank => false
+  
   hr
 
   .row
