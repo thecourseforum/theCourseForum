@@ -53,12 +53,22 @@ html
               #filter
                 .btn-group data-toggle="buttons"
                   label.btn.btn-primary.active
-                    input#current autocomplete="off" name="options" type="radio"
+                    input#current.active autocomplete="off" name="options" type="radio"
                     | Fall 2016
                   label.btn.btn-primary
                     input#all autocomplete="off" name="options" type="radio"
                     | All
-            - if controller.controller_name == "courses" && controller.action_name == "show_professors"
+                .btn-group.panel-sort#courses data-toggle="buttons"
+                    label.btn.btn-primary#rating
+                      input#rating-sort autocomplete="off" name="options" type="radio" 
+                      | Rating
+                    label.btn.btn-primary#difficulty
+                      input#difficulty-sort autocomplete="off" name="options" type="radio"
+                      | Difficulty
+                    label.btn.btn-primary#gpa
+                      input#gpa-sort autocomplete="off" name="options" type="radio"
+                      | GPA     
+            - if controller.controller_name == "courses" && controller.action_name == "show_professors"            
               #filter
                 .btn-group data-toggle="buttons"
                   label.btn.btn-primary.active
@@ -67,7 +77,7 @@ html
                   label.btn.btn-primary
                     input#all autocomplete="off" name="options" type="radio"
                     | All
-                .btn-group#prof-sort data-toggle="buttons"
+                .btn-group.panel-sort#professors data-toggle="buttons"
                   label.btn.btn-primary.active#rating
                     input#rating-sort autocomplete="off" name="options" type="radio"
                     | Rating

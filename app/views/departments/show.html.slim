@@ -44,7 +44,7 @@
                           span DIFFICULTY
                         .row.course-rating-row
                           - if course.overall_stats.difficulty
-                            h4.course-rating = course.overall_stats.difficulty.round(2)
+                            h4.course-difficulty = course.overall_stats.difficulty.round(2)
                           - else
                             h4.rating-empty = "--"
                     .rating-block
@@ -54,7 +54,7 @@
                           span GPA
                         .row.course-rating-row
                           - if course.overall_stats.gpa
-                            h4.course-rating = course.overall_stats.gpa.round(2)
+                            h4.course-gpa = course.overall_stats.gpa.round(2)
                           - else
                             h4.rating-empty = "--"
                   .semester-block
