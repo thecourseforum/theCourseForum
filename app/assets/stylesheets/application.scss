@@ -83,6 +83,7 @@ $nprogress-height: 4.5px;
 /*------------------------------------*\
   #MAIN
 \*------------------------------------*/
+
 html {
   height: 100%;
 }
@@ -102,13 +103,15 @@ aside {
   width: $sidebar-width;
   overflow-y: auto;
   background-color: $blue;
-  @media only screen and (min-width: $screen-sm-min) {
-    display: block;
-  }
+  z-index: 4;
+  opacity: 1;
   @media only screen and (max-width: $screen-sm) {
+    opacity: 0;
+  }
+  /* @media only screen and (max-width: $screen-sm) {
     display: none;
     z-index: 4;
-  }
+  } */
 }
 
 aside, section, .welcome-container {
@@ -133,7 +136,7 @@ section#main {
   }
 
   #main-container {
-    flex: 1 1 auto;
+    @include flex(1 1 auto);
     background-color: #EEE;
     height: 100%;
     margin: auto 0;
