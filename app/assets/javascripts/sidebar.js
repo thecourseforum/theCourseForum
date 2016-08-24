@@ -31,8 +31,10 @@ var ready = function() {
 
     if ($('aside').css('opacity') == 0) {
       $('aside').css('opacity', 1);
+      $('aside').css('transform', 'scale(1)');
     } else {
       $('aside').css('opacity', 0);
+      $('aside').css('transform', 'scale(0)');
     }
 
 		toggleButton(this);
@@ -61,6 +63,7 @@ var ready = function() {
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
 		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".lines-button").is(e.target) && $(".lines-button").has(e.target).length === 0) {
       $('aside').css('opacity', 0);
+      $('aside').css('transform', 'scale(0)');
 			if (open) {
 				toggleButton($('.lines-button')[0]);
 			}
