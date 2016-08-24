@@ -13,11 +13,28 @@ var ready = function() {
 			open = false;
 		}
 	};
+
+  $(window).resize(function () {
+    if ($(window).width() >= 800 && $('aside').attr('style')) {
+      $('aside').removeAttr('style');
+			if (open) {
+				toggleButton($('.lines-button')[0]);
+			}
+    }
+  });
+
 	// Attatches button to sidebar
 	$('.lines-button').click(function() {
-		$('aside').toggle('slide', {
-			direction: 'left'
-		}, toggleSpeed);
+		// $('aside').toggle('slide', {
+		// 	direction: 'left'
+		// }, toggleSpeed);
+
+    if ($('aside').css('opacity') == 0) {
+      $('aside').css('opacity', 1);
+    } else {
+      $('aside').css('opacity', 0);
+    }
+
 		toggleButton(this);
 	});
 
@@ -43,7 +60,7 @@ var ready = function() {
 	$(document).mousedown(function(e) {
 		// if click outside of sidebar, and window length is less than 850px, retract sidebar.
 		if (!$("aside").is(e.target) && $("aside").has(e.target).length === 0 && $(window).width() < 850 && !$(".lines-button").is(e.target) && $(".lines-button").has(e.target).length === 0) {
-			$("aside").hide('slide', toggleSpeed);
+      $('aside').css('opacity', 0);
 			if (open) {
 				toggleButton($('.lines-button')[0]);
 			}
