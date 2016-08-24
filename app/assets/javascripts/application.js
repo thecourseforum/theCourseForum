@@ -74,7 +74,7 @@ var ready = function() {
 			// id of stat to sort by		
 			var sortString = ".course-" + $(this).find('.active')[0].id,
 				// class of which panels are displayed (current semester or all)
-				selectorString = $("#all").parent().hasClass("active") ? panelClass.concat(".all") : panelClass.concat("current")
+				selectorString = $("#all").parent().hasClass("active") ? panelClass.concat(".all") : panelClass.concat(".current")
 				// how many panels there are (to know when to trigger the next animation)
 				numPanels = $(selectorString).length,
 				slidPanels = 0,
