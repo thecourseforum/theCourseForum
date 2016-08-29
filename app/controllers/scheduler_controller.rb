@@ -368,9 +368,10 @@ class SchedulerController < ApplicationController
       events = [] #array to hold all the days in a section (MWF are 3 separate events that repeat weekly)
       tzid = "America/New_York" # time zone
 
-      firstMondayOfClasses = 25 # classes start tuesday August 25, 2015
+      firstMondayOfClasses = 22 # classes start Tuesday August 23, 2016
+      startMonth = 8
+      endDate = "20161206T000000Z"
       # loop through each day of the section
-     
 
 
       section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
@@ -393,8 +394,8 @@ class SchedulerController < ApplicationController
         endingMinutes = endTimeString.slice(endTimeString.size-2, 2)
 
         # Construct DateTime objects using the above values (and hardcoded august)
-        event_start = DateTime.new(2016, 1, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be something otherwise it doesn't add? (weird af)
-        event_end = DateTime.new(2016, 1, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
+        event_start = DateTime.new(2016, month, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be set otherwise it doesn't add
+        event_end = DateTime.new(2016, month, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
 
         # assign this to event's start and end fields along with the timezone
         event.dtstart = Icalendar::Values::DateTime.new event_start, 'tzid' => tzid
@@ -404,7 +405,7 @@ class SchedulerController < ApplicationController
         event.summary = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
         event.description = "#{section.course.subdepartment.mnemonic} #{section.course.course_number}"
         event.location = section.locations.first.location
-        event.rrule = "FREQ=WEEKLY;UNTIL=20160503T000000Z" #repeats once a week until hardcoded course end date (could do COUNT= if num occurences is known)
+        event.rrule = "FREQ=WEEKLY;UNTIL=" + endDate #repeats once a week until hardcoded course end date (could do COUNT= if num occurences is known)
 
         #other unused fields
         #event.klass
