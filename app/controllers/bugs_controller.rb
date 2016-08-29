@@ -55,7 +55,7 @@ class BugsController < ApplicationController
     end
 
     def verify_permission
-      if !current_user or !%w(aw3as@virginia.edu kra8ff@virginia.edu mah3xy@virginia.edu mjs5gw@virginia.edu lph5s@virginia.edu btw2cv@virginia.edu cyt3ea@virginia.edu djc4ku@virginia.edu).include?(current_user.email)
+      if !current_user or !%w(aa3vs@virginia.edu acc8vn@virginia.edu al3he@virginia.edu am8wc@virginia.edu as6zd@virginia.edu ask9ge@virginia.edu aw3as@virginia.edu bc2vf@virginia.edu cyt3ea@virginia.edu djc4ku@virginia.edu efr5vk@virginia.edu hw4kz@virginia.edu jbb2fe@virginia.edu jw3qz@virginia.edu kra8ff@virginia.edu lph5s@virginia.edu lpj2jg@virginia.edu mah3xy@virginia.edu mjs5gw@virginia.edu pho3se@virginia.edu rts9cs@virginia.edu sbs5dy@virginia.edu vse7fd@virginia.edu xr9hd@virginia.edu yb2fj@virginia.edu yz9fy@virginia.edu zrs2sb@virginia.edu).include?(current_user.email)
         head :unauthorized and return
       end
     end
