@@ -83,6 +83,7 @@ $nprogress-height: 4.5px;
 /*------------------------------------*\
   #MAIN
 \*------------------------------------*/
+
 html {
   height: 100%;
 }
@@ -102,16 +103,16 @@ aside {
   width: $sidebar-width;
   overflow-y: auto;
   background-color: $blue;
-  @media only screen and (min-width: $screen-sm-min) {
-    display: block;
-  }
+  z-index: 4;
+  opacity: 1;
   @media only screen and (max-width: $screen-sm) {
-    display: none;
-    background-color: $blue;
-    position: relative;
-    z-index: 4;
-    height: 100%
+    opacity: 0;
+    transform: scale(0);
   }
+  /* @media only screen and (max-width: $screen-sm) {
+    display: none;
+    z-index: 4;
+  } */
 }
 
 aside, section, .welcome-container {
@@ -120,7 +121,7 @@ aside, section, .welcome-container {
 
 #header-navbar {
   border-bottom: 1px solid #e8e8e8;
-  z-index: 1;
+  z-index: 1999999999;
 }
 
 section#main {
@@ -132,10 +133,11 @@ section#main {
 
   @media only screen and (max-width: $screen-sm) {
     margin-left: 0;
+    padding-left: 0;
   }
 
   #main-container {
-    flex: 1 1 auto;
+    @include flex(1 1 auto);
     background-color: #EEE;
     height: 100%;
     margin: auto 0;
