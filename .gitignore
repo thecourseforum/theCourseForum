@@ -37,3 +37,6 @@ lib/words.json
 
 # Ignore bundle
 /vendor/bundle
+
+# Ignore SIS credentials
+/lib/sis/credentials
