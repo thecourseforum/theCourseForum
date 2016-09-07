@@ -2,9 +2,12 @@ require 'selenium-webdriver'
 
 credentials = File.open('credentials', 'r').read
 
-# driver = Selenium::WebDriver.for :firefox
-driver = Selenium::WebDriver.for :chrome
+puts 'opening browser...'
+driver = Selenium::WebDriver.for :firefox
+# driver = Selenium::WebDriver.for :chrome
 driver.navigate.to "https://sisuva.admin.virginia.edu/psp/ihprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST"
+
+puts 'authenticating via netbadge...'
 
 # wait for netbadge
 wait = Selenium::WebDriver::Wait.new(:timeout => 60)
@@ -18,10 +21,12 @@ driver.find_element(:name => 'pass').send_key(credentials.split(':').last)
 # driver.find_element(:name => 'submit').click
 # driver.find_element(:name => 'pass').send_key("\n")
 
+puts 'finishing sis login...'
 # wait for iframe for sis finish login
 wait.until { driver.find_element(:tag_name => 'iframe').displayed? }
 driver.switch_to.frame driver.find_element(:tag_name => 'iframe')
 
+puts 'navigating to what-if...'
 # wait for sis content in iframe to load
 wait.until { driver.find_element(:name => 'DERIVED_SSS_SCL_SSS_MORE_ACADEMICS').displayed? }
 driver.find_element(:name => 'DERIVED_SSS_SCL_SSS_MORE_ACADEMICS').send_key('w')
@@ -38,6 +43,7 @@ driver.find_element(:name => 'DERIVED_SAAWHIF_ACAD_PROG$0').find_elements( :tag_
   option.text.include? 'Arts'
 end.click
 
+puts 'choosing ba econ...'
 # wait until sis loads all school majors
 wait.until { driver.find_element(:name => 'PLAN$0').find_element(:css => '[value=ECON-BA]').displayed? }
 driver.find_element(:name => 'PLAN$0').click
@@ -51,6 +57,7 @@ wait.until { !driver.find_element(:id => 'WAIT_win0').displayed? }
 
 driver.find_element(:name => 'DERIVED_SAAWHIF_SSR_PB_SUBMIT').send_key("\n")
 
+puts 'generating report...'
 # wait for report to be finished
 wait.until { driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2').displayed? }
 driver.find_element(:name => 'DERIVED_SAA_DPR_SSS_EXPAND_ALL').click
@@ -58,6 +65,7 @@ driver.find_element(:name => 'DERIVED_SAA_DPR_SSS_EXPAND_ALL').click
 wait.until { driver.find_element(:id => 'WAIT_win0').displayed? }
 wait.until { !driver.find_element(:id => 'WAIT_win0').displayed? }
 
+puts 'parsing information...'
 major_element = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2')
 major = {
   :name => major_element.find_elements(:tag_name => 'span').find { |span|
@@ -67,25 +75,40 @@ major = {
 
 requirements = major_element.find_element(:id => 'ACE_SAA_ARSLT_RLVW$2')
 major[:categories] = []
-requirements.find_elements(:tag_name => 'tr').each do |tr|
+requirements.find_elements(:xpath => '*/tr').each do |tr|
   category_check = tr.find_elements(:css => '.PAGROUPDIVIDER')
   if category_check.size > 0
     major[:categories] << {
-      :name => tr.text
+      :text => tr.text,
+      :subcategories => []
     }
   end
   next unless major[:categories].last
   category = major[:categories].last
+  category_text_check = tr.find_elements(:css => '.SSSTEXTDKBLUEBOLD10')
   subcategory_check = tr.find_elements(:tag_name => 'span').select do |span|
     span.text.include? '[RQ'
   end
-  if subcategory_check.size > 0
+  if subcategory_check.size > 0 and category_text_check.size == 0
+    category[:text] = subcategory_check.first.text
+    next
+  end
+  if subcategory_check.size > 0 and category_text_check.size > 0
     category[:subcategories] << {
-      :name => tr.find_element(:css => '.SSSTEXTDKBLUEBOLD10').text
+      :name => tr.find_element(:css => '.SSSTEXTDKBLUEBOLD10').text,
       :text => tr.find_elements(:tag_name => 'span').find { |span|
         span.text.include? '[RQ'
-      }
+      }.text
     }
+  end
+end
 
+puts major[:text]
+major[:categories].each do |category|
+  puts "\t#{category[:name]}"
+  puts "\t#{category[:text]}"
+  category[:subcategories].each do |subcategory|
+    puts "\t\t#{subcategory[:name]}"
+    puts "\t\t#{subcategory[:text]}"
   end
 end
