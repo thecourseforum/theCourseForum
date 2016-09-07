@@ -58,4 +58,34 @@ driver.find_element(:name => 'DERIVED_SAA_DPR_SSS_EXPAND_ALL').click
 wait.until { driver.find_element(:id => 'WAIT_win0').displayed? }
 wait.until { !driver.find_element(:id => 'WAIT_win0').displayed? }
 
-major = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2')
+major_element = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2')
+major = {
+  :name => major_element.find_elements(:tag_name => 'span').find { |span|
+    span.text.include? '[RG'
+  }.text
+}
+
+requirements = major_element.find_element(:id => 'ACE_SAA_ARSLT_RLVW$2')
+major[:categories] = []
+requirements.find_elements(:tag_name => 'tr').each do |tr|
+  category_check = tr.find_elements(:css => '.PAGROUPDIVIDER')
+  if category_check.size > 0
+    major[:categories] << {
+      :name => tr.text
+    }
+  end
+  next unless major[:categories].last
+  category = major[:categories].last
+  subcategory_check = tr.find_elements(:tag_name => 'span').select do |span|
+    span.text.include? '[RQ'
+  end
+  if subcategory_check.size > 0
+    category[:subcategories] << {
+      :name => tr.find_element(:css => '.SSSTEXTDKBLUEBOLD10').text
+      :text => tr.find_elements(:tag_name => 'span').find { |span|
+        span.text.include? '[RQ'
+      }
+    }
+
+  end
+end
