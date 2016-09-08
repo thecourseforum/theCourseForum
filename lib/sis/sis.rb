@@ -68,7 +68,8 @@ wait.until { !driver.find_element(:id => 'WAIT_win0').displayed? }
 puts 'parsing information...'
 major_element = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2')
 major = {
-  :name => major_element.find_elements(:tag_name => 'span').find { |span|
+  :name => major_element.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1GP$2').text,
+  :text => major_element.find_elements(:tag_name => 'span').find { |span|
     span.text.include? '[RG'
   }.text
 }
@@ -79,6 +80,7 @@ requirements.find_elements(:xpath => '*/tr').each do |tr|
   category_check = tr.find_elements(:css => '.PAGROUPDIVIDER')
   if category_check.size > 0
     major[:categories] << {
+      :name => category_check.first.text,
       :text => tr.text,
       :subcategories => []
     }
@@ -103,12 +105,13 @@ requirements.find_elements(:xpath => '*/tr').each do |tr|
   end
 end
 
-puts major[:text]
+puts "Major:\t#{major[:name]}"
+puts "Major Text:\t#{major[:text]}\n"
 major[:categories].each do |category|
-  puts "\t#{category[:name]}"
-  puts "\t#{category[:text]}"
+  puts "Name:\t#{category[:name]}"
+  puts "Category\t#{category[:text]}\n\n"
   category[:subcategories].each do |subcategory|
-    puts "\t\t#{subcategory[:name]}"
-    puts "\t\t#{subcategory[:text]}"
+    puts "Subcategory Name\t\t#{subcategory[:name]}"
+    puts "Subcategory Text\t\t#{subcategory[:text]}\n\n"
   end
 end
