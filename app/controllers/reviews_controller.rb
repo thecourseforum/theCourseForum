@@ -12,6 +12,12 @@ class ReviewsController < ApplicationController
 
     @reviews_map[nil] = @reviews.where(semester_id: nil).sort_by{|r| r.course.mnemonic_number}
 
+    average_prof_rating = 0
+    @reviews.each do |r|
+      average_prof_rating += r.overall
+    end
+    @avg_prof_rating = (average_prof_rating/@reviews.count).round(2)
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reviews }
@@ -92,7 +98,7 @@ class ReviewsController < ApplicationController
     
     respond_to do |format|
       if @review.save      
-        format.html { redirect_to course_path(@review.course), notice: 'Review was successfully created.' }
+        format.html { redirect_to my_reviews_path, notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }

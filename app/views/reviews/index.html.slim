@@ -2,11 +2,20 @@
 - content_for :page_heading, "My Reviews"
 
 - if @reviews.size > 0
-  .container-fluid.addreview-container = link_to new_review_path
+  .row
+    .col-xs-6.myreviews-stats-col1
+      .container-fluid#total-reviews-container
+        h3 Total Reviews Written
+        h1#myreviews-stats-number =@reviews.count
+    .col-xs-6.myreviews-stats-col2
+      .container-fluid#average-professor-ratings-container
+        h3 Average Professor Ratings
+        h1#myreviews-stats-number =@avg_prof_rating
+  .container-fluid#addreview-container = link_to new_review_path
     .addreview
       .row
         .col-xs-12
-          h4.addreview-label Write Another Review
+          h4#addreview-label Write Another Review
         .col-xs-12
           span.glyphicon.glyphicon-plus
 
@@ -14,21 +23,47 @@
   - @semesters.each do |semester|
     .row
       .col-xs-12
-            h3= "#{semester.season} #{semester.year}"
-    .container-fluid.myreview-container
-      .row
-      - @reviews_map[semester.number].each do |review|
-        .row
+        h2#semester-header = "#{semester.season} #{semester.year}"
+    - @reviews_map[semester.number].each do |review|
+      div.myreview-header
+        .row.myreview-header-row
           .col-xs-2
-            = link_to "#{review.course.mnemonic_number}", review.course
-          .col-xs-3
+            h3= link_to "#{review.course.mnemonic_number}", review.course
+          .col-xs-2
             = link_to review.professor.full_name, review.professor
           .col-xs-2
-            = link_to "Edit Review", edit_review_path(review)
-          .col-xs-5
             a href="#{course_path(review.course_id, :p => review.professor_id)}"
               span Go To Class 
               span.glyphicon.glyphicon-arrow-right
+          .col-xs-6
+            div.edit-review
+              = link_to "Edit Review", edit_review_path(review)
+      .container-fluid.myreview-container
+        .row
+          .col-xs-12
+            .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
+        .row
+          .col-xs-6
+            .review-stats
+              .review-overall = review.overall
+              .icon-and-text
+                div.rating-icon = image_tag("icons/professor.png", size: "20", title: "Professor Rating")
+                div.rating-icon.prof = review.professor_rating.to_i
+              .icon-and-text
+                div.rating-icon = image_tag("icons/happy.png", size: "20", title: "Enjoyability")
+                div.rating-icon.enjoyability = review.enjoyability
+              .icon-and-text
+                div.rating-icon = image_tag("icons/difficulty.png", size: "20", title: "Difficulty")
+                div.rating-icon.difficulty  = review.difficulty
+              .icon-and-text
+                div.rating-icon = image_tag("icons/recommend.png", size: "20", title: "Recommendability")
+                div.rating-icon.recommend = review.recommend
+          .col-xs-6
+            .time
+              - if review.semester_id
+                div = review.created_at.strftime("%Y-%m-%d")
+              - else
+                div style="margin-top: 18px;" = review.created_at.strftime("%Y-%m-%d")  
     br
   - if not @reviews_map[nil].empty?
     .row
