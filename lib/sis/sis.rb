@@ -59,22 +59,22 @@ driver.find_element(:name => 'DERIVED_SAAWHIF_SSR_PB_SUBMIT').send_key("\n")
 
 puts 'generating report...'
 # wait for report to be finished
-wait.until { driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2').displayed? }
+wait.until { driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$3').displayed? }
 driver.find_element(:name => 'DERIVED_SAA_DPR_SSS_EXPAND_ALL').click
 # wait for expansion to finish
 wait.until { driver.find_element(:id => 'WAIT_win0').displayed? }
 wait.until { !driver.find_element(:id => 'WAIT_win0').displayed? }
 
 puts 'parsing information...'
-major_element = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$2')
+major_element = driver.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1$3')
 major = {
-  :name => major_element.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1GP$2').text,
+  :name => major_element.find_element(:id => 'win0divDERIVED_SAA_DPR_GROUPBOX1GP$3').text,
   :text => major_element.find_elements(:tag_name => 'span').find { |span|
     span.text.include? '[RG'
   }.text
 }
 
-requirements = major_element.find_element(:id => 'ACE_SAA_ARSLT_RLVW$2')
+requirements = major_element.find_element(:id => 'ACE_SAA_ARSLT_RLVW$3')
 major[:categories] = []
 requirements.find_elements(:xpath => '*/tr').each do |tr|
   category_check = tr.find_elements(:css => '.PAGROUPDIVIDER')
