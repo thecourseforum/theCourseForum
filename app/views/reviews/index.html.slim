@@ -41,7 +41,10 @@
       .container-fluid.myreview-container
         .row
           .col-xs-12
-            .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
+            - if review.comment == ""
+              .comment <i>No comment for this review, edit to write a comment!</i>
+            - else
+              .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
         .row
           .col-xs-6
             .review-stats
