@@ -31,11 +31,11 @@
             h3= link_to "#{review.course.mnemonic_number}", review.course
           .col-xs-2
             = link_to review.professor.full_name, review.professor
-          .col-xs-2
+          .col-xs-3
             a href="#{course_path(review.course_id, :p => review.professor_id)}"
               span Go To Class 
               span.glyphicon.glyphicon-arrow-right
-          .col-xs-6
+          .col-xs-5
             div.edit-review
               = link_to "Edit Review", edit_review_path(review)
       .container-fluid.myreview-container
