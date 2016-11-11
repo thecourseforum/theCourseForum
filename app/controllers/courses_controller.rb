@@ -127,23 +127,31 @@ class CoursesController < ApplicationController
     @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
     @reviews_voted_down = current_user ? current_user.votes.where(:vote => 0).pluck(:voteable_id) : []
 
+    #filters out reviews with a net vote of -10 or worse
+    @review_holder = []
+    for rev in all_reviews
+      if ((rev.votes_for - rev.votes_against > -10) && rev.comment != "")
+        @review_holder << rev
+      end
+    end
+
     @sort_type = params[:sort_type]
     if @sort_type != nil
       case @sort_type
           when "recent"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.sort_by{|r| [-r.created_at.to_i]}
           when "helpful"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-(r.votes_for-r.votes_against), -r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.where.sort_by{|r| [-(r.votes_for-r.votes_against), -r.created_at.to_i]}
           when "highest"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.sort_by{|r| [-r.overall, -r.created_at.to_i]}
           when "lowest"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.sort_by{|r| [r.overall, -r.created_at.to_i]}
           when "controversial"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
           when "semester"
-            @reviews_with_comments = all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}
+            @reviews_with_comments = @review_holder.where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}
           else
-            @reviews_with_comments = all_reviews.where.not(:comment => "")
+            @reviews_with_comments = @review_holder
           end
     end
 
