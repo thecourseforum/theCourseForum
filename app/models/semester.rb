@@ -5,7 +5,7 @@ class Semester < ActiveRecord::Base
   has_many :courses, :through => :sections
 
   def self.current
-    Semester.find_by(:year => 2016, :season => 'Fall')
+    Semester.find_by(:year => 2017, :season => 'Spring')
   end
 
   def to_s
