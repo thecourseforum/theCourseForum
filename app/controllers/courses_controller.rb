@@ -127,6 +127,16 @@ class CoursesController < ApplicationController
     @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
     @reviews_voted_down = current_user ? current_user.votes.where(:vote => 0).pluck(:voteable_id) : []
 
+    
+
+    for rev in all_reviews
+      if ((rev.votes_for - rev.votes_against < -10) && rev.comment != "")
+        rev_id = rev.id
+        sql = "DELETE FROM reviews WHERE id = #{ActiveRecord::Base.sanitize(rev_id)}"
+        ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+
     @sort_type = params[:sort_type]
     if @sort_type != nil
       case @sort_type
