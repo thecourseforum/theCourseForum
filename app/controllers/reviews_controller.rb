@@ -161,9 +161,8 @@ class ReviewsController < ApplicationController
       current_user.vote_against(@review)
     end
 
-    if ((@review.votes_against > -9) && @review.comment != "")
-      @review.deleted = true
-      @review.save
+    if @review.votes_against >= 10
+      @review.update_attributes(:deleted => true)
     end
 
     render :nothing => true
