@@ -161,6 +161,11 @@ class ReviewsController < ApplicationController
       current_user.vote_against(@review)
     end
 
+    if ((@review.votes_against > -9) && @review.comment != "")
+      @review.deleted = true
+      @review.save
+    end
+
     render :nothing => true
   end
 

@@ -119,9 +119,9 @@ class CoursesController < ApplicationController
 
   def reviews
     if params[:professor_id] and params[:professor_id] != "all"
-      all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id])
+      all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id]).where.not(:deleted => true)
     else
-      all_reviews = Review.where(:course_id => params[:course_id])
+      all_reviews = Review.where(:course_id => params[:course_id]).where.not(:deleted => true)
     end
 
     @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
@@ -129,13 +129,7 @@ class CoursesController < ApplicationController
 
     
 
-    for rev in all_reviews
-      if ((rev.votes_for - rev.votes_against < -10) && rev.comment != "")
-        rev_id = rev.id
-        sql = "DELETE FROM reviews WHERE id = #{ActiveRecord::Base.sanitize(rev_id)}"
-        ActiveRecord::Base.connection.execute(sql)
-      end
-    end
+    
 
     @sort_type = params[:sort_type]
     if @sort_type != nil
