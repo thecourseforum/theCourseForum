@@ -368,12 +368,14 @@ class SchedulerController < ApplicationController
       events = [] #array to hold all the days in a section (MWF are 3 separate events that repeat weekly)
       tzid = "America/New_York" # time zone
 
-      firstMondayOfClasses = 22 # classes start Tuesday August 23, 2016
-      startMonth = 8
-      endDate = "20161206T000000Z"
+
+      startMonth = Semester.current.season == "Fall" ? 8 : 1 # Month is August if in fall, other wise January
+      startYear = Semester.current.year # Year is the year of the current semester
+      # Hard-coded start and end dates of the semester. TODO: scrape the academic calendar for this
+      firstMondayOfClasses = 16 # classes start Wednesday January 18th, 2017
+      endDate = "20170502T000000Z"
+
       # loop through each day of the section
-
-
       section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
 
         event = Icalendar::Event.new
@@ -394,8 +396,8 @@ class SchedulerController < ApplicationController
         endingMinutes = endTimeString.slice(endTimeString.size-2, 2)
 
         # Construct DateTime objects using the above values (and hardcoded august)
-        event_start = DateTime.new(2016, month, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be set otherwise it doesn't add
-        event_end = DateTime.new(2016, month, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
+        event_start = DateTime.new(startYear, startMonth, eventDate, startingHour.to_i, startingMinutes.to_i, 1) #seconds have to be set otherwise it doesn't add
+        event_end = DateTime.new(startYear, startMonth, eventDate, endingHour.to_i, endingMinutes.to_i, 1)
 
         # assign this to event's start and end fields along with the timezone
         event.dtstart = Icalendar::Values::DateTime.new event_start, 'tzid' => tzid
