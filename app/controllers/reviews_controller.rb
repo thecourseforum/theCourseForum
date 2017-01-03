@@ -167,6 +167,10 @@ class ReviewsController < ApplicationController
       current_user.vote_against(@review)
     end
 
+    if @review.votes_against >= 10
+      @review.update(:deleted => true)
+    end
+
     render :nothing => true
   end
 
