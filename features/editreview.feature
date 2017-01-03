@@ -15,7 +15,7 @@ Feature: Edit a tCF Review
 
 	Scenario: should be able to navigate to edit a review
 		When I click the link 'Edit Review'
-		Then I should see title 'Editing review'
+		Then I should see title 'Editing Review'
 		Then I should see 'Sample Text Here'
 
 	Scenario: should be able to edit a review
