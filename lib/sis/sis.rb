@@ -3,9 +3,10 @@ require 'selenium-webdriver'
 credentials = File.open('credentials', 'r').read
 
 puts 'opening browser...'
-driver = Selenium::WebDriver.for :firefox
-# driver = Selenium::WebDriver.for :chrome
-driver.navigate.to "https://sisuva.admin.virginia.edu/psp/ihprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST"
+# driver = Selenium::WebDriver.for :firefox
+Selenium::WebDriver::Chrome.driver_path="/Users/user/path/to/chromedriver"
+driver = Selenium::WebDriver.for :chrome
+driver.get("https://sisuva.admin.virginia.edu/psp/ihprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST")
 
 puts 'authenticating via netbadge...'
 
@@ -36,7 +37,7 @@ driver.find_element(:name => 'DERIVED_SSS_SCL_SSS_GO_1').click
 wait.until { driver.find_element(:name => 'DERIVED_SAAWHIF_SSS_CREATE_NEW').displayed? }
 driver.find_element(:name => 'DERIVED_SAAWHIF_SSS_CREATE_NEW').click
 
-# wait for detail create what-if report pae finished
+# wait for detail create what-if report page finished
 wait.until { driver.find_element(:name => 'DERIVED_SAAWHIF_ACAD_PROG$0').displayed? }
 driver.find_element(:name => 'DERIVED_SAAWHIF_ACAD_PROG$0').click
 driver.find_element(:name => 'DERIVED_SAAWHIF_ACAD_PROG$0').find_elements( :tag_name => "option" ).find do |option|
