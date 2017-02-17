@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require jquery.readyselector
+//= require jquery.barrating.min
 //= require moment
 //= require fullcalendar
 //= require nprogress

@@ -9,13 +9,12 @@ Feature: Write a tCF Review
 		And I click the link 'Write a review'
 
 	Scenario: should be able to navigate to write a review
-		Then I should see 'What class are you reviewing?'
+		Then I should see title 'Write a Review'
 
 	Scenario: should be able to write a review
 		When I write a review
 		And I should see notice: 'Review was successfully created.'
-		And I click the link 'Aaron Bloomfield'
-		Then I should see 'Comment'
+		Then I should see title 'My Reviews'
 		And I should see 'Test Review'
 
 	Scenario: should not be able to write a second review
