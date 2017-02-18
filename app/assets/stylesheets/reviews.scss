@@ -1,3 +1,5 @@
+@import "variables";
+
 .review-radios {
   display: none;
 }
@@ -6,6 +8,151 @@
   border-radius: 0;
 }
 
+/* My Reviews CSS */
+
 #review-label {
   padding-bottom: 10px;
 }
+
+.myreview-container {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-radius: 4px;
+  margin-left:   0px;
+  margin-right:  0px;
+  margin-top:    5px;
+  margin-bottom: 5px;
+  padding: 40px 40px;
+}
+
+#addreview-container {
+  padding: 20px 20px;
+  background-color: #FFFFFF;
+}
+
+#addreview-container:hover {
+  background-color: #FFFFFF;
+}
+
+.addreview {
+  text-align: center;
+}
+
+.addreview #addreview-label {
+  padding-bottom: 10px;
+}
+
+.addreview span {
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0px 0px 2px #000000;
+  padding:10px 10px;
+}
+
+#semester-header {
+  padding-top: 20px;
+}
+
+.myreview-header {
+  background-color:#FFFFFF;
+  padding-top: 5px;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+}
+
+.myreview-container {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding: 20px 20px 20px 20px;
+  border-radius: 0px;
+}
+
+.myreview-header-row {
+  margin: 5px 5px 0px 5px;
+}
+
+.edit-review {
+  float:right;
+}
+
+.review-stats {
+  font-weight: 300;
+  @include flex(1 90%);
+  @include flexbox();
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+.icon-and-text {
+  float:left;
+  overflow: hidden;
+  // margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 13px;
+}
+
+.rating-icon {
+  padding-left: 4px;
+  float: left;
+}
+
+.stats-row {
+  margin: 0 10px;
+  @include flexbox();
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.review-overall {
+  font-size: $comment-overall-rating-font-size;
+  color: rgb(215, 86, 38);
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 40px;
+}
+
+.comment {
+  font-size: $comment-font-size;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.time {
+  margin-top: 13px;
+  float:right;
+  text-align: right;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+  font-weight: 300;
+  @include flex(2 30%);
+}
+
+#total-reviews-container {
+  padding-top: 15px;
+  padding-bottom:10px;
+  margin-bottom:5px;
+  background-color: #FFFFFF;
+  text-align: center;
+}
+
+#average-professor-ratings-container {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin-bottom:5px;
+  background-color: #FFFFFF;
+  text-align: center;
+}
+
+.myreviews-stats-col1 {
+  padding-right: 5px;
+}
+
+.myreviews-stats-col2 {
+  padding-left:0px;
+}
+
+#myreviews-stats-number {
+  color: $orange;
+}
+
+/* End My Reviews CSS */

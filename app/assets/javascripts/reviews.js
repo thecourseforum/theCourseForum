@@ -1,6 +1,14 @@
 var ready;
 
 ready = function() {
+	$('.myreview-container').parent().css({
+		'box-shadow': 'none',
+		'background-color': '#eee',
+  		'padding-top': '0px',
+  		'padding-left': '0px',
+  		'padding-right': '0px',
+	});
+
 	if ($("#new_review").length > 0 || $(".edit_review").length > 0) {
 		$("#review-button").on("click", function() {
 			if (!$("#prof_select").val()) {
