@@ -10,7 +10,7 @@
           .btn.downvote id="vote_down_#{review.id}" class="#{(@reviews_voted_down.include?(review.id) ? 'vote-active' : '')}" = image_tag("icons/up.png", size: "50")
       .comment-container
         .row.comment-row
-          .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
+          .comment= review.comment
         .row.stats-row
           .review-stats 
             .review-overall = review.overall

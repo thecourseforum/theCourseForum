@@ -2,33 +2,31 @@
 - content_for :page_heading, "My Reviews"
 
 - if @reviews.size > 0
-  .row
-    .col-xs-6.myreviews-stats-col1
-      .container-fluid#total-reviews-container
+  .container-fluid.large-stats-container
+    .row
+      .col-xs-6.large-stats
         h3 Total Reviews Written
-        h1#myreviews-stats-number =@reviews.count
-    .col-xs-6.myreviews-stats-col2
-      .container-fluid#average-professor-ratings-container
+        h1.large-stats-number = @reviews.count
+      .col-xs-6.large-stats
         h3 Average Professor Ratings
-        h1#myreviews-stats-number =@avg_prof_rating
-  .container-fluid#addreview-container = link_to new_review_path
-    .addreview
-      .row
-        .col-xs-12
-          h4#addreview-label Write Another Review
-        .col-xs-12
-          span.glyphicon.glyphicon-plus
+        h1.large-stats-number = @avg_prof_rating
+  .container-fluid.stretch-button-container = link_to new_review_path
+    .row
+      .col-xs-12
+        h4 Write Another Review
+      .col-xs-12
+        span.glyphicon.glyphicon-plus
 
   br
   - @semesters.each do |semester|
     .row
       .col-xs-12
-        h2#semester-header = "#{semester.season} #{semester.year}"
+        h2.semester-header = "#{semester.season} #{semester.year}"
     - @reviews_map[semester.number].each do |review|
-      div.myreview-header
-        .row.myreview-header-row
+      div.review-header-container
+        .row.review-header
           .col-xs-2
-            h3= link_to "#{review.course.mnemonic_number}", review.course
+            h3 = link_to "#{review.course.mnemonic_number}", review.course
           .col-xs-2
             = link_to review.professor.full_name, review.professor
           .col-xs-3
@@ -44,7 +42,7 @@
             - if review.comment == ""
               .comment <i>No comment for this review, edit to write a comment!</i>
             - else
-              .comment= h(review.comment).gsub(/\n/, '<br/>').html_safe
+              .comment = h(review.comment).gsub(/\n/, '<br/>').html_safe
         .row
           .col-xs-6
             .review-stats
@@ -91,7 +89,7 @@
 
 - else
   .row
-    .col-xs-12#review-label
+    .col-xs-12.text-label
       | You haven't written any reviews yet!
   .row
     .col-xs-12

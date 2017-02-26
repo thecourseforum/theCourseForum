@@ -13,9 +13,11 @@ class ReviewsController < ApplicationController
     @reviews_map[nil] = @reviews.where(semester_id: nil).sort_by{|r| r.course.mnemonic_number}
 
     average_prof_rating = 0
+
     @reviews.each do |r|
       average_prof_rating += r.overall
     end
+
     @avg_prof_rating = (average_prof_rating/@reviews.count).round(2)
 
     respond_to do |format|

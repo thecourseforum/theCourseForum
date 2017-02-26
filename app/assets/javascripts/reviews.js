@@ -1,6 +1,7 @@
 var ready;
 
 ready = function() {
+
 	$('.myreview-container').parent().css({
 		'box-shadow': 'none',
 		'background-color': '#eee',
