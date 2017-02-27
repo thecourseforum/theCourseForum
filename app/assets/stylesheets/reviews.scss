@@ -1,3 +1,5 @@
+@import "courses";
+
 /*------------------------------------*\
   #WRITE REVIEW
 \*------------------------------------*/
@@ -101,50 +103,4 @@
 
 .large-stats-number {
   color: $orange;
-}
-
-
-.icon-and-text {
-  float:left;
-  overflow: hidden;
-  // margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 13px;
-}
-
-.rating-icon {
-  padding-left: 4px;
-  float: left;
-}
-
-.stats-row {
-  margin: 0 10px;
-  @include flexbox();
-  justify-content: space-between;
-  -webkit-justify-content: space-between;
-}
-
-.review-overall {
-  font-size: $comment-overall-rating-font-size;
-  color: rgb(215, 86, 38);
-  float: left;
-  margin-top: 10px;
-  margin-right: 10px;
-  width: 40px;
-}
-
-.comment {
-  font-size: $comment-font-size;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.time {
-  margin-top: 13px;
-  float:right;
-  text-align: right;
-  -webkit-align-self: flex-end;
-  align-self: flex-end;
-  font-weight: 300;
-  @include flex(2 30%);
 }
