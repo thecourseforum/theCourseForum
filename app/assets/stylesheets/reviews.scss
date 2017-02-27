@@ -1,4 +1,6 @@
-@import "variables";
+/*------------------------------------*\
+  #WRITE REVIEW
+\*------------------------------------*/
 
 .review-radios {
   display: none;
@@ -8,7 +10,11 @@
   border-radius: 0;
 }
 
-/* My Reviews CSS */
+
+
+/*------------------------------------*\
+  #MY REVIEWS
+\*------------------------------------*/
 
 .text-label {
   padding-bottom: 10px;
@@ -81,13 +87,16 @@
   background-color: #FFFFFF;
   text-align: center;
   display:block;
+  margin-left: 1px;
+}
+
+.large-stats:first-of-type {
   margin-left:-1px;
-  margin-right: 1px;
 }
 
 .large-stats:last-of-type {
-    margin-left:0px;
-    margin-right: 0px;
+    margin-left:1px;
+    margin-right: -1px;
   }
 
 .large-stats-number {
@@ -139,5 +148,3 @@
   font-weight: 300;
   @include flex(2 30%);
 }
-
-/* End My Reviews CSS */

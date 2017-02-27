@@ -20,7 +20,6 @@
  *= require sidebar
  *= require welcome
  *= require departments
- *= require reviews
  *= require scheduler
  *= require books
  *= require textbook_transactions
@@ -31,6 +30,7 @@ $screen-sm: 850px;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
+@import "reviews";
 
 $nprogress-color: $blue;
 $nprogress-height: 4.5px;

@@ -4,11 +4,14 @@
 - if @reviews.size > 0
   .container-fluid.large-stats-container
     .row
-      .col-xs-6.large-stats
+      .col-xs-4.large-stats
         h3 Total Reviews Written
         h1.large-stats-number = @reviews.count
-      .col-xs-6.large-stats
-        h3 Average Professor Ratings
+      .col-xs-4.large-stats
+        h3 Total Review Upvotes
+        h1.large-stats-number = @review_upvotes
+      .col-xs-4.large-stats
+        h3 Average Prof. Ratings
         h1.large-stats-number = @avg_prof_rating
   .container-fluid.stretch-button-container = link_to new_review_path
     .row
