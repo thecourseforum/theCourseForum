@@ -3,8 +3,8 @@ Given /^courses exist$/ do
     school = School.create(:name => 'School of Engineering & Applied Science')
     department = Department.create(:school => school, :name => 'Computer Science')
     subdepartment = Subdepartment.create(:name => 'Computer Science', :mnemonic => 'CS')
-    lastest_semester = Semester.create(:number => 1172, :season => 'Spring', :year => 2017)
-    older_semester = Semester.create(:number => 1168, :season => 'Fall', :year => 2016)
+    lastest_semester = Semester.create(:number => 1178, :season => 'Spring', :year => 2017)
+    older_semester = Semester.create(:number => 1172, :season => 'Spring', :year => 2017)
     department.subdepartments << subdepartment
     course = Course.create(
       :title => 'Program and Data Representation',
