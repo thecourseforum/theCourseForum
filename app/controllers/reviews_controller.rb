@@ -12,15 +12,15 @@ class ReviewsController < ApplicationController
 
     @reviews_map[nil] = @reviews.where(semester_id: nil).sort_by{|r| r.course.mnemonic_number}
 
-    average_prof_rating = 0
+    average_review_rating = 0
     @review_upvotes = 0
 
     @reviews.each do |r|
-      average_prof_rating += r.overall
+      average_review_rating += r.overall
       @review_upvotes += r.votes_for
     end
 
-    @avg_prof_rating = (average_prof_rating/@reviews.count).round(2)
+    @avg_review_rating = (average_review_rating/@reviews.count).round(2)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -70,7 +70,7 @@ class ReviewsController < ApplicationController
     @courses = Course.where(:subdepartment_id => @subdept_id)
     @professors = Course.find(@course_id).professors_list
     @mnemonic = @subdepartment.mnemonic
-  
+
 
   end
 
@@ -99,9 +99,9 @@ class ReviewsController < ApplicationController
     @review.semester_id = @semester.id
 
     @review.student_id = current_user.id
-    
+
     respond_to do |format|
-      if @review.save      
+      if @review.save
         format.html { redirect_to my_reviews_path, notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else

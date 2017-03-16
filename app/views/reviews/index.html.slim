@@ -11,8 +11,8 @@
         h3 Total Review Upvotes
         h1.large-stats-number = @review_upvotes
       .col-xs-4.large-stats
-        h3 Average Prof. Ratings
-        h1.large-stats-number = @avg_prof_rating
+        h3 Average Review Rating
+        h1.large-stats-number = @avg_review_rating
   .container-fluid.stretch-button-container = link_to new_review_path
     .row
       .col-xs-12
@@ -28,15 +28,15 @@
     - @reviews_map[semester.number].each do |review|
       div.review-header-container
         .row.review-header
-          .col-xs-2
+          .col-xs-3
             h3 = link_to "#{review.course.mnemonic_number}", review.course
-          .col-xs-2
+          .col-xs-3
             = link_to review.professor.full_name, review.professor
           .col-xs-3
             a href="#{course_path(review.course_id, :p => review.professor_id)}"
-              span Go To Class 
+              span Go To Class
               span.glyphicon.glyphicon-arrow-right
-          .col-xs-5
+          .col-xs-3
             div.edit-review
               = link_to "Edit Review", edit_review_path(review)
       .container-fluid.myreview-container
