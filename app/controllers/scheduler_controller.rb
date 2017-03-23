@@ -38,7 +38,12 @@ class SchedulerController < ApplicationController
   end
 
   def search
-    @query = params[:query].strip.split(' ')
+	querystring = params[:query]
+	if !querystring.include? ' '
+		@query = querystring.strip.split(/(\d+)/)
+	else
+		@query = querystring.strip.split(' ')
+	end
     courses = []
     params[:type] ||= 'current'
     if @query.length != 1 and !!/\A\d+\z/.match(@query[1])
@@ -48,7 +53,7 @@ class SchedulerController < ApplicationController
         courses += Course.includes(:subdepartment).where('subdepartments.mnemonic LIKE ? AND course_number LIKE ?', "%#{@query[0]}%", "%#{@query[1]}%").references(:subdepartment)
       end
     end
-    
+
     if !!/\A\d+\z/.match(@query[0])
       if params[:type] == 'current'
         courses += Course.includes(:subdepartment).current.where('course_number LIKE ?', "%#{@query[0]}%")
@@ -179,7 +184,7 @@ class SchedulerController < ApplicationController
       # for each type of section in the array
       course_sections = JSON.parse(params[:course_sections]).map do |course|
         Section.includes(:day_times, :locations, :professors).find(course)
-      end 
+      end
     end
 
     # Permute through the array of arrays to generate all possible combinations of schedules
@@ -230,7 +235,7 @@ class SchedulerController < ApplicationController
     # # tz = TZInfo::Timezone.get tzid
     # # timezone = tz.ical_timezone event.dtstart
     # # @calendar.add_timezone timezone
-    
+
     # Gets the array of section ids from the URL
     sections = Section.find(JSON.parse(params[:sections]))
 
@@ -239,14 +244,14 @@ class SchedulerController < ApplicationController
         events = render_ical_event(section)
         events.each do |event|
           @calendar.add_event(event)
-        end  
+        end
     end
 
     # make the calendar a file
     @calendar.publish
     headers['Content-Type'] = "text/calendar; charset=UTF-8"
     render :text => @calendar.to_ical
-    
+
   end
 
 
@@ -257,14 +262,14 @@ class SchedulerController < ApplicationController
     # for each of the sections,
     # replace it with an object with its corresponding fields
     sections.map do |section|
-      # Three blank arrays to be 
+      # Three blank arrays to be
       # The days the the section is taught
       days = []
       # its start and end times
       start_times = []
       end_times = []
 
-      # For each of the sections day_times, 
+      # For each of the sections day_times,
       # sort them by start time, then end tie, then day of the week,
       # then populate the arrays above the corresponding information
       section.day_times.sort_by{|s| [s.start_time, s.end_time, day_to_number(s.day)] }.each do |day_time|
@@ -302,7 +307,7 @@ class SchedulerController < ApplicationController
   def conflicts(partial_schedule, new_section)
     # If a student wants no morning classes,
     if params[:mornings] == 'true'
-      # check if any of the section's day times start before 10am 
+      # check if any of the section's day times start before 10am
       new_section.day_times.each do |day_time|
         if day_time.start_time.sub(':', '.').to_f < 10
           return true
@@ -325,7 +330,7 @@ class SchedulerController < ApplicationController
         if day_time.day == 'Fr'
           return true
         end
-        # or if any classes on thursday end late at night 
+        # or if any classes on thursday end late at night
         if day_time.day == 'Th' && day_time.end_time.sub(':','.').to_f > 19
           return true
         end
@@ -361,10 +366,10 @@ class SchedulerController < ApplicationController
 
 
   # takes a section, and turns each of its days into an iCal event
-  # stores those events into an array 
+  # stores those events into an array
   # each event (day) will be repeated weekly [there is no support for more frequent times (eg. TuTh)]
   def render_ical_event(section)
-    
+
       events = [] #array to hold all the days in a section (MWF are 3 separate events that repeat weekly)
       tzid = "America/New_York" # time zone
 
@@ -419,9 +424,9 @@ class SchedulerController < ApplicationController
         #adds the day for that section into an array
         events << event
 
-      end 
-      
+      end
+
       return events
   end
 
-end  
+end
