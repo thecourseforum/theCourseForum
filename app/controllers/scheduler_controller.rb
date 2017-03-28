@@ -40,9 +40,9 @@ class SchedulerController < ApplicationController
   def search
 	querystring = params[:query]
 	if !querystring.include? ' '
-		@query = querystring.strip.split(/(\d+)/)
+    @query = querystring.strip.split(/(\d+)/)
 	else
-		@query = querystring.strip.split(' ')
+    @query = querystring.strip.split(' ')
 	end
     courses = []
     params[:type] ||= 'current'
