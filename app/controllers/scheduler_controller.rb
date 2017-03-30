@@ -66,8 +66,8 @@ class SchedulerController < ApplicationController
       courses += Course.includes(:subdepartment).current.where('title LIKE ?', "%#{@query[0]}%")
       courses += Section.includes(:course => :subdepartment).where('topic LIKE ? AND semester_id = ?', "%#{@query[0]}%", 27).map(&:course).uniq
     else
-      courses += Course.includes(:subdepartment).where('title LIKE ?', "%#{@query[0]}%")
-      courses += Section.includes(:course => :subdepartment).where('topic LIKE ?', "%#{@query[0]}%").map(&:course).uniq
+      courses += Course.includes(:subdepartment).where('title LIKE ?', "%#{querystring}%")
+      courses += Section.includes(:course => :subdepartment).where('topic LIKE ?', "%#{querystring}%").map(&:course).uniq
     end
 
     render :json => {
