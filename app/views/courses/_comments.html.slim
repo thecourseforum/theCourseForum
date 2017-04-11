@@ -19,9 +19,14 @@
       .icon-and-text
         div.rating-icon = image_tag("icons/recommend.png", size: "20", title: "Recommendability")
         div.rating-icon.recommend = review.recommend
+      - if myreviews
+        .icon-and-text
+          div.rating-icon = image_tag("icons/thumb_up.png", size: "20", title: "Upvote")
+          div.rating-icon.up = (review.votes_for - review.votes_against).to_i
       - if current_user == review.user and myreviews == false
         .icon-and-text
           div.rating-icon style="color:#E25424;" = "You wrote this!"
+
     .time
       - if review.semester_id
         .taken= "#{review.semester.season} #{review.semester.year}"

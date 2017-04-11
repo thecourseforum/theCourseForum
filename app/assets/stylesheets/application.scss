@@ -231,6 +231,13 @@ select {
   vertical-align: middle;
   font-size: $sidebar-font-size;
   padding-left: 30px;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: $blue;
+  }
 }
 
 #close-notice, #close-alert {

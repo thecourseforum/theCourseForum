@@ -100,9 +100,11 @@ class ReviewsController < ApplicationController
 
     @review.student_id = current_user.id
 
+    @course = Course.find(@review.course_id)
+
     respond_to do |format|
       if @review.save
-        format.html { redirect_to my_reviews_path, notice: 'Review was successfully created.' }
+        format.html { redirect_to my_reviews_path, notice: "Review was successfully created. Return to #{view_context.link_to(@course.title, course_path(@review.course_id, :p => @review.professor_id))}.".html_safe }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }
