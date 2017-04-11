@@ -162,30 +162,30 @@
         br
         .row.average-stat
           .col-xs-4
-            span.glyphicon.glyphicon-book
-            span
-              |  Reading:
+            =image_tag("icons/reading.png", size: "20")
+            span.icon-label
+              | Reading:
           .col-xs-8
             = f.number_field :amount_reading, :id => "readingfield", :value => ( (@review.amount_reading? and @review.amount_reading > 0) ? @review.amount_reading.to_i : 0), :min => 0, class: "form-control"
         .row.average-stat
           .col-xs-4
-            span.glyphicon.glyphicon-edit
-            span
-              |  Writing:
+            =image_tag("icons/writing.png", size: "20")
+            span.icon-label
+              | Writing:
           .col-xs-8
             = f.number_field :amount_writing, :id => "writingfield", :value => ( (@review.amount_writing? and @review.amount_writing > 0) ? @review.amount_writing.to_i : 0), :min => 0, class: "form-control"
         .row.average-stat
           .col-xs-4
-            span.glyphicon.glyphicon-user
-            span
-              |  Groupwork:
+            =image_tag("icons/group.png", size:"20")
+            span.icon-label
+              | Groupwork:
           .col-xs-8
             = f.number_field :amount_group, :id => "groupfield", :value => ( (@review.amount_group? and @review.amount_group > 0) ? @review.amount_group.to_i : 0), :min => 0, class: "form-control"
         .row.average-stat
           .col-xs-4
-            span.glyphicon.glyphicon-file
-            span
-              |  Homework:
+            =image_tag("icons/other.png", size:"20")
+            span.icon-label
+              | Other Work:
           .col-xs-8
             = f.number_field :amount_homework, :id => "homeworkfield", :value => ( (@review.amount_homework? and @review.amount_homework > 0) ? @review.amount_homework.to_i : 0), :min => 0, class: "form-control"
 
@@ -201,10 +201,11 @@
             | &nbsp
         .row
           .col-md-12
-            = f.text_area :comment, :placeholder=>"Write Your Review!", class: "form-control"
+            = f.text_area :comment, :placeholder=>"Write Your Review!", class: "form-control", :rows => 5
     hr
 
     
 
     .actions align="center" 
       = f.submit 'Submit Review!', :class => "btn btn-primary", :id => "review-button"
+      
