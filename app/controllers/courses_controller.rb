@@ -50,7 +50,7 @@ class CoursesController < ApplicationController
     add_breadcrumb 'Departments', departments_url
     add_breadcrumb @subdepartment.name, department_path(@subdepartment.departments.first)
     add_breadcrumb @course.title, "#{course_path(@course)}/professors"
-    add_breadcrumb @professor ? @professor.full_name : 'All Professors'
+    add_breadcrumb @professor ? @professor.full_name : 'All Professors', professor_path(@professor)
 
     if @sort_type != nil
       if @sort_type == "helpful"
