@@ -1,96 +1,97 @@
 - content_for :title, "My Account"
 - content_for :page_heading, "My Account"
 
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-  = devise_error_messages!
+.back-container
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+    = devise_error_messages!
 
-  .row
-    .col-xs-6.col-sm-4
-      = f.label :first_name, "First Name:"
-    .col-xs-6.col-sm-4.col-sm-offset-2
-      = f.label :last_name, "Last Name:"
-  .row
-    .col-xs-6.col-sm-4
-      = f.text_field :first_name, class: "form-control"
-    .col-xs-6.col-sm-4.col-sm-offset-2
-      = f.text_field :last_name, class: "form-control"
-
-  br
-  
-  .row
-    .col-xs-12.col-sm-4
-      = f.label :email, "Email:"
-  .row
-    .col-xs-12.col-sm-4
-      = f.email_field :email, class: "form-control"
-
-  br
-
-  .row
-    .col-xs-6.col-sm-4
-      = f.label :password, "New Password:"
-      br
-      .update-text
-        | (leave blank if you don't want to change it)
-    .col-xs-6.col-sm-4.col-sm-offset-2
-      = f.label :password_confirmation, "Confirm New Password:"
-  .row
-    .col-xs-6.col-sm-4
-      = f.password_field :password, :autocomplete => "off", :style => "float:left;", class: "form-control"
-    .col-xs-6.col-sm-4.col-sm-offset-2
-      = f.password_field :password_confirmation, class: "form-control"
-  
-  br
-
-  = fields_for @student do |s|
     .row
-      .col-xs-6.col-sm-4.grad-year
-        = s.label :grad_year, "Graduation Year:"
-        = s.select :grad_year, options_for_select((2009..Time.now.year+4).to_a.push(["N/A", 0]), @student.grad_year)
+      .col-xs-6.col-sm-4
+        = f.label :first_name, "First Name:"
+      .col-xs-6.col-sm-4.col-sm-offset-2
+        = f.label :last_name, "Last Name:"
+    .row
+      .col-xs-6.col-sm-4
+        = f.text_field :first_name, class: "form-control"
+      .col-xs-6.col-sm-4.col-sm-offset-2
+        = f.text_field :last_name, class: "form-control"
+
+    br
+    
+    .row
+      .col-xs-12.col-sm-4
+        = f.label :email, "Email:"
+    .row
+      .col-xs-12.col-sm-4
+        = f.email_field :email, class: "form-control"
+
+    br
+
+    .row
+      .col-xs-6.col-sm-4
+        = f.label :password, "New Password:"
+        br
+        .update-text
+          | (leave blank if you don't want to change it)
+      .col-xs-6.col-sm-4.col-sm-offset-2
+        = f.label :password_confirmation, "Confirm New Password:"
+    .row
+      .col-xs-6.col-sm-4
+        = f.password_field :password, :autocomplete => "off", :style => "float:left;", class: "form-control"
+      .col-xs-6.col-sm-4.col-sm-offset-2
+        = f.password_field :password_confirmation, class: "form-control"
+    
+    br
+
+    = fields_for @student do |s|
+      .row
+        .col-xs-6.col-sm-4.grad-year
+          = s.label :grad_year, "Graduation Year:"
+          = s.select :grad_year, options_for_select((2009..Time.now.year+4).to_a.push(["N/A", 0]), @student.grad_year)
+      br
+      .row
+        .col-xs-12.col-sm-4.major1 
+          .row
+            .col-xs-12
+              = label_tag :major1, "Major 1:"
+              br
+              | (leave blank if you don't have one)
+          .row
+            .col-xs-12.major1
+              = select_tag :major1, options_for_select(@majors_list, @major_ids[0]), :include_blank => true, class: "form-control"
+        .col-xs-12.col-sm-4.major2 
+          .row
+            .col-xs-12
+              = label_tag :major2, "Major 2:"
+              br
+              | (leave blank if you don't have one)
+          .row
+            .col-xs-12.major2
+              = select_tag :major2, options_for_select(@majors_list, @major_ids[1]), :include_blank => true, class: "form-control"
+        .col-xs-12.col-sm-4.major3 
+          .row
+            .col-xs-12
+              = label_tag :major3, "Major 3:"
+              br
+              | (leave blank if you don't have one)
+          .row
+            .col-xs-12.major3
+              = select_tag :major3, options_for_select(@majors_list, @major_ids[2]), :include_blank => true, class: "form-control"
+    
+    br
+
+    .row
+      .col-xs-12.col-sm-4
+        = f.label :current_password, "Current Password:", :style => "font-weight: bold;"
+    .row
+      .col-xs-12.col-sm-4
+        = f.password_field :current_password, class: "form-control"
+
     br
     .row
-      .col-xs-12.col-sm-4.major1 
-        .row
-          .col-xs-12
-            = label_tag :major1, "Major 1:"
-            br
-            | (leave blank if you don't have one)
-        .row
-          .col-xs-12.major1
-            = select_tag :major1, options_for_select(@majors_list, @major_ids[0]), :include_blank => true, class: "form-control"
-      .col-xs-12.col-sm-4.major2 
-        .row
-          .col-xs-12
-            = label_tag :major2, "Major 2:"
-            br
-            | (leave blank if you don't have one)
-        .row
-          .col-xs-12.major2
-            = select_tag :major2, options_for_select(@majors_list, @major_ids[1]), :include_blank => true, class: "form-control"
-      .col-xs-12.col-sm-4.major3 
-        .row
-          .col-xs-12
-            = label_tag :major3, "Major 3:"
-            br
-            | (leave blank if you don't have one)
-        .row
-          .col-xs-12.major3
-            = select_tag :major3, options_for_select(@majors_list, @major_ids[2]), :include_blank => true, class: "form-control"
-  
-  br
+      .col-xs-12
+        | (we need your current password to confirm your changes)
 
-  .row
-    .col-xs-12.col-sm-4
-      = f.label :current_password, "Current Password:", :style => "font-weight: bold;"
-  .row
-    .col-xs-12.col-sm-4
-      = f.password_field :current_password, class: "form-control"
+    br
 
-  br
-  .row
-    .col-xs-12
-      | (we need your current password to confirm your changes)
-
-  br
-
-  div= f.submit "Update", :class => "btn btn-primary"
+    div= f.submit "Update", :class => "btn btn-primary"
