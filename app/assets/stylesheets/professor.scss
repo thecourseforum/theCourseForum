@@ -50,3 +50,259 @@
 		margin-right: 10px;
 	}
 }
+
+.review-pane {
+  margin-top: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+}
+
+
+#course-page, .review-pane {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  // max-width: 926px;
+}
+
+.stats-number {
+  padding-left: 0px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.rating-number {
+  text-align: center;
+  width: 80px;
+  float: left;
+  margin-left: 18px;
+}
+
+.icon {
+  font-size: $tiny-font-size;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.rating-icon {
+  padding-left: 4px;
+  float: left;
+}
+
+.icon-and-text {
+  float:left;
+  overflow: hidden;
+  // margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 13px;
+}
+
+.icon-text {
+  text-align: center;
+  font-size: $small-font-size;
+}
+
+.stats-col {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 2px;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+}
+
+
+.review-stats {
+  font-weight: 300;
+  @include flex(1 90%);
+  @include flexbox();
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+.comment-header {
+  margin-top: 10px;
+  padding: 10px 0;
+  border-bottom: 2px solid #efefef;
+}
+
+.rating-header-row, .number-of-comments, .comment-row, .description-row, .no-margin-row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.comment-row {
+  @include flexbox();
+}
+
+.professor-review-type-switcher {
+  max-width: 160px;
+}
+
+.upvote, .downvote {
+  font-size:12px;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  padding: 0px 0px;
+  display: block;
+  margin: auto;
+  opacity: 0.4;
+
+}
+
+.stats-row {
+  margin: 0 10px;
+  @include flexbox();
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.downvote {
+  -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+  -moz-transform: rotate(180deg);        /* FF */
+  -o-transform: rotate(180deg);          /* Opera */
+  -ms-transform: rotate(180deg);         /* IE9 */
+  transform: rotate(180deg);             /* W3C compliant browsers */
+
+  /* IE8 and below */
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+}
+
+.upvotes {
+  text-align: center;
+  font-size: $description-font-size;
+}
+
+.single-review {
+  padding: 10px 0;
+  border-bottom: 1px solid #dedede;
+  transition: background-color 0.2s ease;
+}
+
+.single-review:hover {
+  background-color: #F1F6FB;
+}
+
+.review-overall {
+  font-size: $comment-overall-rating-font-size;
+  color: rgb(215, 86, 38);
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 40px;
+}
+
+.comment {
+  font-size: $comment-font-size;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.comment-container {
+  min-height: 100%;
+  display: inline-block;
+  // float: right;
+  width: calc(100% - 84px);
+  padding-right: 20px;
+  min-height: 117px;
+  position: relative;
+  padding-left: 20px;
+  margin: 0px;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+
+  .stats-row {
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 100%;
+  }
+
+}
+
+
+.vote-active {
+  opacity: 1.0;
+}
+
+#review-container {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media (max-width: 520px) {
+  .rating {
+    font-size: 3.0rem;
+  }
+  .time {
+    font-size: 0.8rem;
+  }
+  .rating-icon {
+    font-size: 1.0rem;
+    img {
+      height: 10px;
+      width: 10px;
+    }
+  }
+  .review-overall {
+    margin-right: 2px;
+    font-size: 1.4rem;
+    width: auto;
+  }
+
+  .btn img {
+    height: 25px;
+    width: 25px;
+  }
+  .rating-number {
+    width: 42px;
+  }
+  .comment-container {
+    padding-left: 10px;
+    padding-right: 6px;
+  }
+
+  .book-image, .no-book-image {
+    img {
+      height: 146px;
+      width: 108px;
+    }
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+  .review-author {
+    font-size: 1.2rem;
+  }
+  .amazon a img {
+    height: 30px;
+    width: 60px;
+  }
+  .book-description {
+    width: calc(100% - 140px);
+  }
+  .requirement-cost-condition, .bookstore {
+    font-size: 1.0rem;
+  }
+  .amazon-info .col-xs-3, .bookstore-info .col-xs-3 {
+    padding-left: 0px;
+  }
+
+}
+
+@media (max-width: 920px) {
+  .comment {
+    font-size: $smaller-comment-font-size;
+  }
+  .course-grades, .course-stats {
+    min-width: 100%;
+    @include flex(1 100%);
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

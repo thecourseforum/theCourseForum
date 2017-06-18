@@ -1,3 +1,4 @@
+= javascript_include_tag "professors"
 = stylesheet_link_tag "professor"
 
 / - content_for :page_heading, "#{@professor.full_name}"
@@ -71,4 +72,34 @@ hr
           /   - if course[:course].description
           /     p.description = course[:course].description
     br
+.row.number-of-comments
+  - if @total_review_count > 1
+    h1
+      - if @reviews_with_comments.count == 1
+        = "#{@reviews_with_comments.count} Comment"
+      - else
+        = "#{@reviews_with_comments.count} Comments"
+  - else
+    h1
+      - if @reviews_with_comments.count == 1
+        = "1 Comment"
+      - else
+        = "0 Comments"
+.review-pane
+  div.comment-header
+    .row.rating-header-row
+      .col-xs-4
+        = link_to "Write Your Own Review!", new_review_path, class: "btn btn-primary"
+      .col-xs-4
+        div style="float:right"
+      .col-xs-4
+        select.professor-review-type-switcher style="font-size:13px;float:right;"
+          option value='recent' selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          option value="helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          option value="semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          option value="highest" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          option value="lowest"   style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+  .container-fluid#review-container
+    .reviews-box
+.wheel-loader.hidden
 

@@ -18,10 +18,12 @@ TheCourseForum::Application.routes.draw do
 
   resources :course_professors, :only => [:index]
 
+  get '/professors/reviews' => 'professors#reviews'
+  
   resources :professors, :only => [:index, :show]
 
   get '/courses/reviews' => 'courses#reviews'
-  
+
   resources :courses, :only => [:show, :index, :show_professors]
 
   # temporary error page until scheduler is fixed

@@ -118,12 +118,13 @@ class CoursesController < ApplicationController
   end
 
   def reviews
-    if params[:professor_id] and params[:professor_id] != "all"
+    if params[:course_id] and params[:professor_id] and params[:professor_id] != "all"
       all_reviews = Review.where(:course_id => params[:course_id], :professor_id => params[:professor_id], :deleted => false)
-    else
+    elsif params[:course_id]
       all_reviews = Review.where(:course_id => params[:course_id], :deleted => false)
+    else
+      all_reviews = Review.where(:professor_id => params[:professor_id], :deleted => false)
     end
-
     @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
     @reviews_voted_down = current_user ? current_user.votes.where(:vote => 0).pluck(:voteable_id) : []
 

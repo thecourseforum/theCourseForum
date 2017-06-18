@@ -27,14 +27,17 @@ class ProfessorsController < ApplicationController
     end
 
     # Get all reviews
-    @reviews = Review.where(:professor_id => @professor.id)
+    @all_reviews = Review.where(:professor_id => @professor.id)
+    @reviews_no_comments = @all_reviews.where(:comment => "")
+    @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| - r.created_at.to_i}
+    # @reviews = @reviews_with_comments.paginate(:page => params[:page], :per_page=> 15)
+    @total_review_count = @all_reviews.count
 
     # Chunking! (by subdepartment)
     @course_groups = @courses.chunk{|course| course[:course].subdepartment}
 
-    @total_reviews = @reviews.count
-    @avg_rating = @reviews.average("(professor_rating + enjoyability + recommend) / 3")
-    @avg_difficulty = @reviews.average(:difficulty)
+    @avg_rating = @all_reviews.average("(professor_rating + enjoyability + recommend) / 3")
+    @avg_difficulty = @all_reviews.average(:difficulty)
 
     # Format so always two decimal places
     @avg_rating = @avg_rating ? sprintf('%.2f', @avg_rating) : "N/A"
@@ -45,6 +48,35 @@ class ProfessorsController < ApplicationController
       format.json { render json: {professor: @professor, course_professors: @course_professors} }
       format.js {render :partial => 'classlist', :locals => {:course_professors => @course_professors}}
     end
+  end
+
+  def reviews
+    @all_reviews = Review.where(:professor_id => params[:professor_id])
+    @reviews_voted_up = current_user ? current_user.votes.where(:vote => 1).pluck(:voteable_id) : []
+    @reviews_voted_down = current_user ? current_user.votes.where(:vote => 0).pluck(:voteable_id) : []
+
+    @sort_type = params[:sort_type]
+    if @sort_type != nil
+      case @sort_type
+          when "recent"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.created_at.to_i]}
+          when "helpful"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-(r.votes_for-r.votes_against), -r.created_at.to_i]}
+          when "highest"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.overall, -r.created_at.to_i]}
+          when "lowest"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [r.overall, -r.created_at.to_i]}
+          when "controversial"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").sort_by{|r| [-r.votes_for/r.overall, -r.created_at.to_i]}
+          when "semester"
+            @reviews_with_comments = @all_reviews.where.not(:comment => "").where.not(:semester_id => nil).sort_by{|r| [-r.semester_id, r.created_at.to_i]}
+          else
+            @reviews_with_comments = @all_reviews.where.not(:comment => "")
+          end
+    end
+
+    render partial: '/courses/reviews', locals: { reviews_with_comments: @reviews_voted_up, reviews: @reviews_voted_up, reviews_voted_down: @reviews_voted_down }, layout: false
+    
   end
 
   private
