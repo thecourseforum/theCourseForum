@@ -5,7 +5,7 @@ ul.sidebar
         .col-xs-12
           .col-wrapper
             span.glyphicon.glyphicon.glyphicon-search
-            input type="text" placeholder="Type to Search" name="query" id="search-query"
+            input type="text" placeholder="Search" name="query" id="search-query"
       .row.nav-row.submit-row style="display:none;"
         .col-xs-12
           .col-wrapper
@@ -13,61 +13,62 @@ ul.sidebar
     .row.nav-row
       .col-xs-12
         .col-wrapper
-          a href="/reviews/new"
-            i.glyphicon.glyphicon.glyphicon-pencil
-            | Write a review
+          .row
+            .col-xs-12
+              a href="/reviews/new"
+                i.glyphicon.glyphicon.glyphicon-pencil
+                | Review
     .row.nav-row
       .col-xs-12
         .col-wrapper
-          a href="/browse"
-            i.glyphicon.glyphicon-list
-            | Browse All
+          .row
+            .col-xs-12
+              a href="/browse"
+                i.glyphicon.glyphicon-list
+                | Browse
     .row.nav-row#scheduler
       .col-xs-12
         .col-wrapper
-          / a href="/scheduler/error"
-          a href="/scheduler"
-            i.glyphicon.glyphicon-calendar
-            | Scheduler
-            .beta BETA
+          .row
+            .col-xs-12
+              / a href="/scheduler/error"
+              a href="/scheduler"
+                i.glyphicon.glyphicon-calendar
+                | Scheduler
     .row.nav-row#textbook-exchange
       .col-xs-12
         .col-wrapper
-          a href="/textbooks"
-            i.glyphicon.glyphicon-transfer
-            | Textbooks
-            .beta ALPHA
+          .row
+            .col-xs-12
+              a href="/textbooks"
+                i.glyphicon.glyphicon-transfer
+                | Textbooks
     .row.nav-row.hidden-xl.hidden-lg.hidden-md.hidden-sm
       .col-xs-12
         .col-wrapper
-          a href="/about"
-            i.glyphicon.glyphicon-info-sign
-            | About
-    .row.nav-row.hidden-xl.hidden-lg.hidden-md.hidden-sm
-      .col-xs-12
-        .col-wrapper
-            a#user-account
-              i.glyphicon.glyphicon-user
-              = current_user.first_name if current_user
-              span.caret
-            .col-secondary
-              a href="/my_reviews"
-                i.glyphicon.glyphicon-book
-                | My Reviews
-            .col-secondary
-              a href="/users/edit"
-                i.glyphicon.glyphicon-wrench
-                | My Account
-            .col-secondary
-              a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
-                i.glyphicon.glyphicon-log-out
-                | Logout
+          a#user-account
+            i.glyphicon.glyphicon-user
+            = current_user.first_name if current_user
+            span.caret
+          .col-secondary
+            a href="/my_reviews"
+              i.glyphicon.glyphicon-book
+              br
+              | Reviews
+          .col-secondary
+            a href="/users/edit"
+              i.glyphicon.glyphicon-wrench
+              br
+              | Account
+          .col-secondary
+            a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
+              i.glyphicon.glyphicon-log-out
+              br
+              | Logout
 
   li.sidebar__footer.row
     a href="#{privacy_path}" Privacy
     = " | "
     a href="#{terms_path}" Terms
-    = " | "
-    | theCourseForum © 2015
-    br
-    a href="http://blog.thecourseforum.com/" v3.0.1
+    = " "
+    | theCourseForum © 2015 v3.0.1

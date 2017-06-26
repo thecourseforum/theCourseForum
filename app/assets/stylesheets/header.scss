@@ -36,7 +36,7 @@ $screen-xs: 480px;
 #logo {
   max-height: $navbar-height;
   max-width: 80%;
-  padding: 5px;
+  padding: 7px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -59,10 +59,15 @@ $screen-xs: 480px;
 }
 
 @media (max-width: $screen-sm) {
+    li a {
+      color: rgba(255, 255, 255, 0.5);
+    }
     .navbar-default .navbar-brand {
       background-color: #fff;
     }
     #logo {
+      position: absolute;
+      text-align: center;
       margin-left: -30px;
     }
 }
@@ -105,7 +110,7 @@ $button-width: 22px;
     // place lines button on left if not mobile
     @media only screen and (min-device-width: $screen-xs){
         position: absolute;
-        left: 210px;
+        left: 100px;
     }
 
     // place lines-button on right if mobile
