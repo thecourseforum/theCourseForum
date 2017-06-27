@@ -7,7 +7,7 @@ When /^I click on the dropdown$/ do
 end
 
 When /^I click the link '([^"]*)'$/ do |text|
-  find('a', :text => text).first.click
+  first('a', :text => text).click
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
