@@ -6,7 +6,7 @@ Feature: Dropdown professor switching
 	Background:
 		Given a user is logged in
 		And courses exist
-		And I click the link 'Browse All'
+		And I click the link 'Browse'
 		And I click the link 'Computer Science'
 		And I click the link 'CS 2150'
 		And I click the link 'Aaron Bloomfield'
