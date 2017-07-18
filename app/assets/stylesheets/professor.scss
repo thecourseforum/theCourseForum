@@ -306,3 +306,13 @@
     padding-right: 0px;
   }
 }
+
+.time {
+  float:right;
+  font-size: 1.2rem;
+  text-align: right;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+  font-weight: 300;
+  @include flex(2 30%);
+}
