@@ -20,7 +20,6 @@
  *= require sidebar
  *= require welcome
  *= require departments
- *= require reviews
  *= require scheduler
  *= require books
  *= require textbook_transactions
@@ -31,6 +30,7 @@ $screen-sm: 850px;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
+@import "reviews";
 
 $nprogress-color: $blue;
 $nprogress-height: 4.5px;
@@ -231,6 +231,13 @@ select {
   vertical-align: middle;
   font-size: $sidebar-font-size;
   padding-left: 30px;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: $blue;
+  }
 }
 
 #close-notice, #close-alert {
@@ -315,4 +322,15 @@ select {
   margin: auto;
   background-color: #ffffff;
   border-radius: 0px;
+}
+
+.back-container {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-radius: 4px;
+  margin-left:   0px;
+  margin-right:  0px;
+  margin-top:    5px;
+  margin-bottom: 5px;
+  padding: 40px 40px;
 }

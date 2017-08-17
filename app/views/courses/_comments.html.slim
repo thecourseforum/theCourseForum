@@ -1,0 +1,35 @@
+.comment-container
+  .row.comment-row
+    - if review.comment == ""
+      .comment <i>No comment for this review, edit to write a comment!</i>
+    - else
+      .comment = review.comment
+  .row.stats-row
+    .review-stats 
+      .review-overall = review.overall
+      .icon-and-text
+        div.rating-icon = image_tag("icons/professor.png", size: "20", title: "Professor Rating")
+        div.rating-icon.prof = review.professor_rating.to_i
+      .icon-and-text
+        div.rating-icon = image_tag("icons/happy.png", size: "20", title: "Enjoyability")
+        div.rating-icon.enjoyability = review.enjoyability
+      .icon-and-text
+        div.rating-icon = image_tag("icons/difficulty.png", size: "20", title: "Difficulty")
+        div.rating-icon.difficulty  = review.difficulty
+      .icon-and-text
+        div.rating-icon = image_tag("icons/recommend.png", size: "20", title: "Recommendability")
+        div.rating-icon.recommend = review.recommend
+      - if myreviews
+        .icon-and-text
+          div.rating-icon = image_tag("icons/thumb_up.png", size: "20", title: "Upvote")
+          div.rating-icon.up = (review.votes_for - review.votes_against).to_i
+      - if current_user == review.user and myreviews == false
+        .icon-and-text
+          div.rating-icon style="color:#E25424;" = "You wrote this!"
+
+    .time
+      - if review.semester_id
+        .taken= "#{review.semester.season} #{review.semester.year}"
+        div = review.created_at.strftime("%Y-%m-%d")
+      - else
+        div style="margin-top: 18px;" = review.created_at.strftime("%Y-%m-%d")          
