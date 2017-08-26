@@ -29,7 +29,8 @@
             - if current_user == review.user
               .icon-and-text
                 div.rating-icon style="color:#E25424;" = "You wrote this!"
-            .class-name = review.course_id
+            - if show_course
+              .class-name = review.course.mnemonic_number + " " + review.course.title
           .time
             - if review.semester_id
               .taken= "#{review.semester.season} #{review.semester.year}"

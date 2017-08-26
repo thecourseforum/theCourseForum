@@ -148,7 +148,7 @@ class CoursesController < ApplicationController
           end
     end
 
-    render partial: 'reviews', locals: { reviews_with_comments: @reviews_voted_up, reviews: @reviews_voted_up, reviews_voted_down: @reviews_voted_down }, layout: false
+    render partial: 'reviews', locals: { reviews_with_comments: @reviews_voted_up, reviews: @reviews_voted_up, reviews_voted_down: @reviews_voted_down, show_course: false }, layout: false
     
   end
 
