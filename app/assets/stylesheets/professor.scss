@@ -210,6 +210,16 @@
   width: 40px;
 }
 
+.class-name {
+  font-size: $comment-overall-rating-font-size;
+  color: rgb(51, 51, 51);
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 40px;
+}
+
 .comment {
   font-size: $comment-font-size;
   text-overflow: ellipsis;

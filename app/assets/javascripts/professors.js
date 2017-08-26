@@ -30,7 +30,6 @@ ready = function() {
     // get the params
     var courseUrl = window.location.pathname.substring(1);
     profId = courseUrl.substring(courseUrl.search('/') + 1);
-    console.log(profId);
     // default sort is recent
     sortType = sortType ? sortType : "recent";
 
