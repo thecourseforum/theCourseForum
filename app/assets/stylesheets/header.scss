@@ -6,6 +6,7 @@ $screen-xs: 480px;
   border: 0;
   border-radius: 0px;
   margin-bottom: 0;
+  max-height: 50px;
 }
 
 .navbar-default .navbar-brand {
@@ -256,7 +257,7 @@ $button-width: 22px;
     width: 700px;
   }
 
-  #search-query:focus {
+  #search-query:hover {
     width: 700px;
   }
 
