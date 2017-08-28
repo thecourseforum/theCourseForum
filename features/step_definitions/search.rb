@@ -1,7 +1,7 @@
 When /^I search for '([^"]*)'$/ do |text|
   fill_in('search-query', :with => text)
   sleep 0.2
-  within('.submit-row') do
+  within('.navbar-right') do
     find('input').click
   end
 end
