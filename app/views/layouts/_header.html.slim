@@ -27,6 +27,13 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
           a target="_blank" href="http://blog.thecourseforum.com/thecourseforum-3-0/" Learn More
       ul.nav.navbar-nav.navbar-right.hidden-xs
         li
+          a class="#{current_user ? 'home' : 'login'}-search"
+            = form_tag '/search/search', method: "get", id: "search-form" 
+              span.glyphicon.glyphicon.glyphicon-search
+              input type="text" placeholder="Search" name="query" id="search-query"
+              = submit_tag "Search", :class => "btn"
+
+        li
           a#report-bug FEEDBACK
         li
           a href="#{about_path}" ABOUT
