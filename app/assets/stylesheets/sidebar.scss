@@ -20,24 +20,6 @@
 
 }
 
-#search-form {
-  i {
-    margin-right: 10px;
-  }
-
-  #search-query {
-    background-color: #FFFFFF;
-    border: 1;
-    outline: $blue;
-    width: 150px;
-  }
-
-  .submit-row {
-    text-align: center;
-  }
-
-}
-
 .sidebar {
   @include flexbox();
   @include flex-direction(column);

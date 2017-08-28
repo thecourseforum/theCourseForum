@@ -50,6 +50,9 @@ $screen-xs: 480px;
 }
 
 @media (max-width:$screen-sm) {
+  #search-form {
+    display: none;
+  }
   .navbar-default .navbar-brand{
     background-color: #fff;
     &:hover {
@@ -59,6 +62,9 @@ $screen-xs: 480px;
 }
 
 @media (max-width: $screen-sm) {
+    #search-form {
+      display: none;
+    }
     li a {
       color: rgba(255, 255, 255, 0.5);
     }
@@ -219,4 +225,45 @@ $button-width: 22px;
   color: white;
   hover: white;
   border-radius: 7px;
+}
+
+#search-form {
+  i {
+    margin-right: 10px;
+  }
+
+  #search-query {
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;background-color: #FFFFFF;
+    outline: $blue;
+    width: 550px;
+    height: 30px; 
+    padding-left: 5px;
+
+    @media(max-width: 1500px){
+      max-width: 200px;
+    }
+  }
+
+  #search-query:focus {
+    width: 700px;
+  }
+
+  #search-query:focus {
+    width: 700px;
+  }
+
+  .submit-row {
+    text-align: center;
+  }
+
+  
+
 }
