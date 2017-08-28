@@ -25,7 +25,7 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
         div overflow="auto"
           p Interested in the newest tCF redesign?
           a target="_blank" href="http://blog.thecourseforum.com/thecourseforum-3-0/" Learn More
-      div.nav.navbar-nav.navbar-right.hidden-xs
+      div.nav.navbar-nav.navbar-right.hidden-xs class="#{current_user ? 'home' : 'login'}-search"
         li
           a
             = form_tag '/search/search', method: "get", id: "search-form" 

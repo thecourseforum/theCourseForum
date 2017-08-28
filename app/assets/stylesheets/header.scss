@@ -227,7 +227,7 @@ $button-width: 22px;
   border-radius: 7px;
 }
 
-#search-form {
+.home-search #search-form {
   i {
     margin-right: 10px;
   }
@@ -264,6 +264,14 @@ $button-width: 22px;
     text-align: center;
   }
 
-  
+}
 
+.login-search {
+  #search-query {
+    display: none;
+
+    @media(max-width: 1500px){
+      display: none;
+    }
+  }
 }
