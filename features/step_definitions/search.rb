@@ -2,7 +2,7 @@ When /^I search for '([^"]*)'$/ do |text|
   fill_in('search-query', :with => text)
   sleep 0.2
   within('.navbar-right') do
-    find(:id, 'search-form').native.send_keys(:enter)
+    find('search-query').native.send_key(:enter)
   end
 end
 
