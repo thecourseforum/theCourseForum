@@ -229,15 +229,18 @@ $button-width: 22px;
 }
 
 .home-search #search-form {
+
+  margin-top: -3px;
+
   i {
     margin-right: 10px;
   }
 
   #search-query {
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 15px;
     background-color: white;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
@@ -246,10 +249,10 @@ $button-width: 22px;
     outline: $blue;
     width: 550px;
     height: 30px; 
-    padding-left: 5px;
+    padding: 10px;
 
     @media(max-width: 1500px){
-      max-width: 200px;
+      max-width: 300px;
     }
   }
 
