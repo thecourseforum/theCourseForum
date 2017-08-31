@@ -228,6 +228,12 @@ $button-width: 22px;
   border-radius: 7px;
 }
 
+#search-icon {
+  background: none;
+  padding: 0px;
+  margin-bottom: -1px;
+}
+
 .home-search #search-form {
 
   margin-top: -3px;
@@ -239,7 +245,8 @@ $button-width: 22px;
   #search-query {
     box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     font-size: 15px;
     background-color: white;
     background-position: 10px 10px; 

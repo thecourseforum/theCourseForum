@@ -29,7 +29,7 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
               = form_tag '/search/search', method: "get", id: "search-form" 
                 input type="text" placeholder="Type to Search" name="query" id="search-query" class="form-control"
                 span.input-group-addon
-                  .btn.btn-xs.glyphicon.glyphicon-search#search-form
+                  = button_tag "", :type => 'submit', :class => 'btn btn-xs glyphicon glyphicon-search', :id => 'search-icon'
         li
           a#report-bug FEEDBACK
         li
