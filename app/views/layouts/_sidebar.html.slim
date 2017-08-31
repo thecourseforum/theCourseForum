@@ -1,5 +1,17 @@
 ul.sidebar
   li.sidebar__links
+    .row.nav-row.hidden-xl.hidden-lg.hidden-md.hidden-sm
+      = form_tag '/search/search', method: "get", id: "search-form"
+        .row.nav-row.search-row
+          .col-xs-12
+            .col-wrapper
+              span.glyphicon.glyphicon.glyphicon-search
+              br
+              input type="text" placeholder="Search" name="query" id="search-query"
+        .row.nav-row.submit-row style="display:none;"
+          .col-xs-12
+            .col-wrapper
+              = submit_tag "Search", :class => "btn btn-primary"
     .row.nav-row
       .col-xs-12
         .col-wrapper

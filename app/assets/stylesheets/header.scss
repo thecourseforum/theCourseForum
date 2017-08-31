@@ -283,3 +283,21 @@ $button-width: 22px;
     display: none;
   }
 }
+
+#search-form {
+
+  display: inline;
+    #search-query {
+      box-sizing: initial;
+      border: 1px solid #ccc;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      font-size: 15px;
+      background-color: white;
+      outline: $blue;
+      width: 50px;
+      height: 30px; 
+      color: #000000;
+      background-color: #DFE2F5;
+    }
+}
