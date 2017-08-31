@@ -54,6 +54,7 @@ $screen-xs: 480px;
   #search-form {
     display: none;
   }
+  
   .navbar-default .navbar-brand{
     background-color: #fff;
     &:hover {
@@ -66,6 +67,7 @@ $screen-xs: 480px;
     #search-form {
       display: none;
     }
+
     li a {
       color: rgba(255, 255, 255, 0.5);
     }
@@ -276,5 +278,8 @@ $button-width: 22px;
     @media(max-width: 1500px){
       display: none;
     }
+  }
+  .input-group-addon {
+    display: none;
   }
 }
