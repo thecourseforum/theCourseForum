@@ -247,21 +247,13 @@ $button-width: 22px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;background-color: #FFFFFF;
     outline: $blue;
-    width: 550px;
+    width: 700px;
     height: 30px; 
     padding: 10px;
 
     @media(max-width: 1500px){
       max-width: 300px;
     }
-  }
-
-  #search-query:focus {
-    width: 700px;
-  }
-
-  #search-query:hover {
-    width: 700px;
   }
 
   .submit-row {

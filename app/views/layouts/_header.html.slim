@@ -25,8 +25,11 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
       div.nav.navbar-nav.navbar-right.hidden-xs class="#{current_user ? 'home' : 'login'}-search"
         li
           a
-            = form_tag '/search/search', method: "get", id: "search-form" 
-              input type="text" placeholder="Type to Search" name="query" id="search-query" class="form-control"
+            .input-group
+              = form_tag '/search/search', method: "get", id: "search-form" 
+                input type="text" placeholder="Type to Search" name="query" id="search-query" class="form-control"
+                span.input-group-addon
+                  .btn.btn-xs.glyphicon.glyphicon-search#search-form
         li
           a#report-bug FEEDBACK
         li

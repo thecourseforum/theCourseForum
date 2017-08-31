@@ -303,8 +303,12 @@ select {
 
 .ui-autocomplete {
   // z-index: 2147483647;
-  padding-left: 6px;
+  padding-left: 2px;
   list-style: none;
+  border: 10px solid #ccc;
+  border-radius: 5px;
+  border-color: #DFE2F5;
+  font: italic bold 12px/30px Georgia, serif;
 }
 
 #prof-sort {
