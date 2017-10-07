@@ -7,15 +7,12 @@ When /^I click on the dropdown$/ do
 end
 
 When /^I click the link '([^"]*)'$/ do |text|
-  first('a', :text => text).click
-end
-
-When /^I click the url '([^"]*)'$/ do |text|
-  page.click_link('', :href => text)
+  # first('a', :text => text).click
+  find_link(text).click
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
-  expect(page).to have_content(text, wait: 5)
+  expect(page).to have_content(text)
 end
 
 When /^I wait a little$/ do
