@@ -11,7 +11,7 @@ When /^I click the link '([^"]*)'$/ do |text|
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
-  expect(page).to have_content(text, wait: 3)
+  expect(page).to have_content(text, wait: 5)
 end
 
 When /^I wait a little$/ do
