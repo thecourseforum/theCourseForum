@@ -8,15 +8,14 @@ end
 
 When /^I click the link '([^"]*)'$/ do |text|
   first('a', :text => text).click
-  # find_link(text).click
 end
 
-When /^I click the sidebar link '([^"]*)'$/ do |text|
+When /^I click sidebar link '([^"]*)'$/ do |text|
     execute_script("$('a:contains(" + text + ")').get(0).click();")
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
-  expect(page).to have_content(text)
+  expect(page).to have_content(text, wait: 5)
 end
 
 When /^I wait a little$/ do
