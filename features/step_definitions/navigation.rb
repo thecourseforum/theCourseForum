@@ -7,8 +7,12 @@ When /^I click on the dropdown$/ do
 end
 
 When /^I click the link '([^"]*)'$/ do |text|
-  # first('a', :text => text).click
-  find_link(text).click
+  first('a', :text => text).click
+  # find_link(text).click
+end
+
+When /^I click the sidebar link '([^"]*)'$/ do |text|
+    execute_script("$('a:contains(" + text + ")').get(0).click();")
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
