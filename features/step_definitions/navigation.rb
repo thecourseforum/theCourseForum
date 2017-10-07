@@ -7,7 +7,7 @@ When /^I click on the dropdown$/ do
 end
 
 When /^I click the link '([^"]*)'$/ do |text|
-  first('a', :text => text).click
+  find('a', :text => text).click
 end
 
 When /^I click sidebar link '([^"]*)'$/ do |text|
