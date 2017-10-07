@@ -6,7 +6,7 @@ Feature: Write a tCF Review
 	Background:
 		Given a user is logged in
 		Given courses exist
-		And I click the link 'Reviews'
+		And I click the link 'Review'
 
 	Scenario: should be able to navigate to write a review
 		Then I should see 'What class are you reviewing?'
