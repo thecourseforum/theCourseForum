@@ -1,7 +1,7 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
 addons:
-  firefox: "47.0.1"
+  firefox: "46.0.1"
 
 # Tell TravisCI to use container-based testing (faster)
 sudo: false
