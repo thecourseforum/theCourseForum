@@ -11,7 +11,7 @@ When /^I click the link '([^"]*)'$/ do |text|
 end
 
 When /^I click the url '([^"]*)'$/ do |text|
-  first('a', :href => text).click
+  page.click_link('', :href => text)
 end
 
 Then /^I should see '([^"]*)'$/ do |text|
