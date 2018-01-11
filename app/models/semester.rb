@@ -5,7 +5,7 @@ class Semester < ActiveRecord::Base
   has_many :courses, :through => :sections
 
   def self.current
-    Semester.find_by(:year => 2017, :season => 'Fall')
+    Semester.find_by(:year => 2018, :season => 'Spring')
   end
 
   def to_s
@@ -14,7 +14,7 @@ class Semester < ActiveRecord::Base
 
   def self.get_number(params)
     num = 1090 + 10*(params[:semester_year].to_i - 2009)
-      
+
     if params[:semester_season] == "January"
       num += 1
     elsif params[:semester_season] == "Spring"
@@ -55,7 +55,7 @@ class Semester < ActiveRecord::Base
       return Semester.find_by(year: year, season: "Summer")
     else
       return Semester.find_by(year: year, season: "Fall")
-    end 
+    end
 
   end
 end
