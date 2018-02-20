@@ -443,9 +443,9 @@ p {
   min-height: 100%;
   display: inline-block;
   // float: right;
-  width: calc(100% - 84px);
+  width: calc(100%);
   padding-right: 20px;
-  min-height: 117px;
+  // min-height: 117px;
   position: relative;
   padding-left: 20px;
   margin: 0px;
@@ -467,8 +467,8 @@ p {
   float:right;
   font-size: 1.2rem;
   text-align: right;
-  -webkit-align-self: flex-end;
-  align-self: flex-end;
+  -webkit-align-self: center;
+  align-self: center;
   font-weight: 300;
   @include flex(2 30%);
 }

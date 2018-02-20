@@ -80,27 +80,6 @@ var ready = function() {
 		}
 	});
 
-	$("#search-query").focus(function() {
-		if ($("#search-query").val() == "") {
-			$(".nav-row").each(function() {
-				if (!($(this).hasClass("search-row"))) {
-					$(this).slideUp();
-				}
-			});
-
-			$(".submit-row").slideDown();
-		}
-	});
-
-	$("#search-query").blur(function() {
-		if ($("#search-query").val() == "") {
-			$(".nav-row").each(function() {
-				$(this).slideDown();
-			});
-
-			$(".submit-row").slideUp();
-		}
-	});
 
 	$('.professor_link').bind('ajax:success', function(xhr, data, status) {
 		var target = $(this).data('update-target');

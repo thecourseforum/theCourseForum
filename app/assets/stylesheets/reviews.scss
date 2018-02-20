@@ -1,3 +1,9 @@
+@import "courses";
+
+/*------------------------------------*\
+  #WRITE REVIEW
+\*------------------------------------*/
+
 .review-radios {
   display: none;
 }
@@ -6,6 +12,107 @@
   border-radius: 0;
 }
 
-#review-label {
+
+
+/*------------------------------------*\
+  #MY REVIEWS
+\*------------------------------------*/
+
+.text-label {
   padding-bottom: 10px;
+}
+
+.myreview-container {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+  border-radius: 4px;
+  margin-left:   0px;
+  margin-right:  0px;
+  margin-top:    5px;
+  margin-bottom: 5px;
+  padding: 40px 40px;
+}
+
+.stretch-button-container {
+  margin-top:1px;
+  padding: 20px 20px;
+  background-color: #FFFFFF;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #000000;
+    padding:10px 10px;
+    margin: 5px 5px 5px 5px;
+  }
+}
+
+.stretch-button-container:hover {
+  background-color: #FFFFFF;
+}
+
+.semester-header {
+  padding-top: 20px;
+}
+
+.review-header-container {
+  background-color:#FFFFFF;
+  padding-top: 5px;
+  box-shadow: 0px 1px 2px 0px #B8B8B8;
+
+  span {
+    padding-left:5px;
+  }
+}
+
+.review-header {
+  margin: 5px 5px 0px 5px;
+}
+
+.myreview-container {
+  margin-top: 1px;
+  margin-bottom: 10px;
+  padding: 20px 20px 20px 20px;
+  border-radius: 0px;
+}
+
+.edit-review {
+  float:right;
+}
+
+.large-stats-container {
+  font-weight: 300;
+  overflow:  hidden;
+}
+
+.large-stats {
+  padding-top: 15px;
+  padding-bottom:10px;
+  margin-bottom:1px;
+  background-color: #FFFFFF;
+  text-align: center;
+  display:block;
+  margin-left: 1px;
+}
+
+.large-stats:first-of-type {
+  margin-left:-1px;
+}
+
+.large-stats:last-of-type {
+    margin-left:1px;
+    margin-right: -1px;
+  }
+
+.large-stats-number {
+  color: $orange;
+}
+
+.icon-label {
+  padding-left: 10px;
+}
+
+.average-stat img {
+  display: inline-block;
 }
