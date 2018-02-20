@@ -22,6 +22,7 @@
 
 # Ignore devise secret key
 /config/initializers/devise.rb
+/config/initializers/secret_token.rb
 
 # Ignore AWS config keys
 /books/aws_secret

@@ -1,7 +1,7 @@
 - content_for :title, "\"#{@query}\""
 - content_for :page_heading, "Search Results \"#{@query}\""
 
-.search
+.search.back-container
   - if @count < 1
     .col-xs-12
       = "No results for #{@query} :("

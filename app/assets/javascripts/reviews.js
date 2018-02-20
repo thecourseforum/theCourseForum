@@ -1,6 +1,7 @@
 var ready;
 
 ready = function() {
+
 	if ($("#new_review").length > 0 || $(".edit_review").length > 0) {
 		$("#review-button").on("click", function() {
 			if (!$("#prof_select").val()) {
