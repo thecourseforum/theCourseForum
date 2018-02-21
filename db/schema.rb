@@ -22,31 +22,28 @@ ActiveRecord::Schema.define(version: 20161210164918) do
   add_index "book_requirements", ["book_id", "section_id"], name: "index_book_requirements_on_book_id_and_section_id", unique: true, using: :btree
 
   create_table "books", force: :cascade do |t|
-    t.string   "title",                      limit: 255
-    t.string   "author",                     limit: 255
-    t.string   "publisher",                  limit: 255
-    t.string   "edition",                    limit: 255
-    t.string   "binding",                    limit: 255
-    t.string   "isbn",                       limit: 255
-    t.float    "bookstore_new_price",        limit: 24
-    t.float    "bookstore_used_price",       limit: 24
-    t.text     "asin",                       limit: 65535
-    t.text     "small_image_link",           limit: 65535
-    t.text     "medium_image_link",          limit: 65535
-    t.text     "large_image_link",           limit: 65535
-    t.float    "amazon_official_new_price",  limit: 24
-    t.float    "amazon_official_used_price", limit: 24
-    t.float    "amazon_merchant_new_price",  limit: 24
-    t.float    "amazon_merchant_used_price", limit: 24
-    t.integer  "amazon_new_total",           limit: 4
-    t.integer  "amazon_used_total",          limit: 4
-    t.text     "amazon_affiliate_link",      limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "title",                      limit: 255
+    t.string  "author",                     limit: 255
+    t.string  "publisher",                  limit: 255
+    t.string  "edition",                    limit: 255
+    t.string  "binding",                    limit: 255
+    t.string  "isbn",                       limit: 255
+    t.float   "bookstore_new_price",        limit: 24
+    t.float   "bookstore_used_price",       limit: 24
+    t.text    "asin",                       limit: 65535
+    t.text    "small_image_link",           limit: 65535
+    t.text    "medium_image_link",          limit: 65535
+    t.text    "large_image_link",           limit: 65535
+    t.float   "amazon_official_new_price",  limit: 24
+    t.float   "amazon_official_used_price", limit: 24
+    t.float   "amazon_merchant_new_price",  limit: 24
+    t.float   "amazon_merchant_used_price", limit: 24
+    t.integer "amazon_new_total",           limit: 4
+    t.integer "amazon_used_total",          limit: 4
+    t.text    "amazon_affiliate_link",      limit: 65535
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true, using: :btree
-  add_index "books", ["updated_at"], name: "index_books_on_updated_at", using: :btree
 
   create_table "books_users", id: false, force: :cascade do |t|
     t.integer "book_id", limit: 4, null: false
