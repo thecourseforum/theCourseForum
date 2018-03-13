@@ -1,3 +1,5 @@
+#this is the welcome controller -nikash
+
 class WelcomeController < ApplicationController
   skip_before_action :authenticate_user!
 
