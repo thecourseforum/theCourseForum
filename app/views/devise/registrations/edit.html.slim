@@ -8,12 +8,12 @@
     .row
       .col-xs-6.col-sm-4
         = f.label :first_name, "First Name:"
-      .col-xs-6.col-sm-4.col-sm-offset-2
+      .col-xs-6.col-sm-4
         = f.label :last_name, "Last Name:"
     .row
       .col-xs-6.col-sm-4
         = f.text_field :first_name, class: "form-control"
-      .col-xs-6.col-sm-4.col-sm-offset-2
+      .col-xs-6.col-sm-4
         = f.text_field :last_name, class: "form-control"
 
     br
@@ -33,12 +33,12 @@
         br
         .update-text
           | (leave blank if you don't want to change it)
-      .col-xs-6.col-sm-4.col-sm-offset-2
+      .col-xs-6.col-sm-4
         = f.label :password_confirmation, "Confirm New Password:"
     .row
       .col-xs-6.col-sm-4
         = f.password_field :password, :autocomplete => "off", :style => "float:left;", class: "form-control"
-      .col-xs-6.col-sm-4.col-sm-offset-2
+      .col-xs-6.col-sm-4
         = f.password_field :password_confirmation, class: "form-control"
     
     br
