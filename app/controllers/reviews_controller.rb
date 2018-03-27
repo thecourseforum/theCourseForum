@@ -20,7 +20,11 @@ class ReviewsController < ApplicationController
       @review_upvotes += r.votes_for
     end
 
-    @avg_review_rating = (average_review_rating/@reviews.count).round(2)
+    if (@reviews.count > 0)
+      @avg_review_rating = (average_review_rating/@reviews.count).round(2)
+    else
+      @avg_review_rating = 0
+    end
 
     respond_to do |format|
       format.html # index.html.erb
