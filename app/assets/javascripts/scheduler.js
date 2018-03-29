@@ -385,6 +385,7 @@ $(document).ready(function() {
 		$('#how-to-modal').modal();
 	});
 
+
 	$('#name').keyup(function(key) {
 		// Anonymous function gets passed in the keyCode of the pressed key, 13 is the Enter key
 		if (key.keyCode == 13) {
