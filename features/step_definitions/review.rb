@@ -19,6 +19,6 @@ end
 
 When /^I edit a review/ do
   fill_in('review_comment', :with => 'NEW TEXT')
-  select "2017", :from => 'semester_year'
+  select "2018", :from => 'semester_year'
   click_button("Submit Review")
 end

@@ -6,6 +6,7 @@ $screen-xs: 480px;
   border: 0;
   border-radius: 0px;
   margin-bottom: 0;
+  max-height: 50px;
 }
 
 .navbar-default .navbar-brand {
@@ -36,7 +37,7 @@ $screen-xs: 480px;
 #logo {
   max-height: $navbar-height;
   max-width: 80%;
-  padding: 5px;
+  padding: 7px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -50,6 +51,10 @@ $screen-xs: 480px;
 }
 
 @media (max-width:$screen-sm) {
+  #search-form {
+    display: none;
+  }
+  
   .navbar-default .navbar-brand{
     background-color: #fff;
     &:hover {
@@ -59,10 +64,19 @@ $screen-xs: 480px;
 }
 
 @media (max-width: $screen-sm) {
+    #search-form {
+      display: none;
+    }
+
+    li a {
+      color: rgba(255, 255, 255, 0.5);
+    }
     .navbar-default .navbar-brand {
       background-color: #fff;
     }
     #logo {
+      position: absolute;
+      text-align: center;
       margin-left: -30px;
     }
 }
@@ -105,7 +119,7 @@ $button-width: 22px;
     // place lines button on left if not mobile
     @media only screen and (min-device-width: $screen-xs){
         position: absolute;
-        left: 210px;
+        left: 100px;
     }
 
     // place lines-button on right if mobile
@@ -214,4 +228,76 @@ $button-width: 22px;
   color: white;
   hover: white;
   border-radius: 7px;
+}
+
+#search-icon {
+  background: none;
+  padding: 0px;
+  margin-bottom: -1px;
+}
+
+.home-search #search-form {
+
+  margin-top: -3px;
+
+  i {
+    margin-right: 10px;
+  }
+
+  #search-query {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 15px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;background-color: #FFFFFF;
+    outline: $blue;
+    width: 700px;
+    height: 30px; 
+    padding: 10px;
+
+    @media(max-width: 1500px){
+      max-width: 300px;
+    }
+  }
+
+  .submit-row {
+    text-align: center;
+  }
+
+}
+
+.login-search {
+  #search-query {
+    display: none;
+
+    @media(max-width: 1500px){
+      display: none;
+    }
+  }
+  .input-group-addon {
+    display: none;
+  }
+}
+
+.sidebar #search-form {
+
+  display: inline;
+    #search-query {
+      box-sizing: initial;
+      border: 1px solid #ccc;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      font-size: 15px;
+      background-color: white;
+      outline: $blue;
+      width: 50px;
+      height: 30px; 
+      color: #000000;
+      background-color: #DFE2F5;
+    }
 }

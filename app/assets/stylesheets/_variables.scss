@@ -8,10 +8,10 @@ $gray: #8C8A8A;
 $light-gray: #eee;
 
 // element sizes
-$sidebar-width: 250px;
-$sidebar-left-margin: 25px;
+$sidebar-width: 100px;
+$sidebar-left-margin: 20px;
 $sidebar-left-tabbed: 20px;
-$sidebar-icon-padding: 11px;
+$sidebar-icon-padding: 13px;
 $screen-sm: 850px;
 
 // variables to ovverride bootstrap
@@ -40,7 +40,7 @@ $course-font-size: 30px;
 $title-font-size: 36px;
 
 
-$content-max-width: 1186px;
+$content-max-width: 1336px;
 
 // flexbox mixins
 @mixin flexbox() {
