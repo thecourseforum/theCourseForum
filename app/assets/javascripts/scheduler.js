@@ -151,14 +151,20 @@ $(document).ready(function() {
 			agendaWeek: 'yyyy'
 		},
 		// Sets height of the plugin calendar
-		contentHeight: 450,
+		contentHeight: 550,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 
 
 		eventRender: function(event, element) {
-			$(element).tooltip({
-				title: "SIS ID: " + event.sis_id
+			$(element).popover({
+				trigger: "hover",
+				html: "true",
+				placement: "auto top",
+				title: "<strong>SIS ID: </strong>" + event.sis_id,
+				content: 
+				"<strong>Location: </strong>" + event.location
+				+ "<br><strong>Prof: </strong>" + event.professor,
 			});
 		},
 
@@ -814,7 +820,7 @@ $(document).ready(function() {
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
-				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1] + '\n' + course.location;
+				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1];
 				course.events.push(event);
 				calendarCourses.push(event);
 			}
@@ -839,7 +845,7 @@ $(document).ready(function() {
 			}
 		}
 		if (schedules.length > 1) {
-			$('#schedule-name').text(name + ' / ' + schedules.length);
+			$('#schedule-name').text(name + ' of ' + schedules.length);
 		} else {
 			$('#schedule-name').text(name);
 		}
