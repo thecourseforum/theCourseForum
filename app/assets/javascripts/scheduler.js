@@ -623,7 +623,9 @@ $(document).ready(function() {
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
-					//alert('No possible schedules!');
+					if ($('#results-box').find(':checked').length > 0) {
+						alert('No possible schedules');
+					}
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
