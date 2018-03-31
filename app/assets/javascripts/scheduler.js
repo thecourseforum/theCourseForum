@@ -310,7 +310,6 @@ $(document).ready(function() {
 			options[element.id] = true;
 		});
 		searchSchedules();
-		//with options
 	});
 
 	$('#generate-options').click(function() {
@@ -860,9 +859,11 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
-			searchSchedules();
 		});
 		checkbox.change();
+		checkbox.change(function() {
+			searchSchedules();
+		});
 		$('#results-box').append(resultBox);
 		sectionColor = Utils.getRandomColor();
 		colorMap[result.course_mnemonic] = sectionColor;
