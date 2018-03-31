@@ -87,7 +87,51 @@ $(document).ready(function() {
 				// Subtract twelve from hour, re-append minutes to it, then "PM"
 				return hour - 12 + ":" + timeArray[1] + "PM";
 			}
+		},
+
+		HSVtoRGB: function(h, s, v) {
+		    var r, g, b, i, f, p, q, t;
+		    if (arguments.length === 1) {
+			s = h.s, v = h.v, h = h.h;
+		    }
+		    i = Math.floor(h * 6);
+		    f = h * 6 - i;
+		    p = v * (1 - s);
+		    q = v * (1 - f * s);
+		    t = v * (1 - (1 - f) * s);
+		    switch (i % 6) {
+			case 0: r = v, g = t, b = p; break;
+			case 1: r = q, g = v, b = p; break;
+			case 2: r = p, g = v, b = t; break;
+			case 3: r = p, g = q, b = v; break;
+			case 4: r = t, g = p, b = v; break;
+			case 5: r = v, g = p, b = q; break;
+		    }
+		    return {
+			r: Math.round(r * 255),
+			g: Math.round(g * 255),
+			b: Math.round(b * 255)
+		    };
+		},
+
+		componentToHex: function(c) {
+			var hex = c.toString(16);
+			return hex.length == 1 ? "0" + hex : hex;
+		},
+
+		rgbToHex: function(color) {
+		    	return "#" + this.componentToHex(color.r) + this.componentToHex(color.g) + this.componentToHex(color.b);
+		},
+
+		// Generate random color
+		getRandomColor: function() {
+			var golden_ratio_conjugate = 0.618033988749895;
+			var h = (Math.random() + golden_ratio_conjugate) % 1;
+			var s = 0.5;
+			var v = 0.95;
+			return this.rgbToHex(this.HSVtoRGB(h, s, v));
 		}
+
 	}
 
 	// searchResults is a DIRECT representation of courses (and selected sections) below the search box
@@ -114,7 +158,8 @@ $(document).ready(function() {
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [],
-		courses = {};
+		courses = {},
+		colorMap = {};
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
@@ -265,7 +310,6 @@ $(document).ready(function() {
 			options[element.id] = true;
 		});
 		searchSchedules();
-		//with options
 	});
 
 	$('#generate-options').click(function() {
@@ -620,10 +664,17 @@ $(document).ready(function() {
 				schedules = response;
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
+					schedules.map(function(schedule) {
+						schedule.sections.map(function(section) {
+							section.color = colorMap[section.title];
+						});
+					});
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
-					//alert('No possible schedules!');
+					if ($('#results-box').find(':checked').length > 0) {
+						alert('No possible schedules');
+					}
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
@@ -808,10 +859,15 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
-			searchSchedules();
 		});
 		checkbox.change();
+		checkbox.change(function() {
+			searchSchedules();
+		});
 		$('#results-box').append(resultBox);
+		sectionColor = Utils.getRandomColor();
+		colorMap[result.course_mnemonic] = sectionColor;
+		content.css('background-color', sectionColor);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
 		if (enableModal) {
 			content.click();
@@ -832,6 +888,7 @@ $(document).ready(function() {
 				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1];
 				course.events.push(event);
 				calendarCourses.push(event);
+				event.color = course.color;
 			}
 		} else {
 			for (var i = 0; i < course.events.length; i++) {

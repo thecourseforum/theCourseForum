@@ -141,9 +141,7 @@ body.modal-open {
 }
 
 .course-result #content {
-	border: 1px solid transparent;
 	background-color: #d9551e;
-	border-color: #c34c1b;
 	padding: 5px 0px 5px 5px;
 	cursor: pointer;
 	width: 90%;
