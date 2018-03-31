@@ -3,25 +3,26 @@
 - content_for :page_heading, "Schedule Generator - #{Semester.current.to_s}"
 .scheduler-container
   .row
-    #search.col-xs-8
+    #gen.col-xs-3
+      h4#results-title Selected Courses
+    #search.col-xs-6
       .input-group
         input.form-control#class-search name="class-search" type="text" placeholder="Search for a course... ex. ECON 2010 or Biology"
         span.input-group-addon
           .btn.btn-xs.glyphicon.glyphicon-search#search-classes
     #gen.col-xs-1
       .btn.btn-primary#generate-schedules Generate
-    #genopt.col-xs-3
+    #genopt.col-xs-2
       .btn.btn-primary#generate-options Generate with Options
   .row
     #search-bar.col-xs-3
-      h4#results-title Selected Courses
-      br
       #results-box
       .row.row-no-padding#search-footer
+        .col-md-3
         .col-md-5
           #credits 0 credits
     #calendar.col-xs-9
-      h4#schedule-name New Schedule
+      h4#schedule-name 
       /   .col-md-6.pull-right
       /     .btn-group.pull-right#scheduler-buttons role="group"
       /       button.btn.btn-default#save-schedule-dialog
