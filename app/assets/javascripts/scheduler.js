@@ -264,7 +264,7 @@ $(document).ready(function() {
 		$('.preferences').children(':checked').each(function(index, element) {
 			options[element.id] = true;
 		});
-		searchSchedules(options);
+		searchSchedules();
 		//with options
 	});
 
@@ -587,8 +587,8 @@ $(document).ready(function() {
 	}
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
-	function searchSchedules(extras) {
-
+	function searchSchedules() {
+		// get options from preferences checkboxes
 		var extras = {};
 		$('.preferences').children(':checked').each(function(index, element) {
 			extras[element.id] = true;
