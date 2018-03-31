@@ -623,7 +623,7 @@ $(document).ready(function() {
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
-					alert('No possible schedules!');
+					//alert('No possible schedules!');
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
@@ -810,6 +810,7 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
+			searchSchedules();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
