@@ -264,7 +264,7 @@ $(document).ready(function() {
 		$('.preferences').children(':checked').each(function(index, element) {
 			options[element.id] = true;
 		});
-		searchSchedules(options);
+		searchSchedules();
 		//with options
 	});
 
@@ -369,6 +369,7 @@ $(document).ready(function() {
 		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
+		searchSchedules();
 	});
 
 	// Shows the save-schedule modal upon clicking the save-schedule button
@@ -586,7 +587,12 @@ $(document).ready(function() {
 	}
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
-	function searchSchedules(extras) {
+	function searchSchedules() {
+		// get options from preferences checkboxes
+		var extras = {};
+		$('.preferences').children(':checked').each(function(index, element) {
+			extras[element.id] = true;
+		});
 		var sections = [],
 			params = extras ? extras : {};
 
@@ -617,7 +623,7 @@ $(document).ready(function() {
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
-					alert('No possible schedules!');
+					//alert('No possible schedules!');
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
@@ -655,6 +661,7 @@ $(document).ready(function() {
 			localStorage.setItem('courses', JSON.stringify(courses))
 			updateCreditCount();
 			$(this).parent().parent().remove();
+			searchSchedules();
 		});
 
 		content.click(function(event) {
@@ -801,6 +808,7 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
+			searchSchedules();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
@@ -808,6 +816,7 @@ $(document).ready(function() {
 		if (enableModal) {
 			content.click();
 		}
+
 	}
 
 	function addClass(course) {
