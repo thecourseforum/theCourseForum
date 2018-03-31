@@ -666,12 +666,10 @@ $(document).ready(function() {
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 					schedules.map(function(schedule) {
-						console.log("sections: ", schedule.sections);
 						schedule.sections.map(function(section) {
 							section.color = colorMap[section.title];
 						});
 					});
-					console.log('schedule: ', schedules)
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
@@ -862,14 +860,10 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
-			//searchSchedules();
-		});
-		checkbox.change();
-		checkbox.change(function() {
 			searchSchedules();
 		});
+		checkbox.change();
 		$('#results-box').append(resultBox);
-		console.log('result: ', result);
 		sectionColor = Utils.getRandomColor();
 		colorMap[result.course_mnemonic] = sectionColor;
 		content.css('background-color', sectionColor);
