@@ -627,8 +627,6 @@ $(document).ready(function() {
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
-				console.log('search results: ', schedules);
-				console.log('loading');
 			}
 		});
 	}
