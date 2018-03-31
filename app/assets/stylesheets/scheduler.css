@@ -133,8 +133,6 @@ body.modal-open {
 	font-size: 10px;
 	letter-spacing: 0px;
 	word-spacing: 0px;
-	margin-bottom: 5px;
-	margin-right: 3px;
 	clear: left;
 }
 
@@ -173,13 +171,16 @@ body.modal-open {
 	margin-top: 2px;
 	background-color: #d9551e;
 	border-color: #c34c1b;
-	/*border-radius: 0px;*/
 	width: 100%;
 }
 
 .remove {
-	font-size: 20px;
+	font-size: 12px;
 	text-decoration: none;
+	margin-right: 3px;
+}
+.remove span:hover {
+	color: #e74c3c;
 }
 
 .course-info-dialog {

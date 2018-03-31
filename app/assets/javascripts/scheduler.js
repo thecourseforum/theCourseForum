@@ -642,7 +642,7 @@ $(document).ready(function() {
 			content = resultBox.children('#content'),
 			checkbox = resultBox.children('#checkbox').children(':checkbox');
 
-		content.children('.remove').text('x');
+		content.children('.remove').html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
 		content.children('.remove').css({
 			"float": "right",
 			"color": "white"
