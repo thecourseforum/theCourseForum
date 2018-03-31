@@ -672,7 +672,13 @@ $(document).ready(function() {
 					setSliderTicks();
 				} else {
 					$('#schedule-slider').slider('option', 'max', 0);
-					if ($('#results-box').find(':checked').length > 0) {
+					var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
+						res = searchResults[val]
+						selected = res.discussions.length + res.laboratories.length + res.seminars.length + res.lectures.length;
+						return acc && (selected > 0);
+					}, false);
+					if ($('#results-box').find(':checked').length > 0 && classesSelected) {
+						console.log("i: ", $('#results-box').find(':checked').length);
 						alert('No possible schedules');
 					}
 				}
@@ -859,11 +865,9 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
-		});
-		checkbox.change();
-		checkbox.change(function() {
 			searchSchedules();
 		});
+		checkbox.change();
 		$('#results-box').append(resultBox);
 		sectionColor = Utils.getRandomColor();
 		colorMap[result.course_mnemonic] = sectionColor;
