@@ -369,6 +369,7 @@ $(document).ready(function() {
 		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
+		searchSchedules();
 	});
 
 	// Shows the save-schedule modal upon clicking the save-schedule button
@@ -587,6 +588,11 @@ $(document).ready(function() {
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
 	function searchSchedules(extras) {
+
+		var extras = {};
+		$('.preferences').children(':checked').each(function(index, element) {
+			extras[element.id] = true;
+		});
 		var sections = [],
 			params = extras ? extras : {};
 
@@ -621,6 +627,8 @@ $(document).ready(function() {
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
 				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+				console.log('search results: ', schedules);
+				console.log('loading');
 			}
 		});
 	}
@@ -655,6 +663,7 @@ $(document).ready(function() {
 			localStorage.setItem('courses', JSON.stringify(courses))
 			updateCreditCount();
 			$(this).parent().parent().remove();
+			searchSchedules();
 		});
 
 		content.click(function(event) {
@@ -808,6 +817,7 @@ $(document).ready(function() {
 		if (enableModal) {
 			content.click();
 		}
+
 	}
 
 	function addClass(course) {
