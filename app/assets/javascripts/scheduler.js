@@ -158,7 +158,8 @@ $(document).ready(function() {
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [],
-		courses = {};
+		courses = {},
+		colorMap = {};
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
@@ -665,8 +666,9 @@ $(document).ready(function() {
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 					schedules.map(function(schedule) {
+						console.log("sections: ", schedule.sections);
 						schedule.sections.map(function(section) {
-							section.color = Utils.getRandomColor();
+							section.color = colorMap[section.title];
 						});
 					});
 					console.log('schedule: ', schedules)
@@ -867,6 +869,10 @@ $(document).ready(function() {
 			searchSchedules();
 		});
 		$('#results-box').append(resultBox);
+		console.log('result: ', result);
+		sectionColor = Utils.getRandomColor();
+		colorMap[result.course_mnemonic] = sectionColor;
+		content.css('background-color', sectionColor);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
 		if (enableModal) {
 			content.click();
