@@ -171,7 +171,11 @@ class SchedulerController < ApplicationController
   def show_schedules
     render :json => {:success => true, :results => current_user.schedules.map { |schedule|
       schedule.as_json.merge(
-        :sections => rsections_to_jssections(schedule.sections)
+        :sections => rsections_to_jssections(schedule.sections).each_with_index.map { |jssection, i|
+          jssection.merge(
+            :title => schedule.sections[i].course.mnemonic_number
+          )
+        }
       )
     }}
   end
