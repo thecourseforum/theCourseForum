@@ -528,9 +528,8 @@ $(document).ready(function() {
 			$('#schedule-slider').slider('option', 'max', 0);
 			alert('No selected schedules!');
 		}
-		$('#schedule-slider').slider('option', 'value', 0);
-		//loadSchedule(schedules[$('#schedule-slider').slider('value')]);
-		loadSchedule(schedules[$('#schedule-options').tabs('option','active')])
+		loadSchedule(schedules[0]);
+		
 	});
 
 	$('#clear-schedules').click(function() {
@@ -555,22 +554,17 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#schedule-options').tabs({
-		active: 1,
-
-		activate: function(event,ui){
-			console.log(ui)
-			loadSchedule(schedules[ui.newTab.index()])
-		}
-	})
-
 	function setTabs(){
 		var $tabs = $('#schedule-options');	
-		$tabs.children("ul").children("li").remove();
+		$tabs.children("ul").children("div").remove();
 		for(var i = 0; i < schedules.length; i++){
-			$('<li> <a href="" id= "option">'+ (i+1)+'</a></li>').appendTo($tabs.children("ul"));
+			$('<div> <input type="button" class= "option" value="'+(i+1)+'"></input></div>').appendTo($tabs.children("ul"));
 		}
 	}
+
+	$(document).on('click', '.option', function(){ 
+		loadSchedule(schedules[$(this).attr("value")-1]);
+   });
 
 	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
@@ -701,9 +695,9 @@ $(document).ready(function() {
 						alert('No possible schedules');
 					}
 				}
-				$('#schedule-slider').slider('option', 'value', 0);
-				//loadSchedule(schedules[$('#schedule-slider').slider('value')]);
-				loadSchedule(schedules[$('#schedule-options').tabs('option','active')])
+				
+				loadSchedule(schedules[0]);
+				
 			}
 		});
 	}
