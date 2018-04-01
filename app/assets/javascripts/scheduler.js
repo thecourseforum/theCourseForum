@@ -523,6 +523,7 @@ $(document).ready(function() {
 			$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 			$('#load-schedules-modal').modal('hide');
 			setSliderTicks();
+			setTabs();
 		} else {
 			$('#schedule-slider').slider('option', 'max', 0);
 			alert('No selected schedules!');
@@ -552,6 +553,23 @@ $(document).ready(function() {
 			loadSchedule(schedules[ui.value]);
 		}
 	});
+
+	$('#schedule-options').tabs({
+		create: function(event,ui){
+			loadSchedule(schedules[0])
+		},
+		activate: function(event,ui){
+			loadSchedule(schedules[ui.newTab.index()])
+		}
+	})
+
+	function setTabs(){
+		var $tabs = $('#schedule-options');	
+		$tabs.children("ul").children("li").remove();
+		for(var i = 0; i < schedules.length; i++){
+			$('<li><a >'+ (i+1)+'</a></li>').appendTo($tabs.children("ul"));
+		}
+	}
 
 	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
@@ -670,7 +688,7 @@ $(document).ready(function() {
 						});
 					});
 					setSliderTicks();
-				} else {
+					setTabs();
 					$('#schedule-slider').slider('option', 'max', 0);
 					var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
 						res = searchResults[val]

@@ -71,6 +71,26 @@ body.modal-open {
 	border-top:none;
 }
 
+#tabUl {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#schedule-options {
+	margin-top: 12px;
+	margin-bottom: 8px;
+	margin-right: 10px;
+	margin-left: 25px;
+	background-color: black;
+	height: 30px;
+	outline:none; 
+	border-bottom:none;
+	border-left:none;
+	border-right:none;
+	border-top:none;
+}
+
 .ui-autocomplete {
 	font-size: 12px;
 	max-height: 300px;
