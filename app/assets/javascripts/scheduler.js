@@ -556,10 +556,12 @@ $(document).ready(function() {
 
 	function setTabs(){
 		var $tabs = $('#schedule-options');	
-		$tabs.children("ul").children("div").remove();
+		$tabs.children("ul").children("button").remove();
+		var width = $tabs.width()
 		for(var i = 0; i < schedules.length; i++){
-			$('<div> <input type="button" class= "option" value="'+(i+1)+'"></input></div>').appendTo($tabs.children("ul"));
+			$('<button class= "option" value="'+(i+1)+'">'+(i+1)+'</button>').appendTo($tabs.children("ul"));
 		}
+		$('.option').width(width/(schedules.length))
 	}
 
 	$(document).on('click', '.option', function(){ 

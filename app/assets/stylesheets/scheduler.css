@@ -74,14 +74,13 @@ body.modal-open {
 #tabUl {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: flex-start;
 }
 
 #schedule-options {
 	margin-top: 12px;
 	margin-bottom: 8px;
 	margin-right: 10px;
-	margin-left: 25px;
 	height: 30px;
 	outline:none; 
 	border-bottom:none;
@@ -91,28 +90,19 @@ body.modal-open {
 }
 
 .option {
-	display: inline-block;
-	position: relative;
-	padding: 5px 10px;
+	padding: 5px 22px;
 	top: 0;
-	font-size: 10px;
+	font-size: 12px;
+	border: none;
 	font-family: "Open Sans", Helvetica;
-	border-radius: 4px;
-	border-bottom: 1px solid rgba( 28, 227, 125, 0.5 );
-	background: rgb(236, 122, 46);
-	color: rgb(20, 20, 20);
-	box-shadow: 0px 0px 0px rgba( 15, 165, 60, 0.1 );
-	
-	-webkit-transform: translateZ(0);
-	   -moz-transform: translateZ(0);
-		-ms-transform: translateZ(0);
-			transform: translateZ(0);
-	
-	-webkit-transition: all 0.2s ease;
-	   -moz-transition: all 0.2s ease;
-		-ms-transition: all 0.2s ease;
-			transition: all 0.2s ease;
+	background: #6c8ac1;
+	color:white;
   }
+
+  .option:hover {
+    background-color: #d9551e;
+    color: white;
+}
 
 .ui-autocomplete {
 	font-size: 12px;
