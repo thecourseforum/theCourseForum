@@ -529,7 +529,8 @@ $(document).ready(function() {
 			alert('No selected schedules!');
 		}
 		$('#schedule-slider').slider('option', 'value', 0);
-		loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+		//loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+		loadSchedule(schedules[$('#schedule-options').tabs('option','active')])
 	});
 
 	$('#clear-schedules').click(function() {
@@ -555,10 +556,10 @@ $(document).ready(function() {
 	});
 
 	$('#schedule-options').tabs({
-		create: function(event,ui){
-			loadSchedule(schedules[0])
-		},
+		active: 1,
+
 		activate: function(event,ui){
+			console.log(ui)
 			loadSchedule(schedules[ui.newTab.index()])
 		}
 	})
@@ -567,7 +568,7 @@ $(document).ready(function() {
 		var $tabs = $('#schedule-options');	
 		$tabs.children("ul").children("li").remove();
 		for(var i = 0; i < schedules.length; i++){
-			$('<li><a >'+ (i+1)+'</a></li>').appendTo($tabs.children("ul"));
+			$('<li> <a href="" id= "option">'+ (i+1)+'</a></li>').appendTo($tabs.children("ul"));
 		}
 	}
 
@@ -701,7 +702,8 @@ $(document).ready(function() {
 					}
 				}
 				$('#schedule-slider').slider('option', 'value', 0);
-				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+				//loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+				loadSchedule(schedules[$('#schedule-options').tabs('option','active')])
 			}
 		});
 	}
