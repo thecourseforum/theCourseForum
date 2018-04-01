@@ -93,10 +93,12 @@ body.modal-open {
 	padding: 5px 22px;
 	top: 0;
 	font-size: 12px;
-	border: none;
+	
 	font-family: "Open Sans", Helvetica;
 	background: #6c8ac1;
 	color:white;
+	border-width: 1px;
+	border-color: #d9551e
   }
 
   .option:hover {
