@@ -526,6 +526,7 @@ $(document).ready(function() {
 			setTabs();
 		} else {
 			$('#schedule-slider').slider('option', 'max', 0);
+			setTabs();
 			alert('No selected schedules!');
 		}
 		loadSchedule(schedules[0]);
@@ -697,9 +698,8 @@ $(document).ready(function() {
 						alert('No possible schedules');
 					}
 				}
-				
+				setTabs();
 				loadSchedule(schedules[0]);
-				
 			}
 		});
 	}
