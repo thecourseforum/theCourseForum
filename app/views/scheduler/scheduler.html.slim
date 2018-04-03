@@ -3,19 +3,18 @@
 - content_for :page_heading, "Schedule Generator - #{Semester.current.to_s}"
 .scheduler-container
   .row
-    #gen.col-xs-3
-      h4#results-title Selected Courses
-    #search.col-xs-6
+    #search.col-xs-12
       .input-group
         input.form-control#class-search name="class-search" type="text" placeholder="Search for a course... ex. ECON 2010 or Biology"
         span.input-group-addon
           .btn.btn-xs.glyphicon.glyphicon-search#search-classes
-    #gen.col-xs-1
-      .btn.btn-primary#generate-schedules Generate
-    #genopt.col-xs-2
-      .btn.btn-primary#generate-options Generate with Options
+    /#gen.col-xs-1
+    /  .btn.btn-primary#generate-schedules Generate
+    /#genopt.col-xs-2
+    /  .btn.btn-primary#generate-options Generate with Options
   .row
     #search-bar.col-xs-3
+      h3#results-title Selected Courses
       #results-box
       .row.row-no-padding#search-footer
         .col-md-3

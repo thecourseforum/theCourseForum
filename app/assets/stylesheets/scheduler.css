@@ -27,9 +27,13 @@ body.modal-open {
 	float: left;
 }
 
+#schedule-name {
+	text-align: center;
+}
+
 #search {
 	float: left;
-	margin-left: -22px;
+	margin-left: 5px;
 }
 
 #generate-scheduler {
@@ -71,6 +75,7 @@ body.modal-open {
 	border-top:none;
 }
 
+
 #tabUl {
 	display: flex;
 	flex-direction: row;
@@ -80,6 +85,7 @@ body.modal-open {
 #schedule-options {
 	margin-top: 12px;
 	margin-right: 10px;
+	margin-left: 16px;
 	margin-bottom: -2px;
 	height: 30px;
 	outline:none; 
@@ -102,6 +108,7 @@ body.modal-open {
 	border-top-right-radius: 8px;
 	margin-left: -5px;
 	width: 80px;
+	outline: 0;
   }
 
 .ui-autocomplete {
@@ -154,8 +161,8 @@ body.modal-open {
 }
 
 #results-title {
-	padding-left: 65px;
-	margin-top: 6px;
+	text-align: center;
+	margin-top: 20px;
 }
 
 
@@ -164,6 +171,7 @@ body.modal-open {
 	border: 0px solid gray;
 	min-height: 200px;
 	background-color: #F5F5F5;
+	margin-top: 25px;
 }
 
 .course-result {
