@@ -32,8 +32,7 @@ body.modal-open {
 }
 
 #search {
-	float: left;
-	margin-left: 5px;
+	float: center;
 }
 
 .popover {
@@ -167,7 +166,7 @@ body.modal-open {
 
 #results-title {
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 
@@ -176,7 +175,7 @@ body.modal-open {
 	border: 0px solid gray;
 	min-height: 200px;
 	background-color: #F5F5F5;
-	margin-top: 25px;
+	margin-top: 13px;
 }
 
 .course-result {
