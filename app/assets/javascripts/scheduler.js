@@ -299,6 +299,10 @@ $(document).ready(function() {
 		}
 	});
 
+	$('.preferences').children().click(function() {
+		searchSchedules();
+	});
+
 	$('#generate-schedules').click(function() {
 		var credits = $('#credits').text().split(' ')[0];
 		if (credits > 25) {
@@ -499,12 +503,14 @@ $(document).ready(function() {
 			$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 			$('#load-schedules-modal').modal('hide');
 			setSliderTicks();
+			setTabs();
 		} else {
 			$('#schedule-slider').slider('option', 'max', 0);
+			setTabs();
 			alert('No selected schedules!');
 		}
-		$('#schedule-slider').slider('option', 'value', 0);
-		loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+		loadSchedule(schedules[0]);
+		
 	});
 
 	$('#clear-schedules').click(function() {
@@ -528,6 +534,36 @@ $(document).ready(function() {
 			loadSchedule(schedules[ui.value]);
 		}
 	});
+
+	function setTabs(){
+		var $tabs = $('#schedule-options');	
+		$tabs.children("ul").children("button").remove();
+		var width = $tabs.width()
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
+		for(var i = 0; i < len; i++){
+			$('<button class= "option" value="'+(i+1)+'">'+(i+1)+'</button>').appendTo($tabs.children("ul"));
+		}
+		$(".option[value='1']").css('background-color','#d9551e');
+		$(".option[value='1']").css('color','white');
+	}
+
+
+
+
+
+	$(document).on('click', '.option', function(){
+		$('.option').css('background-color','#15214B')
+		$('.option').css('color','white')
+		$(this).css('background-color','#d9551e');
+		$(this).css('color','white');
+		loadSchedule(schedules[$(this).attr("value")-1]);
+   });
 
 	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
@@ -646,7 +682,7 @@ $(document).ready(function() {
 						});
 					});
 					setSliderTicks();
-				} else {
+					setTabs();
 					$('#schedule-slider').slider('option', 'max', 0);
 					var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
 						res = searchResults[val]
@@ -658,8 +694,8 @@ $(document).ready(function() {
 						alert('No possible schedules');
 					}
 				}
-				$('#schedule-slider').slider('option', 'value', 0);
-				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+				setTabs();
+				loadSchedule(schedules[0]);
 			}
 		});
 	}
@@ -890,8 +926,15 @@ $(document).ready(function() {
 				addClass(schedule['sections'][i]);
 			}
 		}
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
 		if (schedules.length > 1) {
-			$('#schedule-name').text(name + ' of ' + schedules.length);
+			$('#schedule-name').text(name + ' of ' + len);
 		} else {
 			$('#schedule-name').text(name);
 		}

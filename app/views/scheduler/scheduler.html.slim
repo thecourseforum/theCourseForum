@@ -3,24 +3,39 @@
 - content_for :page_heading, "Schedule Generator - #{Semester.current.to_s}"
 .scheduler-container
   .row
-    #gen.col-xs-3
-      h4#results-title Selected Courses
-    #search.col-xs-6
+    #search.col-xs-12
       .input-group
         input.form-control#class-search name="class-search" type="text" placeholder="Search for a course... ex. ECON 2010 or Biology"
         span.input-group-addon
           .btn.btn-xs.glyphicon.glyphicon-search#search-classes
-    #gen.col-xs-1
-      .btn.btn-primary#generate-schedules Generate
-    #genopt.col-xs-2
-      .btn.btn-primary#generate-options Generate with Options
+    /#gen.col-xs-1
+    /  .btn.btn-primary#generate-schedules Generate
+    /#genopt.col-xs-2
+    /  .btn.btn-primary#generate-options Generate with Options
   .row
     #search-bar.col-xs-3
+      h3#results-title Selected Courses
       #results-box
       .row.row-no-padding#search-footer
         .col-md-3
         .col-md-5
           #credits 0 credits
+      .row
+        #prefs-col.col-md-12
+          h3#prefs-title Scheduler Options
+          #prefs.preferences
+              input type="checkbox" id="mornings"
+              span  No morning classes (before 10am)
+              br
+              input type="checkbox" id="evenings"
+              span  No evening classes (after 5pm)
+              br
+              input type="checkbox" id="lunch"
+              span  Time for lunch!
+              br
+              input type="checkbox" id="thirst"
+              span  A Thirsty Thursday
+        
     #calendar.col-xs-9
       h4#schedule-name 
       /   .col-md-6.pull-right
@@ -34,7 +49,8 @@
       /       button.btn.btn-default#export-schedule 
       /         span Export to iCal 
       /         .glyphicon.glyphicon-calendar 
-      #schedule-slider
+      #schedule-options
+        ul#tabUl
       #schedule
     
         
