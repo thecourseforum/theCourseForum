@@ -88,48 +88,24 @@ $(document).ready(function() {
 				return hour - 12 + ":" + timeArray[1] + "PM";
 			}
 		},
-
-		HSVtoRGB: function(h, s, v) {
-		    var r, g, b, i, f, p, q, t;
-		    if (arguments.length === 1) {
-			s = h.s, v = h.v, h = h.h;
-		    }
-		    i = Math.floor(h * 6);
-		    f = h * 6 - i;
-		    p = v * (1 - s);
-		    q = v * (1 - f * s);
-		    t = v * (1 - (1 - f) * s);
-		    switch (i % 6) {
-			case 0: r = v, g = t, b = p; break;
-			case 1: r = q, g = v, b = p; break;
-			case 2: r = p, g = v, b = t; break;
-			case 3: r = p, g = q, b = v; break;
-			case 4: r = t, g = p, b = v; break;
-			case 5: r = v, g = p, b = q; break;
-		    }
-		    return {
-			r: Math.round(r * 255),
-			g: Math.round(g * 255),
-			b: Math.round(b * 255)
-		    };
-		},
-
-		componentToHex: function(c) {
-			var hex = c.toString(16);
-			return hex.length == 1 ? "0" + hex : hex;
-		},
-
-		rgbToHex: function(color) {
-		    	return "#" + this.componentToHex(color.r) + this.componentToHex(color.g) + this.componentToHex(color.b);
-		},
+		colorList : [
+			'#546de5',
+			'#e15f41',
+			'#574b90',
+			'#ff3838',
+			'#2ecc71',
+			'#f19066',
+			'#c56cf0',
+			'#ffd32a',
+			'#38ada9',
+		],
+		colorCounter : 0,
 
 		// Generate random color
-		getRandomColor: function() {
-			var golden_ratio_conjugate = 0.618033988749895;
-			var h = (Math.random() + golden_ratio_conjugate) % 1;
-			var s = 0.5;
-			var v = 0.95;
-			return this.rgbToHex(this.HSVtoRGB(h, s, v));
+		getColor: function() {
+			var color = this.colorList[this.colorCounter];
+			this.colorCounter = (this.colorCounter + 1) % this.colorList.length;
+			return color;
 		}
 
 	}
@@ -905,7 +881,7 @@ $(document).ready(function() {
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
-		sectionColor = Utils.getRandomColor();
+		sectionColor = Utils.getColor();
 		colorMap[result.course_mnemonic] = sectionColor;
 		content.css('background-color', sectionColor);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
