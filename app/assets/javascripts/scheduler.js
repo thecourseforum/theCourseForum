@@ -87,7 +87,51 @@ $(document).ready(function() {
 				// Subtract twelve from hour, re-append minutes to it, then "PM"
 				return hour - 12 + ":" + timeArray[1] + "PM";
 			}
+		},
+
+		HSVtoRGB: function(h, s, v) {
+		    var r, g, b, i, f, p, q, t;
+		    if (arguments.length === 1) {
+			s = h.s, v = h.v, h = h.h;
+		    }
+		    i = Math.floor(h * 6);
+		    f = h * 6 - i;
+		    p = v * (1 - s);
+		    q = v * (1 - f * s);
+		    t = v * (1 - (1 - f) * s);
+		    switch (i % 6) {
+			case 0: r = v, g = t, b = p; break;
+			case 1: r = q, g = v, b = p; break;
+			case 2: r = p, g = v, b = t; break;
+			case 3: r = p, g = q, b = v; break;
+			case 4: r = t, g = p, b = v; break;
+			case 5: r = v, g = p, b = q; break;
+		    }
+		    return {
+			r: Math.round(r * 255),
+			g: Math.round(g * 255),
+			b: Math.round(b * 255)
+		    };
+		},
+
+		componentToHex: function(c) {
+			var hex = c.toString(16);
+			return hex.length == 1 ? "0" + hex : hex;
+		},
+
+		rgbToHex: function(color) {
+		    	return "#" + this.componentToHex(color.r) + this.componentToHex(color.g) + this.componentToHex(color.b);
+		},
+
+		// Generate random color
+		getRandomColor: function() {
+			var golden_ratio_conjugate = 0.618033988749895;
+			var h = (Math.random() + golden_ratio_conjugate) % 1;
+			var s = 0.5;
+			var v = 0.95;
+			return this.rgbToHex(this.HSVtoRGB(h, s, v));
 		}
+
 	}
 
 	// searchResults is a DIRECT representation of courses (and selected sections) below the search box
@@ -114,7 +158,8 @@ $(document).ready(function() {
 		savedSchedules = [],
 		// schedules stores an array of potential schedules, which themselves are just an array of section objects
 		schedules = [],
-		courses = {};
+		courses = {},
+		colorMap = {};
 
 	// The div with the id=schedule is the container for the fullCalendar plugin
 	// We initialize the plugin here, passing an object with option params
@@ -151,14 +196,20 @@ $(document).ready(function() {
 			agendaWeek: 'yyyy'
 		},
 		// Sets height of the plugin calendar
-		contentHeight: 450,
+		contentHeight: 550,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 
 
 		eventRender: function(event, element) {
-			$(element).tooltip({
-				title: "SIS ID: " + event.sis_id
+			$(element).popover({
+				trigger: "hover",
+				html: "true",
+				placement: "auto top",
+				title: "<strong>SIS ID: </strong>" + event.sis_id,
+				content: 
+				"<strong>Location: </strong>" + event.location
+				+ "<br><strong>Prof: </strong>" + event.professor,
 			});
 		},
 
@@ -258,8 +309,7 @@ $(document).ready(function() {
 		$('.preferences').children(':checked').each(function(index, element) {
 			options[element.id] = true;
 		});
-		searchSchedules(options);
-		//with options
+		searchSchedules();
 	});
 
 	$('#generate-options').click(function() {
@@ -271,6 +321,10 @@ $(document).ready(function() {
 		} else {
 			$('#generate-modal').modal();
 		}
+	});
+
+	$('.preferences').children().click(function() {
+		searchSchedules();
 	});
 
 	$('#generate-schedules').click(function() {
@@ -363,6 +417,7 @@ $(document).ready(function() {
 		localStorage.setItem('results', JSON.stringify(searchResults));
 		// Hides the modal (closes it)
 		$('#course-modal').modal('hide');
+		searchSchedules();
 	});
 
 	// Shows the save-schedule modal upon clicking the save-schedule button
@@ -384,6 +439,7 @@ $(document).ready(function() {
 	$('#how-to').click(function() {
 		$('#how-to-modal').modal();
 	});
+
 
 	$('#name').keyup(function(key) {
 		// Anonymous function gets passed in the keyCode of the pressed key, 13 is the Enter key
@@ -471,12 +527,14 @@ $(document).ready(function() {
 			$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 			$('#load-schedules-modal').modal('hide');
 			setSliderTicks();
+			setTabs();
 		} else {
 			$('#schedule-slider').slider('option', 'max', 0);
+			setTabs();
 			alert('No selected schedules!');
 		}
-		$('#schedule-slider').slider('option', 'value', 0);
-		loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+		loadSchedule(schedules[0]);
+		
 	});
 
 	$('#clear-schedules').click(function() {
@@ -500,6 +558,36 @@ $(document).ready(function() {
 			loadSchedule(schedules[ui.value]);
 		}
 	});
+
+	function setTabs(){
+		var $tabs = $('#schedule-options');	
+		$tabs.children("ul").children("button").remove();
+		var width = $tabs.width()
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
+		for(var i = 0; i < len; i++){
+			$('<button class= "option" value="'+(i+1)+'">'+(i+1)+'</button>').appendTo($tabs.children("ul"));
+		}
+		$(".option[value='1']").css('background-color','#d9551e');
+		$(".option[value='1']").css('color','white');
+	}
+
+
+
+
+
+	$(document).on('click', '.option', function(){
+		$('.option').css('background-color','#15214B')
+		$('.option').css('color','white')
+		$(this).css('background-color','#d9551e');
+		$(this).css('color','white');
+		loadSchedule(schedules[$(this).attr("value")-1]);
+   });
 
 	// Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
 	function setSliderTicks() {
@@ -579,7 +667,12 @@ $(document).ready(function() {
 	}
 
 	// Asks server for set of possible schedules based on list of section_ids to permute over
-	function searchSchedules(extras) {
+	function searchSchedules() {
+		// get options from preferences checkboxes
+		var extras = {};
+		$('.preferences').children(':checked').each(function(index, element) {
+			extras[element.id] = true;
+		});
 		var sections = [],
 			params = extras ? extras : {};
 
@@ -607,13 +700,26 @@ $(document).ready(function() {
 				schedules = response;
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
+					schedules.map(function(schedule) {
+						schedule.sections.map(function(section) {
+							section.color = colorMap[section.title];
+						});
+					});
 					setSliderTicks();
-				} else {
+					setTabs();
 					$('#schedule-slider').slider('option', 'max', 0);
-					alert('No possible schedules!');
+					var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
+						res = searchResults[val]
+						selected = res.discussions.length + res.laboratories.length + res.seminars.length + res.lectures.length;
+						return acc && (selected > 0);
+					}, false);
+					if ($('#results-box').find(':checked').length > 0 && classesSelected) {
+						console.log("i: ", $('#results-box').find(':checked').length);
+						alert('No possible schedules');
+					}
 				}
-				$('#schedule-slider').slider('option', 'value', 0);
-				loadSchedule(schedules[$('#schedule-slider').slider('value')]);
+				setTabs();
+				loadSchedule(schedules[0]);
 			}
 		});
 	}
@@ -635,7 +741,7 @@ $(document).ready(function() {
 			content = resultBox.children('#content'),
 			checkbox = resultBox.children('#checkbox').children(':checkbox');
 
-		content.children('.remove').text('x');
+		content.children('.remove').html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
 		content.children('.remove').css({
 			"float": "right",
 			"color": "white"
@@ -648,6 +754,7 @@ $(document).ready(function() {
 			localStorage.setItem('courses', JSON.stringify(courses))
 			updateCreditCount();
 			$(this).parent().parent().remove();
+			searchSchedules();
 		});
 
 		content.click(function(event) {
@@ -794,13 +901,18 @@ $(document).ready(function() {
 		checkbox.change(function() {
 			searchResults[parseInt(result.id)]['selected'] = $(this).prop('checked');
 			updateCreditCount();
+			searchSchedules();
 		});
 		checkbox.change();
 		$('#results-box').append(resultBox);
+		sectionColor = Utils.getRandomColor();
+		colorMap[result.course_mnemonic] = sectionColor;
+		content.css('background-color', sectionColor);
 		checkbox.css('margin-top', checkbox.parent().height() / 2 + 5);
 		if (enableModal) {
 			content.click();
 		}
+
 	}
 
 	function addClass(course) {
@@ -813,9 +925,10 @@ $(document).ready(function() {
 					end: dateString + ' ' + course.end_times[i],
 				};
 				event.__proto__ = course;
-				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1] + '\n' + course.location;
+				event.title = course.title + ' — ' + course.professor.split(' ')[course.professor.split(' ').length - 1];
 				course.events.push(event);
 				calendarCourses.push(event);
+				event.color = course.color;
 			}
 		} else {
 			for (var i = 0; i < course.events.length; i++) {
@@ -837,8 +950,15 @@ $(document).ready(function() {
 				addClass(schedule['sections'][i]);
 			}
 		}
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
 		if (schedules.length > 1) {
-			$('#schedule-name').text(name + ' / ' + schedules.length);
+			$('#schedule-name').text(name + ' of ' + len);
 		} else {
 			$('#schedule-name').text(name);
 		}

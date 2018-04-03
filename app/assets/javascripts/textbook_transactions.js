@@ -127,6 +127,7 @@ var ready = function() {
 	$('#post-listing').click(function() {
 		$('#post-listing-modal').modal();
 	});
+
 	$('#sell-yours').click(function() {
 		$('#post-listing-modal').modal();
 

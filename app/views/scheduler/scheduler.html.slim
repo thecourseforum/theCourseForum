@@ -3,52 +3,64 @@
 - content_for :page_heading, "Schedule Generator - #{Semester.current.to_s}"
 .scheduler-container
   .row
-    #calendar.col-xs-9
-      .row
-        .col-md-3
-          h4#schedule-name Untitled Schedule
-        .col-md-6.pull-right
-          .btn-group.pull-right#scheduler-buttons role="group"
-            button.btn.btn-default#save-schedule-dialog
-              span Save 
-              .glyphicon.glyphicon-floppy-disk 
-            button.btn.btn-default#load-schedules
-              span Load 
-              .glyphicon.glyphicon-open
-            button.btn.btn-default#export-schedule 
-              span Export to iCal 
-              .glyphicon.glyphicon-calendar 
-      #schedule-slider
-      #schedule
-    #search-bar.col-xs-3
-      h4 Search for a course
+    #search.col-xs-12
       .input-group
-        input.form-control#class-search name="class-search" type="text" placeholder="ex. ECON 2010 or Biology"
+        input.form-control#class-search name="class-search" type="text" placeholder="Search for a course... ex. ECON 2010 or Biology"
         span.input-group-addon
           .btn.btn-xs.glyphicon.glyphicon-search#search-classes
-      h4#saved-courses-header Or choose one you saved
-      select#saved-courses
-        - current_user.courses.each do |course|
-          option= "#{course.subdepartment.mnemonic} #{course.course_number}"
-        | end
-      - if current_user.courses.size > 0
-        .btn.btn-primary#clear-courses Clear Saved Courses
-      h5#results-title Courses to use
+    /#gen.col-xs-1
+    /  .btn.btn-primary#generate-schedules Generate
+    /#genopt.col-xs-2
+    /  .btn.btn-primary#generate-options Generate with Options
+  .row
+    #search-bar.col-xs-3
+      h4#results-title Selected Courses
       #results-box
-      br
       .row.row-no-padding#search-footer
+        .col-md-3
         .col-md-5
           #credits 0 credits
-        .col-md-7
-          .btn.btn-primary#generate-schedules Generate
-      .btn.btn-primary#generate-options Generate with Options
+      .row
+        #prefs-col.col-md-12
+          h3#prefs-title Scheduler Options
+          #prefs.preferences
+              input type="checkbox" id="mornings"
+              span  No morning classes (before 10am)
+              br
+              input type="checkbox" id="evenings"
+              span  No evening classes (after 5pm)
+              br
+              input type="checkbox" id="lunch"
+              span  Time for lunch!
+              br
+              input type="checkbox" id="thirst"
+              span  A Thirsty Thursday
+        
+    #calendar.col-xs-9
+      /   .col-md-6.pull-right
+      /     .btn-group.pull-right#scheduler-buttons role="group"
+      /       button.btn.btn-default#save-schedule-dialog
+      /         span Save 
+      /         .glyphicon.glyphicon-floppy-disk 
+      /       button.btn.btn-default#load-schedules
+      /         span Load 
+      /         .glyphicon.glyphicon-open
+      /       button.btn.btn-default#export-schedule 
+      /         span Export to iCal 
+      /         .glyphicon.glyphicon-calendar 
+      #schedule-options
+        ul#tabUl
+      #schedule
+    
+        
 
     .course-result.hidden
+      #checkbox
+        input type= "checkbox"
       #content
         a.remove
         p.course-mnemonic
         p.course-title
-      #checkbox
-        input type= "checkbox"
+      
 
   -# modals rendered in application.html.slim
