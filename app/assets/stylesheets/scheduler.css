@@ -92,10 +92,10 @@ body.modal-open {
 	top: 0;
 	font-size: 12px;
 	font-family: "Open Sans", Helvetica;
-	background: rgb(235, 231, 231);
-	color:black;
+	background:#15214B;
+	color:white;
 	border-width: 1px;
-	border-color: #1d0ea3;
+	border-color: white;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	margin-left: -5px;
