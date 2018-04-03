@@ -559,13 +559,29 @@ $(document).ready(function() {
 		var $tabs = $('#schedule-options');	
 		$tabs.children("ul").children("button").remove();
 		var width = $tabs.width()
-		for(var i = 0; i < schedules.length; i++){
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
+		for(var i = 0; i < len; i++){
 			$('<button class= "option" value="'+(i+1)+'">'+(i+1)+'</button>').appendTo($tabs.children("ul"));
 		}
-		$('.option').width(width/(schedules.length))
+		$(".option[value='1']").css('background-color','#15214B');
+		$(".option[value='1']").css('color','white');
 	}
 
-	$(document).on('click', '.option', function(){ 
+
+
+
+
+	$(document).on('click', '.option', function(){
+		$('.option').css('background-color','rgb(235, 231, 231)')
+		$('.option').css('color','black')
+		$(this).css('background-color','#15214B');
+		$(this).css('color','white');
 		loadSchedule(schedules[$(this).attr("value")-1]);
    });
 
@@ -930,8 +946,15 @@ $(document).ready(function() {
 				addClass(schedule['sections'][i]);
 			}
 		}
+		var len = 0
+		if(schedules.length > 13){
+			len = 13
+		}
+		else{
+			len = schedules.length
+		}
 		if (schedules.length > 1) {
-			$('#schedule-name').text(name + ' of ' + schedules.length);
+			$('#schedule-name').text(name + ' of ' + len);
 		} else {
 			$('#schedule-name').text(name);
 		}

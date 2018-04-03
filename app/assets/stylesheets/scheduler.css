@@ -79,8 +79,8 @@ body.modal-open {
 
 #schedule-options {
 	margin-top: 12px;
-	margin-bottom: 8px;
 	margin-right: 10px;
+	margin-bottom: -2px;
 	height: 30px;
 	outline:none; 
 	border-bottom:none;
@@ -93,18 +93,16 @@ body.modal-open {
 	padding: 5px 22px;
 	top: 0;
 	font-size: 12px;
-	
 	font-family: "Open Sans", Helvetica;
-	background: #6c8ac1;
-	color:white;
+	background: rgb(235, 231, 231);
+	color:black;
 	border-width: 1px;
-	border-color: #d9551e
+	border-color: #1d0ea3;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	margin-left: -5px;
+	width: 80px;
   }
-
-  .option:hover {
-    background-color: #d9551e;
-    color: white;
-}
 
 .ui-autocomplete {
 	font-size: 12px;
