@@ -91,7 +91,7 @@ $(document).ready(function() {
 		colorList : [
 			'#546de5',
 			'#e15f41',
-			'#596275',
+			'#ffd32a',
 			'#574b90',
 			'#f19066',
 			'#2ecc71',
