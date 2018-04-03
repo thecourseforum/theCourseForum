@@ -91,20 +91,20 @@ $(document).ready(function() {
 		colorList : [
 			'#546de5',
 			'#e15f41',
-			'#38ada9',
+			'#596275',
 			'#574b90',
 			'#f19066',
-			'#63cdda',
-			'#c44569',
-			'#f78fb3',
+			'#2ecc71',
+			'#ff3838',
 			'#38ada9',
+			'#c56cf0',
 		],
 		colorCounter : 0,
 
 		// Generate random color
 		getColor: function() {
 			var color = this.colorList[this.colorCounter];
-			this.colorCounter += 1;
+			this.colorCounter = (this.colorCounter + 1) % this.colorList.length;
 			return color;
 		}
 
