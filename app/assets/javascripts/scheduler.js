@@ -91,13 +91,13 @@ $(document).ready(function() {
 		colorList : [
 			'#546de5',
 			'#e15f41',
-			'#ffd32a',
 			'#574b90',
-			'#f19066',
-			'#2ecc71',
 			'#ff3838',
-			'#38ada9',
+			'#2ecc71',
+			'#f19066',
 			'#c56cf0',
+			'#ffd32a',
+			'#38ada9',
 		],
 		colorCounter : 0,
 
