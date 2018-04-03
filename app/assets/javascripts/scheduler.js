@@ -323,6 +323,10 @@ $(document).ready(function() {
 		}
 	});
 
+	$('.preferences').children().click(function() {
+		searchSchedules();
+	});
+
 	$('#generate-schedules').click(function() {
 		var credits = $('#credits').text().split(' ')[0];
 		if (credits > 25) {

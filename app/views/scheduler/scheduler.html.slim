@@ -20,6 +20,22 @@
         .col-md-3
         .col-md-5
           #credits 0 credits
+      .row
+        #prefs-col.col-md-12
+          h3#prefs-title Scheduler Options
+          #prefs.preferences
+              input type="checkbox" id="mornings"
+              span  No morning classes (before 10am)
+              br
+              input type="checkbox" id="evenings"
+              span  No evening classes (after 5pm)
+              br
+              input type="checkbox" id="lunch"
+              span  Time for lunch!
+              br
+              input type="checkbox" id="thirst"
+              span  A Thirsty Thursday
+        
     #calendar.col-xs-9
       h4#schedule-name 
       /   .col-md-6.pull-right
