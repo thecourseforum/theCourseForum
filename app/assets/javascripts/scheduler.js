@@ -94,8 +94,8 @@ $(document).ready(function() {
 			'#574b90',
 			'#ff3838',
 			'#2ecc71',
-			'#f19066',
 			'#c56cf0',
+			'#f19066',
 			'#ffd32a',
 			'#38ada9',
 		],
@@ -172,7 +172,7 @@ $(document).ready(function() {
 			agendaWeek: 'yyyy'
 		},
 		// Sets height of the plugin calendar
-		contentHeight: 550,
+		contentHeight: 600,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 
@@ -684,6 +684,12 @@ $(document).ready(function() {
 			data: params,
 			success: function(response) {
 				schedules = response;
+			        // classesSelected is a boolean containing whether or not any class sections are selected
+				var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
+					  res = searchResults[val]
+					  selected = res.discussions.length + res.laboratories.length + res.seminars.length + res.lectures.length;
+					  return acc && (selected > 0);
+				}, true);
 				if (schedules.length > 0) {
 					$('#schedule-slider').slider('option', 'max', schedules.length - 1);
 					schedules.map(function(schedule) {
@@ -694,15 +700,8 @@ $(document).ready(function() {
 					setSliderTicks();
 					setTabs();
 					$('#schedule-slider').slider('option', 'max', 0);
-					var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
-						res = searchResults[val]
-						selected = res.discussions.length + res.laboratories.length + res.seminars.length + res.lectures.length;
-						return acc && (selected > 0);
-					}, false);
-					if ($('#results-box').find(':checked').length > 0 && classesSelected) {
-						console.log("i: ", $('#results-box').find(':checked').length);
-						alert('No possible schedules');
-					}
+				} else if (classesSelected && $("#results-box").children().length > 0){
+				   alert('No possible schedules!');
 				}
 				setTabs();
 				loadSchedule(schedules[0]);
