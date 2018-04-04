@@ -309,7 +309,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("input[type='checkbox']").click(function() {
+	$('.preferences').children().click(function() {
 		searchSchedules();
 	});
 
@@ -426,7 +426,6 @@ $(document).ready(function() {
 		$('#how-to-modal').modal();
 	});
 
-	$('#how-to').tooltip();
 
 	$('#name').keyup(function(key) {
 		// Anonymous function gets passed in the keyCode of the pressed key, 13 is the Enter key
@@ -644,11 +643,7 @@ $(document).ready(function() {
 
 						localStorage.setItem('courses', JSON.stringify(courses));
 						localStorage.setItem('results', JSON.stringify(searchResults));
-					} else {
-						alert("This course has already been added!");
-						$('#class-search').val("");
 					}
-
 				},
 				error: function(response) {
 					alert("Improper search!");
@@ -782,7 +777,7 @@ $(document).ready(function() {
 					// }
 
 					$('.lectures').append(Utils.formatTimeStrings(result.lectures[i]));
-					$('.lectures').append(", " + result.lectures[i].professor);
+					$('.lectures').append(",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.lectures[i].professor);
 					if (i != result.lectures.length - 1) {
 						$('.lectures').append("<br/>");
 					}
@@ -813,7 +808,7 @@ $(document).ready(function() {
 					// }
 
 					$('.discussions').append(Utils.formatTimeStrings(result.discussions[i]));
-					$('.discussions').append(", " + result.discussions[i].professor);
+					$('.discussions').append(",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.discussions[i].professor);
 					if (i != result.discussions.length - 1) {
 						$('.discussions').append("<br/>");
 					}
@@ -843,7 +838,7 @@ $(document).ready(function() {
 					// 	$('.laboratories').append('<input type="checkbox" name="' + result.laboratories[i].section_id + '"> ');
 					// }
 					$('.laboratories').append(Utils.formatTimeStrings(result.laboratories[i]));
-					$('.laboratories').append(", " + result.laboratories[i].professor);
+					$('.laboratories').append(",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.laboratories[i].professor);
 					if (i != result.laboratories.length - 1) {
 						$('.laboratories').append("<br/>");
 					}
@@ -873,7 +868,7 @@ $(document).ready(function() {
 					// 	$('.seminars').append('<input type="checkbox" name="' + result.seminars[i].section_id + '"> ');
 					// }
 					$('.seminars').append(Utils.formatTimeStrings(result.seminars[i]));
-					$('.seminars').append(", " + result.seminars[i].professor);
+					$('.seminars').append(",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.seminars[i].professor);
 					if (i != result.seminars.length - 1) {
 						$('.seminars').append("<br/>");
 					}
