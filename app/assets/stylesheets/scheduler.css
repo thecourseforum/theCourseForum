@@ -305,6 +305,9 @@ body.modal-open {
 	outline: none;
 }
 
+.tooltip.fade.top.in{
+	width: 80px
+}
 
 #how-to-modal {
 	position: absolute;
