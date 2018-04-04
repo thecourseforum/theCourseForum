@@ -19,6 +19,10 @@ body.modal-open {
 	padding-bottom: 10px;
 }
 
+.fc-event .fc-bg {
+    opacity: 0;
+}
+
 #lecture-header, #discussion-header, #laboratory-header {
 	display: none;
 }
