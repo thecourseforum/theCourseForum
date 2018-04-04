@@ -309,7 +309,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.preferences').children().click(function() {
+    $('.check').click(function() {
         searchSchedules();
     });
 
@@ -656,7 +656,7 @@ $(document).ready(function() {
     function searchSchedules() {
         // get options from preferences checkboxes
         var extras = {};
-        $("input[type='checkbox']").each(function(index, element) {
+        $(".check").each(function(index, element) {
             if (element.checked){
                 extras[element.id] = true;
             }
