@@ -22,19 +22,18 @@
           #credits 0 credits
       .row
         #prefs-col.col-md-12
-          h3#prefs-title Scheduler Options
-          #prefs.preferences
-              input type="checkbox" id="mornings"
-              span  No morning classes (before 10am)
-              br
-              input type="checkbox" id="evenings"
-              span  No evening classes (after 5pm)
-              br
-              input type="checkbox" id="lunch"
-              span  Time for lunch!
-              br
-              input type="checkbox" id="thirst"
-              span  A Thirsty Thursday
+          #prefs.dropdown
+            button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" Schedule Filters
+            ul.dropdown-menu.col-xs-12
+              li
+                input.check type="checkbox" id="mornings"
+                span  No morning classes (before 10am)
+              li
+                input.check type="checkbox" id="evenings"
+                span  No evening classes (after 5pm)
+              li
+                input.check type="checkbox" id="thirst"
+                span  No Thur night or Fri classes
         
     #calendar.col-xs-9
       /   .col-md-6.pull-right

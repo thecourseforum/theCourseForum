@@ -135,6 +135,11 @@ body.modal-open {
 	margin-top: 10px;
 }
 
+.dropdown-menu li {
+	padding-left: 4px;
+	border-bottom: 2px;
+}
+
 #prefs-title {
 	text-align: center;
 }

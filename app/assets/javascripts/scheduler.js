@@ -299,7 +299,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.preferences').children().click(function() {
+	$("input[type='checkbox']").click(function() {
 		searchSchedules();
 	});
 
