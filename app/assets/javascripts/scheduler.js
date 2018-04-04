@@ -656,8 +656,10 @@ $(document).ready(function() {
 	function searchSchedules() {
 		// get options from preferences checkboxes
 		var extras = {};
-		$('.preferences').children(':checked').each(function(index, element) {
-			extras[element.id] = true;
+		$("input[type='checkbox']").each(function(index, element) {
+			if (element.checked){
+				extras[element.id] = true;
+			}
 		});
 		var sections = [],
 			params = extras ? extras : {};
