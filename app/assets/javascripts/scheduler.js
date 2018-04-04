@@ -172,7 +172,7 @@ $(document).ready(function() {
 			agendaWeek: 'yyyy'
 		},
 		// Sets height of the plugin calendar
-		contentHeight: 550,
+		contentHeight: 600,
 		// Initialize the calendar with this set of events (should be empty anyway)
 		events: calendarCourses,
 
