@@ -100,6 +100,7 @@ body.modal-open {
 	margin-left: -5px;
 	width: 80px;
 	outline: 0;
+	font-weight: 90;
   }
 
 .ui-autocomplete {
@@ -294,9 +295,12 @@ body.modal-open {
 }
 
 #how-to {
-	border: 1px solid LightGray;
+	/*border: 1px solid LightGray;*/
 	border-radius: 5px;
+	margin-top: -25px;
+	outline: none;
 }
+
 
 #how-to-modal {
 	position: absolute;
