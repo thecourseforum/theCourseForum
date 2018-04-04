@@ -267,6 +267,16 @@ $(document).ready(function() {
 		courseSearch($('#class-search').val());
 	});
 
+	// Clear text search box on "Save Changes" in modal
+	$('#save-selection').click(function() {
+		$('#class-search').val("");
+	})
+
+	// Clear text search box on "Close" in modal
+	$('#close-selection').click(function() {
+		$('#class-search').val("");
+	})
+
 	// Alternatively, users can also "search" by selecting a prior saved course
 	// Attaches an anonymous function to the change event thrown by the saved-courses combobox
 	$('#saved-courses').change(function() {
