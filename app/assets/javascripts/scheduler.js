@@ -644,7 +644,11 @@ $(document).ready(function() {
 
 						localStorage.setItem('courses', JSON.stringify(courses));
 						localStorage.setItem('results', JSON.stringify(searchResults));
+					} else {
+						alert("This course has already been added!");
+						$('#class-search').val("");
 					}
+
 				},
 				error: function(response) {
 					alert("Improper search!");
