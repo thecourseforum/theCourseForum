@@ -23,8 +23,12 @@ body.modal-open {
     opacity: 0;
 }
 
-#lecture-header, #discussion-header, #laboratory-header {
-	display: none;
+#lecture-header, #discussion-header, #laboratory-header, #seminar-header{
+	font-weight: bold;
+	font-size: 19px;
+	margin-bottom: 5px;
+	margin-top: 15px;
+
 }
 
 #calendar {
