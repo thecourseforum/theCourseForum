@@ -28,6 +28,8 @@
             .row
               .col-xs-12
                 = f.email_field :email, placeholder: "Email", class: "form-control"
+              .col-xs-12.form-error.email-error
+                p Please enter a valid UVa email.
             .row.form-row
               .col-xs-8#password
                 = f.password_field :password, placeholder: "Password", class: "form-control"
