@@ -67,6 +67,19 @@
     hr
 
     .row
+      .col-md-12
+        .row
+          .col-md-12
+            .orange-title Thoughts about the Course/Professor:
+        .row.hidden-xs.hidden-sm
+          .col-md-12
+            | &nbsp
+        .row
+          .col-md-12
+            = f.text_area :comment, :placeholder=>"Write Your Review!", class: "form-control", :rows => 5
+    hr
+
+    .row
       .col-md-6
         .row
           .col-xs-12
@@ -188,20 +201,6 @@
               | Other Work:
           .col-xs-8
             = f.number_field :amount_homework, :id => "homeworkfield", :value => ( (@review.amount_homework? and @review.amount_homework > 0) ? @review.amount_homework.to_i : 0), :min => 0, class: "form-control" 
-
-    hr
-
-    .row
-      .col-md-12
-        .row
-          .col-md-12
-            .orange-title Tell us more about the course/professor:
-        .row.hidden-xs.hidden-sm
-          .col-md-12
-            | &nbsp
-        .row
-          .col-md-12
-            = f.text_area :comment, :placeholder=>"Write Your Review!", class: "form-control", :rows => 5
     hr
 
     
