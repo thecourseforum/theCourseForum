@@ -10,27 +10,27 @@ ready = function() {
       retVal = compareProfessors(professorA, professorB, attrName);
 
       // Handle tie
-      if (retVal == 0) {
-        var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];
+      // if (retVal == 0) {
+      //   var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];
 
-        for (var i = 0; i < otherSortOptions.length; i++) {
-          // Get another stat
-          if (attrName != otherSortOptions[i]) {
+      //   for (var i = 0; i < otherSortOptions.length; i++) {
+      //     // Get another stat
+      //     if (attrName != otherSortOptions[i]) {
 
-            // Compare by that stat
-            retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
+      //       // Compare by that stat
+      //       retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
 
-            // stop if found a tie breaker
-            if (retVal != 0) {
-              break;
-            }
-            // if three-way tie, return 0
-            if (i == 2 && retVal == 0) {
-              return 0;
-            }
-          }
-        }
-      }
+      //       // stop if found a tie breaker
+      //       if (retVal != 0) {
+      //         break;
+      //       }
+      //       // if three-way tie, return 0
+      //       if (i == 2 && retVal == 0) {
+      //         return 0;
+      //       }
+      //     }
+      //   }
+      // }
 
       return retVal;
 
@@ -43,7 +43,8 @@ ready = function() {
     var aVal = parseFloat($(professorA).find(stat).text()),
       bVal = parseFloat($(professorB).find(stat).text()),
       retVal = bVal - aVal;
-
+      console.log(professorA);
+      console.log(stat);
     // Handle no stat
     if (isNaN(aVal) && !isNaN(bVal)) {
       return 1;
