@@ -9,28 +9,28 @@ ready = function() {
       // Compare two professors by a given stat
       retVal = compareProfessors(professorA, professorB, attrName);
 
-      // Handle tie
-      // if (retVal == 0) {
-      //   var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];
+      //Handle tie
+      if (retVal == 0) {
+        var otherSortOptions = [".course-rating", ".course-difficulty", ".course-gpa"];
 
-      //   for (var i = 0; i < otherSortOptions.length; i++) {
-      //     // Get another stat
-      //     if (attrName != otherSortOptions[i]) {
+        for (var i = 0; i < otherSortOptions.length; i++) {
+          // Get another stat
+          if (attrName != otherSortOptions[i]) {
 
-      //       // Compare by that stat
-      //       retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
+            // Compare by that stat
+            retVal = compareProfessors(professorA, professorB, otherSortOptions[i]);
 
-      //       // stop if found a tie breaker
-      //       if (retVal != 0) {
-      //         break;
-      //       }
-      //       // if three-way tie, return 0
-      //       if (i == 2 && retVal == 0) {
-      //         return 0;
-      //       }
-      //     }
-      //   }
-      // }
+            // stop if found a tie breaker
+            if (retVal != 0) {
+              break;
+            }
+            // if three-way tie, return 0
+            if (i == 2 && retVal == 0) {
+              return 0;
+            }
+          }
+        }
+      }
 
       return retVal;
 
