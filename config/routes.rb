@@ -3,8 +3,8 @@ TheCourseForum::Application.routes.draw do
 
   # Routes for user authentication
   devise_for :users, :controllers => {
-    :registrations => "registrations", 
-    :sessions => "sessions", 
+    :registrations => "registrations",
+    :sessions => "sessions",
     :confirmations => "confirmations"}
 
   devise_scope :user do
@@ -21,7 +21,7 @@ TheCourseForum::Application.routes.draw do
   resources :professors, :only => [:index, :show]
 
   get '/courses/reviews' => 'courses#reviews'
-  
+
   resources :courses, :only => [:show, :index, :show_professors]
 
   # temporary error page until scheduler is fixed
@@ -40,7 +40,6 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
   get '/scheduler/coursedata' => 'scheduler#get_course_data'
-  
   
   get '/s/:shorturl', :to => 'scheduler#view_shared_schedule'
 
@@ -61,7 +60,7 @@ TheCourseForum::Application.routes.draw do
   get '/books/courses' => 'books#courses'
   post '/books/follow' => 'books#follow'
   resources :books, :only => [:index, :show]
-  
+
   resources :textbook_transactions, :only => [:create]
   get 'my_listings', :to => 'textbook_transactions#show', :as => 'my_listings'
   post '/textbook_transactions/withdraw' => 'textbook_transactions#withdraw'
@@ -150,7 +149,7 @@ TheCourseForum::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

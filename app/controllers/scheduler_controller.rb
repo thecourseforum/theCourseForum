@@ -19,7 +19,7 @@ class SchedulerController < ApplicationController
 			id /= _base
 		end
 
-		if shorturl.length < 6
+		if shorturl.length < 5
 			shorturl += "-"
 			while shorturl.length < 6 do
 				shorturl += _alpha[rand(_base)]
