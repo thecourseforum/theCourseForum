@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+#ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
@@ -114,3 +114,6 @@ gem "highcharts-rails", "~> 3.0.0"
 
 # for breadcrumbs
 gem 'breadcrumbs_on_rails'
+
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

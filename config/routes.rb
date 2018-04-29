@@ -34,6 +34,7 @@ TheCourseForum::Application.routes.draw do
   post '/scheduler/course' => 'scheduler#save_course'
   post '/scheduler/unsave_course' => 'scheduler#unsave_course'
   post '/scheduler/schedules' => 'scheduler#save_schedule'
+  post '/scheduler/share' => 'scheduler#share'
   delete '/scheduler/schedules' => 'scheduler#destroy'
   get '/scheduler/schedules' => 'scheduler#index'
   get '/scheduler/course' => 'scheduler#course'

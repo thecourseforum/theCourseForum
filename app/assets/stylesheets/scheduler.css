@@ -326,3 +326,71 @@ body.modal-open {
 	transform: translate(-50%, -50%);
 
 }
+
+#share-col {
+	margin-top: 10px;
+}
+
+#share {
+	z-index: 3;
+	font-size: 12px;
+}
+
+#share-btn {
+	z-index: 4;
+	width: 100%;
+}
+#share-btn:focus {
+	outline: none;
+}
+
+#share-title {
+	text-align: center;
+}
+
+#share-link-col {
+	margin-top: -10px;
+}
+
+#share-link-div {
+	z-index: 1;
+	max-height: 40px;
+	height: 32px;
+	overflow: hidden;
+	border: 0.5px solid rgb(221, 221, 221);
+	border-top: 0px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	position: relative;
+	transition: max-height 0.5s ease-out;
+}
+
+#share-link {
+	z-index: 2;
+	padding-left: 10px;
+	position: absolute;
+	bottom: 0px;
+	height: 32px;
+	width: 100%;
+	border: 0px;
+	background-color: #fff;
+}
+#share-link:focus {
+	outline: none;
+}
+
+#share-link-copied {
+	z-index: -2;
+	margin-top: -7px;
+	padding-left: 10px;
+	transition: margin-top 0.4s ease-out;
+	color: #777;
+	font-size: 12px;
+}
+
+.noshow {
+	max-height: 0px !important;
+}
+.noshow-copied{
+	margin-top: -40px !important;
+}

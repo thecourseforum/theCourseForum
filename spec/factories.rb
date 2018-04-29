@@ -1,4 +1,10 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :shared_schedule do
+    short_url "MyString"
+sections "MyString"
+user nil
+clicks ""
+  end
+
 
   factory :user do
     email 'aw3as@virginia.edu'

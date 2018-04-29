@@ -4,6 +4,33 @@ class SchedulerController < ApplicationController
 
   def error
   end
+  
+    def share
+		_alpha = "23456789bcdfghjkmnpqrstvwxyz"
+		_base = _alpha.length
+		
+		shorturl = ""
+		shared = Shared_Schedule.new(:sections=>"#{params[:schedule_list]}", :user=>current_user, :clicks=>0)
+		shared.save
+		
+		id = shared.id
+		while id > 0 do
+			shorturl = _alpha[id % _base] + shorturl
+			id /= _base		
+		end
+		
+		if shorturl.length < 6
+			shorturl += "-"
+			while shorturl.length < 6 do
+				shorturl += _alpha[rand(_base)]
+			end
+		end
+		
+		shared.short_url = shorturl
+		shared.save
+		
+		render :json => {:success => true, :short_url => shorturl} 
+	end
 
 	def manual
     # calls export_ics if .ics is appended to the url (otherwise no special action)
@@ -432,5 +459,6 @@ class SchedulerController < ApplicationController
 
       return events
   end
+  
 
 end
