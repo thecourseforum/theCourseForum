@@ -45,12 +45,15 @@ class SchedulerController < ApplicationController
 			x += 1
 		end
 
-		schedule = Shared_Schedule.find(id)
-		schedule.clicks += 1
-		schedule.save
+		schedule = Shared_Schedule.find_by_id(id)
 
-
-	    render 'sharedschedule.html'
+    if schedule == nil
+      render file: "#{Rails.root}/public/404", status: :not_found
+    else
+		 schedule.clicks += 1
+		 schedule.save
+	   render 'sharedschedule.html'
+    end
 	end
 
 	def get_course_data
