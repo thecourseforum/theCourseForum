@@ -394,3 +394,11 @@ body.modal-open {
 .noshow-copied{
 	margin-top: -40px !important;
 }
+
+#owner-title {
+	text-align: center;
+}
+
+#share-container{
+	display: none;
+}

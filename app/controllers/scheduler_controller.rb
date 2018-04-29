@@ -4,33 +4,84 @@ class SchedulerController < ApplicationController
 
   def error
   end
-  
+
     def share
 		_alpha = "23456789bcdfghjkmnpqrstvwxyz"
 		_base = _alpha.length
-		
+
 		shorturl = ""
 		shared = Shared_Schedule.new(:sections=>"#{params[:schedule_list]}", :user=>current_user, :clicks=>0)
 		shared.save
-		
+
 		id = shared.id
 		while id > 0 do
 			shorturl = _alpha[id % _base] + shorturl
-			id /= _base		
+			id /= _base
 		end
-		
+
 		if shorturl.length < 6
 			shorturl += "-"
 			while shorturl.length < 6 do
 				shorturl += _alpha[rand(_base)]
 			end
 		end
-		
+
 		shared.short_url = shorturl
 		shared.save
-		
-		render :json => {:success => true, :short_url => shorturl} 
+
+		render :json => {:success => true, :short_url => shorturl}
 	end
+
+
+	def view_shared_schedule
+		_alpha = "23456789bcdfghjkmnpqrstvwxyz"
+		_base = _alpha.length
+
+		encoded = params[:shorturl].split("-")[0]
+		id = x = 0
+
+		while x < encoded.length do
+			id = id * _base + _alpha.index(encoded[x])
+			x += 1
+		end
+
+		schedule = Shared_Schedule.find(id)
+		schedule.clicks += 1
+		schedule.save
+
+
+	    render 'sharedschedule.html'
+	end
+
+	def get_course_data
+		_alpha = "23456789bcdfghjkmnpqrstvwxyz"
+		_base = _alpha.length
+
+		encoded = params[:sl].split("-")[0]
+		id = x = 0
+
+		while x < encoded.length do
+			id = id * _base + _alpha.index(encoded[x])
+			x += 1
+		end
+		schedule = Shared_Schedule.find(id)
+		if(schedule)
+			course_sections = JSON.parse(schedule.sections).map do |course|
+				Section.includes(:day_times, :locations, :professors).find(course)
+			end
+		end
+
+		section_results = rsections_to_jssections(course_sections)
+
+		res = {
+			owner: schedule.user.first_name,
+			sections: section_results
+		}
+
+		render :json => res and return
+
+	end
+
 
 	def manual
     # calls export_ics if .ics is appended to the url (otherwise no special action)
@@ -326,7 +377,11 @@ class SchedulerController < ApplicationController
         :events => [],
         :allDay => false,
         :professor => section.professors.first.full_name,
-        :sis_id => section.sis_class_number
+        :sis_id => section.sis_class_number,
+		    :name => section.course.title,
+		    :course_id => section.course_id,
+		    :title => section.course.subdepartment.mnemonic + " " + section.course.course_number.to_s,
+		    :credits => section.units
       }
     end.compact
   end
@@ -459,6 +514,6 @@ class SchedulerController < ApplicationController
 
       return events
   end
-  
+
 
 end

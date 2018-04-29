@@ -39,6 +39,10 @@ TheCourseForum::Application.routes.draw do
   get '/scheduler/schedules' => 'scheduler#index'
   get '/scheduler/course' => 'scheduler#course'
   delete '/scheduler/courses' => 'scheduler#clear_courses'
+  get '/scheduler/coursedata' => 'scheduler#get_course_data'
+  
+  
+  get '/s/:shorturl', :to => 'scheduler#view_shared_schedule'
 
 
   resources :bugs

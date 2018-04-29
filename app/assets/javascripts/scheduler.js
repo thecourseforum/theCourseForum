@@ -183,7 +183,7 @@ $(document).ready(function() {
                 html: "true",
                 placement: "auto top",
                 title: "<strong>SIS ID: </strong>" + event.sis_id,
-                content: 
+                content:
                 "<strong>Location: </strong>" + event.location
                 + "<br><strong>Prof: </strong>" + event.professor,
             });
@@ -218,12 +218,12 @@ $(document).ready(function() {
 
     $('#class-search').focus(function() {
         $('#saved-courses').slideUp();
-        $('#saved-courses-header').slideUp();   
+        $('#saved-courses-header').slideUp();
         $('#clear-courses').slideUp();
     });
 
     $('#class-search').blur(function() {
-        $('#saved-courses-header').slideDown(); 
+        $('#saved-courses-header').slideDown();
         $('#saved-courses').slideDown();
         $('#clear-courses').slideDown();
     });
@@ -512,15 +512,17 @@ $(document).ready(function() {
         if (schedules.length > 0) {
             $('#schedule-slider').slider('option', 'max', schedules.length - 1);
             $('#load-schedules-modal').modal('hide');
+			$("#share-container").css('display','block');
             setSliderTicks();
             setTabs();
         } else {
             $('#schedule-slider').slider('option', 'max', 0);
+			$("#share-container").css('display','none');
             setTabs();
             alert('No selected schedules!');
         }
         loadSchedule(schedules[0]);
-        
+
     });
 
     $('#clear-schedules').click(function() {
@@ -544,7 +546,7 @@ $(document).ready(function() {
             loadSchedule(schedules[ui.value]);
         }
     });
-	
+
 	$('#share-btn').click(function() {
 		var tab = $('#schedule-options').attr('data-selected');
 		var su = JSON.parse(localStorage.shorturls);
@@ -556,7 +558,7 @@ $(document).ready(function() {
 					schedule_list: JSON.stringify(sl)
 				},
 				success: function(resp) {
-					$("#share-link").val("tcf.io/" + resp.short_url);
+					$("#share-link").val("thecourseforum.com/s/" + resp.short_url);
 					$("#share-link-div").removeClass('noshow');
 					su[tab] = resp.short_url;
 					localStorage.setItem('shorturls', JSON.stringify(su));
@@ -564,26 +566,26 @@ $(document).ready(function() {
 				failure: function() {
 					alert('Error building short url. Please try again');
 				}
-			});	
+			});
 		} else {
-			$("#share-link").val("tcf.io/" + su[tab]);
+			$("#share-link").val("thecourseforum.com/s/" + su[tab]);
 			$("#share-link-div").removeClass('noshow');
 		}
 		$("#share-btn").blur();
 	});
-	
+
 	$('#share-link').click(function() {
 		this.select();
 		document.execCommand("Copy");
 		$("#share-link-copied").removeClass('noshow-copied');
 	});
-	
+
 	$('#share-link').blur(function() {
 		$("#share-link-copied").addClass('noshow-copied');
 	});
 
     function setTabs(){
-        var $tabs = $('#schedule-options'); 
+        var $tabs = $('#schedule-options');
 		$tabs.attr('data-selected', 0);
         $tabs.children("ul").children("button").remove();
         var width = $tabs.width()
@@ -756,13 +758,16 @@ $(document).ready(function() {
                     setSliderTicks();
                     setTabs();
                     $('#schedule-slider').slider('option', 'max', 0);
+					$("#share-container").css('display','block');
                 } else if (classesSelected && $("#results-box").children().length > 0){
                    localStorage.setItem('schedules', JSON.stringify([]));
 				   localStorage.setItem('shorturls', JSON.stringify([]));
+				   $("#share-container").css('display','none');
 				   alert('No possible schedules!');
                 } else {
 					localStorage.setItem('schedules', JSON.stringify([]));
 					localStorage.setItem('shorturls', JSON.stringify([]));
+					$("#share-container").css('display','none');
 				}
 				$("#share-link-div").addClass('noshow');
 				$("#share-link-copied").addClass('noshow-copied');

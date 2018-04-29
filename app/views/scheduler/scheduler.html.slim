@@ -34,19 +34,20 @@
               li
                 input.check type="checkbox" id="thirst"
                 span  No Thur night or Fri classes
-	  .row
-	    #share-col.col-md-12
-		  #share.dropdown
-		    button.btn.btn-primary#share-btn Share Schedule
-	  .row
-	    #share-link-col.col-md-12
-		  div#share-link-div.noshow
-		    input#share-link readonly=true
-	  .row
-	    #share-link-copied-col.col-md-12
-		  div#share-link-copied.noshow-copied
-			|
-			  Link copied to clipboard!
+	  div#share-container	
+		  .row
+			#share-col.col-md-12
+			  #share.dropdown
+				button.btn.btn-primary#share-btn Share Schedule
+		  .row
+			#share-link-col.col-md-12
+			  div#share-link-div.noshow
+				input#share-link readonly=true
+		  .row
+			#share-link-copied-col.col-md-12
+			  div#share-link-copied.noshow-copied
+				|
+				  Link copied to clipboard!
         
     #calendar.col-xs-9
       /   .col-md-6.pull-right
