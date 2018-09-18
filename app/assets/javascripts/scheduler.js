@@ -655,6 +655,7 @@ $(document).ready(function() {
     // Asks server for set of possible schedules based on list of section_ids to permute over
     function searchSchedules() {
         // get options from preferences checkboxes
+       console.log("Searched");
         var extras = {};
         $(".check").each(function(index, element) {
             if (element.checked){

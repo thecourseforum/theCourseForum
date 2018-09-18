@@ -186,21 +186,22 @@ class SchedulerController < ApplicationController
     # if sections were passed,
     if params[:course_sections]
       # for each type of section in the array
-      course_sections = JSON.parse(params[:course_sections]).map do |course|
-        Section.includes(:day_times, :locations, :professors).find(course)
+      puts JSON.parse(params[:course_sections]).to_yaml
+      parsed_sections = JSON.parse(params[:course_sections])
+      if parsed_sections.count == 1
+        course_section_ids = parsed_sections.flatten.map do |section|
+          [section]
+        end
+      elsif parsed_sections.count == 0
+        course_section_ids = []
+      else
+        course_section_ids = parsed_sections.inject(&:product).map(&:flatten)
       end
-    end
-
-    # Permute through the array of arrays to generate all possible combinations of schedules
-    # http://stackoverflow.com/questions/5582481/creating-permutations-from-a-multi-dimensional-array-in-ruby
-    if course_sections.count == 1
-      schedules = course_sections.flatten.map do |section|
-        [section]
+      schedules = course_section_ids.map do |subarray|
+        subarray.map do |course_id|
+          Section.includes(:day_times, :locations, :professors).find(course_id)
+        end
       end
-    elsif course_sections.count == 0
-      schedules = []
-    else
-      schedules = course_sections.inject(&:product).map(&:flatten)
     end
 
     # Examine each schedule and only keep the ones that do not conflict
