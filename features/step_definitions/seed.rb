@@ -62,7 +62,7 @@ Given /^a review exists$/ do
       :student_id => User.first.id,
       :course => Course.first,
       :professor => Professor.first,
-      :semester => Semester.first,
+      :semester => Semester.last,
       :professor_rating => 2,
       :enjoyability => 2,
       :difficulty => 2,
