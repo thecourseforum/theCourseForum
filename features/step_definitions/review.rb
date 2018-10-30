@@ -4,7 +4,7 @@ When /^I write a review/ do
   puts "#{Professor.first.last_name}, #{Professor.first.first_name}"
   select "Bloomfield, Aaron", :from => 'prof_select'
   select "Fall", :from => 'semester_season'
-  select "2016", :from => 'semester_year'
+  select "2018", :from => 'semester_year'
   page.execute_script("$('.prof-rating-slider').slider('value', 1)")
   # decided that 'enjoyability' slider was no-longer needed
   #page.execute_script("$('.enjoyability-slider').slider('value', 2)")
@@ -21,5 +21,6 @@ end
 When /^I edit a review/ do
   fill_in('review_comment', :with => 'NEW TEXT')
   select "2018", :from => 'semester_year'
+  select "Fall", :from => 'semester_season'
   click_button("Submit Review")
 end
