@@ -21,5 +21,5 @@ Feature: Write a tCF Review
 		When I write a review
 		And I click sidebar link 'Review'
 		And I write a review
-		Then I should see notice: 'You have already written a review for this class.'		
+		Then I should see notice: 'You have already written a review for this class.'
 		And I should see 'My Reviews'

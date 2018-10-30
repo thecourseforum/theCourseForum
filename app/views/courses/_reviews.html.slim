@@ -4,8 +4,8 @@
       .rating-number
         .row
           .btn.upvote id="vote_up_#{review.id}" class="#{(@reviews_voted_up.include?(review.id) ? 'vote-active' : '')}" = image_tag("icons/up.png", size: "50")
-        .row 
+        .row
           .upvotes id="votes_#{review.id}" = "#{(review.votes_for - review.votes_against).to_i}"
         .row
           .btn.downvote id="vote_down_#{review.id}" class="#{(@reviews_voted_down.include?(review.id) ? 'vote-active' : '')}" = image_tag("icons/up.png", size: "50")
-      = render 'comments', review: review, myreviews: false   
+      = render 'comments', review: review, myreviews: false

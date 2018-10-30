@@ -116,6 +116,9 @@ ready = function() {
 			}
 		});
 
+		// "Enjoyability" slider removed, and so JavaScript that displays is removed
+
+		/*
 		var enjoy_radios = $("input[id*=review_enjoyability]");
 		var selected_enjoy = $("input[id*=review_enjoyability]:checked");
 		if (selected_enjoy.length > 0) {
@@ -143,6 +146,7 @@ ready = function() {
 				$(".enjoyability-slider").slider('value', val);
 			}
 		});
+		*/
 
 		var diff_radios = $("input[id*=review_difficulty]");
 		var selected_difficulty = $("input[id*=review_difficulty]:checked");

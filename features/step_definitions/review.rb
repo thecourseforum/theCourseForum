@@ -6,8 +6,8 @@ When /^I write a review/ do
   select "Fall", :from => 'semester_season'
   select "2016", :from => 'semester_year'
   page.execute_script("$('.prof-rating-slider').slider('value', 1)")
-  page.execute_script("$('.enjoyability-slider').slider('value', 2)")
-  page.execute_script("$('.difficulty-slider').slider('value', 3)")
+  # decided that 'enjoyability' slider was no-longer needed
+  #page.execute_script("$('.enjoyability-slider').slider('value', 2)")
   page.execute_script("$('.recommend-slider').slider('value', 4)")
   fill_in('review_comment', :with => "Test Review")
   fill_in('readingfield', :with => "1")

@@ -12,20 +12,22 @@ class Review < ActiveRecord::Base
   after_create :update_stats
   after_destroy :update_stats
 
-  validates_presence_of :student_id, :professor_rating, 
-    :enjoyability, :difficulty, :recommend, :course_id, :professor_id
+  validates_presence_of :student_id, :professor_rating, :enjoyability, 
+    :difficulty, :recommend, :course_id, :professor_id
 
-  validates :professor_rating, :enjoyability, :difficulty, :recommend, 
+  validates :professor_rating, :difficulty, :recommend, 
     :numericality => { :greater_than_or_equal_to => 1 }
 
-  validates :amount_reading, :amount_writing, :amount_group, :amount_homework,
+  validates :amount_reading, :amount_writing, :amount_group, :amount_homework, :enjoyability,
     :numericality => { :greater_than_or_equal_to => 0 }
 
   validates_uniqueness_of :student_id, :scope => [:course_id, :professor_id]
 
   # Get overall review rating from subcategories
+  # UPDATE: "overall" is now calculated with "difficulty" while "enjoyability" is removed
+  # UPDATE: As difficulty increases, rating decreases
   def overall
-    ((professor_rating + enjoyability + recommend) / 3).round(2)
+    ((professor_rating + recommend + (6 - difficulty)) / 3).round(2)
   end
 
   def update_stats
