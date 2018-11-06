@@ -190,44 +190,17 @@ class SchedulerController < ApplicationController
         Section.includes(:day_times, :locations, :professors).find(course)
       end
     end
-
-    # Permute through the array of arrays to generate all possible combinations of schedules
-    # http://stackoverflow.com/questions/5582481/creating-permutations-from-a-multi-dimensional-array-in-ruby
-    if course_sections.count == 1
-      schedules = course_sections.flatten.map do |section|
-        [section]
-      end
-    elsif course_sections.count == 0
-      schedules = []
-    else
-      schedules = course_sections.inject(&:product).map(&:flatten)
-    end
-
-    # Examine each schedule and only keep the ones that do not conflict
-    # If a schedule has conflicts - is turned into nil and removed in Array.compact
-    valid_schedules = schedules.map do |sections|
-      schedule = []
-      sections.each do |section|
-
-        if conflicts(schedule, section)
-          break
-        else
-          schedule << section
-        end
-      end
-      sections.count == schedule.count ? rsections_to_jssections(schedule).each_with_index.map { |jssection, i|
-        jssection.merge(
-          :title => schedule[i].course.mnemonic_number
-        )
-      } : nil
-    end.compact
-    valid_schedules = valid_schedules.each_with_index.map { |schedule, index|
-      {
-        name: "Schedule \##{index + 1}",
-        sections: schedule
-      }
+    sections = course_sections.flatten
+    schedule = rsections_to_jssections(sections).each_with_index.map { |jssection, i|
+      jssection.merge(
+        :title => sections[i].course.mnemonic_number
+      )
     }
-    render :json => valid_schedules and return
+    schedules = [{
+      name: "Schedule",
+      sections: schedule
+    }]
+    render :json => schedules and return
   end
 
   # creates a calendar. given array of section ids from javascript,
