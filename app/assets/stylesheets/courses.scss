@@ -286,7 +286,8 @@ p {
 }
 
 .stat-row {
-  height: 48px;
+  padding-top: 12px;
+  height: 56px;
 }
 
 .single-review {
@@ -344,6 +345,20 @@ p {
   margin-top: 5px;
   height:180px;
   border-right: #efefef 2px solid;
+  @include flexbox();
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.overall-col-rating {
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-top: 5px;
+  height:180px;
   @include flexbox();
   flex-flow: column;
   -webkit-flex-flow: column;
