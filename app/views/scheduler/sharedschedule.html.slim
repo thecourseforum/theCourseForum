@@ -1,0 +1,42 @@
+= javascript_include_tag "sharedschedule"
+<style>.course-result{margin:5px 10px 5px 10px}.course-result #content{width:100%;cursor:auto}</style>
+
+- content_for :page_heading, " "
+
+.scheduler-container
+  .row
+    .col-xs-3
+	  .row
+		.col-xs-12
+		  h4#results-title Selected Courses
+		  #results-box
+		  .row.row-no-padding#search-footer
+			.col-md-3
+			.col-md-5
+			  #credits 0 credits
+        
+    #calendar.col-xs-9
+      /   .col-md-6.pull-right
+      /     .btn-group.pull-right#scheduler-buttons role="group"
+      /       button.btn.btn-default#save-schedule-dialog
+      /         span Save 
+      /         .glyphicon.glyphicon-floppy-disk 
+      /       button.btn.btn-default#load-schedules
+      /         span Load 
+      /         .glyphicon.glyphicon-open
+      /       button.btn.btn-default#export-schedule 
+      /         span Export to iCal 
+      /         .glyphicon.glyphicon-calendar 
+      #schedule-options
+        ul#tabUl
+      #schedule
+    
+        
+
+    .course-result.hidden
+      #content
+        p.course-mnemonic
+        p.course-title
+      
+
+  -# modals rendered in application.html.slim

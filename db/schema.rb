@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210164918) do
+ActiveRecord::Schema.define(version: 20180429092226) do
 
   create_table "book_requirements", force: :cascade do |t|
     t.integer "section_id", limit: 4,   null: false
@@ -266,6 +266,13 @@ ActiveRecord::Schema.define(version: 20161210164918) do
     t.integer  "semester_id",      limit: 4
   end
 
+  create_table "sections_users", id: false, force: :cascade do |t|
+    t.integer "section_id", limit: 4
+    t.integer "user_id",    limit: 4
+  end
+
+  add_index "sections_users", ["user_id", "section_id"], name: "index_sections_users_on_user_id_and_section_id", unique: true, using: :btree
+
   create_table "semesters", force: :cascade do |t|
     t.integer  "number",     limit: 4
     t.string   "season",     limit: 255
@@ -284,6 +291,17 @@ ActiveRecord::Schema.define(version: 20161210164918) do
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
+
+  create_table "shared_schedules", force: :cascade do |t|
+    t.string   "short_url",  limit: 255
+    t.string   "sections",   limit: 255
+    t.integer  "user_id",    limit: 4
+    t.integer  "clicks",     limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "shared_schedules", ["user_id"], name: "index_shared_schedules_on_user_id", using: :btree
 
   create_table "stats", force: :cascade do |t|
     t.integer "course_id",    limit: 4
@@ -384,4 +402,5 @@ ActiveRecord::Schema.define(version: 20161210164918) do
   add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], name: "fk_one_vote_per_user_per_entity", unique: true, using: :btree
   add_index "votes", ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type", using: :btree
 
+  add_foreign_key "shared_schedules", "users"
 end

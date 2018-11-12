@@ -183,7 +183,7 @@ $(document).ready(function() {
                 html: "true",
                 placement: "auto top",
                 title: "<strong>SIS ID: </strong>" + event.sis_id,
-                content: 
+                content:
                 "<strong>Location: </strong>" + event.location
                 + "<br><strong>Prof: </strong>" + event.professor,
             });
@@ -218,12 +218,12 @@ $(document).ready(function() {
 
     $('#class-search').focus(function() {
         $('#saved-courses').slideUp();
-        $('#saved-courses-header').slideUp();   
+        $('#saved-courses-header').slideUp();
         $('#clear-courses').slideUp();
     });
 
     $('#class-search').blur(function() {
-        $('#saved-courses-header').slideDown(); 
+        $('#saved-courses-header').slideDown();
         $('#saved-courses').slideDown();
         $('#clear-courses').slideDown();
     });
@@ -512,15 +512,17 @@ $(document).ready(function() {
         if (schedules.length > 0) {
             $('#schedule-slider').slider('option', 'max', schedules.length - 1);
             $('#load-schedules-modal').modal('hide');
+			$("#share-container").css('display','block');
             setSliderTicks();
             setTabs();
         } else {
             $('#schedule-slider').slider('option', 'max', 0);
+			$("#share-container").css('display','none');
             setTabs();
             alert('No selected schedules!');
         }
         loadSchedule(schedules[0]);
-        
+
     });
 
     $('#clear-schedules').click(function() {
@@ -545,8 +547,46 @@ $(document).ready(function() {
         }
     });
 
+	$('#share-btn').click(function() {
+		var tab = $('#schedule-options').attr('data-selected');
+		var su = JSON.parse(localStorage.shorturls);
+		if (su[tab] == "") {
+			var sl = JSON.parse(localStorage.schedules)[tab];
+			$.ajax('/scheduler/share/', {
+				method: 'POST',
+				data: {
+					schedule_list: JSON.stringify(sl)
+				},
+				success: function(resp) {
+					$("#share-link").val("thecourseforum.com/s/" + resp.short_url);
+					$("#share-link-div").removeClass('noshow');
+					su[tab] = resp.short_url;
+					localStorage.setItem('shorturls', JSON.stringify(su));
+				},
+				failure: function() {
+					alert('Error building short url. Please try again');
+				}
+			});
+		} else {
+			$("#share-link").val("thecourseforum.com/s/" + su[tab]);
+			$("#share-link-div").removeClass('noshow');
+		}
+		$("#share-btn").blur();
+	});
+
+	$('#share-link').click(function() {
+		this.select();
+		document.execCommand("Copy");
+		$("#share-link-copied").removeClass('noshow-copied');
+	});
+
+	$('#share-link').blur(function() {
+		$("#share-link-copied").addClass('noshow-copied');
+	});
+
     function setTabs(){
-        var $tabs = $('#schedule-options'); 
+        var $tabs = $('#schedule-options');
+		$tabs.attr('data-selected', 0);
         $tabs.children("ul").children("button").remove();
         var width = $tabs.width()
         var len = 0
@@ -573,6 +613,9 @@ $(document).ready(function() {
         $(this).css('background-color','#d9551e');
         $(this).css('color','white');
         loadSchedule(schedules[$(this).attr("value")-1]);
+		$('#schedule-options').attr('data-selected', $(this).attr("value")-1);
+		$('#share-link-div').addClass('noshow');
+		$('#share-link-copied').addClass('noshow-copied');
    });
 
     // Set slider ticks by how many schedules are generated (spaces tick marks based on percentage)
@@ -699,12 +742,35 @@ $(document).ready(function() {
                             section.color = colorMap[section.title];
                         });
                     });
+					var schedules_store = [];
+					var shorturl_store = []
+					for(var j = 0; j < schedules.length; j++){
+						var section_list = [];
+						var schedules_store_array = new Array();
+						for(var k = 0; k < schedules[j]['sections'].length; k++){
+							section_list.push(schedules[j]['sections'][k]['section_id']);
+						}
+						schedules_store.push(section_list);
+						shorturl_store.push("");
+					}
+					localStorage.setItem('schedules', JSON.stringify(schedules_store));
+					localStorage.setItem('shorturls', JSON.stringify(shorturl_store));
                     setSliderTicks();
                     setTabs();
                     $('#schedule-slider').slider('option', 'max', 0);
+					$("#share-container").css('display','block');
                 } else if (classesSelected && $("#results-box").children().length > 0){
-                   alert('No possible schedules!');
-                }
+                   localStorage.setItem('schedules', JSON.stringify([]));
+				   localStorage.setItem('shorturls', JSON.stringify([]));
+				   $("#share-container").css('display','none');
+				   alert('No possible schedules!');
+                } else {
+					localStorage.setItem('schedules', JSON.stringify([]));
+					localStorage.setItem('shorturls', JSON.stringify([]));
+					$("#share-container").css('display','none');
+				}
+				$("#share-link-div").addClass('noshow');
+				$("#share-link-copied").addClass('noshow-copied');
                 setTabs();
                 loadSchedule(schedules[0]);
             }

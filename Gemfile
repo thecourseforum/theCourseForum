@@ -114,3 +114,6 @@ gem "highcharts-rails", "~> 3.0.0"
 
 # for breadcrumbs
 gem 'breadcrumbs_on_rails'
+
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
