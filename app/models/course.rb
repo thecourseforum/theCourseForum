@@ -1,10 +1,10 @@
 class Course < ActiveRecord::Base
   belongs_to :subdepartment
-  belongs_to :last_taught_semester, :class_name => Semester
+  belongs_to :last_taught_semester, :class_name => 'Semester'
 
   has_many :sections
   has_many :reviews
-  has_one :overall_stats, -> { where professor_id: nil }, :dependent => :destroy, :class_name => Stat
+  has_one :overall_stats, -> { where professor_id: nil }, :dependent => :destroy, :class_name => 'Stat'
 
   has_many :stats, :dependent => :destroy
 
@@ -83,14 +83,14 @@ class Course < ActiveRecord::Base
   # def get_top_review(prof_id = -1)
   #   if prof_id != -1
   #     review = Review.where(:course_id => self.id, :professor_id => prof_id).where.not(:comment => '').last
-  #   else 
+  #   else
   #     review = Review.where(:course_id => self.id).where.not(:comment => '').last
   #   end
   #   review ? review.comment : nil
   #   # review.comment
   # end
 
-  def get_review_ratings(prof_id = -1)    
+  def get_review_ratings(prof_id = -1)
     @all_reviews = prof_id != -1 ? Review.where(:course_id => self.id, :professor_id => prof_id) : Review.where(:course_id => self.id)
 
     ratings = {

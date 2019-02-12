@@ -9,31 +9,6 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
-//= require jquery.ui.touch-punch
-//= require jquery.slick
-//= require turbolinks
-//= require bootstrap
-//= require jquery.readyselector
-//= require moment
-//= require fullcalendar
-//= require nprogress
-//= require nprogress-turbolinks
-//= require nprogress-ajax
-//= require highcharts
-//= require highcharts/highcharts-more
-// require new_wheel
-//= require header
-//= require courses
-//= require departments
-//= require contact_us
-//= require sign_up
-//= require reviews
-//= require textbook_transactions
-//= require sidebar
 
 NProgress.configure({ showSpinner: false });
 

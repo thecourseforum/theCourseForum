@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails'
 
 # Use mysql as the database for Active Record
-gem 'mysql2', '~> 0.3.20'
+gem 'mysql2'
 
 # Use SCSS for stylesheets with bootstrap
 gem 'sass-rails'
@@ -20,10 +20,9 @@ gem 'skylight'
 gem 'therubyracer', :platforms => :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Use JQuery UI
-gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'jquery-ui-rails'
 gem 'jquery-slick-rails'
 gem 'touchpunch-rails'
 
@@ -40,7 +39,7 @@ gem 'devise'
 gem 'thumbs_up'
 
 # User Settings
-gem 'ledermann-rails-settings', '~> 2.2', :require => 'rails-settings'
+gem 'ledermann-rails-settings', :require => 'rails-settings'
 
 #Autocomplete used for the scheduler
 gem 'rails3-jquery-autocomplete'
@@ -56,7 +55,7 @@ gem 'slim-rails'
 gem 'vacuum'
 
 # Twilio for texting
-gem 'twilio-ruby', '~> 4.2.1'
+gem 'twilio-ruby'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -64,7 +63,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   # Pry for debugging in development and test
@@ -73,13 +72,13 @@ group :development, :test do
   # mailcatcher to simulate emails
   gem 'mailcatcher'
   # priscilla for easy debug messages
-  gem 'priscilla', '~> 1.0'
+  gem 'priscilla'
   # used for generating fake data
-  gem 'faker', '~> 1.3'
+  gem 'faker'
   # rspec testing framework
-  gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-rails'
   # FactoryGirl for fixture replacement
-  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'factory_girl_rails'
 
   gem 'cucumber-rails', :require => false
 
@@ -100,7 +99,7 @@ gem 'nprogress-rails'
 # gem 'debugger', group: [:development, :test]
 
 
-gem 'will_paginate', '>=3.0.3'
+gem 'will_paginate'
 
 gem 'rest-client'
 
@@ -110,7 +109,7 @@ gem 'figaro'
 gem 'icalendar'
 
 # for new gradewheel or any other charing needed.
-gem "highcharts-rails", "~> 3.0.0"
+gem "highcharts-rails"
 
 # for breadcrumbs
 gem 'breadcrumbs_on_rails'

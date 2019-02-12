@@ -6,16 +6,16 @@ class Review < ActiveRecord::Base
 
   #Can cast votes for reviews
   acts_as_voteable
-  
+
   # validates :comment, presence: true
 
   after_create :update_stats
   after_destroy :update_stats
 
-  validates_presence_of :student_id, :professor_rating, 
+  validates_presence_of :student_id, :professor_rating,
     :enjoyability, :difficulty, :recommend, :course_id, :professor_id
 
-  validates :professor_rating, :enjoyability, :difficulty, :recommend, 
+  validates :professor_rating, :enjoyability, :difficulty, :recommend,
     :numericality => { :greater_than_or_equal_to => 1 }
 
   validates :amount_reading, :amount_writing, :amount_group, :amount_homework,

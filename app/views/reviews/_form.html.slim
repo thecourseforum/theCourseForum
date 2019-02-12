@@ -12,38 +12,38 @@
     .row
       .col-xs-12
         .orange-title What class are you reviewing?
-        
+
     br
 
     - if @subdept_id
       .row
         .col-md-12
           .row
-            .col-md-4 align="center" id="departments" 
+            .col-md-4 align="center" id="departments"
               / = f.label 'Department (prefix):'
               = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}, @subdept_id), :include_blank => true, :class => "form-control"
-            .col-md-4 align="center" id="courses" 
+            .col-md-4 align="center" id="courses"
               / = f.label 'Course:'
               = select_tag :course_select, options_for_select(@courses.map{|c| [@mnemonic + " #{c.course_number}", c.id]}, @course_id), :include_blank => true
-            .col-md-4 align="center" id="professors" 
+            .col-md-4 align="center" id="professors"
               / = f.label 'Professor:'
               = select_tag :prof_select, options_for_select(@professors.map{|p| ["#{p.last_name}, #{p.first_name}", p.id]}, @prof_id), :include_blank => true
     - else
       .row
         .col-md-12
           .row
-            .col-md-4 align="center" id="departments" 
+            .col-md-4 align="center" id="departments"
               / = f.label 'Department (prefix):'
               = select_tag :subdept_select, options_for_select(@subdepartments.map{|s| [s.name + " (#{s.mnemonic})", s.id]}), prompt: "Department (prefix)", class: "form-control"
-            .col-md-4 align="center" id="courses" 
+            .col-md-4 align="center" id="courses"
               / = f.label 'Course:'
               select name="course_select" id="course_select" class="form-control" disabled="true"
                 option Course
-            .col-md-4 align="center" id="professors" 
+            .col-md-4 align="center" id="professors"
               / = f.label 'Professor:'
               select name="prof_select" id="prof_select" class="form-control" disabled="true"
                 option Professor
-              
+
     hr
 
     .row
@@ -75,11 +75,11 @@
         .row
           .col-md-12
             .row
-              .col-md-11 align="center" 
+              .col-md-11 align="center"
                 | Professor Rating:
             .row
               .col-xs-2 align="right"  Lowest
-              .col-xs-7 style="padding-top:5px;" 
+              .col-xs-7 style="padding-top:5px;"
                 .prof-rating-slider
               .col-xs-1.review-value
                 .current-prof-rating.review-field
@@ -95,11 +95,11 @@
         .row
           .col-md-12
             .row
-              .col-md-11 align="center" 
+              .col-md-11 align="center"
                 | Fun Factor:
             .row
               .col-xs-2 align="right"  Least Fun
-              .col-xs-7 style="padding-top:5px;" 
+              .col-xs-7 style="padding-top:5px;"
                 .enjoyability-slider
               .col-xs-1.review-value
                 .current-enjoyability.review-field
@@ -115,11 +115,11 @@
         .row
           .col-md-12
             .row
-              .col-md-11 align="center" 
+              .col-md-11 align="center"
                 | Difficulty:
             .row
               .col-xs-2 align="right"  Easiest
-              .col-xs-7 style="padding-top:5px;" 
+              .col-xs-7 style="padding-top:5px;"
                 .difficulty-slider
               .col-xs-1.review-value
                 .current-difficulty.review-field
@@ -135,11 +135,11 @@
         .row
           .col-md-12
             .row
-              .col-md-11 align="center" 
+              .col-md-11 align="center"
                 | Recommendability:
             .row
               .col-xs-2 align="right"  Lowest
-              .col-xs-7 style="padding-top:5px;" 
+              .col-xs-7 style="padding-top:5px;"
                 .recommend-slider
               .col-xs-1.review-value
                 .current-recommend.review-field
@@ -204,8 +204,7 @@
             = f.text_area :comment, :placeholder=>"Write Your Review!", class: "form-control", :rows => 5
     hr
 
-    
 
-    .actions align="center" 
+
+    .actions align="center"
       = f.submit 'Submit Review!', :class => "btn btn-primary", :id => "review-button"
-      

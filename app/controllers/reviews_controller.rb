@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
     if @course_id
       @subdepartment = Subdepartment.find(Course.find(@course_id).subdepartment_id)
       @subdept_id = @subdepartment.id
-      @courses = Course.where(:subdepartment_id => @subdept_id)
+      @courses = Course.where(:subdepartment_id => @subdept_id).take
       @professors = Course.find(@course_id).professors_list
       @mnemonic = @subdepartment.mnemonic
     end

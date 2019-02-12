@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, 
+  # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   has_many :schedules, dependent: :destroy
 
   # relationships for textbook listings
-  has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
-  has_many :inactive_listings, -> { where updated_at: Time.new(2000)..(Time.now - TextbookTransaction.duration), buyer_id: nil}, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
-  has_many :sold_listings, -> { where.not buyer_id: nil }, :class_name => TextbookTransaction, :foreign_key => 'seller_id'
-  has_many :claims, :class_name => TextbookTransaction, :foreign_key => 'buyer_id'
+  has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => 'TextbookTransaction', :foreign_key => 'seller_id'
+  has_many :inactive_listings, -> { where updated_at: Time.new(2000)..(Time.now - TextbookTransaction.duration), buyer_id: nil}, :class_name => 'TextbookTransaction', :foreign_key => 'seller_id'
+  has_many :sold_listings, -> { where.not buyer_id: nil }, :class_name => 'TextbookTransaction', :foreign_key => 'seller_id'
+  has_many :claims, :class_name => 'TextbookTransaction', :foreign_key => 'buyer_id'
 
   has_and_belongs_to_many :books
 
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
     self.password_confirmation = password
     self.old_password = nil
     self.save
-    return self      
+    return self
   end
 
 end

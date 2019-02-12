@@ -3,7 +3,7 @@ class Book < ActiveRecord::Base
 	has_many :book_requirements
 
 	has_many :textbook_transactions, :dependent => :destroy
-	has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => TextbookTransaction
+	has_many :active_listings, -> { where updated_at: (Time.now - TextbookTransaction.duration)..Time.now, buyer_id: nil }, :class_name => 'TextbookTransaction'
 
 	has_and_belongs_to_many :users
 
@@ -40,7 +40,7 @@ class Book < ActiveRecord::Base
 			Rails.cache.clear
 		end
 		# Cache this query, it takes long time
-		Rails.cache.fetch("books/#{cache_key}") do 
+		Rails.cache.fetch("books/#{cache_key}") do
 			# use references(:users) to make activerecord happy
 			raw = Book.includes(:users, :sections => {:course => :subdepartment}).
 				group("books.id").
