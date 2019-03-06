@@ -23,6 +23,12 @@ rvm:
 notifications:
   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
 
+# fix for bundler v2 error: https://docs.travis-ci.com/user/languages/ruby/
+# commented out because of `gem install bundler -v 1.17.3` in `before_script`
+# before_install:
+#   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+#   - gem install bundler -v '< 2'
+
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - gem install bundler -v 1.17.3
