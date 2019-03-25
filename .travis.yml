@@ -32,6 +32,8 @@ notifications:
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - gem install bundler -v 1.17.3
+  - rake webpacker:install
+  - rake webpacker:install:react
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - RAILS_ENV=test bundle exec rake db:create
