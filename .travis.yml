@@ -32,11 +32,11 @@ notifications:
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - gem install bundler -v 1.17.3
-  - bundle exec rake webpacker:install
-  - bundle exec rake webpacker:install:react
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - RAILS_ENV=test bundle exec rake db:create
   - export DISPLAY=:99.0
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
   - bundle exec rake db:test:prepare
+  - bundle exec rake webpacker:install
+  - bundle exec rake webpacker:install:react
