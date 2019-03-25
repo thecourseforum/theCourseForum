@@ -58,6 +58,9 @@ gem 'vacuum'
 # Twilio for texting
 gem 'twilio-ruby', '~> 4.2.1'
 
+gem 'webpacker'
+gem 'react-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
