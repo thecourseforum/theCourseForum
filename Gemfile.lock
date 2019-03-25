@@ -40,6 +40,10 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.6.2)
       execjs
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.11)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (3.3.6)
@@ -66,6 +70,7 @@ GEM
     coffee-script-source (1.10.0)
     colorize (0.7.7)
     concurrent-ruby (1.0.2)
+    connection_pool (2.2.2)
     cucumber (2.3.3)
       builder (>= 2.1.2)
       cucumber-core (~> 1.4.0)
@@ -177,6 +182,8 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-proxy (0.6.5)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.4)
@@ -209,6 +216,12 @@ GEM
     rb-readline (0.5.3)
     rdoc (4.2.2)
       json (~> 1.4)
+    react-rails (2.4.7)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     ref (2.0.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
@@ -312,6 +325,10 @@ GEM
       multi_xml (~> 0.5.0)
     warden (1.2.6)
       rack (>= 1.0)
+    webpacker (4.0.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket (1.2.3)
     will_paginate (3.1.0)
     xpath (2.0.0)
@@ -348,6 +365,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   rails3-jquery-autocomplete
   rb-readline
+  react-rails
   rest-client
   rspec-rails (~> 3.1.0)
   sass-rails
@@ -363,10 +381,11 @@ DEPENDENCIES
   twilio-ruby (~> 4.2.1)
   uglifier
   vacuum
+  webpacker
   will_paginate (>= 3.0.3)
 
 RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.12.5
+   1.16.1
