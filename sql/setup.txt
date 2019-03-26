@@ -11,7 +11,8 @@ SETTING UP DATABASE
 9. Export the thecourseforum_development and thecourseforum_production databases
 10. Place these .sql files within this sql/ directory
 11. docker-compose up
-12. The server will be listening on localhost:3000
+12. The server will be listening on localhost:3000 (Note: if you are using docker toolkit, you might have 
+	get the ip address of the docker vm using 'docker-machine ip' and replacing localhost with that address)
 13. To calibrate your database in the container, run the ./calibrate_db.sh script (to run the script, first enter the container's shell
 	    with 'docker exec -it tcf bash'. Then run the script.)
 14. When it prompts for your password, type in 'data'
