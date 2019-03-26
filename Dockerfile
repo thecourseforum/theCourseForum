@@ -13,7 +13,7 @@ RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_
 RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password data'"
 RUN apt-get -y install mysql-server
 RUN chmod 777 calibrate_db.sh
-RUN ./calibrate_db.sh
+RUN sed -i -e 's/\r$//' calibrate_db.sh
 
 EXPOSE 3000
 
