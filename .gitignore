@@ -38,3 +38,6 @@ lib/words.json
 
 # Ignore bundle
 /vendor/bundle
+
+# Ignore sql for calibration
+/sql/*.sql
