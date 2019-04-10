@@ -39,10 +39,6 @@ lib/words.json
 # Ignore bundle
 /vendor/bundle
 
-<<<<<<< HEAD
-# Ignore sql for calibration
-/sql/*.sql
-
 # ignore webpack, node, and yarn files
 /public/packs
 /public/packs-test
