@@ -24,9 +24,7 @@ QUERY
 	echo "Updating packages"
 	yarn install
 	echo "Finished updating packages"
-	# echo "Installing react"
-	# rm -rf ./config/webpack
-	# rake webpacker:install
-	# rake webpacker:install:react
-	# echo "Finished installing react"
+	echo "Compiling webpacker"
+	bundle exec rake webpacker:compile
+	echo "Finished compiling webpacker"
 fi
