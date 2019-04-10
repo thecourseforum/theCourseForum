@@ -21,6 +21,9 @@ QUERY
 	echo "Updating NPM"
 	npm install npm@latest -g
 	echo "Finished updating NPM"
+	echo "Updating packages"
+	yarn install
+	echo "Finished updating packages"
 	# echo "Installing react"
 	# rm -rf ./config/webpack
 	# rake webpacker:install
