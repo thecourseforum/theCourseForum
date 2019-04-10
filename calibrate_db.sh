@@ -18,4 +18,10 @@ else
 	source ./sql/thecourseforum_production.sql;
 QUERY
 	echo "Finished calibrating"
+	echo "Updating NPM"
+	npm install npm@latest -g
+	echo "Installing react"
+	rake webpacker:install
+	rake webpacker:install:react
+	echo "Finished installing react"
 fi

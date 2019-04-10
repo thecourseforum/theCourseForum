@@ -39,6 +39,7 @@ lib/words.json
 # Ignore bundle
 /vendor/bundle
 
+<<<<<<< HEAD
 # Ignore sql for calibration
 /sql/*.sql
 
@@ -49,3 +50,6 @@ lib/words.json
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore sql for calibration
+/sql/*.sql
