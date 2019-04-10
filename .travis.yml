@@ -39,4 +39,9 @@ before_script:
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
   - bundle exec rake db:test:prepare
   - nvm install 11.13.0
-  - bundle exec rake webpacker:compile
+  - apt remove cmdtest
+  - apt remove yarn
+  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+  - apt-get update && apt-get install yarn
+  - yarn install
