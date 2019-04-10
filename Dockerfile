@@ -27,7 +27,6 @@ RUN /bin/bash -l -c "bundle install"
 RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password data'"
 RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password data'"
 RUN apt-get -y install mysql-server
-RUN chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 RUN chmod 777 calibrate_db.sh
 RUN sed -i -e 's/\r$//' calibrate_db.sh
 
