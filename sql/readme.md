@@ -14,3 +14,6 @@
 12. The server will be listening on `localhost:3000` (Note: if you are using docker toolkit, you might have 
 	get the ip address of the docker vm using 'docker-machine ip' and replacing localhost with that address)
 13. Once it finishes, you are ready to develop! :) 
+
+# Running your development environment after setup
+1. `docker-compose up` It's that easy :-)
