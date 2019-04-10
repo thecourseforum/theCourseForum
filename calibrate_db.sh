@@ -20,6 +20,7 @@ QUERY
 	echo "Finished calibrating"
 	echo "Updating NPM"
 	npm install npm@latest -g
+	echo "Finished updating NPM"
 	echo "Installing react"
 	rm -rf ./config/webpack
 	rake webpacker:install
