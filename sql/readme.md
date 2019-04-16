@@ -11,8 +11,8 @@
 -  Login to http://phpmyadmin.thecourseforum.com/ (ask for username & password)
 -  Once you're logged in, expand `thecourseforum` tab on the left
 -  Export the `thecourseforum_development` and `thecourseforum_production` databases
--  Place these `.sql` files within this `./sql/initialize` directory
--  If you want to use the copy of the production database, run `cp sql/initialize/thecourseforum_production.sql 		sql/initialize/thecourseforum_development.sql`
+-  Place these `.sql` files within this `./sql/` directory
+-  If you want to use the copy of the production database for development, run `cp sql/thecourseforum_production.sql 		sql/thecourseforum_development.sql`
 -  `docker-compose up` This might take a few minutes...
 -  The server will be listening on `localhost:3000` (Note: if you are using docker toolkit, you might have 
 	get the ip address of the docker vm using 'docker-machine ip' and replacing localhost with that address)
