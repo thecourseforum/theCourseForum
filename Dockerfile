@@ -23,13 +23,6 @@ COPY . /tcf
 WORKDIR /tcf
 RUN /bin/bash -l -c "bundle install"
 
-## Setup mysql database
-RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password data'"
-RUN /bin/bash -l -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password data'"
-RUN apt-get -y install mysql-server
-RUN chmod 777 calibrate_db.sh
-RUN sed -i -e 's/\r$//' calibrate_db.sh
-
 ## Rails app will listen on this port
 EXPOSE 3000
 
