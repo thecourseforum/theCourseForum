@@ -2,10 +2,25 @@ version: '3'
 services: 
   tcf: 
     build: .
-    command: bash -l -c './calibrate_db.sh && bundle exec rails s -b 0.0.0.0'
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
     container_name: tcf
     volumes: 
       - .:/tcf
     tty: true
     ports: 
       - "3000:3000"
+    links: 
+      - db
+    depends_on: 
+      - db
+  db:
+    image: mysql
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: data
+      MYSQL_DATABASE: thecourseforum_development
+    volumes: 
+      - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
+    container_name: tcf_database_development
+    command: --default-authentication-plugin=mysql_native_password
+    
