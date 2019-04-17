@@ -2,7 +2,7 @@ version: '3'
 services: 
   tcf: 
     build: .
-    command: bundle exec rails s -b 0.0.0.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
     container_name: tcf
     volumes: 
       - .:/tcf
