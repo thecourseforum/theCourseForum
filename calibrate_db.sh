@@ -18,4 +18,13 @@ else
 	source ./sql/thecourseforum_production.sql;
 QUERY
 	echo "Finished calibrating"
+	echo "Updating NPM"
+	npm install npm@latest -g
+	echo "Finished updating NPM"
+	echo "Updating packages"
+	yarn install
+	echo "Finished updating packages"
+	echo "Compiling webpacker"
+	bundle exec rake webpacker:compile
+	echo "Finished compiling webpacker"
 fi
