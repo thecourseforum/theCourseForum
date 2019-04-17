@@ -39,5 +39,21 @@ lib/words.json
 # Ignore bundle
 /vendor/bundle
 
+# ignore webpack, node, and yarn files
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
 # Ignore sql for calibration
 /sql/*.sql
+
+# ignore webpack, node, and yarn files
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

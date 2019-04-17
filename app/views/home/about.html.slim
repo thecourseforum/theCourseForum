@@ -22,9 +22,10 @@
         |  While the framework of the site is spectacular, what really makes theCourseForum is the reviews submitted by students. If that isn't enough, our team is always looking for more people interested in website design and data analytics. If that's you, contact us at
         = mail_to "support@thecourseforum.com", nil
         | ; experience not required.
-      img.text-left =image_tag("about/uvaparentsfund.png")
-      h4.thanks Thanks to UVA Parents Fund!
-      p.about With the release of our scheduler feature, the UVA Parents Fund helped us cover increased server costs from the traffic. Their help has allowed the site to stay up and running continuously as we keep developing new features.
+      / img.text-left =image_tag("about/uvaparentsfund.png")
+      / h4.thanks Thanks to UVA Parents Fund!
+      / p.about With the release of our scheduler feature, the UVA Parents Fund helped us cover increased server costs from the traffic. Their help has allowed the site to stay up and running continuously as we keep developing new features.
+      = react_component("about/ParentsFund", { title: "Thanks to the UVA Parents Fund!"})
 
 //SMALLEST PICTURE TESTED THAT WORKS 399pixelsx532pixels
 .container-fluid.us-container
@@ -54,72 +55,9 @@
       .ushover
         h4.class Class of 2020
     .col-xs-3.text-center.about-block
-      img =image_tag("about/atishay.jpg")
+      img =image_tag("about/nsethi.png")
       .ustext
-        h4.us Atishay Kasera
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2022
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/cpark.png")
-      .ustext
-        h4.us Candace Park
-        h5 UI/UX Lead
-      .ushover
-        h4.class Class of 2018
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/aarunkumar.png")
-      .ustext
-        h4.us Apoorva Arunkumar
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2018
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/jchiao.jpg")
-      .ustext
-        h4.us Josie Chiao
-        h5 UI/UX
-      .ushover
-        h4.class Class of 2018
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/jbarry.jpg")
-      .ustext
-        h4.us Justin Barry
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/hharris.jpg")
-      .ustext
-        h4.us Henry Harris
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/aton.png")
-      .ustext
-        h4.us Andrew Ton
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/jfarquhar.png")
-      .ustext
-        h4.us Jordan Farquhar
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/aryali.png")
-      .ustext
-        h4.us Anirudh Ryali 
-        h5 Web Developer
-      .ushover
-        h4.class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/nsethi.jpg")
-      .ustext
-        h4.us Nikash Sethi 
+        h4.us Nikash Sethi
         h5 Web Developer
       .ushover
         h4.class Class of 2021
@@ -139,20 +77,6 @@
         h5 Operations Lead
       .ushover
         h4#class Class of 2019
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/aliu.png")
-      .ustext
-        h4.us Ann Liu
-        h5 Business Guru
-      .ushover
-        h4#class Class of 2018
-    .col-xs-3.text-center.about-block
-      img =image_tag("about/lredd.png")
-      .ustext
-        h4.us Lizzie Redd
-        h5 Business Guru
-      .ushover
-        h4#class Class of 2018
   h3.team-header ALUMNI
   .row.aboutrow
     .col-xs-3.text-center.about-block
@@ -288,3 +212,73 @@
         h5 Web | Alumni
       .ushover
         h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/cpark.png")
+      .ustext
+        h4.us Candace Park
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2018
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/aarunkumar.png")
+      .ustext
+        h4.us Apoorva Arunkumar
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2018
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/jchiao.jpg")
+      .ustext
+        h4.us Josie Chiao
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2018
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/jbarry.jpg")
+      .ustext
+        h4.us Justin Barry
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/hharris.jpg")
+      .ustext
+        h4.us Henry Harris
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/aton.png")
+      .ustext
+        h4.us Andrew Ton
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/jfarquhar.png")
+      .ustext
+        h4.us Jordan Farquhar
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/aryali.png")
+      .ustext
+        h4.us Anirudh Ryali
+        h5 Web | Alumni
+      .ushover
+        h4.class Class of 2019
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/aliu.png")
+      .ustext
+        h4.us Ann Liu
+        h5 Business | Alumni
+      .ushover
+        h4#class Class of 2018
+    .col-xs-3.text-center.about-block
+      img =image_tag("about/lredd.png")
+      .ustext
+        h4.us Lizzie Redd
+        h5 Business | Alumni
+      .ushover
+        h4#class Class of 2018
