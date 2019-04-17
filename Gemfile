@@ -119,3 +119,4 @@ gem "highcharts-rails", "~> 3.0.0"
 gem 'breadcrumbs_on_rails'
 
 gem 'tzinfo-data'
+gem 'tzinfo'

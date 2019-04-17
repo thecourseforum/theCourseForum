@@ -381,6 +381,7 @@ DEPENDENCIES
   touchpunch-rails
   turbolinks
   twilio-ruby (~> 4.2.1)
+  tzinfo
   tzinfo-data
   uglifier
   vacuum
