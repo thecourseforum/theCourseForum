@@ -2,7 +2,7 @@ version: '3'
 services: 
   tcf: 
     build: .
-    command: bash -l -c 'bundle exec rails s -b 0.0.0.0'
+    command: bundle exec rails s -b 0.0.0.0
     container_name: tcf
     volumes: 
       - .:/tcf
@@ -22,4 +22,5 @@ services:
     volumes: 
       - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
     container_name: tcf_database_development
+    command: --default-authentication-plugin=mysql_native_password
     
