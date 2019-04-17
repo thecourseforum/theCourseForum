@@ -22,9 +22,10 @@
         |  While the framework of the site is spectacular, what really makes theCourseForum is the reviews submitted by students. If that isn't enough, our team is always looking for more people interested in website design and data analytics. If that's you, contact us at
         = mail_to "support@thecourseforum.com", nil
         | ; experience not required.
-      img.text-left =image_tag("about/uvaparentsfund.png")
-      h4.thanks Thanks to UVA Parents Fund!
-      p.about With the release of our scheduler feature, the UVA Parents Fund helped us cover increased server costs from the traffic. Their help has allowed the site to stay up and running continuously as we keep developing new features.
+      / img.text-left =image_tag("about/uvaparentsfund.png")
+      / h4.thanks Thanks to UVA Parents Fund!
+      / p.about With the release of our scheduler feature, the UVA Parents Fund helped us cover increased server costs from the traffic. Their help has allowed the site to stay up and running continuously as we keep developing new features.
+      = react_component("about/ParentsFund", { title: "Thanks to the UVA Parents Fund!"})
 
 //SMALLEST PICTURE TESTED THAT WORKS 399pixelsx532pixels
 .container-fluid.us-container
