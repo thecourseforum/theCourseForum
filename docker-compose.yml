@@ -1,7 +1,9 @@
 version: '3'
 services: 
   tcf: 
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-rails
     command: bash -c "yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
     container_name: tcf
     volumes: 
@@ -23,21 +25,3 @@ services:
       - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
     container_name: tcf_database_development
     command: --default-authentication-plugin=mysql_native_password
-  passenger:
-    image: phusion/passenger-ruby22
-    restart: unless-stopped
-    ports:
-      - "82:80"
-      - "444:443"
-    volumes:
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'rm -f /etc/service/nginx/down && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
