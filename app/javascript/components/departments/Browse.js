@@ -1,15 +1,23 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+/**
+* A React version of our /browse page.
+* Contains links to each department at UVA
+*/
 class Browse extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      departments: null
+      schools: null
     }
   }
 
+  /**
+  * On component mount, fetch json with list of courses.
+  * Update state.
+  */
   componentDidMount = () => {
     fetch('/browse.json')
       .then((response) => {
@@ -17,22 +25,29 @@ class Browse extends React.Component {
       })
       .then((json) => {
         this.setState({
-          departments: json
+          schools: json
         })
       });
   }
 
+  /*
+  * Decides which icon to use based on school name
+  */
   departmentIcon = (props) => {
     switch(props.departmentName) {
       case 'Arts & Sciences':
         return <span className="glyphicon glyphicon-th-list"/>;
       case 'Engineering & Applied Sciences':
         return <span className="glyphicon glyphicon-cog"/>;
-      default:
+      default: // Other Schools at the University of Virginia
         return <span className="glyphicon glyphicon-star"/>;
     }
   }
 
+  /*
+  * Maps through each department in props.arr
+  * and generates a link for each
+  */
   departmentLinks = (props) => {
     const links = props.arr.map((dep) =>
       <div key={dep.id} className="dept">
@@ -48,24 +63,30 @@ class Browse extends React.Component {
     )
   }
 
-  departmentPanel = (props) => {
+  /*
+  * Generates a panel for school in props.school,
+  * populating links.
+  * Note that each school has 2 link arrays, presumably
+  * to split them up into columns.
+  */
+  schoolPanel = (props) => {
     return (
       <div className="panel panel-default">
         <div className="school-panel-title">
           <div className="dept-block">
             <this.departmentIcon
-              departmentName={props.departmentName}
+              departmentName={props.schoolName}
             />
           </div>
-          <h3 className="school-title">{props.departmentName}</h3>
+          <h3 className="school-title">{props.schoolName}</h3>
         </div>
         <div className="panel-body">
           <div className="row department-list">
             <this.departmentLinks
-              arr={this.state.departments[props.departmentName][0]}
+              arr={this.state.schools[props.schoolName][0]}
             />
             <this.departmentLinks
-              arr={this.state.departments[props.departmentName][1]}
+              arr={this.state.schools[props.schoolName][1]}
             />
           </div>
         </div>
@@ -73,21 +94,25 @@ class Browse extends React.Component {
     )
   }
 
+  /*
+  * Render loading if this.state.schools has not yet been fetched
+  * Otherwise, render a panel for each school.
+  */
   render () {
-    if (this.state.departments == null) {
+    if (this.state.schools == null) {
       return <h1>Loading...</h1>
     }
-    const departmentPanels = Object.keys(this.state
-    .departments).map(departmentName =>
-      <this.departmentPanel
-        key={departmentName}
-        departmentName={departmentName}
+    const schoolPanels = Object.keys(this.state
+    .schools).map(schoolName =>
+      <this.schoolPanel
+        key={schoolName}
+        schoolName={schoolName}
       />
     );
     return (
       <React.Fragment>
         <div className="container-fluid" id="browsing-content">
-          {departmentPanels}
+          {schoolPanels}
         </div>
       </React.Fragment>
     );
