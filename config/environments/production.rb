@@ -92,5 +92,8 @@ TheCourseForum::Application.configure do
       :user_name => ENV["EMAIL_USERNAME"],
       :password => ENV["EMAIL_PASSWORD"]
   }
+
+  # use production build of react
+  config.react.variant = :production
   
 end

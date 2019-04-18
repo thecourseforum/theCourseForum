@@ -1,7 +1,7 @@
 # a production specific docker-compose file
 # only needs to include additional changes that
 # are to be applied over docker-compose.yml
-# run with 'docker-compose -f production.yml up -d'
+# run with 'docker-compose -f production.yml up --build -d'
 
 version: '3'
 services: 
