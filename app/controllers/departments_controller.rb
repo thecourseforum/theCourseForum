@@ -17,9 +17,11 @@ class DepartmentsController < ApplicationController
     @engrDeps = columnize(departments.select{|d| d.school_id == engrSchoolId })
     @otherSchools = columnize(departments.select{|d| d.school_id != artSchoolId && d.school_id != engrSchoolId })
 
+    @deps = {"Arts & Sciences": @artDeps, "Engineering & Applied Sciences": @engrDeps, "Other Schools at the University of Virginia": @otherSchools}
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @departments }
+      format.json { render json: @deps.as_json }
     end
   end
 
