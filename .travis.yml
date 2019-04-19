@@ -7,7 +7,9 @@ addons:
 sudo: false
 
 # Tell TravisCI to cache bundle installs
-cache: bundler
+cache: 
+  - bundler
+  - yarn
 
 # Language to use is Ruby
 language: ruby
