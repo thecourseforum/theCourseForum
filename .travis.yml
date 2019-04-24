@@ -1,5 +1,8 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
+addons:
+  firefox: "46.0.1"
+
 # Tell TravisCI to use container-based testing (faster)
 sudo: false
 
@@ -14,6 +17,7 @@ language: ruby
 # Database Environment is mysql
 env:
   - DB=mysql
+  - MOZ_HEADLESS=1
 
 # Use Ruby 2.0.0
 rvm:
