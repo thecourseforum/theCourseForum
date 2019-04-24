@@ -687,7 +687,7 @@ $(document).ready(function() {
             success: function(response) {
                 schedules = response;
                     // classesSelected is a boolean containing whether or not any class sections are selected
-                var classesSelected = Object.keys(searchResults).reduce((acc, val) => {
+                var classesSelected = Object.keys(searchResults).reduce(function(acc, val) {
                       res = searchResults[val]
                       selected = res.discussions.length + res.laboratories.length + res.seminars.length + res.lectures.length;
                       return acc && (selected > 0);
