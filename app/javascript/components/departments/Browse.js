@@ -19,7 +19,7 @@ class Browse extends React.Component {
   * Update state.
   */
   componentDidMount = () => {
-    fetch('/browse.json')
+    fetch('/api/departments/list')
       .then((response) => {
         return response.json();
       })
