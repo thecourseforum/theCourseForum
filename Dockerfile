@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install yarn -y
 
 ## Install bundler
 RUN gem install bundler -v 1.12.5
-# RUN gem install bundler
 
 ## Install gems
 RUN mkdir /tcf
@@ -21,10 +20,7 @@ WORKDIR /tcf
 COPY Gemfile /tcf/Gemfile
 COPY Gemfile.lock /tcf/Gemfile.lock
 RUN bundle install
-# attempt to cache node modules also
-# COPY package.json /tcf/package.json
-# COPY yarn.lock /tcf/yarn.lock
-# RUN yarn install
+
 # copy over project
 COPY . /tcf
 
