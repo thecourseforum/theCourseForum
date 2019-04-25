@@ -1,4 +1,4 @@
-FROM ruby:2.2.3
+FROM ruby:2.3.3
 
 ## Install node and yarn
 # update sources for debian jessie
@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install yarn -y
 
 ## Install bundler
 RUN gem install bundler -v 1.12.5
+# RUN gem install bundler
 
 ## Install gems
 RUN mkdir /tcf
