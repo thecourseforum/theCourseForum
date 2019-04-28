@@ -23,4 +23,14 @@ services:
       - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
     container_name: tcf_database_development
     command: --default-authentication-plugin=mysql_native_password
+  grade_api:
+    image: jazzdd/alpine-flask
+    restart: always
+    ports:
+      - "4000:80"
+    container_name: tcf_grade_api
+    volumes: 
+       - ./grade_service/api:/app
+    command: python /app/app.py
+
     
