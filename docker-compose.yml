@@ -30,7 +30,7 @@ services:
       - "4000:80"
     container_name: tcf_grade_api
     volumes: 
-       - ./grade_service/api:/app
+       - ./grades/service/api:/app
     command: python /app/app.py
 
     
