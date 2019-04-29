@@ -1,33 +1,53 @@
-from flask import Flask
+from flask import Flask, make_response
 import redis
 
 app = Flask(__name__)
 
 rds = redis.Redis(host='grades_db', port=6379, db=0)
 
+
+def json_resp(s):
+	resp = make_response(s)
+	resp.headers['content-type'] = 'application/json'
+	return resp
+
+COURSE_API_PREFIX = '/grades/api/v1'
+
 @app.route('/')
 def hello_world():
     return 'Flask Dockerized'
 
-@app.route('/api/v1/course/<course_subject>/<int:course_number>/gpa')
-def course_overall_gpa(course_subject, course_number):
-	return "{} {}".format(course_subject, course_number)
+@app.route(COURSE_API_PREFIX + '/<subject>')
+def department_gpas(subject):
+	redis_resp = rds.execute_command(
+		'JSON.GET', 'grades', "{}.course_gpas".format(subject))
+	return json_resp(redis_resp)
 
-@app.route('/api/v1/course/<course_subject>/<int:course_number>')
-def course_overall(course_subject, course_number):
-	return "{} {}".format(course_subject, course_number)
+@app.route(COURSE_API_PREFIX + '/<subject>/all')
+def department_data(subject):
+	redis_resp = rds.execute_command(
+		'JSON.GET', 'grades', "{}".format(subject))
+	return json_resp(redis_resp)
 
-@app.route('/api/v1/course/<course_subject>/<int:course_number>/<prof_id>/gpa')
-def course_prof_gpa(course_subject, course_number, prof_id):
-	return "{} {} {}".format(course_subject, course_number, prof_id)
 
-@app.route('/api/v1/course/<course_subject>/<int:course_number>/<prof_id>')
-def course_prof(course_subject, course_number, prof_id):
-	return "{} {} {}".format(course_subject, course_number, prof_id)
+@app.route(COURSE_API_PREFIX + '/<subject>/<int:number>')
+def course_gpas(subject, number):
+	redis_resp = rds.execute_command(
+		'JSON.GET', 'grades', "{}['{}'].professor_gpas".format(subject, number))
+	return json_resp(redis_resp)
 
-@app.route('/api/v1/course/<course_subject>/<int:course_number>/<prof_id>/<int:year>/<season>')
-def course_prof_semester(course_subject, course_number, prof_id, year, season):
-	return "{} {} {} {} {}".format(course_subject, course_number, prof_id, year, season)
+@app.route(COURSE_API_PREFIX + '/<subject>/<int:number>/all')
+def course_data(subject, number):
+	redis_resp = rds.execute_command(
+		'JSON.GET', 'grades', "{}['{}']".format(subject, number))
+	return json_resp(redis_resp)
+
+
+@app.route(COURSE_API_PREFIX + '/<subject>/<int:number>/<prof_id>')
+def professor_data(subject, number, prof_id):
+	redis_resp = rds.execute_command(
+		'JSON.GET', 'grades', "{}['{}'].professors['{}']".format(subject, number, prof_id))
+	return json_resp(redis_resp)
 
 if __name__ == '__main__':
     app.run(debug=True, port='80', host='0.0.0.0')
