@@ -14,13 +14,14 @@ def load_grades(fname, rds):
 if __name__ == "__main__":
     rds = redis.StrictRedis(host='grades_db', port=6379, db=0)
     if len(sys.argv) < 2:
-        print("Please specify a .json file")
-        exit()
+        print("Please specify a .json source file")
+        exit(1)
+
     fname = sys.argv[1]
     res = load_grades(fname, rds)
     if res:
-        print("Grades loaded.")
-        exit()
+        print("Grades loaded from {}.".format(fname))
+        exit(0)
     else:
         print("Unable to load grades.")
         exit(1)

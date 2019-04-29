@@ -38,8 +38,10 @@ services:
     container_name: grades_api
     volumes: 
        - ./grades/main.py:/app/main.py
+       - ./grades/data:/app/data
     # comment out following line for production
-    command: python /app/main.py
+    command: bash -c "python /app/data/load_grades.py /app/data/grades.json && python /app/main.py"
+
 
   grades_db:
     image: redislabs/rejson:latest

@@ -102,8 +102,8 @@ if __name__ == "__main__":
     res = update_grades(data_dir, fname)
 
     if res:
-        print("Grades updated and placed in {}.".format(fname))
+        print("Grades updated from {} and placed in {}.".format(data_dir, fname))
         exit()
     else:
-        print("Unable to update grades.")
+        print("Unable to load grades.")
         exit(1)
