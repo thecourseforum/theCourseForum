@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 
+
+
 def get_rename_dict(grade_dict):
     rename_dict = {}
     max_columns = max([len(grade_df.columns) for filename, grade_df in grade_dict.items()])
@@ -16,24 +18,34 @@ def get_rename_dict(grade_dict):
 
 def load_grade_file(fname):
     # read excel file to identify header_row
-    df = pd.read_excel(fname)
+    grades = pd.read_excel(fname)
     
     # isolate instructor last name column
-    first_col = df.iloc[:, 0]
+    first_col = grades.iloc[:, 0]
     
-    # if first row is not "Instructor Last Name", set header_row to the row that contains it.
-    # otherwise, use first row as header_row
+    # if first row is not "Instructor Last Name", set header_row to the row that contains it and re-read the file
+    # otherwise, do nothing
     try:
         header_row = first_col[first_col == "Instructor Last Name"].index[0]
+
+        print("\tWARNING: Detected multiple header rows. You may need to fix this in excel.")
+
+        # re-read excel file with correct header_row
+        grades = pd.read_excel(fname, header=header_row+1)
+
     except IndexError as e:
-        header_row = 0
-        
-    # re-read excel file with correct header_row
-    grades = pd.read_excel(fname, header=header_row)
+        pass
     
     # drop all rows that only have NA values
     grades = grades.dropna(how='all')
     return grades
+
+def get_grade_cols(grade_df):
+    # columns 9 through 24 are the grade counts (including DR and W)
+    grade_col_idxs = [grade_df.columns[col] for col in range(9, 25)]
+
+    return grade_df[grade_col_idxs]
+
 
 def clean_grades(grade_df):
 
@@ -43,12 +55,9 @@ def clean_grades(grade_df):
     # drop any rows that have NA values in course number or subject columns
     grade_df = grade_df.dropna(how='any', subset=required_col_names)
     
-    # columns 9 through 24 are the grade counts (including DR and W)
-    grade_col_idxs = [grade_df.columns[col] for col in range(9, 25)]
-
     # if grade_df does not have "Totals" column, add it
     # else, ensure that it is accurate
-    grade_cols = grade_df[grade_col_idxs]
+    grade_cols = get_grade_cols(grade_df)
     if grade_df.shape[1] <= 25:
         grade_df['Total'] = grade_cols.sum(axis=1)
     else:
@@ -117,11 +126,18 @@ def find_numeric_conversion_errors(df):
     return errors
         
 def validate_grade_dfs(grade_dict):
+    has_errors = False
     for fname, grade_df in grade_dict.items():
         print("Validating {}".format(fname))
         errors = find_numeric_conversion_errors(grade_df)
         if len(errors) > 0:
+            has_errors = True
+            print(grade_df.head(1))
             print(errors)
+    if has_errors:
+        print("WARNING: Numeric conversion errors detected in 1 or more files.")
+    else:
+        print("SUCCESS: All numeric conversions in files validated.")
 
 def validate_grade_files(data_dir):
     grade_dict = load_grade_files(data_dir)

@@ -30,20 +30,22 @@ services:
     build: ./grades
     restart: always
     ports:
-      - "4000:80"
+      - "5000:80"
     links:
       - grades_db
     depends_on:
       - grades_db
     container_name: grades_api
     volumes: 
-       - ./grades:/app
+       - ./grades/main.py:/app/main.py
     # comment out following line for production
     command: python /app/main.py
 
   grades_db:
     image: redislabs/rejson:latest
     container_name: grades_db
+    ports:
+      - "6379:6379"
 
 
     

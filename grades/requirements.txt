@@ -1,3 +1,5 @@
 pandas==0.24.2
 redis==3.2.1
 numpy==1.16.3
+tqdm==4.31.1
+xlrd==1.2.0
