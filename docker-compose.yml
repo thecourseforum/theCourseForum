@@ -12,8 +12,10 @@ services:
       - "3000:3000"
     links: 
       - db
+      - grades_api
     depends_on: 
       - db
+      - grades_api
   db:
     image: mysql
     restart: always
@@ -40,14 +42,10 @@ services:
        - ./grades/main.py:/app/main.py
        - ./grades/data:/app/data
     # comment out following line for production
-    command: bash -c "python /app/data/load_grades.py /app/data/grades.json && python /app/main.py"
-
+    # command: bash -c "python /app/data/load_grades.py /app/data/grades.json && python /app/main.py"
 
   grades_db:
     image: redislabs/rejson:latest
     container_name: grades_db
     ports:
       - "6379:6379"
-
-
-    
