@@ -57,3 +57,8 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# python stuff
+__pycache__
+*.pyc
+.ipynb_checkpoints/
