@@ -11,6 +11,14 @@ CMD ["/sbin/my_init"]
 RUN bash -lc 'rvm install ruby-2.2.3'
 RUN bash -lc 'rvm --default use ruby-2.2.3'
 
+# Install Certbot
+RUN apt-get update
+RUN apt-get install software-properties-common
+RUN add-apt-repository universe
+RUN add-apt-repository ppa:certbot/certbot
+RUN apt-get update
+RUN apt-get install certbot python-certbot-nginx 
+
 
 # Install Node and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_11.x | /bin/bash -
