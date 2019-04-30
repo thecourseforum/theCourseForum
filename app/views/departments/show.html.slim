@@ -53,11 +53,7 @@
                         .row.rating-subheader
                           span GPA
                         .row.course-rating-row
-                          - if course.overall_stats.gpa
-                            = react_component("departments/GPACard", { subject: subdepartment.mnemonic, number: course.course_number, temp_gpa: course.overall_stats.gpa.round(2)})
-                            / h4.course-rating = course.overall_stats.gpa.round(2)
-                          - else
-                            h4.rating-empty = "--"
+                          = react_component("departments/GPACard", { subject: subdepartment.mnemonic, number: course.course_number})
                   .semester-block
                     div style="float:right;"
                       .row.no-margin-left-row style="float:right;"
