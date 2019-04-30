@@ -13,7 +13,7 @@ RUN bash -lc 'rvm --default use ruby-2.2.3'
 
 # Install Certbot
 RUN apt-get update
-RUN apt-get install software-properties-common
+RUN apt-get install software-properties-common -y
 RUN add-apt-repository universe
 RUN add-apt-repository ppa:certbot/certbot
 RUN apt-get update
