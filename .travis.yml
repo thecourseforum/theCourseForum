@@ -7,7 +7,9 @@ addons:
 sudo: false
 
 # Tell TravisCI to cache bundle installs
-cache: bundler
+cache: 
+  - bundler
+  - yarn
 
 # Language to use is Ruby
 language: ruby
@@ -15,6 +17,7 @@ language: ruby
 # Database Environment is mysql
 env:
   - DB=mysql
+  - MOZ_HEADLESS=1
 
 # Use Ruby 2.0.0
 rvm:
