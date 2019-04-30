@@ -59,4 +59,5 @@ yarn-debug.log*
 .yarn-integrity
 
 # ignore letsencrypt certs 
-/data/certbot
+/passenger/certbot
+/passenger/letsencrypt

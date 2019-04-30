@@ -1,0 +1,21 @@
+# a production specific docker-compose file that only needs 
+# to include additional changes that are to be applied over docker-compose.yml
+
+# run with 'docker-compose -f docker-compose.yml -f production.yml up --build -d'
+
+version: '3'
+services: 
+  tcf:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./passenger/nginx/production.conf:/etc/nginx/sites-enabled/default.conf
+      - ./passenger/letsencrypt:/etc/letsencrypt
+      - ./passenger/certbot:/var/www/certbot
+  # certbot:
+  #   image: certbot/certbot
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./passenger/data/letsencrypt:/etc/letsencrypt
+  #     - ./passenger/data/certbot:/var/www/certbot

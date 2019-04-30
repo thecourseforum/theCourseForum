@@ -12,7 +12,7 @@ RUN bash -lc 'rvm install ruby-2.2.3'
 RUN bash -lc 'rvm --default use ruby-2.2.3'
 
 
-# Update stuff
+# Install Node and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_11.x | /bin/bash -
 RUN apt-get update
 RUN apt install nodejs libmysqlclient-dev -y
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install yarn -y
 
 # copy over startup scripts
 RUN mkdir -p /etc/my_init.d
-ADD passenger_init.sh /etc/my_init.d/passenger_init.sh
+ADD ./passenger/passenger_init.sh /etc/my_init.d/passenger_init.sh
 
 # copy over nginx configs
 RUN rm /etc/nginx/sites-enabled/default
