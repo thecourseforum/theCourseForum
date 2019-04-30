@@ -4,19 +4,7 @@
 
 version: '3'
 services: 
-  # tcf: 
-  #   build: .
-  #   command: bash -c "yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
-  #   container_name: tcf
-  #   volumes: 
-  #     - .:/tcf
-  #   tty: true
-  #   ports: 
-  #     - "3000:3000"
-  #   links: 
-  #     - db
-  #   depends_on: 
-  #     - db
+
   ########## Rails App ###########
   tcf:
     ports:
@@ -24,13 +12,14 @@ services:
     volumes:
       - ./passenger/nginx/development.conf:/etc/nginx/sites-enabled/default.conf
       - .:/home/app/theCourseForum
+    container_name: tcf_dev
   db:
     environment: 
       MYSQL_ROOT_PASSWORD: data
       MYSQL_DATABASE: thecourseforum_development
     volumes: 
       - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
-    container_name: tcf_database_development
+    container_name: tcf_database_dev
 
   ########## Grades Microservice ###########
   grades_api:
@@ -41,3 +30,6 @@ services:
        - ./grades/data:/app/data
     # comment out following line for production
     command: bash -c "python /app/data/load_grades.py /app/data/grades.json && python /app/main.py"
+    container_name: grades_api_dev
+  grades_db:
+    container_name: grades_db_dev

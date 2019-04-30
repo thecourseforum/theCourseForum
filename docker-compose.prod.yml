@@ -5,6 +5,8 @@
 
 version: '3'
 services: 
+
+  ########## Rails App ###########
   tcf:
     ports:
       - "80:80"
@@ -13,6 +15,7 @@ services:
       - ./passenger/nginx/production.conf:/etc/nginx/sites-enabled/default.conf
       - ./passenger/letsencrypt:/etc/letsencrypt
       - ./passenger/certbot:/var/www/certbot
+    container_name: tcf_prod
 
   db:
     environment: 
@@ -20,10 +23,10 @@ services:
       MYSQL_DATABASE: thecourseforum_production
     volumes: 
       - ./sql/thecourseforum_production.sql:/docker-entrypoint-initdb.d/thecourseforum_production.sql
-    container_name: tcf_database_production
-  # certbot:
-  #   image: certbot/certbot
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./passenger/data/letsencrypt:/etc/letsencrypt
-  #     - ./passenger/data/certbot:/var/www/certbot
+    container_name: tcf_database_prod
+
+  ########## Grades Microservice ###########
+  grades_api:
+    container_name: grades_api_prod
+  grades_db:
+    container_name: grades_db_prod
