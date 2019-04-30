@@ -8,13 +8,8 @@ services:
 
   ########## Rails App ###########
   tcf:
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
       - ./passenger/nginx/staging.conf:/etc/nginx/sites-enabled/default.conf
-      - ./passenger/letsencrypt:/etc/letsencrypt
-      - ./passenger/certbot:/var/www/certbot
     container_name: tcf_stage
 
   db:
