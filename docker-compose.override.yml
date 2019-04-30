@@ -24,6 +24,13 @@ services:
     volumes:
       - ./passenger/nginx/development.conf:/etc/nginx/sites-enabled/default.conf
       - .:/home/app/theCourseForum
+  db:
+    environment: 
+      MYSQL_ROOT_PASSWORD: data
+      MYSQL_DATABASE: thecourseforum_development
+    volumes: 
+      - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
+    container_name: tcf_database_development
 
   ########## Grades Microservice ###########
   grades_api:

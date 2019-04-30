@@ -29,12 +29,6 @@ services:
   db:
     image: mysql:8
     restart: always
-    environment: 
-      MYSQL_ROOT_PASSWORD: data
-      MYSQL_DATABASE: thecourseforum_development
-    volumes: 
-      - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
-    container_name: tcf_database_development
     command: --default-authentication-plugin=mysql_native_password
 
   ########## Grades Microservice ###########

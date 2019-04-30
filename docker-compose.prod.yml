@@ -13,6 +13,14 @@ services:
       - ./passenger/nginx/production.conf:/etc/nginx/sites-enabled/default.conf
       - ./passenger/letsencrypt:/etc/letsencrypt
       - ./passenger/certbot:/var/www/certbot
+
+  db:
+    environment: 
+      MYSQL_ROOT_PASSWORD: data
+      MYSQL_DATABASE: thecourseforum_production
+    volumes: 
+      - ./sql/thecourseforum_production.sql:/docker-entrypoint-initdb.d/thecourseforum_production.sql
+    container_name: tcf_database_production
   # certbot:
   #   image: certbot/certbot
   #   restart: unless-stopped
