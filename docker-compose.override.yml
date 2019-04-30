@@ -1,0 +1,36 @@
+# a development specific docker-compose file that adds additional config
+# to docker-compose.yml and will be run automatically on `docker-compose up`
+
+
+version: '3'
+services: 
+  # tcf: 
+  #   build: .
+  #   command: bash -c "yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+  #   container_name: tcf
+  #   volumes: 
+  #     - .:/tcf
+  #   tty: true
+  #   ports: 
+  #     - "3000:3000"
+  #   links: 
+  #     - db
+  #   depends_on: 
+  #     - db
+  ########## Rails App ###########
+  tcf:
+    ports:
+      - "3000:80"
+    volumes:
+      - ./passenger/nginx/development.conf:/etc/nginx/sites-enabled/default.conf
+      - .:/home/app/theCourseForum
+
+  ########## Grades Microservice ###########
+  grades_api:
+    ports:
+      - "5000:80"
+    volumes: 
+       - ./grades/main.py:/app/main.py
+       - ./grades/data:/app/data
+    # comment out following line for production
+    command: bash -c "python /app/data/load_grades.py /app/data/grades.json && python /app/main.py"

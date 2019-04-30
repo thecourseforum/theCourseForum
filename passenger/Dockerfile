@@ -42,7 +42,8 @@ COPY --chown=app:app Gemfile /home/app/theCourseForum/Gemfile
 COPY --chown=app:app Gemfile.lock /home/app/theCourseForum/Gemfile.lock
 # USER app
 # WORKDIR /home/app/theCourseForum
-RUN bundle install --deployment --without development test
+# RUN bundle install --deployment --without development test
+RUN bundle install
 # USER root
 
 ## copy over app
