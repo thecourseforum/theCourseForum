@@ -17,7 +17,7 @@ RUN apt-get install software-properties-common
 RUN add-apt-repository universe
 RUN add-apt-repository ppa:certbot/certbot
 RUN apt-get update
-RUN apt-get install certbot python-certbot-nginx 
+RUN apt-get install certbot python-certbot-nginx -y
 
 
 # Install Node and Yarn
