@@ -1,6 +1,5 @@
 FROM phusion/passenger-customizable
 
-
 # Set correct environment variables.
 ENV HOME /root
 
@@ -19,7 +18,6 @@ RUN add-apt-repository ppa:certbot/certbot
 RUN apt-get update
 RUN apt-get install certbot python-certbot-nginx -y
 
-
 # Install Node and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_11.x | /bin/bash -
 RUN apt-get update
@@ -27,8 +25,6 @@ RUN apt install nodejs libmysqlclient-dev -y
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install yarn -y
-
-# ...put your own build instructions here...
 
 # copy over startup scripts
 RUN mkdir -p /etc/my_init.d
@@ -48,11 +44,9 @@ WORKDIR /home/app/theCourseForum
 # cache gemfiles to shorten builds
 COPY --chown=app:app Gemfile /home/app/theCourseForum/Gemfile
 COPY --chown=app:app Gemfile.lock /home/app/theCourseForum/Gemfile.lock
-# USER app
-# WORKDIR /home/app/theCourseForum
-# RUN bundle install --deployment --without development test
-RUN bundle install
-# USER root
+
+# Run bundle install as 'app' user
+RUN setuser app bundle install
 
 ## copy over app
 COPY --chown=app:app . /home/app/theCourseForum
