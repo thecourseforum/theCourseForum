@@ -2,4 +2,6 @@
 
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.stage.yml up --build -d
 
+docker-compose exec tcf bundle exec rake assets:precompile db:migrate RAILS_ENV=production
+
 docker-compose restart tcf
