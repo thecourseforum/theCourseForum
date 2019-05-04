@@ -33,5 +33,3 @@ services:
   grades_db:
     image: redislabs/rejson:latest
     container_name: grades_db
-    ports:
-      - "6379:6379"

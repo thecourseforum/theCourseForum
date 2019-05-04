@@ -33,3 +33,5 @@ services:
     container_name: grades_api_dev
   grades_db:
     container_name: grades_db_dev
+    ports:
+      - "6379:6379"
