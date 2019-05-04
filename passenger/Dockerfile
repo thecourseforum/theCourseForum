@@ -10,13 +10,21 @@ CMD ["/sbin/my_init"]
 RUN bash -lc 'rvm install ruby-2.2.3'
 RUN bash -lc 'rvm --default use ruby-2.2.3'
 
-# Install Certbot
+# Install Certbot and wget
 RUN apt-get update
 RUN apt-get install software-properties-common -y
 RUN add-apt-repository universe
 RUN add-apt-repository ppa:certbot/certbot
 RUN apt-get update
 RUN apt-get install certbot python-certbot-nginx -y
+
+# Install Firefox for headless browser testing
+# TODO: separate testing container?
+# RUN apt-get install wget xvfb -y
+# RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+# RUN tar -xf geckodriver-v0.24.0-linux64.tar.gz
+# RUN rm geckodriver-v0.24.0-linux64.tar.gz
+# RUN mv geckodriver /bin
 
 # Install Node and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_11.x | /bin/bash -
