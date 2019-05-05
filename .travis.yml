@@ -3,6 +3,9 @@
 # services:
 #   - docker
 
+addons:
+  firefox: latest
+
 # Tell TravisCI to use container-based testing (faster)
 sudo: false
 
