@@ -33,6 +33,7 @@ ActionController::Base.allow_rescue = false
 # Capybara.server_port = 80
 # Capybara.run_server = false
 Capybara.javascript_driver = :selenium
+Capybara.default_max_wait_time = 15
 
 ## Uncommend to use headless browser
 headless = Headless.new
