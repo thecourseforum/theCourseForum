@@ -30,6 +30,9 @@ notifications:
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - gem install bundler -v 1.17.3
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+  - tar -xf geckodriver-v0.24.0-linux64.tar.gz
+  - mv geckodriver $HOME/bin
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - RAILS_ENV=test bundle exec rake db:create
