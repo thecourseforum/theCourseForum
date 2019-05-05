@@ -35,9 +35,9 @@ ActionController::Base.allow_rescue = false
 Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 15
 
-## Uncommend to use headless browser
-headless = Headless.new
-headless.start
+## Uncomment to use headless browser
+# headless = Headless.new
+# headless.start
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.

@@ -1,7 +1,7 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
-services:
-  - docker
+# services:
+#   - docker
 
 # Tell TravisCI to use container-based testing (faster)
 sudo: false
@@ -12,41 +12,41 @@ cache:
   - yarn
 
 # # Language to use is Ruby
-# language: ruby
-language: minimal
+language: ruby
+# language: minimal
 
 # Database Environment is mysql
 env:
-  # - DB=mysql MOZ_HEADLESS=1
-  - DOCKER_COMPOSE_VERSION=1.23.2
+  - DB=mysql MOZ_HEADLESS=1
+  # - DOCKER_COMPOSE_VERSION=1.23.2
 
-# # Use Ruby 2.0.0
-# rvm:
-#   - 2.2.3
+# Use Ruby 2.0.0
+rvm:
+  - 2.2.3
 
-# notifications:
-#   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
+notifications:
+  slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
 
 # Commands to run before tests. Create DB config file and create database.
 before_script:
-  # - gem install bundler -v 1.17.3
-  # - cp config/database.yml.skel config/database.yml
-  # - cp config/initializers/devise.rb.example config/initializers/devise.rb
-  # - RAILS_ENV=test bundle exec rake db:create
-  # - export DISPLAY=:99.0
-  # - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
-  # - bundle exec rake db:test:prepare
-  # - nvm install 11.13.0
-  # - sudo apt remove cmdtest
-  # - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  # - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  # - sudo apt-get update && sudo apt-get install yarn
-  # - yarn install
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - travis_wait docker-compose up -d
-  - sleep 30
-script:
-  - docker-compose exec tcf bundle exec rake
+  - gem install bundler -v 1.17.3
+  - cp config/database.yml.skel config/database.yml
+  - cp config/initializers/devise.rb.example config/initializers/devise.rb
+  - RAILS_ENV=test bundle exec rake db:create
+  - export DISPLAY=:99.0
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+  - bundle exec rake db:test:prepare
+  - nvm install 11.13.0
+  - sudo apt remove cmdtest
+  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update && sudo apt-get install yarn
+  - yarn install
+#   - sudo rm /usr/local/bin/docker-compose
+#   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#   - chmod +x docker-compose
+#   - sudo mv docker-compose /usr/local/bin
+#   - travis_wait docker-compose up -d
+#   - sleep 30
+# script:
+#   - docker-compose exec tcf bundle exec rake
