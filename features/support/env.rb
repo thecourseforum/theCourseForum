@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'headless'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -27,7 +28,16 @@ require 'cucumber/rails'
 #
 ActionController::Base.allow_rescue = false
 
+## Uncomment to test against server as if it were remote.
+# Capybara.app_host = "http://0.0.0.0"
+# Capybara.server_port = 80
+# Capybara.run_server = false
 Capybara.javascript_driver = :selenium
+Capybara.default_max_wait_time = 15
+
+## Uncomment to use headless browser
+# headless = Headless.new
+# headless.start
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.

@@ -1,26 +1,35 @@
 version: '3'
 services: 
-  tcf: 
-    build: .
-    command: bash -c "yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+
+  ########## Rails App ###########
+  tcf:
+    build:
+      dockerfile: ./passenger/Dockerfile
+      context: .
     container_name: tcf
-    volumes: 
-      - .:/tcf
-    tty: true
-    ports: 
-      - "3000:3000"
+    restart: unless-stopped
     links: 
       - db
+      - grades_api
     depends_on: 
       - db
+      - grades_api
   db:
-    image: mysql
+    image: mysql:8
     restart: always
-    environment: 
-      MYSQL_ROOT_PASSWORD: data
-      MYSQL_DATABASE: thecourseforum_development
-    volumes: 
-      - ./sql/thecourseforum_development.sql:/docker-entrypoint-initdb.d/thecourseforum_development.sql
-    container_name: tcf_database_development
     command: --default-authentication-plugin=mysql_native_password
-    
+    container_name: tcf_database
+
+  ########## Grades Microservice ###########
+  grades_api:
+    build: ./grades
+    restart: always
+    links:
+      - grades_db
+    depends_on:
+      - grades_db
+    container_name: grades_api
+
+  grades_db:
+    image: redislabs/rejson:latest
+    container_name: grades_db

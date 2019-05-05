@@ -14,7 +14,7 @@ gem 'bootstrap-sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 
-gem 'skylight'
+# gem 'skylight'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', :platforms => :ruby
@@ -86,7 +86,8 @@ group :development, :test do
 
   gem 'cucumber-rails', :require => false
 
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 3.141.0'
+  gem 'headless'
   # Database Cleaner to clear test databases
   gem 'database_cleaner'
 

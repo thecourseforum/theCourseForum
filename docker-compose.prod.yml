@@ -1,0 +1,32 @@
+# a production specific docker-compose file that only needs 
+# to include additional changes that are to be applied over docker-compose.yml
+
+# run with 'docker-compose -f docker-compose.yml -f production.yml up --build -d'
+
+version: '3'
+services: 
+
+  ########## Rails App ###########
+  tcf:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./passenger/nginx/production.conf:/etc/nginx/sites-enabled/default.conf
+      - ./passenger/letsencrypt:/etc/letsencrypt
+      - ./passenger/certbot:/var/www/certbot
+    container_name: tcf_prod
+
+  db:
+    environment: 
+      MYSQL_ROOT_PASSWORD: data
+      MYSQL_DATABASE: thecourseforum_production
+    volumes: 
+      - ./sql/thecourseforum_production.sql:/docker-entrypoint-initdb.d/thecourseforum_production.sql
+    container_name: tcf_database_prod
+
+  ########## Grades Microservice ###########
+  grades_api:
+    container_name: grades_api_prod
+  grades_db:
+    container_name: grades_db_prod

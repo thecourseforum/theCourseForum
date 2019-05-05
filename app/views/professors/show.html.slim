@@ -5,8 +5,8 @@
 .professors-container
   #professor-header
     .col-md-4#professor-name
-      h1 = "#{@professor.full_name}"    
-      a#professor-email href="mailto:#{@professor.email}" = @professor.email 
+      h1 = "#{@professor.full_name}"
+      a#professor-email href="mailto:#{@professor.email}" = @professor.email
     #avg-rating.pull-right
       h1 = "#{@avg_rating}"
       p Avg. Rating
@@ -14,7 +14,7 @@
       h1 = "#{@avg_difficulty}"
       p Avg. Difficulty
     #professor-contact
-      
+
 
   hr
 
@@ -71,4 +71,3 @@
             /   - if course[:course].description
             /     p.description = course[:course].description
       br
-

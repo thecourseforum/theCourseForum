@@ -1,7 +1,10 @@
 # http://stackoverflow.com/questions/9321153/rails-database-setup-on-travis-ci
 
+# services:
+#   - docker
+
 addons:
-  firefox: "46.0.1"
+  firefox: latest
 
 # Tell TravisCI to use container-based testing (faster)
 sudo: false
@@ -11,13 +14,14 @@ cache:
   - bundler
   - yarn
 
-# Language to use is Ruby
+# # Language to use is Ruby
 language: ruby
+# language: minimal
 
 # Database Environment is mysql
 env:
-  - DB=mysql
-  - MOZ_HEADLESS=1
+  - DB=mysql MOZ_HEADLESS=1
+  # - DOCKER_COMPOSE_VERSION=1.23.2
 
 # Use Ruby 2.0.0
 rvm:
@@ -26,15 +30,12 @@ rvm:
 notifications:
   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
 
-# fix for bundler v2 error: https://docs.travis-ci.com/user/languages/ruby/
-# commented out because of `gem install bundler -v 1.17.3` in `before_script`
-# before_install:
-#   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-#   - gem install bundler -v '< 2'
-
 # Commands to run before tests. Create DB config file and create database.
 before_script:
   - gem install bundler -v 1.17.3
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+  - tar -xf geckodriver-v0.24.0-linux64.tar.gz
+  - mv geckodriver $HOME/bin
   - cp config/database.yml.skel config/database.yml
   - cp config/initializers/devise.rb.example config/initializers/devise.rb
   - RAILS_ENV=test bundle exec rake db:create
@@ -47,3 +48,11 @@ before_script:
   - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   - sudo apt-get update && sudo apt-get install yarn
   - yarn install
+#   - sudo rm /usr/local/bin/docker-compose
+#   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#   - chmod +x docker-compose
+#   - sudo mv docker-compose /usr/local/bin
+#   - travis_wait docker-compose up -d
+#   - sleep 30
+# script:
+#   - docker-compose exec tcf bundle exec rake

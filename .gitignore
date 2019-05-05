@@ -57,3 +57,12 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# ignore letsencrypt certs 
+/passenger/certbot
+/passenger/letsencrypt
+
+# ignore python and ipynb stuff
+__pycache__
+*.pyc
+.ipynb_checkpoints/
