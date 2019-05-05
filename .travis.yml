@@ -13,6 +13,7 @@ cache:
 
 # # Language to use is Ruby
 # language: ruby
+language: minimal
 
 # Database Environment is mysql
 env:
