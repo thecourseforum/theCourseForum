@@ -7,23 +7,18 @@ class ProfessorPage extends React.Component {
 
   render() {
 
-    const courses = []
+    // outer map for "subdepartment_chunk" loop
+    // inner map for "course" loop
 
-    /*
-    for (int i = 0; i < course_groups.length; i++) {
-      courses.push(
-        <div className="row course-panel">
-          <div className="col-xs-4.name-block">
-            <p>{course_groups[i]}</p>
-          </div>
-          <div className="col-xs-8.details-block">
-            <p>RATING</p>
+    const courses = this.props.courses.map((course) =>
+      <div key={course.course.id} className="row course-panel">
+        <div className="col-xs-4 name-block">
+          <div className="row course-title">
+            <p>{course.course.title}</p>
           </div>
         </div>
-      )
-    }
-    */
-
+      </div>
+    );
 
     return (
       <React.Fragment>
