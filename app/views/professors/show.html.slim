@@ -1,5 +1,5 @@
 // the stylesheet contains our custom css definitions (app/assets/styleseets/professor.scss)
 = stylesheet_link_tag "professor"
-= react_component("professors/ProfessorPage", {professor_name: @professor.full_name, avg_rating: @avg_rating, avg_difficulty: @avg_difficulty, courses: @courses})
+= react_component("professors/ProfessorPage", {professor_id: @professor.id, professor_name: @professor.full_name, avg_rating: @avg_rating, avg_difficulty: @avg_difficulty, course_groups: @course_groups})
 
 //
