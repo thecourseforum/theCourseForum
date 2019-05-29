@@ -87,3 +87,20 @@
   background-color: $light-blue;
   color: white;
 }
+
+.course-details-block {
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: 5px;
+}
+
+.course-semester-subheader {
+  display: inline-block;
+  line-height:10px;
+  padding-top: 0px;
+  margin-top: 0px;
+  font-size: $small-font-size;
+  color: #bfbfbf;
+}

@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 
 // className's defined in app/assets/styleseets/professor.scss
 // rails data is passed to react_component as parameters in views/professors/show.html.slim
+// https://reactjs.org/docs/faq-functions.html
+// ^ great resource for implementing onClick() with React
 class ProfessorPage extends React.Component {
 
   /* WORK IN PROGRESS
@@ -24,8 +26,8 @@ class ProfessorPage extends React.Component {
   }
 
   handleCourseClick(course) {
-    let newLink = '/courses/' + course.course.id + '?p=' + this.props.professor_id
-    window.location.href = newLink;
+    let redirectTo = '/courses/' + course.course.id + '?p=' + this.props.professor_id
+    window.location.href = redirectTo;
   }
 
 
@@ -40,61 +42,40 @@ class ProfessorPage extends React.Component {
             </button>
           </div>
 
-          <div className="col-xs-8 details-block">
-            <div className="row info-header">
-              <div className="row prof-info-header">
+          <div className="col-xs-8 course-details-block">
+            <div className="col-xs-2">
+              <div className="row rating-subheader">
+                <span>RATING</span>
+              </div>
+              <div className="row course-rating-row">
+                <h4>--</h4>
+              </div>
+            </div>
 
-                <div className="col-xs-4 rating-block">
-                  <div className="row course-icon">
-                    <div className="container rating-container">
-                      <div className="row rating-subheader">
-                        <span>RATING</span>
-                      </div>
-                      <div className="row course-rating-row">
-                        <h4>--</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="col-xs-2">
+              <div className="row rating-subheader">
+                <span>DIFFICULTY</span>
+              </div>
+              <div className="row course-rating-row">
+                <h4>--</h4>
+              </div>
+            </div>
 
-                <div className="col-xs-4 rating-block">
-                  <div className="row course-icon">
-                    <div className="container rating-container">
-                      <div className="row rating-subheader">
-                        <span>DIFFICULTY</span>
-                      </div>
-                      <div className="row course-rating-row">
-                        <h4>--</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="col-xs-2">
+              <div className="row rating-subheader">
+                <span>GPA</span>
+              </div>
+              <div className="row course-rating-row">
+                <h4>--</h4>
+              </div>
+            </div>
 
-                <div className="col-xs-4 rating-block">
-                  <div className="row course-icon">
-                    <div className="container rating-container">
-                      <div className="row rating-subheader">
-                        <span>GPA</span>
-                      </div>
-                      <div className="row course-rating-row">
-                        <h4>--</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-xs-4 rating-block float-right">
-                  <div className="row course-icon">
-                    <div className="container rating-container">
-                      <div className="row rating-subheader">
-                        <span>LAST TAUGHT</span>
-                      </div>
-                      <div className="row course-rating-row">
-                        <h4>--</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="col-xs-2 pull-right">
+              <div className="row course-semester-subheader">
+                <span>LAST TAUGHT</span>
+              </div>
+              <div className="row course-rating-row">
+                <h4>--</h4>
               </div>
             </div>
           </div>
@@ -105,13 +86,14 @@ class ProfessorPage extends React.Component {
         <div className="row">
           <h3 className="subdepartment-name">{chunk[0].name}</h3>
           {courses}
+          <br></br>
         </div>
       )
     });
 
     return (
       <React.Fragment>
-        <div className="container professors-container">
+        <div className="container-fluid professors-container">
           <div className="row professor-header">
             <div className="col-md-4 professor-name">
               <h1>{this.props.professor_name}</h1>
