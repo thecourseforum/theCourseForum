@@ -18,15 +18,26 @@ class ProfessorPage extends React.Component {
   }
   */
 
+  constructor(props) {
+    super(props);
+    this.handleCourseClick = this.handleCourseClick.bind(this);
+  }
+
+  handleCourseClick(course) {
+    let newLink = '/courses/' + course.course.id + '?p=' + this.props.professor_id
+    window.location.href = newLink;
+  }
+
+
   render() {
 
     const subdepartment_chunks = this.props.course_groups.map((chunk) => {
       const courses = chunk[1].map((course) =>
         <div key={course.course.id} className="row course-panel">
-          <div className="col-xs-4 name-block">
-            <div className="row course-title">
-              <a href={'/courses/' + course.course.id + '?p=' + this.props.professor_id}>{course.course.title}</a>
-            </div>
+          <div className="col-xs-4">
+            <button className="course-name-block" type="button" onClick={this.handleCourseClick.bind(this, course)}>
+              {course.course.title}
+            </button>
           </div>
 
           <div className="col-xs-8 details-block">
