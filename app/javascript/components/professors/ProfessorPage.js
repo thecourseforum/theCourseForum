@@ -25,7 +25,7 @@ class ProfessorPage extends React.Component {
         <div key={course.course.id} className="row course-panel">
           <div className="col-xs-4">
             <button className="course-name-block" type="button" onClick={this.handleCourseClick.bind(this, course)}>
-              {course.course.title}
+              {course.course.title} ({course.course.course_number})
             </button>
           </div>
 
@@ -58,11 +58,11 @@ class ProfessorPage extends React.Component {
             </div>
 
             <div className="col-xs-2 pull-right">
-              <div className="row course-semester-subheader">
+              <div className="row rating-subheader-semester">
                 <span>LAST TAUGHT</span>
               </div>
-              <div className="row course-rating-row">
-                <h4>--</h4>
+              <div className="row course-rating-row-semester">
+                <h4>{course.semester.season + " " + course.semester.year}</h4>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ class ProfessorPage extends React.Component {
         <div className="container-fluid professors-container">
           <div className="row professor-header">
             <div className="col-md-4 professor-name">
-              <h1>{this.props.professor_name}</h1>
+              <h1><b>{this.props.professor_name}</b></h1>
             </div>
             <div className="col-md-4 avg-rating pull-right">
               <h1>{this.props.avg_rating}</h1>
