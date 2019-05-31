@@ -7,34 +7,21 @@ import PropTypes from "prop-types"
 // ^ great resource for implementing onClick() with React
 class ProfessorPage extends React.Component {
 
-  /* WORK IN PROGRESS
-  get_course_stats = (props) => {
-    const course_stats = props.course.course.stats
-    for (int i = 0; i < course_stats.length; i++) {
-      let stat = course_stats[i]
-      if (stat.professor.full_name == this.props.professor_name) {
-        return stat[0]
-      }
-    }
-    return NULL
-  }
-  */
-
   constructor(props) {
     super(props);
     this.handleCourseClick = this.handleCourseClick.bind(this);
   }
 
   handleCourseClick(course) {
-    let redirectTo = '/courses/' + course.course.id + '?p=' + this.props.professor_id
+    let redirectTo = '/courses/' + course.course.id + '?p=' + this.props.professor_id;
     window.location.href = redirectTo;
   }
 
 
   render() {
 
-    const subdepartment_chunks = this.props.course_groups.map((chunk) => {
-      const courses = chunk[1].map((course) =>
+    const professor_subdepartments = this.props.course_groups.map((subdepartment) => {
+      const courses = subdepartment[1].map((course) =>
         <div key={course.course.id} className="row course-panel">
           <div className="col-xs-4">
             <button className="course-name-block" type="button" onClick={this.handleCourseClick.bind(this, course)}>
@@ -48,7 +35,7 @@ class ProfessorPage extends React.Component {
                 <span>RATING</span>
               </div>
               <div className="row course-rating-row">
-                <h4>--</h4>
+                <h4>{(course.course_stats.rating === null) ? "--" : course.course_stats.rating.toFixed(2)}</h4>
               </div>
             </div>
 
@@ -57,7 +44,7 @@ class ProfessorPage extends React.Component {
                 <span>DIFFICULTY</span>
               </div>
               <div className="row course-rating-row">
-                <h4>--</h4>
+              <h4>{(course.course_stats.difficulty === null) ? "--" : course.course_stats.difficulty.toFixed(2)}</h4>
               </div>
             </div>
 
@@ -66,7 +53,7 @@ class ProfessorPage extends React.Component {
                 <span>GPA</span>
               </div>
               <div className="row course-rating-row">
-                <h4>--</h4>
+              <h4>{(course.course_stats.gpa === null) ? "--" : course.course_stats.gpa.toFixed(2)}</h4>
               </div>
             </div>
 
@@ -84,7 +71,7 @@ class ProfessorPage extends React.Component {
 
       return (
         <div className="row">
-          <h3 className="subdepartment-name">{chunk[0].name}</h3>
+          <h3 className="subdepartment-name">{subdepartment[0].name}</h3>
           {courses}
           <br></br>
         </div>
@@ -110,7 +97,7 @@ class ProfessorPage extends React.Component {
 
           <hr></hr>
 
-          {subdepartment_chunks}
+          {professor_subdepartments}
 
         </div>
       </React.Fragment>
