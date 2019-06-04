@@ -18,15 +18,15 @@ class ProfessorPage extends React.Component {
   buildProfessorHeader() {
     return (
       <div className="row professor-header">
-        <div className="col-md-4 professor-name">
+        <div className="col-xs-4 professor-header-name">
           <h1><b>{this.props.professor_name}</b></h1>
           <h5>{(this.props.professor_email === null) ? "" : this.props.professor_email}</h5>
         </div>
-        <div className="col-md-4 avg-rating pull-right">
+        <div className="col-xs-4 professor-header-rating pull-right">
           <h1>{this.props.avg_rating}</h1>
           <p> Average Rating </p>
         </div>
-        <div className="col-md-4 avg-difficulty pull-right">
+        <div className="col-xs-4 professor-header-rating pull-right">
           <h1>{this.props.avg_difficulty}</h1>
           <p> Average Difficulty </p>
         </div>
@@ -42,10 +42,10 @@ class ProfessorPage extends React.Component {
   buildCourseDetailsBlock(label, value) {
     return (
       <div className="col-xs-2">
-        <div className="row rating-subheader">
+        <div className="row course-details-label">
           <span>{label}</span>
         </div>
-        <div className="row course-rating-row">
+        <div className="row course-details-value">
           <h4>{(value === null) ? "--" : value.toFixed(2)}</h4>
         </div>
       </div>
@@ -55,21 +55,21 @@ class ProfessorPage extends React.Component {
   buildProfessorSubdepartments() {
     const subdepartments = this.props.course_groups.map((subdepartment) => {
       const courses = subdepartment[1].map((course) =>
-        <div key={course.course.id} className="row course-panel">
-          <div className="col-xs-4">
-            <button className=" btn btn-primary course-name-block" type="button" onClick={this.handleCourseClick.bind(this, course)}>
+        <div key={course.course.id} className="row course-box">
+          <div className="row button-row">
+            <button className=" btn btn-primary course-button" type="button" onClick={this.handleCourseClick.bind(this, course)}>
               {course.course.title} ({course.course.course_number})
             </button>
           </div>
-          <div className="col-xs-8 course-details-block">
+          <div className="row ratings-row">
             {this.buildCourseDetailsBlock.call(this, "RATING", course.course_stats.rating)}
             {this.buildCourseDetailsBlock.call(this, "DIFFICULTY", course.course_stats.difficulty)}
             {this.buildCourseDetailsBlock.call(this, "GPA", course.course_stats.gpa)}
-            <div className="col-xs-2 pull-right">
-              <div className="row rating-subheader-semester">
+            <div className="col-xs-2">
+              <div className="row course-details-label">
                 <span>LAST TAUGHT</span>
               </div>
-              <div className="row course-rating-row-semester">
+              <div className="row course-details-value">
                 <h4>{course.semester.season + " " + course.semester.year}</h4>
               </div>
             </div>
@@ -78,18 +78,14 @@ class ProfessorPage extends React.Component {
       );
 
       return (
-        <div className="row">
-          <h3 className="subdepartment-name">{subdepartment[0].name}</h3>
+        <div className="row subdepartment-box">
+          <h3>{subdepartment[0].name}</h3>
           {courses}
         </div>
       );
     });
 
-    return (
-      <div className="row professor-subdepartments">
-        {subdepartments}
-      </div>
-    );
+    return (subdepartments);
   }
 
 
