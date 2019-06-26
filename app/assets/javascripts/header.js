@@ -21,21 +21,27 @@ var ready = function() {
         }
     }
 
-    $('#report-bug').click(function() {
-        $('#report-bug-modal').modal();
-        $('input[name="url"]').val(window.location);
+   /*
+    * Listens for FEEDBACK link press in _header.html.slim
+    */
+    $('#feedback').click(function() {
+        $('#feedback-modal').modal();
     });
 
-    $('#report').click(function() {
-        $.ajax('/bugs', {
+   /*
+    * calls 'create' method in feedback_controller.rb
+    */
+    $('#submitFeedback').click(function() {
+        $.ajax('/feedback', {
             method: "POST",
-            data: $('#bug').serialize(),
+            data: $('#feedbackData').serialize(),
             success: function(response) {
                 $('textarea[name="description"]').val('');
+                $('input[name="title"]').val('');
                 alert("Thanks for your feedback!");
             }
         });
-        $('#report-bug-modal').modal('hide');
+        $('#feedback-modal').modal('hide');
     });
 
     var allBoxes = $("div.home-announcements").children("div");

@@ -1,9 +1,11 @@
 doctype html
 html
   head
+    title #{@title}
     meta content="text/html; charset=UTF-8", "http-equiv" => "Content-Type"
-  body
+  body.mail
     p
-      = "Feedback from #{@user != nil ? @user.email : "Anonymous"}:"
-    p
+      = "Feedback from #{@userEmail != nil ? @userEmail : "Anonymous"}:"
+    p 
       = @description
+    
