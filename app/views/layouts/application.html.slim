@@ -31,19 +31,16 @@ html
               - if controller.controller_name == "courses" && controller.action_name == "show"
                 #professors-switcher.dropdown
                   .dropdown-toggle data-toggle="dropdown" type="button"
-                    = @professor ? "#{@professor.separated_name} " : "All Professors "
+                    = @professor ? "#{@professor.full_name} " : "All Professors"
                     span.caret
                   ul.dropdown-menu
                     li
                       a href="/courses/#{@course.id}?p=all" All Professors
-                    - last_letter = "a"
                     - @professors.sort_by{ |prof| prof.last_name}.each do |professor|
                       - if professor != @professor
-                        - if professor.last_name[0] != last_letter
-                          li.divider
-                          - last_letter = professor.last_name[0]
+                        li.divider
                         li
-                          a href="/courses/#{@course.id}?p=#{professor.id}" = professor.separated_name
+                          a href="/courses/#{@course.id}?p=#{professor.id}" = professor.full_name
             - if controller.controller_name == "courses" && controller.action_name == "show"
               #save-course
                 - if current_user and current_user.courses.include? @course

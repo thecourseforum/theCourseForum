@@ -1,0 +1,198 @@
+- content_for :page_heading, "#{@course.title} (#{@course.mnemonic_number})"
+
+= javascript_include_tag "grades"
+= content_tag "div", id: "percentages", data: {percents: @course.get_grade_percentages(@professor ? @professor.id : -1)} do end
+= stylesheet_link_tag "courses"
+
+.row#course-page
+  .col-xs-12#courses-main
+    .container-fluid#browsing-content
+      .course-breakdown
+        .course-stats
+          .row.ratings-stats
+            .col-xs-4.overall-col
+              .rating-row
+                .rating=@rev_ratings[:overall] ? @rev_ratings[:overall] : "--"
+              h5.rating-title Rating            .col-xs-8.stats-col
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/professor.png", size: "20")
+                  div.icon-text Professor
+                .col-xs-7
+                  - percent = @rev_ratings[:prof] ? ((@rev_ratings[:prof]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_ratings[:prof] ? @rev_ratings[:prof] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/happy.png", size: "20")
+                  div.icon-text Fun
+                .col-xs-7
+                  - percent = @rev_ratings[:enjoy] ? ((@rev_ratings[:enjoy]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_ratings[:enjoy] ? @rev_ratings[:enjoy] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/difficulty.png", size: "20")
+                  div.icon-text Difficulty
+                .col-xs-7
+                  - percent = @rev_ratings[:difficulty] ? ((@rev_ratings[:difficulty]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_ratings[:difficulty] ? @rev_ratings[:difficulty] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div.recommend=image_tag("icons/recommend.png", size: "20")
+                  div.icon-text Recommend
+                .col-xs-7
+                  - percent = @rev_ratings[:recommend] ? ((@rev_ratings[:recommend]).to_f / 5 * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_ratings[:recommend] ? @rev_ratings[:recommend] : "--"
+          .row.workload-stats
+            .col-xs-4.overall-col
+              .rating-row
+                - total = @rev_emphasizes[:reading] + @rev_emphasizes[:writing] + @rev_emphasizes[:group] + @rev_emphasizes[:homework]
+                - total = total.to_f.round(1)
+                .rating= total > 0 ? total : "--"
+              h5.rating-title Hrs/Week
+            .col-xs-8.stats-col
+              - scale = total
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/reading.png", size: "20")
+                  div.icon-text Reading
+                .col-xs-7
+                  - percent = @rev_emphasizes[:reading] ? ((@rev_emphasizes[:reading]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_emphasizes[:reading] > 0 ? @rev_emphasizes[:reading] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/writing.png", size: "20")
+                  div.icon-text Writing
+                .col-xs-7
+                  - percent = @rev_emphasizes[:writing] ? ((@rev_emphasizes[:writing]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number= @rev_emphasizes[:writing] > 0 ? @rev_emphasizes[:writing] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div = image_tag("icons/group.png", size: "20")
+                  div.icon-text Group
+                .col-xs-7
+                  - percent = @rev_emphasizes[:group] ? ((@rev_emphasizes[:group]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number= @rev_emphasizes[:group] > 0 ? @rev_emphasizes[:group] : "--"
+              .stat-row
+                .col-xs-3.icon
+                  div=image_tag("icons/other.png", size: "20")
+                  div.icon-text Other
+                .col-xs-7
+                  - percent = @rev_emphasizes[:homework] ? ((@rev_emphasizes[:homework]).to_f / scale * 100).to_s + "%" : "0%"
+                  .skillbar data-percent=percent
+                    .skillbar-bar
+                .col-xs-2.stats-number=@rev_emphasizes[:homework] > 0 ? @rev_emphasizes[:homework] : "--"
+        .course-grades
+          / .no-grades = image_tag "no-grades.png"
+    br
+    - book_sets = {:required => @required_books, :recommended => @recommended_books, :optional => @optional_books, :others => @other_books}
+    - if @books_count == 0
+    - else
+      #textbook-header.row
+        .col-xs-6
+          h1 Textbooks
+        .col-xs-6.text-right
+          a.btn.btn-primary href="/textbooks/listings?mnemonic=#{@course.mnemonic_number}" = "#{pluralize(@course.textbook_transactions.count, 'listing')} for these books"
+      .row.title-row
+        .hr
+          div.carousel
+            - book_sets.each do |status, book_set|
+              - book_set.each do |book|
+                .item
+                  .book-image-container
+                    - if book.large_image_link
+                      .book-image=image_tag("#{book.large_image_link}", size: "140x180")
+                    - else
+                      .no-book-image = image_tag("icons/no_book.png", size: "140x180")
+                  .book-description
+                    / div style="float:none;margin-left:auto;margin-right:auto:vertical-align:center;"
+                    - if book.amazon_affiliate_link
+                      h4.title = link_to(book.title, book.amazon_affiliate_link ,target: "_blank", class: "title")
+                    - else
+                      h4.title = book.title
+                    p.author ="by #{book.author}"
+                    .book-prices
+                      - if book.bookstore_prices.count > 0
+                        .bookstore-info
+                          - bookstore_check = false
+                          .col-xs-3
+                            - if book.bookstore_new_price
+                              - bookstore_check = true
+                              .row.no-margin-row
+                                .requirement-cost-condition
+                                  = "#{number_to_currency(book.bookstore_new_price)}"
+                              .row.no-margin-row
+                                .condition New
+                          .col-xs-3
+                            - if book.bookstore_used_price
+                              -bookstore_check = true
+                              .row.no-margin-row
+                                .requirement-cost-condition
+                                  = "#{number_to_currency(book.bookstore_used_price)}"
+                              .row.no-margin-row
+                                .condition Used
+                          .col-xs-6
+                            - if bookstore_check
+                              .bookstore = "Bookstore"
+                      .amazon-info
+                        - check = false
+                        .col-xs-3
+                          - if book.amazon_official_prices.count > 0
+                            - check = true
+                            .row.no-margin-row
+                              .requirement-cost-condition = link_to "#{book.amazon_official_new_price ? number_to_currency(book.amazon_official_new_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                            .row.no-margin-row
+                              .condition New
+                        .col-xs-3
+                          - if book.amazon_merchant_prices.count > 0
+                            - check = true
+                            .row.no-margin-row
+                              .requirement-cost-condition = link_to "#{book.amazon_merchant_used_price ? number_to_currency(book.amazon_merchant_used_price) : ''}", book.amazon_affiliate_link, :target => '_blank'
+                            .row.no-margin-row
+                              .condition Used
+                        .col-xs-6
+                          - if check
+                            btn.amazon = link_to image_tag("icons/amazon-logo-transparent.png", size: "80x40"), book.amazon_affiliate_link, :target => '_blank'
+.row.number-of-comments
+  - if @total_review_count > 1
+    h1
+      - if @reviews_with_comments.count == 1
+        = "#{@reviews_with_comments.count} Comment"
+      - else
+        = "#{@reviews_with_comments.count} Comments"
+  - else
+    h1
+      - if @reviews_with_comments.count == 1
+        = "1 Comment"
+      - else
+        = "0 Comments"
+.review-pane
+  div.comment-header
+    .row.rating-header-row
+      .col-xs-4
+        = link_to "Write Your Own Review!", new_review_path(c: @course.id), class: "btn btn-primary"
+      .col-xs-4
+        div style="float:right"
+      .col-xs-4
+        select.courses-review-type-switcher style="font-size:13px;float:right;"
+          option value='recent' selected="selected" style="#{((@sort_type == "new" ? "color: #d9551e;" : ""))}"= "Most Recent"
+          option value="helpful" style="#{((@sort_type == "helpful" ? "color: #d9551e;" : ""))}"= "Most Helpful"
+          option value="semester" style="#{((@sort_type == "semester" ? "color: #d9551e;" : ""))}"= "Semester"
+          option value="highest" style="#{((@sort_type == "highest" ? "color: #d9551e;" : ""))}" ="Highest Rating"
+          option value="lowest"   style="#{((@sort_type == "lowest" ? "color: #d9551e;" : ""))}" ="Lowest Rating"
+  .container-fluid#review-container
+    .reviews-box
+.wheel-loader.hidden

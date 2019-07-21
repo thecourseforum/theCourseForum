@@ -4,9 +4,11 @@
     "@rails/webpacker": "^4.0.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "core-js": "3",
+    "highcharts": "^7.1.2",
     "prop-types": "^15.7.2",
-    "react": "^16.8.5",
+    "react": "^16.8.6",
     "react-dom": "^16.8.5",
+    "react-highcharts": "^16.0.2",
     "react_ujs": "^2.4.4"
   },
   "devDependencies": {
