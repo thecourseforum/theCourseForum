@@ -18,6 +18,7 @@ class CoursesController < ApplicationController
       redirect_to :action => "show_professors" and return
     end
     @course = Course.includes(:grades => [:section => :professors]).find(params[:id])
+    @current_course_id = params[:id]
     @subdepartment = @course.subdepartment
     @professors = @course.professors.uniq
     @sort_type = params[:sort]
@@ -76,7 +77,7 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.slim
-      format.json { render json: @course, :methods => :professors_list}
+      format.json { render json: @course.as_json, :methods => :professors_list}
     end
   end
 
