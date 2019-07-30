@@ -33,7 +33,7 @@ export default class CoursePieChart extends React.Component {
         let json_data = {
           name: letterGradeFormatted,
           color: color,
-          y: Math.round((percentReceived * 100)),
+          y: Math.round(percentReceived * 100),
         }
         
         formattedData.push(json_data);
