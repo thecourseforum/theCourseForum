@@ -12,17 +12,18 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
     #navbar-header.collapse.navbar-collapse
       //announcements
       div.nav.navbar-nav.navbar-left.hidden-xs.hidden-md.hidden-sm class="#{current_user ? 'home' : 'login'}-announcements"
-        div overflow="auto"
+        div.announcement overflow="auto"
           p Welcome to theCourseForum!
-        div overflow="auto"
+        div.announcement overflow="auto"
           p Generate a schedule!
-          a href="/scheduler" Scheduler
-        div overflow="auto"
-          p Congrats on surviving the Fall semester!
-          a href="/reviews/new" Write Reviews
-        div overflow="auto"
-          p Looking for textbooks?
-          a href="/textbooks" Check Here
+          a.actionLink href="/scheduler" Scheduler
+        div.announcement overflow="auto"
+          p Congrats on surviving the Spring semester!
+          a.actionLink href="/reviews/new" Write Reviews
+        // Go live Aug 21
+        div.announcement.ad =react_component("ads/Ad", { ad: 1 })
+        // Go live Sep 6
+        / div =react_component("ads/Ad", { ad: 2 })
       div.nav.navbar-nav.navbar-right.hidden-xs class="#{current_user ? 'home' : 'login'}-search"
         li
           a
