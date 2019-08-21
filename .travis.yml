@@ -40,6 +40,7 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:create
   - export DISPLAY=:99.0
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+  - mysqladmin variables | grep socket
   - bundle exec rake db:test:prepare
   - nvm install 11.13.0
   - sudo apt remove cmdtest
