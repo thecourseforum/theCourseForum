@@ -2,11 +2,10 @@ version: '3'
 services: 
   tcf: 
     build: .
-    command: bash -c "bundle install && yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+    command: bash -c "yarn install && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
     container_name: tcf
     volumes: 
       - .:/tcf
-    working_dir: /tcf
     tty: true
     ports: 
       - "3000:3000"
