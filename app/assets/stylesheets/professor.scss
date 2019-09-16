@@ -6,58 +6,105 @@
   border-radius: 4px;
   margin-left:   0px;
   margin-right:  0px;
-  margin-top:    5px;
-  margin-bottom: 5px;
-  padding: 40px 40px;
+  margin-top:    0px;
+  margin-bottom: 0px;
+  padding: 40px;
+  min-width: 400px;
+  max-width: 800px;
 }
 
-#professor-header {
-	display: block;
-	width: 100%;
-	height: 100px;
-
-	#avg-rating, #avg-difficulty {
-		padding: 10px;		
-		margin-right: 50px;
-		height: 100px; 
-		width: 162px;
-		float: left; 
-		background-color: $light-blue; 
-		color: white; 
-		text-align: center; 
-	}
-
-	#professor-name {
-		padding: 10px;		
-	}
-
-	#professor-email { 
-		color: $dark-blue; 
-		text-align: center; 
-	}
-
-	#professor-email:hover {
-		color: $orange;
-	}
-
-	#professor-contact {
-		float: right;
-	}
-	
+.professor-header {
+  display: block;
+  width: auto;
+  height: auto;
 }
 
-.subdepartment-name {
-	padding-left:10px;
-	// margin-bottom: 20px;
-	// text-align: center;
-}
-.professor-semester {
-	margin-bottom: 10px;
+.professor-header-name {
+	margin: 10px;
+  padding: 10px;
 }
 
-#professor-courses {
-	.course-panel {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
+.professor-header-rating {
+  width: 160px;
+  margin: 10px;
+  padding: 10px;
+  background-color: $light-blue;
+  color: white;
+  text-align: center;
+}
+
+//--------------------------------------------------
+
+
+.subdepartment-box {
+  margin: 10px;
+}
+
+.course-box {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 0px;
+  margin-bottom: 10px;
+  padding: 0px;
+  min-width: 320px;
+  border: 1px solid black;
+}
+
+.button-row {
+  width: inherit;
+  margin: inherit;
+  padding: inherit;
+  min-height: 50px;
+}
+
+.course-button {
+  width: inherit;
+  margin: inherit;
+  margin-bottom: 0px;
+  padding: inherit;
+  min-height: inherit;
+  background-color: $light-blue;
+  color: white;
+  text-align: center;
+}
+
+//-------
+
+.ratings-row {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  flex-direction: row;
+  width: inherit;
+  margin: inherit;
+  padding: inherit;
+}
+
+.ratings-row > div {
+  margin: auto;
+  padding: 0px;
+  text-align: center;
+}
+
+.course-details-label {
+  width: 100%;
+  padding: 0px;
+  padding-bottom: 10px;
+  margin: 0px;
+  text-align: center;
+  white-space: nowrap;
+  font-size: $small-font-size;
+  color: rgb(215, 86, 38);
+}
+
+.course-details-value {
+  width: 100%;
+  padding: 0px;
+  padding-bottom: 10px;
+  margin: 0px;
+  text-align: center;
+  white-space: nowrap;
 }

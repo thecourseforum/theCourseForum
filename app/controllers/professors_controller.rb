@@ -2,7 +2,7 @@ class ProfessorsController < ApplicationController
   # GET /professors
   # GET /professors.json
   def index
-    @professors = Professor.all.sort { |p1, p2| 
+    @professors = Professor.all.sort { |p1, p2|
       (p1.last_name + p1.first_name) <=> (p2.last_name + p2.first_name) }
 
     respond_to do |format|
@@ -16,13 +16,14 @@ class ProfessorsController < ApplicationController
   def show
     @professor = Professor.find(params[:id])
 
-    # Get courses that professors has taught and corresponding last semester that THIS PROFESSOR taught it 
-    @courses = @professor.sections.joins(:semester).includes(:course => :subdepartment).select("course_id, max(semesters.number) AS semester_number").group(:course_id).sort_by do |section| 
+    # Get courses that professors has taught and corresponding last semester that THIS PROFESSOR taught it
+    @courses = @professor.sections.joins(:semester).includes(:course => :subdepartment).select("course_id, max(semesters.number) AS semester_number").group(:course_id).sort_by do |section|
       [section.course.subdepartment.mnemonic, section.course.course_number]
     end.map do |course_data|
       {
         :course => course_data.course,
-        :semester => Semester.find_by(:number => course_data.semester_number)
+        :semester => Semester.find_by(:number => course_data.semester_number),
+        :course_stats => course_data.course.stats.select { |stat| stat.professor == @professor}.first
       }
     end
 
@@ -67,6 +68,6 @@ class ProfessorsController < ApplicationController
         ratings[:recommend] += r.recommend
       end
 
-      ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3 
+      ratings[:overall] = (ratings[:prof] + ratings[:enjoy] + ratings[:recommend]) / 3
     end
 end
