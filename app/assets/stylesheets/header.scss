@@ -197,7 +197,7 @@ $button-width: 22px;
   display: none;
 }
 
-.home-announcements > div { 
+.home-announcements > .announcement { 
     display: none;
     max-height: $navbar-height;
     max-width: 50%; 
@@ -209,13 +209,13 @@ $button-width: 22px;
     margin-right: 10px;
 }
 
-.home-announcements > div p {
+.home-announcements > .announcement p {
   float: left;
   font-size: 18px;
   font-weight: 100;
 }
 
-.home-announcements > div a {
+.home-announcements > .announcement .actionLink {
   float: right;
   margin-left: 10px;
   margin-right: 10px;
@@ -228,6 +228,10 @@ $button-width: 22px;
   color: white;
   hover: white;
   border-radius: 7px;
+}
+
+.announcement.hackcville {
+  top: 50%;
 }
 
 #search-icon {
