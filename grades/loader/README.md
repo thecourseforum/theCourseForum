@@ -1,0 +1,1 @@
+load data from json to redis
