@@ -179,7 +179,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    rack (1.6.4)
+    rack (1.6.12)
     rack-protection (1.5.3)
       rack
     rack-proxy (0.6.5)
