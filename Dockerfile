@@ -31,3 +31,4 @@ COPY . /tcf
 EXPOSE 3000
 
 CMD ["rails", "s"]
+
