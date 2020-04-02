@@ -10,13 +10,6 @@ class Ad extends React.Component {
   constructor(props) {
     super(props);
     switch(props.ad) {
-      case 2:
-        this.state = {
-          imageBase: Ad2Base,
-          imageHover: Ad2Hover,
-          link: "https://hackcville.com/launch-tcf",
-        };
-        break;
       default:
         this.state = {
           imageBase: Ad1Base,
@@ -32,7 +25,7 @@ class Ad extends React.Component {
         <a href={this.state.link} target="_blank">
           <img 
             src={this.state.imageBase}
-            alt="HackCville"
+            alt="tCF GoFundMe"
             onMouseOver = {
               e => (e.currentTarget.src = this.state.imageHover)
             }
