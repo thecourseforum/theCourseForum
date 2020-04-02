@@ -12,21 +12,14 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
     #navbar-header.collapse.navbar-collapse
       //announcements
       div.nav.navbar-nav.navbar-left.hidden-xs.hidden-md.hidden-sm class="#{current_user ? 'home' : 'login'}-announcements"
+        / div.announcement overflow="auto"
+        /   p Welcome to theCourseForum!
+        / div.announcement overflow="auto"
+        /   p Congrats on surviving the Fall semester!
+        /   a.actionLink href="/reviews/new" Write Reviews
         div.announcement overflow="auto"
-          p Welcome to theCourseForum!
-        div.announcement overflow="auto"
-          p Generate a schedule!
-          a.actionLink href="/scheduler" Scheduler
-        div.announcement overflow="auto"
-          p Congrats on surviving the Fall semester!
-          a.actionLink href="/reviews/new" Write Reviews
-        // Go live Aug 21
-        / div.announcement.hackcville =react_component("ads/Ad", { ad: 1 })
-        // Go live Sep 6
-        / div.announcement.hackcville =react_component("ads/Ad", { ad: 2 }
-        div.announcement overflow="auto"
-          p. Want to join theCourseForum team?
-          a.actionLink href="https://forms.gle/x3xdrtioo54Yw2sX8" Apply here!
+          p. Keep theCourseForum alive and ad-free.
+          a.actionLink href="https://www.gofundme.com/f/thecourseforum-website-funding" Donate here!
       div.nav.navbar-nav.navbar-right.hidden-xs class="#{current_user ? 'home' : 'login'}-search"
         li
           a
