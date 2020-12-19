@@ -1,5 +1,8 @@
+# *We have now launched theCourseForum2, a Django rewrite of the site! Check out our new repo [here](https://github.com/thecourseforum/theCourseForum2).*
+
 Status:
 [![build status](https://travis-ci.org/thecourseforum/theCourseForum.svg?branch=master)](https://travis-ci.org/thecourseforum/theCourseForum)
+
 
 theCourseForum
 ==============
