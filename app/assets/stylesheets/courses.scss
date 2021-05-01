@@ -622,3 +622,78 @@ p {
 .btn.active {
   opacity: 1.0;
 }
+
+//------------------------- new CSS 
+
+// contains gpa wheel and ratings
+.course-ratings-container {
+  margin: 5px;
+  padding: 0px;
+  display: table;
+}
+
+.course-ratings-container > .col {
+  display: table-cell;
+  margin: 5px;
+  padding: 0px;
+  vertical-align: top;
+}
+
+// both ratings blocks
+.ratings-block {
+  display: block;
+  margin: 5px;
+  padding: 0px;
+}
+
+// individual rating block
+.ratings-block > .row {
+  display: flex;
+  margin: 5px;
+  padding: 0px;
+  background-color: white;
+}
+
+// block columns
+.ratings-block > .row > .col {
+}
+
+.overall-label {
+  margin: 10px;
+  padding: 0px;
+  text-align: center;
+  font-size: 12;
+}
+
+.overall-value {
+  margin: 10px;
+  padding: 0px;
+  text-align: center;
+  font-size: 25;
+  color: rgb(215, 86, 38);
+}
+
+
+
+// .content {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   grid-gap: 10px;
+//   grid-auto-rows: minmax(100px, auto);
+// }
+// 
+// .wheelGraph {
+//   grid-column: 1;
+//   grid-row: 1;
+// }
+// 
+// .ratingsCard {
+//   grid-column: 2;
+//   grid-row: 1;
+// }
+// 
+// .ratingsCard > .container {
+//   border: 1px solid black;
+//   padding: 20px;
+//   margin: 20px;
+// }
