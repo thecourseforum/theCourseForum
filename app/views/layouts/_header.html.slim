@@ -29,7 +29,7 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
                 span.input-group-addon
                   = button_tag "", :type => 'submit', :class => 'btn btn-xs glyphicon glyphicon-search', :id => 'search-icon'
         li
-          a#report-bug FEEDBACK
+          a#feedback FEEDBACK
         li
           a href="#{about_path}" ABOUT
         - if current_user
@@ -51,23 +51,23 @@ nav.navbar.navbar-default.navbar-fixed-top#header-navbar
                 a data-method="delete" href="#{destroy_user_session_path}" rel="nofollow"
                   | Logout
 
-#report-bug-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
+#feedback-modal.modal.fade aria-hidden="true" aria-labelledby="course-title" role="dialog" tabindex="-1"
     .modal-dialog
       .modal-content
         .modal-header
-          h3 Questions? Bugs? Login Issues? Let us know!
+          h3 General Feedback or Bug Reporting
         .modal-body
-          form#bug
+          form#feedbackData
             .form-group
-              label URL
-              input.form-control placeholder="Enter URL" name="url"
+              label Title
+              input.form-control name="title"
               p.help-block
             .form-group
-              label Email (for further contact - leave blank for anonymous)
-              input.form-control placeholder="Your Email" name="email" value=(current_user ? current_user.email : '')
+              label Your Email (leave blank for Anonymous)
+              input.form-control name="userEmail" value=(current_user ? current_user.email : "")
             .form-group
-              label Description (as verbose as possible!)
-              textarea.form-control rows="3" name="description" placeholder="Thanks for your feedback!"
+              label Description (should be specific)
+              textarea.form-control rows="3" name="description"
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
-            button.btn.btn-primary#report type="button" Submit
+            button.btn.btn-primary#submitFeedback type="button" Submit

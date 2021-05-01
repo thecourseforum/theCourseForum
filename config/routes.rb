@@ -41,6 +41,10 @@ TheCourseForum::Application.routes.draw do
 
 
   resources :bugs
+  
+  # maps URLs to feedback_controller.rb methods
+  # https://rails-4-0.railstutorial.org/book/demo_app#sec-mvc_in_action
+  resources :feedback
 
   resources :departments, :only => [:show, :index]
 

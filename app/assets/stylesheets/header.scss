@@ -46,8 +46,12 @@ $screen-xs: 480px;
   font-weight: 300;
 }
 
-#report-bug:hover {
+#feedback:hover {
   cursor: pointer;
+}
+
+#feedback-modal {
+  padding-top: $navbar-height;
 }
 
 @media (max-width:$screen-sm) {
