@@ -1,4 +1,4 @@
-FROM ruby:2.2.3
+FROM ruby:2.3.3
 
 ## Install node and yarn
 # update sources for debian jessie
@@ -20,10 +20,7 @@ WORKDIR /tcf
 COPY Gemfile /tcf/Gemfile
 COPY Gemfile.lock /tcf/Gemfile.lock
 RUN bundle install
-# attempt to cache node modules also
-# COPY package.json /tcf/package.json
-# COPY yarn.lock /tcf/yarn.lock
-# RUN yarn install
+
 # copy over project
 COPY . /tcf
 

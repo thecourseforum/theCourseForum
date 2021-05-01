@@ -16,12 +16,11 @@ language: ruby
 
 # Database Environment is mysql
 env:
-  - DB=mysql
-  - MOZ_HEADLESS=1
+  - DB=mysql MOZ_HEADLESS=1
 
 # Use Ruby 2.0.0
 rvm:
-  - 2.2.3
+  - 2.3.3
 
 notifications:
   slack: thecourseforum:issU3RUdO71y1A5saeTL07X3
