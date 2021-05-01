@@ -6,6 +6,18 @@ class DepartmentsController < ApplicationController
       redirect_to root_url
       return
     end
+    
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  def list
+    if current_user == nil
+      redirect_to root_url
+      return
+    end
+
     subdepartments = Subdepartment.all
     departments = Department.all.order(:name)
     departments.uniq {|subdepartments| subdepartments.name}
@@ -13,17 +25,18 @@ class DepartmentsController < ApplicationController
     artSchoolId = 1
     engrSchoolId = 2
 
-    @artDeps = columnize(departments.select{|d| d.school_id == artSchoolId})
-    @engrDeps = columnize(departments.select{|d| d.school_id == engrSchoolId })
-    @otherSchools = columnize(departments.select{|d| d.school_id != artSchoolId && d.school_id != engrSchoolId })
+    artDeps = columnize(departments.select{|d| d.school_id == artSchoolId})
+    engrDeps = columnize(departments.select{|d| d.school_id == engrSchoolId })
+    otherSchools = columnize(departments.select{|d| d.school_id != artSchoolId && d.school_id != engrSchoolId })
 
-    @deps = {"Arts & Sciences": @artDeps, "Engineering & Applied Sciences": @engrDeps, "Other Schools at the University of Virginia": @otherSchools}
+    deps = {"Arts & Sciences": artDeps, "Engineering & Applied Sciences": engrDeps, "Other Schools at the University of Virginia": otherSchools}
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @deps.as_json }
+      format.any { render json: deps.as_json, content_type: 'application/json' }
     end
+
   end
+
 
   # GET /departments/1
   def show
