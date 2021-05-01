@@ -116,34 +116,6 @@ ready = function() {
 			}
 		});
 
-		var enjoy_radios = $("input[id*=review_enjoyability]");
-		var selected_enjoy = $("input[id*=review_enjoyability]:checked");
-		if (selected_enjoy.length > 0) {
-
-			var enjoy_val = selected_enjoy.val();
-			$(".current-enjoyability").text(enjoy_val);
-		} else {
-			var enjoy_val = 3;
-			enjoy_radios[2].click();
-			$(".current-enjoyability").text(enjoy_val);
-		}
-
-		$(".enjoyability-slider").slider({
-			step: 1,
-			min: 100,
-			max: 500,
-			value: enjoy_val * 100,
-			slide: function(event, ui) {
-				var val = parseInt((ui.value + 50) / 100);
-				enjoy_radios[val - 1].click();
-				$(".current-enjoyability").text(val);
-			},
-			stop: function(event, ui) {
-				var val = parseInt((ui.value + 50) / 100) * 100;
-				$(".enjoyability-slider").slider('value', val);
-			}
-		});
-
 		var diff_radios = $("input[id*=review_difficulty]");
 		var selected_difficulty = $("input[id*=review_difficulty]:checked");
 		if (selected_difficulty.length > 0) {
@@ -202,7 +174,7 @@ ready = function() {
 	}
 
 
-	
+
 }
 
 $(document).ready(ready);

@@ -6,16 +6,16 @@ class Review < ActiveRecord::Base
 
   #Can cast votes for reviews
   acts_as_voteable
-  
+
   # validates :comment, presence: true
 
   after_create :update_stats
   after_destroy :update_stats
 
-  validates_presence_of :student_id, :professor_rating, 
-    :enjoyability, :difficulty, :recommend, :course_id, :professor_id
+  validates_presence_of :student_id, :professor_rating,
+    :difficulty, :recommend, :course_id, :professor_id
 
-  validates :professor_rating, :enjoyability, :difficulty, :recommend, 
+  validates :professor_rating, :difficulty, :recommend,
     :numericality => { :greater_than_or_equal_to => 1 }
 
   validates :amount_reading, :amount_writing, :amount_group, :amount_homework,
@@ -25,7 +25,7 @@ class Review < ActiveRecord::Base
 
   # Get overall review rating from subcategories
   def overall
-    ((professor_rating + enjoyability + recommend) / 3).round(2)
+    ((professor_rating + recommend + (6 - difficulty)) / 3).round(2)
   end
 
   def update_stats
